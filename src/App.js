@@ -34,6 +34,13 @@ function App() {
 
           <Switch>
 
+            <Route exact path="/">
+              <img src="https://image.flaticon.com/icons/svg/2114/2114481.svg" className="App-logo" alt="logo" />
+              <p>
+                Root Route
+              </p>
+            </Route>
+
             <Route path="/onboarding">
               <img src="https://image.flaticon.com/icons/svg/1615/1615404.svg" className="App-logo" alt="logo" />
               <p>
@@ -49,11 +56,8 @@ function App() {
               </p>
             </Route> 
 
-            <Route path="/">
-              <img src="https://image.flaticon.com/icons/svg/2114/2114481.svg" className="App-logo" alt="logo" />
-              <p>
-                Root Route
-              </p>
+            <Route>
+              Not Found - 404
             </Route>
           </Switch>
 
