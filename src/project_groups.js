@@ -1,4 +1,5 @@
 import React from 'react';
+import {Form} from "semantic-ui-react";
 
 
 class Project_groups extends React.Component {
@@ -10,14 +11,28 @@ class Project_groups extends React.Component {
         };
     }
 
-    onSubmit() {
-        return ;
+    nextButton = (e) => {
+        e.preventDefault();
+        this.props.nextStep();
+    }
+
+
+    prevButton = (e) => {
+        e.preventDefault();
+        this.props.prevStep();
     }
 
     render(){
+        const { values } = this.props;
         return(
-            <div>
-            </div>
+            <Form>
+                <Form.Field label='Project Group' control='select'>
+                    <option value='Berkeley'>Berkeley</option>
+                    <option value='Oakland'>Oakland</option>
+                </Form.Field>
+                <button onClick={this.prevButton}>Prev</button>
+                <button onClick={this.nextButton}>Next</button>
+            </Form>
     );
     }
 }

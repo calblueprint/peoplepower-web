@@ -5,6 +5,7 @@ import Bylaws from "./bylaws";
 import Project_groups from "./project_groups";
 import Payment from "./payment";
 
+
 class Onboarding extends React.Component {
 
     constructor(props){
@@ -12,8 +13,8 @@ class Onboarding extends React.Component {
         this.state = {
             fname: "",
             lname: "",
-            email: "",
-            password: "",
+            // email: "",
+            // password: "",
             address: {
                 street: "",
                 apt: "",
@@ -21,6 +22,7 @@ class Onboarding extends React.Component {
                 zipcode: ""
             },
             phone_number: "",
+            bylaw: false,
             project_group: "",
             num_shares: "",
             dividends: "",
@@ -31,22 +33,38 @@ class Onboarding extends React.Component {
                 apt: "",
                 state: "",
                 zipcode: ""
-            }
+            },
             step: 1
         };
+        this.handleChange = this.handleChange.bind(this);
 
     }
 
-    nextStep() {
+    nextStep = () => {
+        const { step } = this.state
         this.setState({step: step + 1});
     }
 
-    prevStep() {
+    prevStep = () => {
+        const { step } = this.state
         this.setState({step: step - 1});
     }
 
     handleChange = input => event => {
-        this.setState({ [input] : event.target.value })
+        if(input == "apt" || input == "street" || input == "state" || input == "zipcode"){
+            this.setState({
+                address : {...this.state.address, [input]: event.target.value}
+            })
+        } else if(input == "bylaw"){
+            const { bylaw } = this.state
+            this.setState({
+                bylaw : !bylaw
+            })
+        } else {
+            this.setState({
+                [input] : event.target.value
+            })
+        }
     }
 
     onSubmit() {
@@ -55,45 +73,52 @@ class Onboarding extends React.Component {
 
     render(){
         const{step} = this.state;
-        const{fname, lname, email, password, address, phone_number, project_group, num_shares,
-            divideends, beneficiaries, billing_address, payment_info} = this.state;
-        const values = {fname, lname, email, password, address, phone_number, project_group, num_shares,
-            dividends, beneficiaries, billing_address, payment_info};
+        const{fname, lname, email, password, address, phone_number, bylaw, project_group, num_shares,
+            dividends, beneficiaries, billing_address, payment_info} = this.state;
+        const values = {fname, lname, email, password, address, phone_number, bylaw, project_group, num_shares, dividends, beneficiaries, billing_address, payment_info};
         switch(step){
             case 1:
                 return(
                     <Basic_info
-                        nextStep={this.nextStep()}
+                        nextStep={this.nextStep}
                         values={values}
-                    />
-                );
+                        handleChange={this.handleChange}
+                    />);
             case 2:
-                return
+                return(
                     <Basic_info_2
-                        nextStep={this.nextStep()}
+                        nextStep={this.nextStep}
                         values={values}
-                        prevStep={this.prevStep()
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
                     />
+                    );
             case 3:
-                return
+                return(
                     <Bylaws
-                        nextStep={this.nextStep()}
+                        nextStep={this.nextStep}
                         values={values}
-                        prevStep={this.prevStep()
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
                     />
+                    );
             case 4:
-                return
+                return(
                     <Project_groups
-                        nextStep={this.nextStep()}
+                        nextStep={this.nextStep}
                         values={values}
-                        prevStep={this.prevStep()
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
                     />
+                    );
             case 5:
-                return
+                return(
                     <Payment
                         values={values}
-                        prevStep={this.prevStep()
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
                     />
+                    );
         }
     }
 }
