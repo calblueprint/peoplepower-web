@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import './App.css';
+import { getRecordFromID, getRecordFromName } from './request'
 
 // Returns a makeshift navbar to demonstrate react-router.
 function NavBar() {
@@ -24,6 +25,13 @@ function NavBar() {
   )
 }
 
+// This probably isn't proper react style, but it works.
+function handleButton() {
+  console.log('Making request!');
+  // var record = getRecordFromID('Person', 'recfnsL4HDoNHril6');
+  var record = getRecordFromName('Person', 'Nick Wong')
+}
+
 function App() {
   return (
     <Router>
@@ -39,6 +47,7 @@ function App() {
               <p>
                 Root Route
               </p>
+              <button onClick={handleButton}>Make request</button>
             </Route>
 
             <Route path="/onboarding">
