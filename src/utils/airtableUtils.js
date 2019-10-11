@@ -1,28 +1,33 @@
-let Airtable = require('airtable');
-let base = new Airtable({apiKey: 'keynBwo2mtqgvUUy4'}).base('appFaOwKhMXrRIQIp');
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
-let EMAIL_FIELD = 'Email';
-let PASSWORD_FIELD = 'Password';
-let GRID_VIEW = "Grid view";
-let NUM_RECORDS = 1;
+const Airtable = require('airtable');
+const base = new Airtable({apiKey: 'keynBwo2mtqgvUUy4'}).base('appFaOwKhMXrRIQIp');
 
-let table = 'User Login';
+const EMAIL_FIELD = 'Email';
+const ID_FIELD = 'ID';
+const PASSWORD_FIELD = 'Password';
+const GRID_VIEW = "Grid view";
+const NUM_RECORDS = 1;
 
-module.exports.loginUser = (username, passwordHash) => {
+const LOGIN_TOKEN_NAME = 'loginToken'
+
+const table = 'User Login';
+
+var loginUser = (email, passwordHash) => {
     return new Promise((resolve, reject) => {
         base(table).select({
-            // Selecting the first 3 records in Grid view:
             maxRecords: NUM_RECORDS,
             view: GRID_VIEW,
-            // filterByFormula: ,
+            filterByFormula: "({" + EMAIL_FIELD + "}='" + email + "')",
         }).eachPage(function page(records, fetchNextPage) {
             // This function (`page`) will get called for each page of records.
             
             records.forEach(function(record) {
-                // console.log("I RAN");
-                let name = record.get(EMAIL_FIELD);
-                if (name === username) {
+                let record_email = record.get(EMAIL_FIELD);
+                if (record_email === email) {
                     if (record.get(PASSWORD_FIELD) === passwordHash) {
+                        cookies.set(LOGIN_TOKEN_NAME, record.get(ID_FIELD));
                         resolve({match: true, found:true});
                         return;
                     } else {
@@ -47,16 +52,13 @@ module.exports.loginUser = (username, passwordHash) => {
     });
 }
 
-// let username = 'Joshua Goh';
-// let table = 'Table 1';
-// loginUser(table, username, '222').then(function({item, found}) {
-//     //do something
-//     if (found) {
-//         console.log(item);
-//     } else {
-//         console.log("not found");
-//     }
-// }).catch(function(item) {
-//     console.log("ccaught");
-// });
+var isLoggedIn = email => {
+    return cookies.get(LOGIN_TOKEN_NAME);
+}
 
+var logOut = () => {
+    cookies.remove(LOGIN_TOKEN_NAME);
+}
+
+// export default loginUser;
+export {loginUser, isLoggedIn, logOut };

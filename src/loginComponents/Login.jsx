@@ -1,6 +1,8 @@
 import React from 'react';
 
-let loginUser = require('../utils/airtableUtils.js').loginUser;
+const loginUser = require('../utils/airtableUtils.js').loginUser;
+const isLoggedIn = require('../utils/airtableUtils.js').isLoggedIn;
+const HOME_ROUTE = '/home';
 
 class Login extends React.Component {
     
@@ -11,9 +13,16 @@ class Login extends React.Component {
             passwordHash: '',
         };
         
+        // BINDINGS
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        if (isLoggedIn()) {
+            this.props.history.push(HOME_ROUTE);
+        }
     }
 
     handleEmailChange(event) {
@@ -27,23 +36,16 @@ class Login extends React.Component {
     async handleSubmit(evt) {
         console.log(evt.target.value);
         evt.preventDefault();
-        // let email = 'Joshua Goh';
-        // let passwordHash = '222';
-        console.log("I got here");
         let res = await loginUser(this.state.email, this.state.passwordHash);
         if (res.found && res.match) {
             this.segueToHome(evt);
         } else {
-            alert("invalid email or password!")
+            alert("Invalid email or password!")
         }
-        // console.log(res);
     }
 
     segueToHome(evt) {
-        // alert("A name was submitted: " + this.state.value);
-        // let path = `/home`;
-        // this.props.history.push(path);
-        this.props.history.push("/home");
+        this.props.history.push(HOME_ROUTE);
         evt.preventDefault();
     }
     
@@ -59,7 +61,7 @@ class Login extends React.Component {
                     <br />
                     Password
                     <br />
-                    <input type="text" value={this.state.passwordHash} onChange={this.handlePasswordChange}/>
+                    <input type="password" value={this.state.passwordHash} onChange={this.handlePasswordChange}/>
                     <br />
                     <button className="primary-button" type="submit">
                         Login
