@@ -24,6 +24,8 @@ Airtable.configure({
 
 const base = Airtable.base('appFaOwKhMXrRIQIp');
 
+// ******** READ RECORDS ******** //
+
 // Given a table and record ID, return the fields (an object) 
 function getRecordFromID(table, id) {
 	base(table).find(id, function(err, record) {
@@ -32,9 +34,14 @@ function getRecordFromID(table, id) {
 	});
 }
 
+/* Note: the following two functions, getRecordFromName and getRecordFromEmail
+are 'Person' table specific. */
+
+// SHOULD THESE BE WRITTEN AS PROMISES?
+
 function getRecordFromName(table, name) {
 	console.log(`Searching for ${name}`)
-	var id = base(table).select({
+	base(table).select({
 		view: "Grid view",
 		maxRecords: 1,
 	    filterByFormula: `SEARCH(LOWER("${name}"), LOWER(Name))`
@@ -46,7 +53,120 @@ function getRecordFromName(table, name) {
 	});
 }
 
-// CRUD stuff except for Delete
-// make some wrappers
+function getRecordFromEmail(table, email) {
+	console.log(`Searching for ${email}`)
+	base(table).select({
+		view: "Grid view",
+		maxRecords: 1,
+	    filterByFormula: `{Email}='${email}'`
+	}).firstPage(function(err, records) {
+	    if (err) { console.error(err); return; }
+	    if (records.length < 1) {
+	    	console.log('No record was retrieved using this email.')
+	    }
+	    records.forEach(function(record) {
+	        console.log('Retrieved', record.get('Name'), record.fields, 'given email.');
+	    });
+	});
+}
 
-export { getRecordFromID, getRecordFromName };
+
+// ******** CREATE RECORDS ******** //
+
+/* 
+	You can pass in UP TO 10 record objects. Each obj should have one key, fields,
+ 	contailing all cell values by field name. Linked records are represented as an array of IDs.
+ */
+
+/* TODO: style call here. talk to ashley about how onboarding will work. If an obj will be generated, then map that object
+   to this. */
+
+// Given a person object, create a record of that person
+function createPerson(person) {
+
+	// deconstruct person obj parameter
+	// let { "Email": email, "Phone Number" : phoneNumber, "Owner": owner, 
+	// "Address": address, "Tags": tags, "User Login" : userLogin, "Name": name } = person.fields
+
+	base('Person').create([
+		person
+	// {
+	// 	"fields": {
+	// 	  "Email": email,
+	// 	  "Phone Number": phoneNumber,
+	// 	  "Owner": [owner],
+	// 	  "Address": [address],
+	// 	  "Tags": tags,
+	// 	  "User Login": [userLogin],
+	// 	  "Name": name
+	// 	}
+	// }
+	], function(err, records) {
+		if (err) {
+			console.error(err);
+			return;
+		}
+		records.forEach(function (record) {
+			console.log(`Successfully created ${record.get('Name')} (${record.getId()})'s record.`);
+		});
+	});
+}
+
+// ******** UPDATE RECORDS ******** //
+
+/* 
+	An UPDATE will only update the fields you specify, leaving the rest as they were. 
+	A REPLACE will perform a destructive update and clear all unspecified cell values. 
+
+	- Max 10 records to be updated at once.
+	- Each obj should have an ID key and a fields key.
+*/
+function updatePerson(updatedPerson) {
+	base('Person').update([
+		updatedPerson
+	  // {
+	  //   "id": "recfnsL4HDoNHril6",
+	  //   "fields": {
+	  //     "Email": "nickwong@berkeley.edu",
+	  //     "Phone Number": "(504) 123-4567",
+	  //     "Owner": [
+	  //       "recsnkM5ms2NJhVW0"
+	  //     ],
+	  //     "Address": [
+	  //       "reci2wCQQ5HnL5r4A"
+	  //     ],
+	  //     "Tags": 112,
+	  //     "User Login": [
+	  //       "rec9ycakLxIUbTLef"
+	  //     ],
+	  //     "Name": "Nick Wong"
+	  //   }
+	  // },
+	  // {
+	  //   "id": "rec4giMp6pvHgACxK",
+	  //   "fields": {
+	  //     "Email": "aivant@pppower.io",
+	  //     "Phone Number": "(808) 672-1990",
+	  //     "Owner": [
+	  //       "rec3DnADmUEkKHu9z"
+	  //     ],
+	  //     "Tags": 0,
+	  //     "User Login": [
+	  //       "recDIkOdXWDMAJJja"
+	  //     ],
+	  //     "Name": "Aivant Goyal"
+	  //   }
+	  // }
+	], function(err, records) {
+		if (err) {
+			console.error(err);
+			return;
+		}
+		records.forEach(function(record) {
+			console.log(record.get('Email'));
+		});
+	});
+}
+
+
+export { getRecordFromID, getRecordFromName, getRecordFromEmail, createPerson, updatePerson };
