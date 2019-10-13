@@ -1,5 +1,6 @@
 import React from 'react';
 import {Form} from 'semantic-ui-react';
+import {formValidation} from "./formValidarion";
 
 
 class Payment extends React.Component {
@@ -11,9 +12,10 @@ class Payment extends React.Component {
         };
     }
 
-    nextButton = (e) => {
+    finishButton = (e) => {
         e.preventDefault();
-        this.props.nextStep();
+        this.props.onSubmit();
+        //do some function for finishing the onboarding process ? what do we want the next step to be
     }
 
 
@@ -30,25 +32,25 @@ class Payment extends React.Component {
                     how do we want to implement paying into the website
                     paypal only has the paypal button as an option as far as a I know*
                 */}
-                <Form>
-                    <Form.Field>
+                <form>
+                    <div>
                         <label>Number of Shares</label>
                         <input
+                            name="num_shared"
                             placeholder=''
-                            onChange={this.props.handleChange('num_shared')}
+                            onChange={this.props.handleChange}
                             defaultValue={values.num_shares}
                         />
-                    </Form.Field>
-                    <Form.Field label='Dividends' control='select'>
+                    </div>
+                    <div>
                         <option value='yes'>yes</option>
                         <option value='no'>no</option>
-                    </Form.Field>
-                    <Form.Field label='Payment Information'>
-                        =
-                    </Form.Field>
-                </Form>
+                    </div>
+                    <div label='Payment Information'>
+                    </div>
+                </form>
                 <button onClick={this.prevButton}>Prev</button>
-                <button onClick={this.nextButton}>Next</button>
+                <button onClick={this.finishButton}>Finish</button>
             </div>
         );
     }

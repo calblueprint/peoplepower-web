@@ -4,6 +4,7 @@ import Basic_info_2 from "./basic_info_2";
 import Bylaws from "./bylaws";
 import Project_groups from "./project_groups";
 import Payment from "./payment";
+import {formValidation} from "./formValidarion";
 
 
 class Onboarding extends React.Component {
@@ -25,7 +26,7 @@ class Onboarding extends React.Component {
             bylaw: false,
             project_group: "",
             num_shares: "",
-            dividends: "",
+            dividends: false,
             beneficiaries: [], //because there can be multiple
             payment_info: "", //need to revisit**
             billing_address:{
@@ -34,48 +35,105 @@ class Onboarding extends React.Component {
                 state: "",
                 zipcode: ""
             },
+            errors:{
+                fname: "",
+                lname: "",
+                // email: "",
+                // password: "",
+                address: {
+                    street: "",
+                    apt: "",
+                    state: "",
+                    zipcode: ""
+                },
+                phone_number: "",
+                bylaw: false,
+                project_group: "",
+                num_shares: "",
+                dividends: false,
+                beneficiaries: [], //because there can be multiple
+                payment_info: "", //need to revisit**
+                billing_address:{
+                    street: "",
+                    apt: "",
+                    state: "",
+                    zipcode: ""
+                }
+            },
             step: 1
         };
         this.handleChange = this.handleChange.bind(this);
 
     }
 
+    //next function increments page up one and switches to that numbered page
     nextStep = () => {
         const { step } = this.state
         this.setState({step: step + 1});
     }
 
+    //prev function decrements page down one and switches to that numbered page
     prevStep = () => {
         const { step } = this.state
         this.setState({step: step - 1});
     }
 
-    handleChange = input => event => {
-        if(input == "apt" || input == "street" || input == "state" || input == "zipcode"){
-            this.setState({
-                address : {...this.state.address, [input]: event.target.value}
-            })
-        } else if(input == "bylaw"){
-            const { bylaw } = this.state
-            this.setState({
-                bylaw : !bylaw
-            })
-        } else {
-            this.setState({
-                [input] : event.target.value
-            })
+    //updates the state whenever there is a change made
+    handleChange = event => {
+        switch(event.target.name){
+            case "apt", "street", "state", "zipcode":
+                this.setState({
+                    address : {...this.state.address, [event.target.name]: event.target.value}
+                })
+            case "bylaw":
+                const { bylaw } = this.state
+                this.setState({
+                    bylaw : !bylaw
+                })
+            default:
+                this.setState({
+                    [event.target.name] : event.target.value
+                })
         }
     }
 
-    onSubmit() {
-        return "Your account has been created";
+    handleFormValidation = event => {
+        let errorMessage = '';
+        let value = event.target.value;
+        if (value == 0){
+            errorMessage =  'Required';
+        } else {
+            switch(event.target.name) {
+                case 'email':
+                    errorMessage = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) ? '' : 'Invalid Email';
+                case 'password':
+                    if (value.length < 6){
+                        errorMessage = 'Password is too short';
+                    } else {
+                        errorMessage = value.matches(/(?=.*[0-9])/) ? '' : 'Password must include a number';
+                    }
+            }
+        }
+
+        this.setState({
+            errors : {...this.state.errors, [event.target.name]: errorMessage}
+        })
+    }
+
+    onSubmit = (event) => {
+        const { fname, lname } = this.state
+        alert(`Your state values: \n 
+            first name: ${fname} \n 
+            last name: ${lname}`)
     }
 
     render(){
         const{step} = this.state;
         const{fname, lname, email, password, address, phone_number, bylaw, project_group, num_shares,
-            dividends, beneficiaries, billing_address, payment_info} = this.state;
-        const values = {fname, lname, email, password, address, phone_number, bylaw, project_group, num_shares, dividends, beneficiaries, billing_address, payment_info};
+            dividends, beneficiaries, billing_address, payment_info, errors, touched} = this.state;
+        const values = {fname, lname, email, password, address, phone_number, bylaw, project_group, num_shares,
+            dividends, beneficiaries, billing_address, payment_info, errors, touched};
+
         switch(step){
             case 1:
                 return(
@@ -83,6 +141,7 @@ class Onboarding extends React.Component {
                         nextStep={this.nextStep}
                         values={values}
                         handleChange={this.handleChange}
+                        handleFormValidation={this.handleFormValidation}
                     />);
             case 2:
                 return(
@@ -91,6 +150,7 @@ class Onboarding extends React.Component {
                         values={values}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
+                        handleFormValidation={this.handleFormValidation}
                     />
                     );
             case 3:
@@ -100,6 +160,7 @@ class Onboarding extends React.Component {
                         values={values}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
+                        handleFormValidation={this.handleFormValidation}
                     />
                     );
             case 4:
@@ -109,6 +170,7 @@ class Onboarding extends React.Component {
                         values={values}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
+                        handleFormValidation={this.handleFormValidation}
                     />
                     );
             case 5:
@@ -116,7 +178,9 @@ class Onboarding extends React.Component {
                     <Payment
                         values={values}
                         prevStep={this.prevStep}
+                        onSubmit={this.onSubmit}
                         handleChange={this.handleChange}
+                        handleFormValidation={this.handleFormValidation}
                     />
                     );
         }

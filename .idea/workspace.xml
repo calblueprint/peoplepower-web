@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d161631a-b8dc-4f83-badf-a5d5016108dd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/peoplepower-web.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/peoplepower-web.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/formValidarion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/basic_info.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/basic_info.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/basic_info_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/basic_info_2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bylaws.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/bylaws.js" afterDir="false" />
@@ -72,7 +66,7 @@
       <workItem from="1570396401646" duration="890000" />
       <workItem from="1570411106276" duration="10000" />
       <workItem from="1570411121353" duration="61000" />
-      <workItem from="1570411186550" duration="6698000" />
+      <workItem from="1570411186550" duration="19184000" />
     </task>
     <servers />
   </component>
@@ -91,16 +85,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/onboarding.js</url>
-          <line>13</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

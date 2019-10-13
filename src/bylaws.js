@@ -1,5 +1,6 @@
 import React from 'react';
 import {Form, Checkbox} from "semantic-ui-react";
+import {formValidation} from "./formValidarion";
 
 
 class Bylaws extends React.Component {
@@ -24,14 +25,22 @@ class Bylaws extends React.Component {
 
     render(){
         const { values } = this.props;
+        const { errors } = values;
         return(
-            <div>
-                <Form.Field>
-                    <Checkbox label='Agree' onchange={this.props.handleChange('bylaw')}/>
-                </Form.Field>
+            <form>
+                <div>
+                    <Checkbox
+                        name="bylaw"
+                        label='Agree'
+                        onClick={this.props.handleChange}
+                        checked={values.bylaw}
+                        onBlur={this.props.handleFormValidation}
+                    />
+                    <div>{errors.state ? errors.state: '\u00A0'}</div>
+                </div>
                 <button onClick={this.prevButton}>Prev</button>
                 <button onClick={this.nextButton}>Next</button>
-            </div>
+            </form>
     );
     }
 }
