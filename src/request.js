@@ -64,9 +64,6 @@ function getRecordFromEmail(table, email) {
  	contailing all cell values by field name. Linked records are represented as an array of IDs.
  */
 
-/* TODO: style call here. talk to ashley about how onboarding will work. If an obj will be generated, then map that object
-   to this. */
-
 // Given a person object, create a record of that person
 function createPerson(person) {
 
