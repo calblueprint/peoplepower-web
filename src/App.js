@@ -33,21 +33,22 @@ function handleButton() {
 
   var person = {
     "fields": {
-      "Email": "ashley@pppower.io",
-      "Phone Number": "(504) 223-3243",
+      "Email": "iris@pppower.io",
+      "Phone Number": "(504) 343-6954",
       "Tags": 12,
-      "Name": "Ashley Nguyen"
+      "Name": "Iris Hou"
     }
   }
 
   var updatedPerson= {
     "id": "recfnsL4HDoNHril6",
     "fields": {
-      "Name": "Nicholas Wong"
+      "Name": "Nicholas Wong",
+      "Phone Number": "(808) 343-6954"
     }
   }
 
-  updatePerson(person);
+  updatePerson(updatedPerson);
 }
 
 function App() {

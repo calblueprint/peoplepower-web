@@ -2,20 +2,6 @@
 
 var Airtable = require('airtable');
 
-// DO NOT COMMIT API KEY //
-// DO NOT COMMIT API KEY //
-// DO NOT COMMIT API KEY //
-// DO NOT COMMIT API KEY //
-// DO NOT COMMIT API KEY //
-// DO NOT COMMIT API KEY //
-// DO NOT COMMIT API KEY //
-// DO NOT COMMIT API KEY //
-// DO NOT COMMIT API KEY //
-// DO NOT COMMIT API KEY //
-// DO NOT COMMIT API KEY //
-// DO NOT COMMIT API KEY //
-
-
 // API KEY will reside in ENV variables later.
 Airtable.configure({
     endpointUrl: 'https://api.airtable.com',
@@ -88,8 +74,6 @@ function createPerson(person) {
 	// let { "Email": email, "Phone Number" : phoneNumber, "Owner": owner, 
 	// "Address": address, "Tags": tags, "User Login" : userLogin, "Name": name } = person.fields
 
-	base('Person').create([
-		person
 	// {
 	// 	"fields": {
 	// 	  "Email": email,
@@ -101,7 +85,8 @@ function createPerson(person) {
 	// 	  "Name": name
 	// 	}
 	// }
-	], function(err, records) {
+
+	base('Person').create([person], function(err, records) {
 		if (err) {
 			console.error(err);
 			return;
@@ -120,44 +105,30 @@ function createPerson(person) {
 
 	- Max 10 records to be updated at once.
 	- Each obj should have an ID key and a fields key.
+
+	// {
+	//   "id": "recfnsL4HDoNHril6",
+	//   "fields": {
+	//     "Email": "nickwong@berkeley.edu",
+	//     "Phone Number": "(504) 123-4567",
+	//     "Owner": [
+	//       "recsnkM5ms2NJhVW0"
+	//     ],
+	//     "Address": [
+	//       "reci2wCQQ5HnL5r4A"
+	//     ],
+	//     "Tags": 112,
+	//     "User Login": [
+	//       "rec9ycakLxIUbTLef"
+	//     ],
+	//     "Name": "Nick Wong"
+	//   }
+	// }
+
 */
+
 function updatePerson(updatedPerson) {
-	base('Person').update([
-		updatedPerson
-	  // {
-	  //   "id": "recfnsL4HDoNHril6",
-	  //   "fields": {
-	  //     "Email": "nickwong@berkeley.edu",
-	  //     "Phone Number": "(504) 123-4567",
-	  //     "Owner": [
-	  //       "recsnkM5ms2NJhVW0"
-	  //     ],
-	  //     "Address": [
-	  //       "reci2wCQQ5HnL5r4A"
-	  //     ],
-	  //     "Tags": 112,
-	  //     "User Login": [
-	  //       "rec9ycakLxIUbTLef"
-	  //     ],
-	  //     "Name": "Nick Wong"
-	  //   }
-	  // },
-	  // {
-	  //   "id": "rec4giMp6pvHgACxK",
-	  //   "fields": {
-	  //     "Email": "aivant@pppower.io",
-	  //     "Phone Number": "(808) 672-1990",
-	  //     "Owner": [
-	  //       "rec3DnADmUEkKHu9z"
-	  //     ],
-	  //     "Tags": 0,
-	  //     "User Login": [
-	  //       "recDIkOdXWDMAJJja"
-	  //     ],
-	  //     "Name": "Aivant Goyal"
-	  //   }
-	  // }
-	], function(err, records) {
+	base('Person').update([updatedPerson], function(err, records) {
 		if (err) {
 			console.error(err);
 			return;
