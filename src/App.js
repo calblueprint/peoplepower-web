@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import './App.css';
-import { getRecordFromID, getRecordFromName, getRecordFromEmail, createPerson, updatePerson } from './request'
+import { getRecord, createPerson, updatePerson, getRecordFromAttribute } from './request'
 
 // Returns a makeshift navbar to demonstrate react-router.
 function NavBar() {
@@ -26,9 +26,8 @@ function NavBar() {
 
 // This probably isn't proper react style, but it works.
 function handleButton() {
-  // var record = getRecordFromID('Person', 'recfnsL4HDoNHril6');
-  // var record = getRecordFromName('Person', 'Nick Wong')
-  // var record = getRecordFromEmail('Person', 'aivant@ppower.io')
+  // var record = getRecord('Person', 'recfnsL4HDoNHril6');
+  var record = getRecordFromAttribute('Person', 'Email', 'ashley@pppower.io')
 
   var person = {
     "fields": {

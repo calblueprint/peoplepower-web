@@ -13,8 +13,8 @@ const base = Airtable.base('appFaOwKhMXrRIQIp');
 
 // ******** READ RECORDS ******** //
 
-// Given a table and record ID, return the fields (an object) 
-function getRecordFromID(table, id) {
+// Given a table and record ID, return the associated record object. 
+function getRecord(table, id) {
 	base(table).find(id, function(err, record) {
 	    if (err) { console.error(err); return; }
 	    console.log('Retrieved', record.get('ID'), record.fields);
@@ -22,74 +22,51 @@ function getRecordFromID(table, id) {
 	});
 }
 
-/* Note: the following two functions, getRecordFromName and getRecordFromEmail
-are 'Person' table specific. */
-
-function getRecordFromName(table, name) {
-	console.log(`Searching for ${name}`)
+/* 
+	GENERAL SEARCH
+	Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
+	return the associated record object.
+*/
+function getRecordFromAttribute(table, fieldType, field) {
+	console.log(`Searching for ${field}`)
 	base(table).select({
 		view: "Grid view",
 		maxRecords: 1,
-	    filterByFormula: `SEARCH(LOWER("${name}"), LOWER(Name))`
+	    filterByFormula: `{${fieldType}}='${field}'`
 	}).firstPage(function(err, records) {
 	    if (err) { console.error(err); return; }
 	    if (records.length < 1) {
-	    	console.log('No record was retrieved using this name.')
+	    	console.log(`No record was retrieved using this ${fieldType}.`)
 	    	return 0;
 	    }
 	    records.forEach(function(record) {
-	        console.log('Retrieved', record.get('Name'), record.fields);
+	        console.log('Retrieved', record.fields);
 	        return record
 	    });
 	});
 }
-
-
-function getRecordFromEmail(table, email) {
-	console.log(`Searching for ${email}`)
-	base(table).select({
-		view: "Grid view",
-		maxRecords: 1,
-	    filterByFormula: `{Email}='${email}'`
-	}).firstPage(function(err, records) {
-	    if (err) { console.error(err); return; }
-	    if (records.length < 1) {
-	    	console.log('No record was retrieved using this email.')
-	    	return 0;
-	    }
-	    records.forEach(function(record) {
-	        console.log('Retrieved', record.get('Name'), record.fields, 'given email.');
-	        return record
-	    });
-	});
-}
-
-
-// ******** CREATE RECORDS ******** //
 
 /* 
+	******** CREATE RECORDS ********
 	You can pass in UP TO 10 record objects. Each obj should have one key, fields,
  	contailing all cell values by field name. Linked records are represented as an array of IDs.
  */
 
-// Given a person object, create a record of that person
+// Given a person object, create a record of that person.
 function createPerson(person) {
-
-	// deconstruct person obj parameter
-	// let { "Email": email, "Phone Number" : phoneNumber, "Owner": owner, 
-	// "Address": address, "Tags": tags, "User Login" : userLogin, "Name": name } = person.fields
-
-	// {
-	// 	"fields": {
-	// 	  "Email": email,
-	// 	  "Phone Number": phoneNumber,
-	// 	  "Owner": [owner],
-	// 	  "Address": [address],
-	// 	  "Tags": tags,
-	// 	  "User Login": [userLogin],
-	// 	  "Name": name
-	// 	}
-	// }
+/* EXAMPLE OBJECT TO CREATE PERSON
+	{
+		"fields": {
+		  "Email": email,
+		  "Phone Number": phoneNumber,
+		  "Owner": [owner],
+		  "Address": [address],
+		  "Tags": tags,
+		  "User Login": [userLogin],
+		  "Name": name
+		}
+	} 
+*/
 
 	base('Person').create([person], function(err, records) {
 		if (err) {
@@ -102,15 +79,15 @@ function createPerson(person) {
 	});
 }
 
-// ******** UPDATE RECORDS ******** //
-
 /* 
+	******** UPDATE RECORDS ********
 	An UPDATE will only update the fields you specify, leaving the rest as they were. 
 	A REPLACE will perform a destructive update and clear all unspecified cell values. 
 
 	- Max 10 records to be updated at once.
 	- Each obj should have an ID key and a fields key.
 
+	EXAMPLE UPDATE OBJECT TO PASS INTO updatePerson():
 	// {
 	//   "id": "recfnsL4HDoNHril6",
 	//   "fields": {
@@ -129,7 +106,6 @@ function createPerson(person) {
 	//     "Name": "Nick Wong"
 	//   }
 	// }
-
 */
 
 function updatePerson(updatedPerson) {
@@ -144,5 +120,4 @@ function updatePerson(updatedPerson) {
 	});
 }
 
-
-export { getRecordFromID, getRecordFromName, getRecordFromEmail, createPerson, updatePerson };
+export { getRecord, createPerson, updatePerson, getRecordFromAttribute };
