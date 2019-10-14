@@ -1,10 +1,10 @@
 import React from 'react';
 import Basic_info from "./basic_info";
-import Basic_info_2 from "./basic_info_2";
+// import Basic_info_2 from "./basic_info_2";
 import Bylaws from "./bylaws";
 import Project_groups from "./project_groups";
 import Payment from "./payment";
-import {formValidation} from "./formValidarion";
+// import {formValidation} from "./formValidarion";
 
 
 class Onboarding extends React.Component {
@@ -26,7 +26,7 @@ class Onboarding extends React.Component {
             bylaw: false,
             project_group: "",
             num_shares: "",
-            dividends: false,
+            dividends: "",
             beneficiaries: [], //because there can be multiple
             payment_info: "", //need to revisit**
             billing_address:{
@@ -35,34 +35,32 @@ class Onboarding extends React.Component {
                 state: "",
                 zipcode: ""
             },
-            errors:{
+            errors:{ //object that holds all the error messages
                 fname: "",
                 lname: "",
                 // email: "",
                 // password: "",
-                address: {
-                    street: "",
-                    apt: "",
-                    state: "",
-                    zipcode: ""
-                },
+                street: "",
+                apt: "",
+                state: "",
+                zipcode: "",
                 phone_number: "",
-                bylaw: false,
+                bylaw: "",
                 project_group: "",
                 num_shares: "",
                 dividends: false,
                 beneficiaries: [], //because there can be multiple
                 payment_info: "", //need to revisit**
-                billing_address:{
-                    street: "",
-                    apt: "",
-                    state: "",
-                    zipcode: ""
-                }
+                b_street: "",
+                b_apt: "",
+                b_state: "",
+                b_zipcode: ""
             },
             step: 1
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
 
     }
 
@@ -78,6 +76,12 @@ class Onboarding extends React.Component {
         this.setState({step: step - 1});
     }
 
+    callBackBylawValidation() {
+        this.setState({
+            errors : {...this.state.errors, bylaw: 'Required'}
+        })
+    }
+
     //updates the state whenever there is a change made
     handleChange = event => {
         switch(event.target.name){
@@ -86,9 +90,12 @@ class Onboarding extends React.Component {
                     address : {...this.state.address, [event.target.name]: event.target.value}
                 })
             case "bylaw":
-                const { bylaw } = this.state
                 this.setState({
-                    bylaw : !bylaw
+                    bylaw : !this.state.bylaw
+                })
+            case "dividends":
+                this.setState({
+                    dividends : event.target.value
                 })
             default:
                 this.setState({
@@ -97,13 +104,15 @@ class Onboarding extends React.Component {
         }
     }
 
+    //validates the input divs
     handleFormValidation = event => {
         let errorMessage = '';
         let value = event.target.value;
+        let name = event.target.name;
         if (value == 0){
             errorMessage =  'Required';
         } else {
-            switch(event.target.name) {
+            switch(name) {
                 case 'email':
                     errorMessage = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) ? '' : 'Invalid Email';
                 case 'password':
@@ -114,12 +123,18 @@ class Onboarding extends React.Component {
                     }
             }
         }
-
         this.setState({
             errors : {...this.state.errors, [event.target.name]: errorMessage}
         })
     }
 
+    handleClick(){
+        this.setState({
+            bylaw : !this.state.bylaw
+        })
+    }
+
+    //temp submit button; this will have to update object in airtable
     onSubmit = (event) => {
         const { fname, lname } = this.state
         alert(`Your state values: \n 
@@ -143,27 +158,28 @@ class Onboarding extends React.Component {
                         handleChange={this.handleChange}
                         handleFormValidation={this.handleFormValidation}
                     />);
+            // case 2:
+            //     return(
+            //         <Basic_info_2
+            //             nextStep={this.nextStep}
+            //             values={values}
+            //             prevStep={this.prevStep}
+            //             handleChange={this.handleChange}
+            //             handleFormValidation={this.handleFormValidation}
+            //         />
+            //         );
             case 2:
-                return(
-                    <Basic_info_2
-                        nextStep={this.nextStep}
-                        values={values}
-                        prevStep={this.prevStep}
-                        handleChange={this.handleChange}
-                        handleFormValidation={this.handleFormValidation}
-                    />
-                    );
-            case 3:
                 return(
                     <Bylaws
                         nextStep={this.nextStep}
                         values={values}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
-                        handleFormValidation={this.handleFormValidation}
+                        callBackBylawValidation={this.callBackBylawValidation}
+                        handleClick={this.handleClick}
                     />
                     );
-            case 4:
+            case 3:
                 return(
                     <Project_groups
                         nextStep={this.nextStep}
@@ -173,7 +189,7 @@ class Onboarding extends React.Component {
                         handleFormValidation={this.handleFormValidation}
                     />
                     );
-            case 5:
+            case 4:
                 return(
                     <Payment
                         values={values}
@@ -181,6 +197,7 @@ class Onboarding extends React.Component {
                         onSubmit={this.onSubmit}
                         handleChange={this.handleChange}
                         handleFormValidation={this.handleFormValidation}
+                        handleDividends={this.handleDividends}
                     />
                     );
         }

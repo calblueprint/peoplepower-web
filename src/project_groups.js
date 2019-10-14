@@ -8,7 +8,11 @@ class Project_groups extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-
+            // groups: [
+            //     "Choose a group...",
+            //     "Berkeley",
+            //     "Oakland"]
+            // }
         };
     }
 
@@ -25,21 +29,19 @@ class Project_groups extends React.Component {
 
     render(){
         const { values } = this.props;
-        const { groups } = [
-            {text: 'Berkeley', value: 'berkeley'},
-            {text: 'Oakland', value: 'oakland'}
-        ];
+
         return(
             <form>
                 <div>
-                    <Dropdown
-                        placeholder='Select Project Group'
-                        name="project_group"
-                        onChange={this.props.handleChange}
-                        selection
-                        options={groups}
-                        value={values.project_group}
-                    />
+                    Select Project Group
+                    <select value={this.props.values.project_group} onChange={this.props.handleChange} name="project_group">
+                        {/*groups.map((group)=>*/}
+                        {/*    (<option value={group}> {group} </option>)*/}
+                        {/*);*/}
+                        <option value="Choose a group...">Choose a group...</option>
+                        <option value="Berkeley">Berkeley</option>
+                        <option value="Oakland">Oakland</option>
+                    </select>
                 </div>
                 <button onClick={this.prevButton}>Prev</button>
                 <button onClick={this.nextButton}>Next</button>

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Form, Checkbox} from "semantic-ui-react";
-import {formValidation} from "./formValidarion";
 
 
 class Bylaws extends React.Component {
@@ -14,7 +13,11 @@ class Bylaws extends React.Component {
 
     nextButton = (e) => {
         e.preventDefault();
-        this.props.nextStep();
+        if (!this.props.values.bylaw){
+            this.props.callBackBylawValidation();
+        } else {
+            this.props.nextStep();
+        }
     }
 
 
@@ -23,20 +26,21 @@ class Bylaws extends React.Component {
         this.props.prevStep();
     }
 
+
+
     render(){
         const { values } = this.props;
         const { errors } = values;
         return(
             <form>
                 <div>
-                    <Checkbox
+                    <input
+                        type="checkbox"
                         name="bylaw"
-                        label='Agree'
-                        onClick={this.props.handleChange}
-                        checked={values.bylaw}
-                        onBlur={this.props.handleFormValidation}
-                    />
-                    <div>{errors.state ? errors.state: '\u00A0'}</div>
+                        onChange={this.props.handleClick}
+                        checked={this.props.values.bylaw}/>
+                    Agree
+                    {!values.bylaw && <div>{errors.bylaw}</div>}
                 </div>
                 <button onClick={this.prevButton}>Prev</button>
                 <button onClick={this.nextButton}>Next</button>

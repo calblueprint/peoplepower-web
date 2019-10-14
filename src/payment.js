@@ -36,15 +36,35 @@ class Payment extends React.Component {
                     <div>
                         <label>Number of Shares</label>
                         <input
-                            name="num_shared"
+                            name="num_shares"
                             placeholder=''
                             onChange={this.props.handleChange}
                             defaultValue={values.num_shares}
                         />
                     </div>
                     <div>
-                        <option value='yes'>yes</option>
-                        <option value='no'>no</option>
+                        Dividends
+                        <div>
+                            <label>
+                                <input type="radio"
+                                       name="dividends"
+                                       value="yes"
+                                       checked={values.dividends == "yes"}
+                                       onChange={this.props.handleChange} />
+                                yes
+                            </label>
+                        </div>
+                        <div >
+                            <label>
+                                <input type="radio"
+                                       name="dividends"
+                                       value="no"
+                                       checked={values.dividends == "no"}
+                                       onChange={this.props.handleChange}
+                                    />
+                                no
+                            </label>
+                        </div>
                     </div>
                     <div label='Payment Information'>
                     </div>
