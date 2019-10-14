@@ -30,7 +30,6 @@ function handleButton() {
   // var record = getRecordFromName('Person', 'Nick Wong')
   // var record = getRecordFromEmail('Person', 'aivant@ppower.io')
 
-
   var person = {
     "fields": {
       "Email": "iris@pppower.io",
@@ -40,7 +39,7 @@ function handleButton() {
     }
   }
 
-  var updatedPerson= {
+  var updatedPerson = {
     "id": "recfnsL4HDoNHril6",
     "fields": {
       "Name": "Nicholas Wong",
@@ -48,7 +47,7 @@ function handleButton() {
     }
   }
 
-  updatePerson(updatedPerson);
+  // updatePerson(updatedPerson);
 }
 
 function App() {

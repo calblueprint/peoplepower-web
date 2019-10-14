@@ -1,3 +1,4 @@
+import key from './api_key.js';
 /* Helper functions intended to streamline our requests to the AirTable API. */ 
 
 var Airtable = require('airtable');
@@ -5,7 +6,7 @@ var Airtable = require('airtable');
 // API KEY will reside in ENV variables later.
 Airtable.configure({
     endpointUrl: 'https://api.airtable.com',
-    apiKey: ''
+    apiKey: key
 });
 
 const base = Airtable.base('appFaOwKhMXrRIQIp');
@@ -17,13 +18,12 @@ function getRecordFromID(table, id) {
 	base(table).find(id, function(err, record) {
 	    if (err) { console.error(err); return; }
 	    console.log('Retrieved', record.get('ID'), record.fields);
+	    return record.fields;
 	});
 }
 
 /* Note: the following two functions, getRecordFromName and getRecordFromEmail
 are 'Person' table specific. */
-
-// SHOULD THESE BE WRITTEN AS PROMISES?
 
 function getRecordFromName(table, name) {
 	console.log(`Searching for ${name}`)
@@ -33,11 +33,17 @@ function getRecordFromName(table, name) {
 	    filterByFormula: `SEARCH(LOWER("${name}"), LOWER(Name))`
 	}).firstPage(function(err, records) {
 	    if (err) { console.error(err); return; }
+	    if (records.length < 1) {
+	    	console.log('No record was retrieved using this name.')
+	    	return 0;
+	    }
 	    records.forEach(function(record) {
 	        console.log('Retrieved', record.get('Name'), record.fields);
+	        return record
 	    });
 	});
 }
+
 
 function getRecordFromEmail(table, email) {
 	console.log(`Searching for ${email}`)
@@ -49,9 +55,11 @@ function getRecordFromEmail(table, email) {
 	    if (err) { console.error(err); return; }
 	    if (records.length < 1) {
 	    	console.log('No record was retrieved using this email.')
+	    	return 0;
 	    }
 	    records.forEach(function(record) {
 	        console.log('Retrieved', record.get('Name'), record.fields, 'given email.');
+	        return record
 	    });
 	});
 }
