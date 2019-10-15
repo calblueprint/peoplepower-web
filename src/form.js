@@ -1,4 +1,5 @@
 import React from 'react'
+import './form.css';
 
 
 class Form extends React.Component {
@@ -44,7 +45,8 @@ onSubmit = e => {
   render() {
     return (
       <form> 
-        <h1> Invite a New Member </h1>
+        <header> <h1> Invite a New Member </h1></header>
+        
         <br/>
         <h2> Current Member Information: </h2>
         <br/>
