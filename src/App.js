@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import './App.css';
-import { getRecord, createPerson, updatePerson, getRecordFromAttribute } from './request'
+import { getRecord, createPerson, updatePerson, getRecordFromAttribute } from './lib/request'
 
 // Returns a makeshift navbar to demonstrate react-router.
 function NavBar() {
