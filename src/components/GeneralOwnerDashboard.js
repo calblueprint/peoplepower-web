@@ -11,7 +11,8 @@ export default class GeneralOwnerDashboard extends React.Component {
 			name: 'user',
 			phoneNumber: '',
 			address: '',
-			projectGroup: ''
+			projectGroup: '',
+			error: ''
 		}
 	}
 
@@ -33,13 +34,21 @@ export default class GeneralOwnerDashboard extends React.Component {
 
 			// Getting project group
 			let getProjectGroup = getRecordWithPromise('Owner', owner).then((payload) => {
-				let { "Project Group": projectGroup } = payload.record
+				let { "Project Group": projectGroupID } = payload.record
 
-				getRecordWithPromise('Project Group', projectGroup).then((payload) => {
+				getRecordWithPromise('Project Group', projectGroupID).then((payload) => {
 					let { "Name": name } = payload.record
 					this.setState({
 						projectGroup: name
 					})
+				}).catch((err) => {
+						this.setState({
+							projectGroup: 'User has not joined a project group.'
+						})
+					})
+			}).catch((err) => {
+				this.setState({
+					projectGroup: 'User is not an owner.'
 				})
 			})
 
@@ -50,6 +59,10 @@ export default class GeneralOwnerDashboard extends React.Component {
 
 				this.setState({
 					address: `${street}, ${city}, ${state} ${zipCode}`
+				});
+			}).catch((err) => {
+				this.setState({
+					address: 'No address on file.'
 				});
 			})
 

@@ -16,10 +16,16 @@ const base = Airtable.base('appFaOwKhMXrRIQIp');
 // Given a table and record ID, return the associated record object using a Promise.
 function getRecordWithPromise(table, id) {
 	return new Promise((resolve, reject) => {
+		if (id == null) {
+			reject({record: 'No id passed to function'})
+			return;
+		}
 		base(table).find(id, function(err, record) {
 		    if (err) { 
 		    	reject(err); 
 		    	return; 
+		    } else if (record == null) {
+		    	reject({record: 'No record found'})
 		    }
 		    resolve({record: record.fields});
 		    return;
