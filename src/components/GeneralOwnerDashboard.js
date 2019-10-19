@@ -13,22 +13,19 @@ export default class GeneralOwnerDashboard extends React.Component {
 
 		}
 	}
+
 	componentDidMount() {
 		// hard-coded my id
 		const id = 'recfnsL4HDoNHril6';
 		let record = getRecordWithPromise('Person', id).then((payload) => {
-			console.log('got the goods', payload.record)
-
 			//use array deconstructing
 			let { "Email": email, "Phone Number" : phoneNumber, "Owner": owner, 
 				 "Address": address, "Tags": tags, "User Login" : userLogin, "Name": name } = payload.record
-
 			this.setState({
 				email: email,
 				name: name,
 				phoneNumber: phoneNumber
-			})
-
+			});
 		})
 	}
 
