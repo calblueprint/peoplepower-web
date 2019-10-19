@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom'
 import '../styles/NavBar.css';
 import { getRecordWithPromise } from '../request'
 
-// TODO: Beneath the UL we can add a ProfilePicture component that displays current user info 
-
-
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +36,9 @@ export default class NavBar extends React.Component {
             <li className="navItem">
               <Link to="/community">Community</Link>
             </li>
-            <li><span>{this.state.name}</span></li>
+            <li className="navItem">
+              <Link to="/profile"><span>{this.state.name}</span></Link>
+            </li>
           </ul>
         </nav>
       </div>
