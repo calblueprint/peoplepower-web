@@ -21,7 +21,6 @@ function getRecordWithPromise(table, id) {
 		    	reject(err); 
 		    	return; 
 		    }
-		    console.log('Retrieved', record.get('ID'), record.fields);
 		    resolve({record: record.fields});
 		    return;
 		});
@@ -32,7 +31,6 @@ function getRecordWithPromise(table, id) {
 function getRecord(table, id) {
 	base(table).find(id, function(err, record) {
 	    if (err) { console.error(err); return; }
-	    console.log('Retrieved', record.get('ID'), record.fields);
 	    return record.fields;
 	});
 }
@@ -47,7 +45,7 @@ function getRecordFromAttribute(table, fieldType, field) {
 	base(table).select({
 		view: "Grid view",
 		maxRecords: 1,
-	    filterByFormula: `{${fieldType}}='${field}'`
+	    filterByFormula: `{${fieldType}}="${field}"`
 	}).firstPage(function(err, records) {
 	    if (err) { console.error(err); return; }
 	    if (records.length < 1) {
