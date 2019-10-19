@@ -13,6 +13,21 @@ const base = Airtable.base('appFaOwKhMXrRIQIp');
 
 // ******** READ RECORDS ******** //
 
+// Given a table and record ID, return the associated record object using a Promise.
+function getRecordWithPromise(table, id) {
+	return new Promise((resolve, reject) => {
+		base(table).find(id, function(err, record) {
+		    if (err) { 
+		    	reject(err); 
+		    	return; 
+		    }
+		    console.log('Retrieved', record.get('ID'), record.fields);
+		    resolve({record: record.fields});
+		    return;
+		});
+	})
+}
+
 // Given a table and record ID, return the associated record object. 
 function getRecord(table, id) {
 	base(table).find(id, function(err, record) {
@@ -120,4 +135,4 @@ function updatePerson(updatedPerson) {
 	});
 }
 
-export { getRecord, createPerson, updatePerson, getRecordFromAttribute };
+export { getRecord, createPerson, updatePerson, getRecordFromAttribute, getRecordWithPromise };
