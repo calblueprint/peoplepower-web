@@ -139,4 +139,20 @@ function updatePerson(updatedPerson) {
 	});
 }
 
-export { getRecord, createPerson, updatePerson, getRecordFromAttribute, getRecordWithPromise };
+function updatePersonWithPromise(updatedPerson) {
+	return new Promise((resolve, reject) => {
+		base('Person').update([updatedPerson], function(err, records) {
+			if (err) {
+				reject(err);
+				return;
+			}
+			records.forEach(function(record) {
+				console.log(record.get('Email'));
+			});
+		});
+		resolve({status: 'Successfully updated record(s)'})
+	})
+}
+
+
+export { getRecord, createPerson, updatePerson, getRecordFromAttribute, getRecordWithPromise, updatePersonWithPromise };
