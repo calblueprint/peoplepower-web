@@ -6,3 +6,12 @@
 .inputFormCont h2, label {
 	color: white;
 }
+
+.userInfoCont {
+	width: 50%;
+	display: inline-block;
+}
+
+.userInfoCont h3, p {
+	padding-left: 30px;
+}
