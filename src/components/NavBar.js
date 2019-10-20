@@ -7,6 +7,7 @@ export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       name: ''
     }
   }
@@ -17,6 +18,7 @@ export default class NavBar extends React.Component {
     let record = getRecordWithPromise('Person', id).then((payload) => {
       let { "Name": name } = payload.record
       this.setState({
+        id: id,
         name: name
       });
     })
@@ -37,7 +39,7 @@ export default class NavBar extends React.Component {
               <Link to="/community">Community</Link>
             </li>
             <li className="navItem">
-              <Link to="/profile"><span>{this.state.name}</span></Link>
+              <Link to={`/profile/${this.state.id}`}><span>{this.state.name}</span></Link>
             </li>
           </ul>
         </nav>
