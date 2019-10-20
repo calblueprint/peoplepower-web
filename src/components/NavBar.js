@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import '../styles/NavBar.css';
-import { getRecordWithPromise } from '../request'
+import { getRecordWithPromise } from '../lib/request'
 
 // TODO: Beneath the UL we can add a ProfilePicture component that displays current user info 
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import '../styles/GeneralOwnerDashboard.css'; 
-import { getRecord, getRecordWithPromise } from '../request'
+import '../../styles/GeneralOwnerDashboard.css'; 
+import { getRecord, getRecordWithPromise } from '../../lib/request'
 
 
 export default class GeneralOwnerDashboard extends React.Component {
