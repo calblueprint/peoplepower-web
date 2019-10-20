@@ -1,0 +1,8 @@
+.inputFormCont {
+	width: 50%;
+	float: right;
+}
+
+.inputFormCont h2, label {
+	color: white;
+}

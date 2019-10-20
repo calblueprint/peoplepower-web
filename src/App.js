@@ -4,6 +4,7 @@ import './styles/App.css';
 import { getRecord, createPerson, updatePerson, getRecordFromAttribute } from './request'
 import NavBar from './components/NavBar'
 import GeneralOwnerDashboard from './components/GeneralOwnerDashboard'
+import UserProfilePage from './components/UserProfilePage'
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
           </Route>
 
           <Route path="/dashboard" render={(props) => <GeneralOwnerDashboard {...props} />} /> 
+
+          <Route path="/profile/:id" render={(props) => <UserProfilePage {...props} />} /> 
+
 
           <Route>
             <p style={{color: 'white', margin: '30px'}}>Not Found - 404</p>
