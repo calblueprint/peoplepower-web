@@ -1,7 +1,7 @@
 import key from './api_key.js';
 /* Helper functions intended to streamline our requests to the AirTable API. */ 
 
-var Airtable = require('airtable');
+const Airtable = require('airtable');
 
 // API KEY will reside in ENV variables later.
 Airtable.configure({
