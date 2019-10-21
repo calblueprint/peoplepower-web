@@ -1,7 +1,7 @@
 import React from 'react';
 
-const loginUser = require('../utils/airtableUtils.js').loginUser;
-const isLoggedIn = require('../utils/airtableUtils.js').isLoggedIn;
+const loginUser = require('../lib/auth.js').loginUser;
+const getLoggedInUserId = require('../lib/auth.js').getLoggedInUserId;
 const HOME_ROUTE = '/home';
 const SIGNUP_ROUTE = '/signup';
 
@@ -22,7 +22,7 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
-        if (isLoggedIn()) {
+        if (getLoggedInUserId()) {
             this.props.history.push(HOME_ROUTE);
         }
     }

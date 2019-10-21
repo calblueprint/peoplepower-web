@@ -1,6 +1,6 @@
 import React from 'react';
-const isLoggedIn = require('../utils/airtableUtils.js').isLoggedIn;
-const logOut = require('../utils/airtableUtils.js').logOut;
+const getLoggedInUserId = require('../lib/auth.js').getLoggedInUserId;
+const logOut = require('../lib/auth.js').logOut;
 
 const ROOT_PATH = '/';
 
@@ -14,7 +14,7 @@ class Home extends React.Component {
 }
 
   componentDidMount() {
-    if (!isLoggedIn()) {
+    if (!getLoggedInUserId()) {
         this.props.history.push(ROOT_PATH);
     }
   }

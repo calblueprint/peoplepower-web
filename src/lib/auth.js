@@ -1,11 +1,11 @@
+import key from './api_key.js';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
-const APIKEY = ''; //PASS IN AS ENVIRONMENT VARIABLE
 const BASE_ID = 'appFaOwKhMXrRIQIp';
 
 const Airtable = require('airtable');
-const base = new Airtable({apiKey: APIKEY}).base(BASE_ID);
+const base = new Airtable({apiKey: key}).base(BASE_ID);
 
 const EMAIL_FIELD = 'Email';
 const ID_FIELD = 'ID';
@@ -55,7 +55,7 @@ var loginUser = (email, passwordHash) => {
     });
 }
 
-var isLoggedIn = email => {
+var getLoggedInUserId = () => {
     return cookies.get(LOGIN_TOKEN_NAME);
 }
 
@@ -64,4 +64,4 @@ var logOut = () => {
 }
 
 // export default loginUser;
-export {loginUser, isLoggedIn, logOut };
+export {loginUser, getLoggedInUserId, logOut };
