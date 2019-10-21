@@ -1,18 +1,12 @@
 import React from 'react';
-import {Dropdown} from "semantic-ui-react";
-import {formValidation} from "./formValidarion";
 
 
-class Project_groups extends React.Component {
+class ProjectGroups extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
-            // groups: [
-            //     "Choose a group...",
-            //     "Berkeley",
-            //     "Oakland"]
-            // }
+
         };
     }
 
@@ -35,9 +29,6 @@ class Project_groups extends React.Component {
                 <div>
                     Select Project Group
                     <select value={this.props.values.project_group} onChange={this.props.handleChange} name="project_group">
-                        {/*groups.map((group)=>*/}
-                        {/*    (<option value={group}> {group} </option>)*/}
-                        {/*);*/}
                         <option value="Choose a group...">Choose a group...</option>
                         <option value="Berkeley">Berkeley</option>
                         <option value="Oakland">Oakland</option>
@@ -50,4 +41,4 @@ class Project_groups extends React.Component {
     }
 }
 
-export default Project_groups;
+export default ProjectGroups;

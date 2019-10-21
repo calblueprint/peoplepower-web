@@ -1,5 +1,4 @@
 import React from 'react';
-import {Form, Checkbox} from "semantic-ui-react";
 
 
 class Bylaws extends React.Component {

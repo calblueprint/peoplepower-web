@@ -1,6 +1,4 @@
 import React from 'react';
-import {Form} from 'semantic-ui-react';
-import {formValidation} from "./formValidarion";
 
 
 class Payment extends React.Component {
@@ -15,7 +13,6 @@ class Payment extends React.Component {
     finishButton = (e) => {
         e.preventDefault();
         this.props.onSubmit();
-        //do some function for finishing the onboarding process ? what do we want the next step to be
     }
 
 
@@ -28,10 +25,6 @@ class Payment extends React.Component {
         const { values } = this.props;
         return(
             <div>
-                {/*
-                    how do we want to implement paying into the website
-                    paypal only has the paypal button as an option as far as a I know*
-                */}
                 <form>
                     <div>
                         <label>Number of Shares</label>

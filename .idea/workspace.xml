@@ -2,29 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d161631a-b8dc-4f83-badf-a5d5016108dd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.github/pull_request_template.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/NavBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/request.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/auth/Login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/general/GeneralOwnerDashboard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/onboarding/Onboarding.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/App.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/GeneralOwnerDashboard.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/NavBar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/basic_info.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/basic_info.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/basic_info.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/basicInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/basic_info_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/contactInfo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/onboarding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/onboarding.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/serviceWorker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +62,7 @@
       <workItem from="1570411106276" duration="10000" />
       <workItem from="1570411121353" duration="61000" />
       <workItem from="1570411186550" duration="27184000" />
-      <workItem from="1571619013017" duration="1159000" />
+      <workItem from="1571619013017" duration="1537000" />
     </task>
     <servers />
   </component>
