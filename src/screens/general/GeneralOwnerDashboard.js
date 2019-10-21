@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../styles/GeneralOwnerDashboard.css';
 import { getRecordWithPromise } from '../../lib/request';
+import { getLoggedInUserId, logOut } from '../../lib/auth';
 
 export default class GeneralOwnerDashboard extends React.Component {
   constructor(props) {
@@ -13,8 +14,14 @@ export default class GeneralOwnerDashboard extends React.Component {
   }
 
   componentDidMount() {
-    // hard-coded my id
-    const id = 'recfnsL4HDoNHril6';
+    const { history } = this.props;
+    const id = getLoggedInUserId();
+    if (!id) {
+      // They shouldn't be able to access this screen
+      history.push('/');
+      return;
+    }
+
     getRecordWithPromise('Person', id).then(payload => {
       // use array deconstructing
       const {
@@ -30,6 +37,12 @@ export default class GeneralOwnerDashboard extends React.Component {
     });
   }
 
+  handleLogoutClick = () => {
+    const { history } = this.props;
+    logOut();
+    history.push('/');
+  };
+
   render() {
     const { name, email, phoneNumber } = this.state;
     return (
@@ -40,6 +53,13 @@ export default class GeneralOwnerDashboard extends React.Component {
           <p>Email: {email}</p>
           <p>Phone Number: {phoneNumber}</p>
         </div>
+        <button
+          type="button"
+          className="primary-button"
+          onClick={this.handleLogoutClick}
+        >
+          Logout
+        </button>
       </div>
     );
   }

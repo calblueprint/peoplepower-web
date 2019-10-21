@@ -10,15 +10,20 @@ class SignUp extends React.Component {
     this.handleLoginOnClick = this.handleLoginOnClick.bind(this);
   }
 
-  handleLoginOnClick(event) {
-    this.props.history.push(LOGIN_ROUTE);
+  handleLoginOnClick() {
+    const { history } = this.props;
+    history.push(LOGIN_ROUTE);
   }
 
   render() {
     return (
       <div>
         Sign up Here
-        <button className="primary-button" onClick={this.handleLoginOnClick}>
+        <button
+          type="button"
+          className="primary-button"
+          onClick={this.handleLoginOnClick}
+        >
           Have an account? Login
         </button>
       </div>
