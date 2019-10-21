@@ -43,17 +43,10 @@ export default class UserProfilePage extends React.Component {
 		}
 		// note there should be an function that I write that just does this rerendering
 		updatePersonWithPromise(newPerson).then((payload) => {
-			this.setState({status: payload.status})
-			getRecordWithPromise('Person', this.state.id).then((payload) => {
-				let { "Name": name, "Email": email, "Phone Number": phoneNumber} = payload.record
-				this.setState({
-					name: name,
-					updateName: name,
-					email: email,
-					updateEmail: email,
-					phoneNumber: phoneNumber,
-					updatePhone: phoneNumber
-				})
+			this.setState({
+				status: payload.status,
+				name: this.state.updateName,
+				email: this.state.updateEmail
 			})
 		})
 	}
