@@ -5,17 +5,16 @@ const logOut = require('../lib/auth.js').logOut;
 const ROOT_PATH = '/';
 
 class Home extends React.Component {
-
   constructor(props) {
     super(props);
-    
+
     // BINDINGS
     this.handleOnClick = this.handleOnClick.bind(this);
-}
+  }
 
   componentDidMount() {
     if (!getLoggedInUserId()) {
-        this.props.history.push(ROOT_PATH);
+      this.props.history.push(ROOT_PATH);
     }
   }
 
@@ -30,7 +29,7 @@ class Home extends React.Component {
         <h1>Home here</h1>
         <br />
         <button className="primary-button" onClick={this.handleOnClick}>
-            Logout
+          Logout
         </button>
       </div>
     );

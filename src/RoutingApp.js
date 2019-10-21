@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/index.css';
-import Main from './loginComponents/Main.jsx';
+import Main from './loginComponents/Main';
 
 function RoutingApp() {
   return (

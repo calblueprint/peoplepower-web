@@ -5,7 +5,7 @@ const LOGIN_ROUTE = '/home';
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
-    
+
     // BINDINGS
     this.handleLoginOnClick = this.handleLoginOnClick.bind(this);
   }
