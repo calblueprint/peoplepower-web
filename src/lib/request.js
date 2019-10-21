@@ -1,4 +1,4 @@
-import key from '../api_key';
+import key from './api_key';
 /* Helper functions intended to streamline our requests to the AirTable API. */
 
 const Airtable = require('airtable');
