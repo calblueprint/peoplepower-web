@@ -15,7 +15,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "surge ./build peoplepower.surge.sh"
+    "deploy": "surge ./build https://peoplepower.surge.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
