@@ -70,13 +70,15 @@ export default class GeneralOwnerDashboard extends React.Component {
 
 	render() {
 		return (
-			<div className="dashboardCont"> 
-				<h3>General Owner Dashboard</h3>
-				<p>Welcome, {this.state.name}</p>
-				<p>Email: {this.state.email}</p>
-				<p>Phone Number: {this.state.phoneNumber}</p>
-				<p>Address: {this.state.address}</p>
-				<p>Project Group: {this.state.projectGroup}</p>
+			<div className="dashboardCont">
+				<div className="userInfoCont"> 
+					<h2>General Owner Dashboard</h2>
+					<p>Welcome, {this.state.name}</p>
+					<p>Email: {this.state.email}</p>
+					<p>Phone Number: {this.state.phoneNumber}</p>
+					<p>Address: {this.state.address}</p>
+					<p>Project Group: {this.state.projectGroup}</p>
+				</div>
 			</div>
 		);
 	}
