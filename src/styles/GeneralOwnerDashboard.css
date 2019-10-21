@@ -2,10 +2,7 @@
 	width: 100%;
 }
 
-.dashboardCont h3, p {
+.userInfoCont h2, p {
 	padding-left: 30px;
-}
-
-div p, h3 {
 	color: white;
 }

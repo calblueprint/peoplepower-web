@@ -15,3 +15,8 @@
 .userInfoCont h3, p {
 	padding-left: 30px;
 }
+
+input {
+	display: block;
+	margin: 10px 0px;
+}
