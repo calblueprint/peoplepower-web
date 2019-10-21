@@ -16,12 +16,10 @@ class Onboarding extends React.Component {
             lname: "",
             // email: "",
             // password: "",
-            address: {
-                street: "",
-                apt: "",
-                state: "",
-                zipcode: ""
-            },
+            street: "",
+            apt: "",
+            state: "",
+            zipcode: "",
             phone_number: "",
             bylaw: false,
             project_group: "",
@@ -85,10 +83,6 @@ class Onboarding extends React.Component {
     //updates the state whenever there is a change made
     handleChange = event => {
         switch(event.target.name){
-            case "apt", "street", "state", "zipcode":
-                this.setState({
-                    address : {...this.state.address, [event.target.name]: event.target.value}
-                })
             case "bylaw":
                 this.setState({
                     bylaw : !this.state.bylaw
@@ -144,9 +138,9 @@ class Onboarding extends React.Component {
 
     render(){
         const{step} = this.state;
-        const{fname, lname, email, password, address, phone_number, bylaw, project_group, num_shares,
+        const{fname, lname, email, password, street, apt, state, zipcode, phone_number, bylaw, project_group, num_shares,
             dividends, beneficiaries, billing_address, payment_info, errors, touched} = this.state;
-        const values = {fname, lname, email, password, address, phone_number, bylaw, project_group, num_shares,
+        const values = {fname, lname, email, password, street, apt, state, zipcode, phone_number, bylaw, project_group, num_shares,
             dividends, beneficiaries, billing_address, payment_info, errors, touched};
 
         switch(step){

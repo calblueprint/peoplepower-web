@@ -8,12 +8,6 @@ class Basic_info extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            errors: {
-                fname: '',
-                lname: '',
-                email: '',
-                password: ''
-            }
         }
     }
 
@@ -25,7 +19,7 @@ class Basic_info extends React.Component {
 
     render(){
         const { values } = this.props;
-        const { errors, touched } = this.props.values;
+        const { errors } = this.props.values;
         return(
             <form>
                 <div>
@@ -58,7 +52,7 @@ class Basic_info extends React.Component {
                         name="street"
                         placeholder='Address'
                         onChange={this.props.handleChange}
-                        defaultValue={values.address.street}
+                        defaultValue={values.street}
                         className={`${ errors.street != '' ? 'b-is-not-valid':'b-is-invalid' }`}
                         onBlur={this.props.handleFormValidation}
                     />
@@ -70,7 +64,7 @@ class Basic_info extends React.Component {
                         name="apt"
                         placeholder='Apt'
                         onChange={this.props.handleChange}
-                        defaultValue={values.address.apt}
+                        defaultValue={values.apt}
                     />
                 </div>
                 <div>
@@ -79,19 +73,18 @@ class Basic_info extends React.Component {
                         name="state"
                         placeholder='State'
                         onChange={this.props.handleChange}
-                        defaultValue={values.address.state}
+                        defaultValue={values.state}
                         className={`${ errors.state != '' ? 'b-is-not-valid':'b-is-invalid' }`}
                         onBlur={this.props.handleFormValidation}
                     />
                 </div>
-                <div>{errors.state ? errors.state: '\u00A0'}</div>
                 <div>
                     <label>Zipcode</label>
                     <input
                         name="zipcode"
                         placeholder='Zipcode'
                         onChange={this.props.handleChange}
-                        defaultValue={values.address.zipcode}
+                        defaultValue={values.zipcode}
                         className={`${ errors.zipcode != '' ? 'b-is-not-valid':'b-is-invalid' }`}
                         onBlur={this.props.handleFormValidation}
                     />
