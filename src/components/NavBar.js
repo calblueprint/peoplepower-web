@@ -25,7 +25,7 @@ export default class NavBar extends React.Component {
   }
 
   render() {
-    const { name } = this.state;
+    const { id, name } = this.state;
     return (
       <div className="navBarCont">
         <nav>
@@ -40,8 +40,8 @@ export default class NavBar extends React.Component {
               <Link to="/community">Community</Link>
             </li>
             <li className="navItem">
-              <Link to={`/profile/${this.state.id}`}>
-                <span>{this.state.name}</span>
+              <Link to={`/profile/${id}`}>
+                <span>{name}</span>
               </Link>
             </li>
           </ul>
