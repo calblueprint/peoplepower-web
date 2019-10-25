@@ -83,7 +83,7 @@ function getRecordFromAttributeWithPromise(table, fieldType, field) {
           reject(err);
         }
         if (records.length < 1) {
-          reject(`No record was retrieved using this ${fieldType}.`);
+          reject(new Error(`No record was retrieved using this ${fieldType}.`));
         }
         records.forEach(function(record) {
           console.log('Retrieved', record.fields);
