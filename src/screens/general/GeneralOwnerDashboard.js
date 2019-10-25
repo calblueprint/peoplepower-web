@@ -7,9 +7,9 @@ export default class GeneralOwnerDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      email: 'N/A',
       name: 'user',
-      phoneNumber: '',
+      phoneNumber: 'N/A',
       address: '',
       projectGroup: ''
     };
@@ -17,44 +17,53 @@ export default class GeneralOwnerDashboard extends React.Component {
 
   componentDidMount() {
     const { history } = this.props;
-    const id = getLoggedInUserId();
+    const id = getLoggedInUserId(); // THIS IS NOT THE ID YOU ARE LOOK FOR HEHE.
     if (!id) {
       // They shouldn't be able to access this screen
       history.push('/');
       return;
     }
 
-    getRecordWithPromise('Person', id)
+    let personID;
+    let email;
+    let phoneNumber;
+    let name;
+    let owner;
+    let addressID;
+    console.log(id);
+
+    getRecordWithPromise('User Login', id)
       .then(payload => {
-        const {
-          Email: email,
-          'Phone Number': phoneNumber,
-          Name: name,
-          Owner: owner,
-          Address: addressID
-        } = payload.record;
-
-        this.setState({
-          email,
-          name,
-          phoneNumber,
-          owner,
-          address
-        });
-
-        return getRecordWithPromise('Owner', this.state.owner);
+        personID = payload.record.Person;
+        return getRecordWithPromise('Person', personID);
       })
       .then(payload => {
-        const { 'Project Group': projectGroup } = payload.record;
-        return getRecordWithPromise('Project Group', this.state.projectGroup);
+        ({
+          Name: name,
+          Email: email,
+          'Phone Number': phoneNumber,
+          Owner: owner,
+          Address: addressID
+        } = payload.record);
+
+        this.setState({
+          email: email,
+          name: name,
+          phoneNumber: phoneNumber
+        });
+
+        return getRecordWithPromise('Owner', owner);
+      })
+      .then(payload => {
+        const { 'Project Group': projectGroupID } = payload.record;
+        return getRecordWithPromise('Project Group', projectGroupID);
       })
       .then(payload => {
         const { Name: projectGroupName } = payload.record;
         this.setState({
           projectGroup: projectGroupName
         });
-
-        return getRecordWithPromise('Address', this.state.addressID);
+        return getRecordWithPromise('Address', addressID);
       })
       .then(payload => {
         const {
