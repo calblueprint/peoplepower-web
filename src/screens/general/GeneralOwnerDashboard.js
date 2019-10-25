@@ -3,6 +3,7 @@ import '../../styles/GeneralOwnerDashboard.css';
 import { getRecord, getRecordWithPromise } from '../../lib/request'
 
 export default class GeneralOwnerDashboard extends React.Component {
+<<<<<<< Updated upstream
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -50,6 +51,76 @@ export default class GeneralOwnerDashboard extends React.Component {
 					projectGroup: 'User is not an owner.'
 				})
 			})
+=======
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: 'N/A',
+      name: 'user',
+      phoneNumber: 'N/A',
+      address: '',
+      projectGroup: ''
+    };
+  }
+
+  componentDidMount() {
+    const { history } = this.props;
+    const id = getLoggedInUserId(); // THIS IS NOT THE ID YOU ARE LOOK FOR HEHE.
+    if (!id) {
+      // They shouldn't be able to access this screen
+      history.push('/');
+      return;
+    }
+
+    let personID;
+    let email;
+    let phoneNumber;
+    let name;
+    let owner;
+    let addressID;
+    console.log(id);
+
+    getRecordWithPromise('User Login', id)
+      .then(payload => {
+        personID = payload.record.Person;
+        return getRecordWithPromise('Person', personID);
+      })
+      .then(payload => {
+        ({
+          Name: name,
+          Email: email,
+          'Phone Number': phoneNumber,
+          Owner: owner,
+          Address: addressID
+        } = payload.record);
+
+        this.setState({
+          email: email,
+          name: name,
+          phoneNumber: phoneNumber
+        });
+
+        return getRecordWithPromise('Owner', owner);
+      })
+      .then(payload => {
+        const { 'Project Group': projectGroupID } = payload.record;
+        return getRecordWithPromise('Project Group', projectGroupID);
+      })
+      .then(payload => {
+        const { Name: projectGroupName } = payload.record;
+        this.setState({
+          projectGroup: projectGroupName
+        });
+        return getRecordWithPromise('Address', addressID);
+      })
+      .then(payload => {
+        const {
+          City: city,
+          Street: street,
+          State: state,
+          'Zip Code': zipCode
+        } = payload.record;
+>>>>>>> Stashed changes
 
 			// Getting Address
 			let getAddress = getRecordWithPromise('Address', addressID).then((payload) => {
