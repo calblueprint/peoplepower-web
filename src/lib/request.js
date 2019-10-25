@@ -1,12 +1,12 @@
-import key from './api_key.js';
-/* Helper functions intended to streamline our requests to the AirTable API. */ 
+import key from './api_key';
+/* Helper functions intended to streamline our requests to the AirTable API. */
 
-var Airtable = require('airtable');
+const Airtable = require('airtable');
 
 // API KEY will reside in ENV variables later.
 Airtable.configure({
-    endpointUrl: 'https://api.airtable.com',
-    apiKey: key
+  endpointUrl: 'https://api.airtable.com',
+  apiKey: key
 });
 
 const base = Airtable.base('appFaOwKhMXrRIQIp');
@@ -15,26 +15,27 @@ const base = Airtable.base('appFaOwKhMXrRIQIp');
 
 // Given a table and record ID, return the associated record object using a Promise.
 function getRecordWithPromise(table, id) {
-	return new Promise((resolve, reject) => {
-		base(table).find(id, function(err, record) {
-		    if (err) { 
-		    	reject(err); 
-		    	return; 
-		    }
-		    console.log('Retrieved', record.get('ID'), record.fields);
-		    resolve({record: record.fields});
-		    return;
-		});
-	})
+  return new Promise((resolve, reject) => {
+    base(table).find(id, (err, record) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      console.log('Retrieved', record.get('ID'), record.fields);
+      resolve({ record: record.fields });
+    });
+  });
 }
 
-// Given a table and record ID, return the associated record object. 
+// Given a table and record ID, return the associated record object.
 function getRecord(table, id) {
-	base(table).find(id, function(err, record) {
-	    if (err) { console.error(err); return; }
-	    console.log('Retrieved', record.get('ID'), record.fields);
-	    return record.fields;
-	});
+  base(table).find(id, function(err, record) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log('Retrieved', record.get('ID'), record.fields);
+  });
 }
 
 /* 
@@ -43,22 +44,25 @@ function getRecord(table, id) {
 	return the associated record object.
 */
 function getRecordFromAttribute(table, fieldType, field) {
-	console.log(`Searching for ${field}`)
-	base(table).select({
-		view: "Grid view",
-		maxRecords: 1,
-	    filterByFormula: `{${fieldType}}='${field}'`
-	}).firstPage(function(err, records) {
-	    if (err) { console.error(err); return; }
-	    if (records.length < 1) {
-	    	console.log(`No record was retrieved using this ${fieldType}.`)
-	    	return 0;
-	    }
-	    records.forEach(function(record) {
-	        console.log('Retrieved', record.fields);
-	        return record
-	    });
-	});
+  console.log(`Searching for ${field}`);
+  base(table)
+    .select({
+      view: 'Grid view',
+      maxRecords: 1,
+      filterByFormula: `{${fieldType}}='${field}'`
+    })
+    .firstPage(function(err, records) {
+      if (err) {
+        console.error(err);
+      }
+      if (records.length < 1) {
+        console.log(`No record was retrieved using this ${fieldType}.`);
+      }
+      records.forEach(function(record) {
+        console.log('Retrieved', record.fields);
+        return record;
+      });
+    });
 }
 
 /* 
@@ -69,7 +73,7 @@ function getRecordFromAttribute(table, fieldType, field) {
 
 // Given a person object, create a record of that person.
 function createPerson(person) {
-/* EXAMPLE OBJECT TO CREATE PERSON
+  /* EXAMPLE OBJECT TO CREATE PERSON
 	{
 		"fields": {
 		  "Email": email,
@@ -83,15 +87,19 @@ function createPerson(person) {
 	} 
 */
 
-	base('Person').create([person], function(err, records) {
-		if (err) {
-			console.error(err);
-			return;
-		}
-		records.forEach(function (record) {
-			console.log(`Successfully created ${record.get('Name')} (${record.getId()})'s record.`);
-		});
-	});
+  base('Person').create([person], function(err, records) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    records.forEach(function(record) {
+      console.log(
+        `Successfully created ${record.get(
+          'Name'
+        )} (${record.getId()})'s record.`
+      );
+    });
+  });
 }
 
 /* 
@@ -124,15 +132,21 @@ function createPerson(person) {
 */
 
 function updatePerson(updatedPerson) {
-	base('Person').update([updatedPerson], function(err, records) {
-		if (err) {
-			console.error(err);
-			return;
-		}
-		records.forEach(function(record) {
-			console.log(record.get('Email'));
-		});
-	});
+  base('Person').update([updatedPerson], function(err, records) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    records.forEach(function(record) {
+      console.log(record.get('Email'));
+    });
+  });
 }
 
-export { getRecord, createPerson, updatePerson, getRecordFromAttribute, getRecordWithPromise };
+export {
+  getRecord,
+  createPerson,
+  updatePerson,
+  getRecordFromAttribute,
+  getRecordWithPromise
+};

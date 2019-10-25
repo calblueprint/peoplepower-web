@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App';
 import './styles/index.css';
-import Onboarding from "./screens/onboarding/Onboarding";
 
-ReactDOM.render(<Onboarding/>, document.getElementById('root'));
-
+ReactDOM.render(<App />, document.getElementById('root'));
