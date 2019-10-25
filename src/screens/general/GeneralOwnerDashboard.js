@@ -1,85 +1,105 @@
 import React from 'react';
-import '../../styles/GeneralOwnerDashboard.css'; 
-import { getRecord, getRecordWithPromise } from '../../lib/request'
+import '../../styles/GeneralOwnerDashboard.css';
+import { getRecordWithPromise } from '../../lib/request';
+import { getLoggedInUserId, logOut } from '../../lib/auth';
 
 export default class GeneralOwnerDashboard extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			email: '',
-			name: 'user',
-			phoneNumber: '',
-			address: '',
-			projectGroup: '',
-			error: ''
-		}
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      name: 'user',
+      phoneNumber: '',
+      address: '',
+      projectGroup: ''
+    };
+  }
 
-	componentDidMount() {
-		// hard-coded my id
-		const id = 'recfnsL4HDoNHril6';
+  componentDidMount() {
+    const { history } = this.props;
+    const id = getLoggedInUserId();
+    if (!id) {
+      // They shouldn't be able to access this screen
+      history.push('/');
+      return;
+    }
 
-		// QUESTION: Do these promises need to be assigned to a variable?
-		let getUser = getRecordWithPromise('Person', id).then((payload) => {
-			// Current user information
-			let { "Email": email, "Phone Number" : phoneNumber, "Owner": owner, 
-				 "Address": addressID, "Tags": tags, "User Login" : userLogin, "Name": name } = payload.record
+    getRecordWithPromise('Person', id)
+      .then(payload => {
+        const {
+          Email: email,
+          'Phone Number': phoneNumber,
+          Name: name,
+          Owner: owner,
+          Address: addressID
+        } = payload.record;
 
-				this.setState({
-					email: email,
-					name: name,
-					phoneNumber: phoneNumber
-				});
+        this.setState({
+          email,
+          name,
+          phoneNumber,
+          owner,
+          address
+        });
 
-			// Getting project group
-			let getProjectGroup = getRecordWithPromise('Owner', owner).then((payload) => {
-				let { "Project Group": projectGroupID } = payload.record
+        return getRecordWithPromise('Owner', this.state.owner);
+      })
+      .then(payload => {
+        const { 'Project Group': projectGroup } = payload.record;
+        return getRecordWithPromise('Project Group', this.state.projectGroup);
+      })
+      .then(payload => {
+        const { Name: projectGroupName } = payload.record;
+        this.setState({
+          projectGroup: projectGroupName
+        });
 
-				getRecordWithPromise('Project Group', projectGroupID).then((payload) => {
-					let { "Name": name } = payload.record
-					this.setState({
-						projectGroup: name
-					})
-				}).catch((err) => {
-						this.setState({
-							projectGroup: 'User has not joined a project group.'
-						})
-					})
-			}).catch((err) => {
-				this.setState({
-					projectGroup: 'User is not an owner.'
-				})
-			})
+        return getRecordWithPromise('Address', this.state.addressID);
+      })
+      .then(payload => {
+        const {
+          City: city,
+          Street: street,
+          State: state,
+          'Zip Code': zipCode
+        } = payload.record;
 
-			// Getting Address
-			let getAddress = getRecordWithPromise('Address', addressID).then((payload) => {
+        this.setState({
+          address: `${street}, ${city}, ${state} ${zipCode}`
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
-				let { "City": city, "Street": street, "State": state, "Zip Code": zipCode } = payload.record
+  handleLogoutClick = () => {
+    const { history } = this.props;
+    logOut();
+    history.push('/');
+  };
 
-				this.setState({
-					address: `${street}, ${city}, ${state} ${zipCode}`
-				});
-			}).catch((err) => {
-				this.setState({
-					address: 'No address on file.'
-				});
-			})
+  render() {
+    const { name, email, phoneNumber, address, projectGroup } = this.state;
+    return (
+      <div className="dashboardCont">
+        <div className="userInfoCont">
+          <h2>General Owner Dashboard</h2>
+          <p>Welcome, {name}</p>
+          <p>Email: {email}</p>
+          <p>Phone Number: {phoneNumber}</p>
+          <p>Address: {address}</p>
+          <p>Project Group: {projectGroup}</p>
+        </div>
 
-		})
-	}
-
-	render() {
-		return (
-			<div className="dashboardCont">
-				<div className="userInfoCont"> 
-					<h2>General Owner Dashboard</h2>
-					<p>Welcome, {this.state.name}</p>
-					<p>Email: {this.state.email}</p>
-					<p>Phone Number: {this.state.phoneNumber}</p>
-					<p>Address: {this.state.address}</p>
-					<p>Project Group: {this.state.projectGroup}</p>
-				</div>
-			</div>
-		);
-	}
+        <button
+          type="button"
+          className="primary-button"
+          onClick={this.handleLogoutClick}
+        >
+          Logout
+        </button>
+      </div>
+    );
+  }
 }
