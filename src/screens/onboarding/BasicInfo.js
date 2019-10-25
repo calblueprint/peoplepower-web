@@ -1,4 +1,5 @@
 import React from 'react';
+import formValidation from "../../lib/formValidation";
 
 class BasicInfo extends React.Component {
 
@@ -8,9 +9,26 @@ class BasicInfo extends React.Component {
         }
     }
 
+    //validates then moves on if no error messages
     nextButton = (e) => {
         e.preventDefault();
-        this.props.nextStep();
+        const { values } = this.props;
+        let fields = ['fname', 'lname'];
+        let errors = [];
+
+        for (var i = 0; i < fields.length; i++){
+            let errorMessage = formValidation(fields[i], values[fields[1]]);
+            this.props.values.errors[fields[i]] = errorMessage;
+            if (errorMessage !== "") {
+                errors.push(errorMessage);
+            }
+        }
+
+        if (!(errors && errors.length > 0)) {
+            this.props.nextStep();
+        } else {
+            this.forceUpdate();
+        }
     }
 
 
@@ -26,7 +44,7 @@ class BasicInfo extends React.Component {
                         placeholder='First Name'
                         onChange={this.props.handleChange}
                         defaultValue={values.fname}
-                        className={`${ errors.fname != '' ? 'b-is-not-valid':'b-is-invalid' }`}
+                        className={`${ errors.fname !== '' ? 'b-is-not-valid':'b-is-invalid' }`}
                         onBlur={this.props.handleFormValidation}
                     />
                 </div>
@@ -38,33 +56,11 @@ class BasicInfo extends React.Component {
                         placeholder='Last Name'
                         onChange={this.props.handleChange}
                         defaultValue={values.lname}
-                        className={`${ errors.lname != '' ? 'b-is-not-valid':'b-is-invalid' }`}
+                        className={`${ errors.lname !== '' ? 'b-is-not-valid':'b-is-invalid' }`}
                         onBlur={this.props.handleFormValidation}
                     />
                 </div>
                 <div>{errors.lname ? errors.lname: '\u00A0'}</div>
-                {/*<div>*/}
-                {/*    <label>Email</label>*/}
-                {/*    <input*/}
-                {/*        placeholder='Email'*/}
-                {/*        onChange={this.props.handleChange('email')}*/}
-                {/*        defaultValue={values.email}*/}
-                {/*    />*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*    <label>Password</label>*/}
-                {/*    <input*/}
-                {/*        placeholder='Password'*/}
-                {/*        onChange={this.props.handleChange('password')}*/}
-                {/*        defaultValue={values.password}*/}
-                {/*    />*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*    <label>Confirm Password</label>*/}
-                {/*    <input*/}
-                {/*        placeholder='Confirm Password'*/}
-                {/*    />*/}
-                {/*</div>*/}
                 <button onClick={this.nextButton}>Next</button>
             </form>
         );

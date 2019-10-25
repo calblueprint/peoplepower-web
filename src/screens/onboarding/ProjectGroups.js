@@ -1,4 +1,5 @@
 import React from 'react';
+import formValidation from "../../lib/formValidation";
 
 
 class ProjectGroups extends React.Component {
@@ -12,7 +13,14 @@ class ProjectGroups extends React.Component {
 
     nextButton = (e) => {
         e.preventDefault();
-        this.props.nextStep();
+
+        let errorMessage = formValidation("project_group", this.props.values.project_group);
+        this.props.values.errors.project_group = errorMessage;
+        if (errorMessage === "") {
+            this.props.nextStep();
+        } else {
+            this.forceUpdate();
+        }
     }
 
 
@@ -22,7 +30,7 @@ class ProjectGroups extends React.Component {
     }
 
     render(){
-        const { values } = this.props;
+        const { errors } = this.props.values;
 
         return(
             <form>
@@ -34,6 +42,7 @@ class ProjectGroups extends React.Component {
                         <option value="Oakland">Oakland</option>
                     </select>
                 </div>
+                <div>{errors.project_group ? errors.project_group: '\u00A0'}</div>
                 <button onClick={this.prevButton}>Prev</button>
                 <button onClick={this.nextButton}>Next</button>
             </form>

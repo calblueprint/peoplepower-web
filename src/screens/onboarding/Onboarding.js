@@ -4,6 +4,7 @@ import ContactInfo from "./ContactInfo";
 import Bylaws from "./Bylaws";
 import ProjectGroups from "./ProjectGroups";
 import Payment from "./Payment";
+import formValidation from "../../lib/formValidation";
 
 
 class Onboarding extends React.Component {
@@ -13,8 +14,6 @@ class Onboarding extends React.Component {
         this.state = {
             fname: "",
             lname: "",
-            // email: "",
-            // password: "",
             street: "",
             apt: "",
             state: "",
@@ -35,8 +34,6 @@ class Onboarding extends React.Component {
             errors:{ //object that holds all the error messages
                 fname: "",
                 lname: "",
-                // email: "",
-                // password: "",
                 street: "",
                 apt: "",
                 state: "",
@@ -53,7 +50,7 @@ class Onboarding extends React.Component {
                 b_state: "",
                 b_zipcode: ""
             },
-            step: 1
+            step: 5
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -100,23 +97,10 @@ class Onboarding extends React.Component {
 
     //validates the input divs
     handleFormValidation = event => {
-        let errorMessage = '';
         let value = event.target.value;
         let name = event.target.name;
-        if (value == 0){
-            errorMessage =  'Required';
-        } else {
-            switch(name) {
-                case 'email':
-                    errorMessage = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) ? '' : 'Invalid Email';
-                case 'password':
-                    if (value.length < 6){
-                        errorMessage = 'Password is too short';
-                    } else {
-                        errorMessage = value.matches(/(?=.*[0-9])/) ? '' : 'Password must include a number';
-                    }
-            }
-        }
+        let errorMessage = formValidation(name, value);
+
         this.setState({
             errors : {...this.state.errors, [event.target.name]: errorMessage}
         })

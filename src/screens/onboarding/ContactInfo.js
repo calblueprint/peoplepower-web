@@ -1,4 +1,5 @@
 import React from 'react';
+import formValidation from "../../lib/formValidation";
 
 
 class ContactInfo extends React.Component {
@@ -12,7 +13,23 @@ class ContactInfo extends React.Component {
 
     nextButton = (e) => {
         e.preventDefault();
-        this.props.nextStep();
+        const { values } = this.props;
+        let fields = ['street', 'apt', 'state', 'zipcode'];
+        let errors = [];
+
+        for (var i = 0; i < fields.length; i++){
+            let errorMessage = formValidation(fields[i], values[fields[1]]);
+            this.props.values.errors[fields[i]] = errorMessage;
+            if (errorMessage !== "") {
+                errors.push(errorMessage);
+            }
+        }
+
+        if (!(errors && errors.length > 0)) {
+            this.props.nextStep();
+        } else {
+            this.forceUpdate();
+        }
     }
 
 
@@ -33,7 +50,7 @@ class ContactInfo extends React.Component {
                         placeholder='Address'
                         onChange={this.props.handleChange}
                         defaultValue={values.street}
-                        className={`${ errors.street != '' ? 'b-is-not-valid':'b-is-invalid' }`}
+                        className={`${ errors.street !== '' ? 'b-is-not-valid':'b-is-invalid' }`}
                         onBlur={this.props.handleFormValidation}
                     />
                 </div>
@@ -47,6 +64,7 @@ class ContactInfo extends React.Component {
                         defaultValue={values.apt}
                     />
                 </div>
+                <div>{errors.apt ? errors.apt: '\u00A0'}</div>
                 <div>
                     <label>State</label>
                     <input
@@ -54,10 +72,11 @@ class ContactInfo extends React.Component {
                         placeholder='State'
                         onChange={this.props.handleChange}
                         defaultValue={values.state}
-                        className={`${ errors.state != '' ? 'b-is-not-valid':'b-is-invalid' }`}
+                        className={`${ errors.state !== '' ? 'b-is-not-valid':'b-is-invalid' }`}
                         onBlur={this.props.handleFormValidation}
                     />
                 </div>
+                <div>{errors.state ? errors.state: '\u00A0'}</div>
                 <div>
                     <label>Zipcode</label>
                     <input
@@ -65,7 +84,7 @@ class ContactInfo extends React.Component {
                         placeholder='Zipcode'
                         onChange={this.props.handleChange}
                         defaultValue={values.zipcode}
-                        className={`${ errors.zipcode != '' ? 'b-is-not-valid':'b-is-invalid' }`}
+                        className={`${ errors.zipcode !== '' ? 'b-is-not-valid':'b-is-invalid' }`}
                         onBlur={this.props.handleFormValidation}
                     />
                 </div>

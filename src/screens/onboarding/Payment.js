@@ -1,4 +1,5 @@
 import React from 'react';
+import formValidation from "../../lib/formValidation";
 
 
 class Payment extends React.Component {
@@ -12,7 +13,23 @@ class Payment extends React.Component {
 
     finishButton = (e) => {
         e.preventDefault();
-        this.props.onSubmit();
+        const { values } = this.props;
+        let fields = ['num_shares', 'dividends'];
+        let errors = [];
+
+        for (var i = 0; i < fields.length; i++){
+            let errorMessage = formValidation(fields[i], values[fields[1]]);
+            this.props.values.errors[fields[i]] = errorMessage;
+            if (errorMessage !== "") {
+                errors.push(errorMessage);
+            }
+        }
+        console.log(errors);
+        if (!(errors && errors.length > 0)) {
+            this.props.onSubmit();
+        } else {
+            this.forceUpdate();
+        }
     }
 
 
@@ -23,6 +40,7 @@ class Payment extends React.Component {
 
     render(){
         const { values } = this.props;
+        const { errors } = this.props.values;
         return(
             <div>
                 <form>
@@ -35,6 +53,7 @@ class Payment extends React.Component {
                             defaultValue={values.num_shares}
                         />
                     </div>
+                    <div>{errors.num_shares ? errors.num_shares: '\u00A0'}</div>
                     <div>
                         Dividends
                         <div>
@@ -42,7 +61,7 @@ class Payment extends React.Component {
                                 <input type="radio"
                                        name="dividends"
                                        value="yes"
-                                       checked={values.dividends == "yes"}
+                                       checked={values.dividends === "yes"}
                                        onChange={this.props.handleChange} />
                                 yes
                             </label>
@@ -52,13 +71,14 @@ class Payment extends React.Component {
                                 <input type="radio"
                                        name="dividends"
                                        value="no"
-                                       checked={values.dividends == "no"}
+                                       checked={values.dividends === "no"}
                                        onChange={this.props.handleChange}
                                     />
                                 no
                             </label>
                         </div>
                     </div>
+                    <div>{errors.dividends ? errors.dividends: '\u00A0'}</div>
                     <div label='Payment Information'>
                     </div>
                 </form>
