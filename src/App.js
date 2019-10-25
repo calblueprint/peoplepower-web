@@ -6,8 +6,9 @@ import GeneralOwnerDashboard from './screens/general/GeneralOwnerDashboard';
 import AdminDashboard from './screens/general/AdminDashboard';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
-// import SignUp from './screens/auth/SignUp';
 import UserProfilePage from './screens/general/UserProfilePage';
+import SignUp from './screens/auth/SignUp';
+import SubscriberOwnerDashboard from './screens/general/SubscriberOwnerDashboard';
 
 function App() {
   return (
