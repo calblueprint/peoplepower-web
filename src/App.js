@@ -6,6 +6,7 @@ import GeneralOwnerDashboard from './screens/general/GeneralOwnerDashboard';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
 import SignUp from './screens/auth/SignUp';
+import UserProfilePage from './screens/general/UserProfilePage';
 
 function App() {
   return (

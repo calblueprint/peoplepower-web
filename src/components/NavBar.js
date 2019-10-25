@@ -18,8 +18,8 @@ export default class NavBar extends React.Component {
     getRecordWithPromise('Person', id).then(payload => {
       const { Name: name } = payload.record;
       this.setState({
-        id: id,
-        name: name
+        id,
+        name
       });
     });
   }
