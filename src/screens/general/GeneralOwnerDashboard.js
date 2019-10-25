@@ -1,57 +1,9 @@
 import React from 'react';
 import '../../styles/GeneralOwnerDashboard.css'; 
 import { getRecord, getRecordWithPromise } from '../../lib/request'
+import { getLoggedInUserId } from '../../lib/auth'
 
 export default class GeneralOwnerDashboard extends React.Component {
-<<<<<<< Updated upstream
-	constructor(props) {
-		super(props);
-		this.state = {
-			email: '',
-			name: 'user',
-			phoneNumber: '',
-			address: '',
-			projectGroup: '',
-			error: ''
-		}
-	}
-
-	componentDidMount() {
-		// hard-coded my id
-		const id = 'recfnsL4HDoNHril6';
-
-		// QUESTION: Do these promises need to be assigned to a variable?
-		let getUser = getRecordWithPromise('Person', id).then((payload) => {
-			// Current user information
-			let { "Email": email, "Phone Number" : phoneNumber, "Owner": owner, 
-				 "Address": addressID, "Tags": tags, "User Login" : userLogin, "Name": name } = payload.record
-
-				this.setState({
-					email: email,
-					name: name,
-					phoneNumber: phoneNumber
-				});
-
-			// Getting project group
-			let getProjectGroup = getRecordWithPromise('Owner', owner).then((payload) => {
-				let { "Project Group": projectGroupID } = payload.record
-
-				getRecordWithPromise('Project Group', projectGroupID).then((payload) => {
-					let { "Name": name } = payload.record
-					this.setState({
-						projectGroup: name
-					})
-				}).catch((err) => {
-						this.setState({
-							projectGroup: 'User has not joined a project group.'
-						})
-					})
-			}).catch((err) => {
-				this.setState({
-					projectGroup: 'User is not an owner.'
-				})
-			})
-=======
   constructor(props) {
     super(props);
     this.state = {
@@ -65,8 +17,8 @@ export default class GeneralOwnerDashboard extends React.Component {
 
   componentDidMount() {
     const { history } = this.props;
-    const id = getLoggedInUserId(); // THIS IS NOT THE ID YOU ARE LOOK FOR HEHE.
-    if (!id) {
+    const userLogInID = getLoggedInUserId(); // THIS IS NOT THE ID YOU ARE LOOK FOR HEHE.
+    if (!userLogInID) {
       // They shouldn't be able to access this screen
       history.push('/');
       return;
@@ -78,9 +30,8 @@ export default class GeneralOwnerDashboard extends React.Component {
     let name;
     let owner;
     let addressID;
-    console.log(id);
 
-    getRecordWithPromise('User Login', id)
+    getRecordWithPromise('User Login', userLogInID)
       .then(payload => {
         personID = payload.record.Person;
         return getRecordWithPromise('Person', personID);
@@ -120,23 +71,16 @@ export default class GeneralOwnerDashboard extends React.Component {
           State: state,
           'Zip Code': zipCode
         } = payload.record;
->>>>>>> Stashed changes
 
-			// Getting Address
-			let getAddress = getRecordWithPromise('Address', addressID).then((payload) => {
+        this.setState({
+          address: `${street}, ${city}, ${state} ${zipCode}`
+        });
 
-				let { "City": city, "Street": street, "State": state, "Zip Code": zipCode } = payload.record
-
-				this.setState({
-					address: `${street}, ${city}, ${state} ${zipCode}`
-				});
-			}).catch((err) => {
+      }).catch((err) => {
 				this.setState({
 					address: 'No address on file.'
 				});
 			})
-
-		})
 	}
 
 	render() {
