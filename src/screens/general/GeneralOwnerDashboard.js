@@ -17,8 +17,8 @@ export default class GeneralOwnerDashboard extends React.Component {
 
   componentDidMount() {
     const { history } = this.props;
-    const id = getLoggedInUserId(); // THIS IS NOT THE ID YOU ARE LOOK FOR HEHE.
-    if (!id) {
+    const userLogInID = getLoggedInUserId();
+    if (!userLogInID) {
       // They shouldn't be able to access this screen
       history.push('/');
       return;
@@ -30,9 +30,8 @@ export default class GeneralOwnerDashboard extends React.Component {
     let name;
     let owner;
     let addressID;
-    console.log(id);
 
-    getRecordWithPromise('User Login', id)
+    getRecordWithPromise('User Login', userLogInID)
       .then(payload => {
         personID = payload.record.Person;
         return getRecordWithPromise('Person', personID);
@@ -47,9 +46,9 @@ export default class GeneralOwnerDashboard extends React.Component {
         } = payload.record);
 
         this.setState({
-          email: email,
-          name: name,
-          phoneNumber: phoneNumber
+          email,
+          name,
+          phoneNumber
         });
 
         return getRecordWithPromise('Owner', owner);
