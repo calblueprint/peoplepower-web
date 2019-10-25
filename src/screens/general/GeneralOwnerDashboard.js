@@ -11,7 +11,8 @@ export default class GeneralOwnerDashboard extends React.Component {
       name: 'user',
       phoneNumber: 'N/A',
       address: '',
-      projectGroup: ''
+      projectGroup: '',
+      solarProject: []
     };
   }
 
@@ -58,10 +59,25 @@ export default class GeneralOwnerDashboard extends React.Component {
         return getRecordWithPromise('Project Group', projectGroupID);
       })
       .then(payload => {
-        const { Name: projectGroupName } = payload.record;
+        const {
+          Name: projectGroupName,
+          'Solar Project': solarProject
+        } = payload.record;
         this.setState({
           projectGroup: projectGroupName
         });
+
+        const solarProjectNames = [];
+        // group promise.all?
+        solarProject.forEach(project => {
+          getRecordWithPromise('Solar Project', project).then(res => {
+            solarProjectNames.push(res.record.Name);
+            this.setState({
+              solarProject: solarProjectNames
+            });
+          });
+        });
+
         return getRecordWithPromise('Address', addressID);
       })
       .then(payload => {
@@ -88,7 +104,17 @@ export default class GeneralOwnerDashboard extends React.Component {
   };
 
   render() {
-    const { name, email, phoneNumber, address, projectGroup } = this.state;
+    const {
+      name,
+      email,
+      phoneNumber,
+      address,
+      projectGroup,
+      solarProject
+    } = this.state;
+    const solarProjectComponent = solarProject.map(project => {
+      return <li>{project}</li>;
+    });
     return (
       <div className="dashboardCont">
         <div className="userInfoCont">
@@ -98,6 +124,10 @@ export default class GeneralOwnerDashboard extends React.Component {
           <p>Phone Number: {phoneNumber}</p>
           <p>Address: {address}</p>
           <p>Project Group: {projectGroup}</p>
+          <ul>
+            Solar Project(s):
+            {solarProjectComponent}
+          </ul>
         </div>
 
         <button
