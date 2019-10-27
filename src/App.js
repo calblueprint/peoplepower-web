@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import './styles/App.css';
+import NavBar from './components/NavBar';
+import GeneralOwnerDashboard from './screens/general/GeneralOwnerDashboard';
+import Onboarding from './screens/onboarding/Onboarding';
+import Login from './screens/auth/Login';
+import SignUp from './screens/auth/SignUp';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <NavBar />
+
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/onboarding" component={Onboarding} />
+          <Route path="/dashboard" component={GeneralOwnerDashboard} />
+          <Route>Not Found - 404</Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
