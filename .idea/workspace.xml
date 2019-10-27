@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d161631a-b8dc-4f83-badf-a5d5016108dd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lib/formValidation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/states.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/formValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/formValidation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/onboarding/BasicInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/BasicInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/Bylaws.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/Bylaws.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/onboarding/ContactInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/ContactInfo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/onboarding/Onboarding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/Onboarding.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/onboarding/Payment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/Payment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/ProjectGroups.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/ProjectGroups.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,6 +35,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="jsx.switch.disabled" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/projects/rollie-pollie" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -72,7 +78,9 @@
       <workItem from="1570411121353" duration="61000" />
       <workItem from="1570411186550" duration="27184000" />
       <workItem from="1571619013017" duration="7509000" />
-      <workItem from="1571958995667" duration="4293000" />
+      <workItem from="1571958995667" duration="11855000" />
+      <workItem from="1572119385052" duration="35000" />
+      <workItem from="1572215076765" duration="1684000" />
     </task>
     <servers />
   </component>
