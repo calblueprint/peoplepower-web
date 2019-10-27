@@ -1,6 +1,5 @@
 import Cookies from 'universal-cookie';
 import key from './api_key';
-import { getRecordWithPromise } from './request';
 
 const cookies = new Cookies();
 
@@ -11,7 +10,6 @@ const Airtable = require('airtable');
 const base = new Airtable({ apiKey: key }).base(BASE_ID);
 
 const EMAIL_FIELD = 'Email';
-const ID_FIELD = 'ID';
 const PASSWORD_FIELD = 'Password';
 const GRID_VIEW = 'Grid view';
 const NUM_RECORDS = 1;
