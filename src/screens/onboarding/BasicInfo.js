@@ -62,7 +62,7 @@ class BasicInfo extends React.Component {
               className={`${
                 errors.lname !== '' ? 'b-is-not-valid' : 'b-is-invalid'
               }`}
-              onBlur={hadleFormValidation}
+              onBlur={handleFormValidation}
             />
           </label>
         </div>
