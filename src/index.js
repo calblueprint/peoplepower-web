@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 import Invite from './Invite'
 import * as serviceWorker from './serviceWorker';
@@ -18,3 +19,8 @@ import './styles/index.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 >>>>>>> 5a79c032815a9ec492c8526b9622950061320de9
+=======
+import './styles/index.css';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+>>>>>>> Stashed changes
