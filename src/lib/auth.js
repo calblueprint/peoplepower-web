@@ -1,5 +1,6 @@
 import Cookies from 'universal-cookie';
 import key from './api_key';
+import { getRecordWithPromise } from './request';
 
 const cookies = new Cookies();
 
@@ -35,7 +36,8 @@ const loginUser = (email, passwordHash) => {
             const recordEmail = record.get(EMAIL_FIELD);
             if (recordEmail === email) {
               if (record.get(PASSWORD_FIELD) === passwordHash) {
-                cookies.set(LOGIN_TOKEN_NAME, record.get(ID_FIELD));
+                const personId = record.get('Person')[0];
+                cookies.set(LOGIN_TOKEN_NAME, personId);
                 resolve({ match: true, found: true });
               } else {
                 resolve({ match: false, found: true });
