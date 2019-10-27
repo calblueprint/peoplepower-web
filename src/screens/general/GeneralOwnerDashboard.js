@@ -18,25 +18,20 @@ export default class GeneralOwnerDashboard extends React.Component {
 
   componentDidMount() {
     const { history } = this.props;
-    const userLogInID = getLoggedInUserId();
-    if (!userLogInID) {
+    const id = getLoggedInUserId();
+    if (!id) {
       // They shouldn't be able to access this screen
       history.push('/');
       return;
     }
 
-    let personID;
     let email;
     let phoneNumber;
     let name;
     let owner;
     let addressID;
 
-    getRecordWithPromise('User Login', userLogInID)
-      .then(payload => {
-        personID = payload.record.Person;
-        return getRecordWithPromise('Person', personID);
-      })
+    getRecordWithPromise('Person', id)
       .then(payload => {
         ({
           Name: name,
