@@ -1,4 +1,15 @@
 import { getRecordWithPromise } from './request';
+import key from './api_key';
+
+const Airtable = require('airtable');
+
+// API KEY will reside in ENV variables later.
+Airtable.configure({
+  endpointUrl: 'https://api.airtable.com',
+  apiKey: key
+});
+
+const base = Airtable.base('appFaOwKhMXrRIQIp');
 
 // TABLES
 const PERSON_TABLE = 'Person';
@@ -20,8 +31,7 @@ const getOwnerFromPerson = async personId => {
   return Owner[0];
 };
 
-const getAdminTable = async personId => {
-  const ownerId = await getOwnerFromPerson(personId);
+const getAdminTable = async ownerId => {
   const recordMap = await getRecordWithPromise(OWNER_TABLE, ownerId);
   const { record } = recordMap;
 
@@ -44,4 +54,34 @@ const getOwnersFromProjectGroup = async groupId => {
   return ownersObjects.map(ownersObject => ownersObject.record);
 };
 
-export { getAdminTable, getOwnersFromProjectGroup };
+const removeOwnerFromProjectGroup = async (id, newOwners) => {
+  return new Promise((resolve, reject) => {
+    base(PROJECT_GROUP_TABLE).update(
+      [
+        {
+          id,
+          fields: {
+            Owner: newOwners
+          }
+        }
+      ],
+      function(err) {
+        if (err) {
+          console.error(err);
+          reject(err);
+        }
+        resolve(true);
+        // records.forEach(function(record) {
+        //   console.log(record.get('Owner'));
+        // });
+      }
+    );
+  });
+};
+
+export {
+  getAdminTable,
+  getOwnersFromProjectGroup,
+  getOwnerFromPerson,
+  removeOwnerFromProjectGroup
+};
