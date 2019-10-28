@@ -2,7 +2,8 @@ import React from 'react';
 import '../../styles/UserProfilePage.css';
 import {
   getRecordWithPromise,
-  updatePersonWithPromise
+  updatePersonWithPromise,
+  updateRecordWithPromise
 } from '../../lib/request';
 
 export default class UserProfilePage extends React.Component {
@@ -18,7 +19,8 @@ export default class UserProfilePage extends React.Component {
       status: '',
       updateName: '',
       updateEmail: '',
-      updatePhone: ''
+      updatePhone: '',
+      userLogin: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,6 +40,7 @@ export default class UserProfilePage extends React.Component {
     let name;
     let owner;
     let addressID;
+    let userLogin;
 
     getRecordWithPromise('Person', id)
       .then(payload => {
@@ -46,7 +49,8 @@ export default class UserProfilePage extends React.Component {
           'Phone Number': phoneNumber,
           Owner: owner,
           Address: addressID,
-          Name: name
+          Name: name,
+          'User Login': userLogin
         } = payload.record);
 
         this.setState({
@@ -55,7 +59,8 @@ export default class UserProfilePage extends React.Component {
           name,
           updateName: name,
           phoneNumber,
-          updatePhone: phoneNumber
+          updatePhone: phoneNumber,
+          userLogin: userLogin[0]
         });
 
         // Getting project group
@@ -102,7 +107,7 @@ export default class UserProfilePage extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { id, updateName, updateEmail, updatePhone } = this.state;
+    const { id, updateName, updateEmail, updatePhone, userLogin } = this.state;
     const newPerson = {
       id,
       fields: {
@@ -111,15 +116,28 @@ export default class UserProfilePage extends React.Component {
         'Phone Number': updatePhone
       }
     };
+    const newLogin = {
+      id: userLogin,
+      fields: {
+        Email: updateEmail
+      }
+    };
+    console.log(`UPDATE: ${  userLogin}`);
     // note there should be an function that I write that just does this rerendering
-    updatePersonWithPromise(newPerson).then(payload => {
-      // const { updateName, updateEmail } = this.state;
-      this.setState({
-        status: payload.status,
-        name: updateName,
-        email: updateEmail
+    updatePersonWithPromise(newPerson)
+      .then(payload => {
+        // const { updateName, updateEmail } = this.state;
+        this.setState({
+          status: payload.status,
+          name: updateName,
+          email: updateEmail
+        });
+
+        return updateRecordWithPromise('User Login', newLogin);
+      })
+      .then(payload => {
+        console.log(payload);
       });
-    });
   }
 
   render() {

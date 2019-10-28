@@ -174,10 +174,26 @@ function updatePersonWithPromise(updatedPerson) {
   });
 }
 
+function updateRecordWithPromise(table, updatedRecord) {
+  return new Promise((resolve, reject) => {
+    base(table).update([updatedRecord], function(err, records) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      records.forEach(function(record) {
+        console.log(record.get('ID'));
+      });
+    });
+    resolve({ status: 'Successfully updated record(s)' });
+  });
+}
+
 export {
   createPerson,
   updatePersonWithPromise,
   getRecordFromAttribute,
   getRecordWithPromise,
-  getRecordFromAttributeWithPromise
+  getRecordFromAttributeWithPromise,
+  updateRecordWithPromise
 };
