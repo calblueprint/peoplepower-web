@@ -15,12 +15,17 @@ export default class UserProfilePage extends React.Component {
       name: 'user',
       phoneNumber: '',
       address: '',
+      addressID: '',
       projectGroup: '',
       status: '',
       updateName: '',
       updateEmail: '',
       updatePhone: '',
-      userLogin: ''
+      userLoginID: '',
+      updateStreet: '',
+      updateCity: '',
+      updateState: '',
+      updateZip: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -40,7 +45,7 @@ export default class UserProfilePage extends React.Component {
     let name;
     let owner;
     let addressID;
-    let userLogin;
+    let userLoginID;
 
     getRecordWithPromise('Person', id)
       .then(payload => {
@@ -50,9 +55,9 @@ export default class UserProfilePage extends React.Component {
           Owner: owner,
           Address: addressID,
           Name: name,
-          'User Login': userLogin
+          'User Login': userLoginID,
+          Address: addressID
         } = payload.record);
-
         this.setState({
           email,
           updateEmail: email,
@@ -60,7 +65,8 @@ export default class UserProfilePage extends React.Component {
           updateName: name,
           phoneNumber,
           updatePhone: phoneNumber,
-          userLogin: userLogin[0]
+          userLoginID: userLoginID[0],
+          addressID: addressID[0]
         });
 
         // Getting project group
@@ -89,7 +95,11 @@ export default class UserProfilePage extends React.Component {
         } = payload.record;
 
         this.setState({
-          address: `${street}, ${city}, ${state} ${zipCode}`
+          address: `${street}, ${city}, ${state} ${zipCode}`,
+          updateStreet: street,
+          updateCity: city,
+          updateState: state,
+          updateZip: zipCode
         });
       })
       .catch(err => {
@@ -107,36 +117,65 @@ export default class UserProfilePage extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { id, updateName, updateEmail, updatePhone, userLogin } = this.state;
+    const {
+      id,
+      updateName,
+      updateEmail,
+      updatePhone,
+      userLoginID,
+      addressID,
+      updateStreet,
+      updateCity,
+      updateState,
+      updateZip
+    } = this.state;
+
     const newPerson = {
       id,
       fields: {
         Name: updateName,
-        Email: updateEmail,
+        Email: updateEmail.toLowerCase(),
         'Phone Number': updatePhone
       }
     };
     const newLogin = {
-      id: userLogin,
+      id: userLoginID,
       fields: {
         Email: updateEmail
       }
     };
-    console.log(`UPDATE: ${  userLogin}`);
+    const newAddress = {
+      id: addressID,
+      fields: {
+        Street: updateStreet,
+        City: updateCity,
+        State: updateState.toUpperCase(),
+        'Zip Code': updateZip
+      }
+    };
+    console.log(`UPDATE: ${userLoginID}`);
     // note there should be an function that I write that just does this rerendering
     updatePersonWithPromise(newPerson)
       .then(payload => {
-        // const { updateName, updateEmail } = this.state;
         this.setState({
           status: payload.status,
           name: updateName,
           email: updateEmail
         });
-
         return updateRecordWithPromise('User Login', newLogin);
       })
       .then(payload => {
-        console.log(payload);
+        this.setState({
+          status: payload.status,
+          name: updateName,
+          email: updateEmail
+        });
+        return updateRecordWithPromise('Address', newAddress);
+      })
+      .then(() => {
+        this.setState({
+          address: `${updateStreet}, ${updateCity}, ${updateState} ${updateZip}`
+        });
       });
   }
 
@@ -150,6 +189,10 @@ export default class UserProfilePage extends React.Component {
       newName,
       newEmail,
       newPhone,
+      newStreet,
+      newCity,
+      newState,
+      newZip,
       status
     } = this.state;
     return (
@@ -191,6 +234,47 @@ export default class UserProfilePage extends React.Component {
                 name="updatePhone"
                 placeholder="(xxx) xxx-xxxx"
                 value={newPhone}
+                onChange={this.handleChange}
+              />
+            </label>
+            <h3>Address:</h3>
+            <label htmlFor="updateStreet">
+              Street:
+              <input
+                type="text"
+                name="updateStreet"
+                placeholder="2311 Bowditch Street"
+                value={newStreet}
+                onChange={this.handleChange}
+              />
+            </label>
+            <label htmlFor="updateStreet">
+              City:
+              <input
+                type="text"
+                name="updateCity"
+                placeholder="Berkeley"
+                value={newCity}
+                onChange={this.handleChange}
+              />
+            </label>
+            <label htmlFor="updateStreet">
+              State:
+              <input
+                type="text"
+                name="updateState"
+                placeholder="CA"
+                value={newState}
+                onChange={this.handleChange}
+              />
+            </label>
+            <label htmlFor="updateStreet">
+              Zip Code:
+              <input
+                type="text"
+                name="updateZip"
+                placeholder="94704"
+                value={newZip}
                 onChange={this.handleChange}
               />
             </label>

@@ -37,7 +37,7 @@ function getRecordWithPromise(table, id) {
         reject(err);
         return;
       }
-      console.log('Retrieved', record.get('ID'), record.fields);
+      // console.log('Retrieved', record.get('ID'), record.fields);
       resolve({ record: record.fields });
     });
   });
@@ -167,7 +167,7 @@ function updatePersonWithPromise(updatedPerson) {
         return;
       }
       records.forEach(function(record) {
-        console.log(record.get('Email'));
+        console.log(`UPDATED PERSON: ${record.get('ID')}`);
       });
     });
     resolve({ status: 'Successfully updated record(s)' });
@@ -182,7 +182,7 @@ function updateRecordWithPromise(table, updatedRecord) {
         return;
       }
       records.forEach(function(record) {
-        console.log(record.get('ID'));
+        console.log(`UPDATED ${table}:  ${record.get('ID')}`);
       });
     });
     resolve({ status: 'Successfully updated record(s)' });

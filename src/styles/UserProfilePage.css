@@ -1,22 +1,25 @@
 .inputFormCont {
-	width: 50%;
-	float: right;
+  width: 50%;
+  float: right;
 }
 
-.inputFormCont h2, label {
-	color: white;
+.inputFormCont h2,
+h3,
+label {
+  color: white;
 }
 
 .userInfoCont {
-	width: 50%;
-	display: inline-block;
+  width: 50%;
+  display: inline-block;
 }
 
-.userInfoCont h3, p {
-	padding-left: 30px;
+.userInfoCont h3,
+p {
+  padding-left: 30px;
 }
 
 input {
-	display: block;
-	margin: 10px 0px;
+  display: block;
+  margin: 10px 0px;
 }
