@@ -1,10 +1,11 @@
-import React, { Window } from 'react';
+import React from 'react';
 import BasicInfo from './BasicInfo';
 import ContactInfo from './ContactInfo';
 import Bylaws from './Bylaws';
 import ProjectGroups from './ProjectGroups';
 import Payment from './Payment';
 import formValidation from '../../lib/formValidation';
+import { createPerson } from '../../lib/request';
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Onboarding extends React.Component {
       zipcode: '',
       phoneNumber: '',
       bylaw: false,
-      projectGroup: '',
+      projectGroup: {},
       numShares: '',
       dividends: '',
       beneficiaries: [],
@@ -43,13 +44,13 @@ class Onboarding extends React.Component {
         numShares: '',
         dividends: false,
         beneficiaries: [],
-        payment_info: '',
+        paymentInfo: '',
         b_street: '',
         b_apt: '',
         b_state: '',
         b_zipcode: ''
       },
-      step: 1
+      step: 4
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -69,10 +70,21 @@ class Onboarding extends React.Component {
   };
 
   onSubmit = () => {
-    const { fname, lname } = this.state;
-    Window.alert(`Your state values: \n 
-            first name: ${fname} \n 
-            last name: ${lname}`);
+    const { fname, lname, street, apt, state, zipcode } = this.state;
+    // alert(`Your state values: \n
+    //         first name: ${fname} \n
+    //         last name: ${lname}`);
+    createPerson({
+      fields: {
+        // "Email": email,
+        // "Phone Number": phoneNumber,
+        // "Owner": [owner],
+        Address: [street, apt, state, zipcode],
+        // "Tags": tags,
+        // "User Login": [userLogin],
+        Name: `${fname} ${lname}`
+      }
+    });
   };
 
   // updates the state whenever there is a change made
@@ -87,6 +99,11 @@ class Onboarding extends React.Component {
       case 'dividends':
         this.setState({
           dividends: event.target.value
+        });
+        break;
+      case 'projectGroup':
+        this.setState({
+          projectGroup: event.target.value
         });
         break;
       default:

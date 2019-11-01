@@ -11,7 +11,7 @@ class Payment extends React.Component {
     const { values, onSubmit } = this.props;
     const { errors } = values;
     e.preventDefault();
-    const fields = ['num_shares', 'dividends'];
+    const fields = ['numShares', 'dividends'];
     const errorsMessages = [];
 
     for (let i = 0; i < fields.length; i += 1) {
@@ -31,8 +31,7 @@ class Payment extends React.Component {
   };
 
   prevButton = e => {
-    const { values } = this.props;
-    const { prevStep } = values;
+    const { prevStep } = this.props;
     e.preventDefault();
     prevStep();
   };
@@ -44,17 +43,17 @@ class Payment extends React.Component {
       <div>
         <form>
           <div>
-            <label htmlFor="num_shares">
+            <label htmlFor="numShares">
               Number of Shares
               <input
-                name="num_shares"
+                name="numShares"
                 placeholder=""
                 onChange={handleChange}
-                defaultValue={values.num_shares}
+                defaultValue={values.numShares}
               />
             </label>
           </div>
-          <div>{errors.num_shares ? errors.num_shares : '\u00A0'}</div>
+          <div>{errors.numShares ? errors.numShares : '\u00A0'}</div>
           <div>
             Dividends
             <div>
