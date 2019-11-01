@@ -33,25 +33,28 @@ function getRecordWithPromise(table, id) {
 	return the associated record object.
 */
 function getRecordFromAttributeWithPromise(table, fieldType, field) {
-  console.log(`Searching for ${field}`);
-  base(table)
-    .select({
-      view: 'Grid view',
-      maxRecords: 1,
-      filterByFormula: `{${fieldType}}='${field}'`
-    })
-    .firstPage(function(err, records) {
-      if (err) {
-        console.error(err);
-      }
-      if (records.length < 1) {
-        console.log(`No record was retrieved using this ${fieldType}.`);
-      }
-      records.forEach(function(record) {
-        console.log('Retrieved', record.fields);
-        return record;
+  return new Promise((resolve, reject) => {
+    base(table)
+      .select({
+        view: 'Grid view',
+        maxRecords: 1,
+        filterByFormula: `{${fieldType}}='${field}'`
+      })
+      .firstPage(function(err, records) {
+        if (err) {
+          reject(err);
+        }
+        if (records === null || records.length < 1) {
+          const msg = `No record was retrieved using this ${fieldType}.`;
+          reject(msg);
+        } else {
+          records.forEach(function(record) {
+            resolve(record.fields);
+            return record;
+          });
+        }
       });
-    });
+  });
 }
 
 /* 
@@ -139,7 +142,21 @@ function updatePersonWithPromise(updatedPerson) {
         return;
       }
       records.forEach(function(record) {
-        resolve(record.get('Email'));
+        resolve(record.get('Name'));
+      });
+    });
+  });
+}
+
+function updateRecordWithPromise(table, updatedRecord) {
+  return new Promise((resolve, reject) => {
+    base(table).update([updatedRecord], function(err, records) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      records.forEach(function(record) {
+        resolve(record.get('ID'));
       });
     });
   });
@@ -150,6 +167,6 @@ export {
   getRecordFromAttributeWithPromise,
   createPersonWithPromise,
   createRecordWithPromise,
-  updatePersonWithPromise
-  //   updateRecordWithPromise,
+  updatePersonWithPromise,
+  updateRecordWithPromise
 };
