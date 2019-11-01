@@ -17,7 +17,8 @@ export default class AdminDashboard extends React.Component {
     this.state = {
       access: false,
       adminGroupId: -1,
-      owners: []
+      owners: [],
+      isReady: false
     };
   }
 
@@ -39,7 +40,8 @@ export default class AdminDashboard extends React.Component {
         access: true,
         adminId: ownerId,
         adminGroupId,
-        owners: owners.filter(owner => owner.Person[0] !== personId)
+        owners: owners.filter(owner => owner.Person[0] !== personId),
+        isReady: true
       });
     } catch (err) {
       console.error(err);
@@ -64,7 +66,16 @@ export default class AdminDashboard extends React.Component {
   }
 
   render() {
-    const { access } = this.state;
+    const { access, isReady } = this.state;
+
+    if (!isReady) {
+      return (
+        <div className="dashboardCont">
+          <h3>Loading...</h3>
+        </div>
+      );
+    }
+
     if (!access) {
       return (
         <div className="dashboardCont">
