@@ -25,7 +25,8 @@ export default class UserProfilePage extends React.Component {
       updateStreet: '',
       updateCity: '',
       updateState: '',
-      updateZip: ''
+      updateZip: '',
+      isLoading: true
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -99,7 +100,8 @@ export default class UserProfilePage extends React.Component {
           updateStreet: street,
           updateCity: city,
           updateState: state,
-          updateZip: zipCode
+          updateZip: zipCode,
+          isLoading: false
         });
       })
       .catch(err => {
@@ -193,9 +195,12 @@ export default class UserProfilePage extends React.Component {
       newCity,
       newState,
       newZip,
-      status
+      status,
+      isLoading
     } = this.state;
-    return (
+    return isLoading ? (
+      <p>spinner</p>
+    ) : (
       <div className="dashboardCont">
         <div className="userInfoCont">
           <h2>User Profile Page</h2>
