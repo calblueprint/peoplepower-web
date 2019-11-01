@@ -14,7 +14,8 @@ export default class SubscriberOwnerDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bills: []
+      bills: [],
+      isReady: false
     };
     this.updateState = this.updateState.bind(this);
   }
@@ -36,9 +37,9 @@ export default class SubscriberOwnerDashboard extends React.Component {
 
     this.setState(prevState => {
       if (areDiffBills(prevState.bills, bills)) {
-        return { bills };
+        return { bills, isReady: true };
       }
-      return {};
+      return { isReady: true };
     });
   }
 
@@ -49,11 +50,11 @@ export default class SubscriberOwnerDashboard extends React.Component {
   }
 
   render() {
-    const { bills } = this.state;
+    const { bills, isReady } = this.state;
     return (
       <div className="dashboardCont">
         <h3>Subscriber Owner Dashboard</h3>
-        <h3>Bills</h3>
+        <h3>{!isReady ? 'Loading...' : 'Bills'}</h3>
         <div className="cards-holder">
           {bills.map(bill => {
             return (
