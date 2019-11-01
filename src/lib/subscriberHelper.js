@@ -1,7 +1,6 @@
 import { getRecord, getRecordsFromAttribute } from './request';
 
 // TABLES
-const USER_LOGIN_TABLE = 'User Login';
 const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
 const OWNER_TABLE = 'Owner';
 const PERSON_TABLE = 'Person';
@@ -84,19 +83,19 @@ const validateSubscriberOwnerRecord = res => {
 };
 
 // throw an exception on error
-const getUserFromLoginId = async loggedInUserId => {
-  const record = await getRecord(USER_LOGIN_TABLE, loggedInUserId);
-  validateUserLoginRecord(record);
-
-  const personId = record.record.Person[0]; // TODO: potential null ptr exception
-  const personRecord = await getRecord(PERSON_TABLE, personId);
+const getOwnerIdFromId = async loggedInUserId => {
+  const personRecord = await getRecord(PERSON_TABLE, loggedInUserId);
   validatePersonRecord(personRecord);
+  return personRecord.record.Owner[0];
+};
 
-  return personRecord.record.ID;
+const getBillsFromOwnerId = async ownerId => {
+  const owner = await getRecord(OWNER_TABLE, ownerId);
+  return owner.record['Subscriber Bill'];
 };
 
 // throw an exception on error
-const getSubscriberOwnerFromUser = async user => {
+const getSubscriberOwnerFromPerson = async user => {
   const res = await getRecordsFromAttribute(OWNER_TABLE, PERSON, user);
   validateSubscriberOwnerRecord(res);
   return res.records[0].fields[SUBSCRIBER_OWNER];
@@ -104,31 +103,30 @@ const getSubscriberOwnerFromUser = async user => {
 
 const getSubscriberBills = async (loggedInUserId, callback) => {
   try {
-    const user = await getUserFromLoginId(loggedInUserId);
-    const ownerId = await getSubscriberOwnerFromUser(user);
-    console.log('OWNER ID');
-    console.log(ownerId);
-    const res = await getRecordsFromAttribute(
-      SUBSCRIBER_BILL_TABLE,
-      SUBSCRIBER_OWNER,
-      ownerId
-    );
-    const { records } = res;
+    const ownerId = await getOwnerIdFromId(loggedInUserId);
+    const billIds = await getBillsFromOwnerId(ownerId);
+
+    const billPromises = [];
+    billIds.forEach(billId => {
+      billPromises.push(getRecord(SUBSCRIBER_BILL_TABLE, billId));
+    });
+
+    const billObjects = await Promise.all(billPromises);
 
     const bills = [];
     let isLatest = true;
-    records.forEach(record => {
+    billObjects.forEach(({ record }) => {
       bills.push({
-        'Statement Date': record.fields['Statement Date'],
-        'Start Date': record.fields['Start Date'],
-        'End Date': record.fields['End Date'],
-        'Rate Schedule': record.fields['Rate Schedule'],
-        'Estimated Rebate': record.fields['Estimated Rebate'],
-        'Total Estimated Rebate': record.fields['Total Estimated Rebate'],
-        'Amount Due on Previous': record.fields['Amount Due on Previous'],
+        'Statement Date': record['Statement Date'],
+        'Start Date': record['Start Date'],
+        'End Date': record['End Date'],
+        'Rate Schedule': record['Rate Schedule'],
+        'Estimated Rebate': record['Estimated Rebate'],
+        'Total Estimated Rebate': record['Total Estimated Rebate'],
+        'Amount Due on Previous': record['Amount Due on Previous'],
         'Amount Received Since Previous':
-          record.fields['Amount Received Since Previous'],
-        'Amount Due': record.fields['Amount Due'],
+          record['Amount Received Since Previous'],
+        'Amount Due': record['Amount Due'],
         'Is Latest': isLatest
       });
       isLatest = false;
@@ -136,7 +134,6 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
 
     callback(bills);
   } catch (err) {
-    console.error(err);
     callback(null);
   }
 };
@@ -144,7 +141,8 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
 export {
   areDiffBills,
   centsToDollars,
-  getUserFromLoginId,
-  getSubscriberOwnerFromUser,
+  getOwnerIdFromId,
+  getBillsFromOwnerId,
+  getSubscriberOwnerFromPerson,
   getSubscriberBills
 };
