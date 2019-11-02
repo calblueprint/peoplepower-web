@@ -5,11 +5,11 @@
 .b-is-not-valid {
   border-color: red;
 }
-.map {
+.mapWindow {
   width: 50%;
   height: 50%;
-  borderradius: 10;
-  margin: auto;
+  border-radius: 10px;
+  z-index: 0;
 }
 
 .slider {
@@ -65,4 +65,27 @@
 .fa-arrow-right:before,
 .fa-arrow-left:before {
   color: #222;
+}
+
+.bottomButtons {
+  margin-top: 20px;
+  z-index: 2;
+  display: flex;
+  bottom: 0;
+  position: absolute;
+  top: 100vh;
+  width: 75%;
+}
+
+.infoBox {
+  background: white;
+  color: black;
+  border-radius: 10px;
+  z-index: 2;
+  position: absolute;
+  width: 20%;
+  height: 60%;
+  margin-top: 40px;
+  margin-left: 10px;
+  right: 20%;
 }

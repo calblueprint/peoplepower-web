@@ -32,10 +32,8 @@ class ProjectGroups extends React.Component {
         }
       ],
       displayGroup: 0
-      // currentLocation: {
-      //   lat: 0,
-      //   lng: 0
-      // }
+      // currentLat: 0,
+      //   currentLng: 0
     };
   }
 
@@ -44,7 +42,6 @@ class ProjectGroups extends React.Component {
   };
 
   changeSelectedGroup = group => {
-    // this.setState({selectedGroup : event.target.value});
     const { handleChange } = this.props;
     const event = {
       target: {
@@ -60,7 +57,7 @@ class ProjectGroups extends React.Component {
     const { errors, projectGroup } = values;
 
     const errorMessage = formValidation('projectGroup', projectGroup);
-    errors[projectGroup] = errorMessage;
+    errors.projectGroup = errorMessage;
     if (errorMessage === '') {
       nextStep();
     } else {
@@ -85,7 +82,7 @@ class ProjectGroups extends React.Component {
           margin: 'auto',
           width: '75%',
           height: '100vh',
-          display: 'block'
+          display: 'relative'
         }}
       >
         <div>
@@ -100,17 +97,16 @@ class ProjectGroups extends React.Component {
           </div>
           <Map
             google={google}
-            zoom={14}
+            zoom={10}
             style={{
               width: '75%',
               height: '75%',
               borderRadius: 10,
-              zIndex: 0,
-              position: 'absolute'
+              zIndex: 0
             }}
-            className="map"
+            // className="mapWindow"
             initialCenter={{
-              lat: 40,
+              lat: 37.8719,
               lng: -122.2585
             }}
             zoomControl
@@ -131,63 +127,49 @@ class ProjectGroups extends React.Component {
               />
             ))}
           </Map>
-        </div>
-        <div
-          style={{
-            background: 'white',
-            color: 'black',
-            borderRadius: 10,
-            zIndex: 2,
-            position: 'absolute',
-            width: '20%',
-            height: '60%',
-            marginTop: '40px',
-            marginLeft: '10px',
-            right: '20%'
-          }}
-        >
-          <div style={{ margin: '20px' }}>
-            <div style={{ fontSize: '24px', paddingBottom: '10px' }}>
-              {markers[displayGroup].name}
+          <div className="infoBox">
+            <div style={{ margin: '20px' }}>
+              <div style={{ fontSize: '24px', paddingBottom: '10px' }}>
+                {markers[displayGroup].name}
+              </div>
+              <div style={{ fontSize: '14px', paddingBottom: '20px' }}>
+                {markers[displayGroup].description}
+              </div>
+              <button
+                type="button"
+                style={{ bottom: 0 }}
+                onClick={() => this.changeSelectedGroup(markers[displayGroup])}
+                name="projectGroup"
+              >
+                Select
+              </button>
             </div>
-            <div style={{ fontSize: '14px', paddingBottom: '20px' }}>
-              {markers[displayGroup].description}
-            </div>
-            <button
-              type="button"
-              style={{ bottom: 0 }}
-              onClick={() => this.changeSelectedGroup(markers[displayGroup])}
-              name="projectGroup"
-            >
-              Select
-            </button>
           </div>
-        </div>
 
-        <div
-          style={{
-            zIndex: 2,
-            display: 'flex',
-            justifyContent: 'space-between',
-            bottom: 0,
-            position: 'fixed'
-          }}
-        >
-          <div>{errors.projectGroup ? errors.projectGroup : '\u00A0'}</div>
-          <button
-            style={{ float: 'left', textAlign: 'left' }}
-            type="button"
-            onClick={this.prevButton}
-          >
-            Prev
-          </button>
-          <button
-            style={{ textAlign: 'right' }}
-            type="button"
-            onClick={this.nextButton}
-          >
-            Next
-          </button>
+          <div className="bottomButtons">
+            <div style={{ position: 'relative', margin: 'auto' }}>
+              <div>{errors.projectGroup ? errors.projectGroup : '\u00A0'}</div>
+              <button
+                style={{
+                  float: 'left',
+                  textAlign: 'left',
+                  left: 0,
+                  marginRight: '10rem'
+                }}
+                type="button"
+                onClick={this.prevButton}
+              >
+                Prev
+              </button>
+              <button
+                style={{ float: 'right', textAlign: 'right', right: 0 }}
+                type="button"
+                onClick={this.nextButton}
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -197,5 +179,5 @@ class ProjectGroups extends React.Component {
 // export default ProjectGroups;
 
 export default GoogleApiWrapper({
-  apiKey: 'api_key'
+  apiKey: 'AIzaSyBW5_VpnT7xlri_MfDDeUac-WoU7UYggSA'
 })(ProjectGroups);

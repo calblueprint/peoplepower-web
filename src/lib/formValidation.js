@@ -1,17 +1,5 @@
 import States from './states';
 
-function isEmpty(obj) {
-  // null and undefined are "empty"
-  if (obj == null) return true;
-
-  // Assume if it has a length property with a non-zero value
-  // that that property is correct.
-  if (obj.length > 0) return false;
-  if (obj.length === 0) return true;
-
-  return true;
-}
-
 function formValidation(name, value) {
   const num = Number(value);
   switch (name) {
@@ -21,11 +9,6 @@ function formValidation(name, value) {
       }
       return '';
     case 'projectGroup':
-      console.log(isEmpty(value));
-      console.log(value);
-      // if (isEmpty(value)) {
-      //   return 'Please choose a group';
-      // }
       if (typeof value.name === 'undefined') {
         return 'Please choose a group';
       }
