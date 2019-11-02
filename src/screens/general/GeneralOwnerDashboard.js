@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/GeneralOwnerDashboard.css';
-import { getRecordWithPromise } from '../../lib/request';
+import { getRecord } from '../../lib/request';
 import { getLoggedInUserId, logOut } from '../../lib/auth';
 
 export default class GeneralOwnerDashboard extends React.Component {
@@ -22,7 +22,7 @@ export default class GeneralOwnerDashboard extends React.Component {
       return;
     }
 
-    getRecordWithPromise('Person', id).then(payload => {
+    getRecord('Person', id).then(payload => {
       // use array deconstructing
       const {
         Email: email,
