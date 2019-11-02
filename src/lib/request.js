@@ -14,7 +14,7 @@ const base = Airtable.base('appFaOwKhMXrRIQIp');
 // ******** READ RECORDS ******** //
 
 // Given a table and record ID, return the associated record object using a Promise.
-function getRecordWithPromise(table, id) {
+function getRecord(table, id) {
   return new Promise((resolve, reject) => {
     base(table).find(id, (err, record) => {
       if (err) {
@@ -32,7 +32,7 @@ function getRecordWithPromise(table, id) {
 	Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
 	return the associated record object.
 */
-function getRecordFromAttributeWithPromise(table, fieldType, field) {
+function getRecordFromAttribute(table, fieldType, field) {
   return new Promise((resolve, reject) => {
     base(table)
       .select({
@@ -64,7 +64,7 @@ function getRecordFromAttributeWithPromise(table, fieldType, field) {
  */
 
 // Given a person object, create a record of that person.
-function createPersonWithPromise(person) {
+function createPerson(person) {
   /* EXAMPLE OBJECT TO CREATE PERSON
   {
     "fields": {
@@ -91,7 +91,7 @@ function createPersonWithPromise(person) {
   });
 }
 
-function createRecordWithPromise(table, record) {
+function createRecord(table, record) {
   return new Promise((resolve, reject) => {
     base(table).create([record], function(err, records) {
       if (err) {
@@ -134,7 +134,7 @@ function createRecordWithPromise(table, record) {
 	// }
 */
 
-function updatePersonWithPromise(updatedPerson) {
+function updatePerson(updatedPerson) {
   return new Promise((resolve, reject) => {
     base('Person').update([updatedPerson], function(err, records) {
       if (err) {
@@ -148,7 +148,7 @@ function updatePersonWithPromise(updatedPerson) {
   });
 }
 
-function updateRecordWithPromise(table, updatedRecord) {
+function updateRecord(table, updatedRecord) {
   return new Promise((resolve, reject) => {
     base(table).update([updatedRecord], function(err, records) {
       if (err) {
@@ -163,10 +163,10 @@ function updateRecordWithPromise(table, updatedRecord) {
 }
 
 export {
-  getRecordWithPromise,
-  getRecordFromAttributeWithPromise,
-  createPersonWithPromise,
-  createRecordWithPromise,
-  updatePersonWithPromise,
-  updateRecordWithPromise
+  getRecord,
+  getRecordFromAttribute,
+  createPerson,
+  createRecord,
+  updatePerson,
+  updateRecord
 };
