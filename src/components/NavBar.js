@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/NavBar.css';
-import { getRecordWithPromise } from '../lib/request';
+import { getRecord } from '../lib/request';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ export default class NavBar extends React.Component {
   componentDidMount() {
     // hard-coded my id
     const id = 'recfnsL4HDoNHril6';
-    getRecordWithPromise('Person', id).then(payload => {
+    getRecord('Person', id).then(payload => {
       const { Name: name } = payload.record;
       this.setState({
         id,

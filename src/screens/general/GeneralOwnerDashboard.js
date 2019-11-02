@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/GeneralOwnerDashboard.css';
-import { getRecordWithPromise } from '../../lib/request';
+import { getRecord } from '../../lib/request';
 import { getLoggedInUserId, logOut } from '../../lib/auth';
 
 export default class GeneralOwnerDashboard extends React.Component {
@@ -31,7 +31,7 @@ export default class GeneralOwnerDashboard extends React.Component {
     let owner;
     let addressID;
 
-    getRecordWithPromise('Person', id)
+    getRecord('Person', id)
       .then(payload => {
         ({
           Name: name,
@@ -47,11 +47,11 @@ export default class GeneralOwnerDashboard extends React.Component {
           phoneNumber
         });
 
-        return getRecordWithPromise('Owner', owner);
+        return getRecord('Owner', owner);
       })
       .then(payload => {
         const { 'Project Group': projectGroupID } = payload.record;
-        return getRecordWithPromise('Project Group', projectGroupID);
+        return getRecord('Project Group', projectGroupID);
       })
       .then(payload => {
         const {
@@ -65,7 +65,7 @@ export default class GeneralOwnerDashboard extends React.Component {
         const solarProjectNames = [];
         // group promise.all?
         solarProject.forEach(project => {
-          getRecordWithPromise('Solar Project', project).then(res => {
+          getRecord('Solar Project', project).then(res => {
             solarProjectNames.push(res.record.Name);
             this.setState({
               solarProject: solarProjectNames
@@ -73,7 +73,7 @@ export default class GeneralOwnerDashboard extends React.Component {
           });
         });
 
-        return getRecordWithPromise('Address', addressID);
+        return getRecord('Address', addressID);
       })
       .then(payload => {
         const {

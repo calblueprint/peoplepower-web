@@ -1,10 +1,6 @@
 import React from 'react';
 import '../../styles/UserProfilePage.css';
-import {
-  getRecordWithPromise,
-  updatePersonWithPromise,
-  updateRecordWithPromise
-} from '../../lib/request';
+import { getRecord, updatePerson, updateRecord } from '../../lib/request';
 
 export default class UserProfilePage extends React.Component {
   constructor(props) {
@@ -48,7 +44,7 @@ export default class UserProfilePage extends React.Component {
     let addressID;
     let userLoginID;
 
-    getRecordWithPromise('Person', id)
+    getRecord('Person', id)
       .then(payload => {
         ({
           Email: email,
@@ -71,12 +67,12 @@ export default class UserProfilePage extends React.Component {
         });
 
         // Getting project group
-        return getRecordWithPromise('Owner', owner);
+        return getRecord('Owner', owner);
       })
       .then(payload => {
         const { 'Project Group': projectGroupID } = payload.record;
 
-        return getRecordWithPromise('Project Group', projectGroupID);
+        return getRecord('Project Group', projectGroupID);
       })
       .then(payload => {
         const { Name: projectGroupName } = payload.record;
@@ -85,7 +81,7 @@ export default class UserProfilePage extends React.Component {
         });
 
         // Getting Address
-        return getRecordWithPromise('Address', addressID);
+        return getRecord('Address', addressID);
       })
       .then(payload => {
         const {
@@ -157,14 +153,14 @@ export default class UserProfilePage extends React.Component {
     };
     console.log(`UPDATE: ${userLoginID}`);
     // note there should be an function that I write that just does this rerendering
-    updatePersonWithPromise(newPerson)
+    updatePerson(newPerson)
       .then(payload => {
         this.setState({
           status: payload.status,
           name: updateName,
           email: updateEmail
         });
-        return updateRecordWithPromise('User Login', newLogin);
+        return updateRecord('User Login', newLogin);
       })
       .then(payload => {
         this.setState({
@@ -172,7 +168,7 @@ export default class UserProfilePage extends React.Component {
           name: updateName,
           email: updateEmail
         });
-        return updateRecordWithPromise('Address', newAddress);
+        return updateRecord('Address', newAddress);
       })
       .then(() => {
         this.setState({
