@@ -1,5 +1,7 @@
 import Cookies from 'universal-cookie';
-import key from './api_key';
+import secret from '../secret';
+
+const { key } = secret;
 
 const cookies = new Cookies();
 
