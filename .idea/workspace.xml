@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d161631a-b8dc-4f83-badf-a5d5016108dd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/formValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/formValidation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/onboarding/ProjectGroups.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/ProjectGroups.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/Onboarding.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Onboarding.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,7 +75,7 @@
       <workItem from="1572305362668" duration="65000" />
       <workItem from="1572508723237" duration="2941000" />
       <workItem from="1572562297396" duration="6240000" />
-      <workItem from="1572720127273" duration="5858000" />
+      <workItem from="1572720127273" duration="6880000" />
     </task>
     <servers />
   </component>

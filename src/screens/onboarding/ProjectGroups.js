@@ -2,6 +2,7 @@ import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import formValidation from '../../lib/formValidation';
 import '../../styles/Onboarding.css';
+import keys from '../../lib/api_key';
 
 class ProjectGroups extends React.Component {
   constructor(props) {
@@ -75,7 +76,6 @@ class ProjectGroups extends React.Component {
     const { values, google } = this.props;
     const { errors } = values;
     const { markers, displayGroup } = this.state;
-
     return (
       <div
         style={{
@@ -179,5 +179,5 @@ class ProjectGroups extends React.Component {
 // export default ProjectGroups;
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyBW5_VpnT7xlri_MfDDeUac-WoU7UYggSA'
+  apiKey: keys.googleApiKey
 })(ProjectGroups);
