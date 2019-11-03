@@ -20,7 +20,7 @@ function App() {
           <Route path="/onboarding" component={Onboarding} />
           <Route path="/dashboard" component={GeneralOwnerDashboard} />
           <Route path="/dashboard" component={GeneralOwnerDashboard} />
-          <Route path="/Community" component={Community} />
+          <Route path="/community" component={Community} />
           <Route>Not Found - 404</Route>
         </Switch>
       </div>
