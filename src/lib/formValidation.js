@@ -3,7 +3,7 @@ import States from './states';
 function formValidation(name, value) {
   const num = Number(value);
   switch (name) {
-    case 'bylaw':
+    case ('bylaw1', 'bylaw2'):
       if (!value) {
         return 'Required';
       }

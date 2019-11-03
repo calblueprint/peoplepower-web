@@ -5,5 +5,10 @@
 }
 
 body {
-  background-color: #fff;
+  background-color: #efefef;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
 }

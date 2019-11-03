@@ -25,7 +25,7 @@ export default class Slider extends React.Component {
 
     this.setState(prevState => ({
       currentIndex: prevState.currentIndex - 1,
-      translateValue: prevState.translateValue + this.slideWidth()
+      translateValue: this.slideWidth()
     }));
   };
 
@@ -45,12 +45,8 @@ export default class Slider extends React.Component {
     // This will not run if we met the if condition above
     this.setState(prevState => ({
       currentIndex: prevState.currentIndex + 1,
-      translateValue: prevState.translateValue + -this.slideWidth()
+      translateValue: 50
     }));
-  };
-
-  slideWidth = () => {
-    return document.querySelector('.slide').clientWidth;
   };
 
   render() {
@@ -61,7 +57,7 @@ export default class Slider extends React.Component {
         <div
           className="slider-wrapper"
           style={{
-            transform: `translateX(${translateValue}px)`,
+            transform: `translateX(${translateValue}%)`,
             transition: 'transform ease-out 0.45s'
           }}
         >

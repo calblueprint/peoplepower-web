@@ -31,20 +31,40 @@ class Bylaws extends React.Component {
 
   render() {
     const { values, handleClick } = this.props;
-    const { errors, bylaw } = values;
+    const { errors, bylaw1, bylaw2 } = values;
     const imgs = [Img1, Img2, Img3, Img4, Img5];
     return (
-      <form>
+      <form className="center container">
         <div>
-          <Slider images={imgs} />
-          <input
-            type="checkbox"
-            name="bylaw"
-            onChange={handleClick}
-            checked={bylaw}
-          />
-          Agree
-          {!values.bylaw && <div>{errors.bylaw}</div>}
+          Owner Agreement
+          <Slider slides={imgs} />
+          <div className="flex">
+            <input
+              type="checkbox"
+              name="bylaw1"
+              onChange={handleClick}
+              checked={bylaw1}
+            />
+            <div className="checkbox-text">
+              I have read, understood, and agree to all that stuff above,
+              especially the part about how being an Owner and investing into
+              things comes with risks!
+            </div>
+          </div>
+          {!values.bylaw1 && <div>{errors.bylaw1}</div>}
+          <div className="flex">
+            <input
+              type="checkbox"
+              name="bylaw2"
+              onChange={handleClick}
+              checked={bylaw2}
+            />
+            <div className="checkbox-text">
+              I have read the Bylaws for People Power Solar Cooperative, Inc.
+              and agree to the terms of being an Owner.
+            </div>
+          </div>
+          {!values.bylaw2 && <div>{errors.bylaw2}</div>}
         </div>
         <button type="button" onClick={this.prevButton}>
           Prev

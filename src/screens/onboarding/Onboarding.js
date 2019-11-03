@@ -13,12 +13,16 @@ class Onboarding extends React.Component {
     this.state = {
       fname: '',
       lname: '',
+      email: '',
+      password: '',
       street: '',
+      city: '',
       apt: '',
       state: '',
       zipcode: '',
       phoneNumber: '',
-      bylaw: false,
+      bylaw1: false,
+      bylaw2: false,
       projectGroup: {},
       numShares: '',
       dividends: '',
@@ -34,12 +38,16 @@ class Onboarding extends React.Component {
         // object that holds all the error messages
         fname: '',
         lname: '',
+        email: '',
+        password: '',
         street: '',
         apt: '',
+        city: '',
         state: '',
         zipcode: '',
         phoneNumber: '',
-        bylaw: '',
+        bylaw1: '',
+        bylaw2: '',
         projectGroup: '',
         numShares: '',
         dividends: false,
@@ -50,7 +58,7 @@ class Onboarding extends React.Component {
         b_state: '',
         b_zipcode: ''
       },
-      step: 4
+      step: 3
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -70,7 +78,7 @@ class Onboarding extends React.Component {
   };
 
   onSubmit = () => {
-    const { fname, lname, street, apt, state, zipcode } = this.state;
+    const { fname, lname, street, apt, city, state, zipcode } = this.state;
     // alert(`Your state values: \n
     //         first name: ${fname} \n
     //         last name: ${lname}`);
@@ -79,7 +87,7 @@ class Onboarding extends React.Component {
         // "Email": email,
         // "Phone Number": phoneNumber,
         // "Owner": [owner],
-        Address: [street, apt, state, zipcode],
+        Address: [street, apt, city, state, zipcode],
         // "Tags": tags,
         // "User Login": [userLogin],
         Name: `${fname} ${lname}`
@@ -89,11 +97,16 @@ class Onboarding extends React.Component {
 
   // updates the state whenever there is a change made
   handleChange = event => {
-    const { bylaw } = this.state;
+    const { bylaw1, bylaw2 } = this.state;
     switch (event.target.name) {
-      case 'bylaw':
+      case 'bylaw1':
         this.setState({
-          bylaw: !bylaw
+          bylaw1: !bylaw1
+        });
+        break;
+      case 'bylaw2':
+        this.setState({
+          bylaw2: !bylaw2
         });
         break;
       case 'dividends':
@@ -149,10 +162,12 @@ class Onboarding extends React.Component {
       password,
       street,
       apt,
+      city,
       state,
       zipcode,
       phoneNumber,
-      bylaw,
+      bylaw1,
+      bylaw2,
       projectGroup,
       numShares,
       dividends,
@@ -169,10 +184,12 @@ class Onboarding extends React.Component {
       password,
       street,
       apt,
+      city,
       state,
       zipcode,
       phoneNumber,
-      bylaw,
+      bylaw1,
+      bylaw2,
       projectGroup,
       numShares,
       dividends,
