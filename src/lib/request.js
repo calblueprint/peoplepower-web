@@ -73,9 +73,7 @@ function getMultipleFromAttr(table, fieldType, field) {
           const msg = `No record was retrieved using this ${fieldType}.`;
           reject(msg);
         } else {
-          records.forEach(function(record) {
-            resolve(record.fields);
-          });
+          resolve(records);
         }
       });
   });

@@ -8,25 +8,7 @@ export default class Community extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: [
-        {
-          ID: 'abc',
-          Title: 'Nick puts a single solar panel on his roof',
-          Location: '2610 Haste Street',
-          Author: 'Nick Wong',
-          Message:
-            'Yes. It has happened. Nick put A SINGLE PANEL on his roof. Fiat Lux.',
-          Time: 'Monday, Nov 7 12:00PM'
-        },
-        {
-          ID: 'cba',
-          Title: 'Party with Fang',
-          Location: 'Le Conte Hall',
-          Author: 'Fang',
-          Message: "It's time to get PPPOWER LIT with Fang",
-          Time: 'Monday, Nov 7 12:00PM'
-        }
-      ]
+      cards: []
     };
   }
 
@@ -52,7 +34,9 @@ export default class Community extends React.Component {
         );
       })
       .then(payload => {
-        console.log(payload);
+        this.setState({
+          cards: payload
+        });
       });
   }
 
