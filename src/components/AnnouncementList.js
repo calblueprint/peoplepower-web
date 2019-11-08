@@ -2,7 +2,8 @@ import React from 'react';
 import '../styles/Community.css';
 
 const AnnouncementList = props => {
-  const list = props.announcements.map(announce => {
+  const { announcements } = props;
+  const list = announcements.map(announce => {
     const {
       ID: id,
       Title: title,
