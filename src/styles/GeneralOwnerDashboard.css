@@ -1,7 +1,12 @@
-.dashboardCont {
-	margin-left: 30px;
+.dashboard {
+  margin-left: 250px;
 }
 
-div p, h3 {
-	color: white;
+.cont {
+  margin: 30px;
+}
+
+div p,
+h3 {
+  color: white;
 }
