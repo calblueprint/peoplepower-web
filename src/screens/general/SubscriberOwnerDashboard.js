@@ -53,7 +53,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
     const { bills, isReady } = this.state;
     return (
       <div className="dashboardCont">
-        <h3>Subscriber Owner Dashboard</h3>
+        <h3>My Finances</h3>
         <h3>{!isReady ? 'Loading...' : 'Bills'}</h3>
         <div className="cards-holder">
           {bills.map(bill => {
