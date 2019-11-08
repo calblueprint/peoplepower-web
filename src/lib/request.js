@@ -91,6 +91,44 @@ function createPerson(person) {
   });
 }
 
+function createAddress({ street, city, state, zipCode }) {
+  /* EXAMPLE OBJECT TO CREATE PERSON
+  {
+    "fields": {
+      "Email": email,
+      "Phone Number": phoneNumber,
+      "Owner": [owner],
+      "Address": [address],
+      "Tags": tags,
+      "User Login": [userLogin],
+      "Name": name
+    }
+  } 
+*/
+  return new Promise((resolve, reject) => {
+    base('Address').create(
+      [
+        {
+          fields: {
+            Street: street,
+            City: city,
+            State: state,
+            'Zip Code': zipCode
+          }
+        }
+      ],
+      function(err, records) {
+        if (err) {
+          console.log(err);
+          console.error(err);
+          reject(err);
+        }
+        resolve(records);
+      }
+    );
+  });
+}
+
 function createRecord(table, record) {
   return new Promise((resolve, reject) => {
     base(table).create([record], function(err, records) {
@@ -165,6 +203,7 @@ function updateRecord(table, updatedRecord) {
 export {
   getRecord,
   getRecordFromAttribute,
+  createAddress,
   createPerson,
   createRecord,
   updatePerson,
