@@ -4,13 +4,29 @@ import '../styles/Community.css';
 const AnnouncementList = props => {
   const { announcements } = props;
   const list = announcements.map(announce => {
+    console.log(announce);
     const {
       ID: id,
       Title: title,
       Message: message,
       Time: time,
-      Location: location
+      Location: location,
+      'Event type': eventType
     } = announce.fields;
+
+    const eventDetails = (
+      <div>
+        <div className="cardTime">
+          <h3>Time</h3>
+          <p>{time}</p>
+        </div>
+        <div className="cardLocation">
+          <h3>Location</h3>
+          <p>{location}</p>
+        </div>
+      </div>
+    );
+
     return (
       <div key={id} className="card">
         <div className="cardHeading">
@@ -18,14 +34,7 @@ const AnnouncementList = props => {
           <p>{message}</p>
         </div>
         <div className="cardDetails">
-          <div className="cardTime">
-            <h3>Time</h3>
-            <p>{time}</p>
-          </div>
-          <div className="cardLocation">
-            <h3>Location</h3>
-            <p>{location}</p>
-          </div>
+          {eventType === 'Event' ? eventDetails : null}
         </div>
       </div>
     );
