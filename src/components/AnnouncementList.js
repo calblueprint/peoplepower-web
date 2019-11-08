@@ -13,7 +13,7 @@ const AnnouncementList = props => {
     return (
       <div key={id} className="card">
         <div className="cardHeading">
-          <h1>{title}</h1>
+          <h2>{title}</h2>
           <p>{message}</p>
         </div>
         <div className="cardDetails">

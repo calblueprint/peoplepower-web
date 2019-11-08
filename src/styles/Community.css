@@ -1,41 +1,31 @@
-.communityCont {
-  margin-left: 30px;
+.community {
+  margin-left: 250px;
 }
 
-.communityCont h1 {
-  color: white;
+.community h1 {
+  color: black;
+  font-size: 36px;
 }
 
-.communityCont p {
+.community p {
   color: black;
 }
 
-/*.communityCont .cardsCont {
-	background: #fff;
-}*/
-
-.communityCont .card {
+.community .card {
   background: #fff;
   border-radius: 5px;
   padding: 10px 10px;
   margin: 10px 0px;
-  width: 60%;
+  width: 675px;
   display: flex;
   justify-content: space-between;
 }
 
-.communityCont .card h1,
+.community .card h2 {
+  font-size: 28px;
+}
+.community .card h2,
 h3 {
   color: black;
   margin: 5px 0px;
 }
-
-/*.cardHeading {
-	width: 70%;
-	display: inline-block;
-}
-
-.cardDetails {
-	display: inline-block;
-	width: 30%;
-}*/

@@ -43,9 +43,11 @@ export default class Community extends React.Component {
   render() {
     const { cards } = this.state;
     return (
-      <div className="communityCont">
-        <h1>Community</h1>
-        <AnnouncementList announcements={cards} />
+      <div className="community">
+        <div className="cont">
+          <h1>Community</h1>
+          <AnnouncementList announcements={cards} />
+        </div>
       </div>
     );
   }
