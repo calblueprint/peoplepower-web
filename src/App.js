@@ -6,6 +6,7 @@ import GeneralOwnerDashboard from './screens/general/GeneralOwnerDashboard';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
 import SignUp from './screens/auth/SignUp';
+import AdminInviteForm from './screens/invite/AdminInviteForm';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup" component={SignUp} />
           <Route path="/onboarding" component={Onboarding} />
           <Route path="/dashboard" component={GeneralOwnerDashboard} />
+          <Route path="/invite" component={AdminInviteForm} />
           <Route>Not Found - 404</Route>
         </Switch>
       </div>
