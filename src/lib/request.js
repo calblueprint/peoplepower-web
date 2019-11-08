@@ -27,17 +27,6 @@ function getRecordWithPromise(table, id) {
   });
 }
 
-// Given a table and record ID, return the associated record object.
-function getRecord(table, id) {
-  base(table).find(id, function(err, record) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log('Retrieved', record.get('ID'), record.fields);
-  });
-}
-
 /* 
 	GENERAL SEARCH
 	Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
@@ -79,30 +68,41 @@ function getRecordsFromAttribute(table, fieldType, field) {
 // Given a person object, create a record of that person.
 function createPerson(person) {
   /* EXAMPLE OBJECT TO CREATE PERSON
-	{
-		"fields": {
-		  "Email": email,
-		  "Phone Number": phoneNumber,
-		  "Owner": [owner],
-		  "Address": [address],
-		  "Tags": tags,
-		  "User Login": [userLogin],
-		  "Name": name
-		}
-	} 
-*/
-
-  base('Person').create([person], function(err, records) {
-    if (err) {
-      console.error(err);
-      return;
+  {
+    "fields": {
+      "Email": email,
+      "Phone Number": phoneNumber,
+      "Owner": [owner],
+      "Address": [address],
+      "Tags": tags,
+      "User Login": [userLogin],
+      "Name": name
     }
-    records.forEach(function(record) {
-      console.log(
-        `Successfully created ${record.get(
-          'Name'
-        )} (${record.getId()})'s record.`
-      );
+  } 
+*/
+  return new Promise((resolve, reject) => {
+    base('Person').create([person], function(err, records) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      records.forEach(function(record) {
+        resolve(record.getId());
+      });
+    });
+  });
+}
+
+function createRecord(table, record) {
+  return new Promise((resolve, reject) => {
+    base(table).create([record], function(err, records) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      records.forEach(function(r) {
+        resolve(r.getId());
+      });
     });
   });
 }
@@ -137,21 +137,38 @@ function createPerson(person) {
 */
 
 function updatePerson(updatedPerson) {
-  base('Person').update([updatedPerson], function(err, records) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    records.forEach(function(record) {
-      console.log(record.get('Email'));
+  return new Promise((resolve, reject) => {
+    base('Person').update([updatedPerson], function(err, records) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      records.forEach(function(record) {
+        resolve(record.get('Name'));
+      });
+    });
+  });
+}
+
+function updateRecord(table, updatedRecord) {
+  return new Promise((resolve, reject) => {
+    base(table).update([updatedRecord], function(err, records) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      records.forEach(function(record) {
+        resolve(record.get('ID'));
+      });
     });
   });
 }
 
 export {
-  getRecord,
-  createPerson,
-  updatePerson,
   getRecordsFromAttribute,
-  getRecordWithPromise
+  createPerson,
+  createRecord,
+  updatePerson,
+  getRecordWithPromise,
+  updateRecord
 };
