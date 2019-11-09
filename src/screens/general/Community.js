@@ -8,7 +8,8 @@ export default class Community extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: []
+      cards: [],
+      isLoading: true
     };
   }
 
@@ -35,14 +36,21 @@ export default class Community extends React.Component {
       })
       .then(payload => {
         this.setState({
-          cards: payload
+          cards: payload,
+          isLoading: false
         });
       });
   }
 
   render() {
-    const { cards } = this.state;
-    return (
+    const { cards, isLoading } = this.state;
+    return isLoading ? (
+      <img
+        src="https://image.flaticon.com/icons/svg/25/25220.svg"
+        className="rotate"
+        alt="page is loading"
+      />
+    ) : (
       <div className="community">
         <div className="cont">
           <h1>Community</h1>
