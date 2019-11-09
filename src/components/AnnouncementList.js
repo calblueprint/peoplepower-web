@@ -40,7 +40,11 @@ const AnnouncementList = props => {
     );
   });
 
-  return <div className="cardsCont">{list}</div>;
+  return (
+    <div className="cardsCont" style={{ overflow: 'auto' }}>
+      {list}
+    </div>
+  );
 };
 
 export default AnnouncementList;

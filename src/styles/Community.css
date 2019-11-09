@@ -1,3 +1,7 @@
+.community {
+  display: flex;
+}
+
 .community h1 {
   color: black;
   font-size: 36px;
@@ -10,7 +14,7 @@
 .community .card {
   background: #fff;
   border-radius: 5px;
-  padding: 10px 10px;
+  padding: 35px;
   margin: 10px 0px;
   width: 675px;
   display: flex;
@@ -26,6 +30,12 @@ h3 {
   margin: 5px 0px;
 }
 
+.cardsCont {
+  overflow: auto;
+  height: 100%;
+}
+
+/* SPINNER */
 @keyframes rotation {
   from {
     transform: rotate(0deg);
