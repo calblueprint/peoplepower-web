@@ -3,9 +3,7 @@
   background: #ffffff;
   width: 250px;
   height: 100vh;
-  position: fixed;
-  top: 0px;
-  left: 0px;
+  position: relative;
   text-align: center;
 }
 

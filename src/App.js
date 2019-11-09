@@ -10,7 +10,7 @@ import SignUp from './screens/auth/SignUp';
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="app-container">
         <NavBar />
 
         <Switch>
