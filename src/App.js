@@ -11,7 +11,7 @@ import Community from './screens/general/Community';
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="app-container">
         <NavBar />
 
         <Switch>
