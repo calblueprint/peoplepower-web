@@ -10,7 +10,7 @@ import SubscriberOwnerDashboard from './screens/general/SubscriberOwnerDashboard
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="app-container">
         <NavBar />
 
         <Switch>

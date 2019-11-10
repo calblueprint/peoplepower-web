@@ -46,22 +46,20 @@ export default class GeneralOwnerDashboard extends React.Component {
   render() {
     const { name, email, phoneNumber } = this.state;
     return (
-      <div className="dashboard">
-        <div className="cont">
-          <h3>General Owner Dashboard</h3>
-          <p>Welcome, {name}</p>
-          <div>
-            <p>Email: {email}</p>
-            <p>Phone Number: {phoneNumber}</p>
-          </div>
-          <button
-            type="button"
-            className="primary-button"
-            onClick={this.handleLogoutClick}
-          >
-            Logout
-          </button>
+      <div className="cont">
+        <h3>General Owner Dashboard</h3>
+        <p>Welcome, {name}</p>
+        <div>
+          <p>Email: {email}</p>
+          <p>Phone Number: {phoneNumber}</p>
         </div>
+        <button
+          type="button"
+          className="primary-button"
+          onClick={this.handleLogoutClick}
+        >
+          Logout
+        </button>
       </div>
     );
   }

@@ -3,15 +3,12 @@
   background: #ffffff;
   width: 250px;
   height: 100vh;
-  position: fixed;
-  top: 0px;
-  left: 0px;
+  position: relative;
   text-align: center;
 }
 
 nav {
-  margin-top: 119px;
-  height: 100%;
+  margin-top: 86px;
   text-align: left;
 }
 
@@ -30,7 +27,7 @@ nav ul {
 }
 
 nav li {
-  margin: 35px 0px;
+  margin: 34px 0px;
 }
 
 nav ul a,
