@@ -6,6 +6,7 @@ import ProjectGroups from './ProjectGroups';
 import Payment from './Payment';
 import formValidation from '../../lib/formValidation';
 import { createPerson } from '../../lib/request';
+import Confirmation from './Confirmation';
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -58,11 +59,44 @@ class Onboarding extends React.Component {
         b_state: '',
         b_zipcode: ''
       },
-      step: 3
+      step: 1
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
+  }
+
+  async onSubmit() {
+    try {
+      const {
+        email,
+        phoneNumber,
+        fname,
+        lname,
+        street,
+        apt,
+        city,
+        state,
+        zipcode
+      } = this.state;
+      createPerson({
+        fields: {
+          Email: email,
+          'Phone Number': phoneNumber,
+          // "Owner": [owner],
+          Street1: street,
+          City: city,
+          Street2: apt,
+          State: state,
+          'Zip Code': zipcode,
+          // "Tags": tags,
+          // "User Login": [userLogin],
+          Name: `${fname} ${lname}`
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   // next function increments page up one and switches to that numbered page
@@ -75,24 +109,6 @@ class Onboarding extends React.Component {
   prevStep = () => {
     const { step } = this.state;
     this.setState({ step: step - 1 });
-  };
-
-  onSubmit = () => {
-    const { fname, lname, street, apt, city, state, zipcode } = this.state;
-    // alert(`Your state values: \n
-    //         first name: ${fname} \n
-    //         last name: ${lname}`);
-    createPerson({
-      fields: {
-        // "Email": email,
-        // "Phone Number": phoneNumber,
-        // "Owner": [owner],
-        Address: [street, apt, city, state, zipcode],
-        // "Tags": tags,
-        // "User Login": [userLogin],
-        Name: `${fname} ${lname}`
-      }
-    });
   };
 
   // updates the state whenever there is a change made
@@ -149,7 +165,7 @@ class Onboarding extends React.Component {
   callBackBylawValidation() {
     const { errors } = this.state;
     this.setState({
-      errors: { ...errors, bylaw: 'Required' }
+      errors: { ...errors, bylaw1: 'Required' }
     });
   }
 
@@ -244,6 +260,17 @@ class Onboarding extends React.Component {
       case 5:
         return (
           <Payment
+            values={values}
+            prevStep={this.prevStep}
+            nextStep={this.nextStep}
+            handleChange={this.handleChange}
+            handleFormValidation={this.handleFormValidation}
+            handleDividends={this.handleDividends}
+          />
+        );
+      case 6:
+        return (
+          <Confirmation
             values={values}
             prevStep={this.prevStep}
             onSubmit={this.onSubmit}

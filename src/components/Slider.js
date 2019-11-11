@@ -1,104 +1,169 @@
-// Check out my free youtube video on how to build a thumbnail gallery in react
-// https://www.youtube.com/watch?v=GZ4d3HEn9zg
-import React from 'react';
-import '../styles/Onboarding.css';
-import Img1 from '../images/12.jpg';
-import Img2 from '../images/89037.jpg';
-import Img3 from '../images/city-dog-shiba_s.jpg';
-import Img4 from '../images/NHS-Slider-03-1024x731.jpg';
-import Img5 from '../images/sarah-wood-honeymoon.dog.beach-26-npcc.jpg';
+// import React from 'react';
 
-export default class Slider extends React.Component {
-  constructor(props) {
-    super(props);
+// const { Component } = React;
 
-    this.state = {
-      images: [Img1, Img2, Img3, Img4, Img5],
-      currentIndex: 0,
-      translateValue: 0
-    };
-  }
+// class CarouselLeftArrow extends Component {
+//   render() {
+//     return (
+//       <a
+//         href="#"
+//         className="carousel__arrow carousel__arrow--left"
+//         onClick={this.props.onClick}
+//       >
+//         <span className="fa fa-2x fa-angle-left" />
+//       </a>
+//     );
+//   }
+// }
 
-  goToPrevSlide = () => {
-    const { currentIndex } = this.state;
-    if (currentIndex === 0) return;
+// // Component for right arrow
+// class CarouselRightArrow extends Component {
+//   render() {
+//     return (
+//       <a
+//         href="#"
+//         className="carousel__arrow carousel__arrow--right"
+//         onClick={this.props.onClick}
+//       >
+//         <span className="fa fa-2x fa-angle-right" />
+//       </a>
+//     );
+//   }
+// }
 
-    this.setState(prevState => ({
-      currentIndex: prevState.currentIndex - 1,
-      translateValue: this.slideWidth()
-    }));
-  };
+// // Component for carousel indicator
+// class CarouselIndicator extends Component {
+//   render() {
+//     return (
+//       <li>
+//         <a
+//           className={
+//             this.props.index == this.props.activeIndex
+//               ? 'carousel__indicator carousel__indicator--active'
+//               : 'carousel__indicator'
+//           }
+//           onClick={this.props.onClick}
+//         />
+//       </li>
+//     );
+//   }
+// }
 
-  goToNextSlide = () => {
-    // Exiting the method early if we are at the end of the images array.
-    // We also want to reset currentIndex and translateValue, so we return
-    // to the first image in the array.
-    const { currentIndex, images } = this.state;
+// // Component for slide
+// class CarouselSlide extends Component {
+//   render() {
+//     return (
+//       <li
+//         className={
+//           this.props.index == this.props.activeIndex
+//             ? 'carousel__slide carousel__slide--active'
+//             : 'carousel__slide'
+//         }
+//       >
+//         <p className="carousel-slide__content">{this.props.slide.content}</p>
 
-    if (currentIndex === images.length - 1) {
-      this.setState({
-        currentIndex: 0,
-        translateValue: 0
-      });
-    }
+//         <p>
+//           <strong className="carousel-slide__author">
+//             {this.props.slide.author}
+//           </strong>
+//           ,{' '}
+//           <small className="carousel-slide__source">
+//             {this.props.slide.source}
+//           </small>
+//         </p>
+//       </li>
+//     );
+//   }
+// }
 
-    // This will not run if we met the if condition above
-    this.setState(prevState => ({
-      currentIndex: prevState.currentIndex + 1,
-      translateValue: 50
-    }));
-  };
+// // Carousel component
+// class Carousel extends Component {
+//   constructor(props) {
+//     super(props);
 
-  render() {
-    const { images, translateValue } = this.state;
+//     this.goToSlide = this.goToSlide.bind(this);
+//     this.goToPrevSlide = this.goToPrevSlide.bind(this);
+//     this.goToNextSlide = this.goToNextSlide.bind(this);
 
-    return (
-      <div className="slider">
-        <div
-          className="slider-wrapper"
-          style={{
-            transform: `translateX(${translateValue}%)`,
-            transition: 'transform ease-out 0.45s'
-          }}
-        >
-          {images.map(image => (
-            <Slide image={image} />
-          ))}
-        </div>
+//     this.state = {
+//       activeIndex: 0
+//     };
+//   }
 
-        <LeftArrow goToPrevSlide={this.goToPrevSlide} />
+//   goToSlide(index) {
+//     this.setState({
+//       activeIndex: index
+//     });
+//   }
 
-        <RightArrow goToNextSlide={this.goToNextSlide} />
-      </div>
-    );
-  }
-}
+//   goToPrevSlide(e) {
+//     e.preventDefault();
 
-const Slide = ({ image }) => {
-  const styles = {
-    backgroundImage: `url(${image})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: '50% 60%'
-  };
-  return <div className="slide" style={styles} />;
-};
+//     let index = this.state.activeIndex;
+//     const { slides } = this.props;
+//     const slidesLength = slides.length;
 
-const LeftArrow = props => {
-  const { goToPrevSlide } = props;
-  return (
-    <button type="button" className="backArrow arrow" onClick={goToPrevSlide}>
-      <i className="fa fa-arrow-left fa-2x" aria-hidden="true" />
-    </button>
-  );
-};
+//     if (index < 1) {
+//       index = slidesLength;
+//     }
 
-const RightArrow = props => {
-  const { goToNextSlide } = props;
+//     --index;
 
-  return (
-    <button type="button" className="nextArrow arrow" onClick={goToNextSlide}>
-      <i className="fa fa-arrow-right fa-2x" aria-hidden="true" />
-    </button>
-  );
-};
+//     this.setState({
+//       activeIndex: index
+//     });
+//   }
+
+//   goToNextSlide(e) {
+//     e.preventDefault();
+
+//     let index = this.state.activeIndex;
+//     const { slides } = this.props;
+//     const slidesLength = slides.length - 1;
+
+//     if (index === slidesLength) {
+//       index = -1;
+//     }
+
+//     ++index;
+
+//     this.setState({
+//       activeIndex: index
+//     });
+//   }
+
+//   render() {
+//     return (
+//       <div className="carousel">
+//         <CarouselLeftArrow onClick={e => this.goToPrevSlide(e)} />
+
+//         <ul className="carousel__slides">
+//           {this.props.slides.map((slide, index) => (
+//             <CarouselSlide
+//               key={index}
+//               index={index}
+//               activeIndex={this.state.activeIndex}
+//               slide={slide}
+//             />
+//           ))}
+//         </ul>
+
+//         <CarouselRightArrow onClick={e => this.goToNextSlide(e)} />
+
+//         <ul className="carousel__indicators">
+//           {this.props.slides.map((slide, index) => (
+//             <CarouselIndicator
+//               key={index}
+//               index={index}
+//               activeIndex={this.state.activeIndex}
+//               onClick={e => this.goToSlide(index)}
+//             />
+//           ))}
+//         </ul>
+//       </div>
+//     );
+//   }
+// }
+
+// // Render Carousel component
+// export default Carousel;

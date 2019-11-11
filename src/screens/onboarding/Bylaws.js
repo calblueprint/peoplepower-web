@@ -5,6 +5,7 @@ import Img3 from '../../images/city-dog-shiba_s.jpg';
 import Img4 from '../../images/NHS-Slider-03-1024x731.jpg';
 import Img5 from '../../images/sarah-wood-honeymoon.dog.beach-26-npcc.jpg';
 import Slider from '../../components/Slider';
+import formValidation from '../../lib/formValidation';
 
 class Bylaws extends React.Component {
   constructor(props) {
@@ -13,13 +14,24 @@ class Bylaws extends React.Component {
   }
 
   nextButton = e => {
-    const { values, callBackBylawValidation, nextStep } = this.props;
-    const { bylaw } = values;
     e.preventDefault();
-    if (!bylaw) {
-      callBackBylawValidation();
-    } else {
+    const { values, nextStep } = this.props;
+    const { errors } = values;
+    const fields = ['bylaw1', 'bylaw1'];
+    const errorsMessages = [];
+
+    for (let i = 0; i < fields.length; i += 1) {
+      const errorMessage = formValidation(fields[i], values[fields[i]]);
+      errors[fields[i]] = errorMessage;
+      if (errorMessage !== '') {
+        errorsMessages.push(errorMessage);
+      }
+    }
+
+    if (!(errorsMessages && errorsMessages.length > 0)) {
       nextStep();
+    } else {
+      this.forceUpdate();
     }
   };
 
@@ -30,7 +42,7 @@ class Bylaws extends React.Component {
   };
 
   render() {
-    const { values, handleClick } = this.props;
+    const { values, handleChange } = this.props;
     const { errors, bylaw1, bylaw2 } = values;
     const imgs = [Img1, Img2, Img3, Img4, Img5];
     return (
@@ -42,7 +54,7 @@ class Bylaws extends React.Component {
             <input
               type="checkbox"
               name="bylaw1"
-              onChange={handleClick}
+              onChange={handleChange}
               checked={bylaw1}
             />
             <div className="checkbox-text">
@@ -56,7 +68,7 @@ class Bylaws extends React.Component {
             <input
               type="checkbox"
               name="bylaw2"
-              onChange={handleClick}
+              onChange={handleChange}
               checked={bylaw2}
             />
             <div className="checkbox-text">

@@ -1,4 +1,4 @@
-import key from './api_key';
+import keys from './api_key';
 /* Helper functions intended to streamline our requests to the AirTable API. */
 
 const Airtable = require('airtable');
@@ -6,7 +6,7 @@ const Airtable = require('airtable');
 // API KEY will reside in ENV variables later.
 Airtable.configure({
   endpointUrl: 'https://api.airtable.com',
-  apiKey: key
+  apiKey: keys.key
 });
 
 const base = Airtable.base('appFaOwKhMXrRIQIp');
@@ -71,7 +71,7 @@ function createPerson(person) {
       "Email": email,
       "Phone Number": phoneNumber,
       "Owner": [owner],
-      "Address": [address],
+      "Address": [address id],
       "Tags": tags,
       "User Login": [userLogin],
       "Name": name
@@ -80,7 +80,9 @@ function createPerson(person) {
 */
   return new Promise((resolve, reject) => {
     base('Person').create([person], function(err, records) {
+      console.log(person);
       if (err) {
+        console.log(err);
         reject(err);
         return;
       }
@@ -95,13 +97,10 @@ function createAddress({ street, city, state, zipCode }) {
   /* EXAMPLE OBJECT TO CREATE PERSON
   {
     "fields": {
-      "Email": email,
-      "Phone Number": phoneNumber,
-      "Owner": [owner],
-      "Address": [address],
-      "Tags": tags,
-      "User Login": [userLogin],
-      "Name": name
+      "Street": street,
+      "City": city,
+      "State": state,
+      "Zipcode": zipcode
     }
   } 
 */

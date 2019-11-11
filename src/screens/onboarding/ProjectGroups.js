@@ -34,7 +34,7 @@ class ProjectGroups extends React.Component {
       ],
       displayGroup: 0
       // currentLat: 0,
-      //   currentLng: 0
+      // currentLng: 0
     };
   }
 
@@ -86,15 +86,7 @@ class ProjectGroups extends React.Component {
         }}
       >
         <div>
-          <div
-            style={{
-              fontSize: '24px',
-              marginBottom: '20px',
-              marginTop: '20px'
-            }}
-          >
-            Project Group
-          </div>
+          <div className="header">Project Group</div>
           <Map
             google={google}
             zoom={10}

@@ -7,8 +7,8 @@ class Payment extends React.Component {
     this.state = {};
   }
 
-  finishButton = e => {
-    const { values, onSubmit } = this.props;
+  nextButton = e => {
+    const { values, nextStep } = this.props;
     const { errors } = values;
     e.preventDefault();
     const fields = ['numShares', 'dividends'];
@@ -24,7 +24,7 @@ class Payment extends React.Component {
     }
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
-      onSubmit();
+      nextStep();
     } else {
       this.forceUpdate();
     }
@@ -87,7 +87,7 @@ class Payment extends React.Component {
         <button onClick={this.prevButton} type="button">
           Prev
         </button>
-        <button onClick={this.finishButton} type="button">
+        <button onClick={this.nextButton} type="button">
           Finish
         </button>
       </div>

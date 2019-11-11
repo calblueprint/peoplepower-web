@@ -35,7 +35,7 @@ class BasicInfo extends React.Component {
     const { errors } = values;
     return (
       <form className="center card flex column">
-        <div className="header">Tell us about yourself!</div>
+        <div className="t-center header">Tell us about yourself!</div>
         <div className="flex row">
           <div className="w-50 pr-1">
             <input
