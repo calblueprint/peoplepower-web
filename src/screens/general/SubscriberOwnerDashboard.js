@@ -1,89 +1,92 @@
 import React from 'react';
 import '../../styles/SubscriberOwnerDashboard.css';
-import {
-  areDiffBills,
-  centsToDollars,
-  getSubscriberBills
-} from '../../lib/subscriberHelper';
-import Bill from './Bill';
-import { getLoggedInUserId, logOut } from '../../lib/auth';
-
-const ROOT_ROUTE = '/';
+import { getLoggedInUserId } from '../../lib/auth';
+import { centsToDollars } from '../../lib/subscriberHelper';
 
 export default class SubscriberOwnerDashboard extends React.Component {
   constructor(props) {
     super(props);
+    const { bills } = this.props;
     this.state = {
-      bills: [],
-      isReady: false
+      latestBill: bills.filter(bill => bill['Is Latest'])[0]
     };
-    this.updateState = this.updateState.bind(this);
   }
 
   componentDidMount() {
-    this.getBills();
-  }
-
-  getBills() {
-    const loggedInUserId = getLoggedInUserId();
-    getSubscriberBills(loggedInUserId, this.updateState);
-  }
-
-  updateState(bills) {
-    if (bills == null) {
-      console.error('bills argument to updateState is null');
-      return;
-    }
-
-    this.setState(prevState => {
-      if (areDiffBills(prevState.bills, bills)) {
-        return { bills, isReady: true };
-      }
-      return { isReady: true };
-    });
-  }
-
-  handleLogout() {
-    logOut();
     const { history } = this.props;
-    history.push(ROOT_ROUTE);
+    const id = getLoggedInUserId();
+    if (!id) {
+      // They shouldn't be able to access this screen
+      history.push('/');
+    }
   }
 
   render() {
-    const { bills, isReady } = this.state;
+    const { callback } = this.props;
+    const { latestBill } = this.state;
     return (
-      <div className="dashboardCont">
+      <div className="subscriber-dash-outer-container">
         <h3>My Finances</h3>
-        <p className="subscriber-header">
-          {!isReady ? 'Loading...' : 'Transactions'}
-        </p>
-        <div className="cards-holder">
-          {bills.map(bill => {
-            return (
-              <Bill
-                statementDate={bill['Statement Date']}
-                startDate={bill['Start Date']}
-                endDate={bill['End Date']}
-                // rate_schedule
-                estimatedRebate={centsToDollars(bill['Estimated Rebate'])}
-                totalEstimatedRebate={centsToDollars(
-                  bill['Total Estimated Rebate']
-                )}
-                amtDueOnPrev={centsToDollars(bill['Amount Due on Previous'])}
-                amtReceivedSincePrev={centsToDollars(
-                  bill['Amount Received Since Previous']
-                )}
-                amtDue={centsToDollars(bill['Amount Due'])}
-                isLatest={bill['Is Latest']}
-                callback={() => console.log('Pay was pressed!')}
-              />
-            );
-          })}
-        </div>
-        <div>
-          {/* <button onClick={() => this.handleLogout()} type="button">
-            Logout
-          </button> */}
+        <div className="subscriber-dash-inner-container">
+          <div className="left-col subscriber-dash-col">
+            <p className="subscriber-header">Billing Summary</p>
+            <div className="col-card">
+              <div className="class-elems">
+                <div className="balance-header-section">
+                  <p>Your Balance</p>
+                  <h3>${centsToDollars(latestBill['Amount Due'])}</h3>
+                </div>
+                <hr id="divider" />
+                <div className="balance-nums-section">
+                  <div className="balance-nums-line">
+                    <p className="line-item descrip">Due Now</p>
+                    <p className="line-item">
+                      ${centsToDollars(latestBill['Amount Due'])}
+                    </p>
+                  </div>
+                  <div className="balance-nums-line">
+                    <p className="line-item descrip">Upcoming</p>
+                    <p className="line-item">$0.00</p>
+                  </div>
+                  <br />
+                  <br />
+                  <div className="balance-nums-line">
+                    <p className="line-item descrip">
+                      <strong>Total</strong>
+                    </p>
+                    <p className="line-item">
+                      <strong>
+                        ${centsToDollars(latestBill['Amount Due'])}
+                      </strong>
+                    </p>
+                  </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                <button
+                  className="subscriber-button payment-button"
+                  type="button"
+                >
+                  Make Payment
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="right-col subscriber-dash-col">
+            <p className="subscriber-header">Recent Transactions</p>
+            <div className="col-card">
+              <div className="TEMP">
+                <button
+                  className="subscriber-button"
+                  type="button"
+                  onClick={callback}
+                >
+                  See all bills
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
