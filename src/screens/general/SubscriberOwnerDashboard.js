@@ -54,7 +54,9 @@ export default class SubscriberOwnerDashboard extends React.Component {
     return (
       <div className="dashboardCont">
         <h3>My Finances</h3>
-        <h3>{!isReady ? 'Loading...' : 'Bills'}</h3>
+        <p className="subscriber-header">
+          {!isReady ? 'Loading...' : 'Transactions'}
+        </p>
         <div className="cards-holder">
           {bills.map(bill => {
             return (
@@ -79,9 +81,9 @@ export default class SubscriberOwnerDashboard extends React.Component {
           })}
         </div>
         <div>
-          <button onClick={() => this.handleLogout()} type="button">
+          {/* <button onClick={() => this.handleLogout()} type="button">
             Logout
-          </button>
+          </button> */}
         </div>
       </div>
     );
