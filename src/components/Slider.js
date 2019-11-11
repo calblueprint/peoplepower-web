@@ -1,169 +1,107 @@
-// import React from 'react';
+import React, { Component } from 'react';
+import Arrow from '../images/Arrow.png';
 
-// const { Component } = React;
+class Carousel extends Component {
+  constructor(props) {
+    super(props);
 
-// class CarouselLeftArrow extends Component {
-//   render() {
-//     return (
-//       <a
-//         href="#"
-//         className="carousel__arrow carousel__arrow--left"
-//         onClick={this.props.onClick}
-//       >
-//         <span className="fa fa-2x fa-angle-left" />
-//       </a>
-//     );
-//   }
-// }
+    this.goToSlide = this.goToSlide.bind(this);
+    this.goToPrevSlide = this.goToPrevSlide.bind(this);
+    this.goToNextSlide = this.goToNextSlide.bind(this);
 
-// // Component for right arrow
-// class CarouselRightArrow extends Component {
-//   render() {
-//     return (
-//       <a
-//         href="#"
-//         className="carousel__arrow carousel__arrow--right"
-//         onClick={this.props.onClick}
-//       >
-//         <span className="fa fa-2x fa-angle-right" />
-//       </a>
-//     );
-//   }
-// }
+    this.state = {
+      activeIndex: 0
+    };
+  }
 
-// // Component for carousel indicator
-// class CarouselIndicator extends Component {
-//   render() {
-//     return (
-//       <li>
-//         <a
-//           className={
-//             this.props.index == this.props.activeIndex
-//               ? 'carousel__indicator carousel__indicator--active'
-//               : 'carousel__indicator'
-//           }
-//           onClick={this.props.onClick}
-//         />
-//       </li>
-//     );
-//   }
-// }
+  goToSlide(index) {
+    this.setState({
+      activeIndex: index
+    });
+  }
 
-// // Component for slide
-// class CarouselSlide extends Component {
-//   render() {
-//     return (
-//       <li
-//         className={
-//           this.props.index == this.props.activeIndex
-//             ? 'carousel__slide carousel__slide--active'
-//             : 'carousel__slide'
-//         }
-//       >
-//         <p className="carousel-slide__content">{this.props.slide.content}</p>
+  goToPrevSlide(e) {
+    e.preventDefault();
 
-//         <p>
-//           <strong className="carousel-slide__author">
-//             {this.props.slide.author}
-//           </strong>
-//           ,{' '}
-//           <small className="carousel-slide__source">
-//             {this.props.slide.source}
-//           </small>
-//         </p>
-//       </li>
-//     );
-//   }
-// }
+    const { activeIndex } = this.state;
+    const { slides } = this.props;
 
-// // Carousel component
-// class Carousel extends Component {
-//   constructor(props) {
-//     super(props);
+    let index = activeIndex;
 
-//     this.goToSlide = this.goToSlide.bind(this);
-//     this.goToPrevSlide = this.goToPrevSlide.bind(this);
-//     this.goToNextSlide = this.goToNextSlide.bind(this);
+    if (index === 0) {
+      index = slides.length - 1;
+    } else {
+      index -= 1;
+    }
 
-//     this.state = {
-//       activeIndex: 0
-//     };
-//   }
+    this.setState({
+      activeIndex: index
+    });
+  }
 
-//   goToSlide(index) {
-//     this.setState({
-//       activeIndex: index
-//     });
-//   }
+  goToNextSlide(e) {
+    e.preventDefault();
+    const { activeIndex } = this.state;
+    const { slides } = this.props;
 
-//   goToPrevSlide(e) {
-//     e.preventDefault();
+    let index = activeIndex;
+    const slidesLength = slides.length - 1;
 
-//     let index = this.state.activeIndex;
-//     const { slides } = this.props;
-//     const slidesLength = slides.length;
+    if (index === slidesLength) {
+      index = -1;
+    } else {
+      index = 0;
+    }
 
-//     if (index < 1) {
-//       index = slidesLength;
-//     }
+    this.setState({
+      activeIndex: index
+    });
+  }
 
-//     --index;
+  render() {
+    const { slides } = this.props;
+    const { activeIndex } = this.state;
+    return (
+      <div className="slider">
+        <div className="progress-bar">
+          <div
+            className="filler"
+            style={{ width: `${activeIndex === 0 ? 50 : 100}%` }}
+          />
+        </div>
+        <div className="slider-padding">
+          <input
+            type="image"
+            src={Arrow}
+            className="arrow left-arrow"
+            alt="previous button"
+            onClick={this.goToPrevSlide}
+          />
 
-//     this.setState({
-//       activeIndex: index
-//     });
-//   }
+          <ul className="slides center">
+            {slides.map((slide, index) => (
+              <img
+                className={
+                  index === activeIndex
+                    ? 'center slide-img slide-img-active'
+                    : 'center slide-img'
+                }
+                src={slides[activeIndex]}
+                alt="This is the Owner Agreement"
+              />
+            ))}
+          </ul>
+          <input
+            type="image"
+            src={Arrow}
+            className="arrow"
+            alt="next button"
+            onClick={this.goToPrevSlide}
+          />
+        </div>
+      </div>
+    );
+  }
+}
 
-//   goToNextSlide(e) {
-//     e.preventDefault();
-
-//     let index = this.state.activeIndex;
-//     const { slides } = this.props;
-//     const slidesLength = slides.length - 1;
-
-//     if (index === slidesLength) {
-//       index = -1;
-//     }
-
-//     ++index;
-
-//     this.setState({
-//       activeIndex: index
-//     });
-//   }
-
-//   render() {
-//     return (
-//       <div className="carousel">
-//         <CarouselLeftArrow onClick={e => this.goToPrevSlide(e)} />
-
-//         <ul className="carousel__slides">
-//           {this.props.slides.map((slide, index) => (
-//             <CarouselSlide
-//               key={index}
-//               index={index}
-//               activeIndex={this.state.activeIndex}
-//               slide={slide}
-//             />
-//           ))}
-//         </ul>
-
-//         <CarouselRightArrow onClick={e => this.goToNextSlide(e)} />
-
-//         <ul className="carousel__indicators">
-//           {this.props.slides.map((slide, index) => (
-//             <CarouselIndicator
-//               key={index}
-//               index={index}
-//               activeIndex={this.state.activeIndex}
-//               onClick={e => this.goToSlide(index)}
-//             />
-//           ))}
-//         </ul>
-//       </div>
-//     );
-//   }
-// }
-
-// // Render Carousel component
-// export default Carousel;
+export default Carousel;

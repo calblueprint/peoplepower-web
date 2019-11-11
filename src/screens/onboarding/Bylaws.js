@@ -1,9 +1,6 @@
 import React from 'react';
-import Img1 from '../../images/12.jpg';
-import Img2 from '../../images/89037.jpg';
-import Img3 from '../../images/city-dog-shiba_s.jpg';
-import Img4 from '../../images/NHS-Slider-03-1024x731.jpg';
-import Img5 from '../../images/sarah-wood-honeymoon.dog.beach-26-npcc.jpg';
+import OwnerAgreement1 from '../../images/ownerAgreement1.jpg';
+import OwnerAgreement2 from '../../images/ownerAgreement2.jpg';
 import Slider from '../../components/Slider';
 import formValidation from '../../lib/formValidation';
 
@@ -44,11 +41,11 @@ class Bylaws extends React.Component {
   render() {
     const { values, handleChange } = this.props;
     const { errors, bylaw1, bylaw2 } = values;
-    const imgs = [Img1, Img2, Img3, Img4, Img5];
+    const imgs = [OwnerAgreement1, OwnerAgreement2];
     return (
-      <form className="center container">
+      <form className="center">
         <div>
-          Owner Agreement
+          <div className="contact-header">Onboarding Agrement</div>
           <Slider slides={imgs} />
           <div className="flex">
             <input
@@ -72,8 +69,16 @@ class Bylaws extends React.Component {
               checked={bylaw2}
             />
             <div className="checkbox-text">
-              I have read the Bylaws for People Power Solar Cooperative, Inc.
-              and agree to the terms of being an Owner.
+              I have read the{' '}
+              <a
+                href="https://d3n8a8pro7vhmx.cloudfront.net/peoplepowersolar/pages/22/attachments/original/1554318079/small_331amended_peoplepowerbylaws_compressed.pdf?1554318079"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Bylaws
+              </a>{' '}
+              for People Power Solar Cooperative, Inc. and agree to the terms of
+              being an Owner.
             </div>
           </div>
           {!values.bylaw2 && <div>{errors.bylaw2}</div>}

@@ -59,45 +59,45 @@ class Onboarding extends React.Component {
         b_state: '',
         b_zipcode: ''
       },
-      step: 1
+      step: 3
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
   }
 
-  async onSubmit() {
-    try {
-      const {
-        email,
-        phoneNumber,
-        fname,
-        lname,
-        street,
-        apt,
-        city,
-        state,
-        zipcode
-      } = this.state;
-      createPerson({
-        fields: {
-          Email: email,
-          'Phone Number': phoneNumber,
-          // "Owner": [owner],
-          Street1: street,
-          City: city,
-          Street2: apt,
-          State: state,
-          'Zip Code': zipcode,
-          // "Tags": tags,
-          // "User Login": [userLogin],
-          Name: `${fname} ${lname}`
-        }
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  onSubmit = () => {
+    // try {
+    const {
+      email,
+      phoneNumber,
+      fname,
+      lname,
+      street,
+      apt,
+      city,
+      state,
+      zipcode
+    } = this.state;
+    createPerson({
+      fields: {
+        Email: email,
+        'Phone Number': phoneNumber,
+        // "Owner": [owner],
+        'Street 1': street,
+        City: city,
+        'Street 2': apt,
+        State: state,
+        Zipcode: zipcode,
+        // "Tags": tags,
+        // "User Login": [userLogin],
+        Name: `${fname} ${lname}`
+      }
+    });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  };
 
   // next function increments page up one and switches to that numbered page
   nextStep = () => {
