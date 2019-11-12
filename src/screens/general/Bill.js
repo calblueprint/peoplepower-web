@@ -5,55 +5,146 @@ import secret from '../../secret';
 
 const { clientId } = secret;
 
-export default class Bill extends React.Component {
-  onSucccess(details, data) {
-    console.log(this.props);
-    console.log(data);
-    console.log(`Transaction completed by ${details.payer.name.given_name}`);
+const dateToWord = {
+  1: 'January',
+  2: 'February',
+  3: 'March',
+  4: 'April',
+  5: 'May',
+  6: 'June',
+  7: 'July',
+  8: 'August',
+  9: 'September',
+  10: 'October',
+  11: 'November',
+  12: 'December'
+};
 
-    // OPTIONAL: Call your server to save the transaction
-    // return fetch("/paypal-transaction-complete", {
-    //     method: "post",
-    //     body: JSON.stringify({
-    //         orderId: data.orderID
-    //     })
-    // });
-  }
+function dateToFullMonth(date) {
+  return dateToWord[parseInt(date.split('-')[1], 10)];
+}
 
-  render() {
-    const {
-      statementDate,
-      startDate,
-      endDate,
-      rateSchedule,
-      estimatedRebate,
-      totalEstimatedRebate,
-      amtDueOnPrev,
-      amtReceivedSincePrev,
-      amtDue,
-      isLatest
-    } = this.props;
-    return (
-      <div className="bill-card">
-        <h4>{statementDate}</h4>
-        <p>Start date: {startDate}</p>
-        <p>End date: {endDate}</p>
+// expected format of date: YYYY-MM-DD
+function dateToDateString(date) {
+  const dateArr = date.split('-');
+  return `${dateToWord[parseInt(dateArr[1], 10)].substring(0, 3)} ${
+    dateArr[2]
+  }, ${dateArr[0]}`;
+}
+
+function onSucccess(details, data) {
+  console.log(this.props);
+  console.log(data);
+  console.log(`Transaction completed by ${details.payer.name.given_name}`);
+  // OPTIONAL: Call your server to save the transaction
+  // return fetch("/paypal-transaction-complete", {
+  //     method: "post",
+  //     body: JSON.stringify({
+  //         orderId: data.orderID
+  //     })
+  // });
+}
+
+function Bill({
+  statementDate,
+  startDate,
+  // endDate,
+  // rateSchedule,
+  // estimatedRebate,
+  // totalEstimatedRebate,
+  // amtDueOnPrev,
+  // amtReceivedSincePrev,
+  amtDue,
+  isLatest
+}) {
+  return (
+    <div className={isLatest ? 'latest-bill-card' : 'bill-card'}>
+      <div className="bill-items">
+        <p className="bill-items-internal statement-date">
+          {dateToDateString(statementDate)}
+        </p>
+        <p className="bill-items-internal statement-month">
+          {dateToFullMonth(startDate)} Power Bill
+        </p>
+        {/* <p>End date: {endDate}</p>
         <p>Rate Schedule: {rateSchedule}</p>
         <p>Estimated Rebate: ${estimatedRebate}</p>
         <p>Total Estimated Rebate: ${totalEstimatedRebate}</p>
         <p>Amount Due on Previous: ${amtDueOnPrev}</p>
-        <p>Amount Received Since Previous: ${amtReceivedSincePrev}</p>
-        <p>Amount Due: ${amtDue}</p>
-        {isLatest && (
-          <PayPalButton
-            amount={amtDue}
-            onSuccess={this.onSucccess}
-            options={{
-              clientId
-            }}
-          />
-        )}
+        <p>Amount Received Since Previous: ${amtReceivedSincePrev}</p> */}
+        <p className="bill-items-internal statement-amount-due">- ${amtDue}</p>
       </div>
-    );
-  }
+      {/* {isLatest && (
+        <button className="bill-button" onClick={callback} type="button">
+          Pay
+        </button>
+      )} */}
+      {isLatest && (
+        <PayPalButton
+          amount={amtDue}
+          onSuccess={onSucccess}
+          options={{
+            clientId
+          }}
+        />
+      )}
+      <hr id="bill-divide-line" />
+    </div>
+    // <div className="bill-card">
+    //   <h4>{statementDate}</h4>
+    //   <p>Start date: {startDate}</p>
+    //   <p>End date: {endDate}</p>
+    //   <p>Rate Schedule: {rateSchedule}</p>
+    //   <p>Estimated Rebate: ${estimatedRebate}</p>
+    //   <p>Total Estimated Rebate: ${totalEstimatedRebate}</p>
+    //   <p>Amount Due on Previous: ${amtDueOnPrev}</p>
+    //   <p>Amount Received Since Previous: ${amtReceivedSincePrev}</p>
+    //   <p>Amount Due: ${amtDue}</p>
+    //   {isLatest && (
+    //     <button className="bill-button" onClick={callback} type="button">
+    //       Pay
+    //     </button>
+    //   )}
+    // </div>
+  );
 }
+
+// render() {
+//   const {
+//     statementDate,
+//     startDate,
+//     endDate,
+//     rateSchedule,
+//     estimatedRebate,
+//     totalEstimatedRebate,
+//     amtDueOnPrev,
+//     amtReceivedSincePrev,
+//     amtDue,
+//     isLatest
+//   } = this.props;
+//   return (
+//     <div className="bill-card">
+//       <h4>{statementDate}</h4>
+//       <p>Start date: {startDate}</p>
+//       <p>End date: {endDate}</p>
+//       <p>Rate Schedule: {rateSchedule}</p>
+//       <p>Estimated Rebate: ${estimatedRebate}</p>
+//       <p>Total Estimated Rebate: ${totalEstimatedRebate}</p>
+//       <p>Amount Due on Previous: ${amtDueOnPrev}</p>
+//       <p>Amount Received Since Previous: ${amtReceivedSincePrev}</p>
+//       <p>Amount Due: ${amtDue}</p>
+//       {isLatest && (
+//         <PayPalButton
+//           amount={amtDue}
+//           onSuccess={this.onSucccess}
+//           options={{
+//             clientId
+//           }}
+//         />
+//       )}
+//     </div>
+//   );
+// }
+// }
+
+export default Bill;
