@@ -1,41 +1,57 @@
 import React from 'react';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import formValidation from '../../lib/formValidation';
 import '../../styles/Onboarding.css';
-import keys from '../../lib/api_key';
+import MapView from './MapView';
+import ListView from './ListView';
+import { getAllRecords } from '../../lib/request';
 
 class ProjectGroups extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      markers: [
+      groups: [
         {
           id: 1,
-          name: 'UC Berkeley',
+          name: "Fang's Solar Panels",
           description:
             'Berkeley (/ˈbɜːrkli/ BURK-lee) is a city on the east shore of San Francisco Bay in northern Alameda' +
             '                County, California. It is named after the 18th-century Irish bishop and philosopher George Berkeley. It' +
             '                borders the cities of Oakland and Emeryville to the south and the city of Albany and the unincorporated' +
             '                community of Kensington to the north...',
           lat: 37.8719,
-          lng: -122.2585
+          lng: -122.2585,
+          city: 'Berkeley',
+          state: 'CA'
         },
         {
           id: 2,
-          name: 'Oakland',
+          name: "Nick's Solar Panels",
           description:
             'Oakland is a city on the east side of San Francisco Bay, in California. Jack London Square has ' +
             'a statue of the writer, who frequented the area. Nearby, Old Oakland features restored Victorian ' +
             'architecture and boutiques. Near Chinatown, the Oakland Museum of California covers state history, ' +
             'nature and art.',
           lat: 37.8044,
-          lng: -122.2712
+          lng: -122.2712,
+          city: 'Oakland',
+          state: 'CA'
         }
       ],
-      displayGroup: 0
+      displayGroup: 0,
       // currentLat: 0,
       // currentLng: 0
+      view: 'list'
     };
+  }
+
+  componentDidMount() {
+    getAllRecords('Project Group').then(payload => {
+      console.log(payload);
+      // const { Name: name } = payload.record;
+      // this.setState({
+      //   name
+      // });
+    });
   }
 
   changeDisplayedGroup = id => {
@@ -72,10 +88,23 @@ class ProjectGroups extends React.Component {
     prevStep();
   };
 
+  handleViewChange = () => {
+    const { view } = this.state;
+    if (view === 'map') {
+      this.setState({
+        view: 'list'
+      });
+    } else {
+      this.setState({
+        view: 'map'
+      });
+    }
+  };
+
   render() {
-    const { values, google } = this.props;
-    const { errors } = values;
-    const { markers, displayGroup } = this.state;
+    const { values, handleChange } = this.props;
+    const { errors, noProjectGroup } = values;
+    const { groups, displayGroup, view } = this.state;
     return (
       <div
         style={{
@@ -87,57 +116,34 @@ class ProjectGroups extends React.Component {
       >
         <div>
           <div className="header">Project Group</div>
-          <Map
-            google={google}
-            zoom={10}
-            style={{
-              width: '75%',
-              height: '75%',
-              borderRadius: 10,
-              zIndex: 0
-            }}
-            // className="mapWindow"
-            initialCenter={{
-              lat: 37.8719,
-              lng: -122.2585
-            }}
-            zoomControl
-            zoomControlOptions={{
-              position: google.maps.ControlPosition.LEFT_CENTER
-            }}
-            mapTypeControl={false}
-            scaleControl={false}
-            streetViewControl={false}
-            rotateControl={false}
-            fullscreenControl
-          >
-            {markers.map((marker, index) => (
-              <Marker
-                name={marker.name}
-                position={{ lat: marker.lat, lng: marker.lng }}
-                onClick={() => this.changeDisplayedGroup(index)}
-              />
-            ))}
-          </Map>
-          <div className="infoBox">
-            <div style={{ margin: '20px' }}>
-              <div style={{ fontSize: '24px', paddingBottom: '10px' }}>
-                {markers[displayGroup].name}
-              </div>
-              <div style={{ fontSize: '14px', paddingBottom: '20px' }}>
-                {markers[displayGroup].description}
-              </div>
-              <button
-                type="button"
-                style={{ bottom: 0 }}
-                onClick={() => this.changeSelectedGroup(markers[displayGroup])}
-                name="projectGroup"
-              >
-                Select
-              </button>
-            </div>
+          <button type="button" onClick={this.handleViewChange}>
+            {view === 'map' ? 'List View' : 'Map View'}
+          </button>
+          <MapView
+            values={values}
+            markers={groups}
+            displayGroup={displayGroup}
+            changeDisplayedGroup={this.changeDisplayedGroup}
+            changeSelectedGroup={this.changeSelectedGroup}
+            view={view}
+          />
+          <ListView
+            values={values}
+            groups={groups}
+            displayGroup={displayGroup}
+            changeSelectedGroup={this.changeSelectedGroup}
+            changeDisplayedGroup={this.changeDisplayedGroup}
+            view={view}
+          />
+          <input
+            type="checkbox"
+            name="noProjectGroup"
+            onChange={handleChange}
+            checked={noProjectGroup}
+          />
+          <div className="checkbox-text">
+            I don’t want to join a project group at this time.
           </div>
-
           <div className="bottomButtons">
             <div style={{ position: 'relative', margin: 'auto' }}>
               <div>{errors.projectGroup ? errors.projectGroup : '\u00A0'}</div>
@@ -168,8 +174,4 @@ class ProjectGroups extends React.Component {
   }
 }
 
-// export default ProjectGroups;
-
-export default GoogleApiWrapper({
-  apiKey: keys.googleApiKey
-})(ProjectGroups);
+export default ProjectGroups;

@@ -19,21 +19,46 @@ class Confirmation extends React.Component {
   };
 
   render() {
+    const { values } = this.props;
+    const {
+      ccnumber,
+      expmonth,
+      expyear,
+      ccstreet,
+      ccapt,
+      cccity,
+      ccstate,
+      cczipcode,
+      numShares
+    } = values;
     return (
       <div className="center">
         <div className="header">Confirmation Page</div>
         <div className="flex row">
           <div className="confirmation-card">
             <div className="header">Billing Address</div>
-            <div className="body">Billing adress</div>
+            <div className="body">
+              {ccstreet} {ccapt}
+              {cccity}, {ccstate} {cczipcode}
+            </div>
           </div>
           <div className="confirmation-card">
             <div className="header">Payment Method</div>
-            <div className="body">payment info</div>
+            <div className="body">
+              Visa **** **** **** {ccnumber.replace(/.(?=.{4})/g, 'x')}
+              Expires in {expmonth} {expyear}
+            </div>
           </div>
           <div className="confirmation-card">
             <div className="header">Order Summary</div>
-            <div className="body">summary</div>
+            <div className="body">
+              <div>Shares</div>
+              <div>${numShares * 100}.00</div>
+              <div>Qty:{numShares}</div>
+              <br />
+              <div>Total</div>
+              <div>${numShares * 100}.00</div>
+            </div>
           </div>
         </div>
         <div>

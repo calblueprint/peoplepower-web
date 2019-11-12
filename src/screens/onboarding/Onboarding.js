@@ -28,13 +28,15 @@ class Onboarding extends React.Component {
       numShares: '',
       dividends: '',
       beneficiaries: [],
-      paymentInfo: '',
-      billingAddress: {
-        street: '',
-        apt: '',
-        state: '',
-        zipcode: ''
-      },
+      billingAddressSame: false,
+      ccnumber: '',
+      expmonth: '',
+      expyear: '',
+      cvv: '',
+      ccstreet: '',
+      ccapt: '',
+      ccstate: '',
+      cczipcode: '',
       errors: {
         // object that holds all the error messages
         fname: '',
@@ -53,16 +55,18 @@ class Onboarding extends React.Component {
         numShares: '',
         dividends: false,
         beneficiaries: [],
-        paymentInfo: '',
-        b_street: '',
-        b_apt: '',
-        b_state: '',
-        b_zipcode: ''
+        ccnumber: '',
+        expmonth: '',
+        expyear: '',
+        cvv: '',
+        ccstreet: '',
+        ccapt: '',
+        ccstate: '',
+        cczipcode: ''
       },
-      step: 3
+      step: 4
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
   }
 
@@ -113,7 +117,16 @@ class Onboarding extends React.Component {
 
   // updates the state whenever there is a change made
   handleChange = event => {
-    const { bylaw1, bylaw2 } = this.state;
+    const {
+      bylaw1,
+      bylaw2,
+      street,
+      apt,
+      city,
+      state,
+      zipcode,
+      billingAddressSame
+    } = this.state;
     switch (event.target.name) {
       case 'bylaw1':
         this.setState({
@@ -123,6 +136,20 @@ class Onboarding extends React.Component {
       case 'bylaw2':
         this.setState({
           bylaw2: !bylaw2
+        });
+        break;
+      case 'billingAddressSame':
+        if (!billingAddressSame) {
+          this.setState({
+            ccstreet: street,
+            ccapt: apt,
+            cccity: city,
+            ccstate: state,
+            cczipcode: zipcode
+          });
+        }
+        this.setState({
+          billingAddressSame: !billingAddressSame
         });
         break;
       case 'dividends':
@@ -153,14 +180,6 @@ class Onboarding extends React.Component {
     });
   };
 
-  // handle onClick for bylaw
-  handleClick() {
-    const { bylaw } = this.state;
-    this.setState({
-      bylaw: !bylaw
-    });
-  }
-
   // function for validation of bylaws
   callBackBylawValidation() {
     const { errors } = this.state;
@@ -188,8 +207,16 @@ class Onboarding extends React.Component {
       numShares,
       dividends,
       beneficiaries,
-      billingAddress,
-      paymentInfo,
+      billingAddressSame,
+      ccnumber,
+      expmonth,
+      expyear,
+      cvv,
+      ccstreet,
+      ccapt,
+      cccity,
+      ccstate,
+      cczipcode,
       errors,
       touched
     } = this.state;
@@ -210,8 +237,16 @@ class Onboarding extends React.Component {
       numShares,
       dividends,
       beneficiaries,
-      billingAddress,
-      paymentInfo,
+      billingAddressSame,
+      ccnumber,
+      expmonth,
+      expyear,
+      cvv,
+      ccstreet,
+      ccapt,
+      cccity,
+      ccstate,
+      cczipcode,
       errors,
       touched
     };
