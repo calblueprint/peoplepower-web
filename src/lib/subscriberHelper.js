@@ -4,6 +4,7 @@ import { getRecord, getRecordsFromAttribute } from './request';
 const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
 const OWNER_TABLE = 'Owner';
 const PERSON_TABLE = 'Person';
+const PAYMENT_TABLE = 'Payment';
 
 // FIELDS
 const SUBSCRIBER_OWNER = 'Subscriber Owner';
@@ -116,7 +117,10 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
     const bills = [];
     let isLatest = true;
     billObjects.forEach(({ record }) => {
+      // if (!record.Payment) {
       bills.push({
+        ID: record.ID,
+        'Subscriber Owner': record['Subscriber Owner'][0], // assumes exactly 1 subscriber owner
         'Statement Date': record['Statement Date'],
         'Start Date': record['Start Date'],
         'End Date': record['End Date'],
@@ -130,6 +134,7 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
         'Is Latest': isLatest
       });
       isLatest = false;
+      // }
     });
 
     callback(bills);
@@ -138,11 +143,32 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
   }
 };
 
+const createPayment = async record => {
+  /*
+    {
+      "fields": {
+        "Owner": [
+          "Some Id"
+        ],
+        "Status": "Paid in full",
+        "Type": "Some Type",
+        "Amount": {amount in cents},
+        "Subscriber Bill": [
+          "recy1K7CRUQPVvaE7"
+        ]
+      }
+    }
+  */
+  const id = await createRecord(PAYMENT_TABLE, record);
+  return id;
+};
+
 export {
   areDiffBills,
   centsToDollars,
   getOwnerIdFromId,
   getBillsFromOwnerId,
   getSubscriberOwnerFromPerson,
-  getSubscriberBills
+  getSubscriberBills,
+  createPayment
 };

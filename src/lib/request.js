@@ -92,6 +92,19 @@ function getRecordsFromAttribute(table, fieldType, field) {
 
 // Given a person object, create a record of that person.
 function createPerson(person) {
+  /* EXAMPLE OBJECT TO CREATE PERSON
+  {
+    "fields": {
+      "Email": email,
+      "Phone Number": phoneNumber,
+      "Owner": [owner],
+      "Address": [address],
+      "Tags": tags,
+      "User Login": [userLogin],
+      "Name": name
+    }
+  } 
+*/
   return new Promise((resolve, reject) => {
     base('Person').create([person], function(err, records) {
       if (err) {
@@ -189,9 +202,10 @@ function updateRecord(table, updatedRecord) {
 }
 
 export {
-  getRecord,
+  getRecordsFromAttribute,
   createPerson,
   createRecord,
   updatePerson,
-  getRecordsFromAttribute,
+  getRecord,
+  updateRecord
 };

@@ -1,14 +1,8 @@
-.dashboardCont {
-  width: 100%;
+.cont {
+  margin: 30px;
 }
 
-.userInfoCont h2,
-p,
-ul {
-  padding-left: 30px;
+div p,
+h3 {
   color: white;
-}
-
-.userInfoCont li {
-  margin-left: 30px;
 }
