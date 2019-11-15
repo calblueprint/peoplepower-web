@@ -1,9 +1,5 @@
 import React from 'react';
-import { PayPalButton } from 'react-paypal-button-v2';
 import '../../styles/Bill.css';
-import secret from '../../secret';
-
-const { clientId } = secret;
 
 const dateToWord = {
   1: 'January',
@@ -30,19 +26,6 @@ function dateToDateString(date) {
   return `${dateToWord[parseInt(dateArr[1], 10)].substring(0, 3)} ${
     dateArr[2]
   }, ${dateArr[0]}`;
-}
-
-function onSucccess(details, data) {
-  console.log(this.props);
-  console.log(data);
-  console.log(`Transaction completed by ${details.payer.name.given_name}`);
-  // OPTIONAL: Call your server to save the transaction
-  // return fetch("/paypal-transaction-complete", {
-  //     method: "post",
-  //     body: JSON.stringify({
-  //         orderId: data.orderID
-  //     })
-  // });
 }
 
 function Bill({
@@ -79,7 +62,7 @@ function Bill({
           Pay
         </button>
       )} */}
-      {isLatest && (
+      {/* {isLatest && (
         <PayPalButton
           amount={amtDue}
           onSuccess={onSucccess}
@@ -87,7 +70,7 @@ function Bill({
             clientId
           }}
         />
-      )}
+      )} */}
       <hr id="bill-divide-line" />
     </div>
     // <div className="bill-card">
