@@ -28,9 +28,9 @@ function getRecord(table, id) {
 }
 
 /* 
-	GENERAL SEARCH
-	Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
-	return the associated record object.
+  GENERAL SEARCH
+  Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
+  return the associated record object.
 */
 function getRecordFromAttribute(table, fieldType, field) {
   return new Promise((resolve, reject) => {
@@ -58,9 +58,9 @@ function getRecordFromAttribute(table, fieldType, field) {
 }
 
 /* 
-	******** CREATE RECORDS ********
-	You can pass in UP TO 10 record objects. Each obj should have one key, fields,
- 	contailing all cell values by field name. Linked records are represented as an array of IDs.
+  ******** CREATE RECORDS ********
+  You can pass in UP TO 10 record objects. Each obj should have one key, fields,
+  contailing all cell values by field name. Linked records are represented as an array of IDs.
  */
 
 // Given a person object, create a record of that person.
@@ -106,32 +106,30 @@ function createRecord(table, record) {
 }
 
 /* 
-	******** UPDATE RECORDS ********
-	An UPDATE will only update the fields you specify, leaving the rest as they were. 
-	A REPLACE will perform a destructive update and clear all unspecified cell values. 
-
-	- Max 10 records to be updated at once.
-	- Each obj should have an ID key and a fields key.
-
-	EXAMPLE UPDATE OBJECT TO PASS INTO updatePerson():
-	// {
-	//   "id": "recfnsL4HDoNHril6",
-	//   "fields": {
-	//     "Email": "nickwong@berkeley.edu",
-	//     "Phone Number": "(504) 123-4567",
-	//     "Owner": [
-	//       "recsnkM5ms2NJhVW0"
-	//     ],
-	//     "Address": [
-	//       "reci2wCQQ5HnL5r4A"
-	//     ],
-	//     "Tags": 112,
-	//     "User Login": [
-	//       "rec9ycakLxIUbTLef"
-	//     ],
-	//     "Name": "Nick Wong"
-	//   }
-	// }
+  ******** UPDATE RECORDS ********
+  An UPDATE will only update the fields you specify, leaving the rest as they were. 
+  A REPLACE will perform a destructive update and clear all unspecified cell values. 
+  - Max 10 records to be updated at once.
+  - Each obj should have an ID key and a fields key.
+  EXAMPLE UPDATE OBJECT TO PASS INTO updatePerson():
+  // {
+  //   "id": "recfnsL4HDoNHril6",
+  //   "fields": {
+  //     "Email": "nickwong@berkeley.edu",
+  //     "Phone Number": "(504) 123-4567",
+  //     "Owner": [
+  //       "recsnkM5ms2NJhVW0"
+  //     ],
+  //     "Address": [
+  //       "reci2wCQQ5HnL5r4A"
+  //     ],
+  //     "Tags": 112,
+  //     "User Login": [
+  //       "rec9ycakLxIUbTLef"
+  //     ],
+  //     "Name": "Nick Wong"
+  //   }
+  // }
 */
 
 function updatePerson(updatedPerson) {
