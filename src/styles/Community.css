@@ -1,6 +1,11 @@
 .community {
   display: flex;
+  height: calc(100% - 104px);
+  overflow: hidden;
 }
+
+/* is this good practice? how am i supposed to set the height of it otherwise? 100% 
+pushes the div below the fold*/
 
 .community h1 {
   color: black;
@@ -31,8 +36,8 @@ h3 {
 }
 
 .cardsCont {
-  overflow: auto;
-  height: 100%;
+  overflow: scroll;
+  height: 350px;
 }
 
 .community .cont .AddAnnouncement {
