@@ -7,6 +7,7 @@ import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
 import SignUp from './screens/auth/SignUp';
 import Community from './screens/general/Community';
+import UserProfilePage from './screens/general/UserProfilePage';
 
 function App() {
   return (
@@ -16,12 +17,13 @@ function App() {
 
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route path="/signup" component={SignUp} />
           <Route path="/onboarding" component={Onboarding} />
           <Route path="/dashboard" component={GeneralOwnerDashboard} />
-          <Route path="/dashboard" component={GeneralOwnerDashboard} />
           <Route path="/community" component={Community} />
-          <Route>Not Found - 404</Route>
+          <Route path="/profile/:id" component={UserProfilePage} />
+          <Route>
+            <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>
+          </Route>
         </Switch>
       </div>
     </Router>

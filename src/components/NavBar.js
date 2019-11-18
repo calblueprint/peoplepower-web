@@ -9,6 +9,7 @@ export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       name: ''
     };
   }
@@ -31,7 +32,7 @@ export default class NavBar extends React.Component {
   }
 
   render() {
-    const { name } = this.state;
+    const { id, name } = this.state;
     return (
       <div className="navBarCont">
         <img
