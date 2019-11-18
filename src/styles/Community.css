@@ -35,6 +35,28 @@ h3 {
   height: 100%;
 }
 
+.community .cont form {
+  width: 100%;
+}
+
+.community .cont form textarea {
+  width: 100%;
+  outline: none;
+  resize: none;
+  border: none;
+  font-size: 16px;
+}
+
+.community .cont form input {
+  font-size: 16px;
+  border: none;
+  background: #c4c4c4;
+  border-radius: 2.5px;
+  width: 60px;
+  height: 30px;
+  outline: none;
+}
+
 /* SPINNER */
 @keyframes rotation {
   from {

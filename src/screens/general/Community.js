@@ -3,12 +3,15 @@ import '../../styles/Community.css';
 import { getRecord, getMultipleFromAttr } from '../../lib/request';
 import { getLoggedInUserId } from '../../lib/auth';
 import AnnouncementList from '../../components/AnnouncementList';
+import AddAnnouncement from '../../components/AddAnnouncement';
 
 export default class Community extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       cards: [],
+      usersID: '',
+      usersGroup: '',
       isLoading: true
     };
   }
@@ -20,6 +23,9 @@ export default class Community extends React.Component {
       history.push('/');
       return;
     }
+    this.setState({
+      usersID: id
+    });
 
     getRecord('Person', id)
       .then(payload => {
@@ -28,6 +34,9 @@ export default class Community extends React.Component {
       })
       .then(payload => {
         const { 'Project Group': projectGroup } = payload.record;
+        this.setState({
+          usersGroup: projectGroup[0]
+        });
         return getMultipleFromAttr(
           'Announcement',
           'Project Group',
@@ -43,7 +52,7 @@ export default class Community extends React.Component {
   }
 
   render() {
-    const { cards, isLoading } = this.state;
+    const { cards, isLoading, usersGroup, usersID } = this.state;
     return isLoading ? (
       <img
         src="https://image.flaticon.com/icons/svg/25/25220.svg"
@@ -54,6 +63,7 @@ export default class Community extends React.Component {
       <div className="community">
         <div className="cont">
           <h1>Community</h1>
+          <AddAnnouncement usersGroup={usersGroup} usersID={usersID} />
           <AnnouncementList announcements={cards} />
         </div>
       </div>
