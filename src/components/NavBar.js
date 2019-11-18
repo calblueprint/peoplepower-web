@@ -25,7 +25,8 @@ export default class NavBar extends React.Component {
       getRecord('Person', id).then(payload => {
         const { Name: name } = payload.record;
         this.setState({
-          name
+          name,
+          id
         });
       });
     }
@@ -34,7 +35,7 @@ export default class NavBar extends React.Component {
   render() {
     const { id, name } = this.state;
     return (
-      <div className="navBarCont">
+      <div className="navBar">
         <img
           className="logo"
           src={Logo}
@@ -42,22 +43,20 @@ export default class NavBar extends React.Component {
         />
         <nav>
           <ul>
-            <div>
-              <li className="navItem">
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
-              <li className="navItem">
-                <Link to="/finances">My Finances</Link>
-              </li>
-              <li className="navItem">
-                <Link to="/community">Community</Link>
-              </li>
-              <li className="navItem">
-                <Link to={`/profile/${id}`}>
-                  <span>{name}</span>
-                </Link>
-              </li>
-            </div>
+            <li className="navItem">
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li className="navItem">
+              <Link to="/finances">My Finances</Link>
+            </li>
+            <li className="navItem">
+              <Link to="/community">Community</Link>
+            </li>
+            <li className="navItem">
+              <Link to={`/profile/${id}`}>
+                <span>{name}</span>
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
