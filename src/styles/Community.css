@@ -35,11 +35,15 @@ h3 {
   height: 100%;
 }
 
-.community .cont form {
+.community .cont .AddAnnouncement {
+  display: block;
+}
+
+.community .cont .AddAnnouncement form {
   width: 100%;
 }
 
-.community .cont form textarea {
+.community .cont .AddAnnouncement form textarea {
   width: 100%;
   outline: none;
   resize: none;
@@ -47,7 +51,7 @@ h3 {
   font-size: 16px;
 }
 
-.community .cont form input {
+.community .cont .AddAnnouncement form input {
   font-size: 16px;
   border: none;
   background: #c4c4c4;
@@ -55,6 +59,21 @@ h3 {
   width: 60px;
   height: 30px;
   outline: none;
+  float: right;
+}
+
+.community .cont .AddAnnouncement form .btn-success {
+  background: green;
+}
+
+.community .cont .AddAnnouncement form .btn-fail {
+  background: red;
+}
+
+.community .cont .AddAnnouncement p {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  color: #c4c4c4;
 }
 
 /* SPINNER */
