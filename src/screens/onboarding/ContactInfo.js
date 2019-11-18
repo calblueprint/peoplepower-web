@@ -1,5 +1,7 @@
 import React from 'react';
 import formValidation from '../../lib/formValidation';
+import Dropdown from '../../components/Dropdown';
+import States from '../../lib/states';
 
 class ContactInfo extends React.Component {
   constructor(props) {
@@ -38,6 +40,7 @@ class ContactInfo extends React.Component {
   render() {
     const { values, handleChange, handleFormValidation } = this.props;
     const { errors } = values;
+    const states = States.keys();
     return (
       <form className="center">
         <div className="contact-header">Contact Information</div>
@@ -97,6 +100,13 @@ class ContactInfo extends React.Component {
                 errors.state !== '' ? 'b-is-not-valid' : 'b-is-invalid'
               }`}
               onBlur={handleFormValidation}
+            />
+            <Dropdown
+              titleHelper="State"
+              title="State"
+              list={states}
+              toggleItem={values.state}
+              handleChange={handleChange}
             />
           </div>
           <div className="w-25">

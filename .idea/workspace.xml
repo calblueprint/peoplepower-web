@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d161631a-b8dc-4f83-badf-a5d5016108dd" name="Default Changelist" comment="" />
+    <list default="true" id="d161631a-b8dc-4f83-badf-a5d5016108dd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/Dropdown.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/SearchBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/ContactInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/ContactInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/Onboarding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/Onboarding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/Onboarding.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Onboarding.css" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +85,9 @@
       <workItem from="1573183398836" duration="4610000" />
       <workItem from="1573326283199" duration="391000" />
       <workItem from="1573440493285" duration="26776000" />
+      <workItem from="1573637399984" duration="1307000" />
+      <workItem from="1573703577588" duration="1640000" />
+      <workItem from="1573753505248" duration="3000" />
     </task>
     <servers />
   </component>
