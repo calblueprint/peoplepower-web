@@ -11,7 +11,6 @@ export default class UserProfilePage extends React.Component {
       name: 'user',
       phoneNumber: '',
       address: '',
-      addressID: '',
       projectGroup: '',
       status: '',
       updateName: '',
@@ -41,7 +40,10 @@ export default class UserProfilePage extends React.Component {
     let phoneNumber;
     let name;
     let owner;
-    let addressID;
+    let city;
+    let street;
+    let state;
+    let zipCode;
     let userLoginID;
 
     getRecord('Person', id)
@@ -50,10 +52,12 @@ export default class UserProfilePage extends React.Component {
           Email: email,
           'Phone Number': phoneNumber,
           Owner: owner,
-          Address: addressID,
           Name: name,
           'User Login': userLoginID,
-          Address: addressID
+          City: city,
+          Street: street,
+          State: state,
+          Zipcode: zipCode
         } = payload.record);
         this.setState({
           email,
@@ -63,7 +67,11 @@ export default class UserProfilePage extends React.Component {
           phoneNumber,
           updatePhone: phoneNumber,
           userLoginID: userLoginID[0],
-          addressID: addressID[0]
+          address: `${street}, ${city}, ${state} ${zipCode}`,
+          updateStreet: street,
+          updateCity: city,
+          updateState: state,
+          updateZip: zipCode
         });
 
         // Getting project group
@@ -77,26 +85,7 @@ export default class UserProfilePage extends React.Component {
       .then(payload => {
         const { Name: projectGroupName } = payload.record;
         this.setState({
-          projectGroup: projectGroupName
-        });
-
-        // Getting Address
-        return getRecord('Address', addressID);
-      })
-      .then(payload => {
-        const {
-          City: city,
-          Street: street,
-          State: state,
-          'Zip Code': zipCode
-        } = payload.record;
-
-        this.setState({
-          address: `${street}, ${city}, ${state} ${zipCode}`,
-          updateStreet: street,
-          updateCity: city,
-          updateState: state,
-          updateZip: zipCode,
+          projectGroup: projectGroupName,
           isLoading: false
         });
       })
@@ -121,7 +110,6 @@ export default class UserProfilePage extends React.Component {
       updateEmail,
       updatePhone,
       userLoginID,
-      addressID,
       updateStreet,
       updateCity,
       updateState,
@@ -133,22 +121,17 @@ export default class UserProfilePage extends React.Component {
       fields: {
         Name: updateName,
         Email: updateEmail.toLowerCase(),
-        'Phone Number': updatePhone
+        'Phone Number': updatePhone,
+        Street: updateStreet,
+        City: updateCity,
+        State: updateState.toUpperCase(),
+        Zipcode: updateZip
       }
     };
     const newLogin = {
       id: userLoginID,
       fields: {
         Email: updateEmail
-      }
-    };
-    const newAddress = {
-      id: addressID,
-      fields: {
-        Street: updateStreet,
-        City: updateCity,
-        State: updateState.toUpperCase(),
-        'Zip Code': updateZip
       }
     };
     console.log(`UPDATE: ${userLoginID}`);
@@ -158,7 +141,8 @@ export default class UserProfilePage extends React.Component {
         this.setState({
           status: payload.status,
           name: updateName,
-          email: updateEmail
+          email: updateEmail,
+          address: `${updateStreet}, ${updateCity}, ${updateState} ${updateZip}`
         });
         return updateRecord('User Login', newLogin);
       })
@@ -166,12 +150,7 @@ export default class UserProfilePage extends React.Component {
         this.setState({
           status: payload.status,
           name: updateName,
-          email: updateEmail
-        });
-        return updateRecord('Address', newAddress);
-      })
-      .then(() => {
-        this.setState({
+          email: updateEmail,
           address: `${updateStreet}, ${updateCity}, ${updateState} ${updateZip}`
         });
       });
