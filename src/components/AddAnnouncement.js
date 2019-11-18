@@ -8,7 +8,8 @@ export default class AddAnnouncement extends React.Component {
     this.state = {
       message: '',
       submitSuccess: 0,
-      status: ''
+      status: '',
+      submitProgress: 0
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,15 +27,20 @@ export default class AddAnnouncement extends React.Component {
     event.preventDefault();
     const { message } = this.state;
 
+    this.setState({
+      submitProgress: 1
+    });
+
     if (!message) {
       this.setState({
         submitSuccess: -1,
+        submitProgress: -1,
         status: 'Announcement is empty!'
       });
       return;
     }
 
-    const { usersID: id, usersGroup: projectGroup } = this.props;
+    const { usersID: id, usersGroup: projectGroup, updateCards } = this.props;
     const newMessage = {
       fields: {
         Author: [id],
@@ -45,14 +51,19 @@ export default class AddAnnouncement extends React.Component {
     createRecord('Announcement', newMessage).then(() => {
       this.setState({
         submitSuccess: true,
-        status: 'Announcement posted!'
+        status: 'Announcement posted!',
+        message: '',
+        submitProgress: 1
       });
+
+      updateCards(newMessage);
     });
   }
 
   render() {
-    const { message, submitSuccess, status } = this.state;
+    const { message, submitSuccess, status, submitProgress } = this.state;
     let btnStatus = '';
+    let btnText = '';
 
     if (submitSuccess > 0) {
       btnStatus = 'btn-success';
@@ -60,6 +71,14 @@ export default class AddAnnouncement extends React.Component {
       btnStatus = 'btn-fail';
     } else {
       btnStatus = '';
+    }
+
+    if (submitProgress > 0) {
+      btnText = 'Done';
+    } else if (submitProgress < 0) {
+      btnText = 'Error';
+    } else {
+      btnText = 'Post';
     }
 
     return (
@@ -72,7 +91,7 @@ export default class AddAnnouncement extends React.Component {
             placeholder="Write something..."
             onChange={this.handleChange}
           />
-          <input type="submit" value="Post" className={btnStatus} />
+          <input type="submit" value={btnText} className={btnStatus} />
         </form>
         <p>{status}</p>
       </div>

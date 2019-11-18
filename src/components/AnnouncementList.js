@@ -6,7 +6,6 @@ const AnnouncementList = props => {
   const list = announcements.map(announce => {
     console.log(announce);
     const {
-      ID: id,
       Title: title,
       Message: message,
       Time: time,
@@ -28,7 +27,7 @@ const AnnouncementList = props => {
     );
 
     return (
-      <div key={id} className="card">
+      <div key={message} className="card">
         <div className="cardHeading">
           <h2>{title}</h2>
           <p>{message}</p>

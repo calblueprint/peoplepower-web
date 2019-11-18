@@ -14,6 +14,8 @@ export default class Community extends React.Component {
       usersGroup: '',
       isLoading: true
     };
+
+    this.addTempCard = this.addTempCard.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +53,14 @@ export default class Community extends React.Component {
       });
   }
 
+  addTempCard(announcement) {
+    const { cards } = this.state;
+    const updatedCards = [announcement, ...cards];
+    this.setState({
+      cards: updatedCards
+    });
+  }
+
   render() {
     const { cards, isLoading, usersGroup, usersID } = this.state;
     return isLoading ? (
@@ -63,7 +73,11 @@ export default class Community extends React.Component {
       <div className="community">
         <div className="cont">
           <h1>Community</h1>
-          <AddAnnouncement usersGroup={usersGroup} usersID={usersID} />
+          <AddAnnouncement
+            usersGroup={usersGroup}
+            usersID={usersID}
+            updateCards={this.addTempCard}
+          />
           <AnnouncementList announcements={cards} />
         </div>
       </div>
