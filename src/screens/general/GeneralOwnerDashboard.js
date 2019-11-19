@@ -1,7 +1,8 @@
 import React from 'react';
 import '../../styles/GeneralOwnerDashboard.css';
-import { getRecord } from '../../lib/request';
+import { getRecord, getMultipleFromAttr } from '../../lib/request';
 import { getLoggedInUserId, logOut } from '../../lib/auth';
+import AnnouncementList from '../../components/AnnouncementList';
 
 export default class GeneralOwnerDashboard extends React.Component {
   constructor(props) {
@@ -12,7 +13,11 @@ export default class GeneralOwnerDashboard extends React.Component {
       phoneNumber: 'N/A',
       address: '',
       projectGroup: '',
-      solarProject: []
+      projectGroupID: '',
+      solarProject: [],
+      cards: [],
+      isLoadingCards: true,
+      isLoadingDetails: true
     };
   }
 
@@ -31,6 +36,7 @@ export default class GeneralOwnerDashboard extends React.Component {
     let owner;
     let addressID;
 
+    // Get Person record from person id
     getRecord('Person', id)
       .then(payload => {
         ({
@@ -44,13 +50,19 @@ export default class GeneralOwnerDashboard extends React.Component {
         this.setState({
           email,
           name,
-          phoneNumber
+          phoneNumber,
+          isLoadingDetails: false
         });
 
+        // then get Owner record from owner id
         return getRecord('Owner', owner);
       })
       .then(payload => {
         const { 'Project Group': projectGroupID } = payload.record;
+        this.setState({
+          projectGroupID
+        });
+        // then get Project Group from project group id
         return getRecord('Project Group', projectGroupID);
       })
       .then(payload => {
@@ -61,9 +73,7 @@ export default class GeneralOwnerDashboard extends React.Component {
         this.setState({
           projectGroup: projectGroupName
         });
-
         const solarProjectNames = [];
-        // group promise.all?
         solarProject.forEach(project => {
           getRecord('Solar Project', project).then(res => {
             solarProjectNames.push(res.record.Name);
@@ -87,6 +97,20 @@ export default class GeneralOwnerDashboard extends React.Component {
           address: `${street}, ${city}, ${state} ${zipCode}`
         });
       })
+      .then(() => {
+        const { projectGroupID } = this.state;
+        return getMultipleFromAttr(
+          'Announcement',
+          'Project Group',
+          projectGroupID
+        );
+      })
+      .then(payload => {
+        this.setState({
+          cards: payload,
+          isLoadingCards: false
+        });
+      })
       .catch(err => {
         console.log(err);
       });
@@ -98,6 +122,11 @@ export default class GeneralOwnerDashboard extends React.Component {
     history.push('/');
   };
 
+  /* dash-solar-details will eventually be its own graph component
+     so it'll be easy to write a ternary operator that will render
+     it when it's loaded.
+  */
+
   render() {
     const {
       name,
@@ -105,14 +134,17 @@ export default class GeneralOwnerDashboard extends React.Component {
       phoneNumber,
       address,
       projectGroup,
-      solarProject
+      solarProject,
+      cards,
+      isLoadingCards,
+      isLoadingDetails
     } = this.state;
     const solarProjectComponent = solarProject.map(project => {
       return <li>{project}</li>;
     });
-    return (
-      <div className="cont">
-        <h3>General Owner Dashboard</h3>
+
+    const userDetails = (
+      <div className="dash-solar-details">
         <p>Welcome, {name}</p>
         <div>
           <p>Email: {email}</p>
@@ -132,6 +164,23 @@ export default class GeneralOwnerDashboard extends React.Component {
         >
           Logout
         </button>
+      </div>
+    );
+
+    return (
+      <div className="dashboard">
+        <div className="cont dash-announcements-cont">
+          <h3>Community</h3>
+          {isLoadingCards ? (
+            <div className="isLoadingDiv card" />
+          ) : (
+            <AnnouncementList announcements={cards} />
+          )}
+        </div>
+        <div className="dash-solar-details-cont">
+          <h3>Solar Projects</h3>
+          {isLoadingDetails ? <div className="isLoadingDiv" /> : userDetails}
+        </div>
       </div>
     );
   }

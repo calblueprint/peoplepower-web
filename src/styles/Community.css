@@ -1,11 +1,5 @@
 .community {
-  display: flex;
-  height: calc(100% - 104px);
-  overflow: hidden;
 }
-
-/* is this good practice? how am i supposed to set the height of it otherwise? 100% 
-pushes the div below the fold*/
 
 .community h1 {
   color: black;
@@ -16,26 +10,30 @@ pushes the div below the fold*/
   color: black;
 }
 
-.community .card {
+.card {
   background: #fff;
   border-radius: 5px;
   padding: 35px;
   margin: 10px 0px;
-  width: 675px;
+  width: 652px;
   display: flex;
   justify-content: space-between;
 }
 
-.community .card h2 {
+.card:first-of-type {
+  margin-top: 0px;
+}
+
+.card h2 {
   font-size: 28px;
 }
-.community .card h2,
+.card h2,
 h3 {
   color: black;
   margin: 5px 0px;
 }
 
-.community .card img {
+.card img {
   clip-path: inset(100px 0px);
   margin-top: -100px;
   margin-bottom: -100px;

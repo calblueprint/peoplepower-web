@@ -8,9 +8,9 @@ const AnnouncementList = props => {
     const {
       Title: title,
       Message: message,
-      Time: time,
-      Location: location,
-      'Event type': eventType,
+      // Time: time,
+      // Location: location,
+      // 'Event type': eventType,
       Attachments: attachments
     } = announce.fields;
 
@@ -21,18 +21,26 @@ const AnnouncementList = props => {
       filename = attachments[0].filename;
     }
 
-    const eventDetails = (
-      <div>
-        <div className="cardTime">
-          <h3>Time</h3>
-          <p>{time}</p>
-        </div>
-        <div className="cardLocation">
-          <h3>Location</h3>
-          <p>{location}</p>
-        </div>
-      </div>
-    );
+    // const eventDetails = (
+    //   <div>
+    //     <div className="cardTime">
+    //       <h3>Time</h3>
+    //       <p>{time}</p>
+    //     </div>
+    //     <div className="cardLocation">
+    //       <h3>Location</h3>
+    //       <p>{location}</p>
+    //     </div>
+    //   </div>
+    // );
+
+    /* Awaiting Iris' input on whether card details (time and location)
+       will remain on the cards.
+
+      This would go inside of div.cardDetails:
+      
+        {eventType === 'Event' ? eventDetails : null}
+    */
 
     return (
       <div key={message} className="card">
@@ -41,9 +49,7 @@ const AnnouncementList = props => {
           <p>{url ? <img src={url} alt={filename} /> : null}</p>
           <p>{message}</p>
         </div>
-        <div className="cardDetails">
-          {eventType === 'Event' ? eventDetails : null}
-        </div>
+        <div className="cardDetails" />
       </div>
     );
   });

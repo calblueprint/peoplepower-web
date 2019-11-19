@@ -1,23 +1,37 @@
-.cont {
-  margin-left: 190px;
+/* 
+  Is setthe height of the component this way good practice? 
+  How am i supposed to set the height of the screen otherwise? 
+  Setting height 100% pushes the div below the fold due to the nav taking up room. 
+*/
+
+.isLoadingDiv {
+  height: 200px;
+  border-radius: 5px;
+  background: #fff;
 }
 
-div p,
-h3 {
-  color: white;
+.dashboard .dash-solar-details-cont,
+.dash-announcements-cont {
+  margin-top: 45px;
 }
 
-/*.dashboardCont {
+.dash-solar-details-cont {
   width: 100%;
+  margin: 0px 35px;
 }
 
-.userInfoCont h2,
-p,
-ul {
-  padding-left: 30px;
-  color: white;
+.dash-solar-details {
+  background: #ffffff;
+  padding: 20px 20px;
+  border-radius: 5px;
 }
 
-.userInfoCont li {
-  margin-left: 30px;
-}*/
+.dash-solar-details-cont h3,
+.dash-announcements-cont h3 {
+  margin-bottom: 23px;
+  margin-top: 0px;
+}
+
+.dash-announcements-cont .cardsCont {
+  height: 500px;
+}
