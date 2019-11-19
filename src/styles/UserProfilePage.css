@@ -1,25 +1,39 @@
-/*.inputFormCont {
+.row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.cont {
+  width: 100%;
+}
+
+.userIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 300px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.inputForm {
+  background: #fff;
   width: 50%;
   float: right;
+  height: 300px;
+  margin-left: 17px;
+  border-radius: 5px;
+  padding: 32px;
 }
 
-.inputFormCont h2,
-h3,
-label {
-  color: white;
+.inputForm h2 {
+  margin-top: 0px;
+  margin-bottom: 30px;
 }
 
-.userInfoCont {
-  width: 50%;
-  display: inline-block;
-}
-
-.userInfoCont h3,
-p {
-  padding-left: 30px;
-}
-
-input {
+.inputForm input {
   display: block;
   margin: 10px 0px;
-}*/
+}
