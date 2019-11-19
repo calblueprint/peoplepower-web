@@ -35,6 +35,13 @@ h3 {
   margin: 5px 0px;
 }
 
+.community .card img {
+  clip-path: inset(100px 0px);
+  margin-top: -100px;
+  margin-bottom: -100px;
+  width: 100%;
+}
+
 .cardsCont {
   overflow: scroll;
   height: 350px;

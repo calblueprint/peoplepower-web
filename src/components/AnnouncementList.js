@@ -4,14 +4,22 @@ import '../styles/Community.css';
 const AnnouncementList = props => {
   const { announcements } = props;
   const list = announcements.map(announce => {
-    console.log(announce);
+    // console.log(announce);
     const {
       Title: title,
       Message: message,
       Time: time,
       Location: location,
-      'Event type': eventType
+      'Event type': eventType,
+      Attachments: attachments
     } = announce.fields;
+
+    let url = '';
+    let filename = '';
+    if (attachments) {
+      url = attachments[0].url;
+      filename = attachments[0].filename;
+    }
 
     const eventDetails = (
       <div>
@@ -30,6 +38,7 @@ const AnnouncementList = props => {
       <div key={message} className="card">
         <div className="cardHeading">
           <h2>{title}</h2>
+          <p>{url ? <img src={url} alt={filename} /> : null}</p>
           <p>{message}</p>
         </div>
         <div className="cardDetails">
