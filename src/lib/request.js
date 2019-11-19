@@ -57,6 +57,28 @@ function getRecordFromAttribute(table, fieldType, field) {
   });
 }
 
+function getMultipleFromAttr(table, fieldType, field) {
+  return new Promise((resolve, reject) => {
+    base(table)
+      .select({
+        view: 'Grid view',
+        maxRecords: 10,
+        filterByFormula: `{${fieldType}}='${field}'`
+      })
+      .firstPage(function(err, records) {
+        if (err) {
+          reject(err);
+        }
+        if (records === null || records.length < 1) {
+          const msg = `No record was retrieved using this ${fieldType}.`;
+          reject(msg);
+        } else {
+          resolve(records);
+        }
+      });
+  });
+}
+
 /* 
   ******** CREATE RECORDS ********
   You can pass in UP TO 10 record objects. Each obj should have one key, fields,
@@ -163,6 +185,7 @@ function updateRecord(table, updatedRecord) {
 export {
   getRecord,
   getRecordFromAttribute,
+  getMultipleFromAttr,
   createPerson,
   createRecord,
   updatePerson,
