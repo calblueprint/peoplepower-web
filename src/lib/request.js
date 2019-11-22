@@ -30,9 +30,9 @@ function getRecord(table, id) {
 }
 
 /* 
-	GENERAL SEARCH
-	Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
-	return the associated record object.
+  GENERAL SEARCH
+  Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
+  return the associated record object.
 */
 function getRecordFromAttribute(table, fieldType, field) {
   return new Promise((resolve, reject) => {
