@@ -1,10 +1,11 @@
 import React from 'react';
 import '../../styles/Card.css';
 
-function Card({ name, callback, ownerId }) {
+function Card({ name, callback, ownerId, ownerType }) {
   return (
     <div className="card">
       <h3>{name}</h3>
+      <p>{ownerType}</p>
       <button
         type="button"
         onClick={() => callback(ownerId)}

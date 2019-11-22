@@ -1,7 +1,37 @@
-.card-holder {
-  display: flex;
+.card-holder-cont {
+  background: #ffffff;
+  border-radius: 5px;
+  overflow: scroll;
+  height: 350px;
+  padding: 0px 40px 40px 40px;
 }
 
-.white-text {
-  color: white;
+.card-holder {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-holder .card {
+  height: 70px;
+  margin: 0px;
+  border: 1px dashed black;
+  background: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.card-holder .card h3 {
+  margin: 0px;
+  padding: 0px;
+}
+
+.dash-admin {
+  display: flex;
+  justify-content: center;
+}
+
+.dash-admin h3 {
+  margin-top: 45px;
+  margin-bottom: 17px;
 }

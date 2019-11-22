@@ -70,7 +70,7 @@ export default class AdminDashboard extends React.Component {
 
     if (!isReady) {
       return (
-        <div className="dashboardCont">
+        <div className="cont">
           <h3>Loading...</h3>
         </div>
       );
@@ -78,31 +78,39 @@ export default class AdminDashboard extends React.Component {
 
     if (!access) {
       return (
-        <div className="dashboardCont">
+        <div className="cont">
           <h3>ACCESS DENIED</h3>
         </div>
       );
     }
     const { owners } = this.state;
     return (
-      <div className="dashboardCont">
-        <h3>Admin Dashboard</h3>
-        <div className="card-holder">
-          {owners.length >= 1 ? (
-            owners.map(owner => {
-              return (
-                <Card
-                  name={owner.ID}
-                  callback={idToRemove => this.removeUser(idToRemove)}
-                  ownerId={owner[OWNER_ID_FIELD]}
-                />
-              );
-            })
-          ) : (
-            <div className="white-text">
-              No owners to be displayed in this project group
+      <div className="dashboard dash-admin">
+        <div>
+          <h3>Project Group</h3>
+          <div className="card-holder-cont">
+            <h4>
+              Members <span>({owners.length})</span>
+            </h4>
+            <div className="card-holder">
+              {owners.length >= 1 ? (
+                owners.map(owner => {
+                  return (
+                    <Card
+                      name={owner.ID}
+                      callback={idToRemove => this.removeUser(idToRemove)}
+                      ownerId={owner[OWNER_ID_FIELD]}
+                      ownerType={owner['Owner Type']}
+                    />
+                  );
+                })
+              ) : (
+                <div className="white-text">
+                  No owners to be displayed in this project group
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </div>
     );
