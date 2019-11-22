@@ -1,8 +1,8 @@
 import React from 'react';
 
 const {
-  // loginUser,
-  registerUser
+  loginUser
+  // registerUser
 } = require('../../lib/auth.js');
 const { getLoggedInUserId } = require('../../lib/auth.js');
 
@@ -49,8 +49,8 @@ class Login extends React.Component {
     const { email, passwordHash } = this.state;
     console.log(evt.target.value);
     evt.preventDefault();
-    // const res = await loginUser(email, passwordHash);
-    const res = await registerUser(email, passwordHash);
+    const res = await loginUser(email, passwordHash);
+    // const res = await registerUser(email, passwordHash);
     console.log(res);
     // if (res.found && res.match) {
     //   this.segueToHome(evt);
