@@ -1,5 +1,8 @@
+/* 
+  Helper functions intended to streamline our requests to the AirTable API. 
+*/
+
 import key from './api_key';
-/* Helper functions intended to streamline our requests to the AirTable API. */
 
 const Airtable = require('airtable');
 
@@ -21,7 +24,6 @@ function getRecord(table, id) {
         reject(err);
         return;
       }
-      console.log('Retrieved', record.get('ID'), record.fields);
       resolve({ record: record.fields });
     });
   });
@@ -80,26 +82,34 @@ function getMultipleFromAttr(table, fieldType, field) {
 }
 
 /* 
-  ******** CREATE RECORDS ********
-  You can pass in UP TO 10 record objects. Each obj should have one key, fields,
-  contailing all cell values by field name. Linked records are represented as an array of IDs.
- */
+	******** CREATE RECORDS ********
+  You can create a person record using the `create` method with the Airtable API.
+  It looks like this:
+
+    base('Person').create([person], function callback(err, records) {))
+
+	You can pass in UP TO 10 person record objects into the array parameter `person`. 
+  The `person` variable should look like the example below.
+  
+  EXAMPLE OBJECT TO CREATE A PERSON: 
+    {
+      "fields": {
+        "Email": email,
+        "Phone Number": phoneNumber,
+        "Owner": [owner],
+        "Address": [address],
+        "Tags": tags,
+        "User Login": [userLogin],
+        "Name": name
+      }
+    } 
+
+    Make sure linked records are represented as an array:
+    "Owner": [recsnkM5ms2NJhVW0]
+  */
 
 // Given a person object, create a record of that person.
 function createPerson(person) {
-  /* EXAMPLE OBJECT TO CREATE PERSON
-  {
-    "fields": {
-      "Email": email,
-      "Phone Number": phoneNumber,
-      "Owner": [owner],
-      "Address": [address],
-      "Tags": tags,
-      "User Login": [userLogin],
-      "Name": name
-    }
-  } 
-*/
   return new Promise((resolve, reject) => {
     base('Person').create([person], function(err, records) {
       if (err) {
@@ -113,6 +123,7 @@ function createPerson(person) {
   });
 }
 
+// Given a table and a record object, create a record on Airtable.
 function createRecord(table, record) {
   return new Promise((resolve, reject) => {
     base(table).create([record], function(err, records) {
@@ -128,30 +139,42 @@ function createRecord(table, record) {
 }
 
 /* 
-  ******** UPDATE RECORDS ********
-  An UPDATE will only update the fields you specify, leaving the rest as they were. 
-  A REPLACE will perform a destructive update and clear all unspecified cell values. 
-  - Max 10 records to be updated at once.
-  - Each obj should have an ID key and a fields key.
-  EXAMPLE UPDATE OBJECT TO PASS INTO updatePerson():
-  // {
-  //   "id": "recfnsL4HDoNHril6",
-  //   "fields": {
-  //     "Email": "nickwong@berkeley.edu",
-  //     "Phone Number": "(504) 123-4567",
-  //     "Owner": [
-  //       "recsnkM5ms2NJhVW0"
-  //     ],
-  //     "Address": [
-  //       "reci2wCQQ5HnL5r4A"
-  //     ],
-  //     "Tags": 112,
-  //     "User Login": [
-  //       "rec9ycakLxIUbTLef"
-  //     ],
-  //     "Name": "Nick Wong"
-  //   }
-  // }
+	******** UPDATE RECORDS ********
+  When updating methods, you can either use the `update` or `replace` method. It looks like this:
+
+    base('Person').update([updatedPerson], function callback(err, records) {}) 
+      or 
+    base('Person').replace([replacedPerson], function callback(err, records) {})
+
+	Using `update` will only update the fields you specify, leaving the rest as they were. 
+	Using `replace` will perform a destructive update and clear all unspecified cell values. 
+
+	- Max 10 records to be updated/replaced per call.
+    - Depends on how many records you put in `[updatedPerson]`
+	- Each obj should have an ID key and a fields key.
+
+  NOTE! Make sure linked records are represented as an array:
+  "Owner": [recsnkM5ms2NJhVW0]
+
+	EXAMPLE UPDATE OBJECT TO PASS INTO updatePerson():
+	// {
+	//   "id": "recfnsL4HDoNHril6",
+	//   "fields": {
+	//     "Email": "nickwong@berkeley.edu",
+	//     "Phone Number": "(504) 123-4567",
+	//     "Owner": [
+	//       "recsnkM5ms2NJhVW0"
+	//     ],
+	//     "Address": [
+	//       "reci2wCQQ5HnL5r4A"
+	//     ],
+	//     "Tags": 112,
+	//     "User Login": [
+	//       "rec9ycakLxIUbTLef"
+	//     ],
+	//     "Name": "Nick Wong"
+	//   }
+	// }
 */
 
 function updatePerson(updatedPerson) {
@@ -168,6 +191,7 @@ function updatePerson(updatedPerson) {
   });
 }
 
+// Given a table and a record object, update a record on Airtable.
 function updateRecord(table, updatedRecord) {
   return new Promise((resolve, reject) => {
     base(table).update([updatedRecord], function(err, records) {
