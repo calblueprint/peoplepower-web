@@ -1635,10 +1635,9 @@ aggregate-error@^3.0.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
-airtable@^0.7.1:
+airtable@calblueprint/airlock#arpan/client:
   version "0.7.1"
-  resolved "https://registry.yarnpkg.com/airtable/-/airtable-0.7.1.tgz#1ebad9c9ed332d9348fb3ec3ef9c2d8be452b4f4"
-  integrity sha512-VV/8LKyDOtWca2YFMDJWDbPNPkhQPij6+H8SwoLTDEAR/02mTcGI1fSiwC5eW3xfy5Uzn6gLlfTGne7YqxxUkQ==
+  resolved "https://codeload.github.com/calblueprint/airlock/tar.gz/b1e021478783d7d70df3b8d7590fcd34f25333ec"
   dependencies:
     lodash "4.17.14"
     request "2.88.0"

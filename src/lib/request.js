@@ -2,7 +2,9 @@
   Helper functions intended to streamline our requests to the AirTable API. 
 */
 
-import key from './api_key';
+import secret from '../secret';
+
+const { key } = secret;
 
 const Airtable = require('airtable');
 

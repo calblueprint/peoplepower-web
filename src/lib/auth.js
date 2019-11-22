@@ -1,5 +1,4 @@
 import Cookies from 'universal-cookie';
-import key from './api_key';
 
 const cookies = new Cookies();
 
@@ -7,56 +6,41 @@ const BASE_ID = 'appFaOwKhMXrRIQIp';
 
 const Airtable = require('airtable');
 
-const base = new Airtable({ apiKey: key }).base(BASE_ID);
+Airtable.configure({
+  endpointUrl: 'https://airlock-ppsolar.calblueprint.org/',
+  apiKey: 'airlock'
+});
 
-const EMAIL_FIELD = 'Email';
-const PASSWORD_FIELD = 'Password';
-const GRID_VIEW = 'Grid view';
-const NUM_RECORDS = 1;
+const base = new Airtable().base(BASE_ID);
+
+// const EMAIL_FIELD = 'Email';
+// const PASSWORD_FIELD = 'Password';
+// const GRID_VIEW = 'Grid view';
+// const NUM_RECORDS = 1;
 
 const LOGIN_TOKEN_NAME = 'loginToken';
 
-const table = 'User Login';
+// const table = 'User Login';
 
-const loginUser = (email, passwordHash) => {
-  return new Promise((resolve, reject) => {
-    base(table)
-      .select({
-        maxRecords: NUM_RECORDS,
-        view: GRID_VIEW,
-        filterByFormula: `({${EMAIL_FIELD}}='${email}')`
-      })
-      .eachPage(
-        function page(records, fetchNextPage) {
-          // This function (`page`) will get called for each page of records.
-
-          records.forEach(record => {
-            const recordEmail = record.get(EMAIL_FIELD);
-            if (recordEmail === email) {
-              if (record.get(PASSWORD_FIELD) === passwordHash) {
-                const personId = record.get('Person')[0];
-                cookies.set(LOGIN_TOKEN_NAME, personId);
-                resolve({ match: true, found: true });
-              } else {
-                resolve({ match: false, found: true });
-              }
-            }
-          });
-
-          // To fetch the next page of records, call `fetchNextPage`.
-          // If there are more records, `page` will get called again.
-          // If there are no more records, `done` will get called.
-          fetchNextPage();
-        },
-        function done(err) {
-          if (err) {
-            reject(err);
-            return;
-          }
-          resolve({ match: false, found: false });
-        }
-      );
+const registerUser = async (email, password) => {
+  base.register({
+    username: email,
+    password
   });
+};
+
+const loginUser = async (email, passwordHash) => {
+  try {
+    const { user, token } = await base.login({
+      username: email,
+      password: passwordHash
+    });
+    console.log('SEE ME');
+    console.log(user);
+    console.log(token);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const getLoggedInUserId = () => {
@@ -68,4 +52,4 @@ const logOut = () => {
 };
 
 // export default loginUser;
-export { loginUser, getLoggedInUserId, logOut };
+export { loginUser, registerUser, getLoggedInUserId, logOut };
