@@ -2,14 +2,18 @@ import React from 'react';
 import '../styles/Community.css';
 import { createRecord } from '../lib/request';
 
+const STATUS_ERR = -1;
+const STATUS_IN_PROGRESS = 0;
+const STATUS_SUCCESS = 1;
+
 export default class AddAnnouncement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       message: '',
-      submitSuccess: 0,
+      submitSuccess: STATUS_IN_PROGRESS,
       status: '',
-      submitProgress: 0
+      submitProgress: STATUS_IN_PROGRESS
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,15 +30,14 @@ export default class AddAnnouncement extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const { message } = this.state;
-
     this.setState({
-      submitProgress: 1
+      submitProgress: STATUS_SUCCESS
     });
 
     if (!message) {
       this.setState({
-        submitSuccess: -1,
-        submitProgress: -1,
+        submitSuccess: STATUS_ERR,
+        submitProgress: STATUS_ERR,
         status: 'Announcement is empty!'
       });
       return;
@@ -53,7 +56,7 @@ export default class AddAnnouncement extends React.Component {
         submitSuccess: true,
         status: 'Announcement posted!',
         message: '',
-        submitProgress: 1
+        submitProgress: STATUS_SUCCESS
       });
 
       updateCards(newMessage);
@@ -65,20 +68,32 @@ export default class AddAnnouncement extends React.Component {
     let btnStatus = '';
     let btnText = '';
 
-    if (submitSuccess > 0) {
-      btnStatus = 'btn-success';
-    } else if (submitSuccess < 0) {
-      btnStatus = 'btn-fail';
-    } else {
-      btnStatus = '';
+    switch (submitSuccess) {
+      case STATUS_ERR:
+        btnStatus = 'btn-fail';
+        break;
+      case STATUS_IN_PROGRESS:
+        btnStatus = '';
+        break;
+      case STATUS_SUCCESS:
+        btnStatus = 'btn-success';
+        break;
+      default:
+        break;
     }
 
-    if (submitProgress > 0) {
-      btnText = 'Done';
-    } else if (submitProgress < 0) {
-      btnText = 'Error';
-    } else {
-      btnText = 'Post';
+    switch (submitProgress) {
+      case STATUS_ERR:
+        btnText = 'Error';
+        break;
+      case STATUS_IN_PROGRESS:
+        btnText = 'Post';
+        break;
+      case STATUS_SUCCESS:
+        btnText = 'Done';
+        break;
+      default:
+        break;
     }
 
     return (

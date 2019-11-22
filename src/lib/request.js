@@ -59,20 +59,20 @@ function getRecordFromAttribute(table, fieldType, field) {
   });
 }
 
-function getMultipleFromAttr(table, fieldType, field) {
+function getMultipleFromAttr(table, fieldName, fieldValue) {
   return new Promise((resolve, reject) => {
     base(table)
       .select({
         view: 'Grid view',
         maxRecords: 10,
-        filterByFormula: `{${fieldType}}='${field}'`
+        filterByFormula: `{${fieldName}}='${fieldValue}'`
       })
       .firstPage(function(err, records) {
         if (err) {
           reject(err);
         }
         if (records === null || records.length < 1) {
-          const msg = `No record was retrieved using this ${fieldType}.`;
+          const msg = `No record was retrieved using this ${fieldName}.`;
           reject(msg);
         } else {
           resolve(records);

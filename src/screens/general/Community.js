@@ -63,7 +63,6 @@ export default class Community extends React.Component {
 
   render() {
     const { cards, isLoading, usersGroup, usersID } = this.state;
-    console.log(cards);
     return isLoading ? (
       <img
         src="https://image.flaticon.com/icons/svg/25/25220.svg"
