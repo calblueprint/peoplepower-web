@@ -38,16 +38,6 @@ const validateRecordAndField = record => {
   }
 };
 
-const validateUserLoginRecord = record => {
-  validateRecordAndField(record);
-  if (record.record.Person == null) {
-    throw Error('record.record.Person of getRecord is null');
-  }
-  if (record.record.Person.length < 1) {
-    throw Error('record.record.Person has length < 1');
-  }
-};
-
 const validatePersonRecord = record => {
   validateRecordAndField(record);
   if (record.record.ID == null) {

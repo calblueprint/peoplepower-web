@@ -3,12 +3,6 @@
   float: right;
 }
 
-.inputFormCont h2,
-h3,
-label {
-  color: white;
-}
-
 .userInfoCont {
   width: 50%;
   display: inline-block;
