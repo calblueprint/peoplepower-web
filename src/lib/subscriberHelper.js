@@ -1,4 +1,4 @@
-import { getRecord, getRecordsFromAttribute } from './request';
+import { createRecord, getRecord, getRecordsFromAttribute } from './request';
 
 // TABLES
 const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
