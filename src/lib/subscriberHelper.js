@@ -1,4 +1,4 @@
-import { getRecordWithPromise, getRecordsFromAttribute } from './request';
+import { getRecord, getRecordsFromAttribute } from './request';
 
 // TABLES
 const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
@@ -74,13 +74,13 @@ const validateSubscriberOwnerRecord = res => {
 
 // throw an exception on error
 const getOwnerIdFromId = async loggedInUserId => {
-  const personRecord = await getRecordWithPromise(PERSON_TABLE, loggedInUserId);
+  const personRecord = await getRecord(PERSON_TABLE, loggedInUserId);
   validatePersonRecord(personRecord);
   return personRecord.record.Owner[0];
 };
 
 const getBillsFromOwnerId = async ownerId => {
-  const owner = await getRecordWithPromise(OWNER_TABLE, ownerId);
+  const owner = await getRecord(OWNER_TABLE, ownerId);
   return owner.record['Subscriber Bill'];
 };
 
@@ -98,7 +98,7 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
 
     const billPromises = [];
     billIds.forEach(billId => {
-      billPromises.push(getRecordWithPromise(SUBSCRIBER_BILL_TABLE, billId));
+      billPromises.push(getRecord(SUBSCRIBER_BILL_TABLE, billId));
     });
 
     const billObjects = await Promise.all(billPromises);
