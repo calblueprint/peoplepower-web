@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/SubscriberOwnerDashboard.css';
-import { getLoggedInUserId } from '../../lib/auth';
 import { centsToDollars } from '../../lib/subscriberHelper';
+import { getLoggedInUserId } from '../../lib/auth';
 
 export default class SubscriberOwnerDashboard extends React.Component {
   constructor(props) {

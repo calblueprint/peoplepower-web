@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Bill.css';
+import '../styles/Bill.css';
 
 const dateToWord = {
   1: 'January',
