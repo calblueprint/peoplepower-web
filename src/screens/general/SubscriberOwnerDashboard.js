@@ -5,7 +5,7 @@ import {
   centsToDollars,
   getSubscriberBills
 } from '../../lib/subscriberHelper';
-import Bill from './Bill';
+import Bill from '../../components/Bill';
 import { getLoggedInUserId, logOut } from '../../lib/auth';
 
 const ROOT_ROUTE = '/';
