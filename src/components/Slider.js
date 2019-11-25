@@ -77,8 +77,7 @@ class Carousel extends Component {
             alt="previous button"
             onClick={this.goToPrevSlide}
           />
-
-          <ul className="slides center">
+          <ul className="slides ">
             {slides.map((slide, index) => (
               <img
                 className={
@@ -94,7 +93,7 @@ class Carousel extends Component {
           <input
             type="image"
             src={Arrow}
-            className="arrow"
+            className="arrow right-arrow"
             alt="next button"
             onClick={this.goToPrevSlide}
           />

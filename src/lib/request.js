@@ -1,12 +1,14 @@
 import keys from './api_key';
+
+const { key } = keys;
 /* Helper functions intended to streamline our requests to the AirTable API. */
 
 const Airtable = require('airtable');
 
-// API KEY will reside in ENV variables later.
+// API KEY will reside in ENV variablesgit later.
 Airtable.configure({
   endpointUrl: 'https://api.airtable.com',
-  apiKey: keys.key
+  apiKey: key
 });
 
 const base = Airtable.base('appFaOwKhMXrRIQIp');
@@ -14,7 +16,7 @@ const base = Airtable.base('appFaOwKhMXrRIQIp');
 // ******** READ RECORDS ******** //
 
 // Given a table and record ID, return the associated record object using a Promise.
-function getRecord(table, id) {
+function getRecordWithPromise(table, id) {
   return new Promise((resolve, reject) => {
     base(table).find(id, (err, record) => {
       if (err) {
@@ -95,7 +97,7 @@ function createPerson(person) {
       "Email": email,
       "Phone Number": phoneNumber,
       "Owner": [owner],
-      "Address": [address id],
+      "Address": [address],
       "Tags": tags,
       "User Login": [userLogin],
       "Name": name
@@ -104,9 +106,7 @@ function createPerson(person) {
 */
   return new Promise((resolve, reject) => {
     base('Person').create([person], function(err, records) {
-      console.log(person);
       if (err) {
-        console.log(err);
         reject(err);
         return;
       }
@@ -117,42 +117,9 @@ function createPerson(person) {
   });
 }
 
-function createAddress({ street, city, state, zipCode }) {
-  /* EXAMPLE OBJECT TO CREATE PERSON
-  {
-    "fields": {
-      "Street": street,
-      "City": city,
-      "State": state,
-      "Zipcode": zipcode
-    }
-  } 
-*/
-  return new Promise((resolve, reject) => {
-    base('Address').create(
-      [
-        {
-          fields: {
-            Street: street,
-            City: city,
-            State: state,
-            'Zip Code': zipCode
-          }
-        }
-      ],
-      function(err, records) {
-        if (err) {
-          console.log(err);
-          console.error(err);
-          reject(err);
-        }
-        resolve(records);
-      }
-    );
-  });
-}
-
 function createRecord(table, record) {
+  console.log('RECORD HERE');
+  console.log(record);
   return new Promise((resolve, reject) => {
     base(table).create([record], function(err, records) {
       if (err) {
@@ -224,10 +191,9 @@ function updateRecord(table, updatedRecord) {
 }
 
 export {
-  getRecord,
+  getRecordWithPromise,
   getRecordFromAttribute,
   getAllRecords,
-  createAddress,
   createPerson,
   createRecord,
   updatePerson,

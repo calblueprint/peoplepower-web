@@ -14,7 +14,7 @@ class Bylaws extends React.Component {
     e.preventDefault();
     const { values, nextStep } = this.props;
     const { errors } = values;
-    const fields = ['bylaw1', 'bylaw1'];
+    const fields = ['bylaw1', 'bylaw2'];
     const errorsMessages = [];
 
     for (let i = 0; i < fields.length; i += 1) {

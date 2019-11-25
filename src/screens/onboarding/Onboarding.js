@@ -25,6 +25,7 @@ class Onboarding extends React.Component {
       bylaw1: false,
       bylaw2: false,
       projectGroup: {},
+      noProjectGroup: false,
       numShares: '',
       dividends: '',
       beneficiaries: [],
@@ -64,7 +65,7 @@ class Onboarding extends React.Component {
         ccstate: '',
         cczipcode: ''
       },
-      step: 2
+      step: 6
     };
     this.handleChange = this.handleChange.bind(this);
     this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
@@ -120,6 +121,7 @@ class Onboarding extends React.Component {
     const {
       bylaw1,
       bylaw2,
+      noProjectGroup,
       street,
       apt,
       city,
@@ -136,6 +138,11 @@ class Onboarding extends React.Component {
       case 'bylaw2':
         this.setState({
           bylaw2: !bylaw2
+        });
+        break;
+      case 'noProjectGroup':
+        this.setState({
+          noProjectGroup: !noProjectGroup
         });
         break;
       case 'billingAddressSame':
@@ -204,6 +211,7 @@ class Onboarding extends React.Component {
       bylaw1,
       bylaw2,
       projectGroup,
+      noProjectGroup,
       numShares,
       dividends,
       beneficiaries,
@@ -234,6 +242,7 @@ class Onboarding extends React.Component {
       bylaw1,
       bylaw2,
       projectGroup,
+      noProjectGroup,
       numShares,
       dividends,
       beneficiaries,
@@ -273,6 +282,16 @@ class Onboarding extends React.Component {
         );
       case 3:
         return (
+          <ProjectGroups
+            nextStep={this.nextStep}
+            values={values}
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+            handleFormValidation={this.handleFormValidation}
+          />
+        );
+      case 4:
+        return (
           <Bylaws
             nextStep={this.nextStep}
             values={values}
@@ -280,16 +299,6 @@ class Onboarding extends React.Component {
             handleChange={this.handleChange}
             callBackBylawValidation={this.callBackBylawValidation}
             handleClick={this.handleClick}
-          />
-        );
-      case 4:
-        return (
-          <ProjectGroups
-            nextStep={this.nextStep}
-            values={values}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            handleFormValidation={this.handleFormValidation}
           />
         );
       case 5:

@@ -12,7 +12,10 @@ class MapView extends React.Component {
       changeSelectedGroup
     } = this.props;
     return (
-      <div style={{ display: view === 'map' ? 'block' : 'none' }}>
+      <div
+        className="list "
+        style={{ display: view === 'map' ? 'flex' : 'none' }}
+      >
         <Map
           google={google}
           zoom={10}

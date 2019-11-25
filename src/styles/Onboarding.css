@@ -157,6 +157,11 @@ button:hover {
   transform: scaleX(-1);
 }
 
+.right-arrow {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
 .info-card {
   margin: 3rem;
   padding: 2rem;
@@ -277,6 +282,8 @@ w-pasword {
 .arrow {
   margin: auto;
   opacity: 100%;
+  z-index: 2;
+  position: absolute;
 }
 
 .arrow-button {
@@ -329,6 +336,7 @@ w-pasword {
   flex-direction: column;
   justify-content: center;
   min-height: 210px;
+  z-index: 0;
 }
 
 .slider {
@@ -345,6 +353,7 @@ w-pasword {
 .slide-img {
   display: block;
   max-width: 25rem;
+  z-index: 0;
 }
 
 .progress-bar {

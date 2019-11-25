@@ -1,13 +1,15 @@
 import Cookies from 'universal-cookie';
 import keys from './api_key';
 
+const { key } = keys;
+
 const cookies = new Cookies();
 
 const BASE_ID = 'appFaOwKhMXrRIQIp';
 
 const Airtable = require('airtable');
 
-const base = new Airtable({ apiKey: keys.key }).base(BASE_ID);
+const base = new Airtable({ apiKey: key }).base(BASE_ID);
 
 const EMAIL_FIELD = 'Email';
 const PASSWORD_FIELD = 'Password';

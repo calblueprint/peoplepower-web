@@ -2,20 +2,59 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d161631a-b8dc-4f83-badf-a5d5016108dd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Dropdown.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/SearchBar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Icon&#10;" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/api_key.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/subscriberHelper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/general/AllBills.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/general/Bill.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/general/SubscriberOwnerDashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/general/SubscriberOwnerPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/AllBills.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/Bill.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/SubscriberOwnerDashboard.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/SubscriberOwnerPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Slider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Slider.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/formValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/formValidation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/Bylaws.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/Bylaws.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/Confirmation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/Confirmation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/onboarding/ContactInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/ContactInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/MapView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/MapView.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/onboarding/Onboarding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/Onboarding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/Payment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/Payment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/ProjectGroups.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/ProjectGroups.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/Onboarding.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Onboarding.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -88,6 +127,8 @@
       <workItem from="1573637399984" duration="1307000" />
       <workItem from="1573703577588" duration="1640000" />
       <workItem from="1573753505248" duration="3000" />
+      <workItem from="1574395206149" duration="4738000" />
+      <workItem from="1574639829261" duration="232000" />
     </task>
     <servers />
   </component>

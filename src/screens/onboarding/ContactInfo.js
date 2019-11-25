@@ -40,7 +40,7 @@ class ContactInfo extends React.Component {
   render() {
     const { values, handleChange, handleFormValidation } = this.props;
     const { errors } = values;
-    const states = States.keys();
+    const states = Object.keys(States);
     return (
       <form className="center">
         <div className="contact-header">Contact Information</div>

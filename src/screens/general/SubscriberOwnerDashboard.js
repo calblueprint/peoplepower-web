@@ -1,33 +1,35 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
+import '../../styles/SubscriberOwnerDashboard.css';
+import { getLoggedInUserId } from '../../lib/auth';
+import { centsToDollars, createPayment } from '../../lib/subscriberHelper';
 import keys from '../../lib/api_key';
-import { createPayment } from '../../lib/subscriberHelper';
-import Bill from '../general/Bill';
 
 const { clientId } = keys;
 
-class Confirmation extends React.Component {
+export default class SubscriberOwnerDashboard extends React.Component {
   constructor(props) {
     super(props);
-    const date = new Date();
-    const { values } = this.props;
-    const { numShares } = values;
+    const { bills } = this.props;
     this.state = {
-      bill: (
-        <Bill
-          statementDate={`${date.getMonth() +
-            1}/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`}
-          amtDue={numShares * 100}
-        />
-      )
+      latestBill: bills.filter(bill => bill['Is Latest'])[0]
     };
     this.onSuccess = this.onSuccess.bind(this);
+  }
+
+  componentDidMount() {
+    const { history } = this.props;
+    const id = getLoggedInUserId();
+    if (!id) {
+      // They shouldn't be able to access this screen
+      history.push('/');
+    }
   }
 
   onSuccess(details, data) {
     /*
         DETAILS FIELDS
-
+  
         create_time: "2019-11-12T04:44:42Z"
         id: "SOME_ID_HERE"
         intent: "SOME INTENT HERE"
@@ -38,26 +40,26 @@ class Confirmation extends React.Component {
           title: "SOME TITLE"
         }]
         payer: {
-          email_address: "SOME EMAIL ADDRESS",
-          payer_id: "SOME PAYER ID",
-          address: {…},
+          email_address: "SOME EMAIL ADDRESS", 
+          payer_id: "SOME PAYER ID", 
+          address: {…}, 
           name: {…}
         }
         purchase_units: [{…(EXPANDED BELOW)}]
         status: "SOME STATUS"
         update_time: "2019-11-12T04:45:33Z"
-
+  
         ----
-
+  
         purchase_units (EXPANDED)
-
-        amount:
-            value: "SOME VALUE (IN DOLLARS)",
+  
+        amount: 
+            value: "SOME VALUE (IN DOLLARS)", 
             currency_code: "SOME CURRENCY CODE"
-        payee:
-            email_address: "SOME EMAIL ADDREESS",
+        payee: 
+            email_address: "SOME EMAIL ADDREESS", 
             merchant_id: "SOME MERCHANT ID"
-        payments:
+        payments: 
             captures: [{
                 amount: {value: "SOME VALUE (IN DOLLARS)", currency_code: "SOME CURRENCY CODE"}
                 create_time: "2019-11-12T04:58:14Z"
@@ -68,7 +70,7 @@ class Confirmation extends React.Component {
                 status: "SOME STATUS"
                 update_time: "2019-11-12T04:58:14Z"
             }]
-
+              
             reference_id: "SOME REFERENCE ID"
         shipping:
             address:
@@ -79,22 +81,22 @@ class Confirmation extends React.Component {
                 postal_code: "POSTAL CODE HERE"
             name:
                 full_name: "FULL NAME HERE"
-
+        
         status: "SOME STATUS HERE"
         update_time: "2019-11-12T04:58:14Z"
      */
 
     /*
         DATA FIELDS
-
+        
         orderID: "SOME ORDER ID"
         payerID: "SOME PAYER ID"
-
+     
      */
 
-    const { bill } = this.state;
-    const owner = bill['Subscriber Owner'];
-    const billID = bill.ID;
+    const { latestBill } = this.state;
+    const owner = latestBill['Subscriber Owner'];
+    const bill = latestBill.ID;
 
     const { orderID, payerID } = data;
 
@@ -112,7 +114,7 @@ class Confirmation extends React.Component {
       fields: {
         Owner: [owner],
         Status: status,
-        'Subscriber Bill': [billID],
+        'Subscriber Bill': [bill],
         'Order ID': orderID,
         'Payer ID': payerID,
         Amount: parseFloat(amount.value, 10) * 100,
@@ -139,91 +141,72 @@ class Confirmation extends React.Component {
       });
   }
 
-  finishButton = e => {
-    const { onSubmit } = this.props;
-    e.preventDefault();
-    onSubmit();
-  };
-
-  prevButton = e => {
-    const { prevStep } = this.props;
-    e.preventDefault();
-    prevStep();
-  };
-
-  createOrder = (data, actions) => {
-    return actions.order.create({
-      purchase_units: [
-        {
-          amount: {
-            value: '0.01'
-          }
-        }
-      ]
-    });
-  };
-
   render() {
-    const { values } = this.props;
-    const {
-      ccnumber,
-      expmonth,
-      expyear,
-      ccstreet,
-      ccapt,
-      cccity,
-      ccstate,
-      cczipcode,
-      numShares
-    } = values;
-    const amtDue = numShares * 100;
+    const { callback } = this.props;
+    const { latestBill } = this.state;
+    const amtDue = centsToDollars(latestBill['Amount Due']);
     return (
-      <div className="center">
-        <div className="header">Confirmation Page</div>
-        <div className="flex row">
-          <div className="confirmation-card">
-            <div className="header">Billing Address</div>
-            <div className="body">
-              {ccstreet} {ccapt}
-              {cccity}, {ccstate} {cczipcode}
+      <div className="subscriber-dash-outer-container">
+        <h3>My Finances</h3>
+        <div className="subscriber-dash-inner-container">
+          <div className="left-col subscriber-dash-col">
+            <p className="subscriber-header">Billing Summary</p>
+            <div className="col-card">
+              <div className="class-elems">
+                <div className="balance-header-section">
+                  <p>Your Balance</p>
+                  <h3>${amtDue}</h3>
+                </div>
+                <hr id="divider" />
+                <div className="balance-nums-section">
+                  <div className="balance-nums-line">
+                    <p className="line-item descrip">Due Now</p>
+                    <p className="line-item">${amtDue}</p>
+                  </div>
+                  <div className="balance-nums-line">
+                    <p className="line-item descrip">Upcoming</p>
+                    <p className="line-item">$0.00</p>
+                  </div>
+                  <br />
+                  <br />
+                  <div className="balance-nums-line">
+                    <p className="line-item descrip">
+                      <strong>Total</strong>
+                    </p>
+                    <p className="line-item">
+                      <strong>${amtDue}</strong>
+                    </p>
+                  </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                <PayPalButton
+                  amount={amtDue}
+                  onSuccess={this.onSuccess}
+                  options={{
+                    clientId
+                  }}
+                />
+              </div>
             </div>
           </div>
-          <div className="confirmation-card">
-            <div className="header">Payment Method</div>
-            <div className="body">
-              Visa **** **** **** {ccnumber.replace(/.(?=.{4})/g, 'x')}
-              Expires in {expmonth} {expyear}
+          <div className="right-col subscriber-dash-col">
+            <p className="subscriber-header">Recent Transactions</p>
+            <div className="col-card">
+              <div className="TEMP">
+                <button
+                  className="subscriber-button"
+                  type="button"
+                  onClick={callback}
+                >
+                  See all bills
+                </button>
+              </div>
             </div>
           </div>
-          <div className="confirmation-card">
-            <div className="header">Order Summary</div>
-            <div className="body">
-              <div>Shares</div>
-              <div>${numShares * 100}.00</div>
-              <div>Qty:{numShares}</div>
-              <br />
-              <div>Total</div>
-              <div>${numShares * 100}.00</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <button type="button" onClick={this.prevButton}>
-            Go back
-          </button>
-          <PayPalButton
-            amount={amtDue}
-            onSuccess={this.onSuccess}
-            options={{ clientId }}
-            createOrder={(data, actions) => this.createOrder(data, actions)}
-          />
-          <button type="button" onClick={this.finishButton}>
-            Submit Payment
-          </button>
         </div>
       </div>
     );
   }
 }
-
-export default Confirmation;

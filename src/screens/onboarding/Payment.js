@@ -33,6 +33,30 @@ class Payment extends React.Component {
     }
   };
 
+  minusShares = () => {
+    const { values, handleChange } = this.props;
+    const { numShares } = values;
+    const event = {
+      target: {
+        name: 'numShares',
+        value: numShares - 1
+      }
+    };
+    handleChange(event);
+  };
+
+  addShares = () => {
+    const { values, handleChange } = this.props;
+    const { numShares } = values;
+    const event = {
+      target: {
+        name: 'numShares',
+        value: numShares + 1
+      }
+    };
+    handleChange(event);
+  };
+
   prevButton = e => {
     const { prevStep } = this.props;
     e.preventDefault();

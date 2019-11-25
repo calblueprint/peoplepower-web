@@ -40,7 +40,7 @@ class ProjectGroups extends React.Component {
       displayGroup: 0,
       // currentLat: 0,
       // currentLng: 0
-      view: 'list'
+      view: 'map'
     };
   }
 
@@ -71,11 +71,11 @@ class ProjectGroups extends React.Component {
 
   nextButton = () => {
     const { values, nextStep } = this.props;
-    const { errors, projectGroup } = values;
+    const { errors, projectGroup, noProjectGroup } = values;
 
-    const errorMessage = formValidation('projectGroup', projectGroup);
+    const errorMessage = formValidation(projectGroup);
     errors.projectGroup = errorMessage;
-    if (errorMessage === '') {
+    if (errorMessage === '' || noProjectGroup) {
       nextStep();
     } else {
       this.forceUpdate();
@@ -111,7 +111,7 @@ class ProjectGroups extends React.Component {
           margin: 'auto',
           width: '75%',
           height: '100vh',
-          display: 'relative'
+          display: 'block'
         }}
       >
         <div>
@@ -120,6 +120,7 @@ class ProjectGroups extends React.Component {
             {view === 'map' ? 'List View' : 'Map View'}
           </button>
           <MapView
+            style={{ display: 'block', position: 'fixed' }}
             values={values}
             markers={groups}
             displayGroup={displayGroup}
@@ -128,6 +129,7 @@ class ProjectGroups extends React.Component {
             view={view}
           />
           <ListView
+            style={{ display: 'block', position: 'fixed' }}
             values={values}
             groups={groups}
             displayGroup={displayGroup}
@@ -135,14 +137,16 @@ class ProjectGroups extends React.Component {
             changeDisplayedGroup={this.changeDisplayedGroup}
             view={view}
           />
-          <input
-            type="checkbox"
-            name="noProjectGroup"
-            onChange={handleChange}
-            checked={noProjectGroup}
-          />
-          <div className="checkbox-text">
-            I don’t want to join a project group at this time.
+          <div style={{ display: 'block', position: 'relative' }}>
+            <input
+              type="checkbox"
+              name="noProjectGroup"
+              onChange={handleChange}
+              checked={noProjectGroup}
+            />
+            <div className="checkbox-text">
+              I don’t want to join a project group at this time.
+            </div>
           </div>
           <div className="bottomButtons">
             <div style={{ position: 'relative', margin: 'auto' }}>
