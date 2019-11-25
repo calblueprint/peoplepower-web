@@ -1,25 +1,11 @@
-.dashboardCont {
-  /* background-color: yellow; */
-  margin: 0.8em auto;
-  width: 75%;
-}
-
-h3 {
-  font-size: 36px;
-  font-weight: bolder;
-}
-
 .subscriber-header {
   font-weight: bolder;
   color: #4f4f4f;
 }
 
-div p {
-}
-
-.cards-holder {
-  /* background-color: red; */
+/*.cards-holder {
   border-radius: 4px;
   display: flex;
   flex-direction: column;
 }
+*/
