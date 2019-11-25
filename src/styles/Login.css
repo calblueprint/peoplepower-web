@@ -1,0 +1,76 @@
+button {
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  background-color: #c0c0c0;
+  border: none;
+  color: white;
+  padding: 0.3rem 2rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 50px;
+  margin-top: 2rem;
+}
+
+button:hover {
+  background-color: white;
+  border: 1px solid #c0c0c0;
+  color: #c0c0c0;
+}
+
+.input-gray {
+  background-color: #efefef;
+  color: black;
+  border-radius: 2.5px;
+  box-shadow: none;
+  padding: 0.2rem 0.3rem;
+  border: none;
+  font-family: 'Nunito Sans', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card {
+  background-color: white;
+  padding: 4rem 1.5rem;
+  border-radius: 10px;
+}
+
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.header {
+  padding-bottom: 50px;
+  font-size: 18px;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.t-center {
+  text-align: center;
+}
+
+w-100 {
+  width: 100%;
+}

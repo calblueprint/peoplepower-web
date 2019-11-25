@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/Login.css';
 
 const { loginUser } = require('../../lib/auth.js');
 const { getLoggedInUserId } = require('../../lib/auth.js');
@@ -64,31 +65,35 @@ class Login extends React.Component {
   render() {
     const { email, passwordHash } = this.state;
     return (
-      <div>
-        <h1>Login to People Power</h1>
+      <div className="center card flex column">
+        <h1 className="t-center header">Welcome back!</h1>
         <br />
-        <form onSubmit={this.handleSubmit}>
-          Email
-          <br />
-          <input type="text" value={email} onChange={this.handleEmailChange} />
-          <br />
-          Password
-          <br />
-          <input
-            type="password"
-            value={passwordHash}
-            onChange={this.handlePasswordChange}
-          />
-          <br />
-          <button className="primary-button" type="submit">
-            Login
-          </button>
+        <form onSubmit={this.handleSubmit} className="flex column ">
+          <div className="w-100">
+            Email
+            <br />
+            <input
+              type="text"
+              value={email}
+              className="input-gray"
+              onChange={this.handleEmailChange}
+            />
+            <br />
+          </div>
+          <div className="w-100">
+            Password
+            <br />
+            <input
+              type="password"
+              value={passwordHash}
+              className="input-gray w-100"
+              onChange={this.handlePasswordChange}
+            />
+            <br />
+          </div>
         </form>
-        <button
-          type="button"
-          className="primary-button"
-          onClick={this.handleSignUpOnClick}
-        >
+        <button type="submit">Login</button>
+        <button type="button" onClick={this.handleSignUpOnClick}>
           New here? Sign Up
         </button>
       </div>
