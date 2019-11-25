@@ -1,8 +1,4 @@
-import {
-  getRecordWithPromise,
-  getRecordFromAttribute,
-  createRecord
-} from './request';
+import { getRecordsFromAttribute, createRecord } from './request';
 
 // TABLES
 const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
@@ -79,19 +75,22 @@ const validateSubscriberOwnerRecord = res => {
 
 // throw an exception on error
 const getOwnerIdFromId = async loggedInUserId => {
-  const personRecord = await getRecordWithPromise(PERSON_TABLE, loggedInUserId);
+  const personRecord = await getRecordsFromAttribute(
+    PERSON_TABLE,
+    loggedInUserId
+  );
   validatePersonRecord(personRecord);
   return personRecord.record.Owner[0];
 };
 
 const getBillsFromOwnerId = async ownerId => {
-  const owner = await getRecordWithPromise(OWNER_TABLE, ownerId);
+  const owner = await getRecordsFromAttribute(OWNER_TABLE, ownerId);
   return owner.record['Subscriber Bill'];
 };
 
 // throw an exception on error
 const getSubscriberOwnerFromPerson = async user => {
-  const res = await getRecordFromAttribute(OWNER_TABLE, PERSON, user);
+  const res = await getRecordsFromAttribute(OWNER_TABLE, PERSON, user);
   validateSubscriberOwnerRecord(res);
   return res.records[0].fields[SUBSCRIBER_OWNER];
 };
@@ -103,7 +102,7 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
 
     const billPromises = [];
     billIds.forEach(billId => {
-      billPromises.push(getRecordWithPromise(SUBSCRIBER_BILL_TABLE, billId));
+      billPromises.push(getRecordsFromAttribute(SUBSCRIBER_BILL_TABLE, billId));
     });
 
     const billObjects = await Promise.all(billPromises);

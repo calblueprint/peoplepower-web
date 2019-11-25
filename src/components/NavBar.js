@@ -9,6 +9,7 @@ export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       name: ''
     };
   }
@@ -31,7 +32,7 @@ export default class NavBar extends React.Component {
   }
 
   render() {
-    const { name } = this.state;
+    const { id, name } = this.state;
     return (
       <div className="navBarCont">
         <img
@@ -41,20 +42,20 @@ export default class NavBar extends React.Component {
         />
         <nav>
           <ul>
-            <div>
-              <li className="navItem">
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
-              <li className="navItem">
-                <Link to="/finances">My Finances</Link>
-              </li>
-              <li className="navItem">
-                <Link to="/community">Community</Link>
-              </li>
-              <li>
+            <li className="navItem">
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li className="navItem">
+              <Link to="/finances">My Finances</Link>
+            </li>
+            <li className="navItem">
+              <Link to="/community">Community</Link>
+            </li>
+            <li className="navItem">
+              <Link to={`/profile/${id}`}>
                 <span>{name}</span>
-              </li>
-            </div>
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

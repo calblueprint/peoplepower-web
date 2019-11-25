@@ -7,9 +7,12 @@ export default class GeneralOwnerDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      email: 'N/A',
       name: 'user',
-      phoneNumber: ''
+      phoneNumber: 'N/A',
+      address: '',
+      projectGroup: '',
+      solarProject: []
     };
   }
 
@@ -22,19 +25,71 @@ export default class GeneralOwnerDashboard extends React.Component {
       return;
     }
 
-    getRecordWithPromise('Person', id).then(payload => {
-      // use array deconstructing
-      const {
-        Email: email,
-        'Phone Number': phoneNumber,
-        Name: name
-      } = payload.record;
-      this.setState({
-        email,
-        name,
-        phoneNumber
+    let email;
+    let phoneNumber;
+    let name;
+    let owner;
+    let addressID;
+
+    getRecordWithPromise('Person', id)
+      .then(payload => {
+        ({
+          Name: name,
+          Email: email,
+          'Phone Number': phoneNumber,
+          Owner: owner,
+          Address: addressID
+        } = payload.record);
+
+        this.setState({
+          email,
+          name,
+          phoneNumber
+        });
+
+        return getRecordWithPromise('Owner', owner);
+      })
+      .then(payload => {
+        const { 'Project Group': projectGroupID } = payload.record;
+        return getRecordWithPromise('Project Group', projectGroupID);
+      })
+      .then(payload => {
+        const {
+          Name: projectGroupName,
+          'Solar Project': solarProject
+        } = payload.record;
+        this.setState({
+          projectGroup: projectGroupName
+        });
+
+        const solarProjectNames = [];
+        // group promise.all?
+        solarProject.forEach(project => {
+          getRecordWithPromise('Solar Project', project).then(res => {
+            solarProjectNames.push(res.record.Name);
+            this.setState({
+              solarProject: solarProjectNames
+            });
+          });
+        });
+
+        return getRecordWithPromise('Address', addressID);
+      })
+      .then(payload => {
+        const {
+          City: city,
+          Street: street,
+          State: state,
+          'Zip Code': zipCode
+        } = payload.record;
+
+        this.setState({
+          address: `${street}, ${city}, ${state} ${zipCode}`
+        });
+      })
+      .catch(err => {
+        console.log(err);
       });
-    });
   }
 
   handleLogoutClick = () => {
@@ -44,15 +99,32 @@ export default class GeneralOwnerDashboard extends React.Component {
   };
 
   render() {
-    const { name, email, phoneNumber } = this.state;
+    const {
+      name,
+      email,
+      phoneNumber,
+      address,
+      projectGroup,
+      solarProject
+    } = this.state;
+    const solarProjectComponent = solarProject.map(project => {
+      return <li>{project}</li>;
+    });
     return (
-      <div className="cont">
-        <h3>General Owner Dashboard</h3>
-        <p>Welcome, {name}</p>
-        <div>
+      <div className="dashboardCont">
+        <div className="userInfoCont">
+          <h2>General Owner Dashboard</h2>
+          <p>Welcome, {name}</p>
           <p>Email: {email}</p>
           <p>Phone Number: {phoneNumber}</p>
+          <p>Address: {address}</p>
+          <p>Project Group: {projectGroup}</p>
+          <ul>
+            Solar Project(s):
+            {solarProjectComponent}
+          </ul>
         </div>
+
         <button
           type="button"
           className="primary-button"

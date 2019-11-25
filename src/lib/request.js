@@ -1,7 +1,7 @@
-import keys from './api_key';
-
-const { key } = keys;
-/* Helper functions intended to streamline our requests to the AirTable API. */
+import key from './api_key';
+/*
+  Helper functions intended to streamline our requests to the AirTable API.
+*/
 
 const Airtable = require('airtable');
 
@@ -23,27 +23,28 @@ function getRecordWithPromise(table, id) {
         reject(err);
         return;
       }
-      console.log('Retrieved', record.get('ID'), record.fields);
       resolve({ record: record.fields });
     });
   });
 }
 
 /* 
-	GENERAL SEARCH
-	Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
-	return the associated record object.
+  GENERAL SEARCH
+  Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
+  return the associated record object.
 */
-function getRecordFromAttribute(table, fieldType, field) {
+
+function getRecordsFromAttribute(table, fieldType, field) {
   return new Promise((resolve, reject) => {
+    console.log(`Searching for ${field}`);
     base(table)
       .select({
         view: 'Grid view',
-        maxRecords: 1,
         filterByFormula: `{${fieldType}}='${field}'`
       })
       .firstPage(function(err, records) {
         if (err) {
+          console.error(err);
           reject(err);
         }
         if (records === null || records.length < 1) {
@@ -79,31 +80,44 @@ function getAllRecords(table) {
             return record;
           });
         }
+        resolve({ records });
+        // records.forEach(function(record) {
+        // 	console.log('Retrieved', record.fields);
+        // 	return record
+        // });
       });
   });
 }
 
 /* 
 	******** CREATE RECORDS ********
-	You can pass in UP TO 10 record objects. Each obj should have one key, fields,
- 	contailing all cell values by field name. Linked records are represented as an array of IDs.
- */
+  You can create a person record using the `create` method with the Airtable API.
+  It looks like this:
+
+    base('Person').create([person], function callback(err, records) {))
+
+	You can pass in UP TO 10 person record objects into the array parameter `person`. 
+  The `person` variable should look like the example below.
+  
+  EXAMPLE OBJECT TO CREATE A PERSON: 
+    {
+      "fields": {
+        "Email": email,
+        "Phone Number": phoneNumber,
+        "Owner": [owner],
+        "Address": [address],
+        "Tags": tags,
+        "User Login": [userLogin],
+        "Name": name
+      }
+    } 
+
+    Make sure linked records are represented as an array:
+    "Owner": [recsnkM5ms2NJhVW0]
+  */
 
 // Given a person object, create a record of that person.
 function createPerson(person) {
-  /* EXAMPLE OBJECT TO CREATE PERSON
-  {
-    "fields": {
-      "Email": email,
-      "Phone Number": phoneNumber,
-      "Owner": [owner],
-      "Address": [address],
-      "Tags": tags,
-      "User Login": [userLogin],
-      "Name": name
-    }
-  } 
-*/
   return new Promise((resolve, reject) => {
     base('Person').create([person], function(err, records) {
       if (err) {
@@ -117,6 +131,7 @@ function createPerson(person) {
   });
 }
 
+// Given a table and a record object, create a record on Airtable.
 function createRecord(table, record) {
   console.log('RECORD HERE');
   console.log(record);
@@ -135,11 +150,21 @@ function createRecord(table, record) {
 
 /* 
 	******** UPDATE RECORDS ********
-	An UPDATE will only update the fields you specify, leaving the rest as they were. 
-	A REPLACE will perform a destructive update and clear all unspecified cell values. 
+  When updating methods, you can either use the `update` or `replace` method. It looks like this:
 
-	- Max 10 records to be updated at once.
+    base('Person').update([updatedPerson], function callback(err, records) {}) 
+      or 
+    base('Person').replace([replacedPerson], function callback(err, records) {})
+
+	Using `update` will only update the fields you specify, leaving the rest as they were. 
+	Using `replace` will perform a destructive update and clear all unspecified cell values. 
+
+	- Max 10 records to be updated/replaced per call.
+    - Depends on how many records you put in `[updatedPerson]`
 	- Each obj should have an ID key and a fields key.
+
+  NOTE! Make sure linked records are represented as an array:
+  "Owner": [recsnkM5ms2NJhVW0]
 
 	EXAMPLE UPDATE OBJECT TO PASS INTO updatePerson():
 	// {
@@ -176,6 +201,7 @@ function updatePerson(updatedPerson) {
   });
 }
 
+// Given a table and a record object, update a record on Airtable.
 function updateRecord(table, updatedRecord) {
   return new Promise((resolve, reject) => {
     base(table).update([updatedRecord], function(err, records) {
@@ -192,7 +218,7 @@ function updateRecord(table, updatedRecord) {
 
 export {
   getRecordWithPromise,
-  getRecordFromAttribute,
+  getRecordsFromAttribute,
   getAllRecords,
   createPerson,
   createRecord,

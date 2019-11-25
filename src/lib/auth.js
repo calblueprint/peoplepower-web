@@ -12,7 +12,7 @@ const Airtable = require('airtable');
 const base = new Airtable({ apiKey: key }).base(BASE_ID);
 
 const EMAIL_FIELD = 'Email';
-const PASSWORD_FIELD = 'Password';
+const PASSWORD_FIELD = 'password';
 const GRID_VIEW = 'Grid view';
 const NUM_RECORDS = 1;
 

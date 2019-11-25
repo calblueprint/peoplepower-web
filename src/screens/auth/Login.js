@@ -44,6 +44,7 @@ class Login extends React.Component {
   }
 
   async handleSubmit(evt) {
+    console.log('Hello');
     const { email, passwordHash } = this.state;
     console.log(evt.target.value);
     evt.preventDefault();
@@ -91,8 +92,9 @@ class Login extends React.Component {
             />
             <br />
           </div>
+          <button type="submit">Login</button>
         </form>
-        <button type="submit">Login</button>
+
         <button type="button" onClick={this.handleSignUpOnClick}>
           New here? Sign Up
         </button>
