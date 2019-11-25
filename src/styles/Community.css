@@ -1,0 +1,103 @@
+.community {
+}
+
+.community h1 {
+  color: black;
+  font-size: 36px;
+}
+
+.community p {
+  color: black;
+}
+
+.card {
+  background: #fff;
+  border-radius: 5px;
+  padding: 35px;
+  margin: 10px 0px;
+  width: 652px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card:first-of-type {
+  margin-top: 0px;
+}
+
+.card h2 {
+  font-size: 28px;
+}
+.card h2,
+h3 {
+  color: black;
+  margin: 5px 0px;
+}
+
+.card img {
+  clip-path: inset(100px 0px);
+  margin-top: -100px;
+  margin-bottom: -100px;
+  width: 100%;
+}
+
+.cardsCont {
+  overflow: scroll;
+  height: 350px;
+}
+
+.community .cont .AddAnnouncement {
+  display: block;
+}
+
+.community .cont .AddAnnouncement form {
+  width: 100%;
+}
+
+.community .cont .AddAnnouncement form textarea {
+  width: 100%;
+  outline: none;
+  resize: none;
+  border: none;
+  font-size: 16px;
+}
+
+.community .cont .AddAnnouncement form input {
+  font-size: 16px;
+  border: none;
+  background: #c4c4c4;
+  border-radius: 2.5px;
+  width: 60px;
+  height: 30px;
+  outline: none;
+  float: right;
+}
+
+.community .cont .AddAnnouncement form .btn-success {
+  background: green;
+}
+
+.community .cont .AddAnnouncement form .btn-fail {
+  background: red;
+}
+
+.community .cont .AddAnnouncement p {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  color: #c4c4c4;
+}
+
+/* SPINNER */
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.rotate {
+  width: 100px;
+  height: 100px;
+  animation: rotation 2s infinite linear;
+}

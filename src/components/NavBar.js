@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/NavBar.css';
+import { getRecord } from '../lib/request';
 import { getLoggedInUserId } from '../lib/auth';
 import Logo from '../assets/PPSC-logo.png';
-import { getRecord } from '../lib/request';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -25,8 +25,8 @@ export default class NavBar extends React.Component {
       getRecord('Person', id).then(payload => {
         const { Name: name } = payload.record;
         this.setState({
-          id,
-          name
+          name,
+          id
         });
       });
     }
@@ -35,7 +35,7 @@ export default class NavBar extends React.Component {
   render() {
     const { id, name } = this.state;
     return (
-      <div className="navBarCont">
+      <div className="navBar">
         <img
           className="logo"
           src={Logo}
