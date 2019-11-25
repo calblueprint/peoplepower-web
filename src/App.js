@@ -20,6 +20,8 @@ function App() {
           <Route exact path="/" component={Login} />
           <Route path="/onboarding" component={Onboarding} />
           <Route path="/dashboard" component={GeneralOwnerDashboard} />
+          <Route path="/admin" component={AdminDashboard} />
+          <Route path="/community" component={Community} />
           <Route path="/subdashboard" component={SubscriberOwnerDashboard} />
           <Route path="/community" component={Community} />
           <Route path="/admin" component={AdminDashboard} />
