@@ -1,9 +1,9 @@
 import React from 'react';
-import '../../styles/SubscriberOwnerDashboard.css';
-import { centsToDollars } from '../../lib/subscriberHelper';
-import { getLoggedInUserId } from '../../lib/auth';
+import '../../../styles/SubscriberOwnerDashboardMainView.css';
+import { centsToDollars } from '../../../lib/subscriberHelper';
+import { getLoggedInUserId } from '../../../lib/auth';
 
-export default class SubscriberOwnerDashboard extends React.Component {
+export default class SubscriberOwnerDashboardMainView extends React.Component {
   constructor(props) {
     super(props);
     const { bills } = this.props;

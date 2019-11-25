@@ -1,12 +1,12 @@
 import React from 'react';
-import '../../styles/AllBills.css';
-import { centsToDollars } from '../../lib/subscriberHelper';
-import Bill from '../../components/Bill';
-import { getLoggedInUserId, logOut } from '../../lib/auth';
+import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
+import { centsToDollars } from '../../../lib/subscriberHelper';
+import Bill from '../../../components/Bill';
+import { getLoggedInUserId, logOut } from '../../../lib/auth';
 
 const ROOT_ROUTE = '/';
 
-export default class AllBills extends React.Component {
+export default class SubscriberOwnerDashboardAllBillsView extends React.Component {
   constructor(props) {
     super(props);
     const { bills } = this.props;

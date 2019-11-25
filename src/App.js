@@ -4,8 +4,7 @@ import './styles/App.css';
 import NavBar from './components/NavBar';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
-import SubscriberOwnerPage from './screens/general/SubscriberOwnerPage';
-// import SignUp from './screens/auth/SignUp';
+import SubscriberOwnerDashboard from './screens/general/SubscriberOwnerDashboard/SubscriberOwnerDashboard';
 import Community from './screens/general/Community';
 import GeneralOwnerDashboard from './screens/general/GeneralOwnerDashboard';
 import AdminDashboard from './screens/general/AdminDashboard';
@@ -21,7 +20,7 @@ function App() {
           <Route exact path="/" component={Login} />
           <Route path="/onboarding" component={Onboarding} />
           <Route path="/dashboard" component={GeneralOwnerDashboard} />
-          <Route path="/subdashboard" component={SubscriberOwnerPage} />
+          <Route path="/subdashboard" component={SubscriberOwnerDashboard} />
           <Route path="/community" component={Community} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/profile/:id" component={UserProfilePage} />
