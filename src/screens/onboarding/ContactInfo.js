@@ -2,6 +2,7 @@ import React from 'react';
 import formValidation from '../../lib/formValidation';
 import Dropdown from '../../components/Dropdown';
 import States from '../../lib/states';
+import { createPersonOwnerUserLoginRecord } from '../../lib/auth';
 
 class ContactInfo extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class ContactInfo extends React.Component {
     this.state = {};
   }
 
-  nextButton = e => {
+  nextButton = async e => {
     e.preventDefault();
     const { values, nextStep } = this.props;
     const { errors } = values;
@@ -25,7 +26,38 @@ class ContactInfo extends React.Component {
     }
 
     if (!(errorMessages && errorMessages.length > 0)) {
-      nextStep();
+      // create the person/owner record in Airtable
+      const {
+        values: {
+          apt,
+          city,
+          email,
+          fname,
+          lname,
+          phoneNumber,
+          password,
+          state,
+          street,
+          zipcode
+        }
+      } = this.props;
+      const success = await createPersonOwnerUserLoginRecord(
+        email,
+        password,
+        phoneNumber,
+        `${fname} ${lname}`,
+        street,
+        apt,
+        city,
+        state,
+        zipcode
+      );
+
+      if (!success) {
+        console.error('createPersonOwnerUserLoginRecord FAILED');
+      } else {
+        nextStep();
+      }
     } else {
       this.forceUpdate();
     }
