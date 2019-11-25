@@ -1,4 +1,4 @@
-.dashboardCont {
+.all-bills-outer-container {
   margin: 0.8em auto;
   width: 75%;
 }
@@ -8,12 +8,12 @@ h3 {
   font-weight: bolder;
 }
 
-.subscriber-header {
+.all-bills-header {
   font-weight: bolder;
   color: #4f4f4f;
 }
 
-.cards-holder {
+.all-bills-cards-holder {
   border-radius: 4px;
   display: flex;
   flex-direction: column;

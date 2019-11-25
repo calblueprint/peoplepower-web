@@ -33,10 +33,10 @@ export default class AllBills extends React.Component {
   render() {
     const { bills } = this.state;
     return (
-      <div className="dashboardCont">
+      <div className="all-bills-outer-container">
         <h3>Billing</h3>
-        <p className="subscriber-header">Transactions</p>
-        <div className="cards-holder">
+        <p className="all-bills-header">Transactions</p>
+        <div className="all-bills-cards-holder">
           {bills.map(bill => {
             return (
               <Bill
