@@ -209,11 +209,11 @@ function updateRecord(table, updatedRecord) {
 }
 
 export {
+  getRecordsFromAttribute,
   getRecord,
   getMultipleFromAttr,
   createPerson,
   createRecord,
   updatePerson,
-  getRecordsFromAttribute,
   updateRecord
 };

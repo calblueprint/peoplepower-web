@@ -1,0 +1,47 @@
+.all-bills-outer-container {
+  margin: 0.8em auto;
+  width: 75%;
+}
+
+h3 {
+  font-size: 36px;
+  font-weight: bolder;
+}
+
+.all-bills-header {
+  font-weight: bolder;
+  color: #4f4f4f;
+}
+
+.all-bills-cards-holder {
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.subscriber-back-button {
+  background-color: Transparent;
+  border: 0;
+  color: #4f4f4f;
+}
+
+.subscriber-back-button-container {
+  display: flex;
+  margin: 2vw auto;
+}
+
+.subscriber-back-button-container:hover {
+  color: #696969;
+  cursor: pointer;
+}
+
+.subscriber-back-arrow {
+  font-weight: bolder;
+  font-size: 24px;
+}
+
+.subscriber-back-text {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0.4vw 1vw;
+}

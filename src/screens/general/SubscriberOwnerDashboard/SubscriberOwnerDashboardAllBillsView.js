@@ -1,46 +1,27 @@
 import React from 'react';
-import '../../styles/SubscriberOwnerDashboard.css';
-import {
-  areDiffBills,
-  centsToDollars,
-  getSubscriberBills
-} from '../../lib/subscriberHelper';
-import Bill from '../../components/Bill';
-import { getLoggedInUserId, logOut } from '../../lib/auth';
+import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
+import { centsToDollars } from '../../../lib/subscriberHelper';
+import Bill from '../../../components/Bill';
+import { getLoggedInUserId, logOut } from '../../../lib/auth';
 
 const ROOT_ROUTE = '/';
 
-export default class SubscriberOwnerDashboard extends React.Component {
+export default class SubscriberOwnerDashboardAllBillsView extends React.Component {
   constructor(props) {
     super(props);
+    const { bills } = this.props;
     this.state = {
-      bills: [],
-      isReady: false
+      bills
     };
-    this.updateState = this.updateState.bind(this);
   }
 
   componentDidMount() {
-    this.getBills();
-  }
-
-  getBills() {
-    const loggedInUserId = getLoggedInUserId();
-    getSubscriberBills(loggedInUserId, this.updateState);
-  }
-
-  updateState(bills) {
-    if (bills == null) {
-      console.error('bills argument to updateState is null');
-      return;
+    const { history } = this.props;
+    const id = getLoggedInUserId();
+    if (!id) {
+      // They shouldn't be able to access this screen
+      history.push('/');
     }
-
-    this.setState(prevState => {
-      if (areDiffBills(prevState.bills, bills)) {
-        return { bills, isReady: true };
-      }
-      return { isReady: true };
-    });
   }
 
   handleLogout() {
@@ -50,12 +31,22 @@ export default class SubscriberOwnerDashboard extends React.Component {
   }
 
   render() {
-    const { bills, isReady } = this.state;
+    const { bills } = this.state;
+    const { callback } = this.props;
     return (
-      <div className="dashboardCont">
-        <h3>Subscriber Owner Dashboard</h3>
-        <h3>{!isReady ? 'Loading...' : 'Bills'}</h3>
-        <div className="cards-holder">
+      <div className="all-bills-outer-container">
+        <button
+          className="subscriber-back-button"
+          type="button"
+          onClick={callback}
+        >
+          <div className="subscriber-back-button-container">
+            <div className="subscriber-back-arrow">←</div>
+            <div className="subscriber-back-text">Back</div>
+          </div>
+        </button>
+        <p className="all-bills-header">Transactions</p>
+        <div className="all-bills-cards-holder">
           {bills.map(bill => {
             return (
               <Bill
@@ -79,9 +70,9 @@ export default class SubscriberOwnerDashboard extends React.Component {
           })}
         </div>
         <div>
-          <button onClick={() => this.handleLogout()} type="button">
+          {/* <button onClick={() => this.handleLogout()} type="button">
             Logout
-          </button>
+          </button> */}
         </div>
       </div>
     );
