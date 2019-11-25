@@ -34,27 +34,29 @@ function getRecord(table, id) {
   Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
   return the associated record object.
 */
-function getRecordFromAttribute(table, fieldType, field) {
+function getRecordsFromAttribute(table, fieldType, field) {
   return new Promise((resolve, reject) => {
+    console.log(`Searching for ${field}`);
     base(table)
       .select({
         view: 'Grid view',
-        maxRecords: 1,
         filterByFormula: `{${fieldType}}='${field}'`
       })
       .firstPage(function(err, records) {
         if (err) {
+          console.error(err);
           reject(err);
         }
-        if (records === null || records.length < 1) {
-          const msg = `No record was retrieved using this ${fieldType}.`;
-          reject(msg);
-        } else {
-          records.forEach(function(record) {
-            resolve(record.fields);
-            return record;
-          });
+        if (records.length < 1) {
+          console.log(`No record was retrieved using this ${fieldType}.`);
+          reject(new Error(`No record was retrieved using this ${fieldType}.`));
         }
+
+        resolve({ records });
+        // records.forEach(function(record) {
+        // 	console.log('Retrieved', record.fields);
+        // 	return record
+        // });
       });
   });
 }
@@ -207,8 +209,8 @@ function updateRecord(table, updatedRecord) {
 }
 
 export {
+  getRecordsFromAttribute,
   getRecord,
-  getRecordFromAttribute,
   getMultipleFromAttr,
   createPerson,
   createRecord,
