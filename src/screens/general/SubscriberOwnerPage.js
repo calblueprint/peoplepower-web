@@ -54,6 +54,12 @@ export default class SubscriberOwnerPage extends React.Component {
     });
   }
 
+  seeDashboard() {
+    this.setState({
+      mode: 0
+    });
+  }
+
   render() {
     const { mode, bills, isReady } = this.state;
     if (!isReady) {
@@ -72,7 +78,7 @@ export default class SubscriberOwnerPage extends React.Component {
       );
     }
     if (mode === 1) {
-      return <AllBills bills={bills} />;
+      return <AllBills callback={() => this.seeDashboard()} bills={bills} />;
     }
 
     return <div>404: invalid state. Call your dev</div>;

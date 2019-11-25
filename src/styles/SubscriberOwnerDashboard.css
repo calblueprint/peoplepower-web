@@ -12,13 +12,18 @@
   margin: 1em;
 }
 
-.left-col {
+.subscriber-left-col {
   flex: 1;
   margin-left: 0;
 }
 
-.right-col {
+.subscriber-right-col {
   flex: 2;
+}
+
+.subscriber-right-duo-header {
+  display: flex;
+  flex: 1;
 }
 
 .col-card {
@@ -75,6 +80,21 @@ h3 {
   flex-direction: column;
 }
 
+.subscriber-all-billls-button {
+  font-size: 24px;
+  font-weight: bolder;
+  background-color: Transparent;
+  border: 0;
+  color: #4f4f4f;
+  float: right;
+  margin-left: auto;
+}
+
+.subscriber-all-billls-button:hover {
+  color: #696969;
+  cursor: pointer;
+}
+
 .subscriber-button {
   font-size: 22;
   font-weight: bold;
@@ -93,10 +113,4 @@ h3 {
   border: 1px solid #efefef;
   width: 85%;
   margin: 0 auto 1.5vw auto;
-}
-
-.TEMP {
-  margin-top: 10vw;
-  padding: 8vw 0 0 0;
-  float: right;
 }

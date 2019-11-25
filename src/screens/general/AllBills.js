@@ -32,9 +32,19 @@ export default class AllBills extends React.Component {
 
   render() {
     const { bills } = this.state;
+    const { callback } = this.props;
     return (
       <div className="all-bills-outer-container">
-        <h3>Billing</h3>
+        <button
+          className="subscriber-back-button"
+          type="button"
+          onClick={callback}
+        >
+          <div className="subscriber-back-button-container">
+            <div className="subscriber-back-arrow">←</div>
+            <div className="subscriber-back-text">Back</div>
+          </div>
+        </button>
         <p className="all-bills-header">Transactions</p>
         <div className="all-bills-cards-holder">
           {bills.map(bill => {

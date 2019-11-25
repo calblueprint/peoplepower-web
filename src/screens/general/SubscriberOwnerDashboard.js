@@ -28,7 +28,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
       <div className="subscriber-dash-outer-container">
         <h3>My Finances</h3>
         <div className="subscriber-dash-inner-container">
-          <div className="left-col subscriber-dash-col">
+          <div className="subscriber-left-col subscriber-dash-col">
             <p className="subscriber-header">Billing Summary</p>
             <div className="col-card">
               <div className="class-elems">
@@ -73,19 +73,18 @@ export default class SubscriberOwnerDashboard extends React.Component {
               </div>
             </div>
           </div>
-          <div className="right-col subscriber-dash-col">
-            <p className="subscriber-header">Recent Transactions</p>
-            <div className="col-card">
-              <div className="TEMP">
-                <button
-                  className="subscriber-button"
-                  type="button"
-                  onClick={callback}
-                >
-                  See all bills
-                </button>
-              </div>
+          <div className="subscriber-right-col subscriber-dash-col">
+            <div className="subscriber-right-duo-header">
+              <p className="subscriber-header">Recent Transactions</p>
+              <button
+                className="subscriber-all-billls-button"
+                type="button"
+                onClick={callback}
+              >
+                →
+              </button>
             </div>
+            <div className="col-card" />
           </div>
         </div>
       </div>
