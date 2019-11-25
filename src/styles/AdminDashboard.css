@@ -6,23 +6,75 @@
   padding: 0px 40px 40px 40px;
 }
 
+.card-holder-cont h4 {
+  margin-top: 40px;
+  display: inline-block;
+}
+
 .card-holder {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
+.card-holder-cont .invite-button {
+  border: none;
+  border-radius: 2.5px;
+  width: 108px;
+  color: white;
+  margin: 35px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #395578;
+  height: 30px;
+}
+
 .card-holder .card {
+  display: flex;
+  justify-content: flex-end;
   height: 70px;
   margin: 0px;
-  border: 1px dashed black;
   background: #fff;
-  display: flex;
   align-items: center;
+  padding: 35px 35px 35px 0px;
+}
+
+.card-holder .card .card-profile-image {
+  width: 77px;
+  height: 77px;
+  margin-right: 34px;
+  background: #efefef;
+  border-radius: 100%;
+}
+
+.card-holder .card .card-name {
+  margin-right: auto;
+}
+
+.card-holder .card .card-tags {
+  display: flex;
+  margin-top: 12px;
+  width: 200px;
+}
+
+.card-holder .card .card-tags .tag {
+  padding: 5px 10px;
+  background: #d8d8d8;
+  border-radius: 20px;
+  margin: 0px 5px;
+}
+
+.card-holder .card .card-button {
+  background-color: black;
+  color: white;
+  padding: 0.5em 1.2em;
+  border-radius: 4px;
+  border: none;
+  font-weight: bold;
 }
 
 .card-holder .card h3 {
-  margin: 0px;
+  margin: 0px 0px 0px 5px;
   padding: 0px;
 }
 

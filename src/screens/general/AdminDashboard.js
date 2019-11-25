@@ -49,7 +49,6 @@ export default class AdminDashboard extends React.Component {
   }
 
   async removeUser(idToRemove) {
-    console.log(idToRemove);
     const { adminGroupId, adminId } = this.state;
     let { owners } = this.state;
     let ownerIds = owners.map(owner => owner[OWNER_ID_FIELD]);
@@ -89,9 +88,16 @@ export default class AdminDashboard extends React.Component {
         <div>
           <h3>Project Group</h3>
           <div className="card-holder-cont">
-            <h4>
-              Members <span>({owners.length})</span>
-            </h4>
+            <div
+              style={{ display: 'flex', 'justify-content': 'space-between' }}
+            >
+              <h4>
+                Members <span>({owners.length})</span>
+              </h4>
+              <button type="button" className="invite-button">
+                Invite
+              </button>
+            </div>
             <div className="card-holder">
               {owners.length >= 1 ? (
                 owners.map(owner => {
