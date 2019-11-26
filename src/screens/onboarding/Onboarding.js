@@ -65,7 +65,7 @@ class Onboarding extends React.Component {
         ccstate: '',
         cczipcode: ''
       },
-      step: 3
+      step: 1
     };
     this.handleChange = this.handleChange.bind(this);
     this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
