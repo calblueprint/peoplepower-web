@@ -6,7 +6,6 @@ import ProjectGroups from './ProjectGroups';
 import Payment from './Payment';
 import formValidation from '../../lib/formValidation';
 import { createPerson } from '../../lib/request';
-import Confirmation from './Confirmation';
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -15,6 +14,7 @@ class Onboarding extends React.Component {
       fname: '',
       lname: '',
       email: '',
+      altEmail: '',
       password: '',
       street: '',
       city: '',
@@ -201,6 +201,7 @@ class Onboarding extends React.Component {
       fname,
       lname,
       email,
+      altEmail,
       password,
       street,
       apt,
@@ -232,6 +233,7 @@ class Onboarding extends React.Component {
       fname,
       lname,
       email,
+      altEmail,
       password,
       street,
       apt,
@@ -312,17 +314,17 @@ class Onboarding extends React.Component {
             handleDividends={this.handleDividends}
           />
         );
-      case 6:
-        return (
-          <Confirmation
-            values={values}
-            prevStep={this.prevStep}
-            onSubmit={this.onSubmit}
-            handleChange={this.handleChange}
-            handleFormValidation={this.handleFormValidation}
-            handleDividends={this.handleDividends}
-          />
-        );
+      // case 6:
+      //       //   return (
+      //       //     <Confirmation
+      //       //       values={values}
+      //       //       prevStep={this.prevStep}
+      //       //       onSubmit={this.onSubmit}
+      //       //       handleChange={this.handleChange}
+      //       //       handleFormValidation={this.handleFormValidation}
+      //       //       handleDividends={this.handleDividends}
+      //       //     />
+      //       //   );
       default:
         return <div>Page not Found</div>;
     }

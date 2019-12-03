@@ -31,4 +31,5 @@ body {
   width: 100%;
   display: flex;
   height: calc(100% - 104px);
+  background-color: #f1f3f6;
 }

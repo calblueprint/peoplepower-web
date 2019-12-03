@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d161631a-b8dc-4f83-badf-a5d5016108dd" name="Default Changelist" comment="">
+<<<<<<< Updated upstream
       <change afterPath="$PROJECT_DIR$/src/components/AddAnnouncement.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/AnnouncementList.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/screens/general/Community.js" afterDir="false" />
@@ -32,6 +33,23 @@
       <change beforePath="$PROJECT_DIR$/src/styles/NavBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/NavBar.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/SubscriberOwnerDashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/SubscriberOwnerDashboard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/UserProfilePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/UserProfilePage.css" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/src/components/tooltip.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/images/tooltip.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/images/tooltip.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/formValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/formValidation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/general/GeneralOwnerDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/general/GeneralOwnerDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/BasicInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/BasicInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/ContactInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/ContactInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/onboarding/Onboarding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/onboarding/Onboarding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/GeneralOwnerDashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/GeneralOwnerDashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/NavBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/NavBar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/Onboarding.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Onboarding.css" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -126,6 +144,8 @@
       <workItem from="1573753505248" duration="3000" />
       <workItem from="1574395206149" duration="4738000" />
       <workItem from="1574639829261" duration="232000" />
+      <workItem from="1574859815578" duration="5043000" />
+      <workItem from="1575366283963" duration="2996000" />
     </task>
     <servers />
   </component>

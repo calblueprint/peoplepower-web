@@ -1,5 +1,7 @@
 import React from 'react';
 import formValidation from '../../lib/formValidation';
+import '../../styles/Onboarding.css';
+import tooltip from '../../components/tooltip';
 
 class BasicInfo extends React.Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class BasicInfo extends React.Component {
     e.preventDefault();
     const { values, nextStep } = this.props;
     const { errors } = values;
-    const fields = ['fname', 'lname', 'email', 'password'];
+    const fields = ['fname', 'lname', 'email', 'password', 'altEmail'];
     const errorsMessages = [];
 
     for (let i = 0; i < fields.length; i += 1) {
@@ -35,12 +37,19 @@ class BasicInfo extends React.Component {
     const { errors } = values;
     return (
       <form className="center card flex column">
-        <div className="t-center header">Tell us about yourself!</div>
+        <div className=" ">
+          <div className="header ">
+            Be a part of the movement for equity and clean energy.
+          </div>
+        </div>
         <div className="flex row">
           <div className="w-50 pr-1">
+            <label className="onboarding-label" htmlFor="name">
+              Your Name
+            </label>
             <input
               name="fname"
-              placeholder="First Name"
+              placeholder="First name"
               onChange={handleChange}
               defaultValue={values.fname}
               className={` input-gray ${
@@ -50,9 +59,10 @@ class BasicInfo extends React.Component {
             />
           </div>
           <div className="w-50">
+            <div style={{ marginBottom: '20px' }} />
             <input
               name="lname"
-              placeholder="Last Name"
+              placeholder="Last name"
               onChange={handleChange}
               defaultValue={values.lname}
               className={` input-gray ${
@@ -71,9 +81,12 @@ class BasicInfo extends React.Component {
           </div>
         </div>
         <div className="w-100">
+          <label className="onboarding-label" htmlFor="email">
+            Email
+          </label>
           <input
             name="email"
-            placeholder="Email address"
+            placeholder="Enter your Email address"
             onChange={handleChange}
             defaultValue={values.email}
             className={`input-gray ${
@@ -86,6 +99,32 @@ class BasicInfo extends React.Component {
           </div>
         </div>
         <div className="w-100">
+          <div className="flex w-100">
+            <label className="onboarding-label left pr-half" htmlFor="altEmail">
+              Alternative Email
+            </label>
+            {tooltip(
+              'We’ll use this email to reach you if we can’t\ncontact you at your primary email.'
+            )}
+          </div>
+          <input
+            name="altEmail"
+            placeholder="Enter your Email address"
+            onChange={handleChange}
+            defaultValue={values.altEmail}
+            className={`input-gray ${
+              errors.altEmail !== '' ? 'b-is-not-valid' : 'b-is-invalid'
+            }`}
+            onBlur={handleFormValidation}
+          />
+          <div className=" validation">
+            {errors.altEmail ? errors.altEmail : '\u00A0'}
+          </div>
+        </div>
+        <div className="w-100">
+          <label className="onboarding-label" htmlFor="password">
+            Password
+          </label>
           <input
             name="password"
             placeholder="Create a password"
@@ -101,7 +140,11 @@ class BasicInfo extends React.Component {
           </div>
         </div>
         <div className="v-center">
-          <button type="button" onClick={this.nextButton}>
+          <button
+            type="button"
+            className="getstarted-button"
+            onClick={this.nextButton}
+          >
             Get started
           </button>
         </div>

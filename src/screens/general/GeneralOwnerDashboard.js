@@ -35,8 +35,9 @@ export default class GeneralOwnerDashboard extends React.Component {
     let name;
     let owner;
     let addressID;
+
+    // Get Person record from person id
     getRecordWithPromise('Person', id)
-      // Get Person record from person id
       .then(payload => {
         ({
           Name: name,

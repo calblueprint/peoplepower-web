@@ -18,6 +18,13 @@
   text-align: center;
 }
 
+.onboarding-label {
+  color: #7387a2;
+  font-weight: normal;
+  font-size: 10px;
+  margin-bottom: 0px;
+}
+
 .slider {
   position: relative;
   width: 50%;
@@ -98,15 +105,6 @@
   height: 60%;
 }
 
-.listcard {
-  background: white;
-  color: black;
-  border-radius: 10px;
-  z-index: 0;
-  width: 60%;
-  height: 60%;
-}
-
 .infoBox {
   background: white;
   color: black;
@@ -119,10 +117,10 @@
   right: 20%;
 }
 
-button {
+.getstarted-button {
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
-  background-color: #c0c0c0;
+  background-color: #cd6795;
   border: none;
   color: white;
   padding: 0.3rem 2rem;
@@ -138,10 +136,8 @@ button {
   margin-top: 2rem;
 }
 
-button:hover {
-  background-color: white;
-  border: 1px solid #c0c0c0;
-  color: #c0c0c0;
+.getstarted-button:hover {
+  box-shadow: 0px 4px 30px rgba(205, 103, 149, 0.3);
 }
 
 .center {
@@ -170,15 +166,28 @@ button:hover {
 }
 
 .input-gray {
-  background-color: #efefef;
-  color: black;
+  background-color: #f6f7f9;
+  color: #9ba3ad;
   border-radius: 2.5px;
   box-shadow: none;
-  padding: 0.2rem 0.3rem;
+  margin: 0.1rem 0.1rem;
+  padding: 0.4rem 0.5rem;
   border: none;
   font-family: 'Nunito Sans', sans-serif;
   width: 100%;
   box-sizing: border-box;
+}
+
+::placeholder {
+  color: #9ba3ad;
+}
+
+:-ms-input-placeholder {
+  color: #9ba3ad;
+}
+
+::-ms-input-placeholder {
+  color: #9ba3ad;
 }
 
 .input-white {
@@ -194,15 +203,24 @@ button:hover {
 }
 
 .card {
-  background-color: white;
-  padding: 4rem 1.5rem;
-  border-radius: 10px;
+  background-color: #fff !important;
+  padding: 3rem 3rem !important;
+  border-radius: 15px;
+  width: 20rem !important;
 }
 
 .header {
-  padding-bottom: 50px;
   font-size: 18px;
   font-family: 'Nunito Sans', sans-serif;
+  color: #395578;
+  font-weight: bolder;
+  width: 70%;
+  text-align: center;
+  margin: auto;
+}
+
+.l-50 {
+  left: 50%;
 }
 
 .flex {
@@ -270,13 +288,11 @@ w-pasword {
 .validation {
   font-size: 9px;
   padding-top: 0.1rem;
-  padding-bottom: 0.25rem;
-  color: #c0c0c0;
+  color: #cd679580;
 }
 
 .v-center {
   margin: auto;
-  width: 50%;
 }
 
 .arrow {
@@ -493,4 +509,60 @@ carousel__arrow--right {
 .dd-wrapper-single .dd-list {
   border: 1px solid #ccc;
   border-top: none;
+}
+
+.tooltip {
+  position: relative;
+  display: block;
+}
+
+.tooltip .tooltipicon {
+  width: 0.5rem;
+  vertical-align: super;
+}
+
+.pr-half {
+  padding-right: 0.5rem;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: white;
+  padding: 0.5rem 0.5rem;
+  color: #4f4f4f;
+  text-align: center;
+  font-size: 9px;
+  font-weight: normal;
+  border-radius: 6px;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2);
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -92px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }

@@ -3,6 +3,15 @@ import States from './states';
 function formValidation(name, value) {
   const num = Number(value);
   switch (name) {
+    case 'email':
+    case 'altEmail':
+      if (value === '') {
+        return 'Required';
+      }
+      if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)) {
+        return 'Invalid Email';
+      }
+      return '';
     case 'bylaw1':
     case 'bylaw2':
       console.log('checking');
