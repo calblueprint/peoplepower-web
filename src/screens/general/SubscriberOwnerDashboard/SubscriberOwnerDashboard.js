@@ -1,13 +1,16 @@
 import React from 'react';
-import '../../styles/SubscriberOwnerPage.css';
+import '../../../styles/SubscriberOwnerDashboard.css';
 
-import AllBills from './AllBills';
-import SubscriberOwnerDashboard from './SubscriberOwnerDashboard/SubscriberOwnerDashboard';
-import { getLoggedInUserId } from '../../lib/auth';
+import SubscriberOwnerDashboardAllBillsView from './SubscriberOwnerDashboardAllBillsView';
+import SubscriberOwnerDashboardMainView from './SubscriberOwnerDashboardMainView';
+import { getLoggedInUserId } from '../../../lib/auth';
 
-import { areDiffBills, getSubscriberBills } from '../../lib/subscriberHelper';
+import {
+  areDiffBills,
+  getSubscriberBills
+} from '../../../lib/subscriberHelper';
 
-export default class SubscriberOwnerPage extends React.Component {
+export default class SubscriberOwnerDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,9 +51,15 @@ export default class SubscriberOwnerPage extends React.Component {
     });
   }
 
-  seeAllbills() {
+  seeSubscriberOwnerDashboardAllBillsView() {
     this.setState({
       mode: 1
+    });
+  }
+
+  seeDashboard() {
+    this.setState({
+      mode: 0
     });
   }
 
@@ -65,14 +74,19 @@ export default class SubscriberOwnerPage extends React.Component {
     }
     if (mode === 0) {
       return (
-        <SubscriberOwnerDashboard
-          callback={() => this.seeAllbills()}
+        <SubscriberOwnerDashboardMainView
+          callback={() => this.seeSubscriberOwnerDashboardAllBillsView()}
           bills={bills}
         />
       );
     }
     if (mode === 1) {
-      return <AllBills bills={bills} />;
+      return (
+        <SubscriberOwnerDashboardAllBillsView
+          callback={() => this.seeDashboard()}
+          bills={bills}
+        />
+      );
     }
 
     return <div>404: invalid state. Call your dev</div>;

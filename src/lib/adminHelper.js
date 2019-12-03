@@ -1,13 +1,7 @@
 import { getRecordWithPromise } from './request';
-import key from './api_key';
+// import key from './api_key';
 
 const Airtable = require('airtable');
-
-// API KEY will reside in ENV variables later.
-Airtable.configure({
-  endpointUrl: 'https://api.airtable.com',
-  apiKey: key
-});
 
 const base = Airtable.base('appFaOwKhMXrRIQIp');
 

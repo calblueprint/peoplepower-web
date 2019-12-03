@@ -13,9 +13,22 @@ body {
   flex-direction: column;
   background-color: #efefef;
 }
+
+/* Styling for the main wrapper of the application */
 .app-container {
   width: 100%;
   height: 100vh;
-  background-color: #efefef;
+  background-color: #e5e5e5;
+}
+
+/* A global css style that sets the margin of the left gutter. */
+.cont {
+  margin-left: 170px;
+}
+
+/* A global css style that sets the styles of the different pages */
+.dashboard {
+  width: 100%;
   display: flex;
+  height: calc(100% - 104px);
 }

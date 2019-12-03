@@ -1,20 +1,19 @@
 import React from 'react';
-import { PayPalButton } from 'react-paypal-button-v2';
-import '../../styles/SubscriberOwnerDashboard.css';
-import { getLoggedInUserId } from '../../lib/auth';
-import { centsToDollars, createPayment } from '../../lib/subscriberHelper';
-import keys from '../../lib/api_key';
+import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
+import { centsToDollars } from '../../../lib/subscriberHelper';
+import Bill from '../../../components/Bill';
+import { getLoggedInUserId } from '../../../lib/auth';
+// import keys from '../../../lib/api_key';
 
-const { clientId } = keys;
+// const { clientId } = keys;
 
-export default class SubscriberOwnerDashboard extends React.Component {
+export default class SubscriberOwnerDashboardAllBillsView extends React.Component {
   constructor(props) {
     super(props);
     const { bills } = this.props;
     this.state = {
-      latestBill: bills.filter(bill => bill['Is Latest'])[0]
+      bills
     };
-    this.onSuccess = this.onSuccess.bind(this);
   }
 
   componentDidMount() {
@@ -132,79 +131,58 @@ export default class SubscriberOwnerDashboard extends React.Component {
       record.fields.Notes = 'id and order id mismatch';
     }
 
-    createPayment(record)
-      .then(paymentId => {
-        console.log(paymentId);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    // createPayment(record)
+    //   .then(paymentId => {
+    //     console.log(paymentId);
+    //   })
+    //   .catch(err => {
+    //     console.error(err);
+    //   });
   }
 
   render() {
+    const { bills } = this.state;
     const { callback } = this.props;
-    const { latestBill } = this.state;
-    const amtDue = centsToDollars(latestBill['Amount Due']);
     return (
-      <div className="subscriber-dash-outer-container">
-        <h3>My Finances</h3>
-        <div className="subscriber-dash-inner-container">
-          <div className="left-col subscriber-dash-col">
-            <p className="subscriber-header">Billing Summary</p>
-            <div className="col-card">
-              <div className="class-elems">
-                <div className="balance-header-section">
-                  <p>Your Balance</p>
-                  <h3>${amtDue}</h3>
-                </div>
-                <hr id="divider" />
-                <div className="balance-nums-section">
-                  <div className="balance-nums-line">
-                    <p className="line-item descrip">Due Now</p>
-                    <p className="line-item">${amtDue}</p>
-                  </div>
-                  <div className="balance-nums-line">
-                    <p className="line-item descrip">Upcoming</p>
-                    <p className="line-item">$0.00</p>
-                  </div>
-                  <br />
-                  <br />
-                  <div className="balance-nums-line">
-                    <p className="line-item descrip">
-                      <strong>Total</strong>
-                    </p>
-                    <p className="line-item">
-                      <strong>${amtDue}</strong>
-                    </p>
-                  </div>
-                </div>
-                <br />
-                <br />
-                <br />
-                <PayPalButton
-                  amount={amtDue}
-                  onSuccess={this.onSuccess}
-                  options={{
-                    clientId
-                  }}
-                />
-              </div>
-            </div>
+      <div className="all-bills-outer-container">
+        <button
+          className="subscriber-back-button"
+          type="button"
+          onClick={callback}
+        >
+          <div className="subscriber-back-button-container">
+            <div className="subscriber-back-arrow">←</div>
+            <div className="subscriber-back-text">Back</div>
           </div>
-          <div className="right-col subscriber-dash-col">
-            <p className="subscriber-header">Recent Transactions</p>
-            <div className="col-card">
-              <div className="TEMP">
-                <button
-                  className="subscriber-button"
-                  type="button"
-                  onClick={callback}
-                >
-                  See all bills
-                </button>
-              </div>
-            </div>
-          </div>
+        </button>
+        <p className="all-bills-header">Transactions</p>
+        <div className="all-bills-cards-holder">
+          {bills.map(bill => {
+            return (
+              <Bill
+                statementDate={bill['Statement Date']}
+                startDate={bill['Start Date']}
+                endDate={bill['End Date']}
+                // rate_schedule
+                estimatedRebate={centsToDollars(bill['Estimated Rebate'])}
+                totalEstimatedRebate={centsToDollars(
+                  bill['Total Estimated Rebate']
+                )}
+                amtDueOnPrev={centsToDollars(bill['Amount Due on Previous'])}
+                amtReceivedSincePrev={centsToDollars(
+                  bill['Amount Received Since Previous']
+                )}
+                amtDue={centsToDollars(bill['Amount Due'])}
+                isLatest={bill['Is Latest']}
+                callback={() => console.log('Pay was pressed!')}
+              />
+            );
+          })}
+        </div>
+        <div>
+          {/* <button onClick={() => this.handleLogout()} type="button">
+            Logout
+          </button> */}
         </div>
       </div>
     );

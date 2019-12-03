@@ -25,7 +25,8 @@ export default class NavBar extends React.Component {
       getRecordWithPromise('Person', id).then(payload => {
         const { Name: name } = payload.record;
         this.setState({
-          name
+          name,
+          id
         });
       });
     }
@@ -34,7 +35,7 @@ export default class NavBar extends React.Component {
   render() {
     const { id, name } = this.state;
     return (
-      <div className="navBarCont">
+      <div className="navBar">
         <img
           className="logo"
           src={Logo}

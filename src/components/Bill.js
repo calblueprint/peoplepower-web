@@ -1,20 +1,6 @@
 import React from 'react';
 import '../styles/Bill.css';
-
-const dateToWord = {
-  1: 'January',
-  2: 'February',
-  3: 'March',
-  4: 'April',
-  5: 'May',
-  6: 'June',
-  7: 'July',
-  8: 'August',
-  9: 'September',
-  10: 'October',
-  11: 'November',
-  12: 'December'
-};
+import { dateToWord } from '../lib/subscriberHelper';
 
 function dateToFullMonth(date) {
   return dateToWord[parseInt(date.split('-')[1], 10)];
@@ -27,6 +13,14 @@ function dateToDateString(date) {
     dateArr[2]
   }, ${dateArr[0]}`;
 }
+
+/*
+  Left some fields in comments because they are needed in the hifi version of the design:
+  https://www.figma.com/file/jPJ59YeB2EXNMpjPHKtm5B/people-power?node-id=747%3A0
+
+  The fields were commented out to implement a lofi version consistent with
+  an earlier version of the design
+*/
 
 function Bill({
   statementDate,
@@ -61,15 +55,6 @@ function Bill({
         <button className="bill-button" onClick={callback} type="button">
           Pay
         </button>
-      )} */}
-      {/* {isLatest && (
-        <PayPalButton
-          amount={amtDue}
-          onSuccess={onSucccess}
-          options={{
-            clientId
-          }}
-        />
       )} */}
       <hr id="bill-divide-line" />
     </div>

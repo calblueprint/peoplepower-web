@@ -89,6 +89,28 @@ function getAllRecords(table) {
   });
 }
 
+function getMultipleFromAttr(table, fieldName, fieldValue) {
+  return new Promise((resolve, reject) => {
+    base(table)
+      .select({
+        view: 'Grid view',
+        maxRecords: 10,
+        filterByFormula: `{${fieldName}}='${fieldValue}'`
+      })
+      .firstPage(function(err, records) {
+        if (err) {
+          reject(err);
+        }
+        if (records === null || records.length < 1) {
+          const msg = `No record was retrieved using this ${fieldName}.`;
+          reject(msg);
+        } else {
+          resolve(records);
+        }
+      });
+  });
+}
+
 /* 
 	******** CREATE RECORDS ********
   You can create a person record using the `create` method with the Airtable API.
@@ -220,6 +242,7 @@ export {
   getRecordWithPromise,
   getRecordsFromAttribute,
   getAllRecords,
+  getMultipleFromAttr,
   createPerson,
   createRecord,
   updatePerson,

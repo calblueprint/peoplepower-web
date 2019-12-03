@@ -28,6 +28,21 @@ const centsToDollars = cents => {
   return (cents / 100).toFixed(2);
 };
 
+const dateToWord = {
+  1: 'January',
+  2: 'February',
+  3: 'March',
+  4: 'April',
+  5: 'May',
+  6: 'June',
+  7: 'July',
+  8: 'August',
+  9: 'September',
+  10: 'October',
+  11: 'November',
+  12: 'December'
+};
+
 // VALIDATION FUNCTIONS
 const validateRecordAndField = record => {
   if (record == null) {
@@ -159,6 +174,7 @@ const createPayment = async record => {
 export {
   areDiffBills,
   centsToDollars,
+  dateToWord,
   getOwnerIdFromId,
   getBillsFromOwnerId,
   getSubscriberOwnerFromPerson,

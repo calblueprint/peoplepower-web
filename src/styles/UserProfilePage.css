@@ -1,4 +1,4 @@
-.inputFormCont {
+/*.inputFormCont {
   width: 50%;
   float: right;
 }
@@ -6,7 +6,7 @@
 .inputFormCont h2,
 h3,
 label {
-  color: white;
+  color: black;
 }
 
 .userInfoCont {
@@ -22,4 +22,4 @@ p {
 input {
   display: block;
   margin: 10px 0px;
-}
+}*/
