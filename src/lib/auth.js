@@ -18,11 +18,87 @@ const NUM_RECORDS = 1;
 
 const LOGIN_TOKEN_NAME = 'loginToken';
 
-const table = 'User Login';
+// tables
+const USER_LOGIN_TABLE = 'User Login';
+const PERSON_TABLE = 'Person';
+const OWNER_TABLE = 'Owner';
+
+const createPersonOwnerUserLoginRecord = async (
+  email,
+  password,
+  phoneNumber,
+  fullName,
+  street,
+  apt,
+  city,
+  state,
+  zipcode
+) => {
+  // create a person record without an owner field nor user login field
+  let createdPersonId;
+  try {
+    const createdPerson = await base(PERSON_TABLE).create([
+      {
+        fields: {
+          Email: email,
+          'Phone Number': phoneNumber,
+          Name: fullName,
+          Street: street,
+          City: city,
+          State: state,
+          Apt: apt,
+          Zipcode: zipcode
+        }
+      }
+    ]);
+    createdPersonId = createdPerson[0].id;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+
+  // create an owner record
+  let createdOwnerId;
+  try {
+    const createdOwner = await base(OWNER_TABLE).create([
+      {
+        fields: {
+          Person: [createdPersonId]
+          // "Owner Type": [  // TODO: how do we determine owner type at this point? @aivantg
+          //   "General",
+          //   "Subscriber"
+          // ],
+        }
+      }
+    ]);
+    createdOwnerId = createdOwner[0].id;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+
+  // create a user login record
+  try {
+    await base(USER_LOGIN_TABLE).create([
+      {
+        fields: {
+          Person: [createdPersonId],
+          Owner: [createdOwnerId],
+          Email: email,
+          password
+        }
+      }
+    ]);
+    return true;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+};
 
 const loginUser = (email, passwordHash) => {
   return new Promise((resolve, reject) => {
-    base(table)
+    base(USER_LOGIN_TABLE)
       .select({
         maxRecords: NUM_RECORDS,
         view: GRID_VIEW,
@@ -70,4 +146,9 @@ const logOut = () => {
 };
 
 // export default loginUser;
-export { loginUser, getLoggedInUserId, logOut };
+export {
+  createPersonOwnerUserLoginRecord,
+  loginUser,
+  getLoggedInUserId,
+  logOut
+};
