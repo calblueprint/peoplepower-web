@@ -23,19 +23,20 @@ const USER_LOGIN_TABLE = 'User Login';
 const PERSON_TABLE = 'Person';
 const OWNER_TABLE = 'Owner';
 
-const createPersonOwnerUserLoginRecord = async (
+const DEFAULT_NUM_RETRIES = 3;
+
+const createPersonWithRetries = async (
   email,
-  password,
   phoneNumber,
   fullName,
   street,
-  apt,
   city,
   state,
-  zipcode
+  apt,
+  zipcode,
+  numRetries
 ) => {
   // create a person record without an owner field nor user login field
-  let createdPersonId;
   try {
     const createdPerson = await base(PERSON_TABLE).create([
       {
@@ -51,33 +52,53 @@ const createPersonOwnerUserLoginRecord = async (
         }
       }
     ]);
-    createdPersonId = createdPerson[0].id;
+    return createdPerson[0].id;
   } catch (err) {
-    console.error(err);
-    return false;
-  }
+    if (numRetries === 0) {
+      throw err;
+    }
 
-  // create an owner record
-  let createdOwnerId;
+    return createPersonWithRetries(
+      email,
+      phoneNumber,
+      fullName,
+      street,
+      city,
+      state,
+      apt,
+      zipcode,
+      numRetries - 1
+    );
+  }
+};
+
+const createOwnerWithRetries = async (createdPersonId, numRetries) => {
   try {
     const createdOwner = await base(OWNER_TABLE).create([
       {
         fields: {
-          Person: [createdPersonId]
-          // "Owner Type": [  // TODO: how do we determine owner type at this point? @aivantg
-          //   "General",
-          //   "Subscriber"
-          // ],
+          Person: [createdPersonId],
+          'Owner Type': ['General']
         }
       }
     ]);
-    createdOwnerId = createdOwner[0].id;
+    return createdOwner[0].id;
   } catch (err) {
-    console.error(err);
-    return false;
-  }
+    if (numRetries === 0) {
+      throw err;
+    }
 
-  // create a user login record
+    return createOwnerWithRetries(createdPersonId, numRetries - 1);
+  }
+};
+
+const createUserLoginWithRetries = async (
+  createdPersonId,
+  createdOwnerId,
+  email,
+  password,
+  numRetries
+) => {
   try {
     await base(USER_LOGIN_TABLE).create([
       {
@@ -91,7 +112,109 @@ const createPersonOwnerUserLoginRecord = async (
     ]);
     return true;
   } catch (err) {
+    if (numRetries === 0) {
+      throw err;
+    }
+
+    return createUserLoginWithRetries(
+      createdPersonId,
+      createdOwnerId,
+      email,
+      password,
+      numRetries - 1
+    );
+  }
+};
+
+// TODO: UNTESTED FUNCTION
+const rollbackPersonWithRetries = async (createdPersonId, numRetries) => {
+  try {
+    await base(PERSON_TABLE).destroy([createdPersonId]);
+  } catch (err) {
+    if (numRetries === 0) {
+      console.error(`ATTENTION: ${err}`);
+
+      // take any additional action here to notify admin to rectify inconsistency
+    }
+    await rollbackPersonWithRetries(createdPersonId, numRetries - 1);
+  }
+};
+
+// TODO:UNTESTED FUNCTION
+const rollbackOwnerWithRetries = async (createdOwnerId, numRetries) => {
+  try {
+    await base(OWNER_TABLE).destroy([createdOwnerId]);
+  } catch (err) {
+    if (numRetries === 0) {
+      console.error(`ATTENTION: ${err}`);
+
+      // take any additional action here to notify admin to rectify inconsistency
+    }
+    await rollbackPersonWithRetries(createdOwnerId, numRetries - 1);
+  }
+};
+
+const createPersonOwnerUserLoginRecord = async (
+  email,
+  password,
+  phoneNumber,
+  fullName,
+  street,
+  apt,
+  city,
+  state,
+  zipcode,
+  numRetries = DEFAULT_NUM_RETRIES
+) => {
+  // necessary IDs
+  let createdPersonId;
+  let createdOwnerId;
+
+  try {
+    createdPersonId = await createPersonWithRetries(
+      email,
+      phoneNumber,
+      fullName,
+      street,
+      city,
+      state,
+      apt,
+      zipcode,
+      numRetries
+    );
+  } catch (err) {
     console.error(err);
+    return false;
+  }
+
+  // create an owner record
+  try {
+    createdOwnerId = await createOwnerWithRetries(createdPersonId, numRetries);
+  } catch (err) {
+    console.error(err);
+
+    // if fail to create an owner record, rollback the created person
+    await rollbackPersonWithRetries(createdPersonId, numRetries);
+
+    return false;
+  }
+
+  // create a user login record
+  try {
+    return await createUserLoginWithRetries(
+      createdPersonId,
+      createdOwnerId,
+      email,
+      password,
+      numRetries - 1
+    );
+  } catch (err) {
+    console.error(err);
+
+    // if fail to create a User Login record, rollback the created person and owner
+    await rollbackPersonWithRetries(createdPersonId, numRetries);
+    await rollbackOwnerWithRetries(createdOwnerId, numRetries);
+
     return false;
   }
 };
