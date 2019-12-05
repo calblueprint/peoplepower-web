@@ -16,31 +16,57 @@ class ListView extends React.Component {
     } = this.props;
     return (
       <div
-        className="list template-card"
+        className="justify-space-between h-75"
         style={{ display: view === 'list' ? 'flex' : 'none' }}
       >
-        <div className="w-60 listcard">
-          {groups.map((group, index) => (
-            <button type="button" onClick={() => changeDisplayedGroup(index)}>
-              <div className="">
-                {group.name}
-                {group.city}, {group.state}
+        <div className="w-65 template-card left projectgroup-list-card">
+          <div className="flex justify-space-between">
+            <input
+              className="projectGroup-list-search w-60"
+              placeholder="Search for a project group"
+            />
+            <button
+              type="button"
+              onClick={this.handleViewChange}
+              className="projectGroup-view-button right"
+            >
+              {view === 'map' ? 'List View' : 'Map View'}
+            </button>
+          </div>
+          <div className="projectGroup-list-view">
+            {groups.map((group, index) => (
+              <div>
+                <button
+                  type="button"
+                  onClick={() => changeDisplayedGroup(index)}
+                  className="projectGroup-list-option justify-space-between left"
+                >
+                  <div className="">
+                    <div className="projectGroup-list-option-header">
+                      {group.name}
+                    </div>
+                    <div className="projectGroup-list-option-body">
+                      {group.city}, {group.state}
+                    </div>
+                  </div>
+                  <div>{/* distance */}</div>
+                </button>
                 <br style={{ display: index === 0 ? 'none' : 'block' }} />
               </div>
-            </button>
-          ))}
+            ))}
+          </div>
         </div>
-        <div className="listcard">
-          <div style={{ margin: '20px' }}>
-            <div style={{ fontSize: '24px', paddingBottom: '10px' }}>
+        <div className="w-20 template-card projectgroup-selected-card">
+          <div className="">
+            <div className="projectgroup-selected-header">
               {groups[displayGroup].name}
             </div>
-            <div style={{ fontSize: '14px', paddingBottom: '20px' }}>
+            <div className="projectgroup-selected-body">
               {groups[displayGroup].description}
             </div>
             <button
               type="button"
-              style={{ bottom: 0 }}
+              className="projectgroup-select"
               onClick={() => changeSelectedGroup(groups[displayGroup])}
               name="projectGroup"
             >

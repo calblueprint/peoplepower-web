@@ -40,7 +40,8 @@ class ProjectGroups extends React.Component {
       displayGroup: 0,
       // currentLat: 0,
       // currentLng: 0
-      view: 'list'
+      view: 'list',
+      noProjectGroup: false
     };
   }
 
@@ -69,9 +70,15 @@ class ProjectGroups extends React.Component {
     handleChange(event);
   };
 
+  selectNoPorjectGroup = () => {
+    const { noProjectGroup } = this.state;
+    this.setState({ noProjectGroup: !noProjectGroup });
+  };
+
   nextButton = () => {
     const { values, nextStep } = this.props;
-    const { errors, projectGroup, noProjectGroup } = values;
+    const { errors, projectGroup } = values;
+    const { noProjectGroup } = this.state;
 
     const errorMessage = formValidation(projectGroup);
     errors.projectGroup = errorMessage;
@@ -103,8 +110,7 @@ class ProjectGroups extends React.Component {
 
   render() {
     const { values, handleChange } = this.props;
-    const { errors, noProjectGroup } = values;
-    const { groups, displayGroup, view } = this.state;
+    const { groups, displayGroup, view, noProjectGroup } = this.state;
     return (
       <div
         style={{
@@ -115,14 +121,12 @@ class ProjectGroups extends React.Component {
         }}
       >
         <div>
-          <button type="button" onClick={this.handleViewChange}>
-            {view === 'map' ? 'List View' : 'Map View'}
-          </button>
           <MapView
             style={{ display: 'block', position: 'fixed' }}
             values={values}
             markers={groups}
             displayGroup={displayGroup}
+            handleViewChange={this.handleViewChange}
             changeDisplayedGroup={this.changeDisplayedGroup}
             changeSelectedGroup={this.changeSelectedGroup}
             view={view}
@@ -132,43 +136,41 @@ class ProjectGroups extends React.Component {
             values={values}
             groups={groups}
             displayGroup={displayGroup}
+            handleViewChange={this.handleViewChange}
             changeSelectedGroup={this.changeSelectedGroup}
             changeDisplayedGroup={this.changeDisplayedGroup}
             view={view}
           />
-          <div>
-            <label className="checkbox-text">
+          <div style={{ display: 'inline', position: 'relative' }}>
+            <label className="checkbox-container">
+              I don’t want to join a project group at this time.
               <input
                 type="checkbox"
-                name="noProjectGroup"
+                name="mailingAddressSame"
+                onClick={this.selectNoPorjectGroup}
                 onChange={handleChange}
                 checked={noProjectGroup}
               />
-              <span className="checkmark" />I don’t want to join a project
-              group at this time.
+              <span className="checkmark" />
             </label>
           </div>
-          <div className="bottomButtons">
-            <div style={{ position: 'relative', margin: 'auto' }}>
-              <div>{errors.projectGroup ? errors.projectGroup : '\u00A0'}</div>
+          <div className="flex row w-100 right mt-2 justify-space-between">
+            <div className="left">
               <button
-                style={{
-                  float: 'left',
-                  textAlign: 'left',
-                  left: 0,
-                  marginRight: '10rem'
-                }}
                 type="button"
+                className="back-button"
                 onClick={this.prevButton}
               >
-                Prev
+                Go back
               </button>
+            </div>
+            <div className="right">
               <button
-                style={{ float: 'right', textAlign: 'right', right: 0 }}
                 type="button"
+                className="continue-button"
                 onClick={this.nextButton}
               >
-                Next
+                Continue
               </button>
             </div>
           </div>

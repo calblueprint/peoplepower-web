@@ -254,6 +254,10 @@
   width: 50%;
 }
 
+.w-55 {
+  width: 55%;
+}
+
 .w-100 {
   width: 100%;
 }
@@ -296,8 +300,17 @@ w-pasword {
 .w-25 {
   width: 25%;
 }
+
+.w-65 {
+  width: 65%;
+}
+
 .w-40 {
   width: 40%;
+}
+
+.h-75 {
+  height: 75%;
 }
 
 .pr-1 {
@@ -605,6 +618,15 @@ carousel__arrow--right {
   border-top: none;
 }
 
+.projectgroup-select {
+  width: 100%;
+  background-color: #cd6795;
+  border-radius: 2.5px;
+  color: white;
+  font-size: 16px;
+  paddind: 1.5rem 1.75rem;
+}
+
 .tooltip {
   position: absolute;
   display: block;
@@ -674,6 +696,7 @@ carousel__arrow--right {
   border-color: #edf1f5;
   border-radius: 5px;
   border-width: 2px;
+  border-style: solid;
   padding: 1rem 1.75rem;
   margin: 1rem 0;
 }
@@ -709,4 +732,74 @@ carousel__arrow--right {
   border: none;
   border-radius: 40px;
   padding: 0.25rem 1.5rem;
+}
+
+.projectgroup-selected-card {
+  padding: 2rem 1.5rem;
+}
+
+.projectgroup-selected-header {
+  color: #395578;
+  font-size: 18px;
+  padding-bottom: 1.5rem;
+}
+
+.projectgroup-selected-body {
+  color: #24364d;
+  font-size: 16px;
+  padding-bottom: 1.5rem;
+  line-height: 22px;
+}
+
+.projectgroup-list-card {
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+}
+
+.projectGroup-list-option {
+  width: 100%;
+  border-radius: 5px;
+  background-color: white;
+  border: none;
+  padding: 1.5rem 1.25rem;
+}
+
+.projectGroup-list-option:hover {
+  background-color: #f7f8fa;
+}
+
+.projectGroup-list-option-header {
+  color: #24364d;
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+}
+
+.projectGroup-list-option-body {
+  color: #24364d;
+  font-size: 12px;
+}
+
+.projectGroup-list-view {
+  padding-top: 4rem;
+}
+
+.projectGroup-list-search {
+  font-size: 12px;
+  border-radius: 30px;
+  border: #dbdbdb solid 2px;
+  padding: 0.5rem;
+  color: #a7afb8;
+}
+
+.projectGroup-list-search::placeholder {
+  color: #a7afb866;
+}
+
+.projectGroup-view-button {
+  border: none;
+  background-color: white;
+  font-size: 14px;
+  color: #3e4a59;
+  font-weight: bold;
 }
