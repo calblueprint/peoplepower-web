@@ -1,6 +1,12 @@
+// SEE TODOS ON LINE ~131.
+
 import React from 'react';
 import '../../styles/UserProfilePage.css';
 import { getRecord, updatePerson, updateRecord } from '../../lib/request';
+
+const STATUS_ERR = -1;
+const STATUS_IN_PROGRESS = 0;
+const STATUS_SUCCESS = 1;
 
 export default class UserProfilePage extends React.Component {
   constructor(props) {
@@ -10,9 +16,12 @@ export default class UserProfilePage extends React.Component {
       email: '',
       name: 'user',
       phoneNumber: '',
-      address: '',
       projectGroup: '',
       status: '',
+      street: '',
+      city: '',
+      state: '',
+      zipcode: '',
       updateName: '',
       updateEmail: '',
       updatePhone: '',
@@ -67,10 +76,13 @@ export default class UserProfilePage extends React.Component {
           phoneNumber,
           updatePhone: phoneNumber,
           userLoginID: userLoginID[0],
-          address: `${street}, ${city}, ${state} ${zipCode}`,
+          street,
           updateStreet: street,
+          city,
           updateCity: city,
+          state,
           updateState: state,
+          zipcode: zipCode,
           updateZip: zipCode
         });
 
@@ -116,6 +128,12 @@ export default class UserProfilePage extends React.Component {
       updateZip
     } = this.state;
 
+    /* TODO:
+      1. if updatePG != null, then have to make a call to update owner record.
+      2. implement change password...
+      3. form validation
+    */
+
     const newPerson = {
       id,
       fields: {
@@ -134,25 +152,43 @@ export default class UserProfilePage extends React.Component {
         Email: updateEmail
       }
     };
-    console.log(`UPDATE: ${userLoginID}`);
-    // note there should be an function that I write that just does this rerendering
+    // console.log(`UPDATE: ${userLoginID}`);
     updatePerson(newPerson)
-      .then(payload => {
+      .then(() => {
         this.setState({
-          status: payload.status,
+          status: STATUS_IN_PROGRESS,
           name: updateName,
           email: updateEmail,
-          address: `${updateStreet}, ${updateCity}, ${updateState} ${updateZip}`
+          street: updateStreet,
+          city: updateCity,
+          state: updateState,
+          zipcode: updateZip
         });
         return updateRecord('User Login', newLogin);
       })
       .then(payload => {
-        this.setState({
-          status: payload.status,
-          name: updateName,
-          email: updateEmail,
-          address: `${updateStreet}, ${updateCity}, ${updateState} ${updateZip}`
-        });
+        console.log(payload === '');
+        if (payload === '') {
+          this.setState({
+            status: STATUS_ERR,
+            name: updateName,
+            email: updateEmail,
+            street: updateStreet,
+            city: updateCity,
+            state: updateState,
+            zipcode: updateZip
+          });
+        } else {
+          this.setState({
+            status: STATUS_SUCCESS,
+            name: updateName,
+            email: updateEmail,
+            street: updateStreet,
+            city: updateCity,
+            state: updateState,
+            zipcode: updateZip
+          });
+        }
       });
   }
 
@@ -161,8 +197,11 @@ export default class UserProfilePage extends React.Component {
       name,
       email,
       phoneNumber,
-      address,
       projectGroup,
+      street,
+      city,
+      state,
+      zipcode,
       newName,
       newEmail,
       newPhone,
@@ -170,13 +209,31 @@ export default class UserProfilePage extends React.Component {
       newCity,
       newState,
       newZip,
+      newPass,
       status,
       isLoading
     } = this.state;
+
+    let formStatus = '';
+
+    switch (status) {
+      case STATUS_ERR:
+        formStatus = 'form-fail';
+        break;
+      case STATUS_IN_PROGRESS:
+        formStatus = '';
+        break;
+      case STATUS_SUCCESS:
+        formStatus = 'form-success';
+        break;
+      default:
+        break;
+    }
+
     return isLoading ? (
       <p>spinner</p>
     ) : (
-      <div className="dashboard">
+      <div className="dashboard settings">
         <div className="cont">
           <h2>Settings</h2>
           <div className="row">
@@ -184,81 +241,169 @@ export default class UserProfilePage extends React.Component {
               <h3>{name}</h3>
               <h4>General Owner</h4>
             </div>
-            <div className="inputForm">
+            <div className="generalForm">
               <h2>General</h2>
               <form onSubmit={this.handleSubmit}>
-                <label htmlFor="updateName">
-                  Name:
+                <div>
+                  <p>
+                    <label htmlFor="updateName">
+                      Name
+                      <input
+                        type="text"
+                        name="updateName"
+                        placeholder={name}
+                        value={newName}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <label htmlFor="updateEmail">
+                      Email
+                      <input
+                        type="text"
+                        placeholder={email}
+                        name="updateEmail"
+                        value={newEmail}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <label htmlFor="updatePass">
+                      Password
+                      <input
+                        type="text"
+                        name="updatePass"
+                        placeholder="••••••••"
+                        value={newPass}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div>
+                  <p className="pg">
+                    <label htmlFor="updatePG">
+                      Project Group
+                      <input
+                        type="text"
+                        name="updatePG"
+                        placeholder={projectGroup}
+                        disabled
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div>
                   <input
-                    type="text"
-                    name="updateName"
-                    value={newName}
-                    onChange={this.handleChange}
+                    type="submit"
+                    value="Submit"
+                    style={{
+                      border: '1px solid black',
+                      float: 'left',
+                      padding: '5px 10px',
+                      width: '100px'
+                    }}
+                    className={formStatus}
                   />
-                </label>
-                <label htmlFor="updateEmail">
-                  Email:
-                  <input
-                    type="text"
-                    name="updateEmail"
-                    value={newEmail}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label htmlFor="updatePhone">
-                  Phone Number:
-                  <input
-                    type="text"
-                    name="updatePhone"
-                    placeholder="(xxx) xxx-xxxx"
-                    value={newPhone}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <h3>Address:</h3>
-                <label htmlFor="updateStreet">
-                  Street:
-                  <input
-                    type="text"
-                    name="updateStreet"
-                    placeholder="2311 Bowditch Street"
-                    value={newStreet}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label htmlFor="updateStreet">
-                  City:
-                  <input
-                    type="text"
-                    name="updateCity"
-                    placeholder="Berkeley"
-                    value={newCity}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label htmlFor="updateStreet">
-                  State:
-                  <input
-                    type="text"
-                    name="updateState"
-                    placeholder="CA"
-                    value={newState}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label htmlFor="updateStreet">
-                  Zip Code:
-                  <input
-                    type="text"
-                    name="updateZip"
-                    placeholder="94704"
-                    value={newZip}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <input type="submit" value="Submit" />
+                </div>
               </form>
-              <p>{status}</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="contactInfoForm">
+              <h2>Contact Information</h2>
+              <form onSubmit={this.handleSubmit}>
+                <div>
+                  <p>
+                    <label htmlFor="updatePhone">
+                      Phone Number:
+                      <input
+                        type="text"
+                        name="updatePhone"
+                        placeholder={phoneNumber}
+                        value={newPhone}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <label htmlFor="updateStreet">
+                      Street:
+                      <input
+                        type="text"
+                        name="updateStreet"
+                        placeholder={street}
+                        value={newStreet}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <label htmlFor="updateCity">
+                      City:
+                      <input
+                        type="text"
+                        name="updateCity"
+                        placeholder={city}
+                        value={newCity}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <label htmlFor="updateState">
+                      State:
+                      <input
+                        type="text"
+                        name="updateState"
+                        placeholder={state}
+                        value={newState}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <label htmlFor="updateZip">
+                      Zip Code:
+                      <input
+                        type="text"
+                        name="updateZip"
+                        placeholder={zipcode}
+                        value={newZip}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div>
+                  <input
+                    type="submit"
+                    value="Submit"
+                    style={{
+                      border: '1px solid black',
+                      float: 'left',
+                      padding: '5px 10px',
+                      width: '100px'
+                    }}
+                    className={formStatus}
+                  />
+                </div>
+              </form>
             </div>
           </div>
         </div>
