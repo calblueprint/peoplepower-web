@@ -129,9 +129,8 @@ export default class UserProfilePage extends React.Component {
     } = this.state;
 
     /* TODO:
-      1. if updatePG != null, then have to make a call to update owner record.
-      2. implement change password...
-      3. form validation
+      1. implement change password
+      2. form validation
     */
 
     const newPerson = {
