@@ -1,10 +1,9 @@
-import { createRecord, getRecord, getRecordsFromAttribute } from './request';
+import { getRecord, getRecordsFromAttribute } from './request';
 
 // TABLES
 const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
 const OWNER_TABLE = 'Owner';
 const PERSON_TABLE = 'Person';
-const PAYMENT_TABLE = 'Payment';
 
 // FIELDS
 const SUBSCRIBER_OWNER = 'Subscriber Owner';
@@ -133,32 +132,11 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
   }
 };
 
-const createPayment = async record => {
-  /*
-    {
-      "fields": {
-        "Owner": [
-          "Some Id"
-        ],
-        "Status": "Paid in full",
-        "Type": "Some Type",
-        "Amount": {amount in cents},
-        "Subscriber Bill": [
-          "recy1K7CRUQPVvaE7"
-        ]
-      }
-    }
-  */
-  const id = await createRecord(PAYMENT_TABLE, record);
-  return id;
-};
-
 export {
   areDiffBills,
   centsToDollars,
   getOwnerIdFromId,
   getBillsFromOwnerId,
   getSubscriberOwnerFromPerson,
-  getSubscriberBills,
-  createPayment
+  getSubscriberBills
 };

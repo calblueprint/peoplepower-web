@@ -71,9 +71,6 @@ const removeOwnerFromProjectGroup = async (id, newOwners) => {
           reject(err);
         }
         resolve(true);
-        // records.forEach(function(record) {
-        //   console.log(record.get('Owner'));
-        // });
       }
     );
   });

@@ -50,15 +50,10 @@ function getRecordsFromAttribute(table, fieldType, field) {
           reject(err);
         }
         if (records.length < 1) {
-          console.log(`No record was retrieved using this ${fieldType}.`);
           reject(new Error(`No record was retrieved using this ${fieldType}.`));
         }
 
         resolve({ records });
-        // records.forEach(function(record) {
-        // 	console.log('Retrieved', record.fields);
-        // 	return record
-        // });
       });
   });
 }

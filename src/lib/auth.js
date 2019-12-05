@@ -22,7 +22,6 @@ const table = 'User Login';
 
 const loginUser = (email, passwordHash) => {
   return new Promise((resolve, reject) => {
-    console.log('I WAS CALLED');
     base(table)
       .select({
         maxRecords: NUM_RECORDS,
