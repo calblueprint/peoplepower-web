@@ -16,7 +16,7 @@ class ListView extends React.Component {
     } = this.props;
     return (
       <div
-        className="list "
+        className="list template-card"
         style={{ display: view === 'list' ? 'flex' : 'none' }}
       >
         <div className="w-60 listcard">

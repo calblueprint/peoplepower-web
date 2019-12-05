@@ -198,6 +198,7 @@ class Payment extends React.Component {
                 <input
                   type="checkbox"
                   name="billingAddressSame"
+                  onClick={this.changeBillingAddress}
                   onChange={handleChange}
                   checked={billingAddressSame}
                 />

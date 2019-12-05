@@ -178,15 +178,15 @@
   box-sizing: border-box;
 }
 
-::placeholder {
+.input-gray ::placeholder {
   color: #9ba3ad;
 }
 
-:-ms-input-placeholder {
+.input-gray ::-ms-input-placeholder {
   color: #9ba3ad;
 }
 
-::-ms-input-placeholder {
+.input-gray ::-ms-input-placeholder {
   color: #9ba3ad;
 }
 
@@ -196,10 +196,25 @@
   border-radius: 2.5px;
   box-shadow: none;
   padding: 0.2rem 0.3rem;
-  border: none;
   font-family: 'Nunito Sans', sans-serif;
   width: 100%;
   box-sizing: border-box;
+  border-color: #b4b8bf;
+  border-width: 1px;
+  border-radius: 2.5px;
+  border-style: solid;
+}
+
+.input-white ::placeholder {
+  color: #24364d03;
+}
+
+.input-white ::-ms-input-placeholder {
+  color: #24364d03;
+}
+
+.input-white ::-ms-input-placeholder {
+  color: #24364d03;
 }
 
 .card {
@@ -244,6 +259,10 @@
 }
 .w-75 {
   width: 75%;
+}
+
+.w-70 {
+  width: 70%;
 }
 
 .w-80 {
@@ -307,10 +326,11 @@ w-pasword {
 }
 
 .contact-header {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   font-family: 'Nunito Sans', sans-serif;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
+  color: #395578;
 }
 
 .right {
@@ -323,8 +343,82 @@ w-pasword {
   left: 0;
 }
 
-.checkbox-text {
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 12px;
+  cursor: pointer;
   font-size: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #24364d;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+.justify-space-between {
+  justify-content: space-between;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  border: 1px solid #b4b8bf;
+  border-radius: 2.5px;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 0.75rem;
+  width: 0.75rem;
+  background-color: white;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .checkmark {
+  background-color: white;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #62b16f;
+  border-color: #62b16f;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+  left: 0.25rem;
+  top: 0rem;
+  width: 3px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 1px 1px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .confirmation-card {
@@ -512,17 +606,25 @@ carousel__arrow--right {
 }
 
 .tooltip {
-  position: relative;
+  position: absolute;
   display: block;
 }
 
+.inline {
+  display: inline-block;
+}
+
 .tooltip .tooltipicon {
-  width: 0.5rem;
-  vertical-align: super;
+  width: 0.75rem;
+  vertical-align: middle;
 }
 
 .pr-half {
   padding-right: 0.5rem;
+}
+
+.pl-1 {
+  padding-left: 1rem;
 }
 
 /* Tooltip text */
@@ -531,7 +633,7 @@ carousel__arrow--right {
   background-color: white;
   padding: 0.5rem 0.5rem;
   color: #4f4f4f;
-  text-align: center;
+  text-align: left;
   font-size: 9px;
   font-weight: normal;
   border-radius: 6px;
@@ -554,8 +656,8 @@ carousel__arrow--right {
   content: '';
   position: absolute;
   top: 100%;
-  left: 50%;
-  margin-left: -5px;
+  left: 35%;
+  margin-left: 0px;
   border-width: 5px;
   border-style: solid;
   border-color: white transparent transparent transparent;
@@ -565,4 +667,46 @@ carousel__arrow--right {
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+.template-card {
+  background-color: white;
+  border-color: #edf1f5;
+  border-radius: 5px;
+  border-width: 2px;
+  padding: 1rem 1.75rem;
+  margin: 1rem 0;
+}
+
+.template-header {
+  color: #395578;
+  font-size: 32px;
+}
+
+.template-body {
+  color: #395578;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.template-center {
+  margin-top: 10%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.back-button {
+  background-color: #f7f8fa;
+  border: none;
+  color: #7387a2;
+}
+
+.continue-button {
+  background-color: #395578;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  padding: 0.25rem 1.5rem;
 }

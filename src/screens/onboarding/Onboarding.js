@@ -6,6 +6,7 @@ import ProjectGroups from './ProjectGroups';
 import Payment from './Payment';
 import formValidation from '../../lib/formValidation';
 import { createPerson } from '../../lib/request';
+import Template from './Template';
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -22,6 +23,13 @@ class Onboarding extends React.Component {
       state: '',
       zipcode: '',
       phoneNumber: '',
+      mailingAddressSame: false,
+      mailingStreet: '',
+      mailingCity: '',
+      mailingApt: '',
+      mailingState: '',
+      mailingZipcode: '',
+      mailingPhoneNumber: '',
       bylaw1: false,
       bylaw2: false,
       projectGroup: {},
@@ -50,6 +58,12 @@ class Onboarding extends React.Component {
         state: '',
         zipcode: '',
         phoneNumber: '',
+        mailingStreet: '',
+        mailingCity: '',
+        mailingApt: '',
+        mailingState: '',
+        mailingZipcode: '',
+        mailingPhoneNumber: '',
         bylaw1: '',
         bylaw2: '',
         projectGroup: '',
@@ -65,7 +79,7 @@ class Onboarding extends React.Component {
         ccstate: '',
         cczipcode: ''
       },
-      step: 1
+      step: 3
     };
     this.handleChange = this.handleChange.bind(this);
     this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
@@ -127,7 +141,8 @@ class Onboarding extends React.Component {
       city,
       state,
       zipcode,
-      billingAddressSame
+      billingAddressSame,
+      mailingAddressSame
     } = this.state;
     switch (event.target.name) {
       case 'bylaw1':
@@ -157,6 +172,20 @@ class Onboarding extends React.Component {
         }
         this.setState({
           billingAddressSame: !billingAddressSame
+        });
+        break;
+      case 'mailingAddressSame':
+        if (!mailingAddressSame) {
+          this.setState({
+            mailingStreet: street,
+            mailingApt: apt,
+            mailingCity: city,
+            mailingState: state,
+            mailingZipcode: zipcode
+          });
+        }
+        this.setState({
+          mailingAddressSame: !mailingAddressSame
         });
         break;
       case 'dividends':
@@ -209,6 +238,13 @@ class Onboarding extends React.Component {
       state,
       zipcode,
       phoneNumber,
+      mailingAddressSame,
+      mailingStreet,
+      mailingApt,
+      mailingCity,
+      mailingState,
+      mailingZipcode,
+      mailingPhoneNumber,
       bylaw1,
       bylaw2,
       projectGroup,
@@ -241,6 +277,13 @@ class Onboarding extends React.Component {
       state,
       zipcode,
       phoneNumber,
+      mailingAddressSame,
+      mailingStreet,
+      mailingApt,
+      mailingCity,
+      mailingState,
+      mailingZipcode,
+      mailingPhoneNumber,
       bylaw1,
       bylaw2,
       projectGroup,
@@ -273,27 +316,29 @@ class Onboarding extends React.Component {
           />
         );
       case 2:
-        return (
+        return Template(
           <ContactInfo
             nextStep={this.nextStep}
             values={values}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
-          />
+          />,
+          2
         );
       case 3:
-        return (
+        return Template(
           <ProjectGroups
             nextStep={this.nextStep}
             values={values}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
-          />
+          />,
+          3
         );
       case 4:
-        return (
+        return Template(
           <Bylaws
             nextStep={this.nextStep}
             values={values}
@@ -301,10 +346,11 @@ class Onboarding extends React.Component {
             handleChange={this.handleChange}
             callBackBylawValidation={this.callBackBylawValidation}
             handleClick={this.handleClick}
-          />
+          />,
+          4
         );
       case 5:
-        return (
+        return Template(
           <Payment
             values={values}
             prevStep={this.prevStep}
@@ -312,7 +358,8 @@ class Onboarding extends React.Component {
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
             handleDividends={this.handleDividends}
-          />
+          />,
+          5
         );
       // case 6:
       //       //   return (

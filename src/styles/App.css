@@ -11,14 +11,15 @@ body {
 .App {
   display: flex;
   flex-direction: column;
-  background-color: #efefef;
+  background-color: #f7f8fa;
+  height: 100%;
 }
 
 /* Styling for the main wrapper of the application */
 .app-container {
   width: 100%;
   height: 100vh;
-  background-color: #e5e5e5;
+  background-color: #f7f8fa;
 }
 
 /* A global css style that sets the margin of the left gutter. */

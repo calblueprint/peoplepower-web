@@ -99,14 +99,12 @@ class BasicInfo extends React.Component {
           </div>
         </div>
         <div className="w-100">
-          <div className="flex w-100">
-            <label className="onboarding-label left pr-half" htmlFor="altEmail">
-              Alternative Email
-            </label>
+          <label className="onboarding-label left pr-half" htmlFor="altEmail">
+            Alternative Email
             {tooltip(
               'We’ll use this email to reach you if we can’t\ncontact you at your primary email.'
             )}
-          </div>
+          </label>
           <input
             name="altEmail"
             placeholder="Enter your Email address"

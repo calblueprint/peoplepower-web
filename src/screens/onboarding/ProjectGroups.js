@@ -40,7 +40,7 @@ class ProjectGroups extends React.Component {
       displayGroup: 0,
       // currentLat: 0,
       // currentLng: 0
-      view: 'map'
+      view: 'list'
     };
   }
 
@@ -109,13 +109,12 @@ class ProjectGroups extends React.Component {
       <div
         style={{
           margin: 'auto',
-          width: '75%',
+          width: '100%',
           height: '100vh',
           display: 'block'
         }}
       >
         <div>
-          <div className="header">Project Group</div>
           <button type="button" onClick={this.handleViewChange}>
             {view === 'map' ? 'List View' : 'Map View'}
           </button>
@@ -137,16 +136,17 @@ class ProjectGroups extends React.Component {
             changeDisplayedGroup={this.changeDisplayedGroup}
             view={view}
           />
-          <div style={{ display: 'block', position: 'relative' }}>
-            <input
-              type="checkbox"
-              name="noProjectGroup"
-              onChange={handleChange}
-              checked={noProjectGroup}
-            />
-            <div className="checkbox-text">
-              I don’t want to join a project group at this time.
-            </div>
+          <div>
+            <label className="checkbox-text">
+              <input
+                type="checkbox"
+                name="noProjectGroup"
+                onChange={handleChange}
+                checked={noProjectGroup}
+              />
+              <span className="checkmark" />I don’t want to join a project
+              group at this time.
+            </label>
           </div>
           <div className="bottomButtons">
             <div style={{ position: 'relative', margin: 'auto' }}>
