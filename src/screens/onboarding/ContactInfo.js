@@ -1,6 +1,6 @@
 import React from 'react';
 import formValidation from '../../lib/formValidation';
-import { createPersonOwnerUserLoginRecord } from '../../lib/auth';
+import { createPersonOwnerUserLoginRecord } from '../../lib/onboardingUtils';
 import tooltip from '../../components/tooltip';
 
 class ContactInfo extends React.Component {

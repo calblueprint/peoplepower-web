@@ -7,7 +7,7 @@ import {
   getOwnersFromProjectGroup,
   removeOwnerFromProjectGroup,
   getOwnerFromPerson
-} from '../../lib/adminHelper';
+} from '../../lib/adminUtils';
 
 const OWNER_ID_FIELD = 'Owner ID';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
-import { centsToDollars } from '../../../lib/subscriberHelper';
+import { centsToDollars } from '../../../lib/subscriberUtils';
 import { getLoggedInUserId } from '../../../lib/auth';
 
 export default class SubscriberOwnerDashboardMainView extends React.Component {

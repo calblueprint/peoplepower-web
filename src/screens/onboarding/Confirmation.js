@@ -1,7 +1,7 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import keys from '../../lib/api_key';
-import { createPayment } from '../../lib/subscriberHelper';
+import { createPayment } from '../../lib/subscriberUtils';
 import Bill from '../general/Bill';
 
 const { clientId } = keys;

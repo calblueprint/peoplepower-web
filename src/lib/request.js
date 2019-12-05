@@ -1,4 +1,6 @@
-import key from './api_key';
+import keys from './api_key';
+
+const { key } = keys;
 /*
   Helper functions intended to streamline our requests to the AirTable API.
 */
@@ -60,32 +62,34 @@ function getRecordsFromAttribute(table, fieldType, field) {
   });
 }
 
+// TODO(dfagnshuo): pagination?
 function getAllRecords(table) {
   return new Promise((resolve, reject) => {
     base(table)
       .select({
-        view: 'Grid view',
-        maxRecords: 20
+        view: 'Grid view'
+        // maxRecords: 20
       })
-      .firstPage(function(err, records) {
-        if (err) {
-          reject(err);
+      .eachPage(
+        function page(records, fetchNextPage) {
+          if (records === null || records.length < 1) {
+            const msg = `No record was retrieved using this ${table}.`;
+            reject(msg);
+          }
+
+          resolve({ records });
+
+          // To fetch the next page of records, call `fetchNextPage`.
+          // If there are more records, `page` will get called again.
+          // If there are no more records, `done` will get called.
+          fetchNextPage();
+        },
+        function done(err) {
+          if (err) {
+            reject(err);
+          }
         }
-        if (records === null || records.length < 1) {
-          const msg = `No record was retrieved using this ${table}.`;
-          reject(msg);
-        } else {
-          records.forEach(function(record) {
-            resolve(record.fields);
-            return record;
-          });
-        }
-        resolve({ records });
-        // records.forEach(function(record) {
-        // 	console.log('Retrieved', record.fields);
-        // 	return record
-        // });
-      });
+      );
   });
 }
 

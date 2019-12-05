@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
-import { centsToDollars } from '../../../lib/subscriberHelper';
+import { centsToDollars } from '../../../lib/subscriberUtils';
 import Bill from '../../../components/Bill';
 import { getLoggedInUserId } from '../../../lib/auth';
 // import keys from '../../../lib/api_key';

@@ -44,7 +44,6 @@ class Login extends React.Component {
   }
 
   async handleSubmit(evt) {
-    console.log('Hello');
     const { email, passwordHash } = this.state;
     console.log(evt.target.value);
     evt.preventDefault();

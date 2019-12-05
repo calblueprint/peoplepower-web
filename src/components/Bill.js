@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/Bill.css';
-import { dateToWord } from '../lib/subscriberHelper';
+import { dateToWord } from '../lib/subscriberUtils';
 
 function dateToFullMonth(date) {
   return dateToWord[parseInt(date.split('-')[1], 10)];
