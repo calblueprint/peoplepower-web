@@ -1,0 +1,59 @@
+.bill-card {
+  background-color: white;
+  border-radius: 4px;
+  padding: 0em 1em 1em 1em;
+}
+
+.latest-bill-card {
+  background-color: white;
+  border-radius: 4px;
+  padding: 1.1em 1em 1em 1em;
+}
+
+.bill-items {
+  display: flex;
+  width: 95%;
+  height: 4.5em;
+  margin: auto;
+}
+
+.bill-items p {
+  width: fit-content;
+  height: fit-content;
+}
+
+.bill-button {
+  background-color: black;
+  color: white;
+  padding: 0.5em 1.2em;
+  border-radius: 4px;
+  border: none;
+  font-weight: bold;
+}
+
+#bill-divide-line {
+  border: 1px solid #efefef;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.statement-date {
+  display: inline-block;
+  padding-right: 7em;
+}
+
+.statement-month {
+  flex-grow: 1;
+  font-weight: bold;
+  justify-content: center;
+}
+
+.statement-amount-due {
+  font-weight: bold;
+  padding-left: 1em;
+}
+
+.bill-items-internal {
+  margin: auto;
+  font-size: 16px;
+}

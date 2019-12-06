@@ -25,10 +25,10 @@
   margin-top: 0px;
 }
 
-.card h2 {
+.community .card h2 {
   font-size: 28px;
 }
-.card h2,
+.community .card h2,
 h3 {
   color: black;
   margin: 5px 0px;

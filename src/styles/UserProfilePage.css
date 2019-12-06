@@ -34,6 +34,12 @@
   margin-bottom: 30px;
 }
 
+.inputFormCont h2,
+h3,
+label {
+  color: black;
+}
+
 .generalForm input {
   float: right;
   width: 50%;
