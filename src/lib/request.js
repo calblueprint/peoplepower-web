@@ -1,16 +1,15 @@
-import keys from './api_key';
-
-const { key } = keys;
-/*
-  Helper functions intended to streamline our requests to the AirTable API.
+/* 
+  Helper functions intended to streamline our requests to the AirTable API. 
 */
+
+import keys from './api_key';
 
 const Airtable = require('airtable');
 
-// API KEY will reside in ENV variablesgit later.
+// API KEY will reside in ENV variables later.
 Airtable.configure({
   endpointUrl: 'https://api.airtable.com',
-  apiKey: key
+  apiKey: keys.key
 });
 
 const base = Airtable.base('appFaOwKhMXrRIQIp');
@@ -18,7 +17,7 @@ const base = Airtable.base('appFaOwKhMXrRIQIp');
 // ******** READ RECORDS ******** //
 
 // Given a table and record ID, return the associated record object using a Promise.
-function getRecordWithPromise(table, id) {
+function getRecord(table, id) {
   return new Promise((resolve, reject) => {
     base(table).find(id, (err, record) => {
       if (err) {
@@ -35,7 +34,6 @@ function getRecordWithPromise(table, id) {
   Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
   return the associated record object.
 */
-
 function getRecordsFromAttribute(table, fieldType, field) {
   return new Promise((resolve, reject) => {
     console.log(`Searching for ${field}`);
@@ -49,15 +47,16 @@ function getRecordsFromAttribute(table, fieldType, field) {
           console.error(err);
           reject(err);
         }
-        if (records === null || records.length < 1) {
-          const msg = `No record was retrieved using this ${fieldType}.`;
-          reject(msg);
-        } else {
-          records.forEach(function(record) {
-            resolve(record.fields);
-            return record;
-          });
+        if (records.length < 1) {
+          console.log(`No record was retrieved using this ${fieldType}.`);
+          reject(new Error(`No record was retrieved using this ${fieldType}.`));
         }
+
+        resolve({ records });
+        // records.forEach(function(record) {
+        // 	console.log('Retrieved', record.fields);
+        // 	return record
+        // });
       });
   });
 }
@@ -159,8 +158,6 @@ function createPerson(person) {
 
 // Given a table and a record object, create a record on Airtable.
 function createRecord(table, record) {
-  console.log('RECORD HERE');
-  console.log(record);
   return new Promise((resolve, reject) => {
     base(table).create([record], function(err, records) {
       if (err) {
@@ -243,8 +240,8 @@ function updateRecord(table, updatedRecord) {
 }
 
 export {
-  getRecordWithPromise,
   getRecordsFromAttribute,
+  getRecord,
   getAllRecords,
   getMultipleFromAttr,
   createPerson,

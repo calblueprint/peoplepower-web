@@ -4,14 +4,18 @@ import ContactInfo from './ContactInfo';
 import Bylaws from './Bylaws';
 import ProjectGroups from './ProjectGroups';
 import Payment from './Payment';
+import Complete from './Complete';
 import formValidation from '../../lib/formValidation';
-import { createPerson } from '../../lib/request';
+import { getLoggedInUserId } from '../../lib/auth';
+import { createPersonOwnerUserLoginRecord } from '../../lib/onboardingUtils';
 import Template from './Template';
+import { getRecord } from '../../lib/request';
 
 class Onboarding extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: '',
       fname: '',
       lname: '',
       email: '',
@@ -85,38 +89,22 @@ class Onboarding extends React.Component {
     this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
   }
 
-  onSubmit = () => {
-    // try {
-    const {
-      email,
-      phoneNumber,
-      fname,
-      lname,
-      street,
-      apt,
-      city,
-      state,
-      zipcode
-    } = this.state;
-    createPerson({
-      fields: {
-        Email: email,
-        'Phone Number': phoneNumber,
-        // "Owner": [owner],
-        'Street 1': street,
-        City: city,
-        'Street 2': apt,
-        State: state,
-        Zipcode: zipcode,
-        // "Tags": tags,
-        // "User Login": [userLogin],
-        Name: `${fname} ${lname}`
-      }
+  componentDidMount() {
+    const id = getLoggedInUserId();
+
+    // Person does not have a User Id
+    if (!id) {
+      return;
+    }
+
+    this.setState({ userId: id });
+    getRecord('Person', id).then(payload => {
+      console.log(payload);
+      this.setState({
+        step: payload.record['Onboarding Step']
+      });
     });
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  };
+  }
 
   // next function increments page up one and switches to that numbered page
   nextStep = () => {
@@ -227,6 +215,7 @@ class Onboarding extends React.Component {
   render() {
     const { step } = this.state;
     const {
+      userId,
       fname,
       lname,
       email,
@@ -266,6 +255,7 @@ class Onboarding extends React.Component {
       touched
     } = this.state;
     const values = {
+      userId,
       fname,
       lname,
       email,
@@ -323,6 +313,7 @@ class Onboarding extends React.Component {
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
+            createPersonOwnerUserLoginRecord={createPersonOwnerUserLoginRecord}
           />,
           2
         );
@@ -361,17 +352,18 @@ class Onboarding extends React.Component {
           />,
           5
         );
-      // case 6:
-      //       //   return (
-      //       //     <Confirmation
-      //       //       values={values}
-      //       //       prevStep={this.prevStep}
-      //       //       onSubmit={this.onSubmit}
-      //       //       handleChange={this.handleChange}
-      //       //       handleFormValidation={this.handleFormValidation}
-      //       //       handleDividends={this.handleDividends}
-      //       //     />
-      //       //   );
+      case 6:
+        return Template(
+          <Complete
+            values={values}
+            prevStep={this.prevStep}
+            onSubmit={this.onSubmit}
+            handleChange={this.handleChange}
+            handleFormValidation={this.handleFormValidation}
+            handleDividends={this.handleDividends}
+          />,
+          6
+        );
       default:
         return <div>Page not Found</div>;
     }

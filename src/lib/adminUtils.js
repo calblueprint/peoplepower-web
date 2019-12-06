@@ -1,4 +1,4 @@
-import { getRecordWithPromise } from './request';
+import { getRecord } from './request';
 // import key from './api_key';
 
 const Airtable = require('airtable');
@@ -14,7 +14,7 @@ const PROJECT_GROUP_TABLE = 'Project Group';
 const ADMIN_OF = 'Admin Of';
 
 const getOwnerFromPerson = async personId => {
-  const recordMap = await getRecordWithPromise(PERSON_TABLE, personId);
+  const recordMap = await getRecord(PERSON_TABLE, personId);
   const { record } = recordMap;
   const { Owner } = record;
 
@@ -26,7 +26,7 @@ const getOwnerFromPerson = async personId => {
 };
 
 const getAdminTable = async ownerId => {
-  const recordMap = await getRecordWithPromise(OWNER_TABLE, ownerId);
+  const recordMap = await getRecord(OWNER_TABLE, ownerId);
   const { record } = recordMap;
 
   const ownerOfArr = record[ADMIN_OF];
@@ -38,12 +38,12 @@ const getAdminTable = async ownerId => {
 };
 
 const getOwnersFromProjectGroup = async groupId => {
-  const recordMap = await getRecordWithPromise(PROJECT_GROUP_TABLE, groupId);
+  const recordMap = await getRecord(PROJECT_GROUP_TABLE, groupId);
   const { record } = recordMap;
   const { Owner } = record;
 
   const ownersObjects = await Promise.all(
-    Owner.map(ownerId => getRecordWithPromise(OWNER_TABLE, ownerId))
+    Owner.map(ownerId => getRecord(OWNER_TABLE, ownerId))
   );
   return ownersObjects.map(ownersObject => ownersObject.record);
 };

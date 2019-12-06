@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/GeneralOwnerDashboard.css';
-import { getRecordWithPromise, getMultipleFromAttr } from '../../lib/request';
+import { getRecord, getMultipleFromAttr } from '../../lib/request';
 import { getLoggedInUserId, logOut } from '../../lib/auth';
 import AnnouncementList from '../../components/AnnouncementList';
 
@@ -37,7 +37,7 @@ export default class GeneralOwnerDashboard extends React.Component {
     let addressID;
 
     // Get Person record from person id
-    getRecordWithPromise('Person', id)
+    getRecord('Person', id)
       .then(payload => {
         ({
           Name: name,
@@ -55,7 +55,7 @@ export default class GeneralOwnerDashboard extends React.Component {
         });
 
         // then get Owner record from owner id
-        return getRecordWithPromise('Owner', owner);
+        return getRecord('Owner', owner);
       })
       .then(payload => {
         const { 'Project Group': projectGroupID } = payload.record;
@@ -63,7 +63,7 @@ export default class GeneralOwnerDashboard extends React.Component {
           projectGroupID
         });
         // then get Project Group from project group id
-        return getRecordWithPromise('Project Group', projectGroupID);
+        return getRecord('Project Group', projectGroupID);
       })
       .then(payload => {
         const {
@@ -75,7 +75,7 @@ export default class GeneralOwnerDashboard extends React.Component {
         });
         const solarProjectNames = [];
         solarProject.forEach(project => {
-          getRecordWithPromise('Solar Project', project).then(res => {
+          getRecord('Solar Project', project).then(res => {
             solarProjectNames.push(res.record.Name);
             this.setState({
               solarProject: solarProjectNames
@@ -83,7 +83,7 @@ export default class GeneralOwnerDashboard extends React.Component {
           });
         });
 
-        return getRecordWithPromise('Address', addressID);
+        return getRecord('Address', addressID);
       })
       .then(payload => {
         const {

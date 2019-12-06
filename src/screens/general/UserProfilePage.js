@@ -1,10 +1,6 @@
 import React from 'react';
 import '../../styles/UserProfilePage.css';
-import {
-  getRecordWithPromise,
-  updatePerson,
-  updateRecord
-} from '../../lib/request';
+import { getRecord, updatePerson, updateRecord } from '../../lib/request';
 
 export default class UserProfilePage extends React.Component {
   constructor(props) {
@@ -50,7 +46,7 @@ export default class UserProfilePage extends React.Component {
     let zipCode;
     let userLoginID;
 
-    getRecordWithPromise('Person', id)
+    getRecord('Person', id)
       .then(payload => {
         ({
           Email: email,
@@ -79,12 +75,12 @@ export default class UserProfilePage extends React.Component {
         });
 
         // Getting project group
-        return getRecordWithPromise('Owner', owner);
+        return getRecord('Owner', owner);
       })
       .then(payload => {
         const { 'Project Group': projectGroupID } = payload.record;
 
-        return getRecordWithPromise('Project Group', projectGroupID);
+        return getRecord('Project Group', projectGroupID);
       })
       .then(payload => {
         const { Name: projectGroupName } = payload.record;

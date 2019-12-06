@@ -3,55 +3,36 @@ import formValidation from '../../lib/formValidation';
 import '../../styles/Onboarding.css';
 import MapView from './MapView';
 import ListView from './ListView';
-import { getAllRecords } from '../../lib/request';
+import { getAllProjectGroups } from '../../lib/onboardingUtils';
 
 class ProjectGroups extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groups: [
-        {
-          id: 1,
-          name: "Fang's Solar Panels",
-          description:
-            'Berkeley (/ˈbɜːrkli/ BURK-lee) is a city on the east shore of San Francisco Bay in northern Alameda' +
-            '                County, California. It is named after the 18th-century Irish bishop and philosopher George Berkeley. It' +
-            '                borders the cities of Oakland and Emeryville to the south and the city of Albany and the unincorporated' +
-            '                community of Kensington to the north...',
-          lat: 37.8719,
-          lng: -122.2585,
-          city: 'Berkeley',
-          state: 'CA'
-        },
-        {
-          id: 2,
-          name: "Nick's Solar Panels",
-          description:
-            'Oakland is a city on the east side of San Francisco Bay, in California. Jack London Square has ' +
-            'a statue of the writer, who frequented the area. Nearby, Old Oakland features restored Victorian ' +
-            'architecture and boutiques. Near Chinatown, the Oakland Museum of California covers state history, ' +
-            'nature and art.',
-          lat: 37.8044,
-          lng: -122.2712,
-          city: 'Oakland',
-          state: 'CA'
-        }
-      ],
+      groups: [{}],
       displayGroup: 0,
-      // currentLat: 0,
-      // currentLng: 0
       view: 'list',
       noProjectGroup: false
     };
   }
 
   componentDidMount() {
-    getAllRecords('Project Group').then(payload => {
+    getAllProjectGroups('Project Group').then(payload => {
       console.log(payload);
-      // const { Name: name } = payload.record;
-      // this.setState({
-      //   name
-      // });
+      const projectGroups = [];
+      payload.records.map(record =>
+        projectGroups.push({
+          id: record.fields.ID,
+          name: record.fields.Name,
+          description: record.fields.Description,
+          street: record.fields['Street 1'],
+          apt: record.fields['Street 2'],
+          city: record.fields.City,
+          state: record.fields.State,
+          zipcode: record.fields.Zipcode
+        })
+      );
+      this.setState({ groups: projectGroups });
     });
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/Community.css';
-import { getRecordWithPromise, getMultipleFromAttr } from '../../lib/request';
+import { getRecord, getMultipleFromAttr } from '../../lib/request';
 import { getLoggedInUserId } from '../../lib/auth';
 import AnnouncementList from '../../components/AnnouncementList';
 import AddAnnouncement from '../../components/AddAnnouncement';
@@ -29,10 +29,10 @@ export default class Community extends React.Component {
       usersID: id
     });
 
-    getRecordWithPromise('Person', id)
+    getRecord('Person', id)
       .then(payload => {
         const { Owner: owner } = payload.record;
-        return getRecordWithPromise('Owner', owner);
+        return getRecord('Owner', owner);
       })
       .then(payload => {
         const { 'Project Group': projectGroup } = payload.record;

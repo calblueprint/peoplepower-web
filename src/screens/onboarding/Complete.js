@@ -6,7 +6,7 @@ import Bill from '../general/Bill';
 
 const { clientId } = keys;
 
-class Confirmation extends React.Component {
+class Complete extends React.Component {
   constructor(props) {
     super(props);
     const date = new Date();
@@ -226,4 +226,4 @@ class Confirmation extends React.Component {
   }
 }
 
-export default Confirmation;
+export default Complete;
