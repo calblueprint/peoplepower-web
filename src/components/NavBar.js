@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/NavBar.css';
 import { getRecord } from '../lib/request';
 import { getLoggedInUserId } from '../lib/auth';
+import { getOwnerFromPerson, getAdminTable } from '../lib/adminHelper';
 import Logo from '../assets/PPSC-logo.png';
 
 export default class NavBar extends React.Component {
@@ -10,7 +11,8 @@ export default class NavBar extends React.Component {
     super(props);
     this.state = {
       id: '',
-      name: ''
+      name: '',
+      isAdmin: false
     };
   }
 
@@ -30,10 +32,24 @@ export default class NavBar extends React.Component {
         });
       });
     }
+
+    getOwnerFromPerson(id).then(ownerID => {
+      getAdminTable(ownerID).then(payload => {
+        if (payload === -1) {
+          this.setState({
+            isAdmin: false
+          });
+        } else {
+          this.setState({
+            isAdmin: true
+          });
+        }
+      });
+    });
   }
 
   render() {
-    const { id, name } = this.state;
+    const { id, name, isAdmin } = this.state;
     return (
       <div className="navBar">
         <img
@@ -46,6 +62,11 @@ export default class NavBar extends React.Component {
             <li className="navItem">
               <Link to="/dashboard">Dashboard</Link>
             </li>
+            {isAdmin ? (
+              <li className="navItem">
+                <Link to="/admin">Admin</Link>
+              </li>
+            ) : null}
             <li className="navItem">
               <Link to="/finances">My Finances</Link>
             </li>
