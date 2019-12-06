@@ -37,23 +37,61 @@
   margin: 0 auto;
 }
 
-.statement-date {
+/* .statement-date {
   display: inline-block;
   padding-right: 7em;
-}
+} */
 
-.statement-month {
+/* .statement-description {
   flex-grow: 1;
   font-weight: bold;
   justify-content: center;
+} */
+
+/* .statement-amount-balance {
+  font-weight: bold;
+  padding-left: 1em;
+}*/
+
+/* .statement-amount-due {
+} */
+
+.statement-left {
+  display: inline-block;
+  color: #4f4f4f;
+  /* padding-right: 7em; */
+  /* width: 1em; */
+  flex: 0 0 9em;
 }
 
-.statement-amount-due {
-  font-weight: bold;
+.statement-middle {
+  flex-grow: 1;
+  color: #4f4f4f;
+  justify-content: center;
+  flex: 0 0 11em;
+}
+
+.statement-right {
+  color: #4f4f4f;
   padding-left: 1em;
 }
 
+.statement-emphasize {
+  font-weight: bold;
+}
+
 .bill-items-internal {
-  margin: auto;
+  margin-top: auto;
+  margin-bottom: auto;
   font-size: 16px;
+}
+
+.bill-header-card {
+  /* TODO */
+}
+
+#TEMP-REMOVE-ME {
+  border: 2px solid #efefef;
+  width: 100%;
+  margin: 0 auto;
 }

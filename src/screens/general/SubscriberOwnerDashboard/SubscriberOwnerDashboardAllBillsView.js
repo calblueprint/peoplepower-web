@@ -1,7 +1,8 @@
 import React from 'react';
 import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
 import { centsToDollars } from '../../../lib/subscriberHelper';
-import Bill from '../../../components/Bill';
+import Bill from './Bill';
+import BillHeader from '../../../components/BillHeader';
 import { getLoggedInUserId, logOut } from '../../../lib/auth';
 
 const ROOT_ROUTE = '/';
@@ -45,13 +46,15 @@ export default class SubscriberOwnerDashboardAllBillsView extends React.Componen
             <div className="subscriber-back-text">Back</div>
           </div>
         </button>
-        <p className="all-bills-header">Transactions</p>
+        <p className="all-bills-header">Billing History</p>
         <div className="all-bills-cards-holder">
+          <BillHeader />
           {bills.map(bill => {
             return (
               <Bill
                 statementDate={bill['Statement Date']}
                 startDate={bill['Start Date']}
+                status={bill.Status}
                 endDate={bill['End Date']}
                 // rate_schedule
                 estimatedRebate={centsToDollars(bill['Estimated Rebate'])}
@@ -69,6 +72,7 @@ export default class SubscriberOwnerDashboardAllBillsView extends React.Componen
             );
           })}
         </div>
+
         <div>
           {/* <button onClick={() => this.handleLogout()} type="button">
             Logout

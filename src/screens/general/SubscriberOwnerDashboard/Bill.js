@@ -1,6 +1,6 @@
 import React from 'react';
-import '../styles/Bill.css';
-import { dateToWord } from '../lib/subscriberHelper';
+import '../../../styles/Bill.css';
+import { dateToWord } from '../../../lib/subscriberHelper';
 
 function dateToFullMonth(date) {
   return dateToWord[parseInt(date.split('-')[1], 10)];
@@ -32,17 +32,27 @@ function Bill({
   // amtDueOnPrev,
   // amtReceivedSincePrev,
   amtDue,
-  isLatest
+  isLatest,
+  status
   // callback
 }) {
   return (
     <div className={isLatest ? 'latest-bill-card' : 'bill-card'}>
       <div className="bill-items">
-        <p className="bill-items-internal statement-date">
+        <p className="bill-items-internal statement-left">
           {dateToDateString(statementDate)}
         </p>
-        <p className="bill-items-internal statement-month">
+        <p className="bill-items-internal statement-middle statement-emphasize">
           {dateToFullMonth(startDate)} Power Bill
+        </p>
+        <p className="bill-items-internal statement-middle"> ${amtDue}</p>
+        <p className="bill-items-internal statement-middle">
+          {' '}
+          $0.00{/* TODO */}
+        </p>
+        <p className="bill-items-internal statement-middle">
+          {' '}
+          $0.00{/* TODO */}
         </p>
         {/* <p>End date: {endDate}</p>
         <p>Rate Schedule: {rateSchedule}</p>
@@ -50,7 +60,7 @@ function Bill({
         <p>Total Estimated Rebate: ${totalEstimatedRebate}</p>
         <p>Amount Due on Previous: ${amtDueOnPrev}</p>
         <p>Amount Received Since Previous: ${amtReceivedSincePrev}</p> */}
-        <p className="bill-items-internal statement-amount-due">- ${amtDue}</p>
+        <p className="bill-items-internal statement-right"> {status} </p>
       </div>
       {/* {isLatest && (
         <button className="bill-button" onClick={callback} type="button">
