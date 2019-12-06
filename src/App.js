@@ -2,13 +2,15 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './styles/App.css';
 import NavBar from './components/NavBar';
-// import GeneralOwnerDashboard from './screens/general/GeneralOwnerDashboard';
-import AdminDashboard from './screens/general/AdminDashboard';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
+import SubscriberOwnerDashboard from './screens/general/SubscriberOwnerDashboard/SubscriberOwnerDashboard';
+import Community from './screens/general/Community';
+import GeneralOwnerDashboard from './screens/general/GeneralOwnerDashboard';
+import AdminDashboard from './screens/general/AdminDashboard';
 import UserProfilePage from './screens/general/UserProfilePage';
 // import SignUp from './screens/auth/SignUp';
-import SubscriberOwnerPage from './screens/general/SubscriberOwnerPage';
+// import SubscriberOwnerPage from './screens/general/SubscriberOwnerPage';
 
 function App() {
   return (
@@ -19,10 +21,12 @@ function App() {
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/onboarding" component={Onboarding} />
-          {/* <Route path="/dashboard" component={GeneralOwnerDashboard} /> */}
+          <Route path="/dashboard" component={GeneralOwnerDashboard} />
           <Route path="/admin" component={AdminDashboard} />
-          {/* <Route path="/dashboard" component={GeneralOwnerDashboard} /> */}
-          <Route path="/dashboard" component={SubscriberOwnerPage} />
+          <Route path="/community" component={Community} />
+          <Route path="/subdashboard" component={SubscriberOwnerDashboard} />
+          <Route path="/community" component={Community} />
+          <Route path="/admin" component={AdminDashboard} />
           <Route path="/profile/:id" component={UserProfilePage} />
           <Route>
             <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>

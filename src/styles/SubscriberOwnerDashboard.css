@@ -1,102 +1,11 @@
-.subscriber-dash-outer-container {
-  margin: 0.8em auto;
-  width: 75%;
-}
-
-.subscriber-dash-inner-container {
-  display: flex;
-  margin: auto;
-}
-
-.subscriber-dash-col {
-  margin: 1em;
-}
-
-.left-col {
-  flex: 1;
-  margin-left: 0;
-}
-
-.right-col {
-  flex: 2;
-}
-
-.col-card {
-  background-color: white;
-  height: 90%;
-  border-radius: 4px;
-}
-
-.balance-nums-line {
-  display: flex;
-  margin: 0 1.7vw;
-  padding: 0;
-}
-
-.balance-nums-line .line-item {
-  margin: 0;
-  height: fit-content;
-}
-
-.balance-nums-line .descrip {
-  flex: 1;
-}
-
-h3 {
-  font-size: 36px;
-  font-weight: bolder;
-}
-
 .subscriber-header {
   font-weight: bolder;
   color: #4f4f4f;
 }
 
-.balance-header-section {
-  margin: 0;
-  padding: 1.2vw 1.8vw;
-}
-
-.balance-header-section h3 {
-  padding: 0;
-  margin: 0;
-  font-size: 28px;
-}
-
-.balance-header-section p {
-  font-size: 12px;
-  margin: 0.3vw 0.5vw;
-  color: #a4a4a4;
-}
-
-.cards-holder {
+/*.cards-holder {
   border-radius: 4px;
   display: flex;
   flex-direction: column;
 }
-
-.subscriber-button {
-  font-size: 22;
-  font-weight: bold;
-  background-color: #b7b7b7;
-  color: white;
-  padding: 0.7em 2em;
-  border-radius: 3px;
-  margin: 0 1.5vw;
-}
-
-.payment-button {
-  float: right;
-}
-
-#divider {
-  border: 1px solid #efefef;
-  width: 85%;
-  margin: 0 auto 1.5vw auto;
-}
-
-.TEMP {
-  margin-top: 10vw;
-  padding: 18vw 0 0 0;
-  float: right;
-}
+*/

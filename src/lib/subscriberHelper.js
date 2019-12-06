@@ -27,13 +27,28 @@ const centsToDollars = cents => {
   return (cents / 100).toFixed(2);
 };
 
+const dateToWord = {
+  1: 'January',
+  2: 'February',
+  3: 'March',
+  4: 'April',
+  5: 'May',
+  6: 'June',
+  7: 'July',
+  8: 'August',
+  9: 'September',
+  10: 'October',
+  11: 'November',
+  12: 'December'
+};
+
 // VALIDATION FUNCTIONS
 const validateRecordAndField = record => {
   if (record == null) {
-    throw Error('getRecord returned null');
+    throw Error('getRecordWithPromise returned null');
   }
   if (record.record == null) {
-    throw Error('record returned by getRecord has no field record');
+    throw Error('record returned by getRecordWithPromise has no field record');
   }
 };
 
@@ -135,6 +150,7 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
 export {
   areDiffBills,
   centsToDollars,
+  dateToWord,
   getOwnerIdFromId,
   getBillsFromOwnerId,
   getSubscriberOwnerFromPerson,
