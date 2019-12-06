@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import formValidation from '../../lib/formValidation';
+import { updatePerson } from '../../lib/request';
 
 class Payment extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Payment extends React.Component {
 
   nextButton = e => {
     const { values, nextStep } = this.props;
-    const { errors } = values;
+    const { errors, userId, numShares, dividends } = values;
     e.preventDefault();
     const fields = ['numShares', 'dividends'];
     const errorsMessages = [];
@@ -27,6 +28,14 @@ class Payment extends React.Component {
     }
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
+      const updatedPerson = {
+        id: userId,
+        fields: {
+          'Number of Shares': numShares,
+          Dividends: dividends
+        }
+      };
+      updatePerson(updatedPerson);
       nextStep();
     } else {
       this.forceUpdate();
