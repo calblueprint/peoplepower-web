@@ -3,6 +3,7 @@ import OwnerAgreement1 from '../../images/ownerAgreement1.jpg';
 import OwnerAgreement2 from '../../images/ownerAgreement2.jpg';
 import Slider from '../../components/Slider';
 import formValidation from '../../lib/formValidation';
+import { updatePerson } from '../../lib/request';
 
 class Bylaws extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Bylaws extends React.Component {
   nextButton = e => {
     e.preventDefault();
     const { values, nextStep } = this.props;
-    const { errors } = values;
+    const { errors, userId } = values;
     const fields = ['bylaw1', 'bylaw2'];
     const errorsMessages = [];
 
@@ -26,6 +27,13 @@ class Bylaws extends React.Component {
     }
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
+      const updatedPerson = {
+        id: userId,
+        fields: {
+          'Onboarding Step': 5
+        }
+      };
+      updatePerson(updatedPerson);
       nextStep();
     } else {
       this.forceUpdate();

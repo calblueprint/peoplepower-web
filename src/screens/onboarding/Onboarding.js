@@ -93,7 +93,7 @@ class Onboarding extends React.Component {
 
   componentDidMount() {
     const id = getLoggedInUserId();
-
+    const { step, projectGroup, numShares } = this.state;
     // Person does not have a User Id
     if (!id) {
       return;
@@ -104,9 +104,50 @@ class Onboarding extends React.Component {
       this.setState({
         step: payload.record['Onboarding Step'],
         userLoginId: payload.record['User Login'][0],
-        personId: payload.record.ID
+        personId: payload.record.Owner[0],
+        fname: payload.record.Name.split(' ')[0],
+        lname: payload.record.Name.split(' ')[1],
+        email: payload.record.Email,
+        altEmail: payload.record['Alternative Email'],
+        street: payload.record.Street,
+        apt: payload.record.Apt,
+        city: payload.record.City,
+        state: payload.record.State,
+        zipcode: payload.record.Zipcode,
+        phoneNumber: payload.record['Phone Number'],
+        mailingStreet: payload.record['Mailing Street'],
+        mailingApt: payload.record['Mailing Apt'],
+        mailingCity: payload.record['Mailing City'],
+        mailingState: payload.record['Mailing State'],
+        mailingZipcode: payload.record['Mailing Zipcode'],
+        mailingPhoneNumber: payload.record['Mailing Phone Number'],
+        numShares: payload.record['Number of Shares'],
+        dividends: payload.record.Dividends,
+        password: '*****'
       });
+      if (!numShares) {
+        this.setState({
+          numShares: 0
+        });
+      }
     });
+    getRecord('Owner', id).then(payload => {
+      console.log(payload);
+      // this.setState({
+      //     projectGroup: [payload.record["Project Group"].id]
+      // });
+    });
+    if (step > 3 && projectGroup === {}) {
+      this.setState({
+        noProjectGroup: true
+      });
+    }
+    if (step > 4) {
+      this.setState({
+        bylaw1: true,
+        bylaw2: true
+      });
+    }
   }
 
   // next function increments page up one and switches to that numbered page

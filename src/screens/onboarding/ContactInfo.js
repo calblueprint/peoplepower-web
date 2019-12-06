@@ -87,7 +87,8 @@ class ContactInfo extends React.Component {
             'Mailing City': mailingCity,
             'Mailing State': mailingState,
             'Mailing Zipcode': mailingZipcode,
-            'Mailing Phone Number': mailingPhoneNumber
+            'Mailing Phone Number': mailingPhoneNumber,
+            'Onboarding Step': 3
           }
         };
         updatePerson(updatedPerson);

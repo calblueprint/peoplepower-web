@@ -4,7 +4,7 @@ import '../../styles/Onboarding.css';
 import MapView from './MapView';
 import ListView from './ListView';
 import { getAllProjectGroups } from '../../lib/onboardingUtils';
-import { updateRecord } from '../../lib/request';
+import { updatePerson, updateRecord } from '../../lib/request';
 
 class ProjectGroups extends React.Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class ProjectGroups extends React.Component {
   componentDidMount() {
     getAllProjectGroups('Project Group').then(payload => {
       const projectGroups = [];
-      console.log(payload.records);
       payload.records.map(record =>
         projectGroups.push({
           id: record.id,
@@ -59,18 +58,25 @@ class ProjectGroups extends React.Component {
 
   nextButton = () => {
     const { values, nextStep } = this.props;
-    const { errors, projectGroup, personId } = values;
+    const { errors, projectGroup, personId, userId } = values;
     const { noProjectGroup } = this.state;
 
     const errorMessage = formValidation('projectGroup', projectGroup);
     errors.projectGroup = errorMessage;
-    console.log(projectGroup);
 
     if (errorMessage === '' || noProjectGroup) {
+      const updatedPerson = {
+        id: userId,
+        fields: {
+          'Onboarding Step': 4
+        }
+      };
+      updatePerson(updatedPerson);
+
       const newOwner = {
         id: personId,
         fields: {
-          'Project Group': projectGroup.id
+          'Project Group': [projectGroup.id]
         }
       };
 
