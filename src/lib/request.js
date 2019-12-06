@@ -2,7 +2,9 @@
   Helper functions intended to streamline our requests to the AirTable API. 
 */
 
-import key from './api_key';
+import secret from '../secret';
+
+const { key } = secret;
 
 const Airtable = require('airtable');
 
@@ -79,6 +81,8 @@ function getMultipleFromAttr(table, fieldName, fieldValue) {
         } else {
           resolve(records);
         }
+
+        resolve({ records });
       });
   });
 }
@@ -112,6 +116,19 @@ function getMultipleFromAttr(table, fieldName, fieldValue) {
 
 // Given a person object, create a record of that person.
 function createPerson(person) {
+  /* EXAMPLE OBJECT TO CREATE PERSON
+  {
+    "fields": {
+      "Email": email,
+      "Phone Number": phoneNumber,
+      "Owner": [owner],
+      "Address": [address],
+      "Tags": tags,
+      "User Login": [userLogin],
+      "Name": name
+    }
+  } 
+*/
   return new Promise((resolve, reject) => {
     base('Person').create([person], function(err, records) {
       if (err) {

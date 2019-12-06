@@ -1,7 +1,13 @@
 import React from 'react';
+import { PayPalButton } from 'react-paypal-button-v2';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import { centsToDollars } from '../../../lib/subscriberHelper';
 import { getLoggedInUserId } from '../../../lib/auth';
+import recordPaymentSuccess from '../../../lib/paypal';
+
+import secret from '../../../secret';
+
+const { clientId } = secret;
 
 export default class SubscriberOwnerDashboardMainView extends React.Component {
   constructor(props) {
@@ -21,9 +27,15 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
     }
   }
 
+  onPaypalPaymentSuccess(details, data) {
+    const { latestBill } = this.state;
+    recordPaymentSuccess(details, data, latestBill);
+  }
+
   render() {
     const { callback } = this.props;
     const { latestBill } = this.state;
+    const amtDue = centsToDollars(latestBill['Amount Due']);
     return (
       <div className="subscriber-dash-outer-container">
         <h3>My Finances</h3>
@@ -64,12 +76,13 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                 <br />
                 <br />
                 <br />
-                <button
-                  className="subscriber-button payment-button"
-                  type="button"
-                >
-                  Make Payment
-                </button>
+                <PayPalButton
+                  amount={amtDue}
+                  onSuccess={this.onPaypalPaymentSuccess}
+                  options={{
+                    clientId
+                  }}
+                />
               </div>
             </div>
           </div>
