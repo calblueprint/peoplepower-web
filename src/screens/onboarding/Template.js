@@ -10,8 +10,8 @@ const text = [
 const header = [
   'Welcome Aboard!',
   'Select your project group',
-  'Owner Agreement',
-  'BUy Shares'
+  'Owner Agreement and Acknowledgment',
+  'Purchase shares'
 ];
 
 function Template(page, step) {

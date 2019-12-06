@@ -48,9 +48,9 @@ class Carousel extends Component {
     const slidesLength = slides.length - 1;
 
     if (index === slidesLength) {
-      index = -1;
-    } else {
       index = 0;
+    } else {
+      index = 1;
     }
 
     this.setState({
@@ -64,39 +64,44 @@ class Carousel extends Component {
     return (
       <div className="slider">
         <div className="progress-bar">
-          <div
-            className="filler"
-            style={{ width: `${activeIndex === 0 ? 50 : 100}%` }}
-          />
+          {activeIndex === 0 ? (
+            <div className="filler-50" />
+          ) : (
+            <div className="filler-100" />
+          )}
         </div>
         <div className="slider-padding">
-          <input
-            type="image"
-            src={Arrow}
-            className="arrow left-arrow"
-            alt="previous button"
-            onClick={this.goToPrevSlide}
-          />
-          <ul className="slides">
+          <div className="w-100 flex justify-space-between mt-25 slides-buttons">
+            <button
+              type="button"
+              className="arrow-circle left"
+              alt="prev button"
+              onClick={this.goToPrevSlide}
+            >
+              <img src={Arrow} className="left-arrow" alt="next button" />
+            </button>
+            <button
+              type="button"
+              className="arrow-circle right"
+              alt="next button"
+              onClick={this.goToNextSlide}
+            >
+              <img src={Arrow} className="right-arrow" alt="next button" />
+            </button>
+          </div>
+          <div className="slides">
             {slides.map((slide, index) => (
               <img
                 className={
                   index === activeIndex
-                    ? 'center slide-img slide-img-active'
-                    : 'center slide-img'
+                    ? ' slide-img slide-img-active'
+                    : ' slide-img slide-img-inactive'
                 }
                 src={slides[activeIndex]}
                 alt="This is the Owner Agreement"
               />
             ))}
-          </ul>
-          <input
-            type="image"
-            src={Arrow}
-            className="arrow right-arrow"
-            alt="next button"
-            onClick={this.goToPrevSlide}
-          />
+          </div>
         </div>
       </div>
     );

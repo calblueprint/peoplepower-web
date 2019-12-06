@@ -28,11 +28,13 @@
 .slider {
   position: relative;
   width: 100%;
-  margin: 0 auto;
+  margin: 1rem auto;
   max-height: 50%;
   border-radius: 10px;
   background-color: white;
   border-style: solid;
+  display: flex;
+  flex-direction: column;
 }
 
 .slider-wrapper {
@@ -151,11 +153,29 @@
 .left-arrow {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
+  height: 1.05rem;
+  margin-left: 0.15rem;
+  margin-top: 0.15rem;
+  filter: brightness(0) invert(1);
 }
 
 .right-arrow {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
+  height: 1.05rem;
+  margin-right: 0.15rem;
+  margin-top: 0.15rem;
+  filter: brightness(0) invert(1);
+}
+
+.arrow-circle {
+  width: 2rem;
+  height: 2rem;
+  background: #cd6795;
+  border-radius: 50%;
+}
+.arrow-circle:hover {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .info-card {
@@ -327,6 +347,10 @@ w-pasword {
   margin: auto;
 }
 
+.mt-50 {
+  margin-top: 50%;
+}
+
 .arrow {
   margin: auto;
   opacity: 100%;
@@ -454,12 +478,19 @@ w-pasword {
   font-family: 'Nunito Sans', sans-serif;
 }
 
+.slides-buttons {
+  position: absolute;
+}
+
+.mt-25 {
+  margin-top: 25%;
+}
+
 .slides {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   min-height: 100%;
   z-index: 0;
+  position: relative;
 }
 
 .slider {
@@ -468,16 +499,21 @@ w-pasword {
   height: 100%;
   border-color: #edf1f5;
   border-width: 2px;
+  border-radius: 5px;
 }
 
 .slider-padding {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .slide-img {
-  display: block;
-  max-height: 75%;
+  max-height: 30rem;
   z-index: 0;
+  margin-left: 15%;
+}
+
+.slide-img-inactive {
+  display: none;
 }
 
 .progress-bar {
@@ -488,11 +524,20 @@ w-pasword {
   border: none;
 }
 
-.filler {
+.filler-50 {
   background: #cd6795;
   height: 100%;
-  border-radius: inherit;
+  border-radius: 2px 0 0 0;
   transition: width 0.2s ease-in;
+  width: 50%;
+}
+
+.filler-100 {
+  background: #cd6795;
+  height: 100%;
+  border-radius: 2px 2px 0 0;
+  transition: width 0.2s ease-in;
+  width: 100%;
 }
 
 slide-img-active {
@@ -804,4 +849,10 @@ carousel__arrow--right {
   font-size: 14px;
   color: #3e4a59;
   font-weight: bold;
+}
+
+.bylaws-hyperlink {
+  color: #cd6795;
+  font-weight: bold;
+  text-decoration: none;
 }
