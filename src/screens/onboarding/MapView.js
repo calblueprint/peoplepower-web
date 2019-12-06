@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
-import keys from '../../lib/api_key';
+import keys from '../../lib/secret';
 
 function MapView(props) {
   const {

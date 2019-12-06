@@ -20,7 +20,7 @@ function formValidation(name, value) {
       }
       return '';
     case 'projectGroup':
-      if (typeof value.name === 'undefined') {
+      if (typeof value.id === 'undefined') {
         return 'Please choose a group';
       }
       return '';
@@ -44,6 +44,7 @@ function formValidation(name, value) {
       }
       return '';
     case 'zipcode':
+    case 'mailingZipcode':
       if (value === '') {
         return 'Required';
       }
@@ -58,6 +59,7 @@ function formValidation(name, value) {
       }
       return '';
     case 'state':
+    case 'mailingState':
       if (value === '') {
         return 'Required';
       }
@@ -72,6 +74,7 @@ function formValidation(name, value) {
       }
       return 'Invalid State';
     case 'apt':
+    case 'mailingApt':
       return '';
     default:
       if (value === undefined) {

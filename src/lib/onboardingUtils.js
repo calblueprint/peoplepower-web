@@ -1,5 +1,5 @@
 import { getAllRecords } from './request';
-import keys from './api_key';
+import keys from './secret';
 
 const { key } = keys;
 

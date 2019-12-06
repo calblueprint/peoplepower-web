@@ -2,6 +2,7 @@ import React from 'react';
 import formValidation from '../../lib/formValidation';
 import { createPersonOwnerUserLoginRecord } from '../../lib/onboardingUtils';
 import tooltip from '../../components/tooltip';
+import { updatePerson } from '../../lib/request';
 
 class ContactInfo extends React.Component {
   constructor(props) {
@@ -15,7 +16,26 @@ class ContactInfo extends React.Component {
   nextButton = async e => {
     e.preventDefault();
     const { values, nextStep } = this.props;
-    const { errors } = values;
+    const {
+      errors,
+      userId,
+      email,
+      password,
+      fname,
+      lname,
+      street,
+      apt,
+      state,
+      city,
+      zipcode,
+      phoneNumber,
+      mailingStreet,
+      mailingApt,
+      mailingCity,
+      mailingState,
+      mailingZipcode,
+      mailingPhoneNumber
+    } = values;
     const { assertAddress } = this.state;
     const fields = [
       'street',
@@ -41,46 +61,56 @@ class ContactInfo extends React.Component {
         } else {
           this.setState({ errorAssertAddress: '' });
         }
-      }
-      const errorMessage = formValidation(fields[i], values[fields[i]]);
-      errors[fields[i]] = errorMessage;
-      if (errorMessage !== '') {
-        errorMessages.push(errorMessage);
+      } else {
+        const errorMessage = formValidation(fields[i], values[fields[i]]);
+        errors[fields[i]] = errorMessage;
+        if (errorMessage !== '') {
+          errorMessages.push(errorMessage);
+        }
       }
     }
 
+    console.log(errorMessages);
     if (!(errorMessages && errorMessages.length > 0)) {
-      // create the person/owner record in Airtable
-      const {
-        values: {
+      if (userId) {
+        const updatedPerson = {
+          id: userId,
+          fields: {
+            Street: street,
+            Apt: apt,
+            City: city,
+            State: state,
+            Zipcode: zipcode,
+            'Phone Number': phoneNumber,
+            'Mailing Street': mailingStreet,
+            'Mailing Apt': mailingApt,
+            'Mailing City': mailingCity,
+            'Mailing State': mailingState,
+            'Mailing Zipcode': mailingZipcode,
+            'Mailing Phone Number': mailingPhoneNumber
+          }
+        };
+        updatePerson(updatedPerson);
+        nextStep();
+      } else {
+        // create the person/owner record in Airtable
+        const success = await createPersonOwnerUserLoginRecord(
+          email,
+          password,
+          phoneNumber,
+          `${fname} ${lname}`,
+          street,
           apt,
           city,
-          email,
-          fname,
-          lname,
-          phoneNumber,
-          password,
           state,
-          street,
           zipcode
-        }
-      } = this.props;
-      const success = await createPersonOwnerUserLoginRecord(
-        email,
-        password,
-        phoneNumber,
-        `${fname} ${lname}`,
-        street,
-        apt,
-        city,
-        state,
-        zipcode
-      );
+        );
 
-      if (!success) {
-        console.error('createPersonOwnerUserLoginRecord FAILED');
-      } else {
-        nextStep();
+        if (!success) {
+          console.error('createPersonOwnerUserLoginRecord FAILED');
+        } else {
+          nextStep();
+        }
       }
     } else {
       this.forceUpdate();

@@ -4,6 +4,7 @@ import '../../styles/Onboarding.css';
 import MapView from './MapView';
 import ListView from './ListView';
 import { getAllProjectGroups } from '../../lib/onboardingUtils';
+import { updateRecord } from '../../lib/request';
 
 class ProjectGroups extends React.Component {
   constructor(props) {
@@ -18,11 +19,11 @@ class ProjectGroups extends React.Component {
 
   componentDidMount() {
     getAllProjectGroups('Project Group').then(payload => {
-      console.log(payload);
       const projectGroups = [];
+      console.log(payload.records);
       payload.records.map(record =>
         projectGroups.push({
-          id: record.fields.ID,
+          id: record.id,
           name: record.fields.Name,
           description: record.fields.Description,
           street: record.fields['Street 1'],
@@ -51,19 +52,29 @@ class ProjectGroups extends React.Component {
     handleChange(event);
   };
 
-  selectNoPorjectGroup = () => {
+  selectNoProjectGroup = () => {
     const { noProjectGroup } = this.state;
     this.setState({ noProjectGroup: !noProjectGroup });
   };
 
   nextButton = () => {
     const { values, nextStep } = this.props;
-    const { errors, projectGroup } = values;
+    const { errors, projectGroup, personId } = values;
     const { noProjectGroup } = this.state;
 
-    const errorMessage = formValidation(projectGroup);
+    const errorMessage = formValidation('projectGroup', projectGroup);
     errors.projectGroup = errorMessage;
+    console.log(projectGroup);
+
     if (errorMessage === '' || noProjectGroup) {
+      const newOwner = {
+        id: personId,
+        fields: {
+          'Project Group': projectGroup.id
+        }
+      };
+
+      updateRecord('Owner', newOwner);
       nextStep();
     } else {
       this.forceUpdate();
@@ -128,7 +139,7 @@ class ProjectGroups extends React.Component {
               <input
                 type="checkbox"
                 name="mailingAddressSame"
-                onClick={this.selectNoPorjectGroup}
+                onClick={this.selectNoProjectGroup}
                 onChange={handleChange}
                 checked={noProjectGroup}
               />

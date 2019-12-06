@@ -2,6 +2,7 @@ import React from 'react';
 import formValidation from '../../lib/formValidation';
 import '../../styles/Onboarding.css';
 import tooltip from '../../components/tooltip';
+import { updatePerson, updateRecord } from '../../lib/request';
 
 class BasicInfo extends React.Component {
   constructor(props) {
@@ -13,7 +14,16 @@ class BasicInfo extends React.Component {
   nextButton = e => {
     e.preventDefault();
     const { values, nextStep } = this.props;
-    const { errors } = values;
+    const {
+      errors,
+      userId,
+      userLoginId,
+      fname,
+      lname,
+      email,
+      password,
+      altEmail
+    } = values;
     const fields = ['fname', 'lname', 'email', 'password', 'altEmail'];
     const errorsMessages = [];
 
@@ -26,6 +36,28 @@ class BasicInfo extends React.Component {
     }
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
+      if (userId) {
+        const updatedPerson = {
+          id: userId,
+          fields: {
+            Name: fname + lname,
+            Email: email,
+            'Alternative Email': altEmail
+          }
+        };
+
+        const newLogin = {
+          id: userLoginId,
+          fields: {
+            Email: email,
+            password
+          }
+        };
+
+        updatePerson(updatedPerson).then(() => {
+          return updateRecord('User Login', newLogin);
+        });
+      }
       nextStep();
     } else {
       this.forceUpdate();

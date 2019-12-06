@@ -16,6 +16,8 @@ class Onboarding extends React.Component {
     super(props);
     this.state = {
       userId: '',
+      userLoginId: '',
+      personId: '',
       fname: '',
       lname: '',
       email: '',
@@ -99,9 +101,10 @@ class Onboarding extends React.Component {
 
     this.setState({ userId: id });
     getRecord('Person', id).then(payload => {
-      console.log(payload);
       this.setState({
-        step: payload.record['Onboarding Step']
+        step: payload.record['Onboarding Step'],
+        userLoginId: payload.record['User Login'][0],
+        personId: payload.record.ID
       });
     });
   }
@@ -129,6 +132,7 @@ class Onboarding extends React.Component {
       city,
       state,
       zipcode,
+      phoneNumber,
       billingAddressSame,
       mailingAddressSame
     } = this.state;
@@ -169,7 +173,8 @@ class Onboarding extends React.Component {
             mailingApt: apt,
             mailingCity: city,
             mailingState: state,
-            mailingZipcode: zipcode
+            mailingZipcode: zipcode,
+            mailingPhoneNumber: phoneNumber
           });
         }
         this.setState({
@@ -216,6 +221,8 @@ class Onboarding extends React.Component {
     const { step } = this.state;
     const {
       userId,
+      personId,
+      userLoginId,
       fname,
       lname,
       email,
@@ -256,6 +263,8 @@ class Onboarding extends React.Component {
     } = this.state;
     const values = {
       userId,
+      personId,
+      userLoginId,
       fname,
       lname,
       email,
