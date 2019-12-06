@@ -43,52 +43,69 @@ class Bylaws extends React.Component {
     const { errors, bylaw1, bylaw2 } = values;
     const imgs = [OwnerAgreement1, OwnerAgreement2];
     return (
-      <form className="center">
+      <form className="">
         <div>
-          <div className="contact-header">Onboarding Agrement</div>
           <Slider slides={imgs} />
-          <div className="flex">
-            <input
-              type="checkbox"
-              name="bylaw1"
-              onChange={handleChange}
-              checked={bylaw1}
-            />
-            <div className="checkbox-text">
+          <div style={{ display: 'inline', position: 'relative' }}>
+            <label className="checkbox-container">
               I have read, understood, and agree to all that stuff above,
               especially the part about how being an Owner and investing into
               things comes with risks!
-            </div>
+              <input
+                type="checkbox"
+                name="bylaw1"
+                onChange={handleChange}
+                checked={bylaw1}
+              />
+              <span className="checkmark" />
+            </label>
           </div>
           {!values.bylaw1 && <div>{errors.bylaw1}</div>}
-          <div className="flex">
-            <input
-              type="checkbox"
-              name="bylaw2"
-              onChange={handleChange}
-              checked={bylaw2}
-            />
-            <div className="checkbox-text">
-              I have read the{' '}
-              <a
-                href="https://d3n8a8pro7vhmx.cloudfront.net/peoplepowersolar/pages/22/attachments/original/1554318079/small_331amended_peoplepowerbylaws_compressed.pdf?1554318079"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Bylaws
-              </a>{' '}
-              for People Power Solar Cooperative, Inc. and agree to the terms of
-              being an Owner.
-            </div>
+          <div style={{ display: 'inline', position: 'relative' }}>
+            <label className="checkbox-container">
+              <div className="checkbox-text">
+                I have read the{' '}
+                <a
+                  href="https://d3n8a8pro7vhmx.cloudfront.net/peoplepowersolar/pages/22/attachments/original/1554318079/small_331amended_peoplepowerbylaws_compressed.pdf?1554318079"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Bylaws
+                </a>{' '}
+                for People Power Solar Cooperative, Inc. and agree to the terms
+                of being an Owner.
+              </div>
+              <input
+                type="checkbox"
+                name="bylaw2"
+                onChange={handleChange}
+                checked={bylaw2}
+              />
+              <span className="checkmark" />
+            </label>
           </div>
           {!values.bylaw2 && <div>{errors.bylaw2}</div>}
         </div>
-        <button type="button" onClick={this.prevButton}>
-          Prev
-        </button>
-        <button type="button" onClick={this.nextButton}>
-          Next
-        </button>
+        <div className="flex row w-100 right mt-2 justify-space-between">
+          <div className="left">
+            <button
+              type="button"
+              className="back-button"
+              onClick={this.prevButton}
+            >
+              Go back
+            </button>
+          </div>
+          <div className="right">
+            <button
+              type="button"
+              className="continue-button"
+              onClick={this.nextButton}
+            >
+              Continue
+            </button>
+          </div>
+        </div>
       </form>
     );
   }

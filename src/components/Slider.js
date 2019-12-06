@@ -77,7 +77,7 @@ class Carousel extends Component {
             alt="previous button"
             onClick={this.goToPrevSlide}
           />
-          <ul className="slides ">
+          <ul className="slides">
             {slides.map((slide, index) => (
               <img
                 className={
