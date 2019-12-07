@@ -1,6 +1,37 @@
-/*.inputFormCont {
-  width: 50%;
+.row {
+  display: flex;
+  justify-content: flex-start;
+  margin: 20px 0px 0px 0px;
+}
+
+.settings .cont {
+  /*  width: 100%;*/
+  margin: 0px;
+}
+
+.userIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.generalForm {
+  background: #fff;
+  width: 500px;
   float: right;
+  margin-left: 17px;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 32px;
+}
+
+.generalForm h2 {
+  margin-top: 0px;
+  margin-bottom: 30px;
 }
 
 .inputFormCont h2,
@@ -9,17 +40,46 @@ label {
   color: black;
 }
 
-.userInfoCont {
+.generalForm input {
+  float: right;
   width: 50%;
-  display: inline-block;
+  border: 0px;
+  font-size: 16px;
 }
 
-.userInfoCont h3,
-p {
-  padding-left: 30px;
+.generalForm input:focus {
+  outline: none;
 }
 
-input {
-  display: block;
-  margin: 10px 0px;
-}*/
+.contactInfoForm {
+  background: #fff;
+  float: right;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 32px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.contactInfoForm input {
+  float: right;
+  width: 50%;
+  border: 0px;
+  font-size: 16px;
+}
+
+.contactInfoForm input:focus {
+  outline: none;
+}
+
+.form-success {
+  background: #7eb98a;
+  border: 0px !important;
+  color: white;
+}
+
+.form-fail {
+  background: #d282a6;
+  border: 0px !important;
+  color: white;
+}

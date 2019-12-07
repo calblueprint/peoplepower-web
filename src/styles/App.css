@@ -1,7 +1,7 @@
 /* Styling for the main wrapper of the application */
 .app-container {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #e5e5e5;
 }
 
@@ -15,4 +15,5 @@
   width: 100%;
   display: flex;
   height: calc(100% - 104px);
+  justify-content: center;
 }

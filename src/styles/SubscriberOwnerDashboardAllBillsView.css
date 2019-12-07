@@ -8,6 +8,10 @@
   color: #4f4f4f;
 }
 
+.all-bills-cards-header {
+  /* background-color: red; */
+}
+
 .all-bills-cards-holder {
   border-radius: 4px;
   display: flex;

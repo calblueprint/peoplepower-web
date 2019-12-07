@@ -55,7 +55,7 @@ const validateRecordAndField = record => {
 const validatePersonRecord = record => {
   validateRecordAndField(record);
   if (record.record.ID == null) {
-    throw Error('record.record.ID of getRecordWithPromise is null');
+    throw Error('record.record.ID of getRecord is null');
   }
 };
 
@@ -121,7 +121,10 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
     const bills = [];
     let isLatest = true;
     billObjects.forEach(({ record }) => {
+      // if (!record.Payment) {
       bills.push({
+        ID: record.ID,
+        'Subscriber Owner': record['Subscriber Owner'][0], // assumes exactly 1 subscriber owner
         'Statement Date': record['Statement Date'],
         'Start Date': record['Start Date'],
         'End Date': record['End Date'],
@@ -132,9 +135,12 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
         'Amount Received Since Previous':
           record['Amount Received Since Previous'],
         'Amount Due': record['Amount Due'],
+        Status: record.Status,
+        Balance: record.Balance,
         'Is Latest': isLatest
       });
       isLatest = false;
+      // }
     });
 
     callback(bills);

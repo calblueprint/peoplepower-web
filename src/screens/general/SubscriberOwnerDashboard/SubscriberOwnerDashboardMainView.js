@@ -1,14 +1,22 @@
 import React from 'react';
+import { PayPalButton } from 'react-paypal-button-v2';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import { centsToDollars } from '../../../lib/subscriberHelper';
 import { getLoggedInUserId } from '../../../lib/auth';
+import recordPaymentSuccess from '../../../lib/paypal';
+import PanelBillHeader from './PanelBillHeader';
+import PanelBillRow from './PanelBillRow';
+
+import secret from '../../../secret';
+
+const { clientId } = secret;
 
 export default class SubscriberOwnerDashboardMainView extends React.Component {
   constructor(props) {
     super(props);
-    const { bills } = this.props;
+    const { transactions } = this.props;
     this.state = {
-      latestBill: bills.filter(bill => bill['Is Latest'])[0]
+      latestBill: transactions.filter(bill => bill['Is Latest'])[0]
     };
   }
 
@@ -21,9 +29,15 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
     }
   }
 
-  render() {
-    const { callback } = this.props;
+  onPaypalPaymentSuccess(details, data) {
     const { latestBill } = this.state;
+    recordPaymentSuccess(details, data, latestBill);
+  }
+
+  render() {
+    const { transactions, callback } = this.props;
+    const { latestBill } = this.state;
+    const amtDue = centsToDollars(latestBill['Amount Due']);
     return (
       <div className="subscriber-dash-outer-container">
         <h3>My Finances</h3>
@@ -64,18 +78,21 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                 <br />
                 <br />
                 <br />
-                <button
-                  className="subscriber-button payment-button"
-                  type="button"
-                >
-                  Make Payment
-                </button>
+                <div className="subscriber-dashboard-paypal-component">
+                  <PayPalButton
+                    amount={amtDue}
+                    onSuccess={this.onPaypalPaymentSuccess}
+                    options={{
+                      clientId
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
           <div className="subscriber-right-col subscriber-dash-col">
             <div className="subscriber-right-duo-header">
-              <p className="subscriber-header">Recent Transactions</p>
+              <p className="subscriber-header">Billing History</p>
               <button
                 className="subscriber-all-billls-button"
                 type="button"
@@ -84,7 +101,19 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                 →
               </button>
             </div>
-            <div className="col-card" />
+            <div className="col-card billing-history-card-holder">
+              <PanelBillHeader />
+              {transactions.map(transaction => {
+                return (
+                  <PanelBillRow
+                    statementDate={transaction['Statement Date']}
+                    startDate={transaction['Start Date']}
+                    status={transaction.Status}
+                    amtDue={centsToDollars(transaction['Amount Due'])}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
