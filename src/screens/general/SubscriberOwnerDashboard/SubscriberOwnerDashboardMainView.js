@@ -3,7 +3,7 @@ import { PayPalButton } from 'react-paypal-button-v2';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import { centsToDollars } from '../../../lib/subscriberHelper';
 import { getLoggedInUserId } from '../../../lib/auth';
-import recordBillPaymentSuccess from '../../../lib/paypal';
+import { recordBillPaymentSuccess } from '../../../lib/paypal';
 
 import secret from '../../../lib/secret';
 

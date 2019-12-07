@@ -1,13 +1,13 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import formValidation from '../../lib/formValidation';
-import { updatePerson } from '../../lib/request';
-import recordBillPaymentSuccess from '../../lib/paypal';
-import { logOut } from '../../lib/auth';
+import { recordShareBuySuccess } from '../../lib/paypal';
 
 import secret from '../../lib/secret';
 
 const { clientId } = secret;
+
+const SHARE_PRICE = 100;
 
 class Payment extends React.Component {
   constructor(props) {
@@ -17,20 +17,9 @@ class Payment extends React.Component {
     };
   }
 
-  onPaypalPaymentSuccess(details, data) {
+  onBuyShareWithPaypalSuccess(details, data) {
     const { nextStep, values } = this.props;
-    const { latestBill } = this.state;
-    const { userId, numShares, dividends } = values;
-
-    const updatedPerson = {
-      id: userId,
-      fields: {
-        'Number of Shares': numShares,
-        Dividends: dividends
-      }
-    };
-    updatePerson(updatedPerson);
-    recordBillPaymentSuccess(details, data, latestBill);
+    recordShareBuySuccess(details, data, values);
     nextStep();
   }
 
@@ -103,7 +92,7 @@ class Payment extends React.Component {
   };
 
   render() {
-    const { values, handleChange } = this.props;
+    const { values, handleChange, nextStep } = this.props;
     const { errors, numShares } = values;
     return (
       <div className="w-100">
@@ -182,8 +171,8 @@ class Payment extends React.Component {
               <div className="payment-shares-header">Payment Information</div>
               <div className="mt-3">
                 <PayPalButton
-                  amount={numShares * 100}
-                  onSuccess={this.onPaypalPaymentSuccess}
+                  amount={numShares * SHARE_PRICE}
+                  onSuccess={this.onBuyShareWithPaypalSuccess}
                   options={{
                     clientId
                   }}
@@ -198,7 +187,7 @@ class Payment extends React.Component {
               <div className="flex justify-space-between">
                 <div className="left payment-summary-shares">Shares</div>
                 <div className="right payment-summary-shares">
-                  ${numShares * 100}.00
+                  ${numShares * SHARE_PRICE}.00
                 </div>
               </div>
               <div className="payment-summary-qty">QTY: {numShares}</div>
@@ -206,7 +195,7 @@ class Payment extends React.Component {
               <div className="flex justify-space-between">
                 <div className="left payment-summary-total">Total</div>
                 <div className="right payment-summary-total">
-                  ${numShares * 100}.00
+                  ${numShares * SHARE_PRICE}.00
                 </div>
               </div>
             </div>
@@ -223,7 +212,11 @@ class Payment extends React.Component {
             </button>
           </div>
           <div className="right">
-            <button type="button" className="continue-button" onClick={logOut}>
+            <button
+              type="button"
+              className="continue-button"
+              onClick={nextStep}
+            >
               Continue
             </button>
           </div>

@@ -85,9 +85,10 @@ class Login extends React.Component {
               Password
             </label>
             <input
+              type="password"
               name="password"
               placeholder="Password"
-              onChange={this.handleEmailChange}
+              onChange={this.handlePasswordChange}
               defaultValue={passwordHash}
               className="input-gray"
             />
