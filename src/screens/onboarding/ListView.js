@@ -12,8 +12,10 @@ class ListView extends React.Component {
       displayGroup,
       view,
       changeSelectedGroup,
-      changeDisplayedGroup
+      changeDisplayedGroup,
+      values
     } = this.props;
+    const { projectGroup } = values;
     return (
       <div
         className="justify-space-between h-75"
@@ -64,14 +66,25 @@ class ListView extends React.Component {
             <div className="projectgroup-selected-body">
               {groups[displayGroup].description}
             </div>
-            <button
-              type="button"
-              className="projectgroup-select"
-              onClick={() => changeSelectedGroup(groups[displayGroup])}
-              name="projectGroup"
-            >
-              Select
-            </button>
+            {projectGroup === groups[displayGroup].id ? (
+              <button
+                type="button"
+                className="projectgroup-selected"
+                onClick={() => changeSelectedGroup(groups[displayGroup])}
+                name="projectGroup"
+              >
+                Selected
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="projectgroup-select"
+                onClick={() => changeSelectedGroup(groups[displayGroup])}
+                name="projectGroup"
+              >
+                Select
+              </button>
+            )}
           </div>
         </div>
       </div>

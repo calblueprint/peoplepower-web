@@ -262,11 +262,11 @@
   display: flex;
 }
 
-.row {
+.onboarding-row {
   flex-direction: row;
 }
 
-.column {
+.onboarding-col {
   flex-direction: column;
 }
 
@@ -384,7 +384,6 @@ w-pasword {
   display: block;
   position: relative;
   padding-left: 1.5rem;
-  margin-bottom: 12px;
   cursor: pointer;
   font-size: 12px;
   -webkit-user-select: none;
@@ -397,6 +396,7 @@ w-pasword {
 .mt-2 {
   margin-top: 2rem;
 }
+
 .justify-space-between {
   justify-content: space-between;
 }
@@ -673,6 +673,15 @@ carousel__arrow--right {
   paddind: 1.5rem 1.75rem;
 }
 
+.projectgroup-selected {
+  width: 100%;
+  color: #cd6795;
+  border-radius: 2.5px;
+  background-color: white;
+  font-size: 16px;
+  paddind: 1.5rem 1.75rem;
+}
+
 .tooltip {
   position: absolute;
   display: block;
@@ -744,6 +753,16 @@ carousel__arrow--right {
   border-width: 2px;
   border-style: solid;
   padding: 1rem 1.75rem;
+  margin: 1rem 0;
+}
+
+.template-bylaws-card {
+  background-color: white;
+  border-color: #edf1f5;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  padding: 1rem 1.75rem 0 1.75rem;
   margin: 1rem 0;
 }
 

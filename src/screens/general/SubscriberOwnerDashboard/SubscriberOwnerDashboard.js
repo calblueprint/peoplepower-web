@@ -5,7 +5,10 @@ import SubscriberOwnerDashboardAllBillsView from './SubscriberOwnerDashboardAllB
 import SubscriberOwnerDashboardMainView from './SubscriberOwnerDashboardMainView';
 import { getLoggedInUserId } from '../../../lib/auth';
 
-import { areDiffBills, getSubscriberBills } from '../../../lib/subscriberUtils';
+import {
+  areDiffBills,
+  getSubscriberBills
+} from '../../../lib/subscriberHelper';
 
 export default class SubscriberOwnerDashboard extends React.Component {
   constructor(props) {

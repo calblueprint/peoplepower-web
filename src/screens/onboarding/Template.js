@@ -4,14 +4,16 @@ const text = [
   'Tell us some general contact information so we can get started setting up your account.',
   'Project groups in People Power represent the different communities involved in our cooperative. ',
   '',
-  ''
+  '',
+  'Hooray! We made it.'
 ];
 
 const header = [
   'Welcome Aboard!',
   'Select your project group',
   'Owner Agreement and Acknowledgment',
-  'Purchase shares'
+  'Purchase shares',
+  'Registration complete!'
 ];
 
 function Template(page, step) {

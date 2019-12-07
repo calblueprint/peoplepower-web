@@ -41,13 +41,24 @@ class ProjectGroups extends React.Component {
   };
 
   changeSelectedGroup = group => {
-    const { handleChange } = this.props;
-    const event = {
-      target: {
-        name: 'projectGroup',
-        value: group
-      }
-    };
+    const { handleChange, values } = this.props;
+    const { projectGroup } = values;
+    let event;
+    if (group.id === projectGroup) {
+      event = {
+        target: {
+          name: 'projectGroup',
+          value: ''
+        }
+      };
+    } else {
+      event = {
+        target: {
+          name: 'projectGroup',
+          value: group.id
+        }
+      };
+    }
     handleChange(event);
   };
 
@@ -63,7 +74,7 @@ class ProjectGroups extends React.Component {
 
     const errorMessage = formValidation('projectGroup', projectGroup);
     errors.projectGroup = errorMessage;
-
+    console.log(errorMessage);
     if (errorMessage === '' || noProjectGroup) {
       const updatedPerson = {
         id: userId,
@@ -108,6 +119,7 @@ class ProjectGroups extends React.Component {
 
   render() {
     const { values, handleChange } = this.props;
+    const { errors } = values;
     const { groups, displayGroup, view, noProjectGroup } = this.state;
     return (
       <div
@@ -151,8 +163,12 @@ class ProjectGroups extends React.Component {
               />
               <span className="checkmark" />
             </label>
+            <div className=" validation">
+              {errors.projectGroup ? errors.projectGroup : '\u00A0'}
+            </div>
           </div>
-          <div className="flex row w-100 right mt-2 justify-space-between">
+
+          <div className="flex onboarding-col w-100 right mt-2 justify-space-between">
             <div className="left">
               <button
                 type="button"

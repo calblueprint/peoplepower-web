@@ -18,7 +18,7 @@ body {
 /* Styling for the main wrapper of the application */
 .app-container {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f7f8fa;
 }
 
@@ -32,5 +32,5 @@ body {
   width: 100%;
   display: flex;
   height: calc(100% - 104px);
-  background-color: #f1f3f6;
+  justify-content: center;
 }

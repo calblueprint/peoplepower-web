@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/AllBills.css';
-import { centsToDollars } from '../../lib/subscriberUtils';
-import Bill from '../../components/Bill';
+import { centsToDollars } from '../../lib/subscriberHelper';
+import Bill from './Bill';
 import { getLoggedInUserId, logOut } from '../../lib/auth';
 
 const ROOT_ROUTE = '/';

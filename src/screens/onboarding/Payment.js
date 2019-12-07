@@ -1,7 +1,12 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { PayPalButton } from 'react-paypal-button-v2';
 import formValidation from '../../lib/formValidation';
 import { updatePerson } from '../../lib/request';
+import recordPaymentSuccess from '../../lib/paypal';
+
+import secret from '../../lib/secret';
+
+const { clientId } = secret;
 
 class Payment extends React.Component {
   constructor(props) {
@@ -11,11 +16,34 @@ class Payment extends React.Component {
     };
   }
 
+  onPaypalPaymentSuccess(details, data) {
+    const { latestBill } = this.state;
+    recordPaymentSuccess(details, data, latestBill);
+  }
+
   nextButton = e => {
     const { values, nextStep } = this.props;
-    const { errors, userId, numShares, dividends } = values;
+    const {
+      errors,
+      userId,
+      numShares,
+      dividends,
+      billingStreet,
+      billingApt,
+      billingCity,
+      billingState,
+      billingZipcode
+    } = values;
     e.preventDefault();
-    const fields = ['numShares', 'dividends'];
+    const fields = [
+      'numShares',
+      'dividends',
+      'billingStreet',
+      'billingApt',
+      'billingCity',
+      'billingState',
+      'billingZipcode'
+    ];
     const errorsMessages = [];
 
     for (let i = 0; i < fields.length; i += 1) {
@@ -32,10 +60,16 @@ class Payment extends React.Component {
         id: userId,
         fields: {
           'Number of Shares': numShares,
-          Dividends: dividends
+          Dividends: dividends,
+          'Billing Street': billingStreet,
+          'Billing Apt': billingApt,
+          'Billing City': billingCity,
+          'Billing State': billingState,
+          'Billing Zipcode': billingZipcode
         }
       };
       updatePerson(updatedPerson);
+      recordPaymentSuccess();
       nextStep();
     } else {
       this.forceUpdate();
@@ -83,7 +117,7 @@ class Payment extends React.Component {
     const { values, handleChange, handleFormValidation } = this.props;
     const { errors, numShares, billingAddressSame } = values;
     return (
-      <div className="flex row center">
+      <div className="flex onboarding-row center">
         <div className="w-60">
           <form className="">
             <div className="contact-header">Buy Shares</div>
@@ -92,7 +126,7 @@ class Payment extends React.Component {
               <label htmlFor="" className="w-100">
                 Number of Shares (max 10)
                 <button type="button" onClick={this.minusShares}>
-                  <FontAwesomeIcon icon="minus" color="gray" />
+                  -
                 </button>
                 <input
                   name="numShares"
@@ -102,7 +136,7 @@ class Payment extends React.Component {
                   defaultValue={values.numShares}
                 />
                 <button type="button" onClick={this.addShares}>
-                  <FontAwesomeIcon icon="plus" color="gray" />
+                  +
                 </button>
               </label>
             </div>
@@ -218,22 +252,24 @@ class Payment extends React.Component {
               <div className="b_flex row">
                 <div className="w-80 pr-1">
                   <input
-                    name="ccstreet"
+                    name="billingStreet"
                     placeholder="Address"
                     onChange={handleChange}
-                    defaultValue={values.ccstreet}
+                    defaultValue={values.billingStreet}
                     className={`input-white ${
-                      errors.ccstreet !== '' ? 'b-is-not-valid' : 'b-is-invalid'
+                      errors.billingStreet !== ''
+                        ? 'b-is-not-valid'
+                        : 'b-is-invalid'
                     }`}
                     onBlur={handleFormValidation}
                   />
                 </div>
                 <div className="w-20 ">
                   <input
-                    name="ccapt"
+                    name="billingApt"
                     placeholder="Apt"
                     onChange={handleChange}
-                    defaultValue={values.ccapt}
+                    defaultValue={values.billingApt}
                     className="input-white"
                   />
                 </div>
@@ -241,46 +277,50 @@ class Payment extends React.Component {
               <div className="flex row">
                 <div className="w-80 pr-1 validation">
                   {' '}
-                  {errors.ccstreet ? errors.ccstreet : '\u00A0'}
+                  {errors.billingStreet ? errors.billingStreet : '\u00A0'}
                 </div>
 
                 <div className="w-20 validation">
-                  {errors.apt ? errors.apt : '\u00A0'}
+                  {errors.billingApt ? errors.billingApt : '\u00A0'}
                 </div>
               </div>
               <div className="flex row">
                 <div className="w-60 pr-1">
                   <input
-                    name="cccity"
+                    name="billingCity"
                     placeholder="City"
                     onChange={handleChange}
-                    defaultValue={values.cccity}
+                    defaultValue={values.billingCity}
                     className={`input-white ${
-                      errors.cccity !== '' ? 'b-is-not-valid' : 'b-is-invalid'
+                      errors.billingCity !== ''
+                        ? 'b-is-not-valid'
+                        : 'b-is-invalid'
                     }`}
                     onBlur={handleFormValidation}
                   />
                 </div>
                 <div className="w-15 pr-1">
                   <input
-                    name="ccstate"
+                    name="billingState"
                     placeholder="State"
                     onChange={handleChange}
-                    defaultValue={values.ccstate}
+                    defaultValue={values.billingState}
                     className={`input-white ${
-                      errors.ccstate !== '' ? 'b-is-not-valid' : 'b-is-invalid'
+                      errors.billingState !== ''
+                        ? 'b-is-not-valid'
+                        : 'b-is-invalid'
                     }`}
                     onBlur={handleFormValidation}
                   />
                 </div>
                 <div className="w-25">
                   <input
-                    name="cczipcode"
+                    name="billingZipcode"
                     placeholder="Zipcode"
                     onChange={handleChange}
-                    defaultValue={values.cczipcode}
+                    defaultValue={values.billingZipcode}
                     className={`input-white ${
-                      errors.cczipcode !== ''
+                      errors.billingZipcode !== ''
                         ? 'b-is-not-valid'
                         : 'b-is-invalid'
                     }`}
@@ -289,12 +329,33 @@ class Payment extends React.Component {
                 </div>
               </div>
             </div>
-            <button onClick={this.prevButton} type="button">
-              Prev
-            </button>
-            <button onClick={this.nextButton} type="button">
-              Finish
-            </button>
+            <PayPalButton
+              amount={numShares * 100}
+              onSuccess={this.onPaypalPaymentSuccess}
+              options={{
+                clientId
+              }}
+            />
+            <div className="flex onboarding-row w-100 right justify-space-between">
+              <div className="left">
+                <button
+                  type="button"
+                  className="back-button"
+                  onClick={this.prevButton}
+                >
+                  Go back
+                </button>
+              </div>
+              <div className="right">
+                <button
+                  type="button"
+                  className="continue-button"
+                  onClick={this.nextButton}
+                >
+                  Confirm Payment
+                </button>
+              </div>
+            </div>
           </form>
         </div>
         <div className="w-40">

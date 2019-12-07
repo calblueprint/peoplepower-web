@@ -69,7 +69,9 @@ class Bylaws extends React.Component {
                 <span className="checkmark" />
               </label>
             </div>
-            {!values.bylaw1 && <div>{errors.bylaw1}</div>}
+            <div className=" validation">
+              {errors.bylaw1 ? errors.bylaw1 : '\u00A0'}
+            </div>
             <div style={{ display: 'inline', position: 'relative' }}>
               <label className="checkbox-container">
                 <div className="checkbox-text">
@@ -93,10 +95,12 @@ class Bylaws extends React.Component {
                 <span className="checkmark" />
               </label>
             </div>
-            {!values.bylaw2 && <div>{errors.bylaw2}</div>}
+            <div className=" validation">
+              {errors.bylaw2 ? errors.bylaw2 : '\u00A0'}
+            </div>
           </div>
         </div>
-        <div className="flex row w-100 right justify-space-between">
+        <div className="flex onboarding-row w-100 right justify-space-between">
           <div className="left">
             <button
               type="button"

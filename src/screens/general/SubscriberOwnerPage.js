@@ -5,7 +5,7 @@ import AllBills from './AllBills';
 import SubscriberOwnerDashboard from './SubscriberOwnerDashboard/SubscriberOwnerDashboard';
 import { getLoggedInUserId } from '../../lib/auth';
 
-import { areDiffBills, getSubscriberBills } from '../../lib/subscriberUtils';
+import { areDiffBills, getSubscriberBills } from '../../lib/subscriberHelper';
 
 export default class SubscriberOwnerPage extends React.Component {
   constructor(props) {

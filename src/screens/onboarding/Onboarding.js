@@ -48,10 +48,10 @@ class Onboarding extends React.Component {
       expmonth: '',
       expyear: '',
       cvv: '',
-      ccstreet: '',
-      ccapt: '',
-      ccstate: '',
-      cczipcode: '',
+      billingStreet: '',
+      billingApt: '',
+      billingState: '',
+      billingZipcode: '',
       errors: {
         // object that holds all the error messages
         fname: '',
@@ -76,14 +76,15 @@ class Onboarding extends React.Component {
         numShares: '',
         dividends: false,
         beneficiaries: [],
-        ccnumber: '',
+        ccNumber: '',
         expmonth: '',
         expyear: '',
         cvv: '',
-        ccstreet: '',
-        ccapt: '',
-        ccstate: '',
-        cczipcode: ''
+        billingStreet: '',
+        billingApt: '',
+        billingCity: '',
+        billingState: '',
+        billingZipcode: ''
       },
       step: 1
     };
@@ -93,50 +94,57 @@ class Onboarding extends React.Component {
 
   componentDidMount() {
     const id = getLoggedInUserId();
-    const { step, projectGroup, numShares } = this.state;
+    const { step, numShares, projectGroup } = this.state;
     // Person does not have a User Id
     if (!id) {
       return;
     }
 
     this.setState({ userId: id });
-    getRecord('Person', id).then(payload => {
-      this.setState({
-        step: payload.record['Onboarding Step'],
-        userLoginId: payload.record['User Login'][0],
-        personId: payload.record.Owner[0],
-        fname: payload.record.Name.split(' ')[0],
-        lname: payload.record.Name.split(' ')[1],
-        email: payload.record.Email,
-        altEmail: payload.record['Alternative Email'],
-        street: payload.record.Street,
-        apt: payload.record.Apt,
-        city: payload.record.City,
-        state: payload.record.State,
-        zipcode: payload.record.Zipcode,
-        phoneNumber: payload.record['Phone Number'],
-        mailingStreet: payload.record['Mailing Street'],
-        mailingApt: payload.record['Mailing Apt'],
-        mailingCity: payload.record['Mailing City'],
-        mailingState: payload.record['Mailing State'],
-        mailingZipcode: payload.record['Mailing Zipcode'],
-        mailingPhoneNumber: payload.record['Mailing Phone Number'],
-        numShares: payload.record['Number of Shares'],
-        dividends: payload.record.Dividends,
-        password: '*****'
-      });
-      if (!numShares) {
+    getRecord('Person', id)
+      .then(payload => {
         this.setState({
-          numShares: 0
+          step: payload.record['Onboarding Step'],
+          userLoginId: payload.record['User Login'][0],
+          personId: payload.record.Owner[0],
+          fname: payload.record.Name.split(' ')[0],
+          lname: payload.record.Name.split(' ')[1],
+          email: payload.record.Email,
+          altEmail: payload.record['Alternative Email'],
+          street: payload.record.Street,
+          apt: payload.record.Apt,
+          city: payload.record.City,
+          state: payload.record.State,
+          zipcode: payload.record.Zipcode,
+          phoneNumber: payload.record['Phone Number'],
+          mailingStreet: payload.record['Mailing Street'],
+          mailingApt: payload.record['Mailing Apt'],
+          mailingCity: payload.record['Mailing City'],
+          mailingState: payload.record['Mailing State'],
+          mailingZipcode: payload.record['Mailing Zipcode'],
+          mailingPhoneNumber: payload.record['Mailing Phone Number'],
+          billingStreet: payload.record['Billing Street'],
+          billingApt: payload.record['Billing Apt'],
+          billingCity: payload.record['Billing City'],
+          billingState: payload.record['Billing State'],
+          billingZipcode: payload.record['Billing Zipcode'],
+          numShares: payload.record['Number of Shares'],
+          dividends: payload.record.Dividends,
+          password: '*****'
         });
-      }
-    });
-    getRecord('Owner', id).then(payload => {
-      console.log(payload);
-      // this.setState({
-      //     projectGroup: [payload.record["Project Group"].id]
-      // });
-    });
+        if (!numShares) {
+          this.setState({
+            numShares: 0
+          });
+        }
+        const { Owner: owner } = payload.record;
+        return getRecord('Owner', owner);
+      })
+      .then(payload => {
+        this.setState({
+          projectGroup: payload.record['Project Group'][0]
+        });
+      });
     if (step > 3 && projectGroup === {}) {
       this.setState({
         noProjectGroup: true
@@ -196,11 +204,11 @@ class Onboarding extends React.Component {
       case 'billingAddressSame':
         if (!billingAddressSame) {
           this.setState({
-            ccstreet: street,
-            ccapt: apt,
-            cccity: city,
-            ccstate: state,
-            cczipcode: zipcode
+            billingStreet: street,
+            billingApt: apt,
+            billingCity: city,
+            billingState: state,
+            billingZipcode: zipcode
           });
         }
         this.setState({
@@ -294,11 +302,11 @@ class Onboarding extends React.Component {
       expmonth,
       expyear,
       cvv,
-      ccstreet,
-      ccapt,
-      cccity,
-      ccstate,
-      cczipcode,
+      billingStreet,
+      billingApt,
+      billingCity,
+      billingState,
+      billingZipcode,
       errors,
       touched
     } = this.state;
@@ -336,11 +344,11 @@ class Onboarding extends React.Component {
       expmonth,
       expyear,
       cvv,
-      ccstreet,
-      ccapt,
-      cccity,
-      ccstate,
-      cczipcode,
+      billingStreet,
+      billingApt,
+      billingCity,
+      billingState,
+      billingZipcode,
       errors,
       touched
     };

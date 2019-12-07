@@ -56,7 +56,7 @@ const validateRecordAndField = record => {
 const validatePersonRecord = record => {
   validateRecordAndField(record);
   if (record.record.ID == null) {
-    throw Error('record.record.ID of getRecordWithPromise is null');
+    throw Error('record.record.ID of getRecord is null');
   }
 };
 

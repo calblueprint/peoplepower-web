@@ -14,13 +14,12 @@ function formValidation(name, value) {
       return '';
     case 'bylaw1':
     case 'bylaw2':
-      console.log('checking');
       if (!value) {
         return 'Required';
       }
       return '';
     case 'projectGroup':
-      if (typeof value.id === 'undefined') {
+      if (value === '') {
         return 'Please choose a group';
       }
       return '';
@@ -45,6 +44,7 @@ function formValidation(name, value) {
       return '';
     case 'zipcode':
     case 'mailingZipcode':
+    case 'billingZipcode':
       if (value === '') {
         return 'Required';
       }
@@ -60,6 +60,7 @@ function formValidation(name, value) {
       return '';
     case 'state':
     case 'mailingState':
+    case 'billingState':
       if (value === '') {
         return 'Required';
       }
@@ -75,6 +76,7 @@ function formValidation(name, value) {
       return 'Invalid State';
     case 'apt':
     case 'mailingApt':
+    case 'billingApt':
       return '';
     default:
       if (value === undefined) {

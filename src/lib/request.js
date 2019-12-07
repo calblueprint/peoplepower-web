@@ -2,14 +2,16 @@
   Helper functions intended to streamline our requests to the AirTable API. 
 */
 
-import keys from './secret';
+import secret from './secret';
+
+const { key } = secret;
 
 const Airtable = require('airtable');
 
 // API KEY will reside in ENV variables later.
 Airtable.configure({
   endpointUrl: 'https://api.airtable.com',
-  apiKey: keys.key
+  apiKey: key
 });
 
 const base = Airtable.base('appFaOwKhMXrRIQIp');
@@ -29,9 +31,9 @@ function getRecord(table, id) {
   });
 }
 
-/* 
+/*
   GENERAL SEARCH
-  Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
+  Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'),
   return the associated record object.
 */
 function getRecordsFromAttribute(table, fieldType, field) {
@@ -57,6 +59,30 @@ function getRecordsFromAttribute(table, fieldType, field) {
         // 	console.log('Retrieved', record.fields);
         // 	return record
         // });
+      });
+  });
+}
+
+function getMultipleFromAttr(table, fieldName, fieldValue) {
+  return new Promise((resolve, reject) => {
+    base(table)
+      .select({
+        view: 'Grid view',
+        maxRecords: 10,
+        filterByFormula: `{${fieldName}}='${fieldValue}'`
+      })
+      .firstPage(function(err, records) {
+        if (err) {
+          reject(err);
+        }
+        if (records === null || records.length < 1) {
+          const msg = `No record was retrieved using this ${fieldName}.`;
+          reject(msg);
+        } else {
+          resolve(records);
+        }
+
+        resolve({ records });
       });
   });
 }
@@ -92,39 +118,17 @@ function getAllRecords(table) {
   });
 }
 
-function getMultipleFromAttr(table, fieldName, fieldValue) {
-  return new Promise((resolve, reject) => {
-    base(table)
-      .select({
-        view: 'Grid view',
-        maxRecords: 10,
-        filterByFormula: `{${fieldName}}='${fieldValue}'`
-      })
-      .firstPage(function(err, records) {
-        if (err) {
-          reject(err);
-        }
-        if (records === null || records.length < 1) {
-          const msg = `No record was retrieved using this ${fieldName}.`;
-          reject(msg);
-        } else {
-          resolve(records);
-        }
-      });
-  });
-}
-
-/* 
+/*
 	******** CREATE RECORDS ********
   You can create a person record using the `create` method with the Airtable API.
   It looks like this:
 
     base('Person').create([person], function callback(err, records) {))
 
-	You can pass in UP TO 10 person record objects into the array parameter `person`. 
+	You can pass in UP TO 10 person record objects into the array parameter `person`.
   The `person` variable should look like the example below.
-  
-  EXAMPLE OBJECT TO CREATE A PERSON: 
+
+  EXAMPLE OBJECT TO CREATE A PERSON:
     {
       "fields": {
         "Email": email,
@@ -135,7 +139,7 @@ function getMultipleFromAttr(table, fieldName, fieldValue) {
         "User Login": [userLogin],
         "Name": name
       }
-    } 
+    }
 
     Make sure linked records are represented as an array:
     "Owner": [recsnkM5ms2NJhVW0]
@@ -143,6 +147,19 @@ function getMultipleFromAttr(table, fieldName, fieldValue) {
 
 // Given a person object, create a record of that person.
 function createPerson(person) {
+  /* EXAMPLE OBJECT TO CREATE PERSON
+  {
+    "fields": {
+      "Email": email,
+      "Phone Number": phoneNumber,
+      "Owner": [owner],
+      "Address": [address],
+      "Tags": tags,
+      "User Login": [userLogin],
+      "Name": name
+    }
+  }
+*/
   return new Promise((resolve, reject) => {
     base('Person').create([person], function(err, records) {
       if (err) {
@@ -171,16 +188,16 @@ function createRecord(table, record) {
   });
 }
 
-/* 
+/*
 	******** UPDATE RECORDS ********
   When updating methods, you can either use the `update` or `replace` method. It looks like this:
 
-    base('Person').update([updatedPerson], function callback(err, records) {}) 
-      or 
+    base('Person').update([updatedPerson], function callback(err, records) {})
+      or
     base('Person').replace([replacedPerson], function callback(err, records) {})
 
-	Using `update` will only update the fields you specify, leaving the rest as they were. 
-	Using `replace` will perform a destructive update and clear all unspecified cell values. 
+	Using `update` will only update the fields you specify, leaving the rest as they were.
+	Using `replace` will perform a destructive update and clear all unspecified cell values.
 
 	- Max 10 records to be updated/replaced per call.
     - Depends on how many records you put in `[updatedPerson]`
@@ -242,8 +259,8 @@ function updateRecord(table, updatedRecord) {
 export {
   getRecordsFromAttribute,
   getRecord,
-  getAllRecords,
   getMultipleFromAttr,
+  getAllRecords,
   createPerson,
   createRecord,
   updatePerson,

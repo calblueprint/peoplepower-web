@@ -1,7 +1,7 @@
 import Cookies from 'universal-cookie';
-import keys from './secret';
+import secret from './secret';
 
-const { key } = keys;
+const { key } = secret;
 
 const cookies = new Cookies();
 
@@ -18,12 +18,11 @@ const NUM_RECORDS = 1;
 
 const LOGIN_TOKEN_NAME = 'loginToken';
 
-// tables
-const USER_LOGIN_TABLE = 'User Login';
+const table = 'User Login';
 
 const loginUser = (email, passwordHash) => {
   return new Promise((resolve, reject) => {
-    base(USER_LOGIN_TABLE)
+    base(table)
       .select({
         maxRecords: NUM_RECORDS,
         view: GRID_VIEW,
