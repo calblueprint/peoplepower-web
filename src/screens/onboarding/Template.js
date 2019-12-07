@@ -18,7 +18,7 @@ const header = [
 
 function Template(page, step) {
   return (
-    <div className="template-center w-70">
+    <div className="flex onboarding-col template-center w-70">
       <div className="template-card">
         <h1 className="template-header">{header[step - 2]}</h1>
         <p className="template-body">{text[step - 2]}</p>

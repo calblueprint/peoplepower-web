@@ -85,7 +85,9 @@ class Payment extends React.Component {
         value: numShares - 1
       }
     };
-    handleChange(event);
+    if (event.target.value > -1) {
+      handleChange(event);
+    }
   };
 
   addShares = () => {
@@ -97,7 +99,9 @@ class Payment extends React.Component {
         value: numShares + 1
       }
     };
-    handleChange(event);
+    if (event.target.value < 11) {
+      handleChange(event);
+    }
   };
 
   prevButton = e => {
@@ -117,255 +121,277 @@ class Payment extends React.Component {
     const { values, handleChange, handleFormValidation } = this.props;
     const { errors, numShares, billingAddressSame } = values;
     return (
-      <div className="flex onboarding-row center">
-        <div className="w-60">
-          <form className="">
-            <div className="contact-header">Buy Shares</div>
-
-            <div>
-              <label htmlFor="" className="w-100">
-                Number of Shares (max 10)
-                <button type="button" onClick={this.minusShares}>
-                  -
-                </button>
-                <input
-                  name="numShares"
-                  className="input-white w-25"
-                  placeholder=""
-                  onChange={handleChange}
-                  defaultValue={values.numShares}
-                />
-                <button type="button" onClick={this.addShares}>
-                  +
-                </button>
-              </label>
-            </div>
-            <div>{errors.numShares ? errors.numShares : '\u00A0'}</div>
-            <div>
-              We aim to provide dividends of around 1.5% per year. Please select
-              your preference for dividends:
+      <div className="w-100">
+        <div className="flex w-100 justify-space-between onboarding-row ">
+          <div className="w-60">
+            <div className="payment-shares-card">
+              <div className="payment-shares-header">
+                Number of shares (max 10)
+              </div>
+              <div className="payment-shares-input">
+                <label htmlFor="" className="w-100">
+                  <button
+                    type="button"
+                    className="payment-shares-input-button-minus"
+                    onClick={this.minusShares}
+                  >
+                    -
+                  </button>
+                  <input
+                    name="numShares"
+                    className="payment-shares-input-field"
+                    placeholder=""
+                    onChange={handleChange}
+                    defaultValue={values.numShares}
+                  />
+                  <button
+                    type="button"
+                    className="payment-shares-input-button-plus"
+                    onClick={this.addShares}
+                  >
+                    +
+                  </button>
+                </label>
+              </div>
+              <div className="validation">
+                {errors.numShares ? errors.numShares : '\u00A0'}
+              </div>
               <div>
-                <label htmlFor="dividends">
+                <div className="payment-dividends-header">
+                  We aim to provide dividends of around 1.5% per year. Please
+                  select your preference for dividends:
+                </div>
+                <div className="payment-dividends-option">
                   <input
                     type="radio"
                     name="dividends"
-                    className="input-white"
-                    value="yes"
+                    className="payment-dividends-radio"
+                    value="no"
                     checked={values.dividends === 'yes'}
                     onChange={handleChange}
                   />
-                  Yes, I’d like dividends, thank you!
-                </label>
-              </div>
-              <div>
-                <label htmlFor="dividends">
+                  <span className="payment-dividends-radio" />
+                  <label htmlFor="" className="payment-dividends-choice">
+                    Yes, I’d like dividends, thank you!
+                  </label>
+                </div>
+                <div className="payment-dividends-option">
                   <input
                     type="radio"
                     name="dividends"
-                    className="input-white"
+                    className="payment-dividends-radio"
                     value="no"
                     checked={values.dividends === 'no'}
                     onChange={handleChange}
                   />
-                  No dividends please. (No pressure to choose this option. We
-                  provide the option because people who waive dividends reduce
-                  the cost of capital, which reduces the cost of solar, and that
-                  helps our cooperative grow its impact.)
-                </label>
+                  <span className="payment-dividends-radio" />
+                  <label htmlFor="" className="payment-dividends-choice">
+                    No dividends please. (No pressure to choose this option. We
+                    provide the option because people who waive dividends reduce
+                    the cost of capital, which reduces the cost of solar, and
+                    that helps our cooperative grow its impact.)
+                  </label>
+                </div>
               </div>
-              <div>Payment Information</div>
-              <div className="w-100 pr-1">
+            </div>
+            <div className="payment-cc-card">
+              <div className="payment-shares-header">Payment Information</div>
+              <div className="w-100 pr-1 ">
+                <label className="payment-cc-label">Credit card Number</label>
                 <input
                   name="ccnumber"
-                  placeholder="Credit card number"
                   onChange={handleChange}
                   defaultValue={values.ccnumber}
-                  className={` input-white ${
-                    errors.ccnumber !== '' ? 'b-is-not-valid' : 'b-is-invalid'
-                  }`}
+                  className="payment-cc-input"
                 />
               </div>
-              <div>{errors.ccnumber ? errors.ccnumber : '\u00A0'}</div>
-              <div className="flex row">
+              <div className="validation">
+                {errors.ccnumber ? errors.ccnumber : '\u00A0'}
+              </div>
+              <div className="flex onboarding-row">
                 <div className="w-50 pr-1">
+                  <label className="payment-cc-label">Expiration Month</label>
                   <input
                     name="expmonth"
-                    placeholder="Expiration Month"
                     onChange={handleChange}
                     defaultValue={values.expmonth}
-                    className={` input-white ${
-                      errors.expmonth !== '' ? 'b-is-not-valid' : 'b-is-invalid'
-                    }`}
-                    onBlur={handleFormValidation}
+                    className="payment-cc-input"
                   />
                 </div>
-                <div className="w-50">
+                <div className="w-50 pr-1">
+                  <label className="payment-cc-label">Expiration Year</label>
                   <input
                     name="expyear"
-                    placeholder="Expiration Year"
                     onChange={handleChange}
                     defaultValue={values.expyear}
-                    className={` input-white ${
-                      errors.expyear !== '' ? 'b-is-not-valid' : 'b-is-invalid'
-                    }`}
-                    onBlur={handleFormValidation}
+                    className="payment-cc-input"
                   />
                 </div>
               </div>
-              <div className="flex row">
+              <div className="flex onboarding-row">
                 <div className="w-50 pr-1">
-                  <div>{errors.expmonth ? errors.expmonth : '\u00A0'}</div>
+                  <div className="validation">
+                    {errors.expmonth ? errors.expmonth : '\u00A0'}
+                  </div>
                 </div>
                 <div className="w-50 pr-1">
-                  <div>{errors.expyear ? errors.expyear : '\u00A0'}</div>
+                  <div className="validation">
+                    {errors.expyear ? errors.expyear : '\u00A0'}
+                  </div>
                 </div>
               </div>
               <div className="w-30 pr-1">
+                <label className="payment-cc-label">CVV</label>
                 <input
                   name="cvv"
-                  placeholder="CVV"
                   onChange={handleChange}
                   defaultValue={values.cvv}
-                  className={` input-white ${
-                    errors.cvv !== '' ? 'b-is-not-valid' : 'b-is-invalid'
-                  }`}
+                  className="payment-cc-input"
                 />
               </div>
               <div className="w-30 pr-1">
-                <div>{errors.cvv ? errors.cvv : '\u00A0'}</div>
+                <div className="validation">
+                  {errors.cvv ? errors.cvv : '\u00A0'}
+                </div>
               </div>
             </div>
-            <div>{errors.cvv ? errors.cvv : '\u00A0'}</div>
-            <div>
-              <label htmlFor="dividends">
-                <input
-                  type="checkbox"
-                  name="billingAddressSame"
-                  onClick={this.changeBillingAddress}
-                  onChange={handleChange}
-                  checked={billingAddressSame}
-                />
-                My billing address is the same.
-              </label>
-            </div>
-            <div style={{ display: billingAddressSame ? 'none' : 'block' }}>
-              <div className="b_flex row">
-                <div className="w-80 pr-1">
+            <div className="payment-cc-card">
+              <div className="payment-shares-header">Billing Address</div>
+              <div>
+                <label className="checkbox-container">
+                  <div className="checkbox-text">
+                    My billing address is the same as my mailing address.
+                  </div>
+                  <input
+                    type="checkbox"
+                    name="billingAddressSame"
+                    onClick={this.changeBillingAddress}
+                    onChange={handleChange}
+                    checked={billingAddressSame}
+                  />
+                  <span className="checkmark" />
+                </label>
+              </div>
+              <div style={{ display: billingAddressSame ? 'none' : 'block' }}>
+                <div className="w-100 pr-1 ">
+                  <label className="payment-cc-label">Address Line 1*</label>
                   <input
                     name="billingStreet"
-                    placeholder="Address"
                     onChange={handleChange}
                     defaultValue={values.billingStreet}
-                    className={`input-white ${
-                      errors.billingStreet !== ''
-                        ? 'b-is-not-valid'
-                        : 'b-is-invalid'
-                    }`}
                     onBlur={handleFormValidation}
+                    className="payment-cc-input"
                   />
                 </div>
-                <div className="w-20 ">
-                  <input
-                    name="billingApt"
-                    placeholder="Apt"
-                    onChange={handleChange}
-                    defaultValue={values.billingApt}
-                    className="input-white"
-                  />
-                </div>
-              </div>
-              <div className="flex row">
-                <div className="w-80 pr-1 validation">
-                  {' '}
+                <div className="validation">
                   {errors.billingStreet ? errors.billingStreet : '\u00A0'}
                 </div>
-
-                <div className="w-20 validation">
+                <div className="w-100 pr-1 ">
+                  <label className="payment-cc-label">Address Line 2</label>
+                  <input
+                    name="billingApt"
+                    onChange={handleChange}
+                    defaultValue={values.billingApt}
+                    onBlur={handleFormValidation}
+                    className="payment-cc-input"
+                  />
+                </div>
+                <div className="validation">
                   {errors.billingApt ? errors.billingApt : '\u00A0'}
                 </div>
-              </div>
-              <div className="flex row">
-                <div className="w-60 pr-1">
-                  <input
-                    name="billingCity"
-                    placeholder="City"
-                    onChange={handleChange}
-                    defaultValue={values.billingCity}
-                    className={`input-white ${
-                      errors.billingCity !== ''
-                        ? 'b-is-not-valid'
-                        : 'b-is-invalid'
-                    }`}
-                    onBlur={handleFormValidation}
-                  />
+                <div className="w-100 flex">
+                  <div className="w-70 pr-1 ">
+                    <label className="payment-cc-label">City</label>
+                    <input
+                      name="billingCity"
+                      onChange={handleChange}
+                      defaultValue={values.billingCity}
+                      onBlur={handleFormValidation}
+                      className="payment-cc-input"
+                    />
+                  </div>
+                  <div className="w-10 pr-1 ">
+                    <label className="payment-cc-label">City</label>
+                    <input
+                      name="billingState"
+                      onChange={handleChange}
+                      defaultValue={values.billingState}
+                      onBlur={handleFormValidation}
+                      className="payment-cc-input"
+                    />
+                  </div>
+                  <div className="w-20 pr-1 ">
+                    <label className="payment-cc-label">City</label>
+                    <input
+                      name="billingZipcode"
+                      onChange={handleChange}
+                      defaultValue={values.billingZipcode}
+                      onBlur={handleFormValidation}
+                      className="payment-cc-input"
+                    />
+                  </div>
                 </div>
-                <div className="w-15 pr-1">
-                  <input
-                    name="billingState"
-                    placeholder="State"
-                    onChange={handleChange}
-                    defaultValue={values.billingState}
-                    className={`input-white ${
-                      errors.billingState !== ''
-                        ? 'b-is-not-valid'
-                        : 'b-is-invalid'
-                    }`}
-                    onBlur={handleFormValidation}
-                  />
-                </div>
-                <div className="w-25">
-                  <input
-                    name="billingZipcode"
-                    placeholder="Zipcode"
-                    onChange={handleChange}
-                    defaultValue={values.billingZipcode}
-                    className={`input-white ${
-                      errors.billingZipcode !== ''
-                        ? 'b-is-not-valid'
-                        : 'b-is-invalid'
-                    }`}
-                    onBlur={handleFormValidation}
-                  />
+                <div className="w-100 flex">
+                  <div className="w-70 pr-1 validation">
+                    {errors.billingCity ? errors.billingCity : '\u00A0'}
+                  </div>
+                  <div className="w-10 pr-1 validation">
+                    {errors.billingState ? errors.billingState : '\u00A0'}
+                  </div>
+                  <div className="w-20 pr-1 validation">
+                    {errors.billingZipcode ? errors.billingZipcode : '\u00A0'}
+                  </div>
                 </div>
               </div>
             </div>
-            <PayPalButton
-              amount={numShares * 100}
-              onSuccess={this.onPaypalPaymentSuccess}
-              options={{
-                clientId
-              }}
-            />
-            <div className="flex onboarding-row w-100 right justify-space-between">
-              <div className="left">
-                <button
-                  type="button"
-                  className="back-button"
-                  onClick={this.prevButton}
-                >
-                  Go back
-                </button>
+          </div>
+          <div className="w-40 pl-1">
+            <div className="payment-summary-card">
+              <div className="payment-summary-header">Order Summary</div>
+              <div className="flex justify-space-between">
+                <div className="left payment-summary-shares">Shares</div>
+                <div className="right payment-summary-shares">
+                  ${numShares * 100}.00
+                </div>
               </div>
-              <div className="right">
-                <button
-                  type="button"
-                  className="continue-button"
-                  onClick={this.nextButton}
-                >
-                  Confirm Payment
-                </button>
+              <div className="payment-summary-qty">QTY: {numShares}</div>
+              <hr className="payment-summary-hr" />
+              <div className="flex justify-space-between">
+                <div className="left payment-summary-total">Total</div>
+                <div className="right payment-summary-total">
+                  ${numShares * 100}.00
+                </div>
               </div>
             </div>
-          </form>
+            <div className="mt-1">
+              <PayPalButton
+                amount={numShares * 100}
+                onSuccess={this.onPaypalPaymentSuccess}
+                options={{
+                  clientId
+                }}
+              />
+            </div>
+          </div>
         </div>
-        <div className="w-40">
-          <div className="info-card ">
-            <div>Shares</div>
-            <div>${numShares * 100}.00</div>
-            <div>Qty:{numShares}</div>
-            <br />
-            <div>Total</div>
-            <div>${numShares * 100}.00</div>
+        <div className="steps-buttons flex onboarding-row w-100 right justify-space-between">
+          <div className="left">
+            <button
+              type="button"
+              className="back-button"
+              onClick={this.prevButton}
+            >
+              Go back
+            </button>
+          </div>
+          <div className="right">
+            <button
+              type="button"
+              className="continue-button"
+              onClick={this.nextButton}
+            >
+              Confirm Payment
+            </button>
           </div>
         </div>
       </div>

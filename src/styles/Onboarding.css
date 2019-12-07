@@ -302,6 +302,10 @@
   width: 30%;
 }
 
+.w-35 {
+  width: 35%;
+}
+
 .w-20 {
   width: 20%;
 }
@@ -354,6 +358,10 @@ w-pasword {
 
 .mt-50 {
   margin-top: 50%;
+}
+
+.mt-1 {
+  margin-top: 1rem;
 }
 
 .arrow {
@@ -786,12 +794,6 @@ carousel__arrow--right {
 
 .template-center {
   margin: 0 auto;
-  /*position: absolute;*/
-  /*!*top: 50%;*!*/
-  /*!*left: 50%;*!*/
-  /*!*transform: translate(-50%, -50%);*!*/
-  /*left: 50%;*/
-  /*margin-left: -50px;*/
 }
 
 .back-button {
@@ -891,4 +893,204 @@ carousel__arrow--right {
   color: #cd6795;
   font-weight: bold;
   text-decoration: none;
+}
+
+.payment-summary-header {
+  font-size: 18px;
+  line-height: 25px;
+  color: #395578;
+  /*margin-bottom: 1rem*/
+  font-weight: 500;
+  margin: 2rem 1.75rem 1rem 1.75rem;
+}
+
+.payment-summary-shares {
+  font-size: 16px;
+  line-height: 22px;
+  color: #24364d;
+  margin: 0 1.75rem 0.3rem 1.75rem;
+}
+
+.payment-summary-qty {
+  font-size: 16px;
+  color: #999999;
+  margin: 0rem 1.75rem 1rem 1.75rem;
+}
+
+.payment-summary-hr {
+  border-bottom: 1px solid #edf1f5;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 100%;
+}
+
+.payment-summary-total {
+  font-size: 16px;
+  color: #24364d;
+  font-weight: 600;
+  margin: 1rem 1.75rem 2rem 1.75rem;
+}
+
+.payment-summary-card {
+  background-color: white;
+  border-color: #edf1f5;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.payment-shares-card {
+  background-color: white;
+  border-color: #edf1f5;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  padding: 2rem 1.75rem;
+}
+
+.payment-shares-header {
+  font-size: 16px;
+  color: #24364d;
+  margin-bottom: 1rem;
+}
+
+.payment-shares-input {
+  display: inline-flex;
+  align-items: center;
+}
+
+.payment-shares-input-button-minus {
+  background: rgba(180, 184, 191, 0.5);
+  margin-right: 0;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 2.5px 0 0 2.5px;
+  border: 1px solid #b4b8bf;
+  border-right: none;
+  color: rgba(36, 54, 77, 0.8);
+  font-size: 22px;
+}
+
+.payment-shares-input-button-plus {
+  background: rgba(180, 184, 191, 0.5);
+  margin-right: 0;
+  height: 2rem;
+  width: 2rem;
+  border-left: none;
+  border-radius: 0 2.5px 2.5px 0;
+  border: 1px solid #b4b8bf;
+  border-left: none;
+  color: rgba(36, 54, 77, 0.8);
+  font-size: 22px;
+}
+
+.payment-shares-input-field {
+  background: white;
+  margin-right: 0;
+  height: calc(2rem - 4px);
+  line-height: 16px;
+  border-radius: 0;
+  color: rgba(36, 54, 77, 0.4);
+  font-size: 16px;
+  width: 8rem;
+  border: 1px solid #b4b8bf;
+  border-left: none;
+  border-right: none;
+  text-align: center;
+}
+
+.payment-dividends-header {
+  font-weight: 600;
+  font-size: 16px;
+  color: #24364d;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.payment-dividends-choice {
+  font-size: 16px;
+  color: #24364d;
+  display: block;
+  margin-left: 1.75rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.payment-dividends-option {
+  display: flex;
+}
+
+.payment-dividends-option input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.payment-dividends-radio {
+  border: 1px solid #b4b8bf;
+  float: left;
+  position: absolute;
+  height: 1.05rem;
+  width: 1.05rem;
+  background-color: white;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.payment-dividends-option:hover input ~ .payment-dividends-radio {
+  background-color: #b4b8bf;
+}
+
+/* When the radio button is checked, add a blue background */
+.payment-dividends-option input:checked ~ .payment-dividends-radio {
+  background-color: #2196f3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.payment-dividends-radio:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.payment-dividends-option input:checked ~ .payment-dividends-radio:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.payment-dividends-option .payment-dividends-radio:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+.payment-cc-card {
+  background-color: white;
+  border-color: #edf1f5;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  padding: 2rem 1.75rem;
+  margin-top: 1rem;
+}
+
+.payment-cc-label {
+  font-size: 12px;
+  line-height: 16px;
+  color: #7387a2;
+}
+
+.payment-cc-input {
+  background: #ffffff;
+  border: 1px solid #b4b8bf;
+  box-sizing: border-box;
+  border-radius: 2.5px;
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+  margin-top: 0.5rem;
 }

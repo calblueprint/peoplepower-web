@@ -19,10 +19,10 @@ class Complete extends React.Component {
         <div className="right">
           <button
             type="button"
-            className="continue-button"
+            className="getstarted-button"
             onClick={this.dashboardButton}
           >
-            Confirm Payment
+            Continue to Dashboard
           </button>
         </div>
       </div>
