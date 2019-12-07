@@ -61,22 +61,19 @@ export default class NavBar extends React.Component {
             <li className="navItem">
               <Link to="/dashboard">Dashboard</Link>
             </li>
+            {credentials.includes('S') ? (
+              <li className="navItem">
+                <Link to="/billing">Billing</Link>
+              </li>
+            ) : null}
+            <li className="navItem">
+              <Link to="/community">Community</Link>
+            </li>
             {credentials.includes('A') ? (
               <li className="navItem">
                 <Link to="/admin">Admin</Link>
               </li>
             ) : null}
-            {credentials.includes('S') ? (
-              <li className="navItem">
-                <Link to="/subdashboard">Subscriber</Link>
-              </li>
-            ) : null}
-            <li className="navItem">
-              <Link to="/finances">My Finances</Link>
-            </li>
-            <li className="navItem">
-              <Link to="/community">Community</Link>
-            </li>
             <li className="navItem">
               <Link to={`/profile/${id}`}>
                 <span>{name}</span>
