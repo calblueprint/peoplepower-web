@@ -2,7 +2,7 @@ import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import formValidation from '../../lib/formValidation';
 import { updatePerson } from '../../lib/request';
-import recordPaymentSuccess from '../../lib/paypal';
+import recordBillPaymentSuccess from '../../lib/paypal';
 
 import secret from '../../lib/secret';
 
@@ -18,7 +18,7 @@ class Payment extends React.Component {
 
   onPaypalPaymentSuccess(details, data) {
     const { latestBill } = this.state;
-    recordPaymentSuccess(details, data, latestBill);
+    recordBillPaymentSuccess(details, data, latestBill);
   }
 
   nextButton = e => {
@@ -69,7 +69,7 @@ class Payment extends React.Component {
         }
       };
       updatePerson(updatedPerson);
-      recordPaymentSuccess();
+      recordBillPaymentSuccess();
       nextStep();
     } else {
       this.forceUpdate();

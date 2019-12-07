@@ -3,7 +3,7 @@ import { PayPalButton } from 'react-paypal-button-v2';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import { centsToDollars } from '../../../lib/subscriberHelper';
 import { getLoggedInUserId } from '../../../lib/auth';
-import recordPaymentSuccess from '../../../lib/paypal';
+import recordBillPaymentSuccess from '../../../lib/paypal';
 
 import secret from '../../../lib/secret';
 
@@ -29,7 +29,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
 
   onPaypalPaymentSuccess(details, data) {
     const { latestBill } = this.state;
-    recordPaymentSuccess(details, data, latestBill);
+    recordBillPaymentSuccess(details, data, latestBill);
   }
 
   render() {

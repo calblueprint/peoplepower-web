@@ -22,7 +22,7 @@ const createPayment = async record => {
   return id;
 };
 
-const recordPaymentSuccess = async (details, data, bill) => {
+const recordBillPaymentSuccess = async (details, data, bill) => {
   /*
         DETAILS FIELDS
   
@@ -141,4 +141,4 @@ const recordPaymentSuccess = async (details, data, bill) => {
     });
 };
 
-export default recordPaymentSuccess;
+export default recordBillPaymentSuccess;
