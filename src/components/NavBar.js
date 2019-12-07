@@ -32,6 +32,13 @@ export default class NavBar extends React.Component {
     }
   }
 
+  updateNavbarState(id, name) {
+    this.setState({
+      id,
+      name
+    });
+  }
+
   render() {
     const { id, name } = this.state;
     return (
