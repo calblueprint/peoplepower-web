@@ -69,5 +69,4 @@ const logOut = () => {
   cookies.remove(LOGIN_TOKEN_NAME);
 };
 
-// export default loginUser;
 export { loginUser, getLoggedInUserId, logOut };

@@ -19,7 +19,8 @@ export default class NavBar extends React.Component {
 
     if (!id) {
       this.setState({
-        name: 'Sign In'
+        name: 'Sign In',
+        id
       });
     } else {
       getRecord('Person', id).then(payload => {
@@ -47,13 +48,15 @@ export default class NavBar extends React.Component {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li className="navItem">
-              <Link to="/finances">My Finances</Link>
+              <Link to={id === undefined ? '/' : `/profile/${id}`}>
+                My Finances
+              </Link>
             </li>
             <li className="navItem">
               <Link to="/community">Community</Link>
             </li>
             <li className="navItem">
-              <Link to={`/profile/${id}`}>
+              <Link to={id === undefined ? '/' : `/profile/${id}`}>
                 <span>{name}</span>
               </Link>
             </li>
