@@ -61,14 +61,14 @@
   color: #4f4f4f;
   /* padding-right: 7em; */
   /* width: 1em; */
-  flex: 0 0 9em;
+  flex: 1 1 9em;
 }
 
 .full-statement-middle {
   flex-grow: 1;
   color: #4f4f4f;
   justify-content: center;
-  flex: 0 0 11em;
+  flex: 1 1 11em;
 }
 
 .full-statement-right {

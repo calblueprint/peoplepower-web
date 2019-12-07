@@ -16,23 +16,15 @@ function PanelBillRow({ statementDate, startDate, amtDue, status }) {
   return (
     <div className="panel-bill-card">
       <div className="panel-bill-items">
-        <p className="panel-bill-items-internal panel-statement-left">
+        <p className="panel-bill-row panel-statement-left">
           {formatDate(statementDate)}
         </p>
-        <p className="panel-bill-items-internal panel-description panel-statement-middle">
+        <p className="panel-bill-row panel-description panel-statement-middle">
           {dateToFullMonth(startDate)} Power Bill
         </p>
-        <p className="panel-bill-items-internal panel-statement-middle">
-          {' '}
-          ${amtDue}
-        </p>
-        <p className="panel-bill-items-internal panel-statement-middle">
-          {/* TODO */}
-        </p>
-        <p className="panel-bill-items-internal panel-statement-right">
-          {' '}
-          {status}{' '}
-        </p>
+        <p className="panel-bill-row panel-statement-middle"> ${amtDue}</p>
+        <p className="panel-bill-row panel-statement-middle">{/* TODO */}</p>
+        <p className="panel-bill-row panel-statement-right"> {status} </p>
       </div>
     </div>
   );
