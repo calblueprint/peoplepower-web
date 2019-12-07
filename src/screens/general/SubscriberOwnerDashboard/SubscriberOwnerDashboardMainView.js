@@ -5,7 +5,7 @@ import { centsToDollars } from '../../../lib/subscriberHelper';
 import { getLoggedInUserId } from '../../../lib/auth';
 import recordPaymentSuccess from '../../../lib/paypal';
 import PanelBillHeader from './PanelBillHeader';
-import PanelBill from './PanelBill';
+import PanelBillRow from './PanelBillRow';
 
 import secret from '../../../secret';
 
@@ -103,7 +103,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
               <PanelBillHeader />
               {transactions.map(transaction => {
                 return (
-                  <PanelBill
+                  <PanelBillRow
                     statementDate={transaction['Statement Date']}
                     startDate={transaction['Start Date']}
                     status={transaction.Status}

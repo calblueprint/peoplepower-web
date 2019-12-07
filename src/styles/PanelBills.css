@@ -39,25 +39,26 @@
 .panel-statement-left {
   display: inline-block;
   color: #4f4f4f;
-  flex: 0 0 6em;
-  padding-left: 2em;
+  flex: 1 1 6em;
+  padding-left: 1em;
 }
 
 .panel-statement-middle {
   color: #4f4f4f;
   justify-content: center;
-  flex: 0 0 9em;
+  flex: 1 1 9em;
 }
 
 .panel-statement-right {
   color: #4f4f4f;
   padding-left: 0em;
-  flex: 0 0 3em;
+  flex: 1 1 3em;
+  padding-right: 1em;
 }
 
 .panel-description {
   font-weight: bold;
-  flex: 0 0 12em;
+  flex: 1 1 12em;
   color: #4f4f4f;
 }
 

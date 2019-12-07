@@ -12,7 +12,7 @@ function formatDate(date) {
   return `${parseInt(dateArr[1], 10)}/${dateArr[2]}/${dateArr[0]}`;
 }
 
-function PanelBill({ statementDate, startDate, amtDue, status }) {
+function PanelBillRow({ statementDate, startDate, amtDue, status }) {
   return (
     <div className="panel-bill-card">
       <div className="panel-bill-items">
@@ -38,4 +38,4 @@ function PanelBill({ statementDate, startDate, amtDue, status }) {
   );
 }
 
-export default PanelBill;
+export default PanelBillRow;

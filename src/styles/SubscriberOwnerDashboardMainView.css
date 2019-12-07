@@ -6,6 +6,7 @@
 .subscriber-dash-inner-container {
   display: flex;
   margin: auto;
+  flex-wrap: wrap;
 }
 
 .subscriber-dash-col {
