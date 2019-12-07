@@ -31,13 +31,13 @@ export default class NavBar extends React.Component {
           id
         });
       });
-    }
 
-    applyCredentials(id).then(credentials => {
-      this.setState({
-        credentials
+      applyCredentials(id).then(credentials => {
+        this.setState({
+          credentials
+        });
       });
-    });
+    }
   }
 
   updateNavbarState(id, name) {
