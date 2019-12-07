@@ -2,7 +2,8 @@ import React from 'react';
 import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
 import { centsToDollars } from '../../../lib/subscriberHelper';
 import Bill from './Bill';
-import BillHeader from '../../../components/BillHeader';
+import FullBillHeader from './FullBillHeader';
+import FullBillFooter from './FullBillFooter';
 import { getLoggedInUserId, logOut } from '../../../lib/auth';
 
 const ROOT_ROUTE = '/';
@@ -10,9 +11,9 @@ const ROOT_ROUTE = '/';
 export default class SubscriberOwnerDashboardAllBillsView extends React.Component {
   constructor(props) {
     super(props);
-    const { bills } = this.props;
+    const { transactions } = this.props;
     this.state = {
-      bills
+      bills: transactions
     };
   }
 
@@ -48,10 +49,12 @@ export default class SubscriberOwnerDashboardAllBillsView extends React.Componen
         </button>
         <p className="all-bills-header">Billing History</p>
         <div className="all-bills-cards-holder">
-          <BillHeader />
-          {bills.map(bill => {
+          <FullBillHeader />
+          {bills.map((bill, i) => {
             return (
               <Bill
+                balance={centsToDollars(bill.Balance)}
+                index={i}
                 statementDate={bill['Statement Date']}
                 startDate={bill['Start Date']}
                 status={bill.Status}
@@ -66,11 +69,10 @@ export default class SubscriberOwnerDashboardAllBillsView extends React.Componen
                   bill['Amount Received Since Previous']
                 )}
                 amtDue={centsToDollars(bill['Amount Due'])}
-                isLatest={bill['Is Latest']}
-                callback={() => console.log('Pay was pressed!')}
               />
             );
           })}
+          <FullBillFooter />
         </div>
 
         <div>

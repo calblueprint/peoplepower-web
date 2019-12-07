@@ -109,3 +109,9 @@
   width: 85%;
   margin: 0 auto 1.5vw auto;
 }
+
+.billing-history-card-holder {
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}

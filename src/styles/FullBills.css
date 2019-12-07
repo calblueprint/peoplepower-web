@@ -1,13 +1,13 @@
 .bill-card {
   background-color: white;
   border-radius: 4px;
-  padding: 0em 1em 1em 1em;
+  padding: 0em 1em 0em 1em;
 }
 
-.latest-bill-card {
-  background-color: white;
+.even-bill-card {
+  background-color: #f5f5f5;
   border-radius: 4px;
-  padding: 1.1em 1em 1em 1em;
+  padding: 0em 1em 0em 1em;
 }
 
 .bill-items {
@@ -31,12 +31,6 @@
   font-weight: bold;
 }
 
-#bill-divide-line {
-  border: 1px solid #efefef;
-  width: 95%;
-  margin: 0 auto;
-}
-
 /* .statement-date {
   display: inline-block;
   padding-right: 7em;
@@ -56,7 +50,13 @@
 /* .statement-amount-due {
 } */
 
-.statement-left {
+.full-bill-page-display {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 12px;
+}
+
+.full-statement-left {
   display: inline-block;
   color: #4f4f4f;
   /* padding-right: 7em; */
@@ -64,14 +64,14 @@
   flex: 0 0 9em;
 }
 
-.statement-middle {
+.full-statement-middle {
   flex-grow: 1;
   color: #4f4f4f;
   justify-content: center;
   flex: 0 0 11em;
 }
 
-.statement-right {
+.full-statement-right {
   color: #4f4f4f;
   padding-left: 1em;
 }
@@ -80,7 +80,7 @@
   font-weight: bold;
 }
 
-.bill-items-internal {
+.full-bill-items-internal {
   margin-top: auto;
   margin-bottom: auto;
   font-size: 16px;

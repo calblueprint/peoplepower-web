@@ -4,6 +4,8 @@ import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import { centsToDollars } from '../../../lib/subscriberHelper';
 import { getLoggedInUserId } from '../../../lib/auth';
 import recordPaymentSuccess from '../../../lib/paypal';
+import PanelBillHeader from './PanelBillHeader';
+import PanelBill from './PanelBill';
 
 import secret from '../../../secret';
 
@@ -12,9 +14,9 @@ const { clientId } = secret;
 export default class SubscriberOwnerDashboardMainView extends React.Component {
   constructor(props) {
     super(props);
-    const { bills } = this.props;
+    const { transactions } = this.props;
     this.state = {
-      latestBill: bills.filter(bill => bill['Is Latest'])[0]
+      latestBill: transactions.filter(bill => bill['Is Latest'])[0]
     };
   }
 
@@ -33,7 +35,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
   }
 
   render() {
-    const { callback } = this.props;
+    const { transactions, callback } = this.props;
     const { latestBill } = this.state;
     const amtDue = centsToDollars(latestBill['Amount Due']);
     return (
@@ -88,7 +90,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
           </div>
           <div className="subscriber-right-col subscriber-dash-col">
             <div className="subscriber-right-duo-header">
-              <p className="subscriber-header">Recent Transactions</p>
+              <p className="subscriber-header">Billing History</p>
               <button
                 className="subscriber-all-billls-button"
                 type="button"
@@ -97,7 +99,19 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                 →
               </button>
             </div>
-            <div className="col-card" />
+            <div className="col-card billing-history-card-holder">
+              <PanelBillHeader />
+              {transactions.map(transaction => {
+                return (
+                  <PanelBill
+                    statementDate={transaction['Statement Date']}
+                    startDate={transaction['Start Date']}
+                    status={transaction.Status}
+                    amtDue={centsToDollars(transaction['Amount Due'])}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

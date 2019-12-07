@@ -1,0 +1,74 @@
+.panel-bill-card {
+  background-color: white;
+  border-radius: 4px;
+  padding: 0em 1em 1em 1em;
+}
+
+.latest-bill-card {
+  background-color: white;
+  border-radius: 4px;
+  padding: 1.1em 1em 1em 1em;
+}
+
+.panel-bill-items {
+  display: flex;
+  flex: 1;
+  height: 4em;
+}
+
+.panel-bill-items p {
+  width: fit-content;
+  height: fit-content;
+}
+
+.bill-button {
+  background-color: black;
+  color: white;
+  padding: 0.5em 1.2em;
+  border-radius: 4px;
+  border: none;
+  font-weight: bold;
+}
+
+#bill-divide-line {
+  border: 1px solid #efefef;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.panel-statement-left {
+  display: inline-block;
+  color: #4f4f4f;
+  flex: 0 0 6em;
+  padding-left: 2em;
+}
+
+.panel-statement-middle {
+  color: #4f4f4f;
+  justify-content: center;
+  flex: 0 0 9em;
+}
+
+.panel-statement-right {
+  color: #4f4f4f;
+  padding-left: 0em;
+  flex: 0 0 3em;
+}
+
+.panel-description {
+  font-weight: bold;
+  flex: 0 0 12em;
+  color: #4f4f4f;
+}
+
+.panel-bill-items-internal {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 16px;
+}
+
+#TEMP-REMOVE-ME {
+  border: 2px solid #efefef;
+  width: 100%;
+  margin: 0 auto;
+}

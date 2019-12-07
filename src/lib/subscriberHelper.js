@@ -136,6 +136,7 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
           record['Amount Received Since Previous'],
         'Amount Due': record['Amount Due'],
         Status: record.Status,
+        Balance: record.Balance,
         'Is Latest': isLatest
       });
       isLatest = false;
