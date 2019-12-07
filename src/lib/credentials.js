@@ -8,6 +8,10 @@ export default function applyCredentials(userID) {
 
   let credentials = '';
 
+  if (userID == null) {
+    return credentials;
+  }
+
   return getOwnerFromPerson(userID).then(ownerID => {
     return getAdminTable(ownerID)
       .then(isAdminPayload => {

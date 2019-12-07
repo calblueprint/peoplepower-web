@@ -21,7 +21,7 @@ function App() {
           <Route path="/dashboard" component={GeneralOwnerDashboard} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/community" component={Community} />
-          <Route path="/subdashboard" component={SubscriberOwnerDashboard} />
+          <Route path="/billing" component={SubscriberOwnerDashboard} />
           <Route path="/community" component={Community} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/profile/:id" component={UserProfilePage} />
