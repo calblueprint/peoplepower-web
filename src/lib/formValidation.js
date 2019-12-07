@@ -45,7 +45,7 @@ function formValidation(name, value) {
     case 'zipcode':
     case 'mailingZipcode':
     case 'billingZipcode':
-      if (value === '') {
+      if (value === undefined) {
         return 'Required';
       }
       if (Number.isNaN(num)) {
@@ -61,7 +61,7 @@ function formValidation(name, value) {
     case 'state':
     case 'mailingState':
     case 'billingState':
-      if (value === '') {
+      if (value === undefined) {
         return 'Required';
       }
       if (Object.prototype.hasOwnProperty.call(States, value.toUpperCase())) {

@@ -364,6 +364,10 @@ w-pasword {
   margin-top: 1rem;
 }
 
+.mt-3 {
+  margin-top: 3rem;
+}
+
 .arrow {
   margin: auto;
   opacity: 100%;
@@ -1015,6 +1019,7 @@ carousel__arrow--right {
   margin-left: 1.75rem;
   width: 100%;
   margin-bottom: 0.5rem;
+  line-height: 22px;
 }
 
 .payment-dividends-option {

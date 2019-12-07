@@ -17,33 +17,27 @@ class Payment extends React.Component {
   }
 
   onPaypalPaymentSuccess(details, data) {
+    const { nextStep, values } = this.props;
     const { latestBill } = this.state;
+    const { userId, numShares, dividends } = values;
+
+    const updatedPerson = {
+      id: userId,
+      fields: {
+        'Number of Shares': numShares,
+        Dividends: dividends
+      }
+    };
+    updatePerson(updatedPerson);
     recordBillPaymentSuccess(details, data, latestBill);
+    nextStep();
   }
 
   nextButton = e => {
-    const { values, nextStep } = this.props;
-    const {
-      errors,
-      userId,
-      numShares,
-      dividends,
-      billingStreet,
-      billingApt,
-      billingCity,
-      billingState,
-      billingZipcode
-    } = values;
+    const { values } = this.props;
+    const { errors } = values;
     e.preventDefault();
-    const fields = [
-      'numShares',
-      'dividends',
-      'billingStreet',
-      'billingApt',
-      'billingCity',
-      'billingState',
-      'billingZipcode'
-    ];
+    const fields = ['numShares', 'dividends'];
     const errorsMessages = [];
 
     for (let i = 0; i < fields.length; i += 1) {
@@ -55,23 +49,7 @@ class Payment extends React.Component {
       }
     }
 
-    if (!(errorsMessages && errorsMessages.length > 0)) {
-      const updatedPerson = {
-        id: userId,
-        fields: {
-          'Number of Shares': numShares,
-          Dividends: dividends,
-          'Billing Street': billingStreet,
-          'Billing Apt': billingApt,
-          'Billing City': billingCity,
-          'Billing State': billingState,
-          'Billing Zipcode': billingZipcode
-        }
-      };
-      updatePerson(updatedPerson);
-      recordBillPaymentSuccess();
-      nextStep();
-    } else {
+    if (errorsMessages && errorsMessages.length > 0) {
       this.forceUpdate();
     }
   };
@@ -110,7 +88,7 @@ class Payment extends React.Component {
     prevStep();
   };
 
-  changeBillingAddress = () => {
+  validateFields = () => {
     const { billingAddressSame } = this.state;
     this.setState({
       billingAddressSame: !billingAddressSame
@@ -118,8 +96,8 @@ class Payment extends React.Component {
   };
 
   render() {
-    const { values, handleChange, handleFormValidation } = this.props;
-    const { errors, numShares, billingAddressSame } = values;
+    const { values, handleChange } = this.props;
+    const { errors, numShares } = values;
     return (
       <div className="w-100">
         <div className="flex w-100 justify-space-between onboarding-row ">
@@ -196,152 +174,15 @@ class Payment extends React.Component {
             </div>
             <div className="payment-cc-card">
               <div className="payment-shares-header">Payment Information</div>
-              <div className="w-100 pr-1 ">
-                <label className="payment-cc-label">Credit card Number</label>
-                <input
-                  name="ccnumber"
-                  onChange={handleChange}
-                  defaultValue={values.ccnumber}
-                  className="payment-cc-input"
+              <div className="mt-3">
+                <PayPalButton
+                  amount={numShares * 100}
+                  onSuccess={this.onPaypalPaymentSuccess}
+                  options={{
+                    clientId
+                  }}
+                  onClick={this.validateFields()}
                 />
-              </div>
-              <div className="validation">
-                {errors.ccnumber ? errors.ccnumber : '\u00A0'}
-              </div>
-              <div className="flex onboarding-row">
-                <div className="w-50 pr-1">
-                  <label className="payment-cc-label">Expiration Month</label>
-                  <input
-                    name="expmonth"
-                    onChange={handleChange}
-                    defaultValue={values.expmonth}
-                    className="payment-cc-input"
-                  />
-                </div>
-                <div className="w-50 pr-1">
-                  <label className="payment-cc-label">Expiration Year</label>
-                  <input
-                    name="expyear"
-                    onChange={handleChange}
-                    defaultValue={values.expyear}
-                    className="payment-cc-input"
-                  />
-                </div>
-              </div>
-              <div className="flex onboarding-row">
-                <div className="w-50 pr-1">
-                  <div className="validation">
-                    {errors.expmonth ? errors.expmonth : '\u00A0'}
-                  </div>
-                </div>
-                <div className="w-50 pr-1">
-                  <div className="validation">
-                    {errors.expyear ? errors.expyear : '\u00A0'}
-                  </div>
-                </div>
-              </div>
-              <div className="w-30 pr-1">
-                <label className="payment-cc-label">CVV</label>
-                <input
-                  name="cvv"
-                  onChange={handleChange}
-                  defaultValue={values.cvv}
-                  className="payment-cc-input"
-                />
-              </div>
-              <div className="w-30 pr-1">
-                <div className="validation">
-                  {errors.cvv ? errors.cvv : '\u00A0'}
-                </div>
-              </div>
-            </div>
-            <div className="payment-cc-card">
-              <div className="payment-shares-header">Billing Address</div>
-              <div>
-                <label className="checkbox-container">
-                  <div className="checkbox-text">
-                    My billing address is the same as my mailing address.
-                  </div>
-                  <input
-                    type="checkbox"
-                    name="billingAddressSame"
-                    onClick={this.changeBillingAddress}
-                    onChange={handleChange}
-                    checked={billingAddressSame}
-                  />
-                  <span className="checkmark" />
-                </label>
-              </div>
-              <div style={{ display: billingAddressSame ? 'none' : 'block' }}>
-                <div className="w-100 pr-1 ">
-                  <label className="payment-cc-label">Address Line 1*</label>
-                  <input
-                    name="billingStreet"
-                    onChange={handleChange}
-                    defaultValue={values.billingStreet}
-                    onBlur={handleFormValidation}
-                    className="payment-cc-input"
-                  />
-                </div>
-                <div className="validation">
-                  {errors.billingStreet ? errors.billingStreet : '\u00A0'}
-                </div>
-                <div className="w-100 pr-1 ">
-                  <label className="payment-cc-label">Address Line 2</label>
-                  <input
-                    name="billingApt"
-                    onChange={handleChange}
-                    defaultValue={values.billingApt}
-                    onBlur={handleFormValidation}
-                    className="payment-cc-input"
-                  />
-                </div>
-                <div className="validation">
-                  {errors.billingApt ? errors.billingApt : '\u00A0'}
-                </div>
-                <div className="w-100 flex">
-                  <div className="w-70 pr-1 ">
-                    <label className="payment-cc-label">City</label>
-                    <input
-                      name="billingCity"
-                      onChange={handleChange}
-                      defaultValue={values.billingCity}
-                      onBlur={handleFormValidation}
-                      className="payment-cc-input"
-                    />
-                  </div>
-                  <div className="w-10 pr-1 ">
-                    <label className="payment-cc-label">City</label>
-                    <input
-                      name="billingState"
-                      onChange={handleChange}
-                      defaultValue={values.billingState}
-                      onBlur={handleFormValidation}
-                      className="payment-cc-input"
-                    />
-                  </div>
-                  <div className="w-20 pr-1 ">
-                    <label className="payment-cc-label">City</label>
-                    <input
-                      name="billingZipcode"
-                      onChange={handleChange}
-                      defaultValue={values.billingZipcode}
-                      onBlur={handleFormValidation}
-                      className="payment-cc-input"
-                    />
-                  </div>
-                </div>
-                <div className="w-100 flex">
-                  <div className="w-70 pr-1 validation">
-                    {errors.billingCity ? errors.billingCity : '\u00A0'}
-                  </div>
-                  <div className="w-10 pr-1 validation">
-                    {errors.billingState ? errors.billingState : '\u00A0'}
-                  </div>
-                  <div className="w-20 pr-1 validation">
-                    {errors.billingZipcode ? errors.billingZipcode : '\u00A0'}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -363,15 +204,6 @@ class Payment extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="mt-1">
-              <PayPalButton
-                amount={numShares * 100}
-                onSuccess={this.onPaypalPaymentSuccess}
-                options={{
-                  clientId
-                }}
-              />
-            </div>
           </div>
         </div>
         <div className="steps-buttons flex onboarding-row w-100 right justify-space-between">
@@ -390,7 +222,7 @@ class Payment extends React.Component {
               className="continue-button"
               onClick={this.nextButton}
             >
-              Confirm Payment
+              Continue
             </button>
           </div>
         </div>

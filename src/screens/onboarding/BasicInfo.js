@@ -40,7 +40,7 @@ class BasicInfo extends React.Component {
         const updatedPerson = {
           id: userId,
           fields: {
-            Name: fname + lname,
+            Name: `${fname} + " " + ${lname}`,
             Email: email,
             'Alternative Email': altEmail
           }
@@ -68,13 +68,13 @@ class BasicInfo extends React.Component {
     const { values, handleChange, handleFormValidation } = this.props;
     const { errors } = values;
     return (
-      <form className="center card flex column">
+      <form className="center card flex onboarding-col">
         <div className=" ">
           <div className="header ">
             Be a part of the movement for equity and clean energy.
           </div>
         </div>
-        <div className="flex row">
+        <div className="flex onboarding-row">
           <div className="w-50 pr-1">
             <label className="onboarding-label" htmlFor="name">
               Your Name
@@ -104,7 +104,7 @@ class BasicInfo extends React.Component {
             />
           </div>
         </div>
-        <div className="flex row">
+        <div className="flex onboarding-row">
           <div className="w-50 pr-1 validation">
             {errors.fname ? errors.fname : '\u00A0'}
           </div>

@@ -69,15 +69,22 @@ class Login extends React.Component {
         <br />
         <form onSubmit={this.handleSubmit} className="flex column ">
           <div className="w-100">
-            Email
-            <br />
             <input
-              type="text"
-              value={email}
-              className="input-gray"
+              name="email"
+              placeholder="Email address"
               onChange={this.handleEmailChange}
+              defaultValue={email}
+              className="input-gray"
             />
-            <br />
+          </div>
+          <div className="w-100">
+            <input
+              name="password"
+              placeholder="Password"
+              onChange={this.handleEmailChange}
+              defaultValue={passwordHash}
+              className="input-gray"
+            />
           </div>
           <div className="w-100">
             Password

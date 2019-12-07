@@ -431,7 +431,7 @@ class ContactInfo extends React.Component {
           </div>
         </form>
 
-        <div className="flex onboarding-row w-100 right mt-2 justify-space-between">
+        <div className="flex steps-buttons  onboarding-row w-100 right mt-2 justify-space-between">
           <div className="left">
             <button
               type="button"

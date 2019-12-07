@@ -128,21 +128,16 @@ class Onboarding extends React.Component {
           billingCity: payload.record['Billing City'],
           billingState: payload.record['Billing State'],
           billingZipcode: payload.record['Billing Zipcode'],
-          numShares: payload.record['Number of Shares'],
           dividends: payload.record.Dividends,
-          password: '*****'
+          password: payload.record.Password
         });
-        if (!numShares) {
-          this.setState({
-            numShares: 0
-          });
-        }
         const { Owner: owner } = payload.record;
         return getRecord('Owner', owner);
       })
       .then(payload => {
         this.setState({
-          projectGroup: payload.record['Project Group'][0]
+          projectGroup: payload.record['Project Group'][0],
+          numShares: payload.record['Number of Shares']
         });
       });
     if (step > 3 && projectGroup === {}) {
@@ -154,6 +149,22 @@ class Onboarding extends React.Component {
       this.setState({
         bylaw1: true,
         bylaw2: true
+      });
+    }
+
+    // for (const key in this.state) {
+    //   const value = this.state[key];
+    //   console.log(value);
+    //   console.log(key + (value === ''));
+    //   if (value === '') {
+    //     this.setState({
+    //       [key]: ''
+    //     });
+    //   }
+    // }
+    if (numShares === '') {
+      this.setState({
+        numShares: 0
       });
     }
   }

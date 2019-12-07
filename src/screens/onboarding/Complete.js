@@ -4,7 +4,6 @@ class Complete extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.onSuccess = this.onSuccess.bind(this);
   }
 
   dashboardButton = () => {
