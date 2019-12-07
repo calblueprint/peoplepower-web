@@ -24,6 +24,7 @@ function FullBillHeader() {
           STATUS
         </p>
       </div>
+      {/* TODO(dfangshuo) */}
       <hr id="TEMP-REMOVE-ME" />
     </div>
   );

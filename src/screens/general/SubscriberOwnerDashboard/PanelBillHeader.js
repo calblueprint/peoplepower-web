@@ -13,6 +13,7 @@ function PanelBillHeader() {
         <p className="panel-bill-row panel-statement-middle">PAYMENT</p>
         <p className="panel-bill-row panel-statement-right">STATUS</p>
       </div>
+      {/* TODO(dfangshuo) */}
       <hr id="TEMP-REMOVE-ME" />
     </div>
   );
