@@ -174,7 +174,7 @@ export default class GeneralOwnerDashboard extends React.Component {
           {isLoadingCards ? (
             <div className="isLoadingDiv card" />
           ) : (
-            <AnnouncementList announcements={cards} />
+            <AnnouncementList announcements={cards} css="" />
           )}
         </div>
         <div className="dash-solar-details-cont">

@@ -2,6 +2,7 @@ import React from 'react';
 import '../../styles/Community.css';
 import { getRecord, getMultipleFromAttr } from '../../lib/request';
 import { getLoggedInUserId } from '../../lib/auth';
+import applyCredentials from '../../lib/credentials';
 import AnnouncementList from '../../components/AnnouncementList';
 import AddAnnouncement from '../../components/AddAnnouncement';
 
@@ -12,6 +13,7 @@ export default class Community extends React.Component {
       cards: [],
       usersID: '',
       usersGroup: '',
+      credentials: '',
       isLoading: true
     };
 
@@ -51,6 +53,12 @@ export default class Community extends React.Component {
           isLoading: false
         });
       });
+
+    applyCredentials(id).then(credentials => {
+      this.setState({
+        credentials
+      });
+    });
   }
 
   addTempCard(announcement) {
@@ -62,7 +70,7 @@ export default class Community extends React.Component {
   }
 
   render() {
-    const { cards, isLoading, usersGroup, usersID } = this.state;
+    const { cards, isLoading, usersGroup, usersID, credentials } = this.state;
     return isLoading ? (
       <img
         src="https://image.flaticon.com/icons/svg/25/25220.svg"
@@ -73,12 +81,17 @@ export default class Community extends React.Component {
       <div className="dashboard community">
         <div className="cont">
           <h1>Community</h1>
-          <AddAnnouncement
-            usersGroup={usersGroup}
-            usersID={usersID}
-            updateCards={this.addTempCard}
+          {credentials.includes('A') ? (
+            <AddAnnouncement
+              usersGroup={usersGroup}
+              usersID={usersID}
+              updateCards={this.addTempCard}
+            />
+          ) : null}
+          <AnnouncementList
+            announcements={cards}
+            css={credentials.includes('A') ? '' : 'nonAdminHeight'}
           />
-          <AnnouncementList announcements={cards} />
         </div>
       </div>
     );

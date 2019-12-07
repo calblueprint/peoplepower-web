@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/NavBar.css';
 import { getRecord } from '../lib/request';
 import { getLoggedInUserId } from '../lib/auth';
-import { getOwnerFromPerson, getAdminTable } from '../lib/adminHelper';
+import applyCredentials from '../lib/credentials';
 import Logo from '../assets/PPSC-logo.png';
 
 export default class NavBar extends React.Component {
@@ -12,7 +12,7 @@ export default class NavBar extends React.Component {
     this.state = {
       id: '',
       name: '',
-      isAdmin: false
+      credentials: ''
     };
   }
 
@@ -33,23 +33,15 @@ export default class NavBar extends React.Component {
       });
     }
 
-    getOwnerFromPerson(id).then(ownerID => {
-      getAdminTable(ownerID).then(payload => {
-        if (payload === -1) {
-          this.setState({
-            isAdmin: false
-          });
-        } else {
-          this.setState({
-            isAdmin: true
-          });
-        }
+    applyCredentials(id).then(credentials => {
+      this.setState({
+        credentials
       });
     });
   }
 
   render() {
-    const { id, name, isAdmin } = this.state;
+    const { id, name, credentials } = this.state;
     return (
       <div className="navBar">
         <img
@@ -62,9 +54,14 @@ export default class NavBar extends React.Component {
             <li className="navItem">
               <Link to="/dashboard">Dashboard</Link>
             </li>
-            {isAdmin ? (
+            {credentials.includes('A') ? (
               <li className="navItem">
                 <Link to="/admin">Admin</Link>
+              </li>
+            ) : null}
+            {credentials.includes('S') ? (
+              <li className="navItem">
+                <Link to="/subdashboard">Subscriber</Link>
               </li>
             ) : null}
             <li className="navItem">

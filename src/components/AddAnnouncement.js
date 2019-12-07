@@ -30,9 +30,6 @@ export default class AddAnnouncement extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const { message } = this.state;
-    this.setState({
-      submitProgress: STATUS_SUCCESS
-    });
 
     if (!message) {
       this.setState({
