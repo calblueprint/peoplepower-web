@@ -1,4 +1,4 @@
-import { createRecord } from './request';
+import { createRecord, updateBill } from './request';
 
 const PAYMENT_TABLE = 'Payment';
 
@@ -104,7 +104,7 @@ const recordPaymentSuccess = async (details, data, bill) => {
 
   const { address, name } = shipping;
   const addressToSave = `${address.address_line_1}, ${address.admin_area_2} ${address.country_code} ${address.admin_area_1} ${address.postal_code}`;
-
+  const amountInCents = parseFloat(amount.value, 10) * 100;
   const record = {
     fields: {
       Owner: [owner],
@@ -112,7 +112,7 @@ const recordPaymentSuccess = async (details, data, bill) => {
       'Subscriber Bill': [billId],
       'Order ID': orderID,
       'Payer ID': payerID,
-      Amount: parseFloat(amount.value, 10) * 100,
+      Amount: amountInCents,
       'Currency Code': amount.currency_code,
       Address: addressToSave,
       'Payer Full Name': name.full_name,
@@ -139,6 +139,15 @@ const recordPaymentSuccess = async (details, data, bill) => {
     .catch(err => {
       console.error(err);
     });
+
+  const newBalance = bill.Balance - amountInCents;
+  const updatedBill = {
+    id: billId,
+    fields: {
+      Balance: newBalance
+    }
+  };
+  updateBill(updatedBill);
 };
 
 export default recordPaymentSuccess;
