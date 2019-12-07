@@ -157,6 +157,7 @@ class BasicInfo extends React.Component {
           </label>
           <input
             name="password"
+            type="password"
             placeholder="Create a password"
             onChange={handleChange}
             defaultValue={values.password}

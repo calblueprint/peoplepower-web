@@ -5,7 +5,7 @@ const { loginUser } = require('../../lib/auth.js');
 const { getLoggedInUserId } = require('../../lib/auth.js');
 
 const HOME_ROUTE = '/dashboard';
-const SIGNUP_ROUTE = '/signup';
+const SIGNUP_ROUTE = '/onboarding';
 
 class Login extends React.Component {
   constructor(props) {
