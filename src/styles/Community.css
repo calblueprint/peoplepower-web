@@ -46,6 +46,10 @@ h3 {
   height: 350px;
 }
 
+.nonAdminHeight {
+  height: 500px !important;
+}
+
 .community .cont .AddAnnouncement {
   display: block;
 }

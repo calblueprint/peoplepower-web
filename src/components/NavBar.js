@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/NavBar.css';
 import { getRecord } from '../lib/request';
 import { getLoggedInUserId } from '../lib/auth';
+import applyCredentials from '../lib/credentials';
 import Logo from '../assets/PPSC-logo.png';
 
 export default class NavBar extends React.Component {
@@ -10,7 +11,8 @@ export default class NavBar extends React.Component {
     super(props);
     this.state = {
       id: '',
-      name: ''
+      name: '',
+      credentials: ''
     };
   }
 
@@ -30,6 +32,12 @@ export default class NavBar extends React.Component {
         });
       });
     }
+
+    applyCredentials(id).then(credentials => {
+      this.setState({
+        credentials
+      });
+    });
   }
 
   updateNavbarState(id, name) {
@@ -40,7 +48,7 @@ export default class NavBar extends React.Component {
   }
 
   render() {
-    const { id, name } = this.state;
+    const { id, name, credentials } = this.state;
     return (
       <div className="navBar">
         <img
@@ -53,6 +61,16 @@ export default class NavBar extends React.Component {
             <li className="navItem">
               <Link to="/dashboard">Dashboard</Link>
             </li>
+            {credentials.includes('A') ? (
+              <li className="navItem">
+                <Link to="/admin">Admin</Link>
+              </li>
+            ) : null}
+            {credentials.includes('S') ? (
+              <li className="navItem">
+                <Link to="/subdashboard">Subscriber</Link>
+              </li>
+            ) : null}
             <li className="navItem">
               <Link to="/finances">My Finances</Link>
             </li>
