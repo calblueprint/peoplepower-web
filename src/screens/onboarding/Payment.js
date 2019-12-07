@@ -3,6 +3,7 @@ import { PayPalButton } from 'react-paypal-button-v2';
 import formValidation from '../../lib/formValidation';
 import { updatePerson } from '../../lib/request';
 import recordBillPaymentSuccess from '../../lib/paypal';
+import { logOut } from '../../lib/auth';
 
 import secret from '../../lib/secret';
 
@@ -88,7 +89,13 @@ class Payment extends React.Component {
     prevStep();
   };
 
-  validateFields = () => {
+  nextButton = e => {
+    const { nextStep } = this.props;
+    e.preventDefault();
+    nextStep();
+  };
+
+  validatePaymentFields = () => {
     const { billingAddressSame } = this.state;
     this.setState({
       billingAddressSame: !billingAddressSame
@@ -118,9 +125,8 @@ class Payment extends React.Component {
                   <input
                     name="numShares"
                     className="payment-shares-input-field"
-                    placeholder=""
                     onChange={handleChange}
-                    defaultValue={values.numShares}
+                    defaultValue={numShares}
                   />
                   <button
                     type="button"
@@ -181,7 +187,7 @@ class Payment extends React.Component {
                   options={{
                     clientId
                   }}
-                  onClick={this.validateFields()}
+                  onClick={this.validatePaymentFields}
                 />
               </div>
             </div>
@@ -217,11 +223,7 @@ class Payment extends React.Component {
             </button>
           </div>
           <div className="right">
-            <button
-              type="button"
-              className="continue-button"
-              onClick={this.nextButton}
-            >
+            <button type="button" className="continue-button" onClick={logOut}>
               Continue
             </button>
           </div>

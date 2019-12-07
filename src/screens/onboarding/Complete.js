@@ -15,6 +15,7 @@ class Complete extends React.Component {
   render() {
     return (
       <div className="flex onboarding-row w-100 right justify-space-between">
+        <div className="left" />
         <div className="right">
           <button
             type="button"

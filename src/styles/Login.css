@@ -24,8 +24,7 @@
   flex-direction: column;
 }
 
-.header {
-  padding-bottom: 50px;
+.login-header {
   font-size: 18px;
   font-family: 'Nunito Sans', sans-serif;
 }
@@ -36,4 +35,47 @@
 
 w-100 {
   width: 100%;
+}
+
+.login-hyperlink {
+  border: none;
+  font-size: 12px;
+  color: #8f8f8f;
+  margin-bottom: 0.5rem;
+}
+
+.login-hyperlink-group {
+  margin-top: 1rem;
+}
+
+.login-input-mb {
+  margin-bottom: 1rem;
+}
+
+.login-label {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.01em;
+  color: #7387a2;
+  font-weight: 500;
+}
+
+.login-button {
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  background-color: #cd6795;
+  border: none;
+  color: white;
+  padding: 0.3rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 50px;
+  margin-top: 2rem;
+  width: 50%;
 }

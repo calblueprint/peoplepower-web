@@ -65,19 +65,25 @@ class Login extends React.Component {
     const { email, passwordHash } = this.state;
     return (
       <div className="center card flex column">
-        <h1 className="t-center header">Welcome back!</h1>
+        <h1 className="t-center login-header">Welcome back!</h1>
         <br />
         <form onSubmit={this.handleSubmit} className="flex column ">
-          <div className="w-100">
+          <div className="w-100 login-input-mb">
+            <label className="login-label" htmlFor="email">
+              Email
+            </label>
             <input
               name="email"
               placeholder="Email address"
               onChange={this.handleEmailChange}
               defaultValue={email}
-              className="input-gray"
+              className="input-gray "
             />
           </div>
-          <div className="w-100">
+          <div className="w-100 ">
+            <label className="login-label" htmlFor="email">
+              Password
+            </label>
             <input
               name="password"
               placeholder="Password"
@@ -86,23 +92,24 @@ class Login extends React.Component {
               className="input-gray"
             />
           </div>
-          <div className="w-100">
-            Password
-            <br />
-            <input
-              type="password"
-              value={passwordHash}
-              className="input-gray w-100"
-              onChange={this.handlePasswordChange}
-            />
-            <br />
+          <div className=" t-center">
+            <button type="submit" className="login-button">
+              Login
+            </button>
           </div>
-          <button type="submit">Login</button>
         </form>
-
-        <button type="button" onClick={this.handleSignUpOnClick}>
-          New here? Sign Up
-        </button>
+        <div className="flex onboarding-col login-hyperlink-group">
+          <button type="button" className="login-hyperlink">
+            Forgot password?
+          </button>
+          <button
+            type="button"
+            className="login-hyperlink"
+            onClick={this.handleSignUpOnClick}
+          >
+            Create an account
+          </button>
+        </div>
       </div>
     );
   }

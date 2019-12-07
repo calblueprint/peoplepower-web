@@ -73,7 +73,7 @@ class Onboarding extends React.Component {
         bylaw1: '',
         bylaw2: '',
         projectGroup: '',
-        numShares: '',
+        numShares: 0,
         dividends: false,
         beneficiaries: [],
         ccNumber: '',
