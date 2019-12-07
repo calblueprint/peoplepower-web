@@ -8,6 +8,8 @@ const { key } = secret;
 
 const Airtable = require('airtable');
 
+const OWNER_TABLE = 'Owner';
+
 // API KEY will reside in ENV variables later.
 Airtable.configure({
   endpointUrl: 'https://api.airtable.com',
@@ -235,8 +237,23 @@ function updatePerson(updatedPerson) {
         return;
       }
       records.forEach(function(record) {
-        resolve(record.get('Name'));
+        resolve(record.get('Name')); // TODO(dfangshuo)
       });
+    });
+  });
+}
+
+function updateOwner(updatedPerson) {
+  console.log('OWNER TO UPDATE');
+  console.log(updatedPerson);
+
+  return new Promise((resolve, reject) => {
+    base(OWNER_TABLE).update([updatedPerson], function(err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(true);
     });
   });
 }
@@ -264,5 +281,6 @@ export {
   createPerson,
   createRecord,
   updatePerson,
+  updateOwner,
   updateRecord
 };

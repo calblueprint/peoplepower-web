@@ -10,12 +10,12 @@ const { clientId } = secret;
 const SHARE_PRICE = 100;
 
 class Payment extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      billingAddressSame: true
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     billingAddressSame: true
+  //   };
+  // }
 
   onBuyShareWithPaypalSuccess(details, data) {
     const { nextStep, values } = this.props;
@@ -76,19 +76,6 @@ class Payment extends React.Component {
     const { prevStep } = this.props;
     e.preventDefault();
     prevStep();
-  };
-
-  nextButton = e => {
-    const { nextStep } = this.props;
-    e.preventDefault();
-    nextStep();
-  };
-
-  validatePaymentFields = () => {
-    const { billingAddressSame } = this.state;
-    this.setState({
-      billingAddressSame: !billingAddressSame
-    });
   };
 
   render() {
@@ -176,7 +163,6 @@ class Payment extends React.Component {
                   options={{
                     clientId
                   }}
-                  onClick={this.validatePaymentFields}
                 />
               </div>
             </div>
