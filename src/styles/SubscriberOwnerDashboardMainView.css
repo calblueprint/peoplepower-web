@@ -116,3 +116,7 @@
   display: flex;
   flex-direction: column;
 }
+
+.subscriber-dashboard-paypal-component {
+  padding: 1.5em;
+}
