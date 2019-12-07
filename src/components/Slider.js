@@ -70,8 +70,8 @@ class Carousel extends Component {
             <div className="filler-100" />
           )}
         </div>
-        <div className="slider-padding">
-          <div className="w-100 flex justify-space-between mt-25 slides-buttons">
+        <div className="slides">
+          <div className="flex justify-space-between  slides-buttons">
             <button
               type="button"
               className="arrow-circle left"
@@ -89,7 +89,7 @@ class Carousel extends Component {
               <img src={Arrow} className="right-arrow" alt="next button" />
             </button>
           </div>
-          <div className="slides">
+          <div className="w-100 flex justify-space-between ">
             {slides.map((slide, index) => (
               <img
                 className={

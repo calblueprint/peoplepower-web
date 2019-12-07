@@ -54,7 +54,7 @@ class Bylaws extends React.Component {
       <form className="">
         <div>
           <Slider slides={imgs} />
-          <div className="template-card">
+          <div className="template-bylaws-card">
             <div style={{ display: 'inline', position: 'relative' }}>
               <label className="checkbox-container">
                 I have read, understood, and agree to all that stuff above,
@@ -100,7 +100,7 @@ class Bylaws extends React.Component {
             </div>
           </div>
         </div>
-        <div className="flex onboarding-row w-100 right justify-space-between">
+        <div className="steps-buttons flex onboarding-row w-100 right justify-space-between">
           <div className="left">
             <button
               type="button"

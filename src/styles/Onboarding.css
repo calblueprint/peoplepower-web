@@ -281,8 +281,13 @@
 .w-100 {
   width: 100%;
 }
+
 .w-75 {
   width: 75%;
+}
+
+.w-90 {
+  width: 90%;
 }
 
 .w-70 {
@@ -385,7 +390,7 @@ w-pasword {
   position: relative;
   padding-left: 1.5rem;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 16px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -480,36 +485,38 @@ w-pasword {
 
 .slides-buttons {
   position: absolute;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 5%;
 }
 
 .mt-25 {
   margin-top: 25%;
 }
 
-.slides {
-  justify-content: center;
-  min-height: 100%;
-  z-index: 0;
-  position: relative;
-}
-
 .slider {
+  justify-content: center;
   background-color: white;
-  width: 100%;
-  height: 100%;
   border-color: #edf1f5;
   border-width: 2px;
   border-radius: 5px;
+  display: flex;
 }
 
-.slider-padding {
-  padding: 1rem;
+.slides {
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  horiz-align: right;
+  padding: 1.5rem;
 }
 
 .slide-img {
-  max-height: 30rem;
+  max-height: 40rem;
   z-index: 0;
-  margin-left: 15%;
+  margin: 0 auto;
+  align-self: flex-start;
 }
 
 .slide-img-inactive {
@@ -762,7 +769,7 @@ carousel__arrow--right {
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
-  padding: 1rem 1.75rem 0 1.75rem;
+  padding: 1.5rem 1.75rem 1rem 1.75rem;
   margin: 1rem 0;
 }
 
@@ -778,17 +785,20 @@ carousel__arrow--right {
 }
 
 .template-center {
-  margin-top: 10%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  /*position: absolute;*/
+  /*!*top: 50%;*!*/
+  /*!*left: 50%;*!*/
+  /*!*transform: translate(-50%, -50%);*!*/
+  /*left: 50%;*/
+  /*margin-left: -50px;*/
 }
 
 .back-button {
   background-color: #f7f8fa;
   border: none;
   color: #7387a2;
+  font-size: 16px;
 }
 
 .continue-button {
@@ -796,7 +806,8 @@ carousel__arrow--right {
   color: white;
   border: none;
   border-radius: 40px;
-  padding: 0.25rem 1.5rem;
+  padding: 0.25rem 2rem;
+  font-size: 16px;
 }
 
 .projectgroup-selected-card {
@@ -807,6 +818,12 @@ carousel__arrow--right {
   color: #395578;
   font-size: 18px;
   padding-bottom: 1.5rem;
+}
+
+.steps-buttons {
+  margin-bottom: 5rem;
+  margin-top: 3rem;
+  font-size: 16px;
 }
 
 .projectgroup-selected-body {
