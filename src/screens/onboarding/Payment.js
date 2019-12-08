@@ -1,9 +1,10 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
-import formValidation from '../../lib/formValidation';
+// import formValidation from '../../lib/formValidation';
 import { recordShareBuySuccess } from '../../lib/paypal';
 
 import secret from '../../lib/secret';
+// import {updatePerson, updateRecord} from "../../lib/request";
 
 const { clientId } = secret;
 
@@ -26,26 +27,46 @@ class Payment extends React.Component {
     nextStep();
   }
 
-  nextButton = e => {
-    const { values } = this.props;
-    const { errors } = values;
-    e.preventDefault();
-    const fields = ['numShares', 'dividends'];
-    const errorsMessages = [];
-
-    for (let i = 0; i < fields.length; i += 1) {
-      const errorMessage = formValidation(fields[i], values[fields[i]]);
-      errors[fields[i]] = errorMessage;
-
-      if (errorMessage !== '') {
-        errorsMessages.push(errorMessage);
-      }
-    }
-
-    if (errorsMessages && errorsMessages.length > 0) {
-      this.forceUpdate();
-    }
-  };
+  // nextButton = e => {
+  //   const { values, userId, userLoginId } = this.props;
+  //   const { errors, numShares } = values;
+  //   const { dividends } = this.state;
+  //
+  //   e.preventDefault();
+  //   const fields = ['numShares', 'dividends'];
+  //   const errorsMessages = [];
+  //
+  //   for (let i = 0; i < fields.length; i += 1) {
+  //     const errorMessage = formValidation(fields[i], values[fields[i]]);
+  //     errors[fields[i]] = errorMessage;
+  //
+  //     if (errorMessage !== '') {
+  //       errorsMessages.push(errorMessage);
+  //     } else {
+  //       const updatedPerson = {
+  //         id: userId,
+  //         fields: {
+  //           Dividends: dividends,
+  //         }
+  //       };
+  //
+  //       const newLogin = {
+  //         id: userLoginId,
+  //         fields: {
+  //           "Number of Shares": numShares
+  //         }
+  //       };
+  //
+  //       updatePerson(updatedPerson).then(() => {
+  //         return updateRecord('User Login', newLogin);
+  //       });
+  //     }
+  //   }
+  //
+  //   if (errorsMessages && errorsMessages.length > 0) {
+  //     this.forceUpdate();
+  //   }
+  // };
 
   minusShares = () => {
     const { values, handleChange } = this.props;
@@ -106,7 +127,7 @@ class Payment extends React.Component {
                     name="numShares"
                     className="payment-shares-input-field"
                     onChange={handleChange}
-                    defaultValue={numShares}
+                    value={numShares}
                   />
                   <button
                     type="button"
@@ -130,11 +151,10 @@ class Payment extends React.Component {
                     type="radio"
                     name="dividends"
                     className="payment-dividends-radio"
-                    value="no"
+                    value="yes"
                     checked={values.dividends === 'yes'}
                     onChange={handleChange}
                   />
-                  <span className="payment-dividends-radio" />
                   <label htmlFor="" className="payment-dividends-choice">
                     Yes, I’d like dividends, thank you!
                   </label>
@@ -148,7 +168,6 @@ class Payment extends React.Component {
                     checked={values.dividends === 'no'}
                     onChange={handleChange}
                   />
-                  <span className="payment-dividends-radio" />
                   <label htmlFor="" className="payment-dividends-choice">
                     No dividends please. (No pressure to choose this option. We
                     provide the option because people who waive dividends reduce

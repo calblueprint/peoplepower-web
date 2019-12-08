@@ -74,7 +74,7 @@ class Onboarding extends React.Component {
         bylaw2: '',
         projectGroup: '',
         numShares: 0,
-        dividends: false,
+        dividends: '',
         beneficiaries: [],
         ccNumber: '',
         expmonth: '',
@@ -95,7 +95,7 @@ class Onboarding extends React.Component {
 
   componentDidMount() {
     const id = getLoggedInUserId();
-    const { step, numShares, projectGroup } = this.state;
+    const { step, numShares, projectGroup, dividends } = this.state;
     // Person does not have a User Id
     if (!id) {
       return;
@@ -154,12 +154,11 @@ class Onboarding extends React.Component {
           }
         }
       });
-
-    // if (numShares === '') {
-    //   this.setState({
-    //     numShares: 0
-    //   });
-    // }
+    if (numShares === '') {
+      this.setState({
+        numShares: 0
+      });
+    }
   }
 
   // next function increments page up one and switches to that numbered page
@@ -250,6 +249,7 @@ class Onboarding extends React.Component {
         });
         break;
       default:
+        console.log(event.target.name + event.target.value);
         this.setState({
           [event.target.name]: event.target.value
         });

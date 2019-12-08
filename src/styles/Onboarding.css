@@ -1016,7 +1016,6 @@ carousel__arrow--right {
   font-size: 16px;
   color: #24364d;
   display: block;
-  margin-left: 1.75rem;
   width: 100%;
   margin-bottom: 0.5rem;
   line-height: 22px;
@@ -1026,52 +1025,60 @@ carousel__arrow--right {
   display: flex;
 }
 
-.payment-dividends-option input {
+.payment-dividends-radio {
   position: absolute;
   opacity: 0;
   cursor: pointer;
+  z-index: 1;
 }
 
-.payment-dividends-radio {
-  border: 1px solid #b4b8bf;
-  float: left;
+[type='radio']:checked,
+[type='radio']:not(:checked) {
   position: absolute;
-  height: 1.05rem;
-  width: 1.05rem;
-  background-color: white;
-  border-radius: 50%;
 }
-
-/* On mouse-over, add a grey background color */
-.payment-dividends-option:hover input ~ .payment-dividends-radio {
-  background-color: #b4b8bf;
+[type='radio']:checked + label,
+[type='radio']:not(:checked) + label {
+  position: relative;
+  cursor: pointer;
+  line-height: 20px;
+  display: inline-block;
+  padding-left: 2rem;
+  color: #666;
 }
-
-/* When the radio button is checked, add a blue background */
-.payment-dividends-option input:checked ~ .payment-dividends-radio {
-  background-color: #2196f3;
-}
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.payment-dividends-radio:after {
+[type='radio']:checked + label:before,
+[type='radio']:not(:checked) + label:before {
   content: '';
   position: absolute;
-  display: none;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #ddd;
+  border-radius: 100%;
+  background: #fff;
 }
-
-/* Show the indicator (dot/circle) when checked */
-.payment-dividends-option input:checked ~ .payment-dividends-radio:after {
-  display: block;
+[type='radio']:checked + label:after,
+[type='radio']:not(:checked) + label:after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: #f87da9;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  border-radius: 100%;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
-
-/* Style the indicator (dot/circle) */
-.payment-dividends-option .payment-dividends-radio:after {
-  top: 9px;
-  left: 9px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
+[type='radio']:not(:checked) + label:after {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+[type='radio']:checked + label:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
 }
 
 .payment-cc-card {

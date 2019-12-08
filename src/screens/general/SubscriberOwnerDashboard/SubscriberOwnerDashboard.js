@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../../styles/SubscriberOwnerDashboard.css';
-
 import SubscriberOwnerDashboardAllBillsView from './SubscriberOwnerDashboardAllBillsView';
 import SubscriberOwnerDashboardMainView from './SubscriberOwnerDashboardMainView';
 import { getLoggedInUserId } from '../../../lib/auth';
+import LoadingComponent from '../../../components/LoadingComponent';
 
 import {
   areDiffBills,
@@ -14,7 +14,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bills: [],
+      transactions: [],
       mode: 0,
       isReady: false
     };
@@ -37,15 +37,15 @@ export default class SubscriberOwnerDashboard extends React.Component {
     getSubscriberBills(loggedInUserId, this.updateState);
   }
 
-  updateState(bills) {
-    if (bills == null) {
-      console.error('bills argument to updateState is null');
+  updateState(transactions) {
+    if (transactions == null) {
+      console.error('transactions argument to updateState is null');
       return;
     }
 
     this.setState(prevState => {
-      if (areDiffBills(prevState.bills, bills)) {
-        return { bills, isReady: true };
+      if (areDiffBills(prevState.transactions, transactions)) {
+        return { transactions, isReady: true };
       }
       return { isReady: true };
     });
@@ -64,19 +64,15 @@ export default class SubscriberOwnerDashboard extends React.Component {
   }
 
   render() {
-    const { mode, bills, isReady } = this.state;
+    const { mode, transactions, isReady } = this.state;
     if (!isReady) {
-      return (
-        <div>
-          <strong>Loading...</strong>
-        </div>
-      );
+      return <LoadingComponent />;
     }
     if (mode === 0) {
       return (
         <SubscriberOwnerDashboardMainView
           callback={() => this.seeSubscriberOwnerDashboardAllBillsView()}
-          bills={bills}
+          transactions={transactions}
         />
       );
     }
@@ -84,7 +80,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
       return (
         <SubscriberOwnerDashboardAllBillsView
           callback={() => this.seeDashboard()}
-          bills={bills}
+          transactions={transactions}
         />
       );
     }

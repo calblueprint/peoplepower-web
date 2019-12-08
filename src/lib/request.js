@@ -229,11 +229,25 @@ function createRecord(table, record) {
 	// }
 */
 
+function updateBill(updatedBill) {
+  return new Promise((resolve, reject) => {
+    base(SUBSCRIBER_BILL_TABLE).update([updatedBill], function(err, records) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      records.forEach(function(record) {
+        resolve(record.get('Name'));
+      });
+    });
+  });
+}
+
 function updatePerson(updatedPerson) {
   console.log('updatePerson');
   console.log(updatedPerson);
   return new Promise((resolve, reject) => {
-    base('Person').update([updatedPerson], function(err, records) {
+    base(PERSON_TABLE).update([updatedPerson], function(err, records) {
       if (err) {
         reject(err);
         return;

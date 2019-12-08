@@ -1,6 +1,6 @@
 import React from 'react';
-import '../styles/Bill.css';
-import { dateToWord } from '../lib/subscriberHelper';
+import '../../../styles/FullBills.css';
+import { dateToWord } from '../../../lib/subscriberHelper';
 
 function dateToFullMonth(date) {
   return dateToWord[parseInt(date.split('-')[1], 10)];
@@ -25,6 +25,8 @@ function dateToDateString(date) {
 function Bill({
   statementDate,
   startDate,
+  index,
+  balance,
   // endDate,
   // rateSchedule,
   // estimatedRebate,
@@ -32,31 +34,31 @@ function Bill({
   // amtDueOnPrev,
   // amtReceivedSincePrev,
   amtDue,
-  isLatest
+  status
 }) {
   return (
-    <div className={isLatest ? 'latest-bill-card' : 'bill-card'}>
+    <div className={index % 2 === 1 ? 'even-bill-card' : 'bill-card'}>
       <div className="bill-items">
-        <p className="bill-items-internal statement-date">
+        <p className="full-bill-items-internal full-statement-left">
           {dateToDateString(statementDate)}
         </p>
-        <p className="bill-items-internal statement-month">
+        <p className="full-bill-items-internal full-statement-middle statement-emphasize">
           {dateToFullMonth(startDate)} Power Bill
         </p>
-        {/* <p>End date: {endDate}</p>
-        <p>Rate Schedule: {rateSchedule}</p>
-        <p>Estimated Rebate: ${estimatedRebate}</p>
-        <p>Total Estimated Rebate: ${totalEstimatedRebate}</p>
-        <p>Amount Due on Previous: ${amtDueOnPrev}</p>
-        <p>Amount Received Since Previous: ${amtReceivedSincePrev}</p> */}
-        <p className="bill-items-internal statement-amount-due">- ${amtDue}</p>
+        <p className="full-bill-items-internal full-statement-middle">
+          {' '}
+          ${amtDue}
+        </p>
+        <p className="full-bill-items-internal full-statement-middle" />
+        <p className="full-bill-items-internal full-statement-middle">
+          ${balance}
+        </p>
+        {/* <p>End date: {endDate}</p> */}
+        <p className="full-bill-items-internal full-statement-right">
+          {' '}
+          {status}{' '}
+        </p>
       </div>
-      {/* {isLatest && (
-        <button className="bill-button" onClick={callback} type="button">
-          Pay
-        </button>
-      )} */}
-      <hr id="bill-divide-line" />
     </div>
     // <div className="bill-card">
     //   <h4>{statementDate}</h4>
