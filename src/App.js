@@ -9,8 +9,6 @@ import Community from './screens/general/Community';
 import GeneralOwnerDashboard from './screens/general/GeneralOwnerDashboard';
 import AdminDashboard from './screens/general/AdminDashboard';
 import UserProfilePage from './screens/general/UserProfilePage';
-// import SignUp from './screens/auth/SignUp';
-// import SubscriberOwnerPage from './screens/general/SubscriberOwnerPage';
 
 function App() {
   return (
@@ -23,7 +21,7 @@ function App() {
           <Route path="/dashboard" component={GeneralOwnerDashboard} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/community" component={Community} />
-          <Route path="/subdashboard" component={SubscriberOwnerDashboard} />
+          <Route path="/billing" component={SubscriberOwnerDashboard} />
           <Route path="/community" component={Community} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/profile/:id" component={UserProfilePage} />

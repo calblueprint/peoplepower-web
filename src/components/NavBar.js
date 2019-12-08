@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/NavBar.css';
 import { getRecord } from '../lib/request';
 import { getLoggedInUserId } from '../lib/auth';
+import applyCredentials from '../lib/credentials';
 import Logo from '../assets/PPSC-logo.png';
 
 export default class NavBar extends React.Component {
@@ -10,7 +11,8 @@ export default class NavBar extends React.Component {
     super(props);
     this.state = {
       id: '',
-      name: ''
+      name: '',
+      credentials: ''
     };
   }
 
@@ -19,8 +21,7 @@ export default class NavBar extends React.Component {
 
     if (!id) {
       this.setState({
-        name: 'Sign In',
-        id
+        name: 'Sign In'
       });
     } else {
       getRecord('Person', id).then(payload => {
@@ -30,11 +31,24 @@ export default class NavBar extends React.Component {
           id
         });
       });
+
+      applyCredentials(id).then(credentials => {
+        this.setState({
+          credentials
+        });
+      });
     }
   }
 
+  updateNavbarState(id, name) {
+    this.setState({
+      id,
+      name
+    });
+  }
+
   render() {
-    const { id, name } = this.state;
+    const { id, name, credentials } = this.state;
     return (
       <div className="navBar">
         <img
@@ -47,16 +61,26 @@ export default class NavBar extends React.Component {
             <li className="navItem">
               <Link to="/dashboard">Dashboard</Link>
             </li>
-            <li className="navItem">
-              <Link to={id === undefined ? '/' : `/profile/${id}`}>
-                My Finances
-              </Link>
-            </li>
+            {credentials.includes('G') ? (
+              <li className="navItem">
+                <Link to="/investment">My Investment</Link>
+              </li>
+            ) : null}
+            {credentials.includes('S') ? (
+              <li className="navItem">
+                <Link to="/billing">Billing</Link>
+              </li>
+            ) : null}
             <li className="navItem">
               <Link to="/community">Community</Link>
             </li>
+            {credentials.includes('A') ? (
+              <li className="navItem">
+                <Link to="/admin">Admin</Link>
+              </li>
+            ) : null}
             <li className="navItem">
-              <Link to={id === undefined ? '/' : `/profile/${id}`}>
+              <Link to={`/profile/${id}`}>
                 <span>{name}</span>
               </Link>
             </li>

@@ -27,3 +27,33 @@ body {
   height: calc(100% - 104px);
   justify-content: center;
 }
+
+.loadingComponent {
+  width: 400px;
+  height: 400px;
+  border-radius: 5px;
+  margin: 100px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  flex-direction: column;
+}
+
+/* SPINNER */
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.rotate {
+  width: 100px;
+  height: 100px;
+  color: red;
+  animation: rotation 2s infinite linear;
+  display: block;
+}
