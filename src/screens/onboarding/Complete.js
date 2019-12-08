@@ -1,5 +1,7 @@
 import React from 'react';
 
+const LOGIN_TOKEN_NAME = 'loginToken';
+
 class Complete extends React.Component {
   constructor(props) {
     super(props);
@@ -8,8 +10,7 @@ class Complete extends React.Component {
 
   dashboardButton = () => {
     const { history } = this.props;
-    // They shouldn't be able to access this screen
-    history.push('/dashboard');
+    history.push('/');
   };
 
   render() {

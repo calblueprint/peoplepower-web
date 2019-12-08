@@ -1,4 +1,4 @@
-import { createRecord, updateOwner } from './request';
+import { createRecord, updateOwner, updateBill } from './request';
 
 const PAYMENT_TABLE = 'Payment';
 

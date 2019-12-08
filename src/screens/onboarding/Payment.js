@@ -1,10 +1,9 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
-// import formValidation from '../../lib/formValidation';
+import formValidation from '../../lib/formValidation';
 import { recordShareBuySuccess } from '../../lib/paypal';
-
 import secret from '../../lib/secret';
-// import {updatePerson, updateRecord} from "../../lib/request";
+import { updatePerson, updateRecord } from '../../lib/request';
 
 const { clientId } = secret;
 
@@ -23,50 +22,58 @@ class Payment extends React.Component {
 
   onBuyShareWithPaypalSuccess(details, data) {
     const { nextStep, values } = this.props;
+    const { userId } = values;
     recordShareBuySuccess(details, data, values);
+    const updatedPerson = {
+      id: userId,
+      fields: {
+        'Onboarding Step': 6
+      }
+    };
+    updatePerson(updatedPerson);
     nextStep();
   }
 
-  // nextButton = e => {
-  //   const { values, userId, userLoginId } = this.props;
-  //   const { errors, numShares } = values;
-  //   const { dividends } = this.state;
-  //
-  //   e.preventDefault();
-  //   const fields = ['numShares', 'dividends'];
-  //   const errorsMessages = [];
-  //
-  //   for (let i = 0; i < fields.length; i += 1) {
-  //     const errorMessage = formValidation(fields[i], values[fields[i]]);
-  //     errors[fields[i]] = errorMessage;
-  //
-  //     if (errorMessage !== '') {
-  //       errorsMessages.push(errorMessage);
-  //     } else {
-  //       const updatedPerson = {
-  //         id: userId,
-  //         fields: {
-  //           Dividends: dividends,
-  //         }
-  //       };
-  //
-  //       const newLogin = {
-  //         id: userLoginId,
-  //         fields: {
-  //           "Number of Shares": numShares
-  //         }
-  //       };
-  //
-  //       updatePerson(updatedPerson).then(() => {
-  //         return updateRecord('User Login', newLogin);
-  //       });
-  //     }
-  //   }
-  //
-  //   if (errorsMessages && errorsMessages.length > 0) {
-  //     this.forceUpdate();
-  //   }
-  // };
+  nextButton = e => {
+    const { values, userId, userLoginId } = this.props;
+    const { errors, numShares } = values;
+    const { dividends } = this.state;
+
+    e.preventDefault();
+    const fields = ['numShares', 'dividends'];
+    const errorsMessages = [];
+
+    for (let i = 0; i < fields.length; i += 1) {
+      const errorMessage = formValidation(fields[i], values[fields[i]]);
+      errors[fields[i]] = errorMessage;
+
+      if (errorMessage !== '') {
+        errorsMessages.push(errorMessage);
+      } else {
+        const updatedPerson = {
+          id: userId,
+          fields: {
+            Dividends: dividends
+          }
+        };
+
+        const newLogin = {
+          id: userLoginId,
+          fields: {
+            'Number of Shares': numShares
+          }
+        };
+
+        updatePerson(updatedPerson).then(() => {
+          return updateRecord('User Login', newLogin);
+        });
+      }
+    }
+
+    if (errorsMessages && errorsMessages.length > 0) {
+      this.forceUpdate();
+    }
+  };
 
   minusShares = () => {
     const { values, handleChange } = this.props;

@@ -383,7 +383,7 @@ w-pasword {
   font-size: 16px;
   font-weight: bold;
   font-family: 'Nunito Sans', sans-serif;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
   color: #395578;
 }
 
@@ -854,6 +854,14 @@ carousel__arrow--right {
 
 .projectGroup-list-option:hover {
   background-color: #f7f8fa;
+}
+
+.projectGroup-list-option-background {
+  background-color: #f7f8fa;
+}
+
+.projectGroup-list-option:focus {
+  outline: none;
 }
 
 .projectGroup-list-option-header {

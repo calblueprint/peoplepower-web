@@ -37,10 +37,11 @@ class BasicInfo extends React.Component {
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
       if (userId) {
+        const fullName = fname + ' ' + lname;
         const updatedPerson = {
           id: userId,
           fields: {
-            Name: `${fname} + " " + ${lname}`,
+            Name: fullName,
             Email: email,
             'Alternative Email': altEmail
           }

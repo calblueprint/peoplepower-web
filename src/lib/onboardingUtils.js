@@ -46,7 +46,7 @@ const createPersonWithRetries = async (
           State: state,
           Apt: apt,
           Zipcode: zipcode,
-          'Onboarding Step': 3
+          'Onboarding Step': 3,
           'Mailing Street': mailingStreet,
           'Mailing Apt': mailingApt,
           'Mailing City': mailingCity,

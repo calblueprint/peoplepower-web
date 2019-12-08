@@ -41,7 +41,11 @@ class ListView extends React.Component {
                 <button
                   type="button"
                   onClick={() => changeDisplayedGroup(index)}
-                  className="projectGroup-list-option justify-space-between left"
+                  className={`projectGroup-list-option justify-space-between left ${
+                    group.id === groups[displayGroup].id
+                      ? 'projectGroup-list-option-background'
+                      : ''
+                  }`}
                 >
                   <div className="">
                     <div className="projectGroup-list-option-header">

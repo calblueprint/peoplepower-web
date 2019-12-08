@@ -95,7 +95,7 @@ class Onboarding extends React.Component {
 
   componentDidMount() {
     const id = getLoggedInUserId();
-    const { step, numShares, projectGroup, dividends } = this.state;
+    const { step, numShares, projectGroup } = this.state;
     // Person does not have a User Id
     if (!id) {
       return;
@@ -282,7 +282,7 @@ class Onboarding extends React.Component {
 
   render() {
     const { step, noProjectGroup } = this.state;
-
+    const { history } = this.props;
     switch (step) {
       case 1:
         return (
@@ -351,6 +351,7 @@ class Onboarding extends React.Component {
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
             handleDividends={this.handleDividends}
+            history={history}
           />,
           6
         );

@@ -168,7 +168,7 @@ class ContactInfo extends React.Component {
               />
             </div>
           </div>
-          <div className="flex row">
+          <div className="flex onboarding-row">
             <div className="w-80 pr-1 validation">
               {' '}
               {errors.street ? errors.street : '\u00A0'}
@@ -178,7 +178,7 @@ class ContactInfo extends React.Component {
               {errors.apt ? errors.apt : '\u00A0'}
             </div>
           </div>
-          <div className="flex row">
+          <div className="flex onboarding-row">
             <div className="w-60 pr-1">
               <label className="onboarding-label" htmlFor="password">
                 City *
@@ -225,7 +225,7 @@ class ContactInfo extends React.Component {
               />
             </div>
           </div>
-          <div className="flex row">
+          <div className="flex onboarding-row">
             <div className="w-60 pr-1 validation">
               {errors.city ? errors.city : '\u00A0'}
             </div>
@@ -237,7 +237,7 @@ class ContactInfo extends React.Component {
               {errors.zipcode ? errors.zipcode : '\u00A0'}
             </div>
           </div>
-          <div className="flex row">
+          <div className="flex onboarding-row">
             <div className="w-60 pr-1">
               <label className="onboarding-label" htmlFor="password">
                 Phone *
@@ -298,7 +298,7 @@ class ContactInfo extends React.Component {
             </label>
           </div>
           <div style={{ display: mailingAddressSame ? 'none' : 'block' }}>
-            <div className="flex row">
+            <div className="flex onboarding-row">
               <div className="w-80 pr-1">
                 <label className="onboarding-label" htmlFor="password">
                   Address *
@@ -329,7 +329,7 @@ class ContactInfo extends React.Component {
                 />
               </div>
             </div>
-            <div className="flex row">
+            <div className="flex onboarding-row">
               <div className="w-80 pr-1 validation">
                 {' '}
                 {errors.mailingStreet ? errors.mailingStreet : '\u00A0'}
@@ -339,7 +339,7 @@ class ContactInfo extends React.Component {
                 {errors.mailingApt ? errors.mailingApt : '\u00A0'}
               </div>
             </div>
-            <div className="flex row">
+            <div className="flex onboarding-row">
               <div className="w-60 pr-1">
                 <label className="onboarding-label" htmlFor="password">
                   City *
@@ -392,7 +392,7 @@ class ContactInfo extends React.Component {
                 />
               </div>
             </div>
-            <div className="flex row">
+            <div className="flex onboarding-row">
               <div className="w-60 pr-1 validation">
                 {errors.mailingCity ? errors.mailingCity : '\u00A0'}
               </div>
@@ -404,7 +404,7 @@ class ContactInfo extends React.Component {
                 {errors.mailingZipcode ? errors.mailingZipcode : '\u00A0'}
               </div>
             </div>
-            <div className="flex row">
+            <div className="flex onboarding-row">
               <div className="w-60 pr-1">
                 <label className="onboarding-label" htmlFor="password">
                   Phone *

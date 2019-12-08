@@ -9,6 +9,8 @@ const { key } = secret;
 const Airtable = require('airtable');
 
 const OWNER_TABLE = 'Owner';
+const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
+const PERSON_TABLE = 'Person';
 
 // API KEY will reside in ENV variables later.
 Airtable.configure({
@@ -295,5 +297,6 @@ export {
   createRecord,
   updatePerson,
   updateOwner,
+  updateBill,
   updateRecord
 };
