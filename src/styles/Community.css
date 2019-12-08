@@ -90,19 +90,3 @@ h3 {
   margin-bottom: 0px;
   color: #c4c4c4;
 }
-
-/* SPINNER */
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
-}
-
-.rotate {
-  width: 100px;
-  height: 100px;
-  animation: rotation 2s infinite linear;
-}

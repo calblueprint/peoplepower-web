@@ -2,6 +2,7 @@ import React from 'react';
 import Card from './Card';
 import '../../styles/AdminDashboard.css';
 import { getLoggedInUserId } from '../../lib/auth';
+import LoadingComponent from '../../components/LoadingComponent';
 import {
   getAdminTable,
   getOwnersFromProjectGroup,
@@ -31,7 +32,10 @@ export default class AdminDashboard extends React.Component {
     const ownerId = await getOwnerFromPerson(personId);
     const adminGroupId = await getAdminTable(ownerId);
     if (adminGroupId === -1) {
-      return;
+      this.setState({
+        access: false,
+        isReady: true
+      });
     }
 
     const owners = await getOwnersFromProjectGroup(adminGroupId);
@@ -68,11 +72,7 @@ export default class AdminDashboard extends React.Component {
     const { access, isReady } = this.state;
 
     if (!isReady) {
-      return (
-        <div className="cont">
-          <h3>Loading...</h3>
-        </div>
-      );
+      return <LoadingComponent />;
     }
 
     if (!access) {

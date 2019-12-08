@@ -5,6 +5,7 @@ import { getLoggedInUserId } from '../../lib/auth';
 import applyCredentials from '../../lib/credentials';
 import AnnouncementList from '../../components/AnnouncementList';
 import AddAnnouncement from '../../components/AddAnnouncement';
+import LoadingComponent from '../../components/LoadingComponent';
 
 export default class Community extends React.Component {
   constructor(props) {
@@ -72,11 +73,7 @@ export default class Community extends React.Component {
   render() {
     const { cards, isLoading, usersGroup, usersID, credentials } = this.state;
     return isLoading ? (
-      <img
-        src="https://image.flaticon.com/icons/svg/25/25220.svg"
-        className="rotate"
-        alt="page is loading"
-      />
+      <LoadingComponent />
     ) : (
       <div className="dashboard community">
         <div className="cont">
