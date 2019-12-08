@@ -38,9 +38,9 @@ class Onboarding extends React.Component {
       mailingPhoneNumber: '',
       bylaw1: false,
       bylaw2: false,
-      projectGroup: {},
+      projectGroup: '',
       noProjectGroup: false,
-      numShares: '',
+      numShares: 1, // TODO(dfangshuo): 0 causes a bug
       dividends: '',
       beneficiaries: [],
       billingAddressSame: false,
@@ -90,6 +90,7 @@ class Onboarding extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
+    this.selectNoProjectGroup = this.selectNoProjectGroup.bind(this);
   }
 
   componentDidMount() {
@@ -102,74 +103,60 @@ class Onboarding extends React.Component {
 
     this.setState({ userId: id });
     getRecord('Person', id)
-      .then(payload => {
+      .then(personRecord => {
         this.setState({
-          step: payload.record['Onboarding Step'],
-          userLoginId: payload.record['User Login'][0],
-          personId: payload.record.Owner[0],
-          fname: payload.record.Name.split(' ')[0],
-          lname: payload.record.Name.split(' ')[1],
-          email: payload.record.Email,
-          altEmail: payload.record['Alternative Email'],
-          street: payload.record.Street,
-          apt: payload.record.Apt,
-          city: payload.record.City,
-          state: payload.record.State,
-          zipcode: payload.record.Zipcode,
-          phoneNumber: payload.record['Phone Number'],
-          mailingStreet: payload.record['Mailing Street'],
-          mailingApt: payload.record['Mailing Apt'],
-          mailingCity: payload.record['Mailing City'],
-          mailingState: payload.record['Mailing State'],
-          mailingZipcode: payload.record['Mailing Zipcode'],
-          mailingPhoneNumber: payload.record['Mailing Phone Number'],
-          billingStreet: payload.record['Billing Street'],
-          billingApt: payload.record['Billing Apt'],
-          billingCity: payload.record['Billing City'],
-          billingState: payload.record['Billing State'],
-          billingZipcode: payload.record['Billing Zipcode'],
-          dividends: payload.record.Dividends,
-          password: payload.record.Password
+          step: personRecord.record['Onboarding Step'],
+          userLoginId: personRecord.record['User Login'][0],
+          personId: personRecord.record.Owner[0],
+          fname: personRecord.record.Name.split(' ')[0],
+          lname: personRecord.record.Name.split(' ')[1],
+          email: personRecord.record.Email,
+          altEmail: personRecord.record['Alternative Email'],
+          street: personRecord.record.Street,
+          apt: personRecord.record.Apt,
+          city: personRecord.record.City,
+          state: personRecord.record.State,
+          zipcode: personRecord.record.Zipcode,
+          phoneNumber: personRecord.record['Phone Number'],
+          mailingStreet: personRecord.record['Mailing Street'],
+          mailingApt: personRecord.record['Mailing Apt'],
+          mailingCity: personRecord.record['Mailing City'],
+          mailingState: personRecord.record['Mailing State'],
+          mailingZipcode: personRecord.record['Mailing Zipcode'],
+          mailingPhoneNumber: personRecord.record['Mailing Phone Number'],
+          billingStreet: personRecord.record['Billing Street'],
+          billingApt: personRecord.record['Billing Apt'],
+          billingCity: personRecord.record['Billing City'],
+          billingState: personRecord.record['Billing State'],
+          billingZipcode: personRecord.record['Billing Zipcode'],
+          dividends: personRecord.record.Dividends,
+          password: personRecord.record.Password
         });
-        const { Owner: owner } = payload.record;
+        const { Owner: owner } = personRecord.record;
         return getRecord('Owner', owner);
       })
-      .then(payload => {
-        this.setState({
-          projectGroup: payload.record['Project Group'][0],
-          numShares: payload.record['Number of Shares']
-        });
-      });
-    if (step > 3 && projectGroup === {}) {
-      this.setState({
-        noProjectGroup: true
-      });
-    }
-    if (step > 4) {
-      this.setState({
-        bylaw1: true,
-        bylaw2: true
-      });
-    }
+      .then(ownerRecord => {
+        if (step > 3) {
+          this.setState({
+            projectGroup: ownerRecord.record['Project Group'][0],
+            numShares: ownerRecord.record['Number of Shares']
+          });
 
-    // for (const key in this.state) {
-    //   const value = this.state[key];
-    //   console.log(value);
-    //   console.log(key + (value === ''));
-    //   if (value === '') {
-    //     this.setState({
-    //       [key]: ''
-    //     });
-    //   }
-    // }
+          if (step > 3 && projectGroup === {}) {
+            this.setState({
+              noProjectGroup: true
+            });
+          } else if (step > 4) {
+            this.setState({
+              bylaw1: true,
+              bylaw2: true
+            });
+          }
+        }
+      });
     if (numShares === '') {
       this.setState({
         numShares: 0
-      });
-    }
-    if (!dividends) {
-      this.setState({
-        dividends: ''
       });
     }
   }
@@ -256,6 +243,11 @@ class Onboarding extends React.Component {
           projectGroup: event.target.value
         });
         break;
+      case 'numShares':
+        this.setState({
+          numShares: event.target.value
+        });
+        break;
       default:
         console.log(event.target.name + event.target.value);
         this.setState({
@@ -275,6 +267,11 @@ class Onboarding extends React.Component {
     });
   };
 
+  selectNoProjectGroup = () => {
+    const { noProjectGroup } = this.state;
+    this.setState({ noProjectGroup: !noProjectGroup });
+  };
+
   // function for validation of bylaws
   callBackBylawValidation() {
     const { errors } = this.state;
@@ -284,98 +281,14 @@ class Onboarding extends React.Component {
   }
 
   render() {
-    const { step } = this.state;
-    const {
-      userId,
-      personId,
-      userLoginId,
-      fname,
-      lname,
-      email,
-      altEmail,
-      password,
-      street,
-      apt,
-      city,
-      state,
-      zipcode,
-      phoneNumber,
-      mailingAddressSame,
-      mailingStreet,
-      mailingApt,
-      mailingCity,
-      mailingState,
-      mailingZipcode,
-      mailingPhoneNumber,
-      bylaw1,
-      bylaw2,
-      projectGroup,
-      noProjectGroup,
-      numShares,
-      dividends,
-      beneficiaries,
-      billingAddressSame,
-      ccnumber,
-      expmonth,
-      expyear,
-      cvv,
-      billingStreet,
-      billingApt,
-      billingCity,
-      billingState,
-      billingZipcode,
-      errors,
-      touched
-    } = this.state;
-    const values = {
-      userId,
-      personId,
-      userLoginId,
-      fname,
-      lname,
-      email,
-      altEmail,
-      password,
-      street,
-      apt,
-      city,
-      state,
-      zipcode,
-      phoneNumber,
-      mailingAddressSame,
-      mailingStreet,
-      mailingApt,
-      mailingCity,
-      mailingState,
-      mailingZipcode,
-      mailingPhoneNumber,
-      bylaw1,
-      bylaw2,
-      projectGroup,
-      noProjectGroup,
-      numShares,
-      dividends,
-      beneficiaries,
-      billingAddressSame,
-      ccnumber,
-      expmonth,
-      expyear,
-      cvv,
-      billingStreet,
-      billingApt,
-      billingCity,
-      billingState,
-      billingZipcode,
-      errors,
-      touched
-    };
+    const { step, noProjectGroup } = this.state;
 
     switch (step) {
       case 1:
         return (
           <BasicInfo
             nextStep={this.nextStep}
-            values={values}
+            values={this.state}
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
           />
@@ -384,7 +297,7 @@ class Onboarding extends React.Component {
         return Template(
           <ContactInfo
             nextStep={this.nextStep}
-            values={values}
+            values={this.state}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
@@ -396,10 +309,12 @@ class Onboarding extends React.Component {
         return Template(
           <ProjectGroups
             nextStep={this.nextStep}
-            values={values}
+            values={this.state}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
+            selectNoProjectGroup={this.selectNoProjectGroup}
+            noProjectGroup={noProjectGroup}
           />,
           3
         );
@@ -407,7 +322,7 @@ class Onboarding extends React.Component {
         return Template(
           <Bylaws
             nextStep={this.nextStep}
-            values={values}
+            values={this.state}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             callBackBylawValidation={this.callBackBylawValidation}
@@ -418,7 +333,7 @@ class Onboarding extends React.Component {
       case 5:
         return Template(
           <Payment
-            values={values}
+            values={this.state}
             prevStep={this.prevStep}
             nextStep={this.nextStep}
             handleChange={this.handleChange}
@@ -430,7 +345,7 @@ class Onboarding extends React.Component {
       case 6:
         return Template(
           <Complete
-            values={values}
+            values={this.state}
             prevStep={this.prevStep}
             onSubmit={this.onSubmit}
             handleChange={this.handleChange}

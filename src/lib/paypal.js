@@ -1,4 +1,4 @@
-import { createRecord, updatePerson, updateBill } from './request';
+import { createRecord, updateOwner } from './request';
 
 const PAYMENT_TABLE = 'Payment';
 
@@ -27,16 +27,16 @@ const createPayment = async record => {
 };
 
 const recordShareBuySuccess = async (details, data, values) => {
-  const { userId, numShares, dividends, personId } = values;
-
-  const updatedPerson = {
-    id: userId,
+  const { numShares, dividends, personId } = values;
+  const updatedOwner = {
+    id: personId,
     fields: {
       'Number of Shares': numShares,
       Dividends: dividends
     }
   };
-  updatePerson(updatedPerson);
+
+  await updateOwner(updatedOwner);
 
   const { orderID, payerID } = data;
 
