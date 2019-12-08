@@ -9,7 +9,7 @@ const LoadingComponent = () => {
         className="rotate"
         alt="page is loading"
       />
-      <h1>Generating power...</h1>
+      <h1>Generating Power...</h1>
     </div>
   );
 };
