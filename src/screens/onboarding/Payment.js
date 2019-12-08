@@ -10,12 +10,15 @@ const { clientId } = secret;
 const SHARE_PRICE = 100;
 
 class Payment extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     billingAddressSame: true
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    // this.state = {
+    //   billingAddressSame: true
+    // };
+    this.onBuyShareWithPaypalSuccess = this.onBuyShareWithPaypalSuccess.bind(
+      this
+    );
+  }
 
   onBuyShareWithPaypalSuccess(details, data) {
     const { nextStep, values } = this.props;
@@ -81,6 +84,7 @@ class Payment extends React.Component {
   render() {
     const { values, handleChange, nextStep } = this.props;
     const { errors, numShares } = values;
+    console.log(`numShares is${numShares}`);
     return (
       <div className="w-100">
         <div className="flex w-100 justify-space-between onboarding-row ">

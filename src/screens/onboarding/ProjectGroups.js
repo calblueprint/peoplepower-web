@@ -4,7 +4,7 @@ import '../../styles/Onboarding.css';
 import MapView from './MapView';
 import ListView from './ListView';
 import { getAllProjectGroups } from '../../lib/onboardingUtils';
-import { updatePerson, updateRecord } from '../../lib/request';
+import { updatePerson, updateOwner } from '../../lib/request';
 
 class ProjectGroups extends React.Component {
   constructor(props) {
@@ -12,8 +12,7 @@ class ProjectGroups extends React.Component {
     this.state = {
       groups: [{}],
       displayGroup: 0,
-      view: 'list',
-      noProjectGroup: false
+      view: 'list'
     };
   }
 
@@ -62,40 +61,40 @@ class ProjectGroups extends React.Component {
     handleChange(event);
   };
 
-  selectNoProjectGroup = () => {
-    const { noProjectGroup } = this.state;
-    this.setState({ noProjectGroup: !noProjectGroup });
-  };
-
-  nextButton = () => {
-    const { values, nextStep } = this.props;
-    const { errors, projectGroup, personId, userId } = values;
-    const { noProjectGroup } = this.state;
+  nextButton = async () => {
+    const {
+      values: { errors, projectGroup, personId, userId },
+      nextStep,
+      noProjectGroup
+    } = this.props;
 
     const errorMessage = formValidation('projectGroup', projectGroup);
     errors.projectGroup = errorMessage;
-    console.log(errorMessage);
-    if (errorMessage === '' || noProjectGroup) {
+
+    if (!noProjectGroup && projectGroup === '') {
+      console.error('Need to make a selection');
+    } else {
       const updatedPerson = {
         id: userId,
         fields: {
           'Onboarding Step': 4
         }
       };
-      updatePerson(updatedPerson);
+      await updatePerson(updatedPerson);
 
       const newOwner = {
         id: personId,
         fields: {
-          'Project Group': [projectGroup.id]
+          'Project Group': [projectGroup]
         }
       };
 
-      updateRecord('Owner', newOwner);
+      await updateOwner(newOwner);
       nextStep();
-    } else {
-      this.forceUpdate();
     }
+    // else {
+    //   this.forceUpdate();
+    // }
   };
 
   prevButton = e => {
@@ -118,9 +117,14 @@ class ProjectGroups extends React.Component {
   };
 
   render() {
-    const { values, handleChange } = this.props;
+    const {
+      values,
+      handleChange,
+      noProjectGroup,
+      selectNoProjectGroup
+    } = this.props;
     const { errors } = values;
-    const { groups, displayGroup, view, noProjectGroup } = this.state;
+    const { groups, displayGroup, view } = this.state;
     return (
       <div
         style={{
@@ -157,7 +161,7 @@ class ProjectGroups extends React.Component {
               <input
                 type="checkbox"
                 name="mailingAddressSame"
-                onClick={this.selectNoProjectGroup}
+                onClick={selectNoProjectGroup}
                 onChange={handleChange}
                 checked={noProjectGroup}
               />

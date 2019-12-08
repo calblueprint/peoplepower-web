@@ -230,6 +230,8 @@ function createRecord(table, record) {
 */
 
 function updatePerson(updatedPerson) {
+  console.log('updatePerson');
+  console.log(updatedPerson);
   return new Promise((resolve, reject) => {
     base('Person').update([updatedPerson], function(err, records) {
       if (err) {
@@ -243,12 +245,9 @@ function updatePerson(updatedPerson) {
   });
 }
 
-function updateOwner(updatedPerson) {
-  console.log('OWNER TO UPDATE');
-  console.log(updatedPerson);
-
+function updateOwner(updatedOwner) {
   return new Promise((resolve, reject) => {
-    base(OWNER_TABLE).update([updatedPerson], function(err) {
+    base(OWNER_TABLE).update([updatedOwner], function(err) {
       if (err) {
         reject(err);
         return;
@@ -267,7 +266,7 @@ function updateRecord(table, updatedRecord) {
         return;
       }
       records.forEach(function(record) {
-        resolve(record.get('ID'));
+        resolve(record.get('ID')); // TODO(dfangshuo)
       });
     });
   });

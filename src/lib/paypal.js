@@ -27,15 +27,15 @@ const createPayment = async record => {
 };
 
 const recordShareBuySuccess = async (details, data, values) => {
-  const { userId, numShares, dividends, personId } = values;
-
+  const { numShares, dividends, personId } = values;
   const updatedOwner = {
-    id: userId,
+    id: personId,
     fields: {
       'Number of Shares': numShares,
       Dividends: dividends
     }
   };
+
   await updateOwner(updatedOwner);
 
   const { orderID, payerID } = data;

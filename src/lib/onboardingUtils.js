@@ -40,7 +40,8 @@ const createPersonWithRetries = async (
           City: city,
           State: state,
           Apt: apt,
-          Zipcode: zipcode
+          Zipcode: zipcode,
+          'Onboarding Step': 3
         }
       }
     ]);
