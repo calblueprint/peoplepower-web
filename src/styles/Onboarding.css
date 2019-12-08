@@ -1036,6 +1036,11 @@ carousel__arrow--right {
 [type='radio']:not(:checked) {
   position: absolute;
 }
+
+[type='radio'] label {
+  z-index: 2;
+}
+
 [type='radio']:checked + label,
 [type='radio']:not(:checked) + label {
   position: relative;
