@@ -3,6 +3,7 @@
 import React from 'react';
 import '../../styles/UserProfilePage.css';
 import { getRecord, updatePerson, updateRecord } from '../../lib/request';
+import LoadingComponent from '../../components/LoadingComponent';
 
 const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;
@@ -230,7 +231,7 @@ export default class UserProfilePage extends React.Component {
     }
 
     return isLoading ? (
-      <p>spinner</p>
+      <LoadingComponent />
     ) : (
       <div className="dashboard settings">
         <div className="cont">

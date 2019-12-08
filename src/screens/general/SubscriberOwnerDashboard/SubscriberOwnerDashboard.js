@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../../styles/SubscriberOwnerDashboard.css';
-
 import SubscriberOwnerDashboardAllBillsView from './SubscriberOwnerDashboardAllBillsView';
 import SubscriberOwnerDashboardMainView from './SubscriberOwnerDashboardMainView';
 import { getLoggedInUserId } from '../../../lib/auth';
+import LoadingComponent from '../../../components/LoadingComponent';
 
 import {
   areDiffBills,
@@ -66,11 +66,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
   render() {
     const { mode, transactions, isReady } = this.state;
     if (!isReady) {
-      return (
-        <div>
-          <strong>Loading...</strong>
-        </div>
-      );
+      return <LoadingComponent />;
     }
     if (mode === 0) {
       return (

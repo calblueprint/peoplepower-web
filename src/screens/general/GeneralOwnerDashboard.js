@@ -3,6 +3,7 @@ import '../../styles/GeneralOwnerDashboard.css';
 import { getRecord, getMultipleFromAttr } from '../../lib/request';
 import { getLoggedInUserId, logOut } from '../../lib/auth';
 import AnnouncementList from '../../components/AnnouncementList';
+import LoadingComponent from '../../components/LoadingComponent';
 
 export default class GeneralOwnerDashboard extends React.Component {
   constructor(props) {
@@ -167,6 +168,9 @@ export default class GeneralOwnerDashboard extends React.Component {
       </div>
     );
 
+    if (isLoadingCards && isLoadingDetails) {
+      return <LoadingComponent />;
+    }
     return (
       <div className="dashboard">
         <div className="cont dash-announcements-cont">
