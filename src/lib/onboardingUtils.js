@@ -25,6 +25,11 @@ const createPersonWithRetries = async (
   city,
   state,
   apt,
+  mailingStreet,
+  mailingApt,
+  mailingCity,
+  mailingState,
+  mailingZipcode,
   zipcode,
   numRetries
 ) => {
@@ -40,7 +45,12 @@ const createPersonWithRetries = async (
           City: city,
           State: state,
           Apt: apt,
-          Zipcode: zipcode
+          Zipcode: zipcode,
+          'Mailing Street': mailingStreet,
+          'Mailing Apt': mailingApt,
+          'Mailing City': mailingCity,
+          'Mailing State': mailingState,
+          'Mailing Zipcode': mailingZipcode
         }
       }
     ]);
@@ -59,6 +69,11 @@ const createPersonWithRetries = async (
       state,
       apt,
       zipcode,
+      mailingStreet,
+      mailingApt,
+      mailingCity,
+      mailingState,
+      mailingZipcode,
       numRetries - 1
     );
   }
@@ -156,6 +171,11 @@ const createPersonOwnerUserLoginRecord = async (
   city,
   state,
   zipcode,
+  mailingStreet,
+  mailingApt,
+  mailingCity,
+  mailingState,
+  mailingZipcode,
   numRetries = DEFAULT_NUM_RETRIES
 ) => {
   // necessary IDs
@@ -172,6 +192,11 @@ const createPersonOwnerUserLoginRecord = async (
       state,
       apt,
       zipcode,
+      mailingStreet,
+      mailingApt,
+      mailingCity,
+      mailingState,
+      mailingZipcode,
       numRetries
     );
   } catch (err) {
