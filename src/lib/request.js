@@ -8,9 +8,7 @@ const { key } = secret;
 
 const Airtable = require('airtable');
 
-// tables
-const PERSON_TABLE = 'Person';
-const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
+const OWNER_TABLE = 'Owner';
 
 // API KEY will reside in ENV variables later.
 Airtable.configure({
@@ -246,6 +244,8 @@ function updateBill(updatedBill) {
 }
 
 function updatePerson(updatedPerson) {
+  console.log('updatePerson');
+  console.log(updatedPerson);
   return new Promise((resolve, reject) => {
     base(PERSON_TABLE).update([updatedPerson], function(err, records) {
       if (err) {
@@ -253,8 +253,20 @@ function updatePerson(updatedPerson) {
         return;
       }
       records.forEach(function(record) {
-        resolve(record.get('Name'));
+        resolve(record.get('Name')); // TODO(dfangshuo)
       });
+    });
+  });
+}
+
+function updateOwner(updatedOwner) {
+  return new Promise((resolve, reject) => {
+    base(OWNER_TABLE).update([updatedOwner], function(err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(true);
     });
   });
 }
@@ -268,7 +280,7 @@ function updateRecord(table, updatedRecord) {
         return;
       }
       records.forEach(function(record) {
-        resolve(record.get('ID'));
+        resolve(record.get('ID')); // TODO(dfangshuo)
       });
     });
   });
@@ -282,6 +294,6 @@ export {
   createPerson,
   createRecord,
   updatePerson,
-  updateBill,
+  updateOwner,
   updateRecord
 };
