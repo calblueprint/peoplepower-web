@@ -22,7 +22,7 @@ const AnnouncementList = props => {
     }
 
     return (
-      <div key={message} className="announcementCard">
+      <div key={title} className="announcementCard">
         <div className="cardHeading">
           <h2>{title}</h2>
           {url ? <img src={url} alt={filename} /> : null}

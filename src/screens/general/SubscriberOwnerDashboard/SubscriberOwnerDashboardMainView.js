@@ -36,7 +36,10 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
 
   render() {
     const { transactions, callback } = this.props;
-    const { latestBill } = this.state;
+    let { latestBill } = this.state;
+    if (!latestBill) {
+      latestBill = { 'Amount Due': 0 };
+    }
     const amtDue = centsToDollars(latestBill['Amount Due']);
     return (
       <div className="subscriber-dash-outer-container">
@@ -106,6 +109,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
               {transactions.map(transaction => {
                 return (
                   <PanelBillRow
+                    key={transaction['Start Date']}
                     statementDate={transaction['Statement Date']}
                     startDate={transaction['Start Date']}
                     status={transaction.Status}

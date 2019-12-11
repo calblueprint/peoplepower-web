@@ -1,4 +1,4 @@
-import { getRecordsFromAttribute, createRecord } from './request';
+import { getRecordsFromAttribute, getRecord, createRecord } from './request';
 
 // TABLES
 const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
@@ -90,16 +90,13 @@ const validateSubscriberOwnerRecord = res => {
 
 // throw an exception on error
 const getOwnerIdFromId = async loggedInUserId => {
-  const personRecord = await getRecordsFromAttribute(
-    PERSON_TABLE,
-    loggedInUserId
-  );
+  const personRecord = await getRecord(PERSON_TABLE, loggedInUserId);
   validatePersonRecord(personRecord);
   return personRecord.record.Owner[0];
 };
 
 const getBillsFromOwnerId = async ownerId => {
-  const owner = await getRecordsFromAttribute(OWNER_TABLE, ownerId);
+  const owner = await getRecord(OWNER_TABLE, ownerId);
   return owner.record['Subscriber Bill'];
 };
 
@@ -116,39 +113,46 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
     const billIds = await getBillsFromOwnerId(ownerId);
 
     const billPromises = [];
-    billIds.forEach(billId => {
-      billPromises.push(getRecordsFromAttribute(SUBSCRIBER_BILL_TABLE, billId));
-    });
+    if (billIds) {
+      billIds.forEach(billId => {
+        billPromises.push(getRecord(SUBSCRIBER_BILL_TABLE, billId));
+      });
+    } else {
+      callback([]);
+    }
 
     const billObjects = await Promise.all(billPromises);
 
     const bills = [];
     let isLatest = true;
-    billObjects.forEach(({ record }) => {
-      // if (!record.Payment) {
-      bills.push({
-        ID: record.ID,
-        'Subscriber Owner': record['Subscriber Owner'][0], // assumes exactly 1 subscriber owner
-        'Statement Date': record['Statement Date'],
-        'Start Date': record['Start Date'],
-        'End Date': record['End Date'],
-        'Rate Schedule': record['Rate Schedule'],
-        'Estimated Rebate': record['Estimated Rebate'],
-        'Total Estimated Rebate': record['Total Estimated Rebate'],
-        'Amount Due on Previous': record['Amount Due on Previous'],
-        'Amount Received Since Previous':
-          record['Amount Received Since Previous'],
-        'Amount Due': record['Amount Due'],
-        Status: record.Status,
-        Balance: record.Balance,
-        'Is Latest': isLatest
+    if (billObjects) {
+      billObjects.forEach(({ record }) => {
+        // if (!record.Payment) {
+        bills.push({
+          ID: record.ID,
+          'Subscriber Owner': record['Subscriber Owner'][0], // assumes exactly 1 subscriber owner
+          'Statement Date': record['Statement Date'],
+          'Start Date': record['Start Date'],
+          'End Date': record['End Date'],
+          'Rate Schedule': record['Rate Schedule'],
+          'Estimated Rebate': record['Estimated Rebate'],
+          'Total Estimated Rebate': record['Total Estimated Rebate'],
+          'Amount Due on Previous': record['Amount Due on Previous'],
+          'Amount Received Since Previous':
+            record['Amount Received Since Previous'],
+          'Amount Due': record['Amount Due'],
+          Status: record.Status,
+          Balance: record.Balance,
+          'Is Latest': isLatest
+        });
+        isLatest = false;
+        // }
       });
-      isLatest = false;
-      // }
-    });
+    }
 
     callback(bills);
   } catch (err) {
+    console.log(err);
     callback(null);
   }
 };

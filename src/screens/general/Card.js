@@ -2,7 +2,11 @@ import React from 'react';
 
 function Card({ name, callback, ownerId, ownerType }) {
   const ownersTags = ownerType.map(type => {
-    return <div className="tag">{type}</div>;
+    return (
+      <div key={type} className="tag">
+        {type}
+      </div>
+    );
   });
 
   return (
