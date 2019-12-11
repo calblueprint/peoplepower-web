@@ -1,9 +1,8 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
-import formValidation from '../../lib/formValidation';
 import { recordShareBuySuccess } from '../../lib/paypal';
 import secret from '../../secret';
-import { updatePerson, updateRecord } from '../../lib/request';
+import { updatePerson } from '../../lib/request';
 
 const { clientId } = secret;
 
@@ -15,64 +14,36 @@ class Payment extends React.Component {
     // this.state = {
     //   billingAddressSame: true
     // };
+    this.state = {
+      paid: false
+    };
     this.onBuyShareWithPaypalSuccess = this.onBuyShareWithPaypalSuccess.bind(
       this
     );
   }
 
   onBuyShareWithPaypalSuccess(details, data) {
-    const { nextStep, values } = this.props;
-    const { userId } = values;
+    const { values } = this.props;
     recordShareBuySuccess(details, data, values);
+    console.log('Paypal success');
+    this.nextButton();
+  }
+
+  // Only called after user has paid
+  nextButton = () => {
+    const { values, nextStep } = this.props;
+    const { userId } = values;
+
+    // No validation as everything is already decided at this point (user has paid)
     const updatedPerson = {
       id: userId,
       fields: {
         'Onboarding Step': 6
       }
     };
+
     updatePerson(updatedPerson);
     nextStep();
-  }
-
-  nextButton = e => {
-    const { values, userId, userLoginId } = this.props;
-    const { errors, numShares } = values;
-    const { dividends } = this.state;
-
-    e.preventDefault();
-    const fields = ['numShares', 'dividends'];
-    const errorsMessages = [];
-
-    for (let i = 0; i < fields.length; i += 1) {
-      const errorMessage = formValidation(fields[i], values[fields[i]]);
-      errors[fields[i]] = errorMessage;
-
-      if (errorMessage !== '') {
-        errorsMessages.push(errorMessage);
-      } else {
-        const updatedPerson = {
-          id: userId,
-          fields: {
-            Dividends: dividends
-          }
-        };
-
-        const newLogin = {
-          id: userLoginId,
-          fields: {
-            'Number of Shares': numShares
-          }
-        };
-
-        updatePerson(updatedPerson).then(() => {
-          return updateRecord('User Login', newLogin);
-        });
-      }
-    }
-
-    if (errorsMessages && errorsMessages.length > 0) {
-      this.forceUpdate();
-    }
   };
 
   minusShares = () => {
@@ -110,9 +81,9 @@ class Payment extends React.Component {
   };
 
   render() {
-    const { values, handleChange, nextStep } = this.props;
+    const { values, handleChange } = this.props;
     const { errors, numShares } = values;
-    console.log(`numShares is${numShares}`);
+    const { paid } = this.state;
     return (
       <div className="w-100">
         <div className="flex w-100 justify-space-between onboarding-row ">
@@ -159,7 +130,7 @@ class Payment extends React.Component {
                     name="dividends"
                     className="payment-dividends-radio"
                     value="yes"
-                    checked={values.dividends === 'yes'}
+                    checked={values.dividends}
                     onChange={handleChange}
                   />
                   <label htmlFor="" className="payment-dividends-choice">
@@ -172,7 +143,7 @@ class Payment extends React.Component {
                     name="dividends"
                     className="payment-dividends-radio"
                     value="no"
-                    checked={values.dividends === 'no'}
+                    checked={!values.dividends}
                     onChange={handleChange}
                   />
                   <label htmlFor="" className="payment-dividends-choice">
@@ -182,20 +153,25 @@ class Payment extends React.Component {
                     that helps our cooperative grow its impact.)
                   </label>
                 </div>
+                <div className=" validation">
+                  {errors.dividends ? errors.dividends : '\u00A0'}
+                </div>
               </div>
             </div>
-            <div className="payment-cc-card">
-              <div className="payment-shares-header">Payment Information</div>
-              <div className="mt-3">
-                <PayPalButton
-                  amount={numShares * SHARE_PRICE}
-                  onSuccess={this.onBuyShareWithPaypalSuccess}
-                  options={{
-                    clientId
-                  }}
-                />
+            {!paid ? (
+              <div className="payment-cc-card">
+                <div className="payment-shares-header">Payment Information</div>
+                <div className="mt-3">
+                  <PayPalButton
+                    amount={numShares * SHARE_PRICE}
+                    onSuccess={this.onBuyShareWithPaypalSuccess}
+                    options={{
+                      clientId
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
           <div className="w-40 pl-1">
             <div className="payment-summary-card">
@@ -228,13 +204,13 @@ class Payment extends React.Component {
             </button>
           </div>
           <div className="right">
-            <button
+            {/* <button
               type="button"
               className="continue-button"
-              onClick={nextStep}
+              onClick={this.nextButton}
             >
               Continue
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

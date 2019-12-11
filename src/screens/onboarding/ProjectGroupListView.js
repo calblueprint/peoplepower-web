@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ListView extends React.Component {
+class ProjectGroupListView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -13,23 +13,22 @@ class ListView extends React.Component {
       view,
       changeSelectedGroup,
       changeDisplayedGroup,
+      handleViewChange,
       values
     } = this.props;
     const { projectGroup } = values;
     return (
-      <div
-        className="justify-space-between h-75"
-        style={{ display: view === 'list' ? 'flex' : 'none' }}
-      >
+      <div className="justify-space-between h-75" style={{ display: 'flex' }}>
         <div className="w-65 template-card left projectgroup-list-card">
           <div className="flex justify-space-between">
+            {/* TODO: Implement Search */}
             <input
               className="projectGroup-list-search w-60"
               placeholder="Search for a project group"
             />
             <button
               type="button"
-              onClick={this.handleViewChange}
+              onClick={handleViewChange}
               className="projectGroup-view-button right"
             >
               {view === 'map' ? 'List View' : 'Map View'}
@@ -37,7 +36,7 @@ class ListView extends React.Component {
           </div>
           <div className="projectGroup-list-view">
             {groups.map((group, index) => (
-              <div>
+              <div key={group.id}>
                 <button
                   type="button"
                   onClick={() => changeDisplayedGroup(index)}
@@ -49,7 +48,9 @@ class ListView extends React.Component {
                 >
                   <div className="">
                     <div className="projectGroup-list-option-header">
-                      {group.name}
+                      {`${group.name} ${
+                        projectGroup === group.id ? '(Selected)' : ''
+                      }`}
                     </div>
                     <div className="projectGroup-list-option-body">
                       {group.city}, {group.state}
@@ -96,4 +97,4 @@ class ListView extends React.Component {
   }
 }
 
-export default ListView;
+export default ProjectGroupListView;

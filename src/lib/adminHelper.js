@@ -1,5 +1,4 @@
 import { getRecord } from './request';
-// import key from './api_key';
 
 const Airtable = require('airtable');
 
@@ -18,7 +17,7 @@ const getOwnerFromPerson = async personId => {
   const { record } = recordMap;
   const { Owner } = record;
 
-  if (Owner.length !== 1) {
+  if (Owner && Owner.length !== 1) {
     throw new Error('Owner returned from person != 1');
   }
 

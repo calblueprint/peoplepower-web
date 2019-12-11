@@ -1,7 +1,7 @@
 import React from 'react';
 import OwnerAgreement1 from '../../images/ownerAgreement1.jpg';
 import OwnerAgreement2 from '../../images/ownerAgreement2.jpg';
-import Slider from '../../components/Slider';
+import Carousel from '../../components/Carousel';
 import formValidation from '../../lib/formValidation';
 import { updatePerson } from '../../lib/request';
 
@@ -53,7 +53,7 @@ class Bylaws extends React.Component {
     return (
       <form className="">
         <div>
-          <Slider slides={imgs} />
+          <Carousel slides={imgs} />
           <div className="template-bylaws-card">
             <div style={{ display: 'inline', position: 'relative' }}>
               <label className="checkbox-container">

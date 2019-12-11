@@ -3,6 +3,15 @@ import States from './states.json';
 function formValidation(name, value) {
   const num = Number(value);
   switch (name) {
+    case 'password':
+      if (value === '') {
+        return 'Required';
+      }
+
+      if (value.length < 6) {
+        return 'Must be at least 6 characters';
+      }
+      return '';
     case 'email':
     case 'altEmail':
       if (value === '') {
@@ -64,15 +73,13 @@ function formValidation(name, value) {
       if (value === undefined) {
         return 'Required';
       }
-      if (Object.prototype.hasOwnProperty.call(States, value.toUpperCase())) {
+
+      if (
+        States.map(s => s.toUpperCase()).indexOf(value.toUpperCase()) !== -1
+      ) {
         return '';
       }
-      for (let index = 0; index < States.length; index += 1) {
-        const state = States[index];
-        if (state === value) {
-          return '';
-        }
-      }
+
       return 'Invalid State';
     case 'apt':
     case 'mailingApt':

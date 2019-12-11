@@ -38,10 +38,10 @@ class Onboarding extends React.Component {
       mailingPhoneNumber: '',
       bylaw1: false,
       bylaw2: false,
+      dividends: false,
       projectGroup: '',
       noProjectGroup: false,
       numShares: 1, // TODO(dfangshuo): 0 causes a bug
-      dividends: '',
       beneficiaries: [],
       billingAddressSame: false,
       ccnumber: '',
@@ -90,12 +90,11 @@ class Onboarding extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
-    this.selectNoProjectGroup = this.selectNoProjectGroup.bind(this);
   }
 
   componentDidMount() {
     const id = getLoggedInUserId();
-    const { step, numShares, projectGroup } = this.state;
+    let step;
     // Person does not have a User Id
     if (!id) {
       return;
@@ -104,6 +103,8 @@ class Onboarding extends React.Component {
     this.setState({ userId: id });
     getRecord('Person', id)
       .then(personRecord => {
+        step = personRecord.record['Onboarding Step'];
+
         this.setState({
           step: personRecord.record['Onboarding Step'],
           userLoginId: personRecord.record['User Login'][0],
@@ -129,24 +130,22 @@ class Onboarding extends React.Component {
           billingCity: personRecord.record['Billing City'],
           billingState: personRecord.record['Billing State'],
           billingZipcode: personRecord.record['Billing Zipcode'],
-          dividends: personRecord.record.Dividends,
-          password: personRecord.record.Password
+          projectGroup: personRecord.record['Project Group'][0]
         });
         const { Owner: owner } = personRecord.record;
         return getRecord('Owner', owner);
       })
       .then(ownerRecord => {
         if (step > 3) {
+          const numShares = ownerRecord.record['Number of Shares'];
+
           this.setState({
             projectGroup: ownerRecord.record['Project Group'][0],
-            numShares: ownerRecord.record['Number of Shares']
+            numShares: numShares || 1,
+            dividends: ownerRecord.record['Receiving Dividends?']
           });
 
-          if (step > 3 && projectGroup === {}) {
-            this.setState({
-              noProjectGroup: true
-            });
-          } else if (step > 4) {
+          if (step > 4) {
             this.setState({
               bylaw1: true,
               bylaw2: true
@@ -154,11 +153,6 @@ class Onboarding extends React.Component {
           }
         }
       });
-    if (numShares === '') {
-      this.setState({
-        numShares: 0
-      });
-    }
   }
 
   // next function increments page up one and switches to that numbered page
@@ -185,7 +179,6 @@ class Onboarding extends React.Component {
     const {
       bylaw1,
       bylaw2,
-      noProjectGroup,
       street,
       apt,
       city,
@@ -195,7 +188,9 @@ class Onboarding extends React.Component {
       billingAddressSame,
       mailingAddressSame
     } = this.state;
-    switch (event.target.name) {
+    const key = event.target.name;
+    const newValue = event.target.value;
+    switch (key) {
       case 'bylaw1':
         this.setState({
           bylaw1: !bylaw1
@@ -206,10 +201,33 @@ class Onboarding extends React.Component {
           bylaw2: !bylaw2
         });
         break;
-      case 'noProjectGroup':
+      case 'dividends':
         this.setState({
-          noProjectGroup: !noProjectGroup
+          dividends: newValue === 'yes'
         });
+        break;
+      case 'street':
+      case 'apt':
+      case 'city':
+      case 'state':
+      case 'zipcode':
+        if (billingAddressSame) {
+          const billingKey = `billing${key
+            .charAt(0)
+            .toUpperCase()}${key.substring(1)}`;
+          this.setState({
+            [billingKey]: newValue
+          });
+        }
+        if (mailingAddressSame) {
+          const mailingKey = `mailing${key
+            .charAt(0)
+            .toUpperCase()}${key.substring(1)}`;
+          this.setState({
+            [mailingKey]: newValue
+          });
+        }
+        this.setState({ [key]: newValue });
         break;
       case 'billingAddressSame':
         if (!billingAddressSame) {
@@ -240,25 +258,19 @@ class Onboarding extends React.Component {
           mailingAddressSame: !mailingAddressSame
         });
         break;
-      case 'dividends':
-        this.setState({
-          dividends: event.target.value
-        });
-        break;
       case 'projectGroup':
         this.setState({
-          projectGroup: event.target.value
+          projectGroup: newValue
         });
         break;
       case 'numShares':
         this.setState({
-          numShares: event.target.value
+          numShares: newValue
         });
         break;
       default:
-        console.log(event.target.name + event.target.value);
         this.setState({
-          [event.target.name]: event.target.value
+          [key]: newValue
         });
     }
   };
@@ -272,11 +284,6 @@ class Onboarding extends React.Component {
     this.setState({
       errors: { ...errors, [name]: errorMessage }
     });
-  };
-
-  selectNoProjectGroup = () => {
-    const { noProjectGroup } = this.state;
-    this.setState({ noProjectGroup: !noProjectGroup });
   };
 
   // function for validation of bylaws
@@ -321,7 +328,6 @@ class Onboarding extends React.Component {
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
-            selectNoProjectGroup={this.selectNoProjectGroup}
             noProjectGroup={noProjectGroup}
           />,
           3

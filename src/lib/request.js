@@ -262,6 +262,7 @@ function updatePerson(updatedPerson) {
 }
 
 function updateOwner(updatedOwner) {
+  console.log(updatedOwner);
   return new Promise((resolve, reject) => {
     base(OWNER_TABLE).update([updatedOwner], function(err) {
       if (err) {

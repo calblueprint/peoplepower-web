@@ -1,7 +1,7 @@
 import React from 'react';
 import formValidation from '../../lib/formValidation';
 import '../../styles/Onboarding.css';
-import tooltip from '../../components/tooltip';
+import Tooltip from '../../components/Tooltip';
 import { updatePerson, updateRecord } from '../../lib/request';
 
 class BasicInfo extends React.Component {
@@ -134,9 +134,11 @@ class BasicInfo extends React.Component {
         <div className="w-100">
           <label className="onboarding-label left pr-half" htmlFor="altEmail">
             Alternative Email
-            {tooltip(
-              'We’ll use this email to reach you if we can’t\ncontact you at your primary email.'
-            )}
+            <Tooltip
+              label={
+                'We’ll use this email to reach you if we can’t\ncontact you at your primary email.'
+              }
+            />
           </label>
           <input
             name="altEmail"
