@@ -32,7 +32,7 @@ const recordShareBuySuccess = async (details, data, values) => {
     id: personId,
     fields: {
       'Number of Shares': numShares,
-      Dividends: dividends
+      'Receiving Dividends?': dividends
     }
   };
 

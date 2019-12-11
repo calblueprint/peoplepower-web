@@ -35,7 +35,10 @@ export default class GeneralOwnerDashboard extends React.Component {
     let phoneNumber;
     let name;
     let owner;
-    let addressID;
+    let city;
+    let street;
+    let zipCode;
+    let state;
 
     // Get Person record from person id
     getRecord('Person', id)
@@ -45,13 +48,18 @@ export default class GeneralOwnerDashboard extends React.Component {
           Email: email,
           'Phone Number': phoneNumber,
           Owner: owner,
-          Address: addressID
+          City: city,
+          Street: street,
+          State: state,
+          'Zip Code': zipCode
         } = payload.record);
 
         this.setState({
           email,
           name,
           phoneNumber,
+          address: `${street}, ${city}, ${state} ${zipCode}`,
+
           isLoadingDetails: false
         });
 
@@ -82,20 +90,6 @@ export default class GeneralOwnerDashboard extends React.Component {
               solarProject: solarProjectNames
             });
           });
-        });
-
-        return getRecord('Address', addressID);
-      })
-      .then(payload => {
-        const {
-          City: city,
-          Street: street,
-          State: state,
-          'Zip Code': zipCode
-        } = payload.record;
-
-        this.setState({
-          address: `${street}, ${city}, ${state} ${zipCode}`
         });
       })
       .then(() => {

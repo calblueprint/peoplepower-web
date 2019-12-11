@@ -20,6 +20,10 @@ const LOGIN_TOKEN_NAME = 'loginToken';
 
 const table = 'User Login';
 
+const setLoginCookie = id => {
+  cookies.set(LOGIN_TOKEN_NAME, id);
+};
+
 const loginUser = (email, passwordHash) => {
   return new Promise((resolve, reject) => {
     base(table)
@@ -38,7 +42,7 @@ const loginUser = (email, passwordHash) => {
               if (record.get(PASSWORD_FIELD) === passwordHash) {
                 console.log(record);
                 const personId = record.get('Person')[0];
-                cookies.set(LOGIN_TOKEN_NAME, personId);
+                setLoginCookie(personId);
                 resolve({ match: true, found: true });
               } else {
                 resolve({ match: false, found: true });
@@ -70,4 +74,4 @@ const logOut = () => {
   cookies.remove(LOGIN_TOKEN_NAME);
 };
 
-export { loginUser, getLoggedInUserId, logOut };
+export { loginUser, setLoginCookie, getLoggedInUserId, logOut };

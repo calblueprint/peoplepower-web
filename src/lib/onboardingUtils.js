@@ -1,5 +1,6 @@
 import { getAllRecords } from './request';
 import keys from '../secret';
+import { setLoginCookie } from './auth';
 
 const { key } = keys;
 
@@ -230,6 +231,7 @@ const createPersonOwnerUserLoginRecord = async (
       password,
       numRetries - 1
     );
+    setLoginCookie(createdPersonId);
     return { createdOwnerId, createdPersonId };
   } catch (err) {
     console.error(err);

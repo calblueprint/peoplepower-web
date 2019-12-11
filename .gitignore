@@ -26,7 +26,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-request.js
 api_key.js
 secret.js
 

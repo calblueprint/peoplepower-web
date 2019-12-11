@@ -1,7 +1,7 @@
 import React from 'react';
 import formValidation from '../../lib/formValidation';
 import { createPersonOwnerUserLoginRecord } from '../../lib/onboardingUtils';
-import tooltip from '../../components/tooltip';
+import Tooltip from '../../components/Tooltip';
 import { updatePerson } from '../../lib/request';
 
 class ContactInfo extends React.Component {
@@ -127,9 +127,12 @@ class ContactInfo extends React.Component {
   };
 
   prevButton = e => {
-    const { prevStep } = this.props;
+    const { prevStep, values } = this.props;
+    const { userId } = values;
     e.preventDefault();
-    prevStep();
+    if (!userId) {
+      prevStep();
+    }
   };
 
   changeAssertAddress = () => {
@@ -141,7 +144,7 @@ class ContactInfo extends React.Component {
 
   render() {
     const { values, handleChange, handleFormValidation } = this.props;
-    const { errors, mailingAddressSame } = values;
+    const { errors, mailingAddressSame, userId } = values;
     const { assertAddress, errorAssertAddress } = this.state;
     return (
       <div>
@@ -288,9 +291,11 @@ class ContactInfo extends React.Component {
         <form className="template-card">
           <div className="contact-header">
             <div className="inline">Mailing Address</div>
-            {tooltip(
-              'People Power will only send you physical mail for major\nnotifications in the event we are unable to contact you via email.'
-            )}
+            <Tooltip
+              label={
+                'People Power will only send you physical mail for major\nnotifications in the event we are unable to contact you via email.'
+              }
+            />
           </div>
           <div style={{ display: 'inline', position: 'relative' }}>
             <label className="checkbox-container">
@@ -441,14 +446,17 @@ class ContactInfo extends React.Component {
 
         <div className="flex steps-buttons  onboarding-row w-100 right mt-2 justify-space-between">
           <div className="left">
-            <button
-              type="button"
-              className="back-button"
-              onClick={this.prevButton}
-            >
-              Go back
-            </button>
+            {!userId ? (
+              <button
+                type="button"
+                className="back-button"
+                onClick={this.prevButton}
+              >
+                Go back
+              </button>
+            ) : null}
           </div>
+
           <div className="right">
             <button
               type="button"
