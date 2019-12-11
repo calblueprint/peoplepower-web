@@ -3,12 +3,29 @@
   border-radius: 5px;
   overflow: scroll;
   height: 350px;
+  width: 800px;
   padding: 0px 40px 40px 40px;
 }
 
 .card-holder-cont h4 {
   margin-top: 40px;
   display: inline-block;
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+  color: #7387a2;
+}
+
+.card-holder-cont span {
+  display: inline-block;
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+  color: #7387a2;
 }
 
 .card-holder {
@@ -25,11 +42,11 @@
   margin: 35px;
   font-size: 16px;
   font-weight: 600;
-  background: #395578;
+  background: #cd6795;
   height: 30px;
 }
 
-.card-holder .card {
+.card-holder .admin-card {
   display: flex;
   justify-content: flex-end;
   height: 70px;
@@ -39,7 +56,7 @@
   padding: 35px 35px 35px 0px;
 }
 
-.card-holder .card .card-profile-image {
+.card-holder .admin-card .card-profile-image {
   width: 77px;
   height: 77px;
   margin-right: 34px;
@@ -47,33 +64,43 @@
   border-radius: 100%;
 }
 
-.card-holder .card .card-name {
+.card-holder .admin-card .card-name {
   margin-right: auto;
 }
 
-.card-holder .card .card-tags {
+.card-holder .admin-card .card-name h3 {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 22px;
+  color: #24364d;
+}
+
+.card-holder .admin-card .card-tags {
   display: flex;
   margin-top: 12px;
   width: 200px;
 }
 
-.card-holder .card .card-tags .tag {
+.card-holder .admin-card .card-tags .tag {
   padding: 5px 10px;
   background: #d8d8d8;
   border-radius: 20px;
   margin: 0px 5px;
 }
 
-.card-holder .card .card-button {
+.card-holder .admin-card .card-button {
   background-color: black;
   color: white;
   padding: 0.5em 1.2em;
   border-radius: 4px;
   border: none;
   font-weight: bold;
+  font-size: 12px;
 }
 
-.card-holder .card h3 {
+.card-holder .admin-card h3 {
   margin: 0px 0px 0px 5px;
   padding: 0px;
 }
@@ -86,4 +113,10 @@
 .dash-admin h3 {
   margin-top: 45px;
   margin-bottom: 17px;
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+  color: #7387a2;
 }

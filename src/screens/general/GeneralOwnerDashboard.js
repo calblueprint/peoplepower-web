@@ -135,12 +135,12 @@ export default class GeneralOwnerDashboard extends React.Component {
       isLoadingDetails
     } = this.state;
     const solarProjectComponent = solarProject.map(project => {
-      return <li>{project}</li>;
+      return <li key={project}>{project}</li>;
     });
 
     const userDetails = (
       <div className="dash-solar-details">
-        <p style={{ 'font-weight': '800' }}>Welcome, {name}</p>
+        <p style={{ fontWeight: '800', color: 'black' }}>Welcome, {name}</p>
         <div>
           <p>
             <span>Email:</span> {email}

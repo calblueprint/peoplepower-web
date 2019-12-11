@@ -16,8 +16,17 @@
 }
 
 .dash-solar-details-cont {
-  width: 100%;
   margin: 0px 35px;
+}
+
+.dash-solar-details-cont p,
+ul,
+button {
+  color: #7387a2;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 25px;
+  font-family: 'Avenir';
 }
 
 .dash-solar-details {
@@ -30,8 +39,17 @@
 .dash-announcements-cont h3 {
   margin-bottom: 23px;
   margin-top: 0px;
+  color: #7387a2;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 25px;
+  font-family: 'Avenir';
 }
 
 .dash-announcements-cont .cardsCont {
   height: 500px;
+}
+
+.dash-announcements-cont .cardsCont .announcementCard {
+  width: 652px !important;
 }

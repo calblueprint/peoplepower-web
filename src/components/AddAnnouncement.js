@@ -94,7 +94,7 @@ export default class AddAnnouncement extends React.Component {
     }
 
     return (
-      <div className="card AddAnnouncement">
+      <div className="announcementCard AddAnnouncement">
         <form onSubmit={this.handleSubmit}>
           <textarea
             type="text"
@@ -103,7 +103,12 @@ export default class AddAnnouncement extends React.Component {
             placeholder="Write something..."
             onChange={this.handleChange}
           />
-          <input type="submit" value={btnText} className={btnStatus} />
+          <input
+            type="submit"
+            value={btnText}
+            className={btnStatus}
+            style={{ background: '#395578', color: '#fff' }}
+          />
         </form>
         <p>{status}</p>
       </div>
