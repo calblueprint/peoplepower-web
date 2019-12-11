@@ -25,7 +25,7 @@ const AnnouncementList = props => {
       <div key={message} className="card">
         <div className="cardHeading">
           <h2>{title}</h2>
-          <p>{url ? <img src={url} alt={filename} /> : null}</p>
+          {url ? <img src={url} alt={filename} /> : null}
           <p>{message}</p>
         </div>
         <div className="cardDetails" />

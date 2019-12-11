@@ -35,9 +35,7 @@ h3 {
 }
 
 .card img {
-  clip-path: inset(100px 0px);
-  margin-top: -100px;
-  margin-bottom: -100px;
+  clip-path: inset(20px 0px);
   width: 100%;
 }
 
