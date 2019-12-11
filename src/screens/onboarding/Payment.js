@@ -2,7 +2,7 @@ import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import formValidation from '../../lib/formValidation';
 import { recordShareBuySuccess } from '../../lib/paypal';
-import secret from '../../lib/secret';
+import secret from '../../secret';
 import { updatePerson, updateRecord } from '../../lib/request';
 
 const { clientId } = secret;

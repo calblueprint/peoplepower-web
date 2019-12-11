@@ -95,7 +95,10 @@ class ContactInfo extends React.Component {
         nextStep();
       } else {
         // create the person/owner record in Airtable
-        const success = await createPersonOwnerUserLoginRecord(
+        const {
+          createdOwnerId,
+          createdPersonId
+        } = await createPersonOwnerUserLoginRecord(
           email,
           password,
           phoneNumber,
@@ -107,9 +110,14 @@ class ContactInfo extends React.Component {
           zipcode
         );
 
-        if (!success) {
+        if (!createdOwnerId || !createdPersonId) {
           console.error('createPersonOwnerUserLoginRecord FAILED');
         } else {
+          const { handleRecordCreation } = this.props;
+          handleRecordCreation({
+            createdOwnerId,
+            createdPersonId
+          });
           nextStep();
         }
       }

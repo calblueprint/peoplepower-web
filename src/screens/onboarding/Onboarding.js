@@ -173,6 +173,13 @@ class Onboarding extends React.Component {
     this.setState({ step: step - 1 });
   };
 
+  handleRecordCreation = ({ createdOwnerId, createdPersonId }) => {
+    this.setState({
+      userId: createdPersonId,
+      personId: createdOwnerId
+    });
+  };
+
   // updates the state whenever there is a change made
   handleChange = event => {
     const {
@@ -301,6 +308,7 @@ class Onboarding extends React.Component {
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
+            handleRecordCreation={this.handleRecordCreation}
             createPersonOwnerUserLoginRecord={createPersonOwnerUserLoginRecord}
           />,
           2

@@ -1,7 +1,5 @@
 import React from 'react';
 
-const LOGIN_TOKEN_NAME = 'loginToken';
-
 class Complete extends React.Component {
   constructor(props) {
     super(props);

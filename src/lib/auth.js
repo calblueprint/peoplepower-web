@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie';
-import secret from './secret';
+import secret from '../secret';
 
 const { key } = secret;
 
@@ -36,6 +36,7 @@ const loginUser = (email, passwordHash) => {
             const recordEmail = record.get(EMAIL_FIELD);
             if (recordEmail === email) {
               if (record.get(PASSWORD_FIELD) === passwordHash) {
+                console.log(record);
                 const personId = record.get('Person')[0];
                 cookies.set(LOGIN_TOKEN_NAME, personId);
                 resolve({ match: true, found: true });

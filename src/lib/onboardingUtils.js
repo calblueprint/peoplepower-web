@@ -1,5 +1,5 @@
 import { getAllRecords } from './request';
-import keys from './secret';
+import keys from '../secret';
 
 const { key } = keys;
 
@@ -17,6 +17,7 @@ const OWNER_TABLE = 'Owner';
 
 const DEFAULT_NUM_RETRIES = 3;
 
+// Returns created person's ID
 const createPersonWithRetries = async (
   email,
   phoneNumber,
@@ -80,6 +81,7 @@ const createPersonWithRetries = async (
   }
 };
 
+// Returns created owner's ID
 const createOwnerWithRetries = async (createdPersonId, numRetries) => {
   try {
     const createdOwner = await base(OWNER_TABLE).create([
@@ -100,6 +102,7 @@ const createOwnerWithRetries = async (createdPersonId, numRetries) => {
   }
 };
 
+// Returns true or false based on success
 const createUserLoginWithRetries = async (
   createdPersonId,
   createdOwnerId,
@@ -162,6 +165,7 @@ const rollbackOwnerWithRetries = async (createdOwnerId, numRetries) => {
   }
 };
 
+// returns person and owner ID in object
 const createPersonOwnerUserLoginRecord = async (
   email,
   password,
@@ -202,7 +206,7 @@ const createPersonOwnerUserLoginRecord = async (
     );
   } catch (err) {
     console.error(err);
-    return false;
+    return {};
   }
 
   // create an owner record
@@ -214,18 +218,19 @@ const createPersonOwnerUserLoginRecord = async (
     // if fail to create an owner record, rollback the created person
     await rollbackPersonWithRetries(createdPersonId, numRetries);
 
-    return false;
+    return {};
   }
 
   // create a user login record
   try {
-    return await createUserLoginWithRetries(
+    await createUserLoginWithRetries(
       createdPersonId,
       createdOwnerId,
       email,
       password,
       numRetries - 1
     );
+    return { createdOwnerId, createdPersonId };
   } catch (err) {
     console.error(err);
 
@@ -233,7 +238,7 @@ const createPersonOwnerUserLoginRecord = async (
     await rollbackPersonWithRetries(createdPersonId, numRetries);
     await rollbackOwnerWithRetries(createdOwnerId, numRetries);
 
-    return false;
+    return {};
   }
 };
 
