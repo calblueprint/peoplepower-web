@@ -1,8 +1,18 @@
+.App-logo {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  height: 40vmin;
+}
+
+body {
+  height: 100%;
+  background-color: #f7f8fa;
+}
+
 /* Styling for the main wrapper of the application */
 .app-container {
   width: 100%;
   min-height: 100vh;
-  background-color: #e5e5e5;
 }
 
 /* A global css style that sets the margin of the left gutter. */

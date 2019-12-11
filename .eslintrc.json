@@ -10,6 +10,7 @@
     ],
     "react/prop-types": 0,
     "no-underscore-dangle": 0,
+    "react/no-unused-state": 0,
     "import/imports-first": ["error", "absolute-first"],
     "import/newline-after-import": "error",
     "jsx-a11y/label-has-associated-control": 0
@@ -21,7 +22,8 @@
     "FormData": true,
     "FileReader": true,
     "Blob": true,
-    "navigator": true
+    "navigator": true,
+    "alert": true
   },
   "parser": "babel-eslint"
 }

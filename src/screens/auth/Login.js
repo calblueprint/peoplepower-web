@@ -1,10 +1,11 @@
 import React from 'react';
+import '../../styles/Login.css';
 
 const { loginUser } = require('../../lib/auth.js');
 const { getLoggedInUserId } = require('../../lib/auth.js');
 
 const HOME_ROUTE = '/dashboard';
-const SIGNUP_ROUTE = '/signup';
+const SIGNUP_ROUTE = '/onboarding';
 
 class Login extends React.Component {
   constructor(props) {
@@ -63,33 +64,53 @@ class Login extends React.Component {
   render() {
     const { email, passwordHash } = this.state;
     return (
-      <div>
-        <h1>Login to People Power</h1>
+      <div className="center card flex column">
+        <h1 className="t-center login-header">Welcome back!</h1>
         <br />
-        <form onSubmit={this.handleSubmit}>
-          Email
-          <br />
-          <input type="text" value={email} onChange={this.handleEmailChange} />
-          <br />
-          Password
-          <br />
-          <input
-            type="password"
-            value={passwordHash}
-            onChange={this.handlePasswordChange}
-          />
-          <br />
-          <button className="primary-button" type="submit">
-            Login
-          </button>
+        <form onSubmit={this.handleSubmit} className="flex column ">
+          <div className="w-100 login-input-mb">
+            <label className="login-label" htmlFor="email">
+              Email
+            </label>
+            <input
+              name="email"
+              placeholder="Email address"
+              onChange={this.handleEmailChange}
+              defaultValue={email}
+              className="input-gray "
+            />
+          </div>
+          <div className="w-100 ">
+            <label className="login-label" htmlFor="email">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={this.handlePasswordChange}
+              defaultValue={passwordHash}
+              className="input-gray"
+            />
+          </div>
+          <div className=" t-center">
+            <button type="submit" className="login-button">
+              Login
+            </button>
+          </div>
         </form>
-        <button
-          type="button"
-          className="primary-button"
-          onClick={this.handleSignUpOnClick}
-        >
-          New here? Sign Up
-        </button>
+        <div className="flex onboarding-col login-hyperlink-group">
+          <button type="button" className="login-hyperlink">
+            Forgot password?
+          </button>
+          <button
+            type="button"
+            className="login-hyperlink"
+            onClick={this.handleSignUpOnClick}
+          >
+            Create an account
+          </button>
+        </div>
       </div>
     );
   }

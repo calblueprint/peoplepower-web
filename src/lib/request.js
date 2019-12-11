@@ -8,9 +8,9 @@ const { key } = secret;
 
 const Airtable = require('airtable');
 
-// tables
-const PERSON_TABLE = 'Person';
+const OWNER_TABLE = 'Owner';
 const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
+const PERSON_TABLE = 'Person';
 
 // API KEY will reside in ENV variables later.
 Airtable.configure({
@@ -35,9 +35,9 @@ function getRecord(table, id) {
   });
 }
 
-/* 
+/*
   GENERAL SEARCH
-  Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'), 
+  Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'),
   return the associated record object.
 */
 function getRecordsFromAttribute(table, fieldType, field) {
@@ -91,17 +91,48 @@ function getMultipleFromAttr(table, fieldName, fieldValue) {
   });
 }
 
-/* 
+// TODO(dfagnshuo): pagination?
+function getAllRecords(table) {
+  return new Promise((resolve, reject) => {
+    base(table)
+      .select({
+        view: 'Grid view'
+        // maxRecords: 20
+      })
+      .eachPage(
+        function page(records, fetchNextPage) {
+          if (records === null || records.length < 1) {
+            const msg = `No record was retrieved using this ${table}.`;
+            reject(msg);
+          }
+
+          resolve({ records });
+
+          // To fetch the next page of records, call `fetchNextPage`.
+          // If there are more records, `page` will get called again.
+          // If there are no more records, `done` will get called.
+          fetchNextPage();
+        },
+        function done(err) {
+          if (err) {
+            reject(err);
+          }
+        }
+      );
+  });
+}
+
+/*
 	******** CREATE RECORDS ********
   You can create a person record using the `create` method with the Airtable API.
   It looks like this:
 
     base('Person').create([person], function callback(err, records) {))
 
-	You can pass in UP TO 10 person record objects into the array parameter `person`. 
+	You can pass in UP TO 10 person record objects into the array parameter `person`.
   The `person` variable should look like the example below.
-  
-  EXAMPLE OBJECT TO CREATE A PERSON: 
+
+  EXAMPLE OBJECT TO CREATE A PERSON:
     {
       "fields": {
         "Email": email,
@@ -112,7 +143,7 @@ function getMultipleFromAttr(table, fieldName, fieldValue) {
         "User Login": [userLogin],
         "Name": name
       }
-    } 
+    }
 
     Make sure linked records are represented as an array:
     "Owner": [recsnkM5ms2NJhVW0]
@@ -131,7 +162,7 @@ function createPerson(person) {
       "User Login": [userLogin],
       "Name": name
     }
-  } 
+  }
 */
   return new Promise((resolve, reject) => {
     base('Person').create([person], function(err, records) {
@@ -161,16 +192,16 @@ function createRecord(table, record) {
   });
 }
 
-/* 
+/*
 	******** UPDATE RECORDS ********
   When updating methods, you can either use the `update` or `replace` method. It looks like this:
 
-    base('Person').update([updatedPerson], function callback(err, records) {}) 
-      or 
+    base('Person').update([updatedPerson], function callback(err, records) {})
+      or
     base('Person').replace([replacedPerson], function callback(err, records) {})
 
-	Using `update` will only update the fields you specify, leaving the rest as they were. 
-	Using `replace` will perform a destructive update and clear all unspecified cell values. 
+	Using `update` will only update the fields you specify, leaving the rest as they were.
+	Using `replace` will perform a destructive update and clear all unspecified cell values.
 
 	- Max 10 records to be updated/replaced per call.
     - Depends on how many records you put in `[updatedPerson]`
@@ -215,6 +246,8 @@ function updateBill(updatedBill) {
 }
 
 function updatePerson(updatedPerson) {
+  console.log('updatePerson');
+  console.log(updatedPerson);
   return new Promise((resolve, reject) => {
     base(PERSON_TABLE).update([updatedPerson], function(err, records) {
       if (err) {
@@ -222,8 +255,21 @@ function updatePerson(updatedPerson) {
         return;
       }
       records.forEach(function(record) {
-        resolve(record.get('Name'));
+        resolve(record.get('Name')); // TODO(dfangshuo)
       });
+    });
+  });
+}
+
+function updateOwner(updatedOwner) {
+  console.log(updatedOwner);
+  return new Promise((resolve, reject) => {
+    base(OWNER_TABLE).update([updatedOwner], function(err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(true);
     });
   });
 }
@@ -237,7 +283,7 @@ function updateRecord(table, updatedRecord) {
         return;
       }
       records.forEach(function(record) {
-        resolve(record.get('ID'));
+        resolve(record.get('ID')); // TODO(dfangshuo)
       });
     });
   });
@@ -247,9 +293,11 @@ export {
   getRecordsFromAttribute,
   getRecord,
   getMultipleFromAttr,
+  getAllRecords,
   createPerson,
   createRecord,
   updatePerson,
+  updateOwner,
   updateBill,
   updateRecord
 };

@@ -1,9 +1,10 @@
-import { getRecord, getRecordsFromAttribute } from './request';
+import { getRecordsFromAttribute, createRecord } from './request';
 
 // TABLES
 const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
 const OWNER_TABLE = 'Owner';
 const PERSON_TABLE = 'Person';
+const PAYMENT_TABLE = 'Payment';
 
 // FIELDS
 const SUBSCRIBER_OWNER = 'Subscriber Owner';
@@ -89,13 +90,16 @@ const validateSubscriberOwnerRecord = res => {
 
 // throw an exception on error
 const getOwnerIdFromId = async loggedInUserId => {
-  const personRecord = await getRecord(PERSON_TABLE, loggedInUserId);
+  const personRecord = await getRecordsFromAttribute(
+    PERSON_TABLE,
+    loggedInUserId
+  );
   validatePersonRecord(personRecord);
   return personRecord.record.Owner[0];
 };
 
 const getBillsFromOwnerId = async ownerId => {
-  const owner = await getRecord(OWNER_TABLE, ownerId);
+  const owner = await getRecordsFromAttribute(OWNER_TABLE, ownerId);
   return owner.record['Subscriber Bill'];
 };
 
@@ -113,7 +117,7 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
 
     const billPromises = [];
     billIds.forEach(billId => {
-      billPromises.push(getRecord(SUBSCRIBER_BILL_TABLE, billId));
+      billPromises.push(getRecordsFromAttribute(SUBSCRIBER_BILL_TABLE, billId));
     });
 
     const billObjects = await Promise.all(billPromises);
@@ -149,6 +153,26 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
   }
 };
 
+const createPayment = async record => {
+  /*
+    {
+      "fields": {
+        "Owner": [
+          "Some Id"
+        ],
+        "Status": "Paid in full",
+        "Type": "Some Type",
+        "Amount": {amount in cents},
+        "Subscriber Bill": [
+          "recy1K7CRUQPVvaE7"
+        ]
+      }
+    }
+  */
+  const id = await createRecord(PAYMENT_TABLE, record);
+  return id;
+};
+
 export {
   areDiffBills,
   centsToDollars,
@@ -156,5 +180,6 @@ export {
   getOwnerIdFromId,
   getBillsFromOwnerId,
   getSubscriberOwnerFromPerson,
-  getSubscriberBills
+  getSubscriberBills,
+  createPayment
 };

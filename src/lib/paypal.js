@@ -1,6 +1,10 @@
-import { createRecord, updateBill } from './request';
+import { createRecord, updateOwner, updateBill } from './request';
 
 const PAYMENT_TABLE = 'Payment';
+
+// Payment Types
+const BILL_PAYMENT_TYPE = 'Bill Payment';
+const BUY_SHARES_TYPE = 'Buy Shares';
 
 const createPayment = async record => {
   /*
@@ -22,7 +26,61 @@ const createPayment = async record => {
   return id;
 };
 
-const recordPaymentSuccess = async (details, data, bill) => {
+const recordShareBuySuccess = async (details, data, values) => {
+  const { numShares, dividends, personId } = values;
+  const updatedOwner = {
+    id: personId,
+    fields: {
+      'Number of Shares': numShares,
+      'Receiving Dividends?': dividends
+    }
+  };
+
+  await updateOwner(updatedOwner);
+
+  const { orderID, payerID } = data;
+
+  const { intent, status, payer } = details;
+  const { amount, shipping } = details.purchase_units[0]; // assumes purchase_units is only of length 1
+
+  if (details.purchase_units.length > 1) {
+    console.warn('length of details.purchase_units > 1');
+  }
+
+  const { address, name } = shipping;
+  const addressToSave = `${address.address_line_1}, ${address.admin_area_2} ${address.country_code} ${address.admin_area_1} ${address.postal_code}`;
+
+  const record = {
+    fields: {
+      Owner: [personId],
+      Status: status,
+      'Order ID': orderID,
+      'Payer ID': payerID,
+      Amount: parseFloat(amount.value, 10) * 100,
+      'Currency Code': amount.currency_code,
+      Address: addressToSave,
+      'Payer Full Name': name.full_name,
+      'Payer Email': payer.email_address,
+      Intent: intent,
+      'Payment Create Time': details.create_time,
+      'Payment Update Time': details.update_time,
+      Type: BUY_SHARES_TYPE
+    }
+  };
+
+  /*
+    TODO(dfangshuo): retry logic
+  */
+  createPayment(record)
+    .then(paymentId => {
+      console.log(paymentId);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
+
+const recordBillPaymentSuccess = async (details, data, bill) => {
   /*
         DETAILS FIELDS
   
@@ -119,7 +177,8 @@ const recordPaymentSuccess = async (details, data, bill) => {
       'Payer Email': payer.email_address,
       Intent: intent,
       'Payment Create Time': details.create_time,
-      'Payment Update Time': details.update_time
+      'Payment Update Time': details.update_time,
+      Type: BILL_PAYMENT_TYPE
     }
   };
 
@@ -150,4 +209,4 @@ const recordPaymentSuccess = async (details, data, bill) => {
   updateBill(updatedBill);
 };
 
-export default recordPaymentSuccess;
+export { recordShareBuySuccess, recordBillPaymentSuccess };

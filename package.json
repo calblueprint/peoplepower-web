@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "airtable": "^0.7.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.7",
+    "airtable": "^0.7.2",
+    "google-maps-react": "^2.0.2",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-paypal-button-v2": "^2.4.1",
     "react-router-dom": "^5.1.1",
     "react-scripts": "3.1.2",
+    "semantic-ui-react": "^0.88.1",
     "universal-cookie": "^4.0.2"
   },
   "scripts": {
