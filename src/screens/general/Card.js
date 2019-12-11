@@ -6,7 +6,7 @@ function Card({ name, callback, ownerId, ownerType }) {
   });
 
   return (
-    <div className="card">
+    <div className="admin-card">
       <div className="card-profile-image" />
       <div className="card-name">
         <h3>{name}</h3>

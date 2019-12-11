@@ -3,15 +3,19 @@
 }
 
 .community h1 {
-  color: black;
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 900;
   font-size: 36px;
+  line-height: 49px;
+  color: #395578;
 }
 
 .community p {
   color: black;
 }
 
-.card {
+.announcementCard {
   background: #fff;
   border-radius: 5px;
   padding: 35px;
@@ -21,27 +25,40 @@
   justify-content: space-between;
 }
 
-.card:first-of-type {
+.announcementCard p {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 19px;
+  letter-spacing: 0.01em;
+  color: #24364d;
+}
+
+.announcementCard:first-of-type {
   margin-top: 0px;
 }
 
-.community .card h2 {
-  font-size: 28px;
+.announcementCard h2 {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+  color: #395578;
 }
-.community .card h2,
+
+.community .announcementCard h2,
 h3 {
-  color: black;
   margin: 5px 0px;
 }
 
-.card img {
-  clip-path: inset(100px 0px);
-  margin-top: -100px;
-  margin-bottom: -100px;
+.announcementCard img {
+  clip-path: inset(20px 0px);
   width: 100%;
 }
 
-.cardsCont {
+.announcementCardsCont {
   overflow: scroll;
   height: 350px;
 }

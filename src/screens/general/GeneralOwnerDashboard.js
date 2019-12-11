@@ -135,21 +135,29 @@ export default class GeneralOwnerDashboard extends React.Component {
       isLoadingDetails
     } = this.state;
     const solarProjectComponent = solarProject.map(project => {
-      return <li>{project}</li>;
+      return <li key={project}>{project}</li>;
     });
 
     const userDetails = (
       <div className="dash-solar-details">
-        <p>Welcome, {name}</p>
+        <p style={{ fontWeight: '800', color: 'black' }}>Welcome, {name}</p>
         <div>
-          <p>Email: {email}</p>
-          <p>Phone Number: {phoneNumber}</p>
-          <p>Address: {address}</p>
-          <p>Project Group: {projectGroup}</p>
-          <ul>
-            Solar Project(s):
-            {solarProjectComponent}
-          </ul>
+          <p>
+            <span>Email:</span> {email}
+          </p>
+          <p>
+            <span>Phone Number:</span> {phoneNumber}
+          </p>
+          <p>
+            <span>Address:</span> {address}
+          </p>
+          <p>
+            <span>Project Group:</span> {projectGroup}
+          </p>
+          <p>
+            <span>Solar Project(s):</span>
+          </p>
+          <ul>{solarProjectComponent}</ul>
         </div>
 
         <button
