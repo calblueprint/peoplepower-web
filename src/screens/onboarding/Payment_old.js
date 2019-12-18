@@ -4,7 +4,7 @@ import formValidation from '../../lib/formValidation';
 import { updatePerson } from '../../lib/request';
 import { recordBillPaymentSuccess } from '../../lib/paypal';
 
-import secret from '../../secret';
+import secret from '../../lib/secret';
 
 const { clientId } = secret;
 

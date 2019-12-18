@@ -1,7 +1,7 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { recordShareBuySuccess } from '../../lib/paypal';
-import secret from '../../secret';
+import secret from '../../lib/secret';
 import { updatePerson } from '../../lib/request';
 
 const { clientId } = secret;

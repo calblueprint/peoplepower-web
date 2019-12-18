@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie';
-import secret from '../secret';
+import secret from './secret';
 
 const { key } = secret;
 

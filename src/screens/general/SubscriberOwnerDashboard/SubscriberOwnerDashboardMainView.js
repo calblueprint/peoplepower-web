@@ -7,7 +7,7 @@ import { recordBillPaymentSuccess } from '../../../lib/paypal';
 import PanelBillHeader from './PanelBillHeader';
 import PanelBillRow from './PanelBillRow';
 
-import secret from '../../../secret';
+import secret from '../../../lib/secret';
 
 const { clientId } = secret;
 

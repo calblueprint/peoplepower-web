@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
-import keys from '../../secret';
+import googleApiKey from '../../lib/secret';
 
 function ProjectGroupMapView(props) {
   const {
@@ -71,5 +71,5 @@ function ProjectGroupMapView(props) {
 }
 
 export default GoogleApiWrapper({
-  apiKey: keys.googleApiKey
+  apiKey: googleApiKey
 })(ProjectGroupMapView);

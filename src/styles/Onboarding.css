@@ -1119,3 +1119,117 @@ carousel__arrow--right {
   padding: 0.5rem 0.5rem;
   margin-top: 0.5rem;
 }
+
+input {
+  outline: none;
+}
+
+button {
+  outline: none;
+}
+
+.progress-bar-container ul {
+  line-height: 12px;
+  margin-block-start: 2rem;
+  margin-block-end: 1.5rem;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+}
+
+.login-hyperlink:hover {
+  color: #808080;
+}
+
+.progress-bar-container {
+  width: 100%;
+}
+.progressbar {
+  counter-reset: step;
+  margin-top: 2rem;
+}
+.progressbar li {
+  list-style-type: none;
+  width: 25%;
+  float: left;
+  font-size: 12px;
+  position: relative;
+  color: white;
+  font-weight: 600;
+}
+.progressbar li:before {
+  width: 2rem;
+  height: 2rem;
+  content: '';
+  counter-increment: step;
+  /*border: 10px solidcounter-reset #EDF1F5;*/
+  display: block;
+  text-align: center;
+  /*margin: 0rem auto 0 auto;*/
+  border-radius: 50%;
+  background-color: #edf1f5;
+  margin-bottom: 1rem;
+}
+.progressbar li:after {
+  width: 100%;
+  height: 2px;
+  content: attr(circle);
+  position: absolute;
+  background-color: #7d7d7d;
+  top: 15px;
+  left: -50%;
+  z-index: -1;
+  border-color: black;
+  border-width: 1rem;
+}
+.progressbar li:first-child:after {
+  content: none;
+}
+.progressbar li.active {
+  color: #3e4a59;
+}
+.progressbar li.active:before {
+  background-color: #cd6795;
+  border-color: #cd6795;
+  content: '';
+}
+
+.progressbar li.previous {
+  color: #3e4a59;
+}
+
+.progressbar li.previous:before {
+  border-color: #395578;
+  content: attr(checkmark);
+  background-color: #395578;
+}
+
+.progressbar li.active + li:after {
+  background-color: #cd6795;
+  /*content: attr(circle);*/
+  content: '';
+  /*color:white;*/
+}
+
+.progress-bar-text {
+  margin: 0 0 1.5rem 0;
+}
+
+.checkmark {
+  width: 3px;
+  height: 8px;
+  border: solid white;
+  color: white;
+  border-width: 0 1px 1px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.circle {
+  height: 25px;
+  width: 25px;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+}
