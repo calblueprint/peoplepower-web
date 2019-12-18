@@ -1233,3 +1233,81 @@ button {
   border-radius: 50%;
   display: inline-block;
 }
+
+.progress-bar-container2 {
+}
+
+.progressbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.progressbar-step {
+  width: 25%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.progress-bar-circle {
+  stroke: #edf1f5;
+  fill: white;
+  stroke-width: 6px;
+  stroke-mode: inside;
+  r: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+circle:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0.5em;
+  border-top: 1px solid black;
+  z-index: -1;
+}
+
+.active .progress-bar-circle {
+  stroke: #cd6795;
+  fill: white;
+  stroke-width: 12px;
+  r: calc(1rem - 3px);
+}
+
+.previous .progress-bar-circle {
+  stroke: #395578;
+  fill: #395578;
+}
+
+.previous .progress-bar-checkmark {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  stroke: white;
+}
+
+.active .progress-bar-checkmark,
+.progress-bar-checkmark {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  stroke: none;
+}
+
+.progressbar-step-text {
+  color: white;
+  text-align: center;
+}
+
+.previous .progressbar-step-text,
+.active .progressbar-step-text {
+  color: #395578;
+}
+
+.progressbar-line {
+  fill: none;
+  stroke: black;
+  stroke-width: 3;
+}
