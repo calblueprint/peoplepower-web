@@ -4,8 +4,8 @@ import ProgressBar from '../../components/progressbar';
 const text = [
   'Tell us some general contact information so we can get started setting up your account.',
   'Project groups in People Power represent the different communities involved in our cooperative. ',
-  '',
-  '',
+  'Project groups in People Power represent the different communities involved in our cooperative. ',
+  'Project groups in People Power represent the different communities involved in our cooperative. ',
   'Hooray! We made it.'
 ];
 

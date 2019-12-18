@@ -773,6 +773,7 @@ carousel__arrow--right {
   border-style: solid;
   padding: 1rem 1.75rem;
   margin: 1rem 0;
+  z-index: -1;
 }
 
 .template-bylaws-card {
@@ -1147,106 +1148,16 @@ button {
 .progressbar {
   counter-reset: step;
   margin-top: 2rem;
-}
-.progressbar li {
-  list-style-type: none;
-  width: 25%;
-  float: left;
-  font-size: 12px;
-  position: relative;
-  color: white;
-  font-weight: 600;
-}
-.progressbar li:before {
-  width: 2rem;
-  height: 2rem;
-  content: '';
-  counter-increment: step;
-  /*border: 10px solidcounter-reset #EDF1F5;*/
-  display: block;
-  text-align: center;
-  /*margin: 0rem auto 0 auto;*/
-  border-radius: 50%;
-  background-color: #edf1f5;
-  margin-bottom: 1rem;
-}
-.progressbar li:after {
-  width: 100%;
-  height: 2px;
-  content: attr(circle);
-  position: absolute;
-  background-color: #7d7d7d;
-  top: 15px;
-  left: -50%;
-  z-index: -1;
-  border-color: black;
-  border-width: 1rem;
-}
-.progressbar li:first-child:after {
-  content: none;
-}
-.progressbar li.active {
-  color: #3e4a59;
-}
-.progressbar li.active:before {
-  background-color: #cd6795;
-  border-color: #cd6795;
-  content: '';
-}
-
-.progressbar li.previous {
-  color: #3e4a59;
-}
-
-.progressbar li.previous:before {
-  border-color: #395578;
-  content: attr(checkmark);
-  background-color: #395578;
-}
-
-.progressbar li.active + li:after {
-  background-color: #cd6795;
-  /*content: attr(circle);*/
-  content: '';
-  /*color:white;*/
-}
-
-.progress-bar-text {
-  margin: 0 0 1.5rem 0;
-}
-
-.checkmark {
-  width: 3px;
-  height: 8px;
-  border: solid white;
-  color: white;
-  border-width: 0 1px 1px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-.circle {
-  height: 25px;
-  width: 25px;
-  background-color: white;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.progress-bar-container2 {
-}
-
-.progressbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.progressbar-step {
+.progress-step {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  z-index: 1;
 }
 
 .progress-bar-circle {
@@ -1259,15 +1170,15 @@ button {
   margin-right: auto;
 }
 
-circle:after {
+.progress-step circle:after {
   content: '';
-  position: absolute;
-  bottom: 0;
+  width: 100%;
+  border-bottom: solid 3px black;
+  background-color: black;
+  position: relative;
   left: 0;
-  right: 0;
-  height: 0.5em;
-  border-top: 1px solid black;
-  z-index: -1;
+  top: 50%;
+  z-index: 2;
 }
 
 .active .progress-bar-circle {
@@ -1319,4 +1230,20 @@ circle:after {
   display: flex;
   align-items: center;
   flex-direction: row;
+}
+
+.progressbar-line {
+  content: '';
+  flex: 1;
+  height: 6px;
+  background-color: #edf1f5;
+  display: block;
+  z-index: 0;
+  transform: scaleX(1.25) translate(-1.5rem, 1.85rem);
+  transform-origin: left;
+  animation: slideIn 1s ease-in-out alternate infinite;
+}
+
+.progressbar-line-active {
+  background-color: #395578;
 }
