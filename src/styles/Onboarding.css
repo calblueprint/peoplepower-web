@@ -1244,10 +1244,9 @@ button {
 }
 
 .progressbar-step {
-  width: 25%;
-  text-align: center;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 .progress-bar-circle {
@@ -1299,6 +1298,8 @@ circle:after {
 .progressbar-step-text {
   color: white;
   text-align: center;
+  font-size: 12px;
+  margin-bottom: 2rem;
 }
 
 .previous .progressbar-step-text,
@@ -1310,4 +1311,12 @@ circle:after {
   fill: none;
   stroke: black;
   stroke-width: 3;
+}
+
+.progress-bar-svg {
+  margin: 0 auto;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 }

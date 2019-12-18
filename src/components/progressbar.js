@@ -35,7 +35,7 @@ export default function ProgressBar(step) {
           <div className="progressbar-step-text">Contact</div>
         </div>
         <div className={`${colorStep(step, 3)} progress-step`}>
-          <svg height="4rem" width="4rem">
+          <svg className="progress-bar-svg" height="4rem" width="4rem">
             <circle
               className="progress-bar-circle"
               cx="2rem"
@@ -55,7 +55,7 @@ export default function ProgressBar(step) {
           <div className="progressbar-step-text">Project Groups</div>
         </div>
         <div className={`${colorStep(step, 4)} progress-step`}>
-          <svg height="4rem" width="4rem">
+          <svg className="progress-bar-svg" height="4rem" width="4rem">
             <circle
               className="progress-bar-circle"
               cx="2rem"
@@ -75,7 +75,7 @@ export default function ProgressBar(step) {
           <div className="progressbar-step-text">Owner Agreement</div>
         </div>
         <div className={`${colorStep(step, 5)} progress-step`}>
-          <svg height="4rem" width="4rem">
+          <svg className="progress-bar-svg" height="4rem" width="4rem">
             <circle
               className="progress-bar-circle"
               cx="2rem"
