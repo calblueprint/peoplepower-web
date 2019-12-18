@@ -1239,7 +1239,7 @@ button {
   background-color: #edf1f5;
   display: block;
   z-index: 0;
-  transform: scaleX(1.25) translate(-1.5rem, 1.85rem);
+  transform: scaleX(1.4) translate(-2.1rem, 1.85rem);
   transform-origin: left;
   animation: slideIn 1s ease-in-out alternate infinite;
 }
