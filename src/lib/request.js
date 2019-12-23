@@ -3,22 +3,26 @@
 */
 
 import secret from '../secret';
+import {
+  BASE_ID,
+  ENDPOINT_URL,
+  GRID_VIEW,
+  OWNER_TABLE,
+  SUBSCRIBER_BILL_TABLE,
+  PERSON_TABLE
+} from '../constants';
 
 const { key } = secret;
 
 const Airtable = require('airtable');
 
-const OWNER_TABLE = 'Owner';
-const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
-const PERSON_TABLE = 'Person';
-
 // API KEY will reside in ENV variables later.
 Airtable.configure({
-  endpointUrl: 'https://api.airtable.com',
+  endpointUrl: ENDPOINT_URL,
   apiKey: key
 });
 
-const base = Airtable.base('appFaOwKhMXrRIQIp');
+const base = Airtable.base(BASE_ID);
 
 // ******** READ RECORDS ******** //
 
@@ -45,7 +49,7 @@ function getRecordsFromAttribute(table, fieldType, field) {
     console.log(`Searching for ${field}`);
     base(table)
       .select({
-        view: 'Grid view',
+        view: GRID_VIEW,
         filterByFormula: `{${fieldType}}='${field}'`
       })
       .firstPage(function(err, records) {
@@ -71,7 +75,7 @@ function getMultipleFromAttr(table, fieldName, fieldValue) {
   return new Promise((resolve, reject) => {
     base(table)
       .select({
-        view: 'Grid view',
+        view: GRID_VIEW,
         maxRecords: 10,
         filterByFormula: `{${fieldName}}='${fieldValue}'`
       })
@@ -96,7 +100,7 @@ function getAllRecords(table) {
   return new Promise((resolve, reject) => {
     base(table)
       .select({
-        view: 'Grid view'
+        view: GRID_VIEW
         // maxRecords: 20
       })
       .eachPage(

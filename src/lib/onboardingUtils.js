@@ -1,20 +1,19 @@
 import { getAllRecords } from './request';
 import keys from '../secret';
 import { setLoginCookie } from './auth';
+import {
+  BASE_ID,
+  USER_LOGIN_TABLE,
+  PERSON_TABLE,
+  OWNER_TABLE,
+  PROJECT_GROUP_TABLE
+} from '../constants';
 
 const { key } = keys;
-
-const BASE_ID = 'appFaOwKhMXrRIQIp';
 
 const Airtable = require('airtable');
 
 const base = new Airtable({ apiKey: key }).base(BASE_ID);
-
-// tables
-const USER_LOGIN_TABLE = 'User Login';
-const PROJECT_GROUPS_TABLE = 'Project Group';
-const PERSON_TABLE = 'Person';
-const OWNER_TABLE = 'Owner';
 
 const DEFAULT_NUM_RETRIES = 3;
 
@@ -245,7 +244,7 @@ const createPersonOwnerUserLoginRecord = async (
 };
 
 const getAllProjectGroups = async () => {
-  return getAllRecords(PROJECT_GROUPS_TABLE);
+  return getAllRecords(PROJECT_GROUP_TABLE);
 };
 
 export { createPersonOwnerUserLoginRecord, getAllProjectGroups };

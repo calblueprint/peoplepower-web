@@ -1,11 +1,13 @@
 import { getOwnerFromPerson, getAdminTable } from './adminHelper';
 import { getRecord } from './request';
+import {
+  OWNER_TABLE,
+  OWNER_TYPE_FIELD,
+  SUBSCRIBER_OWNER,
+  GENERAL_OWNER
+} from '../constants';
 
 export default function applyCredentials(userID) {
-  const OWNER_TABLE = 'Owner';
-  const SUBSCRIBER_OWNER = 'Subscriber';
-  const GENERAL_OWNER = 'General';
-
   let credentials = '';
 
   if (userID == null) {
@@ -23,7 +25,7 @@ export default function applyCredentials(userID) {
         return getRecord(OWNER_TABLE, ownerID);
       })
       .then(ownerRecord => {
-        const ownerTypes = ownerRecord.record['Owner Type'];
+        const ownerTypes = ownerRecord.record[OWNER_TYPE_FIELD];
 
         if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
           credentials += 'S';
