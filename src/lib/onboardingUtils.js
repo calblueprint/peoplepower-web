@@ -1,13 +1,15 @@
 import { getAllRecords } from './request';
 import keys from '../secret';
 import { setLoginCookie } from './auth';
-import {
+import constants from '../constants';
+
+const {
   BASE_ID,
   USER_LOGIN_TABLE,
   PERSON_TABLE,
   OWNER_TABLE,
   PROJECT_GROUP_TABLE
-} from '../constants';
+} = constants;
 
 const { key } = keys;
 

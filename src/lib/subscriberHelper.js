@@ -1,5 +1,7 @@
 import { getRecordsFromAttribute, getRecord, createRecord } from './request';
-import {
+import constants from '../constants';
+
+const {
   SUBSCRIBER_BILL_TABLE,
   OWNER_TABLE,
   PERSON_TABLE,
@@ -7,7 +9,7 @@ import {
   SUBSCRIBER_OWNER_FIELD,
   SUBSCRIBER_BILL_FIELD,
   PERSON_FIELD
-} from '../constants';
+} = constants;
 
 const areDiffBills = (b1, b2) => {
   if (b1 === b2) return false;

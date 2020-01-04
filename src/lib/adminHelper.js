@@ -1,11 +1,13 @@
 import { getRecord } from './request';
-import {
+import constants from '../constants';
+
+const {
   BASE_ID,
   PERSON_TABLE,
   OWNER_TABLE,
   PROJECT_GROUP_TABLE,
   ADMIN_OF_FIELD
-} from '../constants';
+} = constants;
 
 const Airtable = require('airtable');
 

@@ -1,9 +1,7 @@
 import { createRecord, updateOwner, updateBill } from './request';
-import {
-  BILL_PAYMENT_TYPE,
-  BUY_SHARES_TYPE,
-  PAYMENT_TABLE
-} from '../constants';
+import constants from '../constants';
+
+const { BILL_PAYMENT_TYPE, BUY_SHARES_TYPE, PAYMENT_TABLE } = constants;
 
 const createPayment = async record => {
   /*

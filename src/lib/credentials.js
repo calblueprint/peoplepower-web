@@ -1,11 +1,13 @@
 import { getOwnerFromPerson, getAdminTable } from './adminHelper';
 import { getRecord } from './request';
-import {
+import constants from '../constants';
+
+const {
   OWNER_TABLE,
   OWNER_TYPE_FIELD,
   SUBSCRIBER_OWNER,
   GENERAL_OWNER
-} from '../constants';
+} = constants;
 
 export default function applyCredentials(userID) {
   let credentials = '';

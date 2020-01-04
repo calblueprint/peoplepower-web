@@ -1,6 +1,8 @@
 import Cookies from 'universal-cookie';
 import secret from '../secret';
-import {
+import constants from '../constants';
+
+const {
   BASE_ID,
   LOGIN_TOKEN_NAME,
   EMAIL_FIELD,
@@ -9,7 +11,7 @@ import {
   USER_LOGIN_TABLE,
   GRID_VIEW,
   NUM_RECORDS
-} from '../constants';
+} = constants;
 
 const { key } = secret;
 

@@ -3,14 +3,16 @@
 */
 
 import secret from '../secret';
-import {
+import constants from '../constants';
+
+const {
   BASE_ID,
   ENDPOINT_URL,
   GRID_VIEW,
   OWNER_TABLE,
   SUBSCRIBER_BILL_TABLE,
   PERSON_TABLE
-} from '../constants';
+} = constants;
 
 const { key } = secret;
 
