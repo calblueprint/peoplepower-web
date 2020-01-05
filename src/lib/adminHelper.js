@@ -1,16 +1,17 @@
 import { getRecord } from './request';
+import constants from '../constants';
+
+const {
+  BASE_ID,
+  PERSON_TABLE,
+  OWNER_TABLE,
+  PROJECT_GROUP_TABLE,
+  ADMIN_OF_FIELD
+} = constants;
 
 const Airtable = require('airtable');
 
-const base = Airtable.base('appFaOwKhMXrRIQIp');
-
-// TABLES
-const PERSON_TABLE = 'Person';
-const OWNER_TABLE = 'Owner';
-const PROJECT_GROUP_TABLE = 'Project Group';
-
-// FIELDS
-const ADMIN_OF = 'Admin Of';
+const base = Airtable.base(BASE_ID);
 
 const getOwnerFromPerson = async personId => {
   const recordMap = await getRecord(PERSON_TABLE, personId);
@@ -28,7 +29,7 @@ const getAdminTable = async ownerId => {
   const recordMap = await getRecord(OWNER_TABLE, ownerId);
   const { record } = recordMap;
 
-  const ownerOfArr = record[ADMIN_OF];
+  const ownerOfArr = record[ADMIN_OF_FIELD];
   if (ownerOfArr && ownerOfArr.length === 1) {
     return ownerOfArr[0];
   }

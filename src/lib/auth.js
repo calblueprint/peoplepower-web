@@ -1,24 +1,25 @@
 import Cookies from 'universal-cookie';
 import secret from '../secret';
+import constants from '../constants';
+
+const {
+  BASE_ID,
+  LOGIN_TOKEN_NAME,
+  EMAIL_FIELD,
+  PASSWORD_FIELD,
+  PERSON_FIELD,
+  USER_LOGIN_TABLE,
+  GRID_VIEW,
+  NUM_RECORDS
+} = constants;
 
 const { key } = secret;
 
 const cookies = new Cookies();
 
-const BASE_ID = 'appFaOwKhMXrRIQIp';
-
 const Airtable = require('airtable');
 
 const base = new Airtable({ apiKey: key }).base(BASE_ID);
-
-const EMAIL_FIELD = 'Email';
-const PASSWORD_FIELD = 'password';
-const GRID_VIEW = 'Grid view';
-const NUM_RECORDS = 1;
-
-const LOGIN_TOKEN_NAME = 'loginToken';
-
-const table = 'User Login';
 
 const setLoginCookie = id => {
   cookies.set(LOGIN_TOKEN_NAME, id);
@@ -26,7 +27,7 @@ const setLoginCookie = id => {
 
 const loginUser = (email, passwordHash) => {
   return new Promise((resolve, reject) => {
-    base(table)
+    base(USER_LOGIN_TABLE)
       .select({
         maxRecords: NUM_RECORDS,
         view: GRID_VIEW,
@@ -41,7 +42,7 @@ const loginUser = (email, passwordHash) => {
             if (recordEmail === email) {
               if (record.get(PASSWORD_FIELD) === passwordHash) {
                 console.log(record);
-                const personId = record.get('Person')[0];
+                const personId = record.get(PERSON_FIELD)[0];
                 setLoginCookie(personId);
                 resolve({ match: true, found: true });
               } else {

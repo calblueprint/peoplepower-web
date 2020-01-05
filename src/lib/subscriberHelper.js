@@ -1,14 +1,15 @@
 import { getRecordsFromAttribute, getRecord, createRecord } from './request';
+import constants from '../constants';
 
-// TABLES
-const SUBSCRIBER_BILL_TABLE = 'Subscriber Bill';
-const OWNER_TABLE = 'Owner';
-const PERSON_TABLE = 'Person';
-const PAYMENT_TABLE = 'Payment';
-
-// FIELDS
-const SUBSCRIBER_OWNER = 'Subscriber Owner';
-const PERSON = 'Person';
+const {
+  SUBSCRIBER_BILL_TABLE,
+  OWNER_TABLE,
+  PERSON_TABLE,
+  PAYMENT_TABLE,
+  SUBSCRIBER_OWNER_FIELD,
+  SUBSCRIBER_BILL_FIELD,
+  PERSON_FIELD
+} = constants;
 
 const areDiffBills = (b1, b2) => {
   if (b1 === b2) return false;
@@ -83,8 +84,8 @@ const validateSubscriberOwnerRecord = res => {
     throw Error('res.records[0] has no field fields');
   }
 
-  if (res.records[0].fields[SUBSCRIBER_OWNER] == null) {
-    throw Error(`res.records[0] has no field ${SUBSCRIBER_OWNER}`);
+  if (res.records[0].fields[SUBSCRIBER_OWNER_FIELD] == null) {
+    throw Error(`res.records[0] has no field ${SUBSCRIBER_OWNER_FIELD}`);
   }
 };
 
@@ -97,14 +98,14 @@ const getOwnerIdFromId = async loggedInUserId => {
 
 const getBillsFromOwnerId = async ownerId => {
   const owner = await getRecord(OWNER_TABLE, ownerId);
-  return owner.record['Subscriber Bill'];
+  return owner.record[SUBSCRIBER_BILL_FIELD];
 };
 
 // throw an exception on error
 const getSubscriberOwnerFromPerson = async user => {
-  const res = await getRecordsFromAttribute(OWNER_TABLE, PERSON, user);
+  const res = await getRecordsFromAttribute(OWNER_TABLE, PERSON_FIELD, user);
   validateSubscriberOwnerRecord(res);
-  return res.records[0].fields[SUBSCRIBER_OWNER];
+  return res.records[0].fields[SUBSCRIBER_OWNER_FIELD];
 };
 
 const getSubscriberBills = async (loggedInUserId, callback) => {
