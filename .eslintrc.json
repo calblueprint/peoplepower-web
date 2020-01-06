@@ -25,5 +25,8 @@
     "navigator": true,
     "alert": true
   },
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "env": {
+    "jest": true
+  }
 }
