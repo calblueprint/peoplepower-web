@@ -6,7 +6,7 @@ import {
   getOwnerById
 } from '../../lib/request';
 import { getLoggedInUserId } from '../../lib/auth';
-import applyCredentials from '../../lib/credentials';
+import { applyCredentials, isAdmin } from '../../lib/credentials';
 import AnnouncementList from '../../components/AnnouncementList';
 import AddAnnouncement from '../../components/AddAnnouncement';
 import LoadingComponent from '../../components/LoadingComponent';
@@ -78,7 +78,7 @@ export default class Community extends React.Component {
       <div className="dashboard community">
         <div className="cont">
           <h1>Community</h1>
-          {credentials.includes('A') ? (
+          {isAdmin(credentials) ? (
             <AddAnnouncement
               usersGroup={usersGroup}
               usersID={usersID}
@@ -87,7 +87,7 @@ export default class Community extends React.Component {
           ) : null}
           <AnnouncementList
             announcements={cards}
-            css={credentials.includes('A') ? '' : 'nonAdminHeight'}
+            css={isAdmin(credentials) ? '' : 'nonAdminHeight'}
           />
         </div>
       </div>

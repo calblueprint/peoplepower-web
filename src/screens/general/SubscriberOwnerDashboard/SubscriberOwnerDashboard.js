@@ -20,18 +20,20 @@ export default class SubscriberOwnerDashboard extends React.Component {
 
   componentDidMount() {
     const { history } = this.props;
-    const id = getLoggedInUserId();
-    if (!id) {
+    const personId = getLoggedInUserId();
+    if (!personId) {
       // They shouldn't be able to access this screen
       history.push('/');
     } else {
-      this.getBills();
+      this.setState({
+        personId
+      });
+      this.getBills(personId);
     }
   }
 
-  getBills() {
-    const loggedInUserId = getLoggedInUserId();
-    getSubscriberBills(loggedInUserId, this.updateState);
+  getBills(personId) {
+    getSubscriberBills(personId, this.updateState);
   }
 
   updateState(transactions) {
@@ -61,7 +63,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
   }
 
   render() {
-    const { mode, transactions, isReady } = this.state;
+    const { mode, transactions, isReady, personId } = this.state;
     if (!isReady) {
       return <LoadingComponent />;
     }
@@ -70,6 +72,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
         <SubscriberOwnerDashboardMainView
           callback={() => this.seeSubscriberOwnerDashboardAllBillsView()}
           transactions={transactions}
+          personId={personId}
         />
       );
     }
@@ -78,6 +81,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
         <SubscriberOwnerDashboardAllBillsView
           callback={() => this.seeDashboard()}
           transactions={transactions}
+          personId={personId}
         />
       );
     }
