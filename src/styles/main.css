@@ -1,0 +1,60 @@
+:root {
+  --pp-blue: #395578;
+  --pp-pink: #cd6795;
+  --pp-gray: #7387a2;
+  --pp-green: #62b16f;
+  --pp-yellow: #e0b64c;
+  --pp-black: #24364d;
+  --pp-dark-gray: #3e4a59;
+  --pp-white: #edf1f5;
+
+  --pp-tag-gray: #d8d8d8;
+}
+
+.pp-pink-rounded-button {
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  background-color: var(--pp-pink);
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.pp-pink-rounded-button:hover {
+  box-shadow: 0px 4px 30px rgba(205, 103, 149, 0.3);
+}
+
+.pp-blue-rounded-button {
+  background-color: #395578;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 16px;
+}
+
+.pp-pink-square-button {
+  border: none;
+  border-radius: 2.5px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  background: var(--pp-pink);
+}
+
+.pp-blue-square-button {
+}
+
+.pp-tag {
+  padding: 5px 10px;
+  background: var(--pp-tag-gray);
+  border-radius: 20px;
+  margin: 0px 5px;
+}

@@ -18,7 +18,7 @@ class Complete extends React.Component {
         <div className="right">
           <button
             type="button"
-            className="getstarted-button"
+            className="pp-pink-rounded-button getstarted-button"
             onClick={this.dashboardButton}
           >
             Continue to Dashboard

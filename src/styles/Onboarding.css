@@ -120,26 +120,8 @@
 }
 
 .getstarted-button {
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  background-color: #cd6795;
-  border: none;
-  color: white;
   padding: 0.3rem 2rem;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  margin: 4px 2px;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border-radius: 50px;
   margin-top: 2rem;
-}
-
-.getstarted-button:hover {
-  box-shadow: 0px 4px 30px rgba(205, 103, 149, 0.3);
 }
 
 .center {
@@ -685,11 +667,6 @@ carousel__arrow--right {
 
 .projectgroup-select {
   width: 100%;
-  background-color: #cd6795;
-  border-radius: 2.5px;
-  color: white;
-  font-size: 16px;
-  paddind: 1.5rem 1.75rem;
 }
 
 .projectgroup-selected {
@@ -698,7 +675,6 @@ carousel__arrow--right {
   border-radius: 2.5px;
   background-color: white;
   font-size: 16px;
-  paddind: 1.5rem 1.75rem;
 }
 
 .tooltip {
@@ -809,12 +785,7 @@ carousel__arrow--right {
 }
 
 .continue-button {
-  background-color: #395578;
-  color: white;
-  border: none;
-  border-radius: 40px;
   padding: 0.25rem 2rem;
-  font-size: 16px;
 }
 
 .projectgroup-selected-card {

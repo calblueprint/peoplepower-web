@@ -1,5 +1,6 @@
 import React from 'react';
 import formValidation from '../../lib/formValidation';
+import '../../styles/main.css';
 import '../../styles/Onboarding.css';
 import Tooltip from '../../components/Tooltip';
 import { updatePerson, updateRecord } from '../../lib/request';
@@ -176,7 +177,7 @@ class BasicInfo extends React.Component {
         <div className="v-center">
           <button
             type="button"
-            className="getstarted-button"
+            className="pp-pink-rounded-button getstarted-button"
             onClick={this.nextButton}
           >
             Get started

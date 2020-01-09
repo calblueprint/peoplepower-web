@@ -3,6 +3,7 @@ import formValidation from '../../lib/formValidation';
 import { createPersonOwnerUserLoginRecord } from '../../lib/onboardingUtils';
 import Tooltip from '../../components/Tooltip';
 import { updatePerson } from '../../lib/request';
+import '../../styles/main.css';
 
 class ContactInfo extends React.Component {
   constructor(props) {
@@ -460,7 +461,7 @@ class ContactInfo extends React.Component {
           <div className="right">
             <button
               type="button"
-              className="continue-button"
+              className="pp-blue-rounded-button continue-button"
               onClick={this.nextButton}
             >
               Continue

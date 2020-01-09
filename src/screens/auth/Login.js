@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../styles/Login.css';
+import '../../styles/main.css';
 
 const { loginUser } = require('../../lib/auth.js');
 const { getLoggedInUserId } = require('../../lib/auth.js');
@@ -94,7 +95,10 @@ class Login extends React.Component {
             />
           </div>
           <div className=" t-center">
-            <button type="submit" className="login-button">
+            <button
+              type="submit"
+              className="pp-pink-rounded-button login-button"
+            >
               Login
             </button>
           </div>

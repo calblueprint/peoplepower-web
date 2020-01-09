@@ -15,7 +15,7 @@
   font-weight: 800;
   font-size: 18px;
   line-height: 25px;
-  color: #7387a2;
+  color: var(--pp-gray);
 }
 
 .card-holder-cont span {
@@ -32,18 +32,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.card-holder-cont .invite-button {
-  border: none;
-  border-radius: 2.5px;
-  width: 108px;
-  color: white;
-  margin: 35px;
-  font-size: 16px;
-  font-weight: 600;
-  background: #cd6795;
-  height: 30px;
 }
 
 .card-holder .admin-card {
@@ -83,11 +71,10 @@
   width: 200px;
 }
 
-.card-holder .admin-card .card-tags .tag {
-  padding: 5px 10px;
-  background: #d8d8d8;
-  border-radius: 20px;
-  margin: 0px 5px;
+.invite-button {
+  width: 108px;
+  margin: 35px;
+  height: 30px;
 }
 
 .card-holder .admin-card .card-button {

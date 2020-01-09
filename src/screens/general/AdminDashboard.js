@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './Card';
+import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
 import { getLoggedInUserId } from '../../lib/auth';
 import LoadingComponent from '../../components/LoadingComponent';
@@ -94,7 +95,10 @@ export default class AdminDashboard extends React.Component {
               <h4>
                 Members <span>({owners.length})</span>
               </h4>
-              <button type="button" className="invite-button">
+              <button
+                type="button"
+                className="pp-pink-square-button invite-button"
+              >
                 Invite
               </button>
             </div>
