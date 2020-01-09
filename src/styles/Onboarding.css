@@ -773,6 +773,7 @@ carousel__arrow--right {
   border-style: solid;
   padding: 1rem 1.75rem;
   margin: 1rem 0;
+  z-index: -1;
 }
 
 .template-bylaws-card {
@@ -1118,4 +1119,131 @@ carousel__arrow--right {
   width: 100%;
   padding: 0.5rem 0.5rem;
   margin-top: 0.5rem;
+}
+
+input {
+  outline: none;
+}
+
+button {
+  outline: none;
+}
+
+.progress-bar-container ul {
+  line-height: 12px;
+  margin-block-start: 2rem;
+  margin-block-end: 1.5rem;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+}
+
+.login-hyperlink:hover {
+  color: #808080;
+}
+
+.progress-bar-container {
+  width: 100%;
+}
+.progressbar {
+  counter-reset: step;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.progress-step {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  z-index: 1;
+}
+
+.progress-bar-circle {
+  stroke: #edf1f5;
+  fill: white;
+  stroke-width: 6px;
+  stroke-mode: inside;
+  r: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.progress-step circle:after {
+  content: '';
+  width: 100%;
+  border-bottom: solid 3px black;
+  background-color: black;
+  position: relative;
+  left: 0;
+  top: 50%;
+  z-index: 2;
+}
+
+.active .progress-bar-circle {
+  stroke: #cd6795;
+  fill: white;
+  stroke-width: 12px;
+  r: calc(1rem - 3px);
+}
+
+.previous .progress-bar-circle {
+  stroke: #395578;
+  fill: #395578;
+}
+
+.previous .progress-bar-checkmark {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  stroke: white;
+}
+
+.active .progress-bar-checkmark,
+.progress-bar-checkmark {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  stroke: none;
+}
+
+.progressbar-step-text {
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 2rem;
+}
+
+.previous .progressbar-step-text,
+.active .progressbar-step-text {
+  color: #395578;
+}
+
+.progressbar-line {
+  fill: none;
+  stroke: black;
+  stroke-width: 3;
+}
+
+.progress-bar-svg {
+  margin: 0 auto;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.progressbar-line {
+  content: '';
+  flex: 1;
+  height: 6px;
+  background-color: #edf1f5;
+  display: block;
+  z-index: 0;
+  transform: scaleX(1.4) translate(-2.1rem, 1.85rem);
+  transform-origin: left;
+  animation: slideIn 1s ease-in-out alternate infinite;
+}
+
+.progressbar-line-active {
+  background-color: #395578;
 }

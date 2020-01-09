@@ -87,20 +87,15 @@ class ProjectGroups extends React.Component {
         }
       };
       await updatePerson(updatedPerson);
-
       const newOwner = {
         id: personId,
         fields: {
           'Project Group': [projectGroup]
         }
       };
-
       await updateOwner(newOwner);
       nextStep();
     }
-    // else {
-    //   this.forceUpdate();
-    // }
   };
 
   prevButton = e => {
