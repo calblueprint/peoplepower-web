@@ -86,7 +86,7 @@ class Onboarding extends React.Component {
         billingState: '',
         billingZipcode: ''
       },
-      step: 3
+      step: 1
     };
     this.handleChange = this.handleChange.bind(this);
     this.callBackBylawValidation = this.callBackBylawValidation.bind(this);

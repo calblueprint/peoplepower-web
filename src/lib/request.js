@@ -2,7 +2,7 @@
   Helper functions intended to streamline our requests to the AirTable API. 
 */
 
-import secret from './secret';
+import secret from '../secret';
 
 const { key } = secret;
 

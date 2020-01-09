@@ -1,5 +1,5 @@
 import { getAllRecords } from './request';
-import keys from './secret';
+import keys from '../secret';
 import { setLoginCookie } from './auth';
 
 const { key } = keys;
