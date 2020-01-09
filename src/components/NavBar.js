@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/NavBar.css';
 import { getRecord } from '../lib/request';
 import { getLoggedInUserId } from '../lib/auth';
@@ -47,6 +48,7 @@ export default class NavBar extends React.Component {
   }
 
   render() {
+    const { id, name, credentials } = this.state;
     return (
       <div className="navBar">
         <img
@@ -54,6 +56,36 @@ export default class NavBar extends React.Component {
           src={Logo}
           alt="People Power Solar Cooperative Logo"
         />
+        <nav>
+          <ul>
+            <li className="navItem">
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+            {credentials.includes('G') ? (
+              <li className="navItem">
+                <Link to="/investment">My Investment</Link>
+              </li>
+            ) : null}
+            {credentials.includes('S') ? (
+              <li className="navItem">
+                <Link to="/billing">Billing</Link>
+              </li>
+            ) : null}
+            <li className="navItem">
+              <Link to="/community">Community</Link>
+            </li>
+            {credentials.includes('A') ? (
+              <li className="navItem">
+                <Link to="/admin">Admin</Link>
+              </li>
+            ) : null}
+            <li className="navItem">
+              <Link to={`/profile/${id}`}>
+                <span>{name}</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </div>
     );
   }
