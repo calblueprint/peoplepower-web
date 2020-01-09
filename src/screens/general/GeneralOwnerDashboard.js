@@ -140,7 +140,9 @@ export default class GeneralOwnerDashboard extends React.Component {
 
     const userDetails = (
       <div className="dash-solar-details">
-        <p style={{ fontWeight: '800', color: 'black' }}>Welcome, {name}</p>
+        <p style={{ fontWeight: '800', color: 'var(--pp-black)' }}>
+          Welcome, {name}
+        </p>
         <div>
           <p>
             <span>Email:</span> {email}

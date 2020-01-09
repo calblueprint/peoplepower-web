@@ -1,5 +1,5 @@
 .navBar {
-  background: #ffffff;
+  background: white;
   width: 100%;
   height: 104px;
   align-items: center;
@@ -34,6 +34,6 @@
 span {
   text-decoration: none;
   font-weight: 600;
-  color: #000;
+  color: var(--pp-black);
   white-space: nowrap;
 }

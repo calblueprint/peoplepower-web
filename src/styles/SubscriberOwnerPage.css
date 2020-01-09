@@ -11,7 +11,7 @@ h3 {
 
 .subscriber-header {
   font-weight: bolder;
-  color: #4f4f4f;
+  color: var(--pp-black);
 }
 
 div p {

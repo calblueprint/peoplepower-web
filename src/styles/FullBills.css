@@ -5,7 +5,7 @@
 }
 
 .even-bill-card {
-  background-color: #f5f5f5;
+  background-color: var(--pp-light-gray);
   border-radius: 4px;
   padding: 0em 1em 0em 1em;
 }
@@ -58,7 +58,7 @@
 
 .full-statement-left {
   display: inline-block;
-  color: #4f4f4f;
+  color: var(--pp-black);
   /* padding-right: 7em; */
   /* width: 1em; */
   flex: 1 1 9em;
@@ -66,13 +66,13 @@
 
 .full-statement-middle {
   flex-grow: 1;
-  color: #4f4f4f;
+  color: var(--pp-black);
   justify-content: center;
   flex: 1 1 11em;
 }
 
 .full-statement-right {
-  color: #4f4f4f;
+  color: var(--pp-black);
   padding-left: 1em;
 }
 
@@ -91,7 +91,7 @@
 }
 
 #TEMP-REMOVE-ME {
-  border: 2px solid #efefef;
+  border: 2px solid var(--pp-gray);
   width: 100%;
   margin: 0 auto;
 }

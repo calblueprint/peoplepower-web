@@ -40,7 +40,7 @@ w-100 {
 .login-hyperlink {
   border: none;
   font-size: 12px;
-  color: #8f8f8f;
+  color: var(--pp-link-gray);
   margin-bottom: 0.5rem;
 }
 
@@ -56,7 +56,7 @@ w-100 {
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.01em;
-  color: #7387a2;
+  color: var(--pp-gray);
   font-weight: 500;
 }
 

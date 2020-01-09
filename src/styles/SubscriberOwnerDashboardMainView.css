@@ -50,12 +50,7 @@
 
 .subscriber-header {
   font-weight: bolder;
-  color: #4f4f4f;
-}
-
-.balance-header-section {
-  margin: 0;
-  padding: 1.2vw 1.8vw;
+  color: var(--pp-black);
 }
 
 .balance-header-section h3 {
@@ -67,7 +62,7 @@
 .balance-header-section p {
   font-size: 12px;
   margin: 0.3vw 0.5vw;
-  color: #a4a4a4;
+  color: var(--pp-gray);
 }
 
 .cards-holder {
@@ -81,24 +76,14 @@
   font-weight: bolder;
   background-color: Transparent;
   border: 0;
-  color: #4f4f4f;
+  color: var(--pp-black);
   float: right;
   margin-left: auto;
 }
 
 .subscriber-all-billls-button:hover {
-  color: #696969;
+  color: var(--pp-gray);
   cursor: pointer;
-}
-
-.subscriber-button {
-  font-size: 22;
-  font-weight: bold;
-  background-color: #b7b7b7;
-  color: white;
-  padding: 0.7em 2em;
-  border-radius: 3px;
-  margin: 0 1.5vw;
 }
 
 .payment-button {
@@ -106,7 +91,7 @@
 }
 
 #divider {
-  border: 1px solid #efefef;
+  border: 1px solid var(--pp-light-gray);
   width: 85%;
   margin: 0 auto 1.5vw auto;
 }

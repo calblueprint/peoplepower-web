@@ -305,7 +305,7 @@ export default class UserProfilePage extends React.Component {
                     type="submit"
                     value="Submit"
                     style={{
-                      border: '1px solid black',
+                      border: '1px solid var(--pp-black)',
                       float: 'left',
                       padding: '5px 10px',
                       width: '100px'
@@ -395,7 +395,7 @@ export default class UserProfilePage extends React.Component {
                     type="submit"
                     value="Submit"
                     style={{
-                      border: '1px solid black',
+                      border: '1px solid var(--pp-black)',
                       float: 'left',
                       padding: '5px 10px',
                       width: '100px'

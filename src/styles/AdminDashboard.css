@@ -1,5 +1,5 @@
 .card-holder-cont {
-  background: #ffffff;
+  background: white;
   border-radius: 5px;
   overflow: scroll;
   height: 350px;
@@ -25,7 +25,7 @@
   font-weight: 800;
   font-size: 18px;
   line-height: 25px;
-  color: #7387a2;
+  color: var(--pp-gray);
 }
 
 .card-holder {
@@ -39,7 +39,7 @@
   justify-content: flex-end;
   height: 70px;
   margin: 0px;
-  background: #fff;
+  background: white;
   align-items: center;
   padding: 35px 35px 35px 0px;
 }
@@ -48,7 +48,7 @@
   width: 77px;
   height: 77px;
   margin-right: 34px;
-  background: #efefef;
+  background: var(--pp-tag-gray);
   border-radius: 100%;
 }
 
@@ -62,7 +62,7 @@
   font-weight: 800;
   font-size: 16px;
   line-height: 22px;
-  color: #24364d;
+  color: var(--pp-black);
 }
 
 .card-holder .admin-card .card-tags {
@@ -105,5 +105,5 @@
   font-weight: 800;
   font-size: 18px;
   line-height: 25px;
-  color: #7387a2;
+  color: var(--pp-gray);
 }

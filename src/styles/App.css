@@ -6,7 +6,7 @@
 
 body {
   height: 100%;
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-white);
 }
 
 /* Styling for the main wrapper of the application */
@@ -36,7 +36,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
+  background: white;
   flex-direction: column;
 }
 

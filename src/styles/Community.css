@@ -8,15 +8,15 @@
   font-weight: 900;
   font-size: 36px;
   line-height: 49px;
-  color: #395578;
+  color: var(--pp-blue);
 }
 
 .community p {
-  color: black;
+  color: var(--pp-black);
 }
 
 .announcementCard {
-  background: #fff;
+  background: white;
   border-radius: 5px;
   padding: 35px;
   margin: 10px 0px;
@@ -32,7 +32,7 @@
   font-size: 12px;
   line-height: 19px;
   letter-spacing: 0.01em;
-  color: #24364d;
+  color: var(--pp-black);
 }
 
 .announcementCard:first-of-type {
@@ -45,7 +45,7 @@
   font-weight: 800;
   font-size: 18px;
   line-height: 25px;
-  color: #395578;
+  color: var(--pp-blue);
 }
 
 .community .announcementCard h2,
@@ -86,7 +86,7 @@ h3 {
 .community .cont .AddAnnouncement form input {
   font-size: 16px;
   border: none;
-  background: #c4c4c4;
+  background: var(--pp-white);
   border-radius: 2.5px;
   width: 60px;
   height: 30px;
@@ -105,5 +105,5 @@ h3 {
 .community .cont .AddAnnouncement p {
   margin-top: 10px;
   margin-bottom: 0px;
-  color: #c4c4c4;
+  color: var(--pp-white);
 }

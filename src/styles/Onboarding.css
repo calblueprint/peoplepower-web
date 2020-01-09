@@ -19,7 +19,7 @@
 }
 
 .onboarding-label {
-  color: #7387a2;
+  color: var(--pp-gray);
   font-weight: normal;
   font-size: 10px;
   margin-bottom: 0px;
@@ -49,24 +49,12 @@
   width: 100%;
 }
 
-.arrow {
-  height: 50px;
-  width: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f9f9f9;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform ease-in 0.1s;
-}
-
 .nextArrow {
   position: absolute;
   top: 50%;
   right: 25px;
   z-index: 999;
-  color: #000;
+  color: var(--pp-black);
 }
 
 .backArrow {
@@ -74,12 +62,12 @@
   top: 50%;
   left: 25px;
   z-index: 999;
-  color: #000;
+  color: var(--pp-black);
 }
 
 .fa-arrow-right:before,
 .fa-arrow-left:before {
-  color: #222;
+  color: var(--pp-black);
 }
 
 .bottomButtons {
@@ -153,7 +141,7 @@
 .arrow-circle {
   width: 2rem;
   height: 2rem;
-  background: #cd6795;
+  background: var(--pp-pink);
   border-radius: 50%;
 }
 .arrow-circle:hover {
@@ -208,19 +196,19 @@
 }
 
 .input-white ::placeholder {
-  color: #24364d03;
+  color: var(--pp-black);
 }
 
 .input-white ::-ms-input-placeholder {
-  color: #24364d03;
+  color: var(--pp-black);
 }
 
 .input-white ::-ms-input-placeholder {
-  color: #24364d03;
+  color: var(--pp-black);
 }
 
 .card {
-  background-color: #fff !important;
+  background-color: white !important;
   padding: 3rem 3rem !important;
   border-radius: 15px;
   width: 20rem !important;
@@ -229,7 +217,7 @@
 .header {
   font-size: 18px;
   font-family: 'Nunito Sans', sans-serif;
-  color: #395578;
+  color: var(--pp-blue);
   font-weight: bolder;
   width: 70%;
   text-align: center;
@@ -366,7 +354,7 @@ w-pasword {
   font-weight: bold;
   font-family: 'Nunito Sans', sans-serif;
   padding-bottom: 0.5rem;
-  color: #395578;
+  color: var(--pp-blue);
 }
 
 .right {
@@ -389,7 +377,7 @@ w-pasword {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: #24364d;
+  color: var(--pp-black);
 }
 
 .mt-2 {
@@ -428,8 +416,8 @@ w-pasword {
 
 /* When the checkbox is checked, add a blue background */
 .checkbox-container input:checked ~ .checkmark {
-  background-color: #62b16f;
-  border-color: #62b16f;
+  background-color: var(--pp-green);
+  border-color: var(--pp-green);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -492,7 +480,7 @@ w-pasword {
 .slider {
   justify-content: center;
   background-color: white;
-  border-color: #edf1f5;
+  border-color: var(--pp-white);
   border-width: 2px;
   border-radius: 5px;
   display: flex;
@@ -526,7 +514,7 @@ w-pasword {
 }
 
 .filler-50 {
-  background: #cd6795;
+  background: var(--pp-pink);
   height: 100%;
   border-radius: 2px 0 0 0;
   transition: width 0.2s ease-in;
@@ -534,7 +522,7 @@ w-pasword {
 }
 
 .filler-100 {
-  background: #cd6795;
+  background: var(--pp-pink);
   height: 100%;
   border-radius: 2px 2px 0 0;
   transition: width 0.2s ease-in;
@@ -596,7 +584,7 @@ carousel__arrow--right {
   border-radius: 3px;
   cursor: default;
   position: relative;
-  background-color: #fff;
+  background-color: white;
 }
 .dd-header span {
   margin-right: 20px;
@@ -607,7 +595,7 @@ carousel__arrow--right {
   margin-right: 30px;
 }
 .angle-down {
-  color: #000;
+  color: var(--pp-black);
   margin-right: 20px;
 }
 .dd-list {
@@ -618,7 +606,7 @@ carousel__arrow--right {
   border-top: none;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-  background-color: #fff;
+  background-color: white;
   -webkit-box-shadow: 0 2px 5px -1px #e8e8e8;
   box-shadow: 0 2px 5px -1px #e8e8e8;
   font-weight: 700;
@@ -639,11 +627,11 @@ carousel__arrow--right {
   color: black;
 }
 .dd-list-item.selected {
-  color: #fff;
+  color: white;
   background-color: #ffcc01;
 }
 .dd-list-item:hover {
-  color: #fff;
+  color: white;
   background-color: #ffcc01;
 }
 .dd-wrapper-single {
@@ -671,7 +659,7 @@ carousel__arrow--right {
 
 .projectgroup-selected {
   width: 100%;
-  color: #cd6795;
+  color: var(--pp-pink);
   border-radius: 2.5px;
   background-color: white;
   font-size: 16px;
@@ -743,7 +731,7 @@ carousel__arrow--right {
 
 .template-card {
   background-color: white;
-  border-color: #edf1f5;
+  border-color: var(--pp-white);
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
@@ -754,7 +742,7 @@ carousel__arrow--right {
 
 .template-bylaws-card {
   background-color: white;
-  border-color: #edf1f5;
+  border-color: var(--pp-white);
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
@@ -763,12 +751,12 @@ carousel__arrow--right {
 }
 
 .template-header {
-  color: #395578;
+  color: var(--pp-blue);
   font-size: 32px;
 }
 
 .template-body {
-  color: #395578;
+  color: var(--pp-blue);
   font-size: 12px;
   font-weight: bold;
 }
@@ -780,7 +768,7 @@ carousel__arrow--right {
 .back-button {
   background-color: #f7f8fa;
   border: none;
-  color: #7387a2;
+  color: var(--pp-gray);
   font-size: 16px;
 }
 
@@ -793,7 +781,7 @@ carousel__arrow--right {
 }
 
 .projectgroup-selected-header {
-  color: #395578;
+  color: var(--pp-blue);
   font-size: 18px;
   padding-bottom: 1.5rem;
 }
@@ -805,7 +793,7 @@ carousel__arrow--right {
 }
 
 .projectgroup-selected-body {
-  color: #24364d;
+  color: var(--pp-black);
   font-size: 16px;
   padding-bottom: 1.5rem;
   line-height: 22px;
@@ -837,14 +825,14 @@ carousel__arrow--right {
 }
 
 .projectGroup-list-option-header {
-  color: #24364d;
+  color: var(--pp-black);
   font-size: 16px;
   font-weight: bold;
   padding-bottom: 0.5rem;
 }
 
 .projectGroup-list-option-body {
-  color: #24364d;
+  color: var(--pp-black);
   font-size: 12px;
 }
 
@@ -869,12 +857,12 @@ carousel__arrow--right {
   border: none;
   background-color: white;
   font-size: 14px;
-  color: #3e4a59;
+  color: var(--pp-dark-gray);
   font-weight: bold;
 }
 
 .bylaws-hyperlink {
-  color: #cd6795;
+  color: var(--pp-pink);
   font-weight: bold;
   text-decoration: none;
 }
@@ -882,7 +870,7 @@ carousel__arrow--right {
 .payment-summary-header {
   font-size: 18px;
   line-height: 25px;
-  color: #395578;
+  color: var(--pp-blue);
   /*margin-bottom: 1rem*/
   font-weight: 500;
   margin: 2rem 1.75rem 1rem 1.75rem;
@@ -891,7 +879,7 @@ carousel__arrow--right {
 .payment-summary-shares {
   font-size: 16px;
   line-height: 22px;
-  color: #24364d;
+  color: var(--pp-black);
   margin: 0 1.75rem 0.3rem 1.75rem;
 }
 
@@ -902,7 +890,7 @@ carousel__arrow--right {
 }
 
 .payment-summary-hr {
-  border-bottom: 1px solid #edf1f5;
+  border-bottom: 1px solid var(--pp-white);
   border-top: none;
   border-left: none;
   border-right: none;
@@ -911,14 +899,14 @@ carousel__arrow--right {
 
 .payment-summary-total {
   font-size: 16px;
-  color: #24364d;
+  color: var(--pp-black);
   font-weight: 600;
   margin: 1rem 1.75rem 2rem 1.75rem;
 }
 
 .payment-summary-card {
   background-color: white;
-  border-color: #edf1f5;
+  border-color: var(--pp-white);
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
@@ -926,7 +914,7 @@ carousel__arrow--right {
 
 .payment-shares-card {
   background-color: white;
-  border-color: #edf1f5;
+  border-color: var(--pp-white);
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
@@ -935,7 +923,7 @@ carousel__arrow--right {
 
 .payment-shares-header {
   font-size: 16px;
-  color: #24364d;
+  color: var(--pp-black);
   margin-bottom: 1rem;
 }
 
@@ -987,14 +975,14 @@ carousel__arrow--right {
 .payment-dividends-header {
   font-weight: 600;
   font-size: 16px;
-  color: #24364d;
+  color: var(--pp-black);
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
 .payment-dividends-choice {
   font-size: 16px;
-  color: #24364d;
+  color: var(--pp-black);
   display: block;
   width: 100%;
   margin-bottom: 0.5rem;
@@ -1040,7 +1028,7 @@ carousel__arrow--right {
   height: 18px;
   border: 1px solid #ddd;
   border-radius: 100%;
-  background: #fff;
+  background: white;
 }
 [type='radio']:checked + label:after,
 [type='radio']:not(:checked) + label:after {
@@ -1068,7 +1056,7 @@ carousel__arrow--right {
 
 .payment-cc-card {
   background-color: white;
-  border-color: #edf1f5;
+  border-color: var(--pp-white);
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
@@ -1079,11 +1067,11 @@ carousel__arrow--right {
 .payment-cc-label {
   font-size: 12px;
   line-height: 16px;
-  color: #7387a2;
+  color: var(--pp-gray);
 }
 
 .payment-cc-input {
-  background: #ffffff;
+  background: whitefff;
   border: 1px solid #b4b8bf;
   box-sizing: border-box;
   border-radius: 2.5px;
@@ -1132,7 +1120,7 @@ button {
 }
 
 .progress-bar-circle {
-  stroke: #edf1f5;
+  stroke: var(--pp-white);
   fill: white;
   stroke-width: 6px;
   stroke-mode: inside;
@@ -1153,15 +1141,15 @@ button {
 }
 
 .active .progress-bar-circle {
-  stroke: #cd6795;
+  stroke: var(--pp-pink);
   fill: white;
   stroke-width: 12px;
   r: calc(1rem - 3px);
 }
 
 .previous .progress-bar-circle {
-  stroke: #395578;
-  fill: #395578;
+  stroke: var(--pp-blue);
+  fill: var(--pp-blue);
 }
 
 .previous .progress-bar-checkmark {
@@ -1186,7 +1174,7 @@ button {
 
 .previous .progressbar-step-text,
 .active .progressbar-step-text {
-  color: #395578;
+  color: var(--pp-blue);
 }
 
 .progressbar-line {
@@ -1207,7 +1195,7 @@ button {
   content: '';
   flex: 1;
   height: 6px;
-  background-color: #edf1f5;
+  background-color: var(--pp-white);
   display: block;
   z-index: 0;
   transform: scaleX(1.4) translate(-2.1rem, 1.85rem);
@@ -1216,5 +1204,5 @@ button {
 }
 
 .progressbar-line-active {
-  background-color: #395578;
+  background-color: var(--pp-blue);
 }

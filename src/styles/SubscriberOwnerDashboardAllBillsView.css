@@ -5,7 +5,7 @@
 
 .all-bills-header {
   font-weight: bolder;
-  color: #4f4f4f;
+  color: var(--pp-black);
 }
 
 .all-bills-cards-header {
@@ -21,7 +21,7 @@
 .subscriber-back-button {
   background-color: Transparent;
   border: 0;
-  color: #4f4f4f;
+  color: var(--pp-black);
 }
 
 .subscriber-back-button-container {
@@ -30,7 +30,7 @@
 }
 
 .subscriber-back-button-container:hover {
-  color: #696969;
+  color: var(--pp-gray);
   cursor: pointer;
 }
 

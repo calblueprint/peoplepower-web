@@ -78,7 +78,7 @@ class Login extends React.Component {
               placeholder="Email address"
               onChange={this.handleEmailChange}
               defaultValue={email}
-              className="input-gray "
+              className="input-gray"
             />
           </div>
           <div className="w-100 ">
