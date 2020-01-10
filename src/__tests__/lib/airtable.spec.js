@@ -25,6 +25,8 @@ const testNewRecord = {
   Tag: '83h)%uG9'
 };
 
+// Calls getRecordById on the TEST_TABLE and testId
+// verifies that the getRecordById returns the right record
 describe('getRecordById function', () => {
   test('expect resolve', async () => {
     const res = await getRecordById(TEST_TABLE, testId);
@@ -32,6 +34,9 @@ describe('getRecordById function', () => {
   });
 });
 
+// Calls getAllRecords on the TEST_TABLE
+// verifies that NUM_ENTRIES records are returned
+// TODO: ensure the values in the array come back in the exact format we expect
 describe('getAllRecords function', () => {
   test('expect resolve', async () => {
     const res = await getAllRecords(TEST_TABLE);
@@ -39,6 +44,9 @@ describe('getAllRecords function', () => {
   });
 });
 
+// Calls getRecordsByAttribute on the TEST_TABLE, TEST_FIELD, and TEST_TAG
+// verifies that result is not undefined
+// TODO: doesn't actuallly check that the right record is returned
 describe('getRecordsByAttribute function', () => {
   test('expect resolve', async () => {
     const res = await getRecordsByAttribute(TEST_TABLE, TEST_FIELD, TEST_TAG);
@@ -46,6 +54,10 @@ describe('getRecordsByAttribute function', () => {
   });
 });
 
+// Calls createRecord on the TEST_TABLE and testNewRecord. Then, calls deleteRecord on
+// the TEST_TABLE and id
+// verifies that the id is returned and res is equal to {}
+// TODO: doesn't actually check that the record is created/destroyed on Airtable
 describe('createRecord/deleteRecord function', () => {
   test('expect resolve', async () => {
     // create record
@@ -58,6 +70,9 @@ describe('createRecord/deleteRecord function', () => {
   });
 });
 
+// Calls updateRecord on the TEST_TABLE, testId, and testUpdateRecord, then reverts the changes
+// verifies that the updateRecord returns the right id
+// TODO: doesn't actually check that the record is updated on Airtable
 describe('updateRecord function', () => {
   // update record
   test('expect resolve', async () => {

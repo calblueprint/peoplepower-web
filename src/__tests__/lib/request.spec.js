@@ -91,6 +91,9 @@ const testUserLoginToCreate = {
   password: 'apple_jacks'
 };
 
+// the describe(...) clause the function being tested
+// the test(...) claus describes the expected behavior
+
 describe('getAllProjectGroups function', () => {
   test('expect list of all project groups', async () => {
     const res = await getAllProjectGroups();
@@ -168,7 +171,7 @@ describe('getSolarProjectById function', () => {
 });
 
 describe('updateBill function', () => {
-  test('expect TODO', async () => {
+  test('expect id of updated bill', async () => {
     let res = await updateBill(testSubscriberBill, testNewSubscriberBill);
     expect(res).toBe(testSubscriberBill);
 
@@ -181,7 +184,7 @@ describe('updateBill function', () => {
 });
 
 describe('updatePerson function', () => {
-  test('expect TODO', async () => {
+  test('expect id of updated person', async () => {
     let res = await updatePerson(testPerson, testNewPerson);
     expect(res).toBe(testPerson);
 
@@ -194,7 +197,7 @@ describe('updatePerson function', () => {
 });
 
 describe('updateOwner function', () => {
-  test('expect TODO', async () => {
+  test('expect id of updated owner', async () => {
     let res = await updateOwner(testOwner, testNewOwner);
     expect(res).toBe(testOwner);
     const testOldOwner = {};
@@ -206,7 +209,7 @@ describe('updateOwner function', () => {
 });
 
 describe('updateUserLogin function', () => {
-  test('expect TODO', async () => {
+  test('expect id of updated user login', async () => {
     let res = await updateUserLogin(testUserLogin, testNewUserLogin);
     expect(res).toBe(testUserLogin);
 
@@ -219,7 +222,7 @@ describe('updateUserLogin function', () => {
 });
 
 describe('createPerson/deletePerson function', () => {
-  test('expect TODO', async () => {
+  test('expect id of created person and {} after deletion', async () => {
     // create person
     const id = await createPerson(testPersonToCreate);
     expect(id).not.toBe(null);
@@ -231,7 +234,7 @@ describe('createPerson/deletePerson function', () => {
 });
 
 describe('createOwner/deleteOwner function', () => {
-  test('expect TODO', async () => {
+  test('expect id of created owner and {} after deletion', async () => {
     // create owner
     const id = await createOwner(testOwnerToCreate);
     expect(id).not.toBe(null);
@@ -243,7 +246,7 @@ describe('createOwner/deleteOwner function', () => {
 });
 
 describe('createUserLogin/deleteUserLogin function', () => {
-  test('expect TODO', async () => {
+  test('expect id of created user login and {} after deletion', async () => {
     // create owner
     const id = await createUserLogin(testUserLoginToCreate);
     expect(id).not.toBe(null);

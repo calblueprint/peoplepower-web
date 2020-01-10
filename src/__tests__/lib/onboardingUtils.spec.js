@@ -5,6 +5,9 @@ import {
 } from '../../lib/onboardingUtils';
 import { deleteUserLogin } from '../../lib/request';
 
+// Calls createPersonOwnerUserLoginRecord on dummy data
+// verifies that the createPersonOwnerUserLoginRecord returns createdOwnerId, createdPersonId, createdUserLoginId
+// TODO: doesn't check that records are actually created on Airtable
 describe('createPersonOwnerUserLoginRecord function', () => {
   test('expect { createdOwnerId, createdPersonId, createdUserLoginId }', async () => {
     jest.setTimeout(10000);
