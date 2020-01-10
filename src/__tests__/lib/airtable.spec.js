@@ -61,7 +61,7 @@ describe('getRecordsByAttribute function', () => {
 describe('createRecord/deleteRecord function', () => {
   test('expect resolve', async () => {
     // create record
-    const id = await createRecord(TEST_TABLE, testNewRecord);
+    const id = awt createRecord(TEST_TABLE, testNewRecord);
     expect(id).not.toBe(null);
 
     // delete record
