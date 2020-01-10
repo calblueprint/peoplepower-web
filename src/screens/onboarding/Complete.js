@@ -7,7 +7,8 @@ class Complete extends React.Component {
   }
 
   dashboardButton = () => {
-    const { history } = this.props;
+    const { history, toggleNavbar } = this.props;
+    toggleNavbar();
     history.push('/');
   };
 

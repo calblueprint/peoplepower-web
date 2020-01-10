@@ -5,15 +5,10 @@ import Tooltip from '../../components/Tooltip';
 import { updatePerson, updateUserLogin } from '../../lib/request';
 
 class BasicInfo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   // validates then moves on if no error messages
   nextButton = e => {
     e.preventDefault();
-    const { values, nextStep } = this.props;
+    const { values, nextStep, toggleNavbar } = this.props;
     const {
       errors,
       userId,
@@ -53,6 +48,7 @@ class BasicInfo extends React.Component {
           return updateUserLogin(userLoginId, newLogin);
         });
       }
+      toggleNavbar();
       nextStep();
     } else {
       this.forceUpdate();
