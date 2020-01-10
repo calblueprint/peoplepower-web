@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../../styles/FullBills.css';
-import { dateToWord } from '../../../lib/subscriberHelper';
+import { dateToWord } from '../../../lib/subscriberUtils';
 
 function dateToFullMonth(date) {
   return dateToWord[parseInt(date.split('-')[1], 10)];
@@ -15,10 +15,10 @@ function dateToDateString(date) {
 }
 
 /*
-  Left some fields in comments because they are needed in the hifi version of the design:
+  Left some items in comments because they are needed in the hifi version of the design:
   https://www.figma.com/file/jPJ59YeB2EXNMpjPHKtm5B/people-power?node-id=747%3A0
 
-  The fields were commented out to implement a lofi version consistent with
+  The items were commented out to implement a lofi version consistent with
   an earlier version of the design
 */
 

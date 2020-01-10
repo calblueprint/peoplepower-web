@@ -36,13 +36,10 @@ class Payment extends React.Component {
 
     // No validation as everything is already decided at this point (user has paid)
     const updatedPerson = {
-      id: userId,
-      fields: {
-        'Onboarding Step': 6
-      }
+      'Onboarding Step': 6
     };
 
-    updatePerson(updatedPerson);
+    updatePerson(userId, updatedPerson); // TODO(dfangshuo): no await?
     nextStep();
   };
 

@@ -1,6 +1,10 @@
 import React from 'react';
 import '../../styles/Community.css';
-import { getRecord, getMultipleFromAttr } from '../../lib/request';
+import {
+  getAnnouncementsFromProjectGroup,
+  getPersonById,
+  getOwnerById
+} from '../../lib/request';
 import { getLoggedInUserId } from '../../lib/auth';
 import applyCredentials from '../../lib/credentials';
 import AnnouncementList from '../../components/AnnouncementList';
@@ -32,21 +36,17 @@ export default class Community extends React.Component {
       usersID: id
     });
 
-    getRecord('Person', id)
+    getPersonById(id)
       .then(payload => {
-        const { Owner: owner } = payload.record;
-        return getRecord('Owner', owner);
+        const { Owner: owner } = payload;
+        return getOwnerById(owner);
       })
       .then(payload => {
-        const { 'Project Group': projectGroup } = payload.record;
+        const { 'Project Group': projectGroup } = payload;
         this.setState({
           usersGroup: projectGroup[0]
         });
-        return getMultipleFromAttr(
-          'Announcement',
-          'Project Group',
-          `${projectGroup[0]}`
-        );
+        return getAnnouncementsFromProjectGroup(projectGroup[0]);
       })
       .then(payload => {
         this.setState({

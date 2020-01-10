@@ -1,7 +1,7 @@
-import { createRecord, updateOwner, updateBill } from './request';
+import { createPaymentRecord, updateOwner, updateBill } from './request';
 import constants from '../constants';
 
-const { BILL_PAYMENT_TYPE, BUY_SHARES_TYPE, PAYMENT_TABLE } = constants;
+const { BILL_PAYMENT_TYPE, BUY_SHARES_TYPE } = constants;
 
 const createPayment = async record => {
   /*
@@ -19,21 +19,18 @@ const createPayment = async record => {
         }
       }
     */
-  const id = await createRecord(PAYMENT_TABLE, record);
+  const id = await createPaymentRecord(record);
   return id;
 };
 
 const recordShareBuySuccess = async (details, data, values) => {
   const { numShares, dividends, personId } = values;
   const updatedOwner = {
-    id: personId,
-    fields: {
-      'Number of Shares': numShares,
-      'Receiving Dividends?': dividends
-    }
+    'Number of Shares': numShares,
+    'Receiving Dividends?': dividends
   };
 
-  await updateOwner(updatedOwner);
+  await updateOwner(personId, updatedOwner);
 
   const { orderID, payerID } = data;
 
@@ -48,21 +45,19 @@ const recordShareBuySuccess = async (details, data, values) => {
   const addressToSave = `${address.address_line_1}, ${address.admin_area_2} ${address.country_code} ${address.admin_area_1} ${address.postal_code}`;
 
   const record = {
-    fields: {
-      Owner: [personId],
-      Status: status,
-      'Order ID': orderID,
-      'Payer ID': payerID,
-      Amount: parseFloat(amount.value, 10) * 100,
-      'Currency Code': amount.currency_code,
-      Address: addressToSave,
-      'Payer Full Name': name.full_name,
-      'Payer Email': payer.email_address,
-      Intent: intent,
-      'Payment Create Time': details.create_time,
-      'Payment Update Time': details.update_time,
-      Type: BUY_SHARES_TYPE
-    }
+    Owner: [personId],
+    Status: status,
+    'Order ID': orderID,
+    'Payer ID': payerID,
+    Amount: parseFloat(amount.value, 10) * 100,
+    'Currency Code': amount.currency_code,
+    Address: addressToSave,
+    'Payer Full Name': name.full_name,
+    'Payer Email': payer.email_address,
+    Intent: intent,
+    'Payment Create Time': details.create_time,
+    'Payment Update Time': details.update_time,
+    Type: BUY_SHARES_TYPE
   };
 
   /*
@@ -78,6 +73,7 @@ const recordShareBuySuccess = async (details, data, values) => {
 };
 
 const recordBillPaymentSuccess = async (details, data, bill) => {
+  console.log('I WAS IN ');
   /*
         DETAILS FIELDS
   
@@ -161,22 +157,20 @@ const recordBillPaymentSuccess = async (details, data, bill) => {
   const addressToSave = `${address.address_line_1}, ${address.admin_area_2} ${address.country_code} ${address.admin_area_1} ${address.postal_code}`;
   const amountInCents = parseFloat(amount.value, 10) * 100;
   const record = {
-    fields: {
-      Owner: [owner],
-      Status: status,
-      'Subscriber Bill': [billId],
-      'Order ID': orderID,
-      'Payer ID': payerID,
-      Amount: amountInCents,
-      'Currency Code': amount.currency_code,
-      Address: addressToSave,
-      'Payer Full Name': name.full_name,
-      'Payer Email': payer.email_address,
-      Intent: intent,
-      'Payment Create Time': details.create_time,
-      'Payment Update Time': details.update_time,
-      Type: BILL_PAYMENT_TYPE
-    }
+    Owner: [owner],
+    Status: status,
+    'Subscriber Bill': [billId],
+    'Order ID': orderID,
+    'Payer ID': payerID,
+    Amount: amountInCents,
+    'Currency Code': amount.currency_code,
+    Address: addressToSave,
+    'Payer Full Name': name.full_name,
+    'Payer Email': payer.email_address,
+    Intent: intent,
+    'Payment Create Time': details.create_time,
+    'Payment Update Time': details.update_time,
+    Type: BILL_PAYMENT_TYPE
   };
 
   if (id !== orderID) {
@@ -198,12 +192,9 @@ const recordBillPaymentSuccess = async (details, data, bill) => {
 
   const newBalance = bill.Balance - amountInCents;
   const updatedBill = {
-    id: billId,
-    fields: {
-      Balance: newBalance
-    }
+    Balance: newBalance
   };
-  updateBill(updatedBill);
+  updateBill(billId, updatedBill);
 };
 
 export { recordShareBuySuccess, recordBillPaymentSuccess };

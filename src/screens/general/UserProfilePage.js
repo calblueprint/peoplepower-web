@@ -2,7 +2,13 @@
 
 import React from 'react';
 import '../../styles/UserProfilePage.css';
-import { getRecord, updatePerson, updateRecord } from '../../lib/request';
+import {
+  getPersonById,
+  getOwnerById,
+  getProjectGroupById,
+  updatePerson,
+  updateUserLogin
+} from '../../lib/request';
 import LoadingComponent from '../../components/LoadingComponent';
 
 const STATUS_ERR = -1;
@@ -56,7 +62,7 @@ export default class UserProfilePage extends React.Component {
     let zipCode;
     let userLoginID;
 
-    getRecord('Person', id)
+    getPersonById(id)
       .then(payload => {
         ({
           Email: email,
@@ -68,7 +74,7 @@ export default class UserProfilePage extends React.Component {
           Street: street,
           State: state,
           Zipcode: zipCode
-        } = payload.record);
+        } = payload);
         this.setState({
           email,
           updateEmail: email,
@@ -88,15 +94,15 @@ export default class UserProfilePage extends React.Component {
         });
 
         // Getting project group
-        return getRecord('Owner', owner);
+        return getOwnerById(owner);
       })
       .then(payload => {
-        const { 'Project Group': projectGroupID } = payload.record;
+        const { 'Project Group': projectGroupID } = payload;
 
-        return getRecord('Project Group', projectGroupID);
+        return getProjectGroupById(projectGroupID);
       })
       .then(payload => {
-        const { Name: projectGroupName } = payload.record;
+        const { Name: projectGroupName } = payload;
         this.setState({
           projectGroup: projectGroupName,
           isLoading: false
@@ -135,25 +141,19 @@ export default class UserProfilePage extends React.Component {
     */
 
     const newPerson = {
-      id,
-      fields: {
-        Name: updateName,
-        Email: updateEmail.toLowerCase(),
-        'Phone Number': updatePhone,
-        Street: updateStreet,
-        City: updateCity,
-        State: updateState.toUpperCase(),
-        Zipcode: updateZip
-      }
+      Name: updateName,
+      Email: updateEmail.toLowerCase(),
+      'Phone Number': updatePhone,
+      Street: updateStreet,
+      City: updateCity,
+      State: updateState.toUpperCase(),
+      Zipcode: updateZip
     };
     const newLogin = {
-      id: userLoginID,
-      fields: {
-        Email: updateEmail
-      }
+      Email: updateEmail
     };
     // console.log(`UPDATE: ${userLoginID}`);
-    updatePerson(newPerson)
+    updatePerson(id, newPerson)
       .then(() => {
         this.setState({
           status: STATUS_IN_PROGRESS,
@@ -164,7 +164,7 @@ export default class UserProfilePage extends React.Component {
           state: updateState,
           zipcode: updateZip
         });
-        return updateRecord('User Login', newLogin);
+        return updateUserLogin(userLoginID, newLogin);
       })
       .then(payload => {
         console.log(payload === '');

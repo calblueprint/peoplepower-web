@@ -37,7 +37,7 @@ class Payment extends React.Component {
       billingZipcode
     } = values;
     e.preventDefault();
-    const fields = [
+    const inputTypes = [
       'numShares',
       'dividends',
       'billingStreet',
@@ -48,9 +48,9 @@ class Payment extends React.Component {
     ];
     const errorsMessages = [];
 
-    for (let i = 0; i < fields.length; i += 1) {
-      const errorMessage = formValidation(fields[i], values[fields[i]]);
-      errors[fields[i]] = errorMessage;
+    for (let i = 0; i < inputTypes.length; i += 1) {
+      const errorMessage = formValidation(inputTypes[i], values[inputTypes[i]]);
+      errors[inputTypes[i]] = errorMessage;
 
       if (errorMessage !== '') {
         errorsMessages.push(errorMessage);
@@ -59,18 +59,15 @@ class Payment extends React.Component {
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
       const updatedPerson = {
-        id: userId,
-        fields: {
-          'Number of Shares': numShares,
-          Dividends: dividends,
-          'Billing Street': billingStreet,
-          'Billing Apt': billingApt,
-          'Billing City': billingCity,
-          'Billing State': billingState,
-          'Billing Zipcode': billingZipcode
-        }
+        'Number of Shares': numShares,
+        Dividends: dividends,
+        'Billing Street': billingStreet,
+        'Billing Apt': billingApt,
+        'Billing City': billingCity,
+        'Billing State': billingState,
+        'Billing Zipcode': billingZipcode
       };
-      updatePerson(updatedPerson);
+      updatePerson(userId, updatedPerson);
       recordBillPaymentSuccess();
       nextStep();
     } else {

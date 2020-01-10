@@ -8,12 +8,14 @@ const constants = {
   NUM_RECORDS: 1,
 
   // TABLES
+  ANNOUNCEMENT_TABLE: 'Announcement',
   PERSON_TABLE: 'Person',
   OWNER_TABLE: 'Owner',
   PROJECT_GROUP_TABLE: 'Project Group',
   SUBSCRIBER_BILL_TABLE: 'Subscriber Bill',
   PAYMENT_TABLE: 'Payment',
   USER_LOGIN_TABLE: 'User Login',
+  SOLAR_PROJECT_TABLE: 'Solar Project',
 
   // TYPES
   SUBSCRIBER_OWNER: 'Subscriber',
@@ -29,6 +31,7 @@ const constants = {
 
   // OWNER AND USER LOGIN
   PERSON_FIELD: 'Person',
+  PROJECT_GROUP_FIELD: 'Project Group',
 
   // USER LOGIN
   EMAIL_FIELD: 'Email',

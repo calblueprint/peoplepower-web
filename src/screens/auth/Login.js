@@ -1,8 +1,7 @@
 import React from 'react';
 import '../../styles/Login.css';
 
-const { loginUser } = require('../../lib/auth.js');
-const { getLoggedInUserId } = require('../../lib/auth.js');
+import { loginUser, getLoggedInUserId } from '../../lib/auth';
 
 const HOME_ROUTE = '/dashboard';
 const SIGNUP_ROUTE = '/onboarding';
@@ -46,7 +45,7 @@ class Login extends React.Component {
   async handleSubmit(evt) {
     const { email, passwordHash } = this.state;
     evt.preventDefault();
-    const res = await loginUser(email, passwordHash);
+    const res = await loginUser(email, passwordHash); // TODO(dfangshuo): uncaught exception
     if (res.found && res.match) {
       this.segueToHome(evt);
     } else {

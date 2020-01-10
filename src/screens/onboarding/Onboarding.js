@@ -9,7 +9,7 @@ import formValidation from '../../lib/formValidation';
 import { getLoggedInUserId } from '../../lib/auth';
 import { createPersonOwnerUserLoginRecord } from '../../lib/onboardingUtils';
 import Template from './Template';
-import { getRecord } from '../../lib/request';
+import { getPersonById, getOwnerById } from '../../lib/request';
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -101,48 +101,48 @@ class Onboarding extends React.Component {
     }
 
     this.setState({ userId: id });
-    getRecord('Person', id)
-      .then(personRecord => {
-        step = personRecord.record['Onboarding Step'];
+    getPersonById(id)
+      .then(person => {
+        step = person['Onboarding Step'];
 
         this.setState({
-          step: personRecord.record['Onboarding Step'],
-          userLoginId: personRecord.record['User Login'][0],
-          personId: personRecord.record.Owner[0],
-          fname: personRecord.record.Name.split(' ')[0],
-          lname: personRecord.record.Name.split(' ')[1],
-          email: personRecord.record.Email,
-          altEmail: personRecord.record['Alternative Email'],
-          street: personRecord.record.Street,
-          apt: personRecord.record.Apt,
-          city: personRecord.record.City,
-          state: personRecord.record.State,
-          zipcode: personRecord.record.Zipcode,
-          phoneNumber: personRecord.record['Phone Number'],
-          mailingStreet: personRecord.record['Mailing Street'],
-          mailingApt: personRecord.record['Mailing Apt'],
-          mailingCity: personRecord.record['Mailing City'],
-          mailingState: personRecord.record['Mailing State'],
-          mailingZipcode: personRecord.record['Mailing Zipcode'],
-          mailingPhoneNumber: personRecord.record['Mailing Phone Number'],
-          billingStreet: personRecord.record['Billing Street'],
-          billingApt: personRecord.record['Billing Apt'],
-          billingCity: personRecord.record['Billing City'],
-          billingState: personRecord.record['Billing State'],
-          billingZipcode: personRecord.record['Billing Zipcode'],
-          projectGroup: personRecord.record['Project Group'][0]
+          step: person['Onboarding Step'],
+          userLoginId: person['User Login'][0],
+          personId: person.Owner[0],
+          fname: person.Name.split(' ')[0],
+          lname: person.Name.split(' ')[1],
+          email: person.Email,
+          altEmail: person['Alternative Email'],
+          street: person.Street,
+          apt: person.Apt,
+          city: person.City,
+          state: person.State,
+          zipcode: person.Zipcode,
+          phoneNumber: person['Phone Number'],
+          mailingStreet: person['Mailing Street'],
+          mailingApt: person['Mailing Apt'],
+          mailingCity: person['Mailing City'],
+          mailingState: person['Mailing State'],
+          mailingZipcode: person['Mailing Zipcode'],
+          mailingPhoneNumber: person['Mailing Phone Number'],
+          billingStreet: person['Billing Street'],
+          billingApt: person['Billing Apt'],
+          billingCity: person['Billing City'],
+          billingState: person['Billing State'],
+          billingZipcode: person['Billing Zipcode'],
+          projectGroup: person['Project Group'][0]
         });
-        const { Owner: owner } = personRecord.record;
-        return getRecord('Owner', owner);
+        const { Owner: owner } = person;
+        return getOwnerById(owner);
       })
-      .then(ownerRecord => {
+      .then(owner => {
         if (step > 3) {
-          const numShares = ownerRecord.record['Number of Shares'];
+          const numShares = owner['Number of Shares'];
 
           this.setState({
-            projectGroup: ownerRecord.record['Project Group'][0],
+            projectGroup: owner['Project Group'][0],
             numShares: numShares || 1,
-            dividends: ownerRecord.record['Receiving Dividends?']
+            dividends: owner['Receiving Dividends?']
           });
 
           if (step > 4) {

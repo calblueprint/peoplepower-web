@@ -3,8 +3,11 @@ import formValidation from '../../lib/formValidation';
 import '../../styles/Onboarding.css';
 import MapView from './ProjectGroupMapView';
 import ListView from './ProjectGroupListView';
-import { getAllProjectGroups } from '../../lib/onboardingUtils';
-import { updatePerson, updateOwner } from '../../lib/request';
+import {
+  updatePerson,
+  updateOwner,
+  getAllProjectGroups
+} from '../../lib/request';
 
 class ProjectGroups extends React.Component {
   constructor(props) {
@@ -20,18 +23,18 @@ class ProjectGroups extends React.Component {
   componentDidMount() {
     getAllProjectGroups().then(payload => {
       const projectGroups = [];
-      payload.records.map(record =>
+      payload.map(record =>
         projectGroups.push({
-          id: record.id,
-          name: record.fields.Name,
-          description: record.fields.Description,
-          street: record.fields['Street 1'],
-          apt: record.fields['Street 2'],
-          city: record.fields.City,
-          state: record.fields.State,
-          zipcode: record.fields.Zipcode,
-          public: record.fields['Is Public?'],
-          default: record.fields['Is Default?']
+          id: record.ID,
+          name: record.Name,
+          description: record.Description,
+          street: record['Street 1'],
+          apt: record['Street 2'],
+          city: record.City,
+          state: record.State,
+          zipcode: record.Zipcode,
+          public: record['Is Public?'],
+          default: record['Is Default?']
         })
       );
       const selectableGroups = projectGroups.filter(
@@ -81,19 +84,15 @@ class ProjectGroups extends React.Component {
       console.error('Need to make a selection');
     } else {
       const updatedPerson = {
-        id: userId,
-        fields: {
-          'Onboarding Step': 4
-        }
+        'Onboarding Step': 4
       };
-      await updatePerson(updatedPerson);
+      await updatePerson(userId, updatedPerson);
+
       const newOwner = {
-        id: personId,
-        fields: {
-          'Project Group': [projectGroup]
-        }
+        'Project Group': [projectGroup]
       };
-      await updateOwner(newOwner);
+
+      await updateOwner(personId, newOwner);
       nextStep();
     }
   };

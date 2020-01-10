@@ -1,13 +1,8 @@
-import { getOwnerFromPerson, getAdminTable } from './adminHelper';
-import { getRecord } from './request';
+import { getOwnerFromPerson, getAdminTable } from './adminUtils';
+import { getOwnerById } from './request';
 import constants from '../constants';
 
-const {
-  OWNER_TABLE,
-  OWNER_TYPE_FIELD,
-  SUBSCRIBER_OWNER,
-  GENERAL_OWNER
-} = constants;
+const { OWNER_TYPE_FIELD, SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
 
 export default function applyCredentials(userID) {
   let credentials = '';
@@ -24,10 +19,10 @@ export default function applyCredentials(userID) {
         }
       })
       .then(() => {
-        return getRecord(OWNER_TABLE, ownerID);
+        return getOwnerById(ownerID);
       })
       .then(ownerRecord => {
-        const ownerTypes = ownerRecord.record[OWNER_TYPE_FIELD];
+        const ownerTypes = ownerRecord[OWNER_TYPE_FIELD];
 
         if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
           credentials += 'S';
