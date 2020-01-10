@@ -7,6 +7,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
     "airtable": "^0.7.2",
+    "babel-jest": "^24.9.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "google-maps-react": "^2.0.2",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
@@ -19,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "deploy": "react-scripts build && mv ./build/index.html ./build/200.html &&surge ./build https://peoplepower.surge.sh"
   },
@@ -61,6 +63,11 @@
       "pretty-quick --staged",
       "eslint src/ --fix",
       "git add"
+    ]
+  },
+  "babel": {
+    "plugins": [
+      "transform-es2015-modules-commonjs"
     ]
   }
 }
