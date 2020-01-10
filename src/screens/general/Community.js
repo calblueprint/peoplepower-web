@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/Community.css';
 import {
-  getAnnouncementsForProjectGroup,
+  getAnnouncementsByProjectGroup,
   getPersonById,
   getOwnerById
 } from '../../lib/request';
@@ -46,7 +46,7 @@ export default class Community extends React.Component {
         this.setState({
           usersGroup: projectGroup[0]
         });
-        return getAnnouncementsForProjectGroup(projectGroup[0]);
+        return getAnnouncementsByProjectGroup(projectGroup[0]);
       })
       .then(payload => {
         this.setState({

@@ -1,8 +1,9 @@
 import { getOwnerFromPerson, getAdminTable } from './adminUtils';
 import { getOwnerById } from './request';
 import constants from '../constants';
+import { Columns } from './schema';
 
-const { OWNER_TYPE_FIELD, SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
+const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
 
 async function applyCredentials(userId) {
   let credentials = '';
@@ -18,7 +19,7 @@ async function applyCredentials(userId) {
   }
 
   const ownerRecord = await getOwnerById(ownerId);
-  const ownerTypes = ownerRecord[OWNER_TYPE_FIELD];
+  const ownerTypes = ownerRecord[Columns.Owner.OwnerType];
 
   if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
     credentials += 'S';

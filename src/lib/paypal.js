@@ -1,9 +1,9 @@
-import { createPaymentRecord, updateOwner, updateBill } from './request';
+import { createPayment, updateOwner, updateSubscriberBill } from './request';
 import constants from '../constants';
 
 const { BILL_PAYMENT_TYPE, BUY_SHARES_TYPE } = constants;
 
-const createPayment = async record => {
+const createPaymentRecord = async record => {
   /*
       {
         "fields": {
@@ -19,7 +19,7 @@ const createPayment = async record => {
         }
       }
     */
-  const id = await createPaymentRecord(record);
+  const id = await createPayment(record);
   return id;
 };
 
@@ -63,7 +63,7 @@ const recordShareBuySuccess = async (details, data, values) => {
   /*
     TODO(dfangshuo): retry logic
   */
-  createPayment(record)
+  createPaymentRecord(record)
     .then(paymentId => {
       console.log(paymentId);
     })
@@ -182,7 +182,7 @@ const recordBillPaymentSuccess = async (details, data, bill) => {
       If paypal goes through but the payment record wasn't created for some reason, 
       it could cause problems
     */
-  createPayment(record)
+  createPaymentRecord(record)
     .then(paymentId => {
       console.log(paymentId);
     })
@@ -194,7 +194,7 @@ const recordBillPaymentSuccess = async (details, data, bill) => {
   const updatedBill = {
     Balance: newBalance
   };
-  updateBill(billId, updatedBill);
+  updateSubscriberBill(billId, updatedBill);
 };
 
 export { recordShareBuySuccess, recordBillPaymentSuccess };

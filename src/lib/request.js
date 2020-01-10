@@ -1,6 +1,8 @@
 /* eslint no-restricted-imports: 0 */
 
 /*
+  THIS IS A GENERATED FILE
+  Changes might be overwritten in the future, edit with caution!
 
   Wrapper functions around functions in airtable.js that interact with Airtable, designed
   to provide basic functionality
@@ -9,7 +11,7 @@
 
 */
 
-import constants from '../constants';
+import { Tables, Columns } from './schema';
 import {
   createRecord,
   updateRecord,
@@ -19,157 +21,320 @@ import {
   deleteRecord
 } from './airtable';
 
-const {
-  ANNOUNCEMENT_TABLE,
-  EMAIL_FIELD,
-  OWNER_TABLE,
-  SUBSCRIBER_BILL_TABLE,
-  USER_LOGIN_TABLE,
-  PAYMENT_TABLE,
-  PERSON_TABLE,
-  PROJECT_GROUP_FIELD,
-  PROJECT_GROUP_TABLE,
-  SOLAR_PROJECT_TABLE
-} = constants;
-
 /*
- ****** READ RECORDS *******
+ ******* CREATE RECORDS *******
  */
 
-const getAllProjectGroups = async () => {
-  return getAllRecords(PROJECT_GROUP_TABLE);
+export const createPayment = async record => {
+  return createRecord(Tables.Payment, record);
 };
 
-const getAnnouncementsForProjectGroup = async projectGroup => {
+export const createOrganization = async record => {
+  return createRecord(Tables.Organization, record);
+};
+
+export const createProjectGroup = async record => {
+  return createRecord(Tables.ProjectGroup, record);
+};
+
+export const createPerson = async record => {
+  return createRecord(Tables.Person, record);
+};
+
+export const createRateSchedule = async record => {
+  return createRecord(Tables.RateSchedule, record);
+};
+
+export const createAddress = async record => {
+  return createRecord(Tables.Address, record);
+};
+
+export const createTestDevelopment = async record => {
+  return createRecord(Tables.TestDevelopment, record);
+};
+
+export const createSubscriberBill = async record => {
+  return createRecord(Tables.SubscriberBill, record);
+};
+
+export const createAnnouncement = async record => {
+  return createRecord(Tables.Announcement, record);
+};
+
+export const createPGEUsage = async record => {
+  return createRecord(Tables.PGEUsage, record);
+};
+
+export const createPledgeInvite = async record => {
+  return createRecord(Tables.PledgeInvite, record);
+};
+
+export const createSolarProject = async record => {
+  return createRecord(Tables.SolarProject, record);
+};
+
+export const createUserLogin = async record => {
+  return createRecord(Tables.UserLogin, record);
+};
+
+export const createOwner = async record => {
+  return createRecord(Tables.Owner, record);
+};
+
+export const createGeneration = async record => {
+  return createRecord(Tables.Generation, record);
+};
+
+/*
+ ******* READ RECORDS *******
+ */
+
+export const getPaymentById = async id => {
+  return getRecordById(Tables.Payment, id);
+};
+
+export const getAllPayments = async () => {
+  return getAllRecords(Tables.Payment);
+};
+
+export const getOrganizationById = async id => {
+  return getRecordById(Tables.Organization, id);
+};
+
+export const getAllOrganizations = async () => {
+  return getAllRecords(Tables.Organization);
+};
+
+export const getProjectGroupById = async id => {
+  return getRecordById(Tables.ProjectGroup, id);
+};
+
+export const getAllProjectGroups = async () => {
+  return getAllRecords(Tables.ProjectGroup);
+};
+
+export const getPersonById = async id => {
+  return getRecordById(Tables.Person, id);
+};
+
+export const getAllPersons = async () => {
+  return getAllRecords(Tables.Person);
+};
+
+export const getRateScheduleById = async id => {
+  return getRecordById(Tables.RateSchedule, id);
+};
+
+export const getAllRateSchedules = async () => {
+  return getAllRecords(Tables.RateSchedule);
+};
+
+export const getAddressById = async id => {
+  return getRecordById(Tables.Address, id);
+};
+
+export const getAllAddresss = async () => {
+  return getAllRecords(Tables.Address);
+};
+
+export const getTestDevelopmentById = async id => {
+  return getRecordById(Tables.TestDevelopment, id);
+};
+
+export const getAllTestDevelopments = async () => {
+  return getAllRecords(Tables.TestDevelopment);
+};
+
+export const getSubscriberBillById = async id => {
+  return getRecordById(Tables.SubscriberBill, id);
+};
+
+export const getAllSubscriberBills = async () => {
+  return getAllRecords(Tables.SubscriberBill);
+};
+
+export const getAnnouncementById = async id => {
+  return getRecordById(Tables.Announcement, id);
+};
+
+export const getAllAnnouncements = async () => {
+  return getAllRecords(Tables.Announcement);
+};
+
+export const getAnnouncementsByProjectGroup = async value => {
   return getRecordsByAttribute(
-    ANNOUNCEMENT_TABLE,
-    PROJECT_GROUP_FIELD,
-    projectGroup
+    Tables.Announcement,
+    Columns.Announcement.ProjectGroup,
+    value
   );
 };
 
-const getPersonById = async id => {
-  return getRecordById(PERSON_TABLE, id);
+export const getPGEUsageById = async id => {
+  return getRecordById(Tables.PGEUsage, id);
 };
 
-const getOwnerById = async id => {
-  return getRecordById(OWNER_TABLE, id);
+export const getAllPGEUsages = async () => {
+  return getAllRecords(Tables.PGEUsage);
 };
 
-const getUserLoginsByEmail = async email => {
-  return getRecordsByAttribute(USER_LOGIN_TABLE, EMAIL_FIELD, email);
+export const getPledgeInviteById = async id => {
+  return getRecordById(Tables.PledgeInvite, id);
 };
 
-const getProjectGroupById = async id => {
-  return getRecordById(PROJECT_GROUP_TABLE, id);
+export const getAllPledgeInvites = async () => {
+  return getAllRecords(Tables.PledgeInvite);
 };
 
-const getSubscriberBillById = async id => {
-  return getRecordById(SUBSCRIBER_BILL_TABLE, id);
+export const getSolarProjectById = async id => {
+  return getRecordById(Tables.SolarProject, id);
 };
 
-const getSolarProjectById = async id => {
-  return getRecordById(SOLAR_PROJECT_TABLE, id);
+export const getAllSolarProjects = async () => {
+  return getAllRecords(Tables.SolarProject);
 };
 
-/*
- ******** CREATE RECORDS ********
+export const getUserLoginById = async id => {
+  return getRecordById(Tables.UserLogin, id);
+};
 
-  EXAMPLE OBJECT TO CREATE A PERSON:
-    {
-      "Email": email,
-      "Phone Number": phoneNumber,
-      "Owner": [owner],
-      "Address": [address],
-      "Tags": tags,
-      "User Login": [userLogin],
-      "Name": name
-    }
+export const getAllUserLogins = async () => {
+  return getAllRecords(Tables.UserLogin);
+};
 
-    Make sure linked records are represented as an array:
-    "Owner": [recsnkM5ms2NJhVW0]
-  */
+export const getUserLoginsByEmail = async value => {
+  return getRecordsByAttribute(
+    Tables.UserLogin,
+    Columns.UserLogin.Email,
+    value
+  );
+};
 
-// Given a person object, create a record of that person.
-function createPerson(record) {
-  return createRecord(PERSON_TABLE, record);
-}
+export const getOwnerById = async id => {
+  return getRecordById(Tables.Owner, id);
+};
 
-function createOwner(record) {
-  return createRecord(OWNER_TABLE, record);
-}
+export const getAllOwners = async () => {
+  return getAllRecords(Tables.Owner);
+};
 
-function createUserLogin(record) {
-  return createRecord(USER_LOGIN_TABLE, record);
-}
+export const getGenerationById = async id => {
+  return getRecordById(Tables.Generation, id);
+};
 
-function createPaymentRecord(record) {
-  return createRecord(PAYMENT_TABLE, record);
-}
-
-function createAnnouncementRecord(record) {
-  return createRecord(ANNOUNCEMENT_TABLE, record);
-}
+export const getAllGenerations = async () => {
+  return getAllRecords(Tables.Generation);
+};
 
 /*
  ******* UPDATE RECORDS *******
  */
-function updateBill(id, updatedBill) {
-  return updateRecord(SUBSCRIBER_BILL_TABLE, id, updatedBill);
-}
 
-function updatePerson(id, updatedPerson) {
-  return updateRecord(PERSON_TABLE, id, updatedPerson);
-}
+export const updatePayment = async (id, recordUpdates) => {
+  return updateRecord(Tables.Payment, id, recordUpdates);
+};
 
-function updateOwner(id, updatedOwner) {
-  return updateRecord(OWNER_TABLE, id, updatedOwner);
-}
+export const updateOrganization = async (id, recordUpdates) => {
+  return updateRecord(Tables.Organization, id, recordUpdates);
+};
 
-function updateProjectGroup(id, updatedProjectGroup) {
-  return updateRecord(PROJECT_GROUP_TABLE, id, updatedProjectGroup);
-}
+export const updateProjectGroup = async (id, recordUpdates) => {
+  return updateRecord(Tables.ProjectGroup, id, recordUpdates);
+};
 
-function updateUserLogin(id, newLogin) {
-  return updateRecord(USER_LOGIN_TABLE, id, newLogin);
-}
+export const updatePerson = async (id, recordUpdates) => {
+  return updateRecord(Tables.Person, id, recordUpdates);
+};
+
+export const updateRateSchedule = async (id, recordUpdates) => {
+  return updateRecord(Tables.RateSchedule, id, recordUpdates);
+};
+
+export const updateAddress = async (id, recordUpdates) => {
+  return updateRecord(Tables.Address, id, recordUpdates);
+};
+
+export const updateTestDevelopment = async (id, recordUpdates) => {
+  return updateRecord(Tables.TestDevelopment, id, recordUpdates);
+};
+
+export const updateSubscriberBill = async (id, recordUpdates) => {
+  return updateRecord(Tables.SubscriberBill, id, recordUpdates);
+};
+
+export const updateAnnouncement = async (id, recordUpdates) => {
+  return updateRecord(Tables.Announcement, id, recordUpdates);
+};
+
+export const updatePGEUsage = async (id, recordUpdates) => {
+  return updateRecord(Tables.PGEUsage, id, recordUpdates);
+};
+
+export const updatePledgeInvite = async (id, recordUpdates) => {
+  return updateRecord(Tables.PledgeInvite, id, recordUpdates);
+};
+
+export const updateSolarProject = async (id, recordUpdates) => {
+  return updateRecord(Tables.SolarProject, id, recordUpdates);
+};
+
+export const updateUserLogin = async (id, recordUpdates) => {
+  return updateRecord(Tables.UserLogin, id, recordUpdates);
+};
+
+export const updateOwner = async (id, recordUpdates) => {
+  return updateRecord(Tables.Owner, id, recordUpdates);
+};
+
+export const updateGeneration = async (id, recordUpdates) => {
+  return updateRecord(Tables.Generation, id, recordUpdates);
+};
 
 /*
  ******* DELETE RECORDS *******
  */
 
-function deletePerson(personId) {
-  return deleteRecord(PERSON_TABLE, personId);
-}
-
-function deleteOwner(ownerId) {
-  return deleteRecord(OWNER_TABLE, ownerId);
-}
-
-function deleteUserLogin(userLoginId) {
-  return deleteRecord(USER_LOGIN_TABLE, userLoginId);
-}
-
-export {
-  createPerson,
-  createAnnouncementRecord,
-  createPaymentRecord,
-  createOwner,
-  createUserLogin,
-  deletePerson,
-  deleteOwner,
-  deleteUserLogin,
-  getAllProjectGroups,
-  getAnnouncementsForProjectGroup,
-  getPersonById,
-  getProjectGroupById,
-  getOwnerById,
-  getSubscriberBillById,
-  getSolarProjectById,
-  getUserLoginsByEmail,
-  updatePerson,
-  updateOwner,
-  updateProjectGroup,
-  updateBill,
-  updateUserLogin
+export const deletePayment = async id => {
+  return deleteRecord(Tables.Payment, id);
+};
+export const deleteOrganization = async id => {
+  return deleteRecord(Tables.Organization, id);
+};
+export const deleteProjectGroup = async id => {
+  return deleteRecord(Tables.ProjectGroup, id);
+};
+export const deletePerson = async id => {
+  return deleteRecord(Tables.Person, id);
+};
+export const deleteRateSchedule = async id => {
+  return deleteRecord(Tables.RateSchedule, id);
+};
+export const deleteAddress = async id => {
+  return deleteRecord(Tables.Address, id);
+};
+export const deleteTestDevelopment = async id => {
+  return deleteRecord(Tables.TestDevelopment, id);
+};
+export const deleteSubscriberBill = async id => {
+  return deleteRecord(Tables.SubscriberBill, id);
+};
+export const deleteAnnouncement = async id => {
+  return deleteRecord(Tables.Announcement, id);
+};
+export const deletePGEUsage = async id => {
+  return deleteRecord(Tables.PGEUsage, id);
+};
+export const deletePledgeInvite = async id => {
+  return deleteRecord(Tables.PledgeInvite, id);
+};
+export const deleteSolarProject = async id => {
+  return deleteRecord(Tables.SolarProject, id);
+};
+export const deleteUserLogin = async id => {
+  return deleteRecord(Tables.UserLogin, id);
+};
+export const deleteOwner = async id => {
+  return deleteRecord(Tables.Owner, id);
+};
+export const deleteGeneration = async id => {
+  return deleteRecord(Tables.Generation, id);
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/GeneralOwnerDashboard.css';
 import {
-  getAnnouncementsForProjectGroup,
+  getAnnouncementsByProjectGroup,
   getPersonById,
   getOwnerById,
   getProjectGroupById,
@@ -103,7 +103,7 @@ export default class GeneralOwnerDashboard extends React.Component {
       .then(() => {
         const { projectGroupID } = this.state;
         console.log('I SEE THIS');
-        return getAnnouncementsForProjectGroup(projectGroupID);
+        return getAnnouncementsByProjectGroup(projectGroupID);
       })
       .then(payload => {
         this.setState({

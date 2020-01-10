@@ -3,14 +3,14 @@ import {
   createUserLogin,
   deletePerson,
   getAllProjectGroups,
-  getAnnouncementsForProjectGroup,
+  getAnnouncementsByProjectGroup,
   getUserLoginsByEmail,
   getPersonById,
   getOwnerById,
   getProjectGroupById,
   getSubscriberBillById,
   getSolarProjectById,
-  updateBill,
+  updateSubscriberBill,
   updateOwner,
   updatePerson,
   updateUserLogin,
@@ -101,9 +101,9 @@ describe('getAllProjectGroups function', () => {
   });
 });
 
-describe('getAnnouncementsForProjectGroup function', () => {
+describe('getAnnouncementsByProjectGroup function', () => {
   test('expect list of announcements', async () => {
-    const res = await getAnnouncementsForProjectGroup(testProjectGroup);
+    const res = await getAnnouncementsByProjectGroup(testProjectGroup);
     expect(res.length).not.toBe(undefined);
   });
 });
@@ -170,15 +170,18 @@ describe('getSolarProjectById function', () => {
   });
 });
 
-describe('updateBill function', () => {
+describe('updateSubscriberBill function', () => {
   test('expect id of updated bill', async () => {
-    let res = await updateBill(testSubscriberBill, testNewSubscriberBill);
+    let res = await updateSubscriberBill(
+      testSubscriberBill,
+      testNewSubscriberBill
+    );
     expect(res).toBe(testSubscriberBill);
 
     const testOldBill = {};
     testOldBill[billFieldToModify] = oldBalance;
 
-    res = await updateBill(testSubscriberBill, testOldBill);
+    res = await updateSubscriberBill(testSubscriberBill, testOldBill);
     expect(res).toBe(testSubscriberBill);
   });
 });
