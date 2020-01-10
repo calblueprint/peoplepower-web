@@ -29,9 +29,9 @@ export default class GeneralOwnerDashboard extends React.Component {
   }
 
   componentDidMount() {
-    const { history } = this.props;
-    const id = getLoggedInUserId();
-    if (!id) {
+    const { history, updateState } = this.props;
+    const personId = getLoggedInUserId();
+    if (!personId) {
       // They shouldn't be able to access this screen
       history.push('/');
       return;
@@ -47,7 +47,7 @@ export default class GeneralOwnerDashboard extends React.Component {
     let state;
 
     // Get Person record from person id
-    getPersonById(id)
+    getPersonById(personId)
       .then(payload => {
         ({
           Name: name,
@@ -68,6 +68,8 @@ export default class GeneralOwnerDashboard extends React.Component {
 
           isLoadingDetails: false
         });
+
+        updateState(personId, name);
 
         // then get Owner record from owner id
         return getOwnerById(owner);
@@ -115,8 +117,9 @@ export default class GeneralOwnerDashboard extends React.Component {
   }
 
   handleLogoutClick = () => {
-    const { history } = this.props;
+    const { history, updateState } = this.props;
     logOut();
+    updateState('');
     history.push('/');
   };
 

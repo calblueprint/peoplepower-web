@@ -296,7 +296,7 @@ class Onboarding extends React.Component {
 
   render() {
     const { step, noProjectGroup } = this.state;
-    const { history } = this.props;
+    const { history, toggleNavbar } = this.props;
     switch (step) {
       case 1:
         return (
@@ -305,6 +305,7 @@ class Onboarding extends React.Component {
             values={this.state}
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
+            toggleNavbar={toggleNavbar}
           />
         );
       case 2:
@@ -366,6 +367,7 @@ class Onboarding extends React.Component {
             handleFormValidation={this.handleFormValidation}
             handleDividends={this.handleDividends}
             history={history}
+            toggleNavbar={toggleNavbar}
           />,
           6
         );

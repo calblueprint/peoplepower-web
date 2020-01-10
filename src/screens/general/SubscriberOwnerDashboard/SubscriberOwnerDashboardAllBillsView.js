@@ -4,9 +4,6 @@ import { centsToDollars } from '../../../lib/subscriberUtils';
 import Bill from './Bill';
 import FullBillHeader from './FullBillHeader';
 import FullBillFooter from './FullBillFooter';
-import { getLoggedInUserId, logOut } from '../../../lib/auth';
-
-const ROOT_ROUTE = '/';
 
 export default class SubscriberOwnerDashboardAllBillsView extends React.Component {
   constructor(props) {
@@ -18,18 +15,11 @@ export default class SubscriberOwnerDashboardAllBillsView extends React.Componen
   }
 
   componentDidMount() {
-    const { history } = this.props;
-    const id = getLoggedInUserId();
-    if (!id) {
+    const { history, personId } = this.props;
+    if (!personId) {
       // They shouldn't be able to access this screen
       history.push('/');
     }
-  }
-
-  handleLogout() {
-    logOut();
-    const { history } = this.props;
-    history.push(ROOT_ROUTE);
   }
 
   render() {
@@ -73,12 +63,6 @@ export default class SubscriberOwnerDashboardAllBillsView extends React.Componen
             );
           })}
           <FullBillFooter />
-        </div>
-
-        <div>
-          {/* <button onClick={() => this.handleLogout()} type="button">
-            Logout
-          </button> */}
         </div>
       </div>
     );

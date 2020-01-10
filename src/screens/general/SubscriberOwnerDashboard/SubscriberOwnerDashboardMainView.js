@@ -2,7 +2,6 @@ import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import { centsToDollars } from '../../../lib/subscriberUtils';
-import { getLoggedInUserId } from '../../../lib/auth';
 import { recordBillPaymentSuccess } from '../../../lib/paypal';
 import PanelBillHeader from './PanelBillHeader';
 import PanelBillRow from './PanelBillRow';
@@ -22,9 +21,8 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
   }
 
   componentDidMount() {
-    const { history } = this.props;
-    const id = getLoggedInUserId();
-    if (!id) {
+    const { history, personId } = this.props;
+    if (!personId) {
       // They shouldn't be able to access this screen
       history.push('/');
     }

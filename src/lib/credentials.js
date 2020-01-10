@@ -5,35 +5,53 @@ import { Columns } from './schema';
 
 const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
 
-export default function applyCredentials(userID) {
+async function applyCredentials(userId) {
   let credentials = '';
 
-  if (userID == null) {
+  if (userId == null) {
     return credentials;
   }
 
-  return getOwnerFromPerson(userID).then(ownerID => {
-    return getAdminTable(ownerID)
-      .then(isAdminPayload => {
-        if (isAdminPayload !== -1) {
-          credentials += 'A';
-        }
-      })
-      .then(() => {
-        return getOwnerById(ownerID);
-      })
-      .then(ownerRecord => {
-        const ownerTypes = ownerRecord[Columns.Owner.OwnerType];
+  const ownerId = await getOwnerFromPerson(userId);
+  const isAdminPayload = await getAdminTable(ownerId);
+  if (isAdminPayload !== -1) {
+    credentials += 'A';
+  }
 
-        if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
-          credentials += 'S';
-        }
+  const ownerRecord = await getOwnerById(ownerId);
+  const ownerTypes = ownerRecord[Columns.Owner.OwnerType];
 
-        if (ownerTypes.includes(GENERAL_OWNER)) {
-          credentials += 'G';
-        }
+  if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
+    credentials += 'S';
+  }
 
-        return credentials;
-      });
-  });
+  if (ownerTypes.includes(GENERAL_OWNER)) {
+    credentials += 'G';
+  }
+
+  return credentials;
 }
+
+function isSignedIn(credentials) {
+  return credentials !== '';
+}
+
+function isAdmin(credentials) {
+  return credentials.includes('A');
+}
+
+function isSubscriberOwner(credentials) {
+  return credentials.includes('S');
+}
+
+function isGeneralOwner(credentials) {
+  return credentials.includes('G');
+}
+
+export {
+  applyCredentials,
+  isAdmin,
+  isSubscriberOwner,
+  isGeneralOwner,
+  isSignedIn
+};
