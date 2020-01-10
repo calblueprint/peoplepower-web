@@ -10,7 +10,22 @@ import {
 import Logo from '../assets/PPSC-logo.png';
 
 export default function NavBar(props) {
-  const { personId, displayName, credentials } = props;
+  const { personId, displayName, credentials, isNavBarVisible } = props;
+
+  if (!isNavBarVisible) {
+    return (
+      <div className="navBar">
+        <a href="/">
+          <img
+            className="logo"
+            src={Logo}
+            alt="People Power Solar Cooperative Logo"
+          />
+        </a>
+      </div>
+    );
+  }
+
   if (!isSignedIn(credentials)) {
     return (
       <div className="navBar">

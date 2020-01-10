@@ -19,9 +19,11 @@ class App extends React.Component {
     this.state = {
       personId: '',
       displayName: '',
-      credentials: ''
+      credentials: '',
+      isNavBarVisible: true
     };
     this.updateState = this.updateState.bind(this);
+    this.toggleNavbar = this.toggleNavbar.bind(this);
   }
 
   updateState(personId, displayName) {
@@ -45,8 +47,14 @@ class App extends React.Component {
     }
   }
 
+  toggleNavbar() {
+    this.setState(prevState => ({
+      isNavBarVisible: !prevState.isNavBarVisible
+    }));
+  }
+
   render() {
-    const { personId, displayName, credentials } = this.state;
+    const { personId, displayName, credentials, isNavBarVisible } = this.state;
     return (
       <Router>
         <div className="app-container">
@@ -54,6 +62,7 @@ class App extends React.Component {
             personId={personId}
             displayName={displayName}
             credentials={credentials}
+            isNavBarVisible={isNavBarVisible}
           />
           <Switch>
             <Route
@@ -63,7 +72,12 @@ class App extends React.Component {
                 <Login {...props} updateState={this.updateState} />
               )}
             />
-            <Route path="/onboarding" component={Onboarding} />
+            <Route
+              path="/onboarding"
+              render={props => (
+                <Onboarding {...props} toggleNavbar={this.toggleNavbar} />
+              )}
+            />
             <Route
               path="/dashboard"
               render={props => (
