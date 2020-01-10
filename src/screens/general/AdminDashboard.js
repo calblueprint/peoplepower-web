@@ -6,9 +6,9 @@ import LoadingComponent from '../../components/LoadingComponent';
 import {
   getAdminTable,
   getOwnersFromProjectGroup,
-  removeOwnerFromProjectGroup,
+  updateProjectGroupOwners,
   getOwnerFromPerson
-} from '../../lib/adminHelper';
+} from '../../lib/adminUtils';
 
 const OWNER_ID_FIELD = 'Owner ID';
 
@@ -62,7 +62,7 @@ export default class AdminDashboard extends React.Component {
     owners = owners.filter(owner => owner[OWNER_ID_FIELD] !== idToRemove);
     ownerIds.push(adminId);
 
-    await removeOwnerFromProjectGroup(adminGroupId, ownerIds);
+    await updateProjectGroupOwners(adminGroupId, ownerIds);
     this.setState({
       owners
     });

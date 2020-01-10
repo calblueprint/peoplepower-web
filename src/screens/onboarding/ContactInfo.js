@@ -37,7 +37,7 @@ class ContactInfo extends React.Component {
       mailingPhoneNumber
     } = values;
     const { assertAddress } = this.state;
-    const fields = [
+    const inputTypes = [
       'street',
       'apt',
       'city',
@@ -54,16 +54,19 @@ class ContactInfo extends React.Component {
     ];
     const errorMessages = [];
 
-    for (let i = 0; i < fields.length; i += 1) {
-      if (fields[i] === 'assertAddress') {
+    for (let i = 0; i < inputTypes.length; i += 1) {
+      if (inputTypes[i] === 'assertAddress') {
         if (!assertAddress) {
           this.setState({ errorAssertAddress: 'Required' });
         } else {
           this.setState({ errorAssertAddress: '' });
         }
       } else {
-        const errorMessage = formValidation(fields[i], values[fields[i]]);
-        errors[fields[i]] = errorMessage;
+        const errorMessage = formValidation(
+          inputTypes[i],
+          values[inputTypes[i]]
+        );
+        errors[inputTypes[i]] = errorMessage;
         if (errorMessage !== '') {
           errorMessages.push(errorMessage);
         }
@@ -74,24 +77,21 @@ class ContactInfo extends React.Component {
     if (!(errorMessages && errorMessages.length > 0)) {
       if (userId) {
         const updatedPerson = {
-          id: userId,
-          fields: {
-            Street: street,
-            Apt: apt,
-            City: city,
-            State: state,
-            Zipcode: zipcode,
-            'Phone Number': phoneNumber,
-            'Mailing Street': mailingStreet,
-            'Mailing Apt': mailingApt,
-            'Mailing City': mailingCity,
-            'Mailing State': mailingState,
-            'Mailing Zipcode': mailingZipcode,
-            'Mailing Phone Number': mailingPhoneNumber,
-            'Onboarding Step': 3
-          }
+          Street: street,
+          Apt: apt,
+          City: city,
+          State: state,
+          Zipcode: zipcode,
+          'Phone Number': phoneNumber,
+          'Mailing Street': mailingStreet,
+          'Mailing Apt': mailingApt,
+          'Mailing City': mailingCity,
+          'Mailing State': mailingState,
+          'Mailing Zipcode': mailingZipcode,
+          'Mailing Phone Number': mailingPhoneNumber,
+          'Onboarding Step': 3
         };
-        updatePerson(updatedPerson);
+        updatePerson(userId, updatedPerson);
         nextStep();
       } else {
         // create the person/owner record in Airtable

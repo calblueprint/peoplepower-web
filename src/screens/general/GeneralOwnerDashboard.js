@@ -1,6 +1,12 @@
 import React from 'react';
 import '../../styles/GeneralOwnerDashboard.css';
-import { getRecord, getMultipleFromAttr } from '../../lib/request';
+import {
+  getAnnouncementsForProjectGroup,
+  getPersonById,
+  getOwnerById,
+  getProjectGroupById,
+  getSolarProjectById
+} from '../../lib/request';
 import { getLoggedInUserId, logOut } from '../../lib/auth';
 import AnnouncementList from '../../components/AnnouncementList';
 import LoadingComponent from '../../components/LoadingComponent';
@@ -41,7 +47,7 @@ export default class GeneralOwnerDashboard extends React.Component {
     let state;
 
     // Get Person record from person id
-    getRecord('Person', id)
+    getPersonById(id)
       .then(payload => {
         ({
           Name: name,
@@ -52,7 +58,7 @@ export default class GeneralOwnerDashboard extends React.Component {
           Street: street,
           State: state,
           'Zip Code': zipCode
-        } = payload.record);
+        } = payload);
 
         this.setState({
           email,
@@ -64,28 +70,28 @@ export default class GeneralOwnerDashboard extends React.Component {
         });
 
         // then get Owner record from owner id
-        return getRecord('Owner', owner);
+        return getOwnerById(owner);
       })
       .then(payload => {
-        const { 'Project Group': projectGroupID } = payload.record;
+        const { 'Project Group': projectGroupID } = payload;
         this.setState({
           projectGroupID
         });
         // then get Project Group from project group id
-        return getRecord('Project Group', projectGroupID);
+        return getProjectGroupById(projectGroupID);
       })
       .then(payload => {
         const {
           Name: projectGroupName,
           'Solar Project': solarProject
-        } = payload.record;
+        } = payload;
         this.setState({
           projectGroup: projectGroupName
         });
         const solarProjectNames = [];
         solarProject.forEach(project => {
-          getRecord('Solar Project', project).then(res => {
-            solarProjectNames.push(res.record.Name);
+          getSolarProjectById(project).then(res => {
+            solarProjectNames.push(res.Name);
             this.setState({
               solarProject: solarProjectNames
             });
@@ -94,11 +100,8 @@ export default class GeneralOwnerDashboard extends React.Component {
       })
       .then(() => {
         const { projectGroupID } = this.state;
-        return getMultipleFromAttr(
-          'Announcement',
-          'Project Group',
-          projectGroupID
-        );
+        console.log('I SEE THIS');
+        return getAnnouncementsForProjectGroup(projectGroupID);
       })
       .then(payload => {
         this.setState({

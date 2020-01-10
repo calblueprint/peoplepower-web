@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
-import { centsToDollars } from '../../../lib/subscriberHelper';
+import { centsToDollars } from '../../../lib/subscriberUtils';
 import Bill from './Bill';
 import FullBillHeader from './FullBillHeader';
 import FullBillFooter from './FullBillFooter';

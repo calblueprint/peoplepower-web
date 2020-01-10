@@ -1,7 +1,7 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
-import { centsToDollars } from '../../../lib/subscriberHelper';
+import { centsToDollars } from '../../../lib/subscriberUtils';
 import { getLoggedInUserId } from '../../../lib/auth';
 import { recordBillPaymentSuccess } from '../../../lib/paypal';
 import PanelBillHeader from './PanelBillHeader';
@@ -18,6 +18,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
     this.state = {
       latestBill: transactions.filter(bill => bill['Is Latest'])[0]
     };
+    this.onPaypalPaymentSuccess = this.onPaypalPaymentSuccess.bind(this);
   }
 
   componentDidMount() {
@@ -29,9 +30,13 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
     }
   }
 
-  onPaypalPaymentSuccess(details, data) {
-    const { latestBill } = this.state;
-    recordBillPaymentSuccess(details, data, latestBill);
+  async onPaypalPaymentSuccess(details, data) {
+    try {
+      const { latestBill } = this.state;
+      await recordBillPaymentSuccess(details, data, latestBill);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   render() {

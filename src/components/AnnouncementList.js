@@ -12,7 +12,7 @@ const AnnouncementList = props => {
       // Location: location,
       // 'Event type': eventType,
       Attachments: attachments
-    } = announce.fields;
+    } = announce;
 
     let url = '';
     let filename = '';

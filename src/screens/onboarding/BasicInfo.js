@@ -2,7 +2,7 @@ import React from 'react';
 import formValidation from '../../lib/formValidation';
 import '../../styles/Onboarding.css';
 import Tooltip from '../../components/Tooltip';
-import { updatePerson, updateRecord } from '../../lib/request';
+import { updatePerson, updateUserLogin } from '../../lib/request';
 
 class BasicInfo extends React.Component {
   constructor(props) {
@@ -24,12 +24,12 @@ class BasicInfo extends React.Component {
       password,
       altEmail
     } = values;
-    const fields = ['fname', 'lname', 'email', 'password', 'altEmail'];
+    const inputTypes = ['fname', 'lname', 'email', 'password', 'altEmail'];
     const errorsMessages = [];
 
-    for (let i = 0; i < fields.length; i += 1) {
-      const errorMessage = formValidation(fields[i], values[fields[i]]);
-      errors[fields[i]] = errorMessage;
+    for (let i = 0; i < inputTypes.length; i += 1) {
+      const errorMessage = formValidation(inputTypes[i], values[inputTypes[i]]);
+      errors[inputTypes[i]] = errorMessage;
       if (errorMessage !== '') {
         errorsMessages.push(errorMessage);
       }
@@ -39,24 +39,18 @@ class BasicInfo extends React.Component {
       if (userId) {
         const fullName = `${fname} ${lname}`;
         const updatedPerson = {
-          id: userId,
-          fields: {
-            Name: fullName,
-            Email: email,
-            'Alternative Email': altEmail
-          }
+          Name: fullName,
+          Email: email,
+          'Alternative Email': altEmail
         };
 
         const newLogin = {
-          id: userLoginId,
-          fields: {
-            Email: email,
-            password
-          }
+          Email: email,
+          password
         };
 
-        updatePerson(updatedPerson).then(() => {
-          return updateRecord('User Login', newLogin);
+        updatePerson(userId, updatedPerson).then(() => {
+          return updateUserLogin(userLoginId, newLogin);
         });
       }
       nextStep();
@@ -179,7 +173,7 @@ class BasicInfo extends React.Component {
             className="getstarted-button"
             onClick={this.nextButton}
           >
-            Get started
+            Get Started
           </button>
         </div>
       </form>

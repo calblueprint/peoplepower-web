@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/NavBar.css';
-import { getRecord } from '../lib/request';
+import { getPersonById } from '../lib/request';
 import { getLoggedInUserId } from '../lib/auth';
 import applyCredentials from '../lib/credentials';
 import Logo from '../assets/PPSC-logo.png';
@@ -24,8 +24,8 @@ export default class NavBar extends React.Component {
         name: 'Sign In'
       });
     } else {
-      getRecord('Person', id).then(payload => {
-        const { Name: name } = payload.record;
+      getPersonById(id).then(payload => {
+        const { Name: name } = payload;
         this.setState({
           name,
           id

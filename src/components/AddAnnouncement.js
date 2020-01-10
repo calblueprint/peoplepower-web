@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/Community.css';
-import { createRecord } from '../lib/request';
+import { createAnnouncementRecord } from '../lib/request';
 
 const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;
@@ -42,13 +42,11 @@ export default class AddAnnouncement extends React.Component {
 
     const { usersID: id, usersGroup: projectGroup, updateCards } = this.props;
     const newMessage = {
-      fields: {
-        Author: [id],
-        'Project Group': [projectGroup],
-        Message: message
-      }
+      Author: [id],
+      'Project Group': [projectGroup],
+      Message: message
     };
-    createRecord('Announcement', newMessage).then(() => {
+    createAnnouncementRecord(newMessage).then(() => {
       this.setState({
         submitSuccess: true,
         status: 'Announcement posted!',
