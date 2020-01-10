@@ -1,5 +1,3 @@
-## FEATURE TITLE
-
 Describe your feature here
 
 ### Related PRs
@@ -12,10 +10,12 @@ Optional - if you added anything to the database through migration(s)
 
 ### Tests Performed, Edge Cases
 
-Lol we'll see if we test
+If you made changes/additions to `airtable.js` or `request.js`, 
+make sure you update/add (at least 1) corresponding unit tests
+in `airtable.spec.js` or `request.spec.js`
 
 ### Screenshots
 
 Add screenshots!!! If you'd like
 
-CC: @aivantg
+CC: @aivantg @dfangshuo
