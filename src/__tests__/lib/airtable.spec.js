@@ -9,13 +9,12 @@ import {
   deleteRecord
 } from '../../lib/airtable';
 
-const inputResultMapping = {};
 const TEST_TABLE = 'Test (Development)';
 const TEST_FIELD = 'Tag';
 const TEST_TAG = '7_NuQ6a?';
 const NUM_ENTRIES = 1;
 const testId = 'rechutWysjm8RbJkq';
-inputResultMapping[testId] = {
+const expectedTestResult = {
   ID: 'rechutWysjm8RbJkq',
   Name: 'TEST READ RECORD',
   Tag: TEST_TAG
@@ -29,7 +28,7 @@ const testNewRecord = {
 describe('getRecordById function', () => {
   test('expect resolve', async () => {
     const res = await getRecordById(TEST_TABLE, testId);
-    expect(res).toStrictEqual(inputResultMapping[testId]);
+    expect(res).toStrictEqual(expectedTestResult);
   });
 });
 
@@ -71,8 +70,8 @@ describe('updateRecord function', () => {
 
     // revert updates
     testUpdateRecord = {
-      Name: inputResultMapping[testId].Name,
-      Tag: inputResultMapping[testId].Tag
+      Name: expectedTestResult.Name,
+      Tag: expectedTestResult.Tag
     };
     id = await updateRecord(TEST_TABLE, testId, testUpdateRecord);
     expect(id).toStrictEqual(testId);
