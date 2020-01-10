@@ -4,6 +4,8 @@
   Helper functions that makes airtable API calls directly
 
   Not meant to be called directly by functions outside of request.js
+
+  If you're adding a new function: make sure you add a corresponding test (at least 1) for it in airtable.spec.js
 */
 
 import Airtable from 'airtable';

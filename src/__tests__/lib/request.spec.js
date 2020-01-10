@@ -3,7 +3,7 @@ import {
   createUserLogin,
   deletePerson,
   getAllProjectGroups,
-  getAnnouncementsFromProjectGroup,
+  getAnnouncementsForProjectGroup,
   getUserLoginsByEmail,
   getPersonById,
   getOwnerById,
@@ -98,9 +98,9 @@ describe('getAllProjectGroups function', () => {
   });
 });
 
-describe('getAnnouncementsFromProjectGroup function', () => {
+describe('getAnnouncementsForProjectGroup function', () => {
   test('expect list of announcements', async () => {
-    const res = await getAnnouncementsFromProjectGroup(testProjectGroup);
+    const res = await getAnnouncementsForProjectGroup(testProjectGroup);
     expect(res.length).not.toBe(undefined);
   });
 });

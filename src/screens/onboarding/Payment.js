@@ -24,7 +24,7 @@ class Payment extends React.Component {
 
   onBuyShareWithPaypalSuccess(details, data) {
     const { values } = this.props;
-    recordShareBuySuccess(details, data, values);
+    recordShareBuySuccess(details, data, values); // TODO(dfangshuo): no await?
     console.log('Paypal success');
     this.nextButton();
   }

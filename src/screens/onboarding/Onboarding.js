@@ -106,7 +106,7 @@ class Onboarding extends React.Component {
         step = person['Onboarding Step'];
 
         this.setState({
-          step: person['Onboarding Step'],
+          step: person['Onboarding Step'], // TODO: move this object transformation out of our visual components
           userLoginId: person['User Login'][0],
           personId: person.Owner[0],
           fname: person.Name.split(' ')[0],

@@ -17,18 +17,4 @@ const validatePersonRecord = record => {
   }
 };
 
-const validateSubscriberOwnerRecord = res => {
-  if (res == null) {
-    throw Error('null passed into validateSubscriberOwnerRecord');
-  }
-
-  if (res.length < 1) {
-    throw Error('record has length < 1');
-  }
-
-  if (res[0] == null) {
-    throw Error('res has no 0th item');
-  }
-};
-
-export { validatePersonRecord, validateSubscriberOwnerRecord };
+export default validatePersonRecord;

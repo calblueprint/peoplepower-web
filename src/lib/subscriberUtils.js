@@ -1,10 +1,5 @@
-import {
-  createPaymentRecord,
-  getPersonById,
-  getOwnerById,
-  getSubscriberBillById
-} from './request';
-import { validatePersonRecord } from './validator';
+import { getOwnerById, getSubscriberBillById } from './request';
+import getOwnerIdFromPersonId from './personUtils';
 
 import constants from '../constants';
 
@@ -43,13 +38,6 @@ const dateToWord = {
   12: 'December'
 };
 
-// throw an exception on error
-const getOwnerIdFromId = async loggedInUserId => {
-  const personRecord = await getPersonById(loggedInUserId);
-  validatePersonRecord(personRecord);
-  return personRecord.Owner[0];
-};
-
 const getBillsFromOwnerId = async ownerId => {
   const owner = await getOwnerById(ownerId);
   return owner[SUBSCRIBER_BILL_FIELD];
@@ -57,7 +45,7 @@ const getBillsFromOwnerId = async ownerId => {
 
 const getSubscriberBills = async (loggedInUserId, callback) => {
   try {
-    const ownerId = await getOwnerIdFromId(loggedInUserId);
+    const ownerId = await getOwnerIdFromPersonId(loggedInUserId);
     const billIds = await getBillsFromOwnerId(ownerId);
 
     const billPromises = [];
@@ -105,32 +93,10 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
   }
 };
 
-const createPayment = async record => {
-  /*
-    {
-      "fields": {
-        "Owner": [
-          "Some Id"
-        ],
-        "Status": "Paid in full",
-        "Type": "Some Type",
-        "Amount": {amount in cents},
-        "Subscriber Bill": [
-          "recy1K7CRUQPVvaE7"
-        ]
-      }
-    }
-  */
-  const id = await createPaymentRecord(record);
-  return id;
-};
-
 export {
   areDiffBills,
   centsToDollars,
   dateToWord,
-  getOwnerIdFromId,
   getBillsFromOwnerId,
-  getSubscriberBills,
-  createPayment
+  getSubscriberBills
 };

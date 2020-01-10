@@ -5,6 +5,8 @@
   Wrapper functions around functions in airtable.js that interact with Airtable, designed
   to provide basic functionality
 
+  If you're adding a new function: make sure you add a corresponding test (at least 1) for it in request.spec.js
+
 */
 
 import constants from '../constants';
@@ -38,7 +40,7 @@ const getAllProjectGroups = async () => {
   return getAllRecords(PROJECT_GROUP_TABLE);
 };
 
-const getAnnouncementsFromProjectGroup = async projectGroup => {
+const getAnnouncementsForProjectGroup = async projectGroup => {
   return getRecordsByAttribute(
     ANNOUNCEMENT_TABLE,
     PROJECT_GROUP_FIELD,
@@ -158,7 +160,7 @@ export {
   deleteOwner,
   deleteUserLogin,
   getAllProjectGroups,
-  getAnnouncementsFromProjectGroup,
+  getAnnouncementsForProjectGroup,
   getPersonById,
   getProjectGroupById,
   getOwnerById,
