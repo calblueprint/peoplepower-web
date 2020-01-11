@@ -5,22 +5,18 @@ class Carousel extends Component {
   constructor(props) {
     super(props);
 
-    this.goToSlide = this.goToSlide.bind(this);
-    this.goToPrevSlide = this.goToPrevSlide.bind(this);
-    this.goToNextSlide = this.goToNextSlide.bind(this);
-
     this.state = {
       activeIndex: 0
     };
   }
 
-  goToSlide(index) {
+  goToSlide = index => {
     this.setState({
       activeIndex: index
     });
-  }
+  };
 
-  goToPrevSlide(e) {
+  goToPrevSlide = e => {
     e.preventDefault();
 
     const { activeIndex } = this.state;
@@ -37,9 +33,9 @@ class Carousel extends Component {
     this.setState({
       activeIndex: index
     });
-  }
+  };
 
-  goToNextSlide(e) {
+  goToNextSlide = e => {
     e.preventDefault();
     const { activeIndex } = this.state;
     const { slides } = this.props;
@@ -56,7 +52,7 @@ class Carousel extends Component {
     this.setState({
       activeIndex: index
     });
-  }
+  };
 
   render() {
     const { slides } = this.props;

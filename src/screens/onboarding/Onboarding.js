@@ -88,8 +88,6 @@ class Onboarding extends React.Component {
       },
       step: 1
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
   }
 
   async componentDidMount() {
@@ -283,12 +281,12 @@ class Onboarding extends React.Component {
   };
 
   // function for validation of bylaws
-  callBackBylawValidation() {
+  callBackBylawValidation = () => {
     const { errors } = this.state;
     this.setState({
       errors: { ...errors, bylaw1: 'Required' }
     });
-  }
+  };
 
   render() {
     const { step, noProjectGroup } = this.state;

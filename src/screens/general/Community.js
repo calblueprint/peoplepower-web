@@ -22,8 +22,6 @@ export default class Community extends React.Component {
       credentials: '',
       isLoading: true
     };
-
-    this.addTempCard = this.addTempCard.bind(this);
   }
 
   async componentDidMount() {
@@ -53,13 +51,13 @@ export default class Community extends React.Component {
     });
   }
 
-  addTempCard(announcement) {
+  addTempCard = announcement => {
     const { cards } = this.state;
     const updatedCards = [announcement, ...cards];
     this.setState({
       cards: updatedCards
     });
-  }
+  };
 
   render() {
     const { cards, isLoading, usersGroup, usersID, credentials } = this.state;

@@ -15,7 +15,6 @@ export default class SubscriberOwnerDashboard extends React.Component {
       mode: 0,
       isReady: false
     };
-    this.updateState = this.updateState.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +35,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
     getSubscriberBills(personId, this.updateState);
   }
 
-  updateState(transactions) {
+  updateState = transactions => {
     if (transactions == null) {
       console.error('transactions argument to updateState is null');
       return;
@@ -48,7 +47,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
       }
       return { isReady: true };
     });
-  }
+  };
 
   seeSubscriberOwnerDashboardAllBillsView() {
     this.setState({

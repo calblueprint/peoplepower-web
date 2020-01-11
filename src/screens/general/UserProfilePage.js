@@ -39,9 +39,6 @@ export default class UserProfilePage extends React.Component {
       updateZip: '',
       isLoading: true
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async componentDidMount() {
@@ -87,15 +84,15 @@ export default class UserProfilePage extends React.Component {
     });
   }
 
-  handleChange(event) {
+  handleChange = event => {
     const target = event.target.name;
 
     this.setState({
       [target]: event.target.value
     });
-  }
+  };
 
-  async handleSubmit(event) {
+  handleSubmit = async event => {
     event.preventDefault();
     const {
       id,
@@ -148,7 +145,7 @@ export default class UserProfilePage extends React.Component {
         zipcode: updateZip
       });
     }
-  }
+  };
 
   render() {
     const {

@@ -22,11 +22,9 @@ class App extends React.Component {
       credentials: '',
       isNavBarVisible: true
     };
-    this.updateState = this.updateState.bind(this);
-    this.toggleNavbar = this.toggleNavbar.bind(this);
   }
 
-  async updateState(personId, displayName) {
+  updateState = async (personId, displayName) => {
     if (personId) {
       this.setState({
         personId,
@@ -44,13 +42,13 @@ class App extends React.Component {
         credentials: ''
       });
     }
-  }
+  };
 
-  toggleNavbar() {
+  toggleNavbar = () => {
     this.setState(prevState => ({
       isNavBarVisible: !prevState.isNavBarVisible
     }));
-  }
+  };
 
   render() {
     const { personId, displayName, credentials, isNavBarVisible } = this.state;

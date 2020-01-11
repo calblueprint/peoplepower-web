@@ -15,19 +15,16 @@ export default class AddAnnouncement extends React.Component {
       status: '',
       submitProgress: STATUS_IN_PROGRESS
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = event => {
     const target = event.target.name;
     this.setState({
       [target]: event.target.value
     });
-  }
+  };
 
-  async handleSubmit(event) {
+  handleSubmit = async event => {
     event.preventDefault();
     const { message } = this.state;
 
@@ -56,7 +53,7 @@ export default class AddAnnouncement extends React.Component {
     });
 
     updateCards(newMessage);
-  }
+  };
 
   render() {
     const { message, submitSuccess, status, submitProgress } = this.state;
