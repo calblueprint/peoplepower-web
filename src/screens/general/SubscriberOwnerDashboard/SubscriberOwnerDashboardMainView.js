@@ -6,9 +6,7 @@ import { recordBillPaymentSuccess } from '../../../lib/paypal';
 import PanelBillHeader from './PanelBillHeader';
 import PanelBillRow from './PanelBillRow';
 
-import secret from '../../../secret';
-
-const { clientId } = secret;
+const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
 export default class SubscriberOwnerDashboardMainView extends React.Component {
   constructor(props) {

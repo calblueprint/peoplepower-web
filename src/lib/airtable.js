@@ -9,12 +9,11 @@
 */
 
 import Airtable from 'airtable';
-import secret from '../secret';
 import constants from '../constants';
 
 const { BASE_ID, ENDPOINT_URL, GRID_VIEW } = constants;
 
-const { key } = secret;
+const key = process.env.REACT_APP_AIRTABLE_API_KEY;
 
 // API KEY will reside in ENV variables later.
 Airtable.configure({
