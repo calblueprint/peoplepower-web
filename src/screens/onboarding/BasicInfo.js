@@ -6,7 +6,7 @@ import { updatePerson, updateUserLogin } from '../../lib/request';
 
 class BasicInfo extends React.Component {
   // validates then moves on if no error messages
-  nextButton = e => {
+  nextButton = async e => {
     e.preventDefault();
     const { values, nextStep, toggleNavbar } = this.props;
     const {
@@ -44,10 +44,10 @@ class BasicInfo extends React.Component {
           password
         };
 
-        updatePerson(userId, updatedPerson).then(() => {
-          return updateUserLogin(userLoginId, newLogin);
-        });
+        await updatePerson(userId, updatedPerson);
+        await updateUserLogin(userLoginId, newLogin);
       }
+
       toggleNavbar();
       nextStep();
     } else {

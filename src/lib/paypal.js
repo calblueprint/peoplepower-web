@@ -63,13 +63,12 @@ const recordShareBuySuccess = async (details, data, values) => {
   /*
     TODO(dfangshuo): retry logic
   */
-  createPaymentRecord(record)
-    .then(paymentId => {
-      console.log(paymentId);
-    })
-    .catch(err => {
-      console.error(err);
-    });
+  try {
+    const paymentId = await createPaymentRecord(record);
+    console.log(paymentId);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const recordBillPaymentSuccess = async (details, data, bill) => {
@@ -182,13 +181,13 @@ const recordBillPaymentSuccess = async (details, data, bill) => {
       If paypal goes through but the payment record wasn't created for some reason, 
       it could cause problems
     */
-  createPaymentRecord(record)
-    .then(paymentId => {
-      console.log(paymentId);
-    })
-    .catch(err => {
-      console.error(err);
-    });
+
+  try {
+    const paymentId = await createPaymentRecord(record);
+    console.log(paymentId);
+  } catch (err) {
+    console.error(err);
+  }
 
   const newBalance = bill.Balance - amountInCents;
   const updatedBill = {

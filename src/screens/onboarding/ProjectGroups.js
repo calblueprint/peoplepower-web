@@ -20,29 +20,26 @@ class ProjectGroups extends React.Component {
     };
   }
 
-  componentDidMount() {
-    getAllProjectGroups().then(payload => {
-      const projectGroups = [];
-      payload.map(record =>
-        projectGroups.push({
-          id: record.ID,
-          name: record.Name,
-          description: record.Description,
-          street: record['Street 1'],
-          apt: record['Street 2'],
-          city: record.City,
-          state: record.State,
-          zipcode: record.Zipcode,
-          public: record['Is Public?'],
-          default: record['Is Default?']
-        })
-      );
-      const selectableGroups = projectGroups.filter(
-        group => group.public && !group.default
-      );
-      const defaultGroup = projectGroups.find(group => group.default);
-      this.setState({ groups: selectableGroups, defaultGroup });
-    });
+  async componentDidMount() {
+    let projectGroups = getAllProjectGroups();
+    projectGroups = projectGroups.map(record => ({
+      id: record.ID,
+      name: record.Name,
+      description: record.Description,
+      street: record['Street 1'],
+      apt: record['Street 2'],
+      city: record.City,
+      state: record.State,
+      zipcode: record.Zipcode,
+      public: record['Is Public?'],
+      default: record['Is Default?']
+    }));
+
+    const selectableGroups = projectGroups.filter(
+      group => group.public && !group.default
+    );
+    const defaultGroup = projectGroups.find(group => group.default);
+    this.setState({ groups: selectableGroups, defaultGroup });
   }
 
   changeDisplayedGroup = id => {

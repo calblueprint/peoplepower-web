@@ -16,17 +16,14 @@ class Payment extends React.Component {
     this.state = {
       paid: false
     };
-    this.onBuyShareWithPaypalSuccess = this.onBuyShareWithPaypalSuccess.bind(
-      this
-    );
   }
 
-  onBuyShareWithPaypalSuccess(details, data) {
+  onBuyShareWithPaypalSuccess = (details, data) => {
     const { values } = this.props;
     recordShareBuySuccess(details, data, values); // TODO(dfangshuo): no await?
     console.log('Paypal success');
     this.nextButton();
-  }
+  };
 
   // Only called after user has paid
   nextButton = () => {

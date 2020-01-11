@@ -15,7 +15,6 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
     this.state = {
       latestBill: transactions.filter(bill => bill['Is Latest'])[0]
     };
-    this.onPaypalPaymentSuccess = this.onPaypalPaymentSuccess.bind(this);
   }
 
   componentDidMount() {
@@ -26,14 +25,14 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
     }
   }
 
-  async onPaypalPaymentSuccess(details, data) {
+  onPaypalPaymentSuccess = async (details, data) => {
     try {
       const { latestBill } = this.state;
       await recordBillPaymentSuccess(details, data, latestBill);
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   render() {
     const { transactions, callback } = this.props;

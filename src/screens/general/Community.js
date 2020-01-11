@@ -10,6 +10,7 @@ import { applyCredentials, isAdmin } from '../../lib/credentials';
 import AnnouncementList from '../../components/AnnouncementList';
 import AddAnnouncement from '../../components/AddAnnouncement';
 import LoadingComponent from '../../components/LoadingComponent';
+import { Columns } from '../../lib/schema';
 
 export default class Community extends React.Component {
   constructor(props) {
@@ -21,11 +22,9 @@ export default class Community extends React.Component {
       credentials: '',
       isLoading: true
     };
-
-    this.addTempCard = this.addTempCard.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { history } = this.props;
     const id = getLoggedInUserId();
     if (!id) {
@@ -36,39 +35,29 @@ export default class Community extends React.Component {
       usersID: id
     });
 
-    getPersonById(id)
-      .then(payload => {
-        const { Owner: owner } = payload;
-        return getOwnerById(owner);
-      })
-      .then(payload => {
-        const { 'Project Group': projectGroup } = payload;
-        this.setState({
-          usersGroup: projectGroup[0]
-        });
-        return getAnnouncementsByProjectGroup(projectGroup[0]);
-      })
-      .then(payload => {
-        this.setState({
-          cards: payload,
-          isLoading: false
-        });
-      });
+    const personRecord = await getPersonById(id);
+    const ownerId = personRecord[Columns.Person.Owner];
+    const ownerRecord = await getOwnerById(ownerId);
+    const projectGroupId = ownerRecord[Columns.Owner.ProjectGroup][0];
+    const announcements = await getAnnouncementsByProjectGroup(projectGroupId);
 
-    applyCredentials(id).then(credentials => {
-      this.setState({
-        credentials
-      });
+    const credentials = await applyCredentials(id);
+
+    this.setState({
+      usersGroup: projectGroupId,
+      cards: announcements,
+      credentials,
+      isLoading: false
     });
   }
 
-  addTempCard(announcement) {
+  addTempCard = announcement => {
     const { cards } = this.state;
     const updatedCards = [announcement, ...cards];
     this.setState({
       cards: updatedCards
     });
-  }
+  };
 
   render() {
     const { cards, isLoading, usersGroup, usersID, credentials } = this.state;

@@ -22,21 +22,18 @@ class App extends React.Component {
       credentials: '',
       isNavBarVisible: true
     };
-    this.updateState = this.updateState.bind(this);
-    this.toggleNavbar = this.toggleNavbar.bind(this);
   }
 
-  updateState(personId, displayName) {
+  updateState = async (personId, displayName) => {
     if (personId) {
       this.setState({
         personId,
         displayName
       });
 
-      applyCredentials(personId).then(credentials => {
-        this.setState({
-          credentials
-        });
+      const credentials = await applyCredentials(personId);
+      this.setState({
+        credentials
       });
     } else {
       this.setState({
@@ -45,13 +42,13 @@ class App extends React.Component {
         credentials: ''
       });
     }
-  }
+  };
 
-  toggleNavbar() {
+  toggleNavbar = () => {
     this.setState(prevState => ({
       isNavBarVisible: !prevState.isNavBarVisible
     }));
-  }
+  };
 
   render() {
     const { personId, displayName, credentials, isNavBarVisible } = this.state;

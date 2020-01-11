@@ -13,12 +13,6 @@ class Login extends React.Component {
       email: '',
       passwordHash: ''
     };
-
-    // BINDINGS
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSignUpOnClick = this.handleSignUpOnClick.bind(this);
   }
 
   componentDidMount() {
@@ -28,21 +22,21 @@ class Login extends React.Component {
     }
   }
 
-  handleEmailChange(event) {
+  handleEmailChange = event => {
     this.setState({ email: event.target.value });
-  }
+  };
 
-  handlePasswordChange(event) {
+  handlePasswordChange = event => {
     this.setState({ passwordHash: event.target.value });
-  }
+  };
 
-  handleSignUpOnClick() {
+  handleSignUpOnClick = () => {
     const { history } = this.props;
 
     history.push(SIGNUP_ROUTE);
-  }
+  };
 
-  async handleSubmit(evt) {
+  handleSubmit = async evt => {
     const { email, passwordHash } = this.state;
     evt.preventDefault();
     const res = await loginUser(email, passwordHash); // TODO(dfangshuo): uncaught exception
@@ -51,7 +45,7 @@ class Login extends React.Component {
     } else {
       // alert('Invalid email or password!');
     }
-  }
+  };
 
   segueToHome(evt) {
     const { history } = this.props;
