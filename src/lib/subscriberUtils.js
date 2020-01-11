@@ -1,9 +1,7 @@
 import { getOwnerById, getSubscriberBillById } from './request';
 import getOwnerIdFromPersonId from './personUtils';
 
-import constants from '../constants';
-
-const { SUBSCRIBER_BILL_FIELD } = constants;
+import { Columns } from './schema';
 
 const areDiffBills = (b1, b2) => {
   if (b1 === b2) return false;
@@ -40,7 +38,7 @@ const dateToWord = {
 
 const getBillsFromOwnerId = async ownerId => {
   const owner = await getOwnerById(ownerId);
-  return owner[SUBSCRIBER_BILL_FIELD];
+  return owner[Columns.Owner.SubscriberBill];
 };
 
 const getSubscriberBills = async (loggedInUserId, callback) => {

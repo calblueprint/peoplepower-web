@@ -4,9 +4,7 @@ import {
   getProjectGroupById,
   updateProjectGroup
 } from './request';
-import constants from '../constants';
-
-const { ADMIN_OF_FIELD } = constants;
+import { Columns } from './schema';
 
 const getOwnerFromPerson = async personId => {
   const { Owner } = await getPersonById(personId);
@@ -21,7 +19,7 @@ const getOwnerFromPerson = async personId => {
 const getAdminTable = async ownerId => {
   const owner = await getOwnerById(ownerId);
 
-  const ownerOfArr = owner[ADMIN_OF_FIELD];
+  const ownerOfArr = owner[Columns.Owner.AdminOf];
   if (ownerOfArr && ownerOfArr.length === 1) {
     return ownerOfArr[0];
   }

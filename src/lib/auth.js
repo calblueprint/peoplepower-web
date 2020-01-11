@@ -1,8 +1,9 @@
 import Cookies from 'universal-cookie';
 import constants from '../constants';
 import { getUserLoginsByEmail } from './request';
+import { Columns } from './schema';
 
-const { LOGIN_TOKEN_NAME, PASSWORD_FIELD, PERSON_FIELD } = constants;
+const { LOGIN_TOKEN_NAME } = constants;
 
 const cookies = new Cookies();
 
@@ -19,9 +20,9 @@ const loginUser = async (email, passwordHash) => {
   }
 
   const record = records[0];
-  if (record[PASSWORD_FIELD] === passwordHash) {
+  if (record[Columns.UserLogin.Password] === passwordHash) {
     console.log(record);
-    const personId = record[PERSON_FIELD][0];
+    const personId = record[Columns.UserLogin.Person][0];
     setLoginCookie(personId);
     return { match: true, found: true };
   }
