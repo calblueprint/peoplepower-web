@@ -63,13 +63,12 @@ const recordShareBuySuccess = async (details, data, values) => {
   /*
     TODO(dfangshuo): retry logic
   */
-  createPaymentRecord(record)
-    .then(paymentId => {
-      console.log(paymentId);
-    })
-    .catch(err => {
-      console.error(err);
-    });
+  try {
+    const paymentId = await createPaymentRecord(record);
+    console.log(paymentId);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const recordBillPaymentSuccess = async (details, data, bill) => {
@@ -189,13 +188,6 @@ const recordBillPaymentSuccess = async (details, data, bill) => {
   } catch (err) {
     console.error(err);
   }
-  createPaymentRecord(record)
-    .then(paymentId => {
-      console.log(paymentId);
-    })
-    .catch(err => {
-      console.error(err);
-    });
 
   const newBalance = bill.Balance - amountInCents;
   const updatedBill = {
