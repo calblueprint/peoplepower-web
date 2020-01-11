@@ -92,67 +92,63 @@ class Onboarding extends React.Component {
     this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const id = getLoggedInUserId();
-    let step;
     // Person does not have a User Id
     if (!id) {
       return;
     }
 
     this.setState({ userId: id });
-    getPersonById(id)
-      .then(person => {
-        step = person['Onboarding Step'];
+    const person = await getPersonById(id);
+    const step = person['Onboarding Step'];
 
-        this.setState({
-          step: person['Onboarding Step'], // TODO: move this object transformation out of our visual components
-          userLoginId: person['User Login'][0],
-          personId: person.Owner[0],
-          fname: person.Name.split(' ')[0],
-          lname: person.Name.split(' ')[1],
-          email: person.Email,
-          altEmail: person['Alternative Email'],
-          street: person.Street,
-          apt: person.Apt,
-          city: person.City,
-          state: person.State,
-          zipcode: person.Zipcode,
-          phoneNumber: person['Phone Number'],
-          mailingStreet: person['Mailing Street'],
-          mailingApt: person['Mailing Apt'],
-          mailingCity: person['Mailing City'],
-          mailingState: person['Mailing State'],
-          mailingZipcode: person['Mailing Zipcode'],
-          mailingPhoneNumber: person['Mailing Phone Number'],
-          billingStreet: person['Billing Street'],
-          billingApt: person['Billing Apt'],
-          billingCity: person['Billing City'],
-          billingState: person['Billing State'],
-          billingZipcode: person['Billing Zipcode'],
-          projectGroup: person['Project Group'][0]
-        });
-        const { Owner: owner } = person;
-        return getOwnerById(owner);
-      })
-      .then(owner => {
-        if (step > 3) {
-          const numShares = owner['Number of Shares'];
+    this.setState({
+      step: person['Onboarding Step'], // TODO: move this object transformation out of our visual components
+      userLoginId: person['User Login'][0],
+      personId: person.Owner[0],
+      fname: person.Name.split(' ')[0],
+      lname: person.Name.split(' ')[1],
+      email: person.Email,
+      altEmail: person['Alternative Email'],
+      street: person.Street,
+      apt: person.Apt,
+      city: person.City,
+      state: person.State,
+      zipcode: person.Zipcode,
+      phoneNumber: person['Phone Number'],
+      mailingStreet: person['Mailing Street'],
+      mailingApt: person['Mailing Apt'],
+      mailingCity: person['Mailing City'],
+      mailingState: person['Mailing State'],
+      mailingZipcode: person['Mailing Zipcode'],
+      mailingPhoneNumber: person['Mailing Phone Number'],
+      billingStreet: person['Billing Street'],
+      billingApt: person['Billing Apt'],
+      billingCity: person['Billing City'],
+      billingState: person['Billing State'],
+      billingZipcode: person['Billing Zipcode'],
+      projectGroup: person['Project Group'][0]
+    });
+    const { Owner: ownerId } = person;
+    const owner = await getOwnerById(ownerId);
 
-          this.setState({
-            projectGroup: owner['Project Group'][0],
-            numShares: numShares || 1,
-            dividends: owner['Receiving Dividends?']
-          });
+    if (step > 3) {
+      const numShares = owner['Number of Shares'];
 
-          if (step > 4) {
-            this.setState({
-              bylaw1: true,
-              bylaw2: true
-            });
-          }
-        }
+      this.setState({
+        projectGroup: owner['Project Group'][0],
+        numShares: numShares || 1,
+        dividends: owner['Receiving Dividends?']
       });
+
+      if (step > 4) {
+        this.setState({
+          bylaw1: true,
+          bylaw2: true
+        });
+      }
+    }
   }
 
   // next function increments page up one and switches to that numbered page

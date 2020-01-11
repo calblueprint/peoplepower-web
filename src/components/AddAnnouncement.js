@@ -27,7 +27,7 @@ export default class AddAnnouncement extends React.Component {
     });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const { message } = this.state;
 
@@ -46,16 +46,16 @@ export default class AddAnnouncement extends React.Component {
       'Project Group': [projectGroup],
       Message: message
     };
-    createAnnouncement(newMessage).then(() => {
-      this.setState({
-        submitSuccess: true,
-        status: 'Announcement posted!',
-        message: '',
-        submitProgress: STATUS_SUCCESS
-      });
 
-      updateCards(newMessage);
+    await createAnnouncement(newMessage);
+    this.setState({
+      submitSuccess: true,
+      status: 'Announcement posted!',
+      message: '',
+      submitProgress: STATUS_SUCCESS
     });
+
+    updateCards(newMessage);
   }
 
   render() {

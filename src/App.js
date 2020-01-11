@@ -26,17 +26,16 @@ class App extends React.Component {
     this.toggleNavbar = this.toggleNavbar.bind(this);
   }
 
-  updateState(personId, displayName) {
+  async updateState(personId, displayName) {
     if (personId) {
       this.setState({
         personId,
         displayName
       });
 
-      applyCredentials(personId).then(credentials => {
-        this.setState({
-          credentials
-        });
+      const credentials = await applyCredentials(personId);
+      this.setState({
+        credentials
       });
     } else {
       this.setState({

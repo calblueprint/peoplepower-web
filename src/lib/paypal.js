@@ -182,6 +182,13 @@ const recordBillPaymentSuccess = async (details, data, bill) => {
       If paypal goes through but the payment record wasn't created for some reason, 
       it could cause problems
     */
+
+  try {
+    const paymentId = await createPaymentRecord(record);
+    console.log(paymentId);
+  } catch (err) {
+    console.error(err);
+  }
   createPaymentRecord(record)
     .then(paymentId => {
       console.log(paymentId);

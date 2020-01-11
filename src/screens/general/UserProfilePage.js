@@ -44,73 +44,47 @@ export default class UserProfilePage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // id taken from URL. React Router's useParams() threw an "invalid hook" error.
     const { match } = this.props;
     const { id } = match.params;
+    const personRecord = await getPersonById(id);
+    const {
+      Email: email,
+      'Phone Number': phoneNumber,
+      Owner: ownerId,
+      Name: name,
+      'User Login': userLoginID,
+      City: city,
+      Street: street,
+      State: state,
+      Zipcode: zipCode
+    } = personRecord;
+
+    const ownerRecord = await getOwnerById(ownerId);
+    const { 'Project Group': projectGroupID } = ownerRecord;
+    const projectRecord = await getProjectGroupById(projectGroupID);
+    const { Name: projectGroupName } = projectRecord;
     this.setState({
-      id
+      id,
+      email,
+      updateEmail: email,
+      name,
+      updateName: name,
+      phoneNumber,
+      updatePhone: phoneNumber,
+      userLoginID: userLoginID[0],
+      street,
+      updateStreet: street,
+      city,
+      updateCity: city,
+      state,
+      updateState: state,
+      zipcode: zipCode,
+      updateZip: zipCode,
+      projectGroup: projectGroupName,
+      isLoading: false
     });
-
-    let email;
-    let phoneNumber;
-    let name;
-    let owner;
-    let city;
-    let street;
-    let state;
-    let zipCode;
-    let userLoginID;
-
-    getPersonById(id)
-      .then(payload => {
-        ({
-          Email: email,
-          'Phone Number': phoneNumber,
-          Owner: owner,
-          Name: name,
-          'User Login': userLoginID,
-          City: city,
-          Street: street,
-          State: state,
-          Zipcode: zipCode
-        } = payload);
-        this.setState({
-          email,
-          updateEmail: email,
-          name,
-          updateName: name,
-          phoneNumber,
-          updatePhone: phoneNumber,
-          userLoginID: userLoginID[0],
-          street,
-          updateStreet: street,
-          city,
-          updateCity: city,
-          state,
-          updateState: state,
-          zipcode: zipCode,
-          updateZip: zipCode
-        });
-
-        // Getting project group
-        return getOwnerById(owner);
-      })
-      .then(payload => {
-        const { 'Project Group': projectGroupID } = payload;
-
-        return getProjectGroupById(projectGroupID);
-      })
-      .then(payload => {
-        const { Name: projectGroupName } = payload;
-        this.setState({
-          projectGroup: projectGroupName,
-          isLoading: false
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 
   handleChange(event) {
@@ -121,7 +95,7 @@ export default class UserProfilePage extends React.Component {
     });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const {
       id,
@@ -153,43 +127,27 @@ export default class UserProfilePage extends React.Component {
       Email: updateEmail
     };
     // console.log(`UPDATE: ${userLoginID}`);
-    updatePerson(id, newPerson)
-      .then(() => {
-        this.setState({
-          status: STATUS_IN_PROGRESS,
-          name: updateName,
-          email: updateEmail,
-          street: updateStreet,
-          city: updateCity,
-          state: updateState,
-          zipcode: updateZip
-        });
-        return updateUserLogin(userLoginID, newLogin);
-      })
-      .then(payload => {
-        console.log(payload === '');
-        if (payload === '') {
-          this.setState({
-            status: STATUS_ERR,
-            name: updateName,
-            email: updateEmail,
-            street: updateStreet,
-            city: updateCity,
-            state: updateState,
-            zipcode: updateZip
-          });
-        } else {
-          this.setState({
-            status: STATUS_SUCCESS,
-            name: updateName,
-            email: updateEmail,
-            street: updateStreet,
-            city: updateCity,
-            state: updateState,
-            zipcode: updateZip
-          });
-        }
+    await updatePerson(id, newPerson);
+    this.setState({
+      status: STATUS_IN_PROGRESS
+    });
+    const result = await updateUserLogin(userLoginID, newLogin);
+
+    if (result === '') {
+      this.setState({
+        status: STATUS_ERR
       });
+    } else {
+      this.setState({
+        status: STATUS_SUCCESS,
+        name: updateName,
+        email: updateEmail,
+        street: updateStreet,
+        city: updateCity,
+        state: updateState,
+        zipcode: updateZip
+      });
+    }
   }
 
   render() {

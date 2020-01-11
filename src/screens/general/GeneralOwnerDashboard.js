@@ -28,7 +28,7 @@ export default class GeneralOwnerDashboard extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { history, updateState } = this.props;
     const personId = getLoggedInUserId();
     if (!personId) {
@@ -37,83 +37,56 @@ export default class GeneralOwnerDashboard extends React.Component {
       return;
     }
 
-    let email;
-    let phoneNumber;
-    let name;
-    let owner;
-    let city;
-    let street;
-    let zipCode;
-    let state;
+    const personRecord = await getPersonById(personId);
+    const {
+      Name: name,
+      Email: email,
+      'Phone Number': phoneNumber,
+      Owner: ownerId,
+      City: city,
+      Street: street,
+      State: state,
+      'Zip Code': zipCode
+    } = personRecord;
 
-    // Get Person record from person id
-    getPersonById(personId)
-      .then(payload => {
-        ({
-          Name: name,
-          Email: email,
-          'Phone Number': phoneNumber,
-          Owner: owner,
-          City: city,
-          Street: street,
-          State: state,
-          'Zip Code': zipCode
-        } = payload);
+    this.setState({
+      email,
+      name,
+      phoneNumber,
+      address: `${street}, ${city}, ${state} ${zipCode}`,
+      isLoadingDetails: false
+    });
 
-        this.setState({
-          email,
-          name,
-          phoneNumber,
-          address: `${street}, ${city}, ${state} ${zipCode}`,
+    updateState(personId, name);
+    const ownerRecord = await getOwnerById(ownerId);
+    const { 'Project Group': projectGroupID } = ownerRecord;
+    const projectRecord = await getProjectGroupById(projectGroupID);
+    const {
+      Name: projectGroupName,
+      'Solar Project': solarProject
+    } = projectRecord;
 
-          isLoadingDetails: false
-        });
-
-        updateState(personId, name);
-
-        // then get Owner record from owner id
-        return getOwnerById(owner);
-      })
-      .then(payload => {
-        const { 'Project Group': projectGroupID } = payload;
-        this.setState({
-          projectGroupID
-        });
-        // then get Project Group from project group id
-        return getProjectGroupById(projectGroupID);
-      })
-      .then(payload => {
-        const {
-          Name: projectGroupName,
-          'Solar Project': solarProject
-        } = payload;
-        this.setState({
-          projectGroup: projectGroupName
-        });
-        const solarProjectNames = [];
-        solarProject.forEach(project => {
-          getSolarProjectById(project).then(res => {
-            solarProjectNames.push(res.Name);
-            this.setState({
-              solarProject: solarProjectNames
-            });
-          });
-        });
-      })
-      .then(() => {
-        const { projectGroupID } = this.state;
-        console.log('I SEE THIS');
-        return getAnnouncementsByProjectGroup(projectGroupID);
-      })
-      .then(payload => {
-        this.setState({
-          cards: payload,
-          isLoadingCards: false
-        });
-      })
-      .catch(err => {
-        console.log(err);
+    const solarProjectNames = [];
+    solarProject.forEach(async project => {
+      const solarProjectRecord = await getSolarProjectById(project);
+      solarProjectNames.push(solarProjectRecord.Name);
+      // TODO Fix this lol, way too many unnecessary setState calls
+      this.setState({
+        solarProject: solarProjectNames
       });
+    });
+    const announcementRecords = await getAnnouncementsByProjectGroup(
+      projectGroupID
+    );
+
+    this.setState({
+      projectGroupID,
+
+      projectGroup: projectGroupName,
+
+      cards: announcementRecords,
+      isLoadingCards: false
+    });
   }
 
   handleLogoutClick = () => {
