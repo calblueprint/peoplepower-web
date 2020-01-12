@@ -15,6 +15,7 @@
     "react-paypal-button-v2": "^2.4.1",
     "react-router-dom": "^5.1.1",
     "react-scripts": "3.1.2",
+    "react-table-v6": "^6.8.6",
     "semantic-ui-react": "^0.88.1",
     "universal-cookie": "^4.0.2"
   },

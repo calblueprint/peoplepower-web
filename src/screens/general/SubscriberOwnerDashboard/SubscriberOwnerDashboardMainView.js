@@ -1,12 +1,28 @@
 import React from 'react';
+import ReactTable from 'react-table-v6';
 import { PayPalButton } from 'react-paypal-button-v2';
+import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
-import { centsToDollars } from '../../../lib/subscriberUtils';
+import { centsToDollars, dateToWord } from '../../../lib/subscriberUtils';
 import { recordBillPaymentSuccess } from '../../../lib/paypal';
-import PanelBillHeader from './PanelBillHeader';
-import PanelBillRow from './PanelBillRow';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
+
+function generateBillDisplayHeader(headerText) {
+  return () => (
+    <div className="subscriber-bills-display-header">{headerText}</div>
+  );
+}
+
+function dateToFullMonth(date) {
+  return dateToWord[parseInt(date.split('-')[1], 10)];
+}
+
+// expected format of date: YYYY-MM-DD
+function formatDate(date) {
+  const dateArr = date.split('-');
+  return `${parseInt(dateArr[1], 10)}/${dateArr[2]}/${dateArr[0]}`;
+}
 
 export default class SubscriberOwnerDashboardMainView extends React.Component {
   constructor(props) {
@@ -37,6 +53,15 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
   render() {
     const { transactions, callback } = this.props;
     let { latestBill } = this.state;
+    const data = transactions.map(transaction => {
+      return {
+        startDate: transaction['Start Date'],
+        statementDate: formatDate(transaction['Statement Date']),
+        description: `${dateToFullMonth(transaction['Start Date'])} Power Bill`,
+        status: transaction.Status,
+        amtDue: `$${centsToDollars(transaction['Amount Due'])}`
+      };
+    });
     if (!latestBill) {
       latestBill = { 'Amount Due': 0 };
     }
@@ -104,19 +129,65 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                 →
               </button>
             </div>
-            <div className="col-card billing-history-card-holder">
-              <PanelBillHeader />
-              {transactions.map(transaction => {
-                return (
-                  <PanelBillRow
-                    key={transaction['Start Date']}
-                    statementDate={transaction['Statement Date']}
-                    startDate={transaction['Start Date']}
-                    status={transaction.Status}
-                    amtDue={centsToDollars(transaction['Amount Due'])}
-                  />
-                );
-              })}
+            <div className="col-card">
+              <ReactTable
+                data={data}
+                columns={[
+                  {
+                    Header: generateBillDisplayHeader('DATE'),
+                    id: 'statementDate',
+                    accessor: d => (
+                      <div className="subscriber-bills-display-row">
+                        {d.statementDate}
+                      </div>
+                    )
+                    // width: 100
+                  },
+                  {
+                    Header: generateBillDisplayHeader('DESCRIPTION'),
+                    id: 'description',
+                    accessor: d => (
+                      <div className="subscriber-bills-display-row">
+                        <b>{d.description}</b>
+                      </div>
+                    ),
+                    width: 200
+                  },
+                  {
+                    Header: generateBillDisplayHeader('CHARGE'),
+                    id: 'amtDue',
+                    accessor: d => (
+                      <div className="subscriber-bills-display-row">
+                        {d.amtDue}
+                      </div>
+                    )
+                    // width: 150
+                  },
+                  {
+                    Header: generateBillDisplayHeader('PAYMENT'),
+                    id: 'payment',
+                    accessor: d => (
+                      <div className="subscriber-bills-display-row">
+                        {d.payment}
+                      </div>
+                    )
+                    // width: 150
+                  },
+                  {
+                    Header: generateBillDisplayHeader('STATUS'),
+                    id: 'status',
+                    accessor: d => (
+                      <div className="subscriber-bills-display-row">
+                        {d.status}
+                      </div>
+                    )
+                    // width: 100
+                  }
+                ]}
+                defaultPageSize={6}
+                className="-highlight rt-custom-pp-style"
+                showPagination={false}
+              />
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './Card';
+import AdminDashboardCard from './AdminDashboardCard';
 import '../../styles/AdminDashboard.css';
 import { getLoggedInUserId } from '../../lib/auth';
 import LoadingComponent from '../../components/LoadingComponent';
@@ -102,7 +102,7 @@ export default class AdminDashboard extends React.Component {
               {owners.length >= 1 ? (
                 owners.map(owner => {
                   return (
-                    <Card
+                    <AdminDashboardCard
                       name={owner.ID}
                       callback={idToRemove => this.removeUser(idToRemove)}
                       ownerId={owner[OWNER_ID_FIELD]}

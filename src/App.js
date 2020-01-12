@@ -84,12 +84,45 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route path="/admin" component={AdminDashboard} />
-            <Route path="/community" component={Community} />
-            <Route path="/billing" component={SubscriberOwnerDashboard} />
-            <Route path="/community" component={Community} />
-            <Route path="/admin" component={AdminDashboard} />
-            <Route path="/profile/:id" component={UserProfilePage} />
+            <Route
+              path="/admin"
+              render={props => (
+                <AdminDashboard {...props} updateState={this.updateState} />
+              )}
+            />
+            <Route
+              path="/community"
+              render={props => (
+                <Community {...props} updateState={this.updateState} />
+              )}
+            />
+            <Route
+              path="/billing"
+              render={props => (
+                <SubscriberOwnerDashboard
+                  {...props}
+                  updateState={this.updateState}
+                />
+              )}
+            />
+            <Route
+              path="/community"
+              render={props => (
+                <Community {...props} updateState={this.updateState} />
+              )}
+            />
+            <Route
+              path="/admin"
+              render={props => (
+                <AdminDashboard {...props} updateState={this.updateState} />
+              )}
+            />
+            <Route
+              path="/profile/:id"
+              render={props => (
+                <UserProfilePage {...props} updateState={this.updateState} />
+              )}
+            />
             <Route>
               <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>
             </Route>

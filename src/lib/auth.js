@@ -21,7 +21,6 @@ const loginUser = async (email, passwordHash) => {
 
   const record = records[0];
   if (record[Columns.UserLogin.Password] === passwordHash) {
-    console.log(record);
     const personId = record[Columns.UserLogin.Person][0];
     setLoginCookie(personId);
     return { match: true, found: true };

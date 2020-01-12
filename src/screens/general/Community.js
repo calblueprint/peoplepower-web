@@ -1,4 +1,5 @@
 import React from 'react';
+import 'react-table-v6/react-table.css';
 import '../../styles/Community.css';
 import {
   getAnnouncementsByProjectGroup,
