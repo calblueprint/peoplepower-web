@@ -110,13 +110,7 @@ const getSubscriberBills = async loggedInUserId => {
     transactions.sort((a, b) => {
       return new Date(b['Transaction Date']) - new Date(a['Transaction Date']);
     });
-
-    for (let i = 0; i < transactions.length; i += 1) {
-      if (transactions[i].Type === BILL_TYPE) {
-        transactions[i]['Is Latest'] = true;
-        break;
-      }
-    }
+    
     return { transactions, pendingBills };
   } catch (err) {
     console.log(err);
