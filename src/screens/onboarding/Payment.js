@@ -22,11 +22,11 @@ class Payment extends React.Component {
     const { values } = this.props;
     recordShareBuySuccess(details, data, values); // TODO(dfangshuo): no await?
     console.log('Paypal success');
-    this.nextButton();
+    this.continue();
   };
 
   // Only called after user has paid
-  nextButton = () => {
+  continue = () => {
     const { values, nextStep } = this.props;
     const { userId } = values;
 
@@ -200,7 +200,7 @@ class Payment extends React.Component {
             {/* <button
               type="button"
               className="continue-button"
-              onClick={this.nextButton}
+              onClick={this.continue}
             >
               Continue
             </button> */}

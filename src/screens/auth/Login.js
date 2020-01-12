@@ -39,11 +39,15 @@ class Login extends React.Component {
   handleSubmit = async evt => {
     const { email, passwordHash } = this.state;
     evt.preventDefault();
-    const res = await loginUser(email, passwordHash); // TODO(dfangshuo): uncaught exception
-    if (res.found && res.match) {
-      this.segueToHome(evt);
-    } else {
-      // alert('Invalid email or password!');
+    try {
+      const res = await loginUser(email, passwordHash);
+      if (res.found && res.match) {
+        this.segueToHome(evt);
+      } else {
+        // alert('Invalid email or password!');
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
