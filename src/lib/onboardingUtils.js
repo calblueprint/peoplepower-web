@@ -210,7 +210,7 @@ const createPersonOwnerUserLoginRecord = async (
       password,
       numRetries - 1
     );
-    setLoginCookie(createdPersonId);
+    setLoginCookie(createdPersonId, fullName);
     return { createdOwnerId, createdPersonId, createdUserLoginId };
   } catch (err) {
     console.error(err);

@@ -1,14 +1,14 @@
 import Cookies from 'universal-cookie';
 import constants from '../constants';
-import { getUserLoginsByEmail } from './request';
+import { getPersonById, getUserLoginsByEmail } from './request';
 import { Columns } from './schema';
 
 const { LOGIN_TOKEN_NAME } = constants;
 
 const cookies = new Cookies();
 
-const setLoginCookie = id => {
-  cookies.set(LOGIN_TOKEN_NAME, id);
+const setLoginCookie = (id, name) => {
+  cookies.set(LOGIN_TOKEN_NAME, { id, name });
 };
 
 const loginUser = async (email, passwordHash) => {
@@ -22,7 +22,10 @@ const loginUser = async (email, passwordHash) => {
   const record = records[0];
   if (record[Columns.UserLogin.Password] === passwordHash) {
     const personId = record[Columns.UserLogin.Person][0];
-    setLoginCookie(personId);
+    const personRecord = await getPersonById(personId);
+    const { Name: name } = personRecord;
+
+    setLoginCookie(personId, name);
     return { match: true, found: true };
   }
 
@@ -30,11 +33,31 @@ const loginUser = async (email, passwordHash) => {
 };
 
 const getLoggedInUserId = () => {
-  return cookies.get(LOGIN_TOKEN_NAME);
+  const cookie = cookies.get(LOGIN_TOKEN_NAME);
+  if (!cookie) {
+    return undefined;
+  }
+
+  return cookie.id;
+};
+
+const getLoggedInUserName = () => {
+  const cookie = cookies.get(LOGIN_TOKEN_NAME);
+  if (!cookie) {
+    return undefined;
+  }
+
+  return cookie.name;
 };
 
 const logOut = () => {
   cookies.remove(LOGIN_TOKEN_NAME);
 };
 
-export { loginUser, setLoginCookie, getLoggedInUserId, logOut };
+export {
+  loginUser,
+  setLoginCookie,
+  getLoggedInUserId,
+  getLoggedInUserName,
+  logOut
+};
