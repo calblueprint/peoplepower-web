@@ -2,7 +2,14 @@ import React from 'react';
 import ReactTable from 'react-table-v6';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
-import { centsToDollars, dateToWord } from '../../../lib/subscriberUtils';
+import {
+  centsToDollars,
+  dateToWord,
+  formatStatus
+} from '../../../lib/subscriberUtils';
+import constants from '../../../constants';
+
+const { ONLINE_PAYMENT_TYPE } = constants;
 
 function dateToFullMonth(date) {
   return dateToWord[parseInt(date.split('-')[1], 10)];
@@ -25,14 +32,6 @@ function generateAllBillsHeader(headerText) {
 }
 
 export default class SubscriberOwnerDashboardAllBillsView extends React.Component {
-  constructor(props) {
-    super(props);
-    const { transactions } = this.props;
-    this.state = {
-      bills: transactions
-    };
-  }
-
   componentDidMount() {
     const { history, personId } = this.props;
     if (!personId) {
@@ -42,15 +41,38 @@ export default class SubscriberOwnerDashboardAllBillsView extends React.Componen
   }
 
   render() {
-    const { bills } = this.state;
-    const { callback } = this.props;
-    const data = bills.map(bill => {
+    const { callback, transactions } = this.props;
+    const data = transactions.map(transaction => {
+      if (transaction.Type === ONLINE_PAYMENT_TYPE) {
+        return {
+          balance: '$0.00',
+          statementDate: dateToDateString(transaction['Transaction Date']),
+          description: transaction.Type,
+          status: formatStatus(transaction.Status),
+          payment: `$${centsToDollars(transaction.Amount)}`
+
+          /*
+              Commented out data fields potentially useful for dashbaord (future changes)
+            */
+          // endDate: bill['End Date'],
+          // rate_schedule
+          // estimatedRebate: centsToDollars(bill['Estimated Rebate']),
+          // totalEstimatedRebate: centsToDollars(
+          //   bill['Total Estimated Rebate']
+          // ),
+          // amtDueOnPrev: centsToDollars(bill['Amount Due on Previous']),
+          // amtReceivedSincePrev: centsToDollars(
+          //   bill['Amount Received Since Previous']
+          // ),
+        };
+      }
+
       return {
-        balance: `$${centsToDollars(bill.Balance)}`,
-        statementDate: dateToDateString(bill['Statement Date']),
-        description: `${dateToFullMonth(bill['Start Date'])} Power Bill`,
-        status: bill.Status,
-        amtDue: `$${centsToDollars(bill['Amount Due'])}`
+        balance: `$${centsToDollars(transaction.Balance)}`,
+        statementDate: dateToDateString(transaction['Transaction Date']),
+        description: `${dateToFullMonth(transaction['Start Date'])} Power Bill`,
+        status: transaction.Status,
+        amtDue: `$${centsToDollars(transaction['Amount Due'])}`
 
         /*
             Commented out data fields potentially useful for dashbaord (future changes)
@@ -113,9 +135,7 @@ export default class SubscriberOwnerDashboardAllBillsView extends React.Componen
               Header: generateAllBillsHeader('PAYMENT'),
               id: 'payment',
               accessor: d => (
-                <div className="subscriber-all-bills-row">
-                  <b>{d.payment}</b>
-                </div>
+                <div className="subscriber-all-bills-row">{d.payment}</div>
               )
             },
             {

@@ -3,8 +3,16 @@ import ReactTable from 'react-table-v6';
 import { PayPalButton } from 'react-paypal-button-v2';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
-import { centsToDollars, dateToWord } from '../../../lib/subscriberUtils';
+import {
+  centsToDollars,
+  dateToWord,
+  formatStatus
+} from '../../../lib/subscriberUtils';
 import { recordBillPaymentSuccess } from '../../../lib/paypal';
+
+import constants from '../../../constants';
+
+const { ONLINE_PAYMENT_TYPE } = constants;
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
@@ -54,9 +62,19 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
     const { transactions, callback } = this.props;
     let { latestBill } = this.state;
     const data = transactions.map(transaction => {
+      if (transaction.Type === ONLINE_PAYMENT_TYPE) {
+        return {
+          startDate: transaction['Start Date'],
+          statementDate: formatDate(transaction['Transaction Date']),
+          description: transaction.Type,
+          status: formatStatus(transaction.Status),
+          payment: `$${centsToDollars(transaction.Amount)}`
+        };
+      }
+
       return {
         startDate: transaction['Start Date'],
-        statementDate: formatDate(transaction['Statement Date']),
+        statementDate: formatDate(transaction['Transaction Date']),
         description: `${dateToFullMonth(transaction['Start Date'])} Power Bill`,
         status: transaction.Status,
         amtDue: `$${centsToDollars(transaction['Amount Due'])}`

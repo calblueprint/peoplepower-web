@@ -1,7 +1,22 @@
-import { getOwnerById, getSubscriberBillById } from './request';
+import { getOwnerById, getPaymentById, getSubscriberBillById } from './request';
 import getOwnerIdFromPersonId from './personUtils';
 
 import { Columns } from './schema';
+import constants from '../constants';
+
+const { BILL_TYPE, ONLINE_PAYMENT_TYPE } = constants;
+
+const formatStatus = status => {
+  return (([firstLetter, ...rest]) =>
+    [firstLetter.toLocaleUpperCase(), ...rest].join(''))(status.toLowerCase());
+};
+
+const convertDateTimeToDate = dateTimeString => {
+  if (dateTimeString) {
+    return dateTimeString.slice(0, 10);
+  }
+  return null;
+};
 
 const areDiffBills = (b1, b2) => {
   if (b1 === b2) return false;
@@ -36,36 +51,51 @@ const dateToWord = {
   12: 'December'
 };
 
-const getBillsFromOwnerId = async ownerId => {
+const getBillsAndPaymentsFromOwnerId = async ownerId => {
   const owner = await getOwnerById(ownerId);
-  return owner[Columns.Owner.SubscriberBill];
+  return {
+    billIds: owner[Columns.Owner.SubscriberBill],
+    paymentIds: owner[Columns.Owner.Payment]
+  };
 };
 
-const getSubscriberBills = async (loggedInUserId, callback) => {
+const getSubscriberBills = async loggedInUserId => {
   try {
     const ownerId = await getOwnerIdFromPersonId(loggedInUserId);
-    const billIds = await getBillsFromOwnerId(ownerId);
+    const { billIds, paymentIds } = await getBillsAndPaymentsFromOwnerId(
+      ownerId
+    );
+
+    if (!billIds && !paymentIds) {
+      return [];
+    }
 
     const billPromises = [];
+    const paymentPromises = [];
+    const transactions = [];
+
     if (billIds) {
       billIds.forEach(billId => {
         billPromises.push(getSubscriberBillById(billId));
       });
-    } else {
-      callback([]);
     }
-
     const billObjects = await Promise.all(billPromises);
 
-    const bills = [];
+    if (paymentIds) {
+      paymentIds.forEach(paymentId => {
+        paymentPromises.push(getPaymentById(paymentId));
+      });
+    }
+    const paymentObjects = await Promise.all(paymentPromises);
+
     let isLatest = true;
     if (billObjects) {
       billObjects.forEach(billObject => {
         // if (!billObject.Payment) {
-        bills.push({
+        transactions.push({
           ID: billObject.ID,
           'Subscriber Owner': billObject['Subscriber Owner'][0], // assumes exactly 1 subscriber owner
-          'Statement Date': billObject['Statement Date'],
+          'Transaction Date': billObject['Statement Date'],
           'Start Date': billObject['Start Date'],
           'End Date': billObject['End Date'],
           'Rate Schedule': billObject['Rate Schedule'],
@@ -77,6 +107,7 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
           'Amount Due': billObject['Amount Due'],
           Status: billObject.Status,
           Balance: billObject.Balance,
+          Type: BILL_TYPE, // Type is a local variable inserted to distinguish between bill payments and online payments
           'Is Latest': isLatest
         });
         isLatest = false;
@@ -84,10 +115,24 @@ const getSubscriberBills = async (loggedInUserId, callback) => {
       });
     }
 
-    callback(bills);
+    if (paymentObjects) {
+      paymentObjects.forEach(paymentObject => {
+        transactions.push({
+          'Transaction Date': convertDateTimeToDate(
+            paymentObject['Payment Create Time']
+          ),
+          Type: ONLINE_PAYMENT_TYPE, // Type is a local variable inserted to distinguish between bill payments and online payments
+          Amount: paymentObject.Amount,
+          Status: paymentObject.Status
+        });
+      });
+    }
+    return transactions.sort((a, b) => {
+      return new Date(b['Transaction Date']) - new Date(a['Transaction Date']);
+    });
   } catch (err) {
     console.log(err);
-    callback(null);
+    return null;
   }
 };
 
@@ -95,6 +140,6 @@ export {
   areDiffBills,
   centsToDollars,
   dateToWord,
-  getBillsFromOwnerId,
+  formatStatus,
   getSubscriberBills
 };

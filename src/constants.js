@@ -13,7 +13,11 @@ const constants = {
 
   // PAYPAL PAYMENT TYPES
   BILL_PAYMENT_TYPE: 'Bill Payment',
-  BUY_SHARES_TYPE: 'Buy Shares'
+  BUY_SHARES_TYPE: 'Buy Shares',
+
+  // TRANSACTION TYPES
+  BILL_TYPE: 'Bill',
+  ONLINE_PAYMENT_TYPE: 'Online Payment'
 };
 
 export default constants;

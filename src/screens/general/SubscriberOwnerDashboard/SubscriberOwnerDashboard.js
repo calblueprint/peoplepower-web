@@ -17,7 +17,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { history } = this.props;
     const personId = getLoggedInUserId();
     if (!personId) {
@@ -31,28 +31,17 @@ export default class SubscriberOwnerDashboard extends React.Component {
       const { updateState } = this.props;
       const name = getLoggedInUserName();
       updateState(personId, name);
-
-      this.getBills(personId);
-    }
-  }
-
-  getBills(personId) {
-    getSubscriberBills(personId, this.updateState);
-  }
-
-  updateState = transactions => {
-    if (transactions == null) {
-      console.error('transactions argument to updateState is null');
-      return;
-    }
-
-    this.setState(prevState => {
-      if (areDiffBills(prevState.transactions, transactions)) {
-        return { transactions, isReady: true };
+      const transactions = await getSubscriberBills(personId);
+      if (transactions) {
+        this.setState(prevState => {
+          if (areDiffBills(prevState.transactions, transactions)) {
+            return { transactions, isReady: true };
+          }
+          return { isReady: true };
+        });
       }
-      return { isReady: true };
-    });
-  };
+    }
+  }
 
   seeSubscriberOwnerDashboardAllBillsView() {
     this.setState({
