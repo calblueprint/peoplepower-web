@@ -4,7 +4,7 @@ import getOwnerIdFromPersonId from './personUtils';
 import { Columns } from './schema';
 import constants from '../constants';
 
-const { BILL_TYPE, ONLINE_PAYMENT_TYPE } = constants;
+const { BILL_TYPE, ONLINE_PAYMENT_TYPE, COMPLETED_STATUS } = constants;
 
 const formatStatus = status => {
   return (([firstLetter, ...rest]) =>
@@ -67,12 +67,13 @@ const getSubscriberBills = async loggedInUserId => {
     );
 
     if (!billIds && !paymentIds) {
-      return [];
+      return { transactions: [], totalBalance: 0 };
     }
 
     const billPromises = [];
     const paymentPromises = [];
     const transactions = [];
+    const pendingBills = [];
 
     if (billIds) {
       billIds.forEach(billId => {
@@ -90,8 +91,7 @@ const getSubscriberBills = async loggedInUserId => {
 
     if (billObjects) {
       billObjects.forEach(billObject => {
-        // if (!billObject.Payment) {
-        transactions.push({
+        const bill = {
           ID: billObject.ID,
           'Subscriber Owner': billObject['Subscriber Owner'][0], // assumes exactly 1 subscriber owner
           'Transaction Date': billObject['Statement Date'],
@@ -107,8 +107,12 @@ const getSubscriberBills = async loggedInUserId => {
           Status: billObject.Status,
           Balance: billObject.Balance,
           Type: BILL_TYPE // Type is a local variable inserted to distinguish between bill payments and online payments
-        });
-        // }
+        };
+
+        transactions.push(bill);
+        if (billObject.Status !== COMPLETED_STATUS) {
+          pendingBills.push(bill);
+        }
       });
     }
 
@@ -134,7 +138,7 @@ const getSubscriberBills = async loggedInUserId => {
         break;
       }
     }
-    return transactions;
+    return { transactions, pendingBills };
   } catch (err) {
     console.log(err);
     return null;

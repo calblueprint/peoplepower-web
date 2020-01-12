@@ -31,11 +31,11 @@ export default class SubscriberOwnerDashboard extends React.Component {
       const { updateState } = this.props;
       const name = getLoggedInUserName();
       updateState(personId, name);
-      const transactions = await getSubscriberBills(personId);
+      const { transactions, pendingBills } = await getSubscriberBills(personId);
       if (transactions) {
         this.setState(prevState => {
           if (areDiffBills(prevState.transactions, transactions)) {
-            return { transactions, isReady: true };
+            return { transactions, pendingBills, isReady: true };
           }
           return { isReady: true };
         });
@@ -56,7 +56,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
   }
 
   render() {
-    const { mode, transactions, isReady, personId } = this.state;
+    const { mode, transactions, isReady, pendingBills, personId } = this.state;
     if (!isReady) {
       return <LoadingComponent />;
     }
@@ -65,6 +65,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
         <SubscriberOwnerDashboardMainView
           callback={() => this.seeSubscriberOwnerDashboardAllBillsView()}
           transactions={transactions}
+          pendingBills={pendingBills}
           personId={personId}
         />
       );

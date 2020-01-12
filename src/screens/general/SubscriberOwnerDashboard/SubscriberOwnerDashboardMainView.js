@@ -73,6 +73,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
       }
 
       return {
+        balance: transaction.Balance,
         startDate: transaction['Start Date'],
         statementDate: formatDate(transaction['Transaction Date']),
         description: `${dateToFullMonth(transaction['Start Date'])} Power Bill`,
@@ -81,9 +82,12 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
       };
     });
     if (!latestBill) {
-      latestBill = { 'Amount Due': 0 };
+      latestBill = { Balance: 0 };
     }
-    const amtDue = centsToDollars(latestBill['Amount Due']);
+    const { pendingBills } = this.props;
+    const totalBalance = pendingBills
+      .map(pendingBill => pendingBill.Balance)
+      .reduce((a, b) => a + b, 0);
     return (
       <div className="subscriber-dash-outer-container">
         <h3>My Finances</h3>
@@ -94,15 +98,13 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
               <div className="class-elems">
                 <div className="balance-header-section">
                   <p>Your Balance</p>
-                  <h3>${centsToDollars(latestBill['Amount Due'])}</h3>
+                  <h3>${centsToDollars(totalBalance)}</h3>
                 </div>
                 <hr id="divider" />
                 <div className="balance-nums-section">
                   <div className="balance-nums-line">
                     <p className="line-item descrip">Due Now</p>
-                    <p className="line-item">
-                      ${centsToDollars(latestBill['Amount Due'])}
-                    </p>
+                    <p className="line-item">${centsToDollars(totalBalance)}</p>
                   </div>
                   <div className="balance-nums-line">
                     <p className="line-item descrip">Upcoming</p>
@@ -115,9 +117,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                       <strong>Total</strong>
                     </p>
                     <p className="line-item">
-                      <strong>
-                        ${centsToDollars(latestBill['Amount Due'])}
-                      </strong>
+                      <strong>${centsToDollars(totalBalance)}</strong>
                     </p>
                   </div>
                 </div>
@@ -126,7 +126,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                 <br />
                 <div className="subscriber-dashboard-paypal-component">
                   <PayPalButton
-                    amount={amtDue}
+                    amount={centsToDollars(totalBalance)}
                     onSuccess={this.onPaypalPaymentSuccess}
                     options={{
                       clientId
