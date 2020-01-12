@@ -88,7 +88,6 @@ const getSubscriberBills = async loggedInUserId => {
     }
     const paymentObjects = await Promise.all(paymentPromises);
 
-    let isLatest = true;
     if (billObjects) {
       billObjects.forEach(billObject => {
         // if (!billObject.Payment) {
@@ -107,10 +106,8 @@ const getSubscriberBills = async loggedInUserId => {
           'Amount Due': billObject['Amount Due'],
           Status: billObject.Status,
           Balance: billObject.Balance,
-          Type: BILL_TYPE, // Type is a local variable inserted to distinguish between bill payments and online payments
-          'Is Latest': isLatest
+          Type: BILL_TYPE // Type is a local variable inserted to distinguish between bill payments and online payments
         });
-        isLatest = false;
         // }
       });
     }
@@ -127,9 +124,17 @@ const getSubscriberBills = async loggedInUserId => {
         });
       });
     }
-    return transactions.sort((a, b) => {
+    transactions.sort((a, b) => {
       return new Date(b['Transaction Date']) - new Date(a['Transaction Date']);
     });
+
+    for (let i = 0; i < transactions.length; i += 1) {
+      if (transactions[i].Type === BILL_TYPE) {
+        transactions[i]['Is Latest'] = true;
+        break;
+      }
+    }
+    return transactions;
   } catch (err) {
     console.log(err);
     return null;
