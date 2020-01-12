@@ -18,7 +18,8 @@ const constants = {
   // TRANSACTION TYPES AND STATUS
   BILL_TYPE: 'Bill',
   ONLINE_PAYMENT_TYPE: 'Online Payment',
-  COMPLETED_STATUS: 'Completed'
+  COMPLETED_STATUS: 'Completed',
+  PENDING_STATUS: 'Pending'
 };
 
 export default constants;

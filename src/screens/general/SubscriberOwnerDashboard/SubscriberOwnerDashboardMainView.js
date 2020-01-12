@@ -5,7 +5,7 @@ import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import { centsToDollars, formatStatus } from '../../../lib/subscriberUtils';
 import { dateToFullMonth, formatDate } from '../../../lib/dateUtils';
-import { recordBillPaymentSuccess } from '../../../lib/paypal';
+import { getTotalBalanceFromBills, recordPendingBillsPaymentSuccess } from '../../../lib/paypal';
 
 import constants from '../../../constants';
 
@@ -59,8 +59,8 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
 
   onPaypalPaymentSuccess = async (details, data) => {
     try {
-      const { latestBill } = this.state;
-      await recordBillPaymentSuccess(details, data, latestBill);
+      const { pendingBills } = this.props;
+      await recordPendingBillsPaymentSuccess(details, data, pendingBills);
     } catch (err) {
       console.error(err);
     }
@@ -80,9 +80,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
       latestBill = { Balance: 0 };
     }
     const { pendingBills } = this.props;
-    const totalBalance = pendingBills
-      .map(pendingBill => pendingBill.Balance)
-      .reduce((a, b) => a + b, 0);
+    const totalBalance = getTotalBalanceFromBills(pendingBills);
     return (
       <div className="subscriber-dash-outer-container">
         <h3>My Finances</h3>
@@ -103,7 +101,8 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                   </div>
                   <div className="balance-nums-line">
                     <p className="line-item descrip">Upcoming</p>
-                    <p className="line-item">$0.00</p>
+                    <p className="line-item">$0.00</p>{' '}
+                    {/* TODO: currently assumes all bills due now */}
                   </div>
                   <br />
                   <br />
