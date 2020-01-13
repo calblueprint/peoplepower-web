@@ -9,28 +9,32 @@ import {
   deleteRecord
 } from '../../lib/airtable';
 
+const RECORD_NOT_FOUND_ERR = 'Record not found';
 const TEST_TABLE = 'Test (Development)';
 const TEST_FIELD = 'Tag';
 const TEST_TAG = '7_NuQ6a?';
-const NUM_ENTRIES = 1;
 const testId = 'rechutWysjm8RbJkq';
+
+// the structures below are
+// copies of records in Airtable.
+// If different, Airtable is source of truth
 const expectedTestResult = {
   ID: 'rechutWysjm8RbJkq',
   Name: 'TEST READ RECORD',
   Tag: TEST_TAG
 };
 
+const NUM_ENTRIES = 1;
+const expectedTestResultsArr = [expectedTestResult];
+
 const testNewRecord = {
   Name: 'TEST NEW RECORD',
   Tag: '83h)%uG9'
 };
 
-// Calls getRecordById on the TEST_TABLE and testId
-// verifies that the getRecordById returns the right record
-describe('getRecordById function', () => {
-  test('expect resolve', async () => {
-    const res = await getRecordById(TEST_TABLE, testId);
-    expect(res).toStrictEqual(expectedTestResult);
+describe('consistency of test data', () => {
+  test('expect true', async () => {
+    expect(expectedTestResultsArr.length).toBe(NUM_ENTRIES);
   });
 });
 
@@ -41,54 +45,72 @@ describe('getAllRecords function', () => {
   test('expect resolve', async () => {
     const res = await getAllRecords(TEST_TABLE);
     expect(res.length).toBe(NUM_ENTRIES);
+    expectedTestResultsArr.forEach((expectedRes, i) => {
+      expect(res[i]).toStrictEqual(expectedRes);
+    });
   });
 });
 
 // Calls getRecordsByAttribute on the TEST_TABLE, TEST_FIELD, and TEST_TAG
-// verifies that result is not undefined
-// TODO: doesn't actuallly check that the right record is returned
+// verifies that getRecordsByAttribute returns the right record
 describe('getRecordsByAttribute function', () => {
   test('expect resolve', async () => {
     const res = await getRecordsByAttribute(TEST_TABLE, TEST_FIELD, TEST_TAG);
-    expect(res).not.toBe(undefined);
+    expect(res).toStrictEqual(expectedTestResultsArr);
+  });
+});
+
+// Calls getRecordById on the TEST_TABLE and testId
+// verifies that the getRecordById returns the right record
+describe('getRecordById function', () => {
+  test('expect resolve', async () => {
+    const res = await getRecordById(TEST_TABLE, testId);
+    expect(res).toStrictEqual(expectedTestResult);
   });
 });
 
 // Calls createRecord on the TEST_TABLE and testNewRecord. Then, calls deleteRecord on
 // the TEST_TABLE and id
 // verifies that the id is returned and res is equal to {}
-// TODO: doesn't actually check that the record is created/destroyed on Airtable
-describe('createRecord/deleteRecord function', () => {
+
+// This test must run after the getRecordById test because it depends on getRecordById
+// working correctly
+describe('createRecord/updateRecord/deleteRecord functions', () => {
   test('expect resolve', async () => {
+    jest.setTimeout(10000);
+    let id;
+    let res;
     // create record
-    const id = await createRecord(TEST_TABLE, testNewRecord);
+    id = await createRecord(TEST_TABLE, testNewRecord);
     expect(id).not.toBe(null);
 
-    // delete record
-    const res = await deleteRecord(TEST_TABLE, id);
-    expect(res).toStrictEqual({});
-  });
-});
+    // verifies that the right record has been created
+    res = await getRecordById(TEST_TABLE, id);
+    expect(res.Name).toStrictEqual(testNewRecord.Name);
+    expect(res.Tag).toStrictEqual(testNewRecord.Tag);
 
-// Calls updateRecord on the TEST_TABLE, testId, and testUpdateRecord, then reverts the changes
-// verifies that the updateRecord returns the right id
-// TODO: doesn't actually check that the record is updated on Airtable
-describe('updateRecord function', () => {
-  // update record
-  test('expect resolve', async () => {
-    let testUpdateRecord = {
+    // update record
+    const testUpdateRecord = {
       Name: testNewRecord.Name,
       Tag: testNewRecord.Tag
     };
-    let id = await updateRecord(TEST_TABLE, testId, testUpdateRecord);
-    expect(id).toStrictEqual(testId);
+    id = await updateRecord(TEST_TABLE, id, testUpdateRecord);
+    expect(id).toStrictEqual(id);
 
-    // revert updates
-    testUpdateRecord = {
-      Name: expectedTestResult.Name,
-      Tag: expectedTestResult.Tag
-    };
-    id = await updateRecord(TEST_TABLE, testId, testUpdateRecord);
-    expect(id).toStrictEqual(testId);
+    // verifies that the right record has been updated
+    res = await getRecordById(TEST_TABLE, id);
+    expect(res.Name).toStrictEqual(testNewRecord.Name);
+    expect(res.Tag).toStrictEqual(testNewRecord.Tag);
+
+    // delete record
+    res = await deleteRecord(TEST_TABLE, id);
+    expect(res).toStrictEqual({});
+
+    try {
+      res = await getRecordById(TEST_TABLE, id);
+      throw new Error('Deleted record should not exist');
+    } catch (err) {
+      expect(err.message).toBe(RECORD_NOT_FOUND_ERR);
+    }
   });
 });

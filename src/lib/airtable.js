@@ -61,6 +61,7 @@ function getAllRecords(table) {
           if (records === null || records.length < 1) {
             const msg = `No record was retrieved using this ${table}.`;
             reject(msg);
+            return;
           }
 
           resolve(records.map(record => record.fields));
@@ -84,8 +85,8 @@ function getRecordById(table, id) {
   return new Promise(function(resolve, reject) {
     base(table).find(id, function(err, record) {
       if (err) {
-        console.error(err);
         reject(err);
+        return;
       }
 
       resolve(record.fields);
@@ -107,12 +108,13 @@ function getRecordsByAttribute(table, fieldType, field) {
       })
       .firstPage((err, records) => {
         if (err) {
-          console.error(err);
           reject(err);
+          return;
         }
         if (!records || records.length < 1) {
           console.log(`No record was retrieved using this ${fieldType}.`);
           reject(new Error(`No record was retrieved using this ${fieldType}.`));
+          return;
         }
 
         resolve(records.map(record => record.fields));
@@ -156,8 +158,8 @@ function deleteRecord(table, id) {
   return new Promise(function(resolve, reject) {
     base(table).destroy([id], function(err, deletedRecords) {
       if (err) {
-        console.error(err);
         reject(err);
+        return;
       }
       const expectedLen = 1;
       if (deletedRecords.length !== expectedLen) {
@@ -166,6 +168,7 @@ function deleteRecord(table, id) {
             `${deletedRecords.length} records returned from deleting ${expectedLen} record(s). Expected: ${expectedLen}`
           )
         );
+        return;
       }
 
       resolve(deletedRecords[0].fields);
