@@ -24,22 +24,22 @@ const renderCondensedBillDisplayHeader = headerText => {
 
 const createCondensedPaymentTransaction = transaction => {
   return {
-    startDate: transaction['Start Date'],
-    statementDate: formatDate(transaction['Transaction Date']),
-    description: transaction.Type,
-    status: formatStatus(transaction.Status),
-    payment: `$${centsToDollars(transaction.Amount)}`
+    startDate: transaction.startDate,
+    statementDate: formatDate(transaction.transactionDate),
+    description: transaction.type,
+    status: formatStatus(transaction.status),
+    payment: `$${centsToDollars(transaction.amount)}`
   };
 };
 
 const createCondensedBillTransaction = transaction => {
   return {
-    balance: transaction.Balance,
-    startDate: transaction['Start Date'],
-    statementDate: formatDate(transaction['Transaction Date']),
-    description: `${dateToFullMonth(transaction['Start Date'])} Power Bill`,
-    status: transaction.Status,
-    amtDue: `$${centsToDollars(transaction['Amount Due'])}`
+    balance: transaction.balance,
+    startDate: transaction.startDate,
+    statementDate: formatDate(transaction.transactionDate),
+    description: `${dateToFullMonth(transaction.startDate)} Power Bill`,
+    status: transaction.status,
+    amtDue: `$${centsToDollars(transaction.amountDue)}`
   };
 };
 
@@ -49,7 +49,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
     const { transactions } = this.props;
     this.state = {
       data: transactions.map(t =>
-        t.Type === ONLINE_PAYMENT_TYPE
+        t.type === ONLINE_PAYMENT_TYPE
           ? createCondensedPaymentTransaction(t)
           : createCondensedBillTransaction(t)
       )
