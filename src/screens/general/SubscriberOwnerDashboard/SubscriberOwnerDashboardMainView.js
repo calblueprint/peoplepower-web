@@ -117,13 +117,18 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                 <br />
                 <br />
                 <div className="subscriber-dashboard-paypal-component">
-                  <PayPalButton
-                    amount={centsToDollars(totalBalance)}
-                    onSuccess={this.onPaypalPaymentSuccess}
-                    options={{
-                      clientId
-                    }}
-                  />
+                  {totalBalance === 0 ? null : (
+                    <PayPalButton
+                      amount={centsToDollars(totalBalance)}
+                      onSuccess={this.onPaypalPaymentSuccess}
+                      options={{
+                        clientId
+                      }}
+                      style={{
+                        color: 'black'
+                      }}
+                    />
+                  )}
                 </div>
               </div>
             </div>
