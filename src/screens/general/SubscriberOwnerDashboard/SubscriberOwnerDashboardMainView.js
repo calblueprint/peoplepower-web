@@ -1,12 +1,44 @@
 import React from 'react';
+import ReactTable from 'react-table-v6';
 import { PayPalButton } from 'react-paypal-button-v2';
+import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
-import { centsToDollars } from '../../../lib/subscriberUtils';
+import { centsToDollars, formatStatus } from '../../../lib/subscriberUtils';
+import { dateToFullMonth, formatDate } from '../../../lib/dateUtils';
 import { recordBillPaymentSuccess } from '../../../lib/paypal';
-import PanelBillHeader from './PanelBillHeader';
-import PanelBillRow from './PanelBillRow';
+
+import constants from '../../../constants';
+
+const { ONLINE_PAYMENT_TYPE } = constants;
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
+
+const renderCondensedBillDisplayHeader = headerText => {
+  return () => (
+    <div className="subscriber-bills-display-header">{headerText}</div>
+  );
+};
+
+const createCondensedPaymentTransaction = transaction => {
+  return {
+    startDate: transaction['Start Date'],
+    statementDate: formatDate(transaction['Transaction Date']),
+    description: transaction.Type,
+    status: formatStatus(transaction.Status),
+    payment: `$${centsToDollars(transaction.Amount)}`
+  };
+};
+
+const createCondensedBillTransaction = transaction => {
+  return {
+    balance: transaction.Balance,
+    startDate: transaction['Start Date'],
+    statementDate: formatDate(transaction['Transaction Date']),
+    description: `${dateToFullMonth(transaction['Start Date'])} Power Bill`,
+    status: transaction.Status,
+    amtDue: `$${centsToDollars(transaction['Amount Due'])}`
+  };
+};
 
 export default class SubscriberOwnerDashboardMainView extends React.Component {
   constructor(props) {
@@ -37,10 +69,20 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
   render() {
     const { transactions, callback } = this.props;
     let { latestBill } = this.state;
+
+    const data = transactions.map(t =>
+      t.Type === ONLINE_PAYMENT_TYPE
+        ? createCondensedPaymentTransaction(t)
+        : createCondensedBillTransaction(t)
+    );
+
     if (!latestBill) {
-      latestBill = { 'Amount Due': 0 };
+      latestBill = { Balance: 0 };
     }
-    const amtDue = centsToDollars(latestBill['Amount Due']);
+    const { pendingBills } = this.props;
+    const totalBalance = pendingBills
+      .map(pendingBill => pendingBill.Balance)
+      .reduce((a, b) => a + b, 0);
     return (
       <div className="subscriber-dash-outer-container">
         <h3>My Finances</h3>
@@ -51,15 +93,13 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
               <div className="class-elems">
                 <div className="balance-header-section">
                   <p>Your Balance</p>
-                  <h3>${centsToDollars(latestBill['Amount Due'])}</h3>
+                  <h3>${centsToDollars(totalBalance)}</h3>
                 </div>
                 <hr id="divider" />
                 <div className="balance-nums-section">
                   <div className="balance-nums-line">
                     <p className="line-item descrip">Due Now</p>
-                    <p className="line-item">
-                      ${centsToDollars(latestBill['Amount Due'])}
-                    </p>
+                    <p className="line-item">${centsToDollars(totalBalance)}</p>
                   </div>
                   <div className="balance-nums-line">
                     <p className="line-item descrip">Upcoming</p>
@@ -72,9 +112,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                       <strong>Total</strong>
                     </p>
                     <p className="line-item">
-                      <strong>
-                        ${centsToDollars(latestBill['Amount Due'])}
-                      </strong>
+                      <strong>${centsToDollars(totalBalance)}</strong>
                     </p>
                   </div>
                 </div>
@@ -83,7 +121,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                 <br />
                 <div className="subscriber-dashboard-paypal-component">
                   <PayPalButton
-                    amount={amtDue}
+                    amount={centsToDollars(totalBalance)}
                     onSuccess={this.onPaypalPaymentSuccess}
                     options={{
                       clientId
@@ -104,19 +142,68 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                 →
               </button>
             </div>
-            <div className="col-card billing-history-card-holder">
-              <PanelBillHeader />
-              {transactions.map(transaction => {
-                return (
-                  <PanelBillRow
-                    key={transaction['Start Date']}
-                    statementDate={transaction['Statement Date']}
-                    startDate={transaction['Start Date']}
-                    status={transaction.Status}
-                    amtDue={centsToDollars(transaction['Amount Due'])}
-                  />
-                );
-              })}
+            <div className="col-card">
+              <ReactTable
+                data={data}
+                columns={[
+                  {
+                    Header: renderCondensedBillDisplayHeader('DATE'),
+                    id: 'statementDate',
+                    accessor: d => (
+                      <div className="subscriber-bills-display-row">
+                        {d.statementDate}
+                      </div>
+                    )
+                    // width: 100
+                  },
+                  {
+                    Header: renderCondensedBillDisplayHeader('DESCRIPTION'),
+                    id: 'description',
+                    accessor: d => (
+                      <div className="subscriber-bills-display-row">
+                        <b>{d.description}</b>
+                      </div>
+                    ),
+                    width: 200
+                  },
+                  {
+                    Header: renderCondensedBillDisplayHeader('CHARGE'),
+                    id: 'amtDue',
+                    accessor: d => (
+                      <div className="subscriber-bills-display-row">
+                        {d.amtDue}
+                      </div>
+                    )
+                    // width: 150
+                  },
+                  {
+                    Header: renderCondensedBillDisplayHeader('PAYMENT'),
+                    id: 'payment',
+                    accessor: d => (
+                      <div className="subscriber-bills-display-row">
+                        {d.payment}
+                      </div>
+                    )
+                    // width: 150
+                  },
+                  {
+                    Header: renderCondensedBillDisplayHeader('STATUS'),
+                    id: 'status',
+                    accessor: d => (
+                      <div className="subscriber-bills-display-row">
+                        {d.status}
+                      </div>
+                    )
+                    // width: 100
+                  }
+                ]}
+                getTdProps={() => ({
+                  style: { border: 'none' }
+                })}
+                defaultPageSize={6}
+                className="-highlight rt-custom-pp-style"
+                showPagination={false}
+              />
             </div>
           </div>
         </div>

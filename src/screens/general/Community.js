@@ -1,11 +1,12 @@
 import React from 'react';
+import 'react-table-v6/react-table.css';
 import '../../styles/Community.css';
 import {
   getAnnouncementsByProjectGroup,
   getPersonById,
   getOwnerById
 } from '../../lib/request';
-import { getLoggedInUserId } from '../../lib/auth';
+import { getLoggedInUserId, getLoggedInUserName } from '../../lib/auth';
 import { applyCredentials, isAdmin } from '../../lib/credentials';
 import AnnouncementList from '../../components/AnnouncementList';
 import AddAnnouncement from '../../components/AddAnnouncement';
@@ -26,22 +27,22 @@ export default class Community extends React.Component {
 
   async componentDidMount() {
     const { history } = this.props;
-    const id = getLoggedInUserId();
-    if (!id) {
+    const personId = getLoggedInUserId();
+    if (!personId) {
       history.push('/');
       return;
     }
     this.setState({
-      usersID: id
+      usersID: personId
     });
 
-    const personRecord = await getPersonById(id);
+    const personRecord = await getPersonById(personId);
     const ownerId = personRecord[Columns.Person.Owner];
     const ownerRecord = await getOwnerById(ownerId);
     const projectGroupId = ownerRecord[Columns.Owner.ProjectGroup][0];
     const announcements = await getAnnouncementsByProjectGroup(projectGroupId);
 
-    const credentials = await applyCredentials(id);
+    const credentials = await applyCredentials(personId);
 
     this.setState({
       usersGroup: projectGroupId,
@@ -49,6 +50,10 @@ export default class Community extends React.Component {
       credentials,
       isLoading: false
     });
+
+    const { updateState } = this.props;
+    const name = getLoggedInUserName();
+    updateState(personId, name);
   }
 
   addTempCard = announcement => {

@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import SubscriberOwnerDashboardAllBillsView from './SubscriberOwnerDashboardAllBillsView';
 import SubscriberOwnerDashboardMainView from './SubscriberOwnerDashboardMainView';
-import { getLoggedInUserId } from '../../../lib/auth';
+import { getLoggedInUserId, getLoggedInUserName } from '../../../lib/auth';
 import LoadingComponent from '../../../components/LoadingComponent';
 
 import { areDiffBills, getSubscriberBills } from '../../../lib/subscriberUtils';
@@ -17,7 +17,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { history } = this.props;
     const personId = getLoggedInUserId();
     if (!personId) {
@@ -27,27 +27,21 @@ export default class SubscriberOwnerDashboard extends React.Component {
       this.setState({
         personId
       });
-      this.getBills(personId);
-    }
-  }
 
-  getBills(personId) {
-    getSubscriberBills(personId, this.updateState);
-  }
-
-  updateState = transactions => {
-    if (transactions == null) {
-      console.error('transactions argument to updateState is null');
-      return;
-    }
-
-    this.setState(prevState => {
-      if (areDiffBills(prevState.transactions, transactions)) {
-        return { transactions, isReady: true };
+      const { updateState } = this.props;
+      const name = getLoggedInUserName();
+      updateState(personId, name);
+      const { transactions, pendingBills } = await getSubscriberBills(personId);
+      if (transactions) {
+        this.setState(prevState => {
+          if (areDiffBills(prevState.transactions, transactions)) {
+            return { transactions, pendingBills, isReady: true };
+          }
+          return { isReady: true };
+        });
       }
-      return { isReady: true };
-    });
-  };
+    }
+  }
 
   seeSubscriberOwnerDashboardAllBillsView() {
     this.setState({
@@ -62,7 +56,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
   }
 
   render() {
-    const { mode, transactions, isReady, personId } = this.state;
+    const { mode, transactions, isReady, pendingBills, personId } = this.state;
     if (!isReady) {
       return <LoadingComponent />;
     }
@@ -71,6 +65,7 @@ export default class SubscriberOwnerDashboard extends React.Component {
         <SubscriberOwnerDashboardMainView
           callback={() => this.seeSubscriberOwnerDashboardAllBillsView()}
           transactions={transactions}
+          pendingBills={pendingBills}
           personId={personId}
         />
       );
