@@ -3,11 +3,8 @@ import ReactTable from 'react-table-v6';
 import { PayPalButton } from 'react-paypal-button-v2';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
-import {
-  centsToDollars,
-  dateToWord,
-  formatStatus
-} from '../../../lib/subscriberUtils';
+import { centsToDollars, formatStatus } from '../../../lib/subscriberUtils';
+import { dateToFullMonth, formatDate } from '../../../lib/dateUtils';
 import { recordBillPaymentSuccess } from '../../../lib/paypal';
 
 import constants from '../../../constants';
@@ -16,21 +13,32 @@ const { ONLINE_PAYMENT_TYPE } = constants;
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
-function generateBillDisplayHeader(headerText) {
+const renderCondensedBillDisplayHeader = headerText => {
   return () => (
     <div className="subscriber-bills-display-header">{headerText}</div>
   );
-}
+};
 
-function dateToFullMonth(date) {
-  return dateToWord[parseInt(date.split('-')[1], 10)];
-}
+const createCondensedPaymentTransaction = transaction => {
+  return {
+    startDate: transaction['Start Date'],
+    statementDate: formatDate(transaction['Transaction Date']),
+    description: transaction.Type,
+    status: formatStatus(transaction.Status),
+    payment: `$${centsToDollars(transaction.Amount)}`
+  };
+};
 
-// expected format of date: YYYY-MM-DD
-function formatDate(date) {
-  const dateArr = date.split('-');
-  return `${parseInt(dateArr[1], 10)}/${dateArr[2]}/${dateArr[0]}`;
-}
+const createCondensedBillTransaction = transaction => {
+  return {
+    balance: transaction.Balance,
+    startDate: transaction['Start Date'],
+    statementDate: formatDate(transaction['Transaction Date']),
+    description: `${dateToFullMonth(transaction['Start Date'])} Power Bill`,
+    status: transaction.Status,
+    amtDue: `$${centsToDollars(transaction['Amount Due'])}`
+  };
+};
 
 export default class SubscriberOwnerDashboardMainView extends React.Component {
   constructor(props) {
@@ -61,26 +69,13 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
   render() {
     const { transactions, callback } = this.props;
     let { latestBill } = this.state;
-    const data = transactions.map(transaction => {
-      if (transaction.Type === ONLINE_PAYMENT_TYPE) {
-        return {
-          startDate: transaction['Start Date'],
-          statementDate: formatDate(transaction['Transaction Date']),
-          description: transaction.Type,
-          status: formatStatus(transaction.Status),
-          payment: `$${centsToDollars(transaction.Amount)}`
-        };
-      }
 
-      return {
-        balance: transaction.Balance,
-        startDate: transaction['Start Date'],
-        statementDate: formatDate(transaction['Transaction Date']),
-        description: `${dateToFullMonth(transaction['Start Date'])} Power Bill`,
-        status: transaction.Status,
-        amtDue: `$${centsToDollars(transaction['Amount Due'])}`
-      };
-    });
+    const data = transactions.map(t =>
+      t.Type === ONLINE_PAYMENT_TYPE
+        ? createCondensedPaymentTransaction(t)
+        : createCondensedBillTransaction(t)
+    );
+
     if (!latestBill) {
       latestBill = { Balance: 0 };
     }
@@ -152,7 +147,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                 data={data}
                 columns={[
                   {
-                    Header: generateBillDisplayHeader('DATE'),
+                    Header: renderCondensedBillDisplayHeader('DATE'),
                     id: 'statementDate',
                     accessor: d => (
                       <div className="subscriber-bills-display-row">
@@ -162,7 +157,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                     // width: 100
                   },
                   {
-                    Header: generateBillDisplayHeader('DESCRIPTION'),
+                    Header: renderCondensedBillDisplayHeader('DESCRIPTION'),
                     id: 'description',
                     accessor: d => (
                       <div className="subscriber-bills-display-row">
@@ -172,7 +167,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                     width: 200
                   },
                   {
-                    Header: generateBillDisplayHeader('CHARGE'),
+                    Header: renderCondensedBillDisplayHeader('CHARGE'),
                     id: 'amtDue',
                     accessor: d => (
                       <div className="subscriber-bills-display-row">
@@ -182,7 +177,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                     // width: 150
                   },
                   {
-                    Header: generateBillDisplayHeader('PAYMENT'),
+                    Header: renderCondensedBillDisplayHeader('PAYMENT'),
                     id: 'payment',
                     accessor: d => (
                       <div className="subscriber-bills-display-row">
@@ -192,7 +187,7 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                     // width: 150
                   },
                   {
-                    Header: generateBillDisplayHeader('STATUS'),
+                    Header: renderCondensedBillDisplayHeader('STATUS'),
                     id: 'status',
                     accessor: d => (
                       <div className="subscriber-bills-display-row">
@@ -202,6 +197,9 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                     // width: 100
                   }
                 ]}
+                getTdProps={() => ({
+                  style: { border: 'none' }
+                })}
                 defaultPageSize={6}
                 className="-highlight rt-custom-pp-style"
                 showPagination={false}

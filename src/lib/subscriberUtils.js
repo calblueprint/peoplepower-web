@@ -1,5 +1,6 @@
 import { getOwnerById, getPaymentById, getSubscriberBillById } from './request';
 import getOwnerIdFromPersonId from './personUtils';
+import { convertPaypalDateTimeToDate } from './dateUtils';
 
 import { Columns } from './schema';
 import constants from '../constants';
@@ -7,15 +8,8 @@ import constants from '../constants';
 const { BILL_TYPE, ONLINE_PAYMENT_TYPE, COMPLETED_STATUS } = constants;
 
 const formatStatus = status => {
-  return (([firstLetter, ...rest]) =>
-    [firstLetter.toLocaleUpperCase(), ...rest].join(''))(status.toLowerCase());
-};
-
-const convertDateTimeToDate = dateTimeString => {
-  if (dateTimeString) {
-    return dateTimeString.slice(0, 10);
-  }
-  return null;
+  const lower = status.toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.substring(1);
 };
 
 const areDiffBills = (b1, b2) => {
@@ -34,21 +28,6 @@ const areDiffBills = (b1, b2) => {
 
 const centsToDollars = cents => {
   return (cents / 100).toFixed(2);
-};
-
-const dateToWord = {
-  1: 'January',
-  2: 'February',
-  3: 'March',
-  4: 'April',
-  5: 'May',
-  6: 'June',
-  7: 'July',
-  8: 'August',
-  9: 'September',
-  10: 'October',
-  11: 'November',
-  12: 'December'
 };
 
 const getBillsAndPaymentsFromOwnerId = async ownerId => {
@@ -119,7 +98,7 @@ const getSubscriberBills = async loggedInUserId => {
     if (paymentObjects) {
       paymentObjects.forEach(paymentObject => {
         transactions.push({
-          'Transaction Date': convertDateTimeToDate(
+          'Transaction Date': convertPaypalDateTimeToDate(
             paymentObject['Payment Create Time']
           ),
           Type: ONLINE_PAYMENT_TYPE, // Type is a local variable inserted to distinguish between bill payments and online payments
@@ -145,10 +124,4 @@ const getSubscriberBills = async loggedInUserId => {
   }
 };
 
-export {
-  areDiffBills,
-  centsToDollars,
-  dateToWord,
-  formatStatus,
-  getSubscriberBills
-};
+export { areDiffBills, centsToDollars, formatStatus, getSubscriberBills };
