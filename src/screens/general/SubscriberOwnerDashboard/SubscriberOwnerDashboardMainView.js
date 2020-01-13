@@ -5,7 +5,10 @@ import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import { centsToDollars, formatStatus } from '../../../lib/subscriberUtils';
 import { dateToFullMonth, formatDate } from '../../../lib/dateUtils';
-import { getTotalBalanceFromBills, recordPendingBillsPaymentSuccess } from '../../../lib/paypal';
+import {
+  getTotalBalanceFromBills,
+  recordPendingBillsPaymentSuccess
+} from '../../../lib/paypal';
 
 import constants from '../../../constants';
 
@@ -45,7 +48,11 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
     super(props);
     const { transactions } = this.props;
     this.state = {
-      latestBill: transactions.filter(bill => bill['Is Latest'])[0]
+      data: transactions.map(t =>
+        t.Type === ONLINE_PAYMENT_TYPE
+          ? createCondensedPaymentTransaction(t)
+          : createCondensedBillTransaction(t)
+      )
     };
   }
 
@@ -67,18 +74,9 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
   };
 
   render() {
-    const { transactions, callback } = this.props;
-    let { latestBill } = this.state;
+    const { callback } = this.props;
+    const { data } = this.state;
 
-    const data = transactions.map(t =>
-      t.Type === ONLINE_PAYMENT_TYPE
-        ? createCondensedPaymentTransaction(t)
-        : createCondensedBillTransaction(t)
-    );
-
-    if (!latestBill) {
-      latestBill = { Balance: 0 };
-    }
     const { pendingBills } = this.props;
     const totalBalance = getTotalBalanceFromBills(pendingBills);
     return (
