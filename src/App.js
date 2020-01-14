@@ -54,7 +54,7 @@ class App extends React.Component {
             <Route path="/admin" component={AdminDashboard} />
             <Route path="/community" component={Community} />
             <Route path="/billing" component={SubscriberOwnerDashboard} />
-            <Route path="/profile/:id" component={UserProfilePage} />
+            <Route path="/profile" component={UserProfilePage} />
             <Route>
               <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>
             </Route>

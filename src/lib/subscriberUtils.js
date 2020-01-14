@@ -31,11 +31,8 @@ const centsToDollars = cents => {
 
 const getSubscriberBills = async owner => {
   try {
-    console.log(owner);
     const billIds = owner[Columns.Owner.SubscriberBill];
     const paymentIds = owner[Columns.Owner.Payment];
-    console.log(billIds);
-    console.log(paymentIds);
 
     if (!billIds && !paymentIds) {
       return { transactions: [], pendingBills: [], totalBalance: 0 };

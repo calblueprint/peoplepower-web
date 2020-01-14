@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updatePerson, updateUserLogin } from '../../lib/airtable/request';
+import {
+  updatePerson,
+  updateUserLogin,
+  getUserLoginById
+} from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
 import { refreshUserData } from '../../lib/userDataUtils';
 import '../../styles/UserProfilePage.css';
@@ -45,8 +49,11 @@ class UserProfilePage extends React.Component {
       return;
     }
 
+    // TODO This "RECORDIDforDev" shit could/is probably causing a lot of problems
+    // basically, while you think a person record's ID would be person.ID, it's actually
+    // person.RECORDIDforDev
     const {
-      ID: id,
+      'RECORD ID (for dev)': id,
       Email: email,
       'Phone Number': phoneNumber,
       Name: name,
@@ -142,8 +149,11 @@ class UserProfilePage extends React.Component {
       });
     }
 
+    // get latest copy of user login record
+    const userLogin = await getUserLoginById(userLoginID);
+
     // Refresh local cache with latest user data
-    await refreshUserData();
+    await refreshUserData(userLogin);
   };
 
   render() {

@@ -17,7 +17,6 @@ class NavBar extends React.PureComponent {
     const { person, credentials, isNavBarVisible } = this.props;
     // TODO: Holy crap so apparently the "ID" column on airtable is their NAME not the record ID.
     // we NEED to standardize airtable column names so things aren't hella confusing
-    const personId = person ? person[Columns.Person.RECORDIDforDev] : '';
     const displayName = person ? person[Columns.Person.Name] : '';
 
     if (!isNavBarVisible) {
@@ -90,7 +89,7 @@ class NavBar extends React.PureComponent {
               </li>
             ) : null}
             <li className="navItem">
-              <Link to={`/profile/${personId}`}>
+              <Link to="/profile">
                 <span>{displayName}</span>
               </Link>
             </li>
