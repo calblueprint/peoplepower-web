@@ -69,45 +69,25 @@ h3 {
   color: #a4a4a4;
 }
 
-.cards-holder {
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-}
-
-.subscriber-button {
-  font-size: 22px;
-  font-weight: bold;
-  background-color: #b7b7b7;
-  color: white;
-  padding: 0.7em 2em;
-  border-radius: 3px;
-  margin: 0 1.5vw;
-}
-
-.payment-button {
-  float: right;
-}
-
 #divider {
   border: 1px solid #efefef;
   width: 85%;
   margin: 0 auto 1.5vw auto;
-}
-
-.TEMP {
-  margin-top: 10vw;
-  padding: 18vw 0 0 0;
-  float: right;
 }
 .subscriber-header {
   font-weight: bolder;
   color: #4f4f4f;
 }
 
-/*.cards-holder {
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
+.rt-custom-pp-style {
+  height: 60vh;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+  /* "font-family": "Avenir" */
 }
-*/
+
+/* modifies react-table-v6 css */
+.rt-tr-group {
+  min-height: 60px;
+}

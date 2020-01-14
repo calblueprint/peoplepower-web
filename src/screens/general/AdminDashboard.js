@@ -1,7 +1,7 @@
 import React from 'react';
-import Card from './Card';
+import AdminDashboardCard from './AdminDashboardCard';
 import '../../styles/AdminDashboard.css';
-import { getLoggedInUserId } from '../../lib/auth';
+import { getLoggedInUserId, getLoggedInUserName } from '../../lib/auth';
 import LoadingComponent from '../../components/LoadingComponent';
 import {
   getAdminTable,
@@ -47,6 +47,9 @@ export default class AdminDashboard extends React.Component {
         owners: owners.filter(owner => owner.Person[0] !== personId),
         isReady: true
       });
+      const { updateState } = this.props;
+      const name = getLoggedInUserName();
+      updateState(personId, name);
     } catch (err) {
       console.error(err);
     }
@@ -102,7 +105,7 @@ export default class AdminDashboard extends React.Component {
               {owners.length >= 1 ? (
                 owners.map(owner => {
                   return (
-                    <Card
+                    <AdminDashboardCard
                       name={owner.ID}
                       callback={idToRemove => this.removeUser(idToRemove)}
                       ownerId={owner[OWNER_ID_FIELD]}
