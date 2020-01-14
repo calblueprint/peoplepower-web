@@ -8,7 +8,7 @@ import { dateToFullMonth, formatDate } from '../../../lib/dateUtils';
 import {
   getTotalBalanceFromBills,
   recordPendingBillsPaymentSuccess
-} from '../../../lib/paypal';
+} from '../../../lib/paypalUtils';
 
 import constants from '../../../constants';
 

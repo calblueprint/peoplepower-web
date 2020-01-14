@@ -2,6 +2,7 @@ import Cookies from 'universal-cookie';
 import constants from '../constants';
 import { getPersonById, getUserLoginsByEmail } from './airtable/request';
 import { Columns } from './airtable/schema';
+import store from './redux/store';
 
 const { LOGIN_TOKEN_NAME } = constants;
 
@@ -18,6 +19,7 @@ const loginUser = async (email, passwordHash) => {
       `Unexpected number ${records.length} of users found for ${email}`
     );
   }
+  console.log(store);
 
   const record = records[0];
   if (record[Columns.UserLogin.Password] === passwordHash) {

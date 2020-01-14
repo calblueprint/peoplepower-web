@@ -1,4 +1,4 @@
-import { setLoginCookie } from '../auth';
+import { setLoginCookie } from '../authUtils';
 import {
   createPerson,
   createOwner,

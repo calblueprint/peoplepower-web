@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import SubscriberOwnerDashboardAllBillsView from './SubscriberOwnerDashboardAllBillsView';
 import SubscriberOwnerDashboardMainView from './SubscriberOwnerDashboardMainView';
-import { getLoggedInUserId, getLoggedInUserName } from '../../../lib/auth';
+import { getLoggedInUserId, getLoggedInUserName } from '../../../lib/authUtils';
 import LoadingComponent from '../../../components/LoadingComponent';
 
 import { areDiffBills, getSubscriberBills } from '../../../lib/subscriberUtils';

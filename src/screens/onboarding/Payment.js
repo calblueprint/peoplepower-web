@@ -1,6 +1,6 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { recordShareBuySuccess } from '../../lib/paypal';
+import { recordShareBuySuccess } from '../../lib/paypalUtils';
 import { updatePerson } from '../../lib/airtable/request';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;

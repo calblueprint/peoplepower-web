@@ -7,7 +7,7 @@ import {
   getProjectGroupById,
   getSolarProjectById
 } from '../../lib/airtable/request';
-import { getLoggedInUserId, logOut } from '../../lib/auth';
+import { getLoggedInUserId, logOut } from '../../lib/authUtils';
 import AnnouncementList from '../../components/AnnouncementList';
 import LoadingComponent from '../../components/LoadingComponent';
 

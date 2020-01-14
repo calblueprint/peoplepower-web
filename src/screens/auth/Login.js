@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/Login.css';
 
-import { loginUser, getLoggedInUserId } from '../../lib/auth';
+import { loginUser, getLoggedInUserId } from '../../lib/authUtils';
 
 const HOME_ROUTE = '/dashboard';
 const SIGNUP_ROUTE = '/onboarding';

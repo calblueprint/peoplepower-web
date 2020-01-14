@@ -3,7 +3,7 @@ import {
   getPaymentById,
   getSubscriberBillById
 } from './airtable/request';
-import getOwnerIdFromPersonId from './personUtils';
+import getOwnerIdFromPersonId from './userDataUtils';
 import { convertPaypalDateTimeToDate } from './dateUtils';
 
 import { Columns } from './airtable/schema';

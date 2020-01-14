@@ -6,7 +6,7 @@ import ProjectGroups from './ProjectGroups';
 import Payment from './Payment';
 import Complete from './Complete';
 import formValidation from '../../lib/onboarding/formValidation';
-import { getLoggedInUserId } from '../../lib/auth';
+import { getLoggedInUserId } from '../../lib/authUtils';
 import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
 import Template from './Template';
 import { getPersonById, getOwnerById } from '../../lib/airtable/request';

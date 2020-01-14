@@ -1,7 +1,7 @@
 import React from 'react';
 import AdminDashboardCard from './AdminDashboardCard';
 import '../../styles/AdminDashboard.css';
-import { getLoggedInUserId, getLoggedInUserName } from '../../lib/auth';
+import { getLoggedInUserId, getLoggedInUserName } from '../../lib/authUtils';
 import LoadingComponent from '../../components/LoadingComponent';
 import {
   getAdminTable,

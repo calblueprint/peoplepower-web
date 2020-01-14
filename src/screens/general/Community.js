@@ -6,7 +6,7 @@ import {
   getPersonById,
   getOwnerById
 } from '../../lib/airtable/request';
-import { getLoggedInUserId, getLoggedInUserName } from '../../lib/auth';
+import { getLoggedInUserId, getLoggedInUserName } from '../../lib/authUtils';
 import { applyCredentials, isAdmin } from '../../lib/credentials';
 import AnnouncementList from '../../components/AnnouncementList';
 import AddAnnouncement from '../../components/AddAnnouncement';
