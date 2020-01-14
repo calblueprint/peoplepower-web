@@ -17,10 +17,10 @@ const renderAllBillsHeader = headerText => {
 const createFullPaymentTransaction = transaction => {
   return {
     balance: '$0.00',
-    statementDate: dateToDateString(transaction['Transaction Date']),
-    description: transaction.Type,
-    status: formatStatus(transaction.Status),
-    payment: `$${centsToDollars(transaction.Amount)}`
+    statementDate: dateToDateString(transaction.transactionDate),
+    description: transaction.type,
+    status: formatStatus(transaction.status),
+    payment: `$${centsToDollars(transaction.amount)}`
 
     /*
             Commented out data fields potentially useful for dashbaord (future changes)
@@ -40,11 +40,11 @@ const createFullPaymentTransaction = transaction => {
 
 const createFullBillTransaction = transaction => {
   return {
-    balance: `$${centsToDollars(transaction.Balance)}`,
-    statementDate: dateToDateString(transaction['Transaction Date']),
-    description: `${dateToFullMonth(transaction['Start Date'])} Power Bill`,
-    status: transaction.Status,
-    amtDue: `$${centsToDollars(transaction['Amount Due'])}`
+    balance: `$${centsToDollars(transaction.balance)}`,
+    statementDate: dateToDateString(transaction.transactionDate),
+    description: `${dateToFullMonth(transaction.startDate)} Power Bill`,
+    status: transaction.status,
+    amtDue: `$${centsToDollars(transaction.amountDue)}`
 
     /*
             Commented out data fields potentially useful for dashbaord (future changes)
@@ -67,7 +67,7 @@ export default class SubscriberOwnerDashboardAllBillsTable extends React.Compone
     super(props);
     const { transactions } = this.props;
     const data = transactions.map(t =>
-      t.Type === ONLINE_PAYMENT_TYPE
+      t.type === ONLINE_PAYMENT_TYPE
         ? createFullPaymentTransaction(t)
         : createFullBillTransaction(t)
     );

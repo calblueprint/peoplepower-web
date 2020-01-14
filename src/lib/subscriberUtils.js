@@ -70,27 +70,32 @@ const getSubscriberBills = async loggedInUserId => {
 
     if (billObjects) {
       billObjects.forEach(billObject => {
-        const bill = {
-          ID: billObject.ID,
-          'Subscriber Owner': billObject['Subscriber Owner'][0], // assumes exactly 1 subscriber owner
-          'Transaction Date': billObject['Statement Date'],
-          'Start Date': billObject['Start Date'],
-          'End Date': billObject['End Date'],
-          'Rate Schedule': billObject['Rate Schedule'],
-          'Estimated Rebate': billObject['Estimated Rebate'],
-          'Total Estimated Rebate': billObject['Total Estimated Rebate'],
-          'Amount Due on Previous': billObject['Amount Due on Previous'],
-          'Amount Received Since Previous':
-            billObject['Amount Received Since Previous'],
-          'Amount Due': billObject['Amount Due'],
-          Status: billObject.Status,
-          Balance: billObject.Balance,
-          Type: BILL_TYPE // Type is a local variable inserted to distinguish between bill payments and online payments
-        };
-
-        transactions.push(bill);
+        transactions.push({
+          transactionDate: billObject['Statement Date'],
+          startDate: billObject['Start Date'],
+          amountDue: billObject['Amount Due'],
+          status: billObject.Status,
+          balance: billObject.Balance,
+          type: BILL_TYPE // Type is a local variable inserted to distinguish between bill payments and online payments
+        });
         if (billObject.Status !== COMPLETED_STATUS) {
-          pendingBills.push(bill);
+          pendingBills.push({
+            ID: billObject.ID,
+            'Subscriber Owner': billObject['Subscriber Owner'][0], // assumes exactly 1 subscriber owner
+            'Transaction Date': billObject['Statement Date'],
+            'Start Date': billObject['Start Date'],
+            'End Date': billObject['End Date'],
+            'Rate Schedule': billObject['Rate Schedule'],
+            'Estimated Rebate': billObject['Estimated Rebate'],
+            'Total Estimated Rebate': billObject['Total Estimated Rebate'],
+            'Amount Due on Previous': billObject['Amount Due on Previous'],
+            'Amount Received Since Previous':
+              billObject['Amount Received Since Previous'],
+            'Amount Due': billObject['Amount Due'],
+            Status: billObject.Status,
+            Balance: billObject.Balance,
+            Type: BILL_TYPE // Type is a local variable inserted to distinguish between bill payments and online payments
+          });
         }
       });
     }
@@ -98,25 +103,19 @@ const getSubscriberBills = async loggedInUserId => {
     if (paymentObjects) {
       paymentObjects.forEach(paymentObject => {
         transactions.push({
-          'Transaction Date': convertPaypalDateTimeToDate(
+          transactionDate: convertPaypalDateTimeToDate(
             paymentObject['Payment Create Time']
           ),
-          Type: ONLINE_PAYMENT_TYPE, // Type is a local variable inserted to distinguish between bill payments and online payments
-          Amount: paymentObject.Amount,
-          Status: paymentObject.Status
+          amount: paymentObject.Amount,
+          status: paymentObject.Status,
+          type: ONLINE_PAYMENT_TYPE // Type is a local variable inserted to distinguish between bill payments and online payments
         });
       });
     }
     transactions.sort((a, b) => {
-      return new Date(b['Transaction Date']) - new Date(a['Transaction Date']);
+      return new Date(b.transactionDate) - new Date(a.transactionDate);
     });
 
-    for (let i = 0; i < transactions.length; i += 1) {
-      if (transactions[i].Type === BILL_TYPE) {
-        transactions[i]['Is Latest'] = true;
-        break;
-      }
-    }
     return { transactions, pendingBills };
   } catch (err) {
     console.log(err);

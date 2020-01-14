@@ -5,7 +5,10 @@ import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import { centsToDollars, formatStatus } from '../../../lib/subscriberUtils';
 import { dateToFullMonth, formatDate } from '../../../lib/dateUtils';
-import { recordBillPaymentSuccess } from '../../../lib/paypal';
+import {
+  getTotalBalanceFromBills,
+  recordPendingBillsPaymentSuccess
+} from '../../../lib/paypal';
 
 import constants from '../../../constants';
 
@@ -21,22 +24,22 @@ const renderCondensedBillDisplayHeader = headerText => {
 
 const createCondensedPaymentTransaction = transaction => {
   return {
-    startDate: transaction['Start Date'],
-    statementDate: formatDate(transaction['Transaction Date']),
-    description: transaction.Type,
-    status: formatStatus(transaction.Status),
-    payment: `$${centsToDollars(transaction.Amount)}`
+    startDate: transaction.startDate,
+    statementDate: formatDate(transaction.transactionDate),
+    description: transaction.type,
+    status: formatStatus(transaction.status),
+    payment: `$${centsToDollars(transaction.amount)}`
   };
 };
 
 const createCondensedBillTransaction = transaction => {
   return {
-    balance: transaction.Balance,
-    startDate: transaction['Start Date'],
-    statementDate: formatDate(transaction['Transaction Date']),
-    description: `${dateToFullMonth(transaction['Start Date'])} Power Bill`,
-    status: transaction.Status,
-    amtDue: `$${centsToDollars(transaction['Amount Due'])}`
+    balance: transaction.balance,
+    startDate: transaction.startDate,
+    statementDate: formatDate(transaction.transactionDate),
+    description: `${dateToFullMonth(transaction.startDate)} Power Bill`,
+    status: transaction.status,
+    amtDue: `$${centsToDollars(transaction.amountDue)}`
   };
 };
 
@@ -45,7 +48,11 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
     super(props);
     const { transactions } = this.props;
     this.state = {
-      latestBill: transactions.filter(bill => bill['Is Latest'])[0]
+      data: transactions.map(t =>
+        t.type === ONLINE_PAYMENT_TYPE
+          ? createCondensedPaymentTransaction(t)
+          : createCondensedBillTransaction(t)
+      )
     };
   }
 
@@ -59,30 +66,19 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
 
   onPaypalPaymentSuccess = async (details, data) => {
     try {
-      const { latestBill } = this.state;
-      await recordBillPaymentSuccess(details, data, latestBill);
+      const { pendingBills } = this.props;
+      await recordPendingBillsPaymentSuccess(details, data, pendingBills);
     } catch (err) {
       console.error(err);
     }
   };
 
   render() {
-    const { transactions, callback } = this.props;
-    let { latestBill } = this.state;
+    const { callback } = this.props;
+    const { data } = this.state;
 
-    const data = transactions.map(t =>
-      t.Type === ONLINE_PAYMENT_TYPE
-        ? createCondensedPaymentTransaction(t)
-        : createCondensedBillTransaction(t)
-    );
-
-    if (!latestBill) {
-      latestBill = { Balance: 0 };
-    }
     const { pendingBills } = this.props;
-    const totalBalance = pendingBills
-      .map(pendingBill => pendingBill.Balance)
-      .reduce((a, b) => a + b, 0);
+    const totalBalance = getTotalBalanceFromBills(pendingBills);
     return (
       <div className="subscriber-dash-outer-container">
         <h3>My Finances</h3>
@@ -103,7 +99,8 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                   </div>
                   <div className="balance-nums-line">
                     <p className="line-item descrip">Upcoming</p>
-                    <p className="line-item">$0.00</p>
+                    <p className="line-item">$0.00</p>{' '}
+                    {/* TODO: currently assumes all bills due now */}
                   </div>
                   <br />
                   <br />
@@ -120,13 +117,18 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                 <br />
                 <br />
                 <div className="subscriber-dashboard-paypal-component">
-                  <PayPalButton
-                    amount={centsToDollars(totalBalance)}
-                    onSuccess={this.onPaypalPaymentSuccess}
-                    options={{
-                      clientId
-                    }}
-                  />
+                  {totalBalance === 0 ? null : (
+                    <PayPalButton
+                      amount={centsToDollars(totalBalance)}
+                      onSuccess={this.onPaypalPaymentSuccess}
+                      options={{
+                        clientId
+                      }}
+                      style={{
+                        color: 'black'
+                      }}
+                    />
+                  )}
                 </div>
               </div>
             </div>
