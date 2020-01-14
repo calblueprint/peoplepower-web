@@ -51,8 +51,8 @@ const userDataSlice = createSlice({
       state.isLoading = false;
     },
 
-    deauthenticateAndClearUserData(state) {
-      state = initialState;
+    deauthenticateAndClearUserData() {
+      return { ...initialState };
     }
   }
 });

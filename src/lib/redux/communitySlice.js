@@ -22,8 +22,8 @@ const communitySlice = createSlice({
         state.announcements.push(a);
       });
     },
-    clearAnnouncements(state) {
-      state = initialState;
+    clearAnnouncements() {
+      return { ...initialState };
     }
   }
 });

@@ -36,11 +36,15 @@ const refreshUserData = async userLogin => {
   const projectGroup = await getProjectGroupById(projectGroupId);
   const announcements = await getAnnouncementsByProjectGroup(projectGroupId);
 
+  let solarProjects = [];
   const solarProjectIds = projectGroup[Columns.ProjectGroup.SolarProject];
-  const solarProjectPromises = solarProjectIds.map(id =>
-    getSolarProjectById(id)
-  );
-  const solarProjects = await Promise.all(solarProjectPromises);
+  if (solarProjectIds) {
+    const solarProjectPromises = solarProjectIds.map(id =>
+      getSolarProjectById(id)
+    );
+
+    solarProjects = await Promise.all(solarProjectPromises);
+  }
 
   const credentials = await applyCredentials(owner);
 

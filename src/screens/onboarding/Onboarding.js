@@ -161,10 +161,15 @@ class Onboarding extends React.Component {
     this.setState({ step: step - 1 });
   };
 
-  handleRecordCreation = ({ createdOwnerId, createdPersonId }) => {
+  handleRecordCreation = ({
+    createdOwnerId,
+    createdPersonId,
+    createdUserLoginId
+  }) => {
     this.setState({
       userId: createdPersonId,
-      personId: createdOwnerId
+      personId: createdOwnerId,
+      userLoginId: createdUserLoginId
     });
   };
 

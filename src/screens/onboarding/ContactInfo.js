@@ -97,7 +97,8 @@ class ContactInfo extends React.Component {
         // create the person/owner record in Airtable
         const {
           createdOwnerId,
-          createdPersonId
+          createdPersonId,
+          createdUserLoginId
         } = await createPersonOwnerUserLoginRecord(
           email,
           password,
@@ -116,7 +117,8 @@ class ContactInfo extends React.Component {
           const { handleRecordCreation } = this.props;
           handleRecordCreation({
             createdOwnerId,
-            createdPersonId
+            createdPersonId,
+            createdUserLoginId
           });
           nextStep();
         }

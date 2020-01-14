@@ -21,7 +21,7 @@ class ProjectGroups extends React.Component {
   }
 
   async componentDidMount() {
-    let projectGroups = getAllProjectGroups();
+    let projectGroups = await getAllProjectGroups();
     projectGroups = projectGroups.map(record => ({
       id: record.ID,
       name: record.Name,
