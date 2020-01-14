@@ -9,7 +9,7 @@
 */
 
 import Airtable from 'airtable';
-import constants from '../constants';
+import constants from '../../constants';
 
 const { BASE_ID, ENDPOINT_URL, GRID_VIEW } = constants;
 

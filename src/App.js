@@ -12,7 +12,7 @@ import GeneralOwnerDashboard from './screens/general/GeneralOwnerDashboard';
 import AdminDashboard from './screens/general/AdminDashboard';
 import UserProfilePage from './screens/general/UserProfilePage';
 import { applyCredentials } from './lib/credentials';
-import store from './redux/store';
+import store from './lib/redux/store';
 import './styles/App.css';
 
 class App extends React.Component {

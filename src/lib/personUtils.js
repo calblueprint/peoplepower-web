@@ -1,4 +1,4 @@
-import { getPersonById } from './request';
+import { getPersonById } from './airtable/request';
 import validatePersonRecord from './validator';
 
 // throw an exception on error

@@ -3,8 +3,8 @@ import {
   getOwnerById,
   getProjectGroupById,
   updateProjectGroup
-} from './request';
-import { Columns } from './schema';
+} from './airtable/request';
+import { Columns } from './airtable/schema';
 
 const getOwnerFromPerson = async personId => {
   const { Owner } = await getPersonById(personId);

@@ -1,11 +1,11 @@
-import { setLoginCookie } from './auth';
+import { setLoginCookie } from '../auth';
 import {
   createPerson,
   createOwner,
   createUserLogin,
   deleteOwner,
   deletePerson
-} from './request';
+} from '../airtable/request';
 
 const DEFAULT_NUM_RETRIES = 3;
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import formValidation from '../../lib/formValidation';
-import { createPersonOwnerUserLoginRecord } from '../../lib/onboardingUtils';
+import formValidation from '../../lib/onboarding/formValidation';
+import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
 import Tooltip from '../../components/Tooltip';
-import { updatePerson } from '../../lib/request';
+import { updatePerson } from '../../lib/airtable/request';
 
 class ContactInfo extends React.Component {
   constructor(props) {

@@ -5,11 +5,11 @@ import Bylaws from './Bylaws';
 import ProjectGroups from './ProjectGroups';
 import Payment from './Payment';
 import Complete from './Complete';
-import formValidation from '../../lib/formValidation';
+import formValidation from '../../lib/onboarding/formValidation';
 import { getLoggedInUserId } from '../../lib/auth';
-import { createPersonOwnerUserLoginRecord } from '../../lib/onboardingUtils';
+import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
 import Template from './Template';
-import { getPersonById, getOwnerById } from '../../lib/request';
+import { getPersonById, getOwnerById } from '../../lib/airtable/request';
 
 class Onboarding extends React.Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import { getOwnerFromPerson, getAdminTable } from './adminUtils';
-import { getOwnerById } from './request';
+import { getOwnerById } from './airtable/request';
 import constants from '../constants';
-import { Columns } from './schema';
+import { Columns } from './airtable/schema';
 
 const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
 

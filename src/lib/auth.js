@@ -1,7 +1,7 @@
 import Cookies from 'universal-cookie';
 import constants from '../constants';
-import { getPersonById, getUserLoginsByEmail } from './request';
-import { Columns } from './schema';
+import { getPersonById, getUserLoginsByEmail } from './airtable/request';
+import { Columns } from './airtable/schema';
 
 const { LOGIN_TOKEN_NAME } = constants;
 

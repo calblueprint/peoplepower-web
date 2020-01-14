@@ -8,7 +8,7 @@ import {
   getProjectGroupById,
   updatePerson,
   updateUserLogin
-} from '../../lib/request';
+} from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
 
 const STATUS_ERR = -1;

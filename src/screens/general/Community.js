@@ -5,13 +5,13 @@ import {
   getAnnouncementsByProjectGroup,
   getPersonById,
   getOwnerById
-} from '../../lib/request';
+} from '../../lib/airtable/request';
 import { getLoggedInUserId, getLoggedInUserName } from '../../lib/auth';
 import { applyCredentials, isAdmin } from '../../lib/credentials';
 import AnnouncementList from '../../components/AnnouncementList';
 import AddAnnouncement from '../../components/AddAnnouncement';
 import LoadingComponent from '../../components/LoadingComponent';
-import { Columns } from '../../lib/schema';
+import { Columns } from '../../lib/airtable/schema';
 
 export default class Community extends React.Component {
   constructor(props) {

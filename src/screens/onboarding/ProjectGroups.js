@@ -1,5 +1,5 @@
 import React from 'react';
-import formValidation from '../../lib/formValidation';
+import formValidation from '../../lib/onboarding/formValidation';
 import '../../styles/Onboarding.css';
 import MapView from './ProjectGroupMapView';
 import ListView from './ProjectGroupListView';
@@ -7,7 +7,7 @@ import {
   updatePerson,
   updateOwner,
   getAllProjectGroups
-} from '../../lib/request';
+} from '../../lib/airtable/request';
 
 class ProjectGroups extends React.Component {
   constructor(props) {

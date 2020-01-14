@@ -2,8 +2,8 @@ import {
   createPersonOwnerUserLoginRecord,
   rollbackPersonWithRetries,
   rollbackOwnerWithRetries
-} from '../../lib/onboardingUtils';
-import { deleteUserLogin } from '../../lib/request';
+} from '../../lib/onboarding/onboardingUtils';
+import { deleteUserLogin } from '../../lib/airtable/request';
 
 // Calls createPersonOwnerUserLoginRecord on dummy data
 // verifies that the createPersonOwnerUserLoginRecord returns createdOwnerId, createdPersonId, createdUserLoginId

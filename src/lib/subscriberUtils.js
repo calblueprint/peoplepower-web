@@ -1,8 +1,12 @@
-import { getOwnerById, getPaymentById, getSubscriberBillById } from './request';
+import {
+  getOwnerById,
+  getPaymentById,
+  getSubscriberBillById
+} from './airtable/request';
 import getOwnerIdFromPersonId from './personUtils';
 import { convertPaypalDateTimeToDate } from './dateUtils';
 
-import { Columns } from './schema';
+import { Columns } from './airtable/schema';
 import constants from '../constants';
 
 const { BILL_TYPE, ONLINE_PAYMENT_TYPE, COMPLETED_STATUS } = constants;

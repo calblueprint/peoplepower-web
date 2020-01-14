@@ -17,7 +17,7 @@ import {
   createOwner,
   deleteOwner,
   deleteUserLogin
-} from '../../lib/request';
+} from '../../lib/airtable/request';
 
 const testPerson = 'recaUqFEg1nI91hyi';
 const testOwner = 'reckNsjHnv0IpwN5M';
