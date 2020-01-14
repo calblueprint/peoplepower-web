@@ -2,14 +2,9 @@
 
 import React from 'react';
 import '../../styles/UserProfilePage.css';
-import {
-  getPersonById,
-  getOwnerById,
-  getProjectGroupById,
-  updatePerson,
-  updateUserLogin
-} from '../../lib/airtable/request';
+import { updatePerson, updateUserLogin } from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
+import { refreshUserData } from '../../lib/userDataUtils';
 
 const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;
@@ -42,26 +37,22 @@ export default class UserProfilePage extends React.Component {
   }
 
   async componentDidMount() {
-    // id taken from URL. React Router's useParams() threw an "invalid hook" error.
-    const { match } = this.props;
-    const { id } = match.params;
-    const personRecord = await getPersonById(id);
+    // TODO: Don't take ID from url, take it from redux
+
+    const { person, projectGroup } = this.props;
     const {
+      ID: id,
       Email: email,
       'Phone Number': phoneNumber,
-      Owner: ownerId,
       Name: name,
       'User Login': userLoginID,
       City: city,
       Street: street,
       State: state,
       Zipcode: zipCode
-    } = personRecord;
+    } = person;
 
-    const ownerRecord = await getOwnerById(ownerId);
-    const { 'Project Group': projectGroupID } = ownerRecord;
-    const projectRecord = await getProjectGroupById(projectGroupID);
-    const { Name: projectGroupName } = projectRecord;
+    const { Name: projectGroupName } = projectGroup;
     this.setState({
       id,
       email,
@@ -145,6 +136,9 @@ export default class UserProfilePage extends React.Component {
         zipcode: updateZip
       });
     }
+
+    // Refresh local cache with latest user data
+    await refreshUserData();
   };
 
   render() {

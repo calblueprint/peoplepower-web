@@ -50,6 +50,10 @@ function createRecord(table, record) {
 
 // TODO(dfangshuo): pagination?
 // TODO(dfangshuo): current implementation only fetches the first page
+// TODO: Craaaazy idea but what if we transformed record objects to use
+// lowercase attribute names before we store them in redux
+// and then before we update them in airtable we transform them back!
+// 100% should do this
 function getAllRecords(table) {
   return new Promise(function(resolve, reject) {
     base(table)

@@ -1,4 +1,3 @@
-import { setLoginCookie } from '../authUtils';
 import {
   createPerson,
   createOwner,
@@ -6,6 +5,8 @@ import {
   deleteOwner,
   deletePerson
 } from '../airtable/request';
+import { store } from '../redux/store';
+import { authenticate } from '../redux/userDataSlice';
 
 const DEFAULT_NUM_RETRIES = 3;
 
@@ -210,7 +211,9 @@ const createPersonOwnerUserLoginRecord = async (
       password,
       numRetries - 1
     );
-    setLoginCookie(createdPersonId, fullName);
+
+    // TODO: Replace with proper airlock authentication
+    store.dispatch(authenticate('temp_token'));
     return { createdOwnerId, createdPersonId, createdUserLoginId };
   } catch (err) {
     console.error(err);

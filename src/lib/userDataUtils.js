@@ -1,27 +1,61 @@
 import {
   getPersonById,
   getOwnerById,
-  getUserLoginById
+  getSolarProjectById,
+  getProjectGroupById,
+  getAnnouncementsByProjectGroup
 } from './airtable/request';
-import validatePersonRecord from './validatorUtils';
+import { store } from './redux/store';
 import { Columns } from './airtable/schema';
-
-// throw an exception on error
-const getOwnerIdFromPersonId = async loggedInUserId => {
-  const personRecord = await getPersonById(loggedInUserId);
-  validatePersonRecord(personRecord);
-  return personRecord.Owner[0];
-};
+import {
+  saveUserData,
+  deauthenticateAndClearUserData,
+  fetchUserData
+} from './redux/userDataSlice';
+import {
+  clearAnnouncements,
+  saveAnnouncements,
+  fetchAnnouncements
+} from './redux/communitySlice';
+import { applyCredentials } from './credentials';
 
 // TODO: validate records fetched using validator functions
-const fetchAllUserData = async personId => {
-  const person = await getPersonById(personId);
-  const ownerId = person[Columns.Person.Owner];
-  const userLoginId = person[Columns.Person.UserLogin];
+const refreshUserData = async userLogin => {
+  // Save loading status to Redux
+  store.dispatch(fetchUserData());
+  store.dispatch(fetchAnnouncements());
+
+  // Fetch all the data
+  const ownerId = userLogin[Columns.UserLogin.Owner];
+  const personId = userLogin[Columns.UserLogin.Person];
 
   const owner = await getOwnerById(ownerId);
-  const userLogin = await getUserLoginById(userLoginId);
-  return { person, owner, userLogin };
+  const person = await getPersonById(personId);
+
+  const projectGroupId = owner[Columns.Owner.ProjectGroup];
+  const projectGroup = await getProjectGroupById(projectGroupId);
+  const announcements = await getAnnouncementsByProjectGroup(projectGroupId);
+
+  const solarProjectIds = projectGroup[Columns.ProjectGroup.SolarProject];
+  const solarProjectPromises = solarProjectIds.map(id =>
+    getSolarProjectById(id)
+  );
+  const solarProjects = await Promise.all(solarProjectPromises);
+
+  const credentials = await applyCredentials(owner);
+
+  // Save fetched user data to the redux store
+  const userData = { person, owner, projectGroup, solarProjects, credentials };
+  store.dispatch(saveUserData(userData));
+
+  // Refresh announcements data
+  store.dispatch(clearAnnouncements());
+  store.dispatch(saveAnnouncements(announcements));
 };
 
-export { getOwnerIdFromPersonId, fetchAllUserData };
+const clearUserData = () => {
+  store.dispatch(deauthenticateAndClearUserData());
+  store.dispatch(clearAnnouncements());
+};
+
+export { refreshUserData, clearUserData };

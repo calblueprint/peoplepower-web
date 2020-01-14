@@ -56,14 +56,6 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const { history, personId } = this.props;
-    if (!personId) {
-      // They shouldn't be able to access this screen
-      history.push('/');
-    }
-  }
-
   onPaypalPaymentSuccess = async (details, data) => {
     try {
       const { pendingBills } = this.props;

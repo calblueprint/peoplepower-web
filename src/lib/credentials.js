@@ -1,25 +1,23 @@
-import { getOwnerFromPerson, getAdminTable } from './adminUtils';
-import { getOwnerById } from './airtable/request';
+import { getAdminTable } from './adminUtils';
 import constants from '../constants';
 import { Columns } from './airtable/schema';
 
 const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
 
-async function applyCredentials(userId) {
+async function applyCredentials(owner) {
   let credentials = '';
 
-  if (userId == null) {
+  // TODO: Will this ever be the case? Is this check necessary
+  if (owner == null) {
     return credentials;
   }
 
-  const ownerId = await getOwnerFromPerson(userId);
-  const isAdminPayload = await getAdminTable(ownerId);
+  const isAdminPayload = await getAdminTable(owner);
   if (isAdminPayload !== -1) {
     credentials += 'A';
   }
 
-  const ownerRecord = await getOwnerById(ownerId);
-  const ownerTypes = ownerRecord[Columns.Owner.OwnerType];
+  const ownerTypes = owner[Columns.Owner.OwnerType];
 
   if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
     credentials += 'S';

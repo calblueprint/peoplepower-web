@@ -3,15 +3,7 @@ import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
 import SubscriberOwnerDashboardAllBillsTable from './SubscriberOwnerDashboardAllBillsTable';
 
-export default class SubscriberOwnerDashboardAllBillsView extends React.Component {
-  componentDidMount() {
-    const { history, personId } = this.props;
-    if (!personId) {
-      // They shouldn't be able to access this screen
-      history.push('/');
-    }
-  }
-
+export default class SubscriberOwnerDashboardAllBillsView extends React.PureComponent {
   render() {
     const { callback, transactions } = this.props;
     return (

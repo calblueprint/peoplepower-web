@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/index.css';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
+import { store, persistor } from './lib/redux/store';
+import './styles/index.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-
-// REEACT ROUTER
-// import RoutingApp from './RoutingApp';
-// import { BrowserRouter } from 'react-router-dom';
-
-// ReactDOM.render((
-//   <BrowserRouter>
-//     <RoutingApp />
-//   </BrowserRouter>
-// ), document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>,
+  document.getElementById('root')
+);

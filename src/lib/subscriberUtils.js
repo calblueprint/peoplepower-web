@@ -3,7 +3,6 @@ import {
   getPaymentById,
   getSubscriberBillById
 } from './airtable/request';
-import getOwnerIdFromPersonId from './userDataUtils';
 import { convertPaypalDateTimeToDate } from './dateUtils';
 
 import { Columns } from './airtable/schema';
@@ -42,9 +41,8 @@ const getBillsAndPaymentsFromOwnerId = async ownerId => {
   };
 };
 
-const getSubscriberBills = async loggedInUserId => {
+const getSubscriberBills = async ownerId => {
   try {
-    const ownerId = await getOwnerIdFromPersonId(loggedInUserId);
     const { billIds, paymentIds } = await getBillsAndPaymentsFromOwnerId(
       ownerId
     );

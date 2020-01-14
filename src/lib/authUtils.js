@@ -1,65 +1,42 @@
-import Cookies from 'universal-cookie';
-import constants from '../constants';
-import { getPersonById, getUserLoginsByEmail } from './airtable/request';
+import { getUserLoginsByEmail } from './airtable/request';
 import { Columns } from './airtable/schema';
-import store from './redux/store';
-
-const { LOGIN_TOKEN_NAME } = constants;
-
-const cookies = new Cookies();
-
-const setLoginCookie = (id, name) => {
-  cookies.set(LOGIN_TOKEN_NAME, { id, name });
-};
+import { store } from './redux/store';
+import { authenticate } from './redux/userDataSlice';
+import { refreshUserData, clearUserData } from './userDataUtils';
 
 const loginUser = async (email, passwordHash) => {
   const records = await getUserLoginsByEmail(email);
-  if (records.length !== 1) {
+
+  if (records.length > 1) {
+    // Todo: We could/should ultimately try and handle this case smoothly
+    // This error case represents a database structure issue, but it
+    // doesn't have to cause a frontend error realistically
     return new Error(
       `Unexpected number ${records.length} of users found for ${email}`
     );
   }
-  console.log(store);
 
-  const record = records[0];
-  if (record[Columns.UserLogin.Password] === passwordHash) {
-    const personId = record[Columns.UserLogin.Person][0];
-    const personRecord = await getPersonById(personId);
-    const { Name: name } = personRecord;
+  if (records.length === 0) {
+    return { match: false, found: false };
+  }
 
-    setLoginCookie(personId, name);
+  const userLogin = records[0];
+  if (userLogin[Columns.UserLogin.Password] === passwordHash) {
+    // TODO: Replace with airlock auth token.
+    // For now we can access airtable without restriction
+    const key = 'temp_token';
+
+    // Save key to redux store
+    store.dispatch(authenticate(key));
+    refreshUserData(userLogin);
     return { match: true, found: true };
   }
 
   return { match: false, found: true };
 };
 
-const getLoggedInUserId = () => {
-  const cookie = cookies.get(LOGIN_TOKEN_NAME);
-  if (!cookie) {
-    return undefined;
-  }
-
-  return cookie.id;
-};
-
-const getLoggedInUserName = () => {
-  const cookie = cookies.get(LOGIN_TOKEN_NAME);
-  if (!cookie) {
-    return undefined;
-  }
-
-  return cookie.name;
-};
-
 const logOut = () => {
-  cookies.remove(LOGIN_TOKEN_NAME);
+  clearUserData();
 };
 
-export {
-  loginUser,
-  setLoginCookie,
-  getLoggedInUserId,
-  getLoggedInUserName,
-  logOut
-};
+export { loginUser, logOut };

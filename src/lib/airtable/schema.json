@@ -64,7 +64,6 @@
       "Organization",
       "Date Created",
       "Date Updated",
-      "Address",
       "Tags",
       "User Login",
       "Name",
@@ -89,7 +88,8 @@
       "Billing City",
       "Billing State",
       "Billing Zipcode",
-      "Project Group"
+      "Project Group",
+      "Address"
     ]
   },
   "Rate Schedule": {

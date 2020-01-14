@@ -1,98 +1,25 @@
 import React from 'react';
-import '../../styles/GeneralOwnerDashboard.css';
-import {
-  getAnnouncementsByProjectGroup,
-  getPersonById,
-  getOwnerById,
-  getProjectGroupById,
-  getSolarProjectById
-} from '../../lib/airtable/request';
-import { getLoggedInUserId, logOut } from '../../lib/authUtils';
+import { connect } from 'react-redux';
+import { logOut } from '../../lib/authUtils';
 import AnnouncementList from '../../components/AnnouncementList';
 import LoadingComponent from '../../components/LoadingComponent';
+import { Columns } from '../../lib/airtable/schema';
+import '../../styles/GeneralOwnerDashboard.css';
 
-export default class GeneralOwnerDashboard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: 'N/A',
-      name: 'user',
-      phoneNumber: 'N/A',
-      address: '',
-      projectGroup: '',
-      projectGroupID: '',
-      solarProject: [],
-      cards: [],
-      isLoadingCards: true,
-      isLoadingDetails: true
-    };
-  }
-
+class GeneralOwnerDashboard extends React.Component {
   async componentDidMount() {
-    const { history, updateState } = this.props;
-    const personId = getLoggedInUserId();
-    if (!personId) {
+    const { authenticated, history } = this.props;
+
+    // TODO: this kind of redirect logic should be handled in App.js or Navbar.js
+    if (!authenticated) {
       // They shouldn't be able to access this screen
       history.push('/');
-      return;
     }
-
-    const personRecord = await getPersonById(personId);
-    const {
-      Name: name,
-      Email: email,
-      'Phone Number': phoneNumber,
-      Owner: ownerId,
-      City: city,
-      Street: street,
-      State: state,
-      'Zip Code': zipCode
-    } = personRecord;
-
-    this.setState({
-      email,
-      name,
-      phoneNumber,
-      address: `${street}, ${city}, ${state} ${zipCode}`,
-      isLoadingDetails: false
-    });
-
-    updateState(personId, name);
-    const ownerRecord = await getOwnerById(ownerId);
-    const { 'Project Group': projectGroupID } = ownerRecord;
-    const projectRecord = await getProjectGroupById(projectGroupID);
-    const {
-      Name: projectGroupName,
-      'Solar Project': solarProject
-    } = projectRecord;
-
-    const solarProjectNames = [];
-    solarProject.forEach(async project => {
-      const solarProjectRecord = await getSolarProjectById(project);
-      solarProjectNames.push(solarProjectRecord.Name);
-      // TODO Fix this lol, way too many unnecessary setState calls
-      this.setState({
-        solarProject: solarProjectNames
-      });
-    });
-    const announcementRecords = await getAnnouncementsByProjectGroup(
-      projectGroupID
-    );
-
-    this.setState({
-      projectGroupID,
-
-      projectGroup: projectGroupName,
-
-      cards: announcementRecords,
-      isLoadingCards: false
-    });
   }
 
   handleLogoutClick = () => {
-    const { history, updateState } = this.props;
+    const { history } = this.props;
     logOut();
-    updateState('');
     history.push('/');
   };
 
@@ -101,23 +28,21 @@ export default class GeneralOwnerDashboard extends React.Component {
      it when it's loaded.
   */
 
-  render() {
-    const {
-      name,
-      email,
-      phoneNumber,
-      address,
-      projectGroup,
-      solarProject,
-      cards,
-      isLoadingCards,
-      isLoadingDetails
-    } = this.state;
-    const solarProjectComponent = solarProject.map(project => {
-      return <li key={project}>{project}</li>;
+  renderUserDetails() {
+    const { person, projectGroup, solarProjects } = this.props;
+    const name = person[Columns.Person.Name];
+    const email = person[Columns.Person.Email];
+    const phoneNumber = person[Columns.Person.PhoneNumber];
+
+    // Note: Created a new airtable field that combined the 4 address fields to simplify
+    const address = person[Columns.Person.Address];
+
+    const solarProjectComponent = solarProjects.map(project => {
+      const projectName = project[Columns.SolarProject.Name];
+      return <li key={projectName}>{projectName}</li>;
     });
 
-    const userDetails = (
+    return (
       <div className="dash-solar-details">
         <p style={{ fontWeight: '800', color: 'black' }}>Welcome, {name}</p>
         <div>
@@ -131,7 +56,8 @@ export default class GeneralOwnerDashboard extends React.Component {
             <span>Address:</span> {address}
           </p>
           <p>
-            <span>Project Group:</span> {projectGroup}
+            <span>Project Group:</span>{' '}
+            {projectGroup[Columns.ProjectGroup.Name]}
           </p>
           <p>
             <span>Solar Project(s):</span>
@@ -148,25 +74,49 @@ export default class GeneralOwnerDashboard extends React.Component {
         </button>
       </div>
     );
+  }
 
-    if (isLoadingCards && isLoadingDetails) {
+  render() {
+    const {
+      announcements,
+      isLoadingAnnouncements,
+      isLoadingUserData
+    } = this.props;
+    if (isLoadingAnnouncements && isLoadingUserData) {
       return <LoadingComponent />;
     }
     return (
       <div className="dashboard">
         <div className="cont dash-announcements-cont">
           <h3>Community</h3>
-          {isLoadingCards ? (
+          {isLoadingAnnouncements ? (
             <div className="isLoadingDiv card" />
           ) : (
-            <AnnouncementList announcements={cards} css="" />
+            <AnnouncementList announcements={announcements} css="" />
           )}
         </div>
         <div className="dash-solar-details-cont">
           <h3>Solar Projects</h3>
-          {isLoadingDetails ? <div className="isLoadingDiv" /> : userDetails}
+          {isLoadingUserData ? (
+            <div className="isLoadingDiv" />
+          ) : (
+            this.renderUserDetails()
+          )}
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  authenticated: state.userData.authenticated,
+  person: state.userData.person,
+  owner: state.userData.owner,
+  projectGroup: state.userData.projectGroup,
+  solarProjects: state.userData.solarProjects,
+  announcements: state.community.announcements,
+  isLoadingUserData: state.userData.isLoading,
+  isLoadingAnnouncements: state.community.isLoading
+});
+
+export default connect(mapStateToProps)(GeneralOwnerDashboard);
