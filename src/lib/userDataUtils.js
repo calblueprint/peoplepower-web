@@ -45,7 +45,14 @@ const refreshUserData = async userLogin => {
   const credentials = await applyCredentials(owner);
 
   // Save fetched user data to the redux store
-  const userData = { person, owner, projectGroup, solarProjects, credentials };
+  const userData = {
+    userLogin,
+    person,
+    owner,
+    projectGroup,
+    solarProjects,
+    credentials
+  };
   store.dispatch(saveUserData(userData));
 
   // Refresh announcements data

@@ -1,4 +1,8 @@
-import { getOwnerById, updateProjectGroup } from './airtable/request';
+import {
+  getOwnerById,
+  updateProjectGroup,
+  getProjectGroupById
+} from './airtable/request';
 import { Columns } from './airtable/schema';
 
 const getAdminTable = async owner => {
@@ -12,7 +16,8 @@ const getAdminTable = async owner => {
 
 // TODO: reevaluate this function.
 // Can't the admin dashboard just deal in IDs instead of the actual objects?
-const getOwnersFromProjectGroup = async projectGroup => {
+const getOwnersFromProjectGroup = async projectGroupId => {
+  const projectGroup = await getProjectGroupById(projectGroupId);
   const { Owner } = projectGroup;
 
   const ownersObjects = await Promise.all(

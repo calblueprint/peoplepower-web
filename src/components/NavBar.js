@@ -15,7 +15,9 @@ class NavBar extends React.PureComponent {
   render() {
     // TODO: move routing to redux and update navbar display based on route
     const { person, credentials, isNavBarVisible } = this.props;
-    const personId = person ? person[Columns.Person.ID] : '';
+    // TODO: Holy crap so apparently the "ID" column on airtable is their NAME not the record ID.
+    // we NEED to standardize airtable column names so things aren't hella confusing
+    const personId = person ? person[Columns.Person.RECORDIDforDev] : '';
     const displayName = person ? person[Columns.Person.Name] : '';
 
     if (!isNavBarVisible) {

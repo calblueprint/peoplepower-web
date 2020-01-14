@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import thunk from 'redux-thunk';
 import userDataReducer from './userDataSlice';
 import communityReducer from './communitySlice';
 
@@ -19,7 +20,8 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 // Set up store with the appropriate reducers
 const store = configureStore({
-  reducer: persistedReducer
+  reducer: persistedReducer,
+  middleware: [thunk]
 });
 const persistor = persistStore(store);
 

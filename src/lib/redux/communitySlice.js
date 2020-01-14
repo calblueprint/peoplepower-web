@@ -18,7 +18,9 @@ const communitySlice = createSlice({
     },
     saveAnnouncements(state, action) {
       state.isLoading = false;
-      state.announcements.concat(action.payload);
+      action.payload.forEach(a => {
+        state.announcements.push(a);
+      });
     },
     clearAnnouncements(state) {
       state = initialState;

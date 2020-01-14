@@ -12,6 +12,7 @@ class SubscriberOwnerDashboard extends React.Component {
     super(props);
     this.state = {
       transactions: [],
+      pendingBills: [],
       mode: 0,
       isReady: false
     };
@@ -31,9 +32,7 @@ class SubscriberOwnerDashboard extends React.Component {
       return;
     }
 
-    const ownerId = owner[Columns.Owner.ID];
-
-    const { transactions, pendingBills } = await getSubscriberBills(ownerId);
+    const { transactions, pendingBills } = await getSubscriberBills(owner);
 
     if (transactions) {
       this.setState(prevState => {
@@ -64,7 +63,7 @@ class SubscriberOwnerDashboard extends React.Component {
   render() {
     const { mode, transactions, isReady, pendingBills } = this.state;
     const { person, isLoadingUserData } = this.props;
-    const personId = person[Columns.Person.ID];
+    const personId = person[Columns.Person.RECORDIDforDev];
     const isLoading = !isReady || isLoadingUserData;
 
     if (isLoading) {

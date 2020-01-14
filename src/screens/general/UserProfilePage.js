@@ -1,16 +1,15 @@
-// SEE TODOS ON LINE ~131.
-
 import React from 'react';
-import '../../styles/UserProfilePage.css';
+import { connect } from 'react-redux';
 import { updatePerson, updateUserLogin } from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
 import { refreshUserData } from '../../lib/userDataUtils';
+import '../../styles/UserProfilePage.css';
 
 const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;
 const STATUS_SUCCESS = 1;
 
-export default class UserProfilePage extends React.Component {
+class UserProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +38,13 @@ export default class UserProfilePage extends React.Component {
   async componentDidMount() {
     // TODO: Don't take ID from url, take it from redux
 
-    const { person, projectGroup } = this.props;
+    const { person, projectGroup, isLoadingUserData } = this.props;
+
+    // If data isn't in redux yet, don't do anything.
+    if (isLoadingUserData) {
+      return;
+    }
+
     const {
       ID: id,
       Email: email,
@@ -360,3 +365,11 @@ export default class UserProfilePage extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  person: state.userData.person,
+  owner: state.userData.owner,
+  projectGroup: state.userData.projectGroup,
+  isLoadingUserData: state.userData.isLoading
+});
+export default connect(mapStateToProps)(UserProfilePage);

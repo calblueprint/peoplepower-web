@@ -100,7 +100,7 @@ class Onboarding extends React.Component {
       return;
     }
 
-    this.setState({ userId: person[Columns.Person.ID] });
+    this.setState({ userId: person[Columns.Person.RECORDIDforDev] });
     const step = person['Onboarding Step'];
 
     this.setState({

@@ -1,8 +1,4 @@
-import {
-  getOwnerById,
-  getPaymentById,
-  getSubscriberBillById
-} from './airtable/request';
+import { getPaymentById, getSubscriberBillById } from './airtable/request';
 import { convertPaypalDateTimeToDate } from './dateUtils';
 
 import { Columns } from './airtable/schema';
@@ -33,22 +29,16 @@ const centsToDollars = cents => {
   return (cents / 100).toFixed(2);
 };
 
-const getBillsAndPaymentsFromOwnerId = async ownerId => {
-  const owner = await getOwnerById(ownerId);
-  return {
-    billIds: owner[Columns.Owner.SubscriberBill],
-    paymentIds: owner[Columns.Owner.Payment]
-  };
-};
-
-const getSubscriberBills = async ownerId => {
+const getSubscriberBills = async owner => {
   try {
-    const { billIds, paymentIds } = await getBillsAndPaymentsFromOwnerId(
-      ownerId
-    );
+    console.log(owner);
+    const billIds = owner[Columns.Owner.SubscriberBill];
+    const paymentIds = owner[Columns.Owner.Payment];
+    console.log(billIds);
+    console.log(paymentIds);
 
     if (!billIds && !paymentIds) {
-      return { transactions: [], totalBalance: 0 };
+      return { transactions: [], pendingBills: [], totalBalance: 0 };
     }
 
     const billPromises = [];

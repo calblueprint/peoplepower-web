@@ -42,10 +42,10 @@ class AdminDashboard extends React.Component {
       this.setState({
         access: true,
         isReady: true,
-        adminId: owner[Columns.Owner.ID],
+        adminId: owner[Columns.Owner.OwnerID],
         adminGroupId,
         owners: owners.filter(
-          o => o[Columns.Owner.Person] !== person[Columns.Person.ID]
+          o => o[Columns.Owner.Person] !== person[Columns.Person.RECORDIDforDev]
         )
       });
     }
@@ -53,12 +53,12 @@ class AdminDashboard extends React.Component {
 
   async removeUser(idToRemove) {
     const { adminGroupId, adminId, owners } = this.state;
-    let ownerIds = owners.map(owner => owner[Columns.Owner.ID]);
+    let ownerIds = owners.map(owner => owner[Columns.Owner.OwnerID]);
 
     // FILTER
     ownerIds = ownerIds.filter(ownerId => ownerId !== idToRemove);
     const newOwners = owners.filter(
-      owner => owner[Columns.Owner.ID] !== idToRemove
+      owner => owner[Columns.Owner.OwnerID] !== idToRemove
     );
     ownerIds.push(adminId);
 
@@ -105,7 +105,7 @@ class AdminDashboard extends React.Component {
                     <AdminDashboardCard
                       name={owner[Columns.Owner.ID]}
                       callback={idToRemove => this.removeUser(idToRemove)}
-                      ownerId={owner[Columns.Owner.ID]}
+                      ownerId={owner[Columns.Owner.OwnerID]}
                       ownerType={owner[Columns.Owner.OwnerType]}
                     />
                   );
