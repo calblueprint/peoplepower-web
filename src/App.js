@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import './styles/App.css';
+import { Provider } from 'react-redux';
 import NavBar from './components/NavBar';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
@@ -12,6 +12,8 @@ import GeneralOwnerDashboard from './screens/general/GeneralOwnerDashboard';
 import AdminDashboard from './screens/general/AdminDashboard';
 import UserProfilePage from './screens/general/UserProfilePage';
 import { applyCredentials } from './lib/credentials';
+import store from './redux/store';
+import './styles/App.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -53,49 +55,53 @@ class App extends React.Component {
   render() {
     const { personId, displayName, credentials, isNavBarVisible } = this.state;
     return (
-      <Router>
-        <div className="app-container">
-          <NavBar
-            personId={personId}
-            displayName={displayName}
-            credentials={credentials}
-            isNavBarVisible={isNavBarVisible}
-          />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={props => (
-                <Login {...props} updateState={this.updateState} />
-              )}
+      <Provider store={store}>
+        <Router>
+          <div className="app-container">
+            <NavBar
+              personId={personId}
+              displayName={displayName}
+              credentials={credentials}
+              isNavBarVisible={isNavBarVisible}
             />
-            <Route
-              path="/onboarding"
-              render={props => (
-                <Onboarding {...props} toggleNavbar={this.toggleNavbar} />
-              )}
-            />
-            <Route
-              path="/dashboard"
-              render={props => (
-                <GeneralOwnerDashboard
-                  {...props}
-                  updateState={this.updateState}
-                />
-              )}
-            />
-            <Route path="/admin" component={AdminDashboard} />
-            <Route path="/community" component={Community} />
-            <Route path="/billing" component={SubscriberOwnerDashboard} />
-            <Route path="/community" component={Community} />
-            <Route path="/admin" component={AdminDashboard} />
-            <Route path="/profile/:id" component={UserProfilePage} />
-            <Route>
-              <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={props => (
+                  <Login {...props} updateState={this.updateState} />
+                )}
+              />
+              <Route
+                path="/onboarding"
+                render={props => (
+                  <Onboarding {...props} toggleNavbar={this.toggleNavbar} />
+                )}
+              />
+              <Route
+                path="/dashboard"
+                render={props => (
+                  <GeneralOwnerDashboard
+                    {...props}
+                    updateState={this.updateState}
+                  />
+                )}
+              />
+              <Route path="/admin" component={AdminDashboard} />
+              <Route path="/community" component={Community} />
+              <Route path="/billing" component={SubscriberOwnerDashboard} />
+              <Route path="/community" component={Community} />
+              <Route path="/admin" component={AdminDashboard} />
+              <Route path="/profile/:id" component={UserProfilePage} />
+              <Route>
+                <p style={{ color: 'white', margin: '30px' }}>
+                  Not Found - 404
+                </p>
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </Provider>
     );
   }
 }
