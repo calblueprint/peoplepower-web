@@ -28,7 +28,7 @@ const getOwnersFromProjectGroup = async projectGroupId => {
 
 const updateProjectGroupOwners = async (groupId, newOwners) => {
   return updateProjectGroup(groupId, {
-    Owner: newOwners
+    owner: newOwners
   });
 };
 

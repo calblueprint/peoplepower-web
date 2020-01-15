@@ -67,23 +67,22 @@ const getSubscriberBills = async owner => {
           type: BILL_TYPE // Type is a local variable inserted to distinguish between bill payments and online payments
         });
         if (billObject.Status !== COMPLETED_STATUS) {
-          // TODO: Fix this to use proper column names.. @fang
+          // TODO: Could this be simpler since it's copying most of the properties of billObject
           pendingBills.push({
-            ID: billObject.ID,
-            'Subscriber Owner': billObject['Subscriber Owner'][0], // assumes exactly 1 subscriber owner
-            'Transaction Date': billObject['Statement Date'],
-            'Start Date': billObject['Start Date'],
-            'End Date': billObject['End Date'],
-            'Rate Schedule': billObject['Rate Schedule'],
-            'Estimated Rebate': billObject['Estimated Rebate'],
-            'Total Estimated Rebate': billObject['Total Estimated Rebate'],
-            'Amount Due on Previous': billObject['Amount Due on Previous'],
-            'Amount Received Since Previous':
-              billObject['Amount Received Since Previous'],
-            'Amount Due': billObject['Amount Due'],
-            Status: billObject.Status,
-            Balance: billObject.Balance,
-            Type: BILL_TYPE // Type is a local variable inserted to distinguish between bill payments and online payments
+            id: billObject.id,
+            subscriberOwner: billObject.subscriberOwner[0], // assumes exactly 1 subscriber owner
+            transactionDate: billObject.statementDate,
+            startDate: billObject.startDate,
+            endDate: billObject.endDate,
+            rateSchedule: billObject.rateSchedule,
+            estimatedRebate: billObject.estimatedRebate,
+            totalEstimatedRebate: billObject.totalEstimatedRebate,
+            amountDueOnPrevious: billObject.amountDueOnPrevious,
+            amountReceivedSincePrevious: billObject.amountReceivedSincePrevious,
+            amountDue: billObject.amountDue,
+            status: billObject.status,
+            balance: billObject.balance,
+            type: BILL_TYPE // Type is a local variable inserted to distinguish between bill payments and online payments
           });
         }
       });

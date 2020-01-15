@@ -102,41 +102,42 @@ class Onboarding extends React.Component {
     this.setState({ userId: person.recordIdforDev });
     const step = person['Onboarding Step'];
 
+    // Todo: Clean up state code
     this.setState({
-      step: person['Onboarding Step'], // TODO: move this object transformation out of our visual components
-      userLoginId: person['User Login'][0],
-      personId: person.Owner[0],
-      fname: person.Name.split(' ')[0],
-      lname: person.Name.split(' ')[1],
-      email: person.Email,
-      altEmail: person['Alternative Email'],
-      street: person.Street,
-      apt: person.Apt,
-      city: person.City,
-      state: person.State,
-      zipcode: person.Zipcode,
-      phoneNumber: person['Phone Number'],
-      mailingStreet: person['Mailing Street'],
-      mailingApt: person['Mailing Apt'],
-      mailingCity: person['Mailing City'],
-      mailingState: person['Mailing State'],
-      mailingZipcode: person['Mailing Zipcode'],
-      mailingPhoneNumber: person['Mailing Phone Number'],
-      billingStreet: person['Billing Street'],
-      billingApt: person['Billing Apt'],
-      billingCity: person['Billing City'],
-      billingState: person['Billing State'],
-      billingZipcode: person['Billing Zipcode'],
-      projectGroup: person['Project Group'][0]
+      step: person.onboardingStep,
+      userLoginId: person.userLogin[0],
+      personId: person.owner[0], // This is kinda messed up naming wise LOL
+      fname: person.name.split(' ')[0],
+      lname: person.name.split(' ')[1],
+      email: person.email,
+      altEmail: person.alternativeEmail,
+      street: person.street,
+      apt: person.apt,
+      city: person.city,
+      state: person.state,
+      zipcode: person.zipcode,
+      phoneNumber: person.phoneNumber,
+      mailingStreet: person.mailingStreet,
+      mailingApt: person.mailingApt,
+      mailingCity: person.mailingCity,
+      mailingState: person.mailingState,
+      mailingZipcode: person.mailingZipcode,
+      mailingPhoneNumber: person.mailingPhoneNumber,
+      billingStreet: person.billingStreet,
+      billingApt: person.billingApt,
+      billingCity: person.billingCity,
+      billingState: person.billingState,
+      billingZipcode: person.billingZipcode,
+      projectGroup: person.projectGroup[0]
     });
 
     if (step > 3) {
-      const numShares = owner['Number of Shares'];
+      const numShares = owner.numberOfShares;
 
       this.setState({
-        projectGroup: owner['Project Group'][0],
+        projectGroup: owner.projectGroup[0],
         numShares: numShares || 1,
-        dividends: owner['Receiving Dividends?']
+        dividends: owner.receivingDividends
       });
 
       if (step > 4) {

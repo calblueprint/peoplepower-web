@@ -9,10 +9,11 @@ import {
 const DEFAULT_NUM_RETRIES = 3;
 
 // Returns created person's ID
+// TODO: maybe have this function accept an object to...simplify
 const createPersonWithRetries = async (
   email,
   phoneNumber,
-  fullName,
+  name,
   street,
   city,
   state,
@@ -28,20 +29,20 @@ const createPersonWithRetries = async (
   // create a person record without an owner field nor user login field
   try {
     return await createPerson({
-      Email: email,
-      'Phone Number': phoneNumber,
-      Name: fullName,
-      Street: street,
-      City: city,
-      State: state,
-      Apt: apt,
-      Zipcode: zipcode,
-      'Onboarding Step': 3,
-      'Mailing Street': mailingStreet,
-      'Mailing Apt': mailingApt,
-      'Mailing City': mailingCity,
-      'Mailing State': mailingState,
-      'Mailing Zipcode': mailingZipcode
+      email,
+      phoneNumber,
+      name,
+      street,
+      city,
+      state,
+      apt,
+      zipcode,
+      onboardingStep: 3,
+      mailingStreet,
+      mailingApt,
+      mailingCity,
+      mailingState,
+      mailingZipcode
     });
   } catch (err) {
     if (numRetries === 0) {
@@ -51,7 +52,7 @@ const createPersonWithRetries = async (
     return createPersonWithRetries(
       email,
       phoneNumber,
-      fullName,
+      name,
       street,
       city,
       state,
@@ -71,8 +72,8 @@ const createPersonWithRetries = async (
 const createOwnerWithRetries = async (createdPersonId, numRetries) => {
   try {
     return await createOwner({
-      Person: [createdPersonId],
-      'Owner Type': ['General']
+      person: [createdPersonId],
+      ownerType: ['General']
     });
   } catch (err) {
     if (numRetries === 0) {
@@ -93,9 +94,9 @@ const createUserLoginWithRetries = async (
 ) => {
   try {
     const userLoginId = await createUserLogin({
-      Person: [createdPersonId],
-      Owner: [createdOwnerId],
-      Email: email,
+      person: [createdPersonId],
+      owner: [createdOwnerId],
+      email,
       password
     });
 

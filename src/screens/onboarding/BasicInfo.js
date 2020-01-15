@@ -34,13 +34,13 @@ class BasicInfo extends React.Component {
       if (userId) {
         const fullName = `${fname} ${lname}`;
         const updatedPerson = {
-          Name: fullName,
-          Email: email,
-          'Alternative Email': altEmail
+          name: fullName,
+          email,
+          alternativeEmail: altEmail
         };
 
         const newLogin = {
-          Email: email,
+          email,
           password
         };
 
