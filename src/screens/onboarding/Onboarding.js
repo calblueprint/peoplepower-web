@@ -9,7 +9,6 @@ import Complete from './Complete';
 import formValidation from '../../lib/onboarding/formValidation';
 import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
 import Template from './Template';
-import { Columns } from '../../lib/airtable/schema';
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -100,7 +99,7 @@ class Onboarding extends React.Component {
       return;
     }
 
-    this.setState({ userId: person[Columns.Person.RECORDIDforDev] });
+    this.setState({ userId: person.recordIdforDev });
     const step = person['Onboarding Step'];
 
     this.setState({

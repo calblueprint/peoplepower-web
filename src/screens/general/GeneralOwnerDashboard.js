@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { logOut } from '../../lib/authUtils';
 import AnnouncementList from '../../components/AnnouncementList';
 import LoadingComponent from '../../components/LoadingComponent';
-import { Columns } from '../../lib/airtable/schema';
 import '../../styles/GeneralOwnerDashboard.css';
 
 class GeneralOwnerDashboard extends React.Component {
@@ -30,34 +29,28 @@ class GeneralOwnerDashboard extends React.Component {
 
   renderUserDetails() {
     const { person, projectGroup, solarProjects } = this.props;
-    const name = person[Columns.Person.Name];
-    const email = person[Columns.Person.Email];
-    const phoneNumber = person[Columns.Person.PhoneNumber];
-
-    // Note: Created a new airtable field that combined the 4 address fields to simplify
-    const address = person[Columns.Person.Address];
 
     const solarProjectComponent = solarProjects.map(project => {
-      const projectName = project[Columns.SolarProject.Name];
-      return <li key={projectName}>{projectName}</li>;
+      return <li key={project.name}>{project.name}</li>;
     });
 
     return (
       <div className="dash-solar-details">
-        <p style={{ fontWeight: '800', color: 'black' }}>Welcome, {name}</p>
+        <p style={{ fontWeight: '800', color: 'black' }}>
+          Welcome, {person.name}
+        </p>
         <div>
           <p>
-            <span>Email:</span> {email}
+            <span>Email:</span> {person.email}
           </p>
           <p>
-            <span>Phone Number:</span> {phoneNumber}
+            <span>Phone Number:</span> {person.phoneNumber}
           </p>
           <p>
-            <span>Address:</span> {address}
+            <span>Address:</span> {person.address}
           </p>
           <p>
-            <span>Project Group:</span>{' '}
-            {projectGroup[Columns.ProjectGroup.Name]}
+            <span>Project Group:</span> {projectGroup.name}
           </p>
           <p>
             <span>Solar Project(s):</span>

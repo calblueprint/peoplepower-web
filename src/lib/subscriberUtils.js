@@ -1,7 +1,5 @@
 import { getPaymentById, getSubscriberBillById } from './airtable/request';
 import { convertPaypalDateTimeToDate } from './dateUtils';
-
-import { Columns } from './airtable/schema';
 import constants from '../constants';
 
 const { BILL_TYPE, ONLINE_PAYMENT_TYPE, COMPLETED_STATUS } = constants;
@@ -31,8 +29,8 @@ const centsToDollars = cents => {
 
 const getSubscriberBills = async owner => {
   try {
-    const billIds = owner[Columns.Owner.SubscriberBill];
-    const paymentIds = owner[Columns.Owner.Payment];
+    const billIds = owner.subscriberBill;
+    const paymentIds = owner.payment;
 
     if (!billIds && !paymentIds) {
       return { transactions: [], pendingBills: [], totalBalance: 0 };
@@ -56,18 +54,20 @@ const getSubscriberBills = async owner => {
       });
     }
     const paymentObjects = await Promise.all(paymentPromises);
+    console.log(billObjects);
 
     if (billObjects) {
       billObjects.forEach(billObject => {
         transactions.push({
-          transactionDate: billObject['Statement Date'],
-          startDate: billObject['Start Date'],
-          amountDue: billObject['Amount Due'],
-          status: billObject.Status,
-          balance: billObject.Balance,
+          transactionDate: billObject.statementDate,
+          startDate: billObject.startDate,
+          amountDue: billObject.amountDue,
+          status: billObject.status,
+          balance: billObject.balance,
           type: BILL_TYPE // Type is a local variable inserted to distinguish between bill payments and online payments
         });
         if (billObject.Status !== COMPLETED_STATUS) {
+          // TODO: Fix this to use proper column names.. @fang
           pendingBills.push({
             ID: billObject.ID,
             'Subscriber Owner': billObject['Subscriber Owner'][0], // assumes exactly 1 subscriber owner
@@ -93,10 +93,10 @@ const getSubscriberBills = async owner => {
       paymentObjects.forEach(paymentObject => {
         transactions.push({
           transactionDate: convertPaypalDateTimeToDate(
-            paymentObject['Payment Create Time']
+            paymentObject.paymentCreateTime
           ),
-          amount: paymentObject.Amount,
-          status: paymentObject.Status,
+          amount: paymentObject.amount,
+          status: paymentObject.status,
           type: ONLINE_PAYMENT_TYPE // Type is a local variable inserted to distinguish between bill payments and online payments
         });
       });

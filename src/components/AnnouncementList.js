@@ -3,16 +3,8 @@ import '../styles/Community.css';
 
 const AnnouncementList = props => {
   const { announcements, css } = props;
-  const list = announcements.map(announce => {
-    // console.log(announce);
-    const {
-      Title: title,
-      Message: message,
-      // Time: time,
-      // Location: location,
-      // 'Event type': eventType,
-      Attachments: attachments
-    } = announce;
+  const list = announcements.map(announcement => {
+    const { title, message, attachments } = announcement;
 
     let url = '';
     let filename = '';

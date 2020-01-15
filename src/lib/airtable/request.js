@@ -164,7 +164,7 @@ export const getAllAnnouncements = async () => {
 export const getAnnouncementsByProjectGroup = async value => {
   return getRecordsByAttribute(
     Tables.Announcement,
-    Columns.Announcement.ProjectGroup,
+    Columns.Announcement.projectGroup,
     value
   );
 };
@@ -204,7 +204,7 @@ export const getAllUserLogins = async () => {
 export const getUserLoginsByEmail = async value => {
   return getRecordsByAttribute(
     Tables.UserLogin,
-    Columns.UserLogin.Email,
+    Columns.UserLogin.email,
     value
   );
 };

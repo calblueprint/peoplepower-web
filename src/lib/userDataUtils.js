@@ -6,7 +6,6 @@ import {
   getAnnouncementsByProjectGroup
 } from './airtable/request';
 import { store } from './redux/store';
-import { Columns } from './airtable/schema';
 import {
   saveUserData,
   deauthenticateAndClearUserData,
@@ -26,18 +25,17 @@ const refreshUserData = async userLogin => {
   store.dispatch(fetchAnnouncements());
 
   // Fetch all the data
-  const ownerId = userLogin[Columns.UserLogin.Owner];
-  const personId = userLogin[Columns.UserLogin.Person];
 
-  const owner = await getOwnerById(ownerId);
-  const person = await getPersonById(personId);
+  const owner = await getOwnerById(userLogin.owner);
+  const person = await getPersonById(userLogin.person);
 
-  const projectGroupId = owner[Columns.Owner.ProjectGroup];
-  const projectGroup = await getProjectGroupById(projectGroupId);
-  const announcements = await getAnnouncementsByProjectGroup(projectGroupId);
+  const projectGroup = await getProjectGroupById(owner.projectGroup);
+  const announcements = await getAnnouncementsByProjectGroup(
+    owner.projectGroup
+  );
 
   let solarProjects = [];
-  const solarProjectIds = projectGroup[Columns.ProjectGroup.SolarProject];
+  const solarProjectIds = projectGroup.solarProject;
   if (solarProjectIds) {
     const solarProjectPromises = solarProjectIds.map(id =>
       getSolarProjectById(id)

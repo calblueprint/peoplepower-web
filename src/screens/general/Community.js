@@ -5,7 +5,6 @@ import { isAdmin } from '../../lib/credentials';
 import AnnouncementList from '../../components/AnnouncementList';
 import AddAnnouncement from '../../components/AddAnnouncement';
 import LoadingComponent from '../../components/LoadingComponent';
-import { Columns } from '../../lib/airtable/schema';
 import '../../styles/Community.css';
 
 class Community extends React.Component {
@@ -42,8 +41,7 @@ class Community extends React.Component {
       owner,
       credentials
     } = this.props;
-    const projectGroupId = owner[Columns.Owner.ProjectGroup];
-    const personId = owner[Columns.Owner.Person];
+
     const isLoading = isLoadingAnnouncements || isLoadingUserData;
     return isLoading ? (
       <LoadingComponent />
@@ -53,8 +51,8 @@ class Community extends React.Component {
           <h1>Community</h1>
           {isAdmin(credentials) ? (
             <AddAnnouncement
-              projectGroupId={projectGroupId}
-              personId={personId}
+              projectGroupId={owner.projectGroup}
+              personId={owner.person}
               updateCards={this.addTempCard}
             />
           ) : null}
