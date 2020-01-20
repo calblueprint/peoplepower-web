@@ -10,20 +10,20 @@ import { Columns } from './airtable/schema';
 import {
   saveUserData,
   deauthenticateAndClearUserData,
-  fetchUserData
+  setLoadingForUserData
 } from './redux/userDataSlice';
 import {
   clearAnnouncements,
   saveAnnouncements,
-  fetchAnnouncements
+  setLoadingForAnnouncements
 } from './redux/communitySlice';
 import { applyCredentials } from './credentials';
 
 // TODO: validate records fetched using validator functions
 const refreshUserData = async userLogin => {
   // Save loading status to Redux
-  store.dispatch(fetchUserData());
-  store.dispatch(fetchAnnouncements());
+  store.dispatch(setLoadingForUserData());
+  store.dispatch(setLoadingForAnnouncements());
 
   // Fetch all the data
   const ownerId = userLogin[Columns.UserLogin.Owner];

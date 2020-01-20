@@ -13,7 +13,7 @@ const communitySlice = createSlice({
   name: 'community',
   initialState,
   reducers: {
-    fetchAnnouncements(state) {
+    setLoadingForAnnouncements(state) {
       state.isLoading = true;
     },
     saveAnnouncements(state, action) {
@@ -29,7 +29,7 @@ const communitySlice = createSlice({
 });
 
 export const {
-  fetchAnnouncements,
+  setLoadingForAnnouncements,
   saveAnnouncements,
   clearAnnouncements
 } = communitySlice.actions;
