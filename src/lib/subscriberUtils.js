@@ -35,7 +35,7 @@ const getSubscriberBills = async owner => {
     const paymentIds = owner[Columns.Owner.Payment];
 
     if (!billIds && !paymentIds) {
-      return { transactions: [], pendingBills: [], totalBalance: 0 };
+      return { transactions: [], pendingBills: [] };
     }
 
     const billPromises = [];
