@@ -20,6 +20,8 @@ import {
 import { applyCredentials } from './credentials';
 
 // TODO: validate records fetched using validator functions
+// This function takes in a userLogin record
+// (because the Login logic already looks up the user login record)
 const refreshUserData = async userLogin => {
   // Save loading status to Redux
   store.dispatch(setLoadingForUserData());
