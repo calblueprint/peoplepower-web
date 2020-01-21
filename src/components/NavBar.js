@@ -8,7 +8,6 @@ import {
   isSignedIn
 } from '../lib/credentials';
 import Logo from '../assets/PPSC-logo.png';
-import { Columns } from '../lib/airtable/schema';
 import '../styles/NavBar.css';
 
 class NavBar extends React.PureComponent {
@@ -17,7 +16,7 @@ class NavBar extends React.PureComponent {
     const { person, credentials, isNavBarVisible } = this.props;
     // TODO: Holy crap so apparently the "ID" column on airtable is their NAME not the record ID.
     // we NEED to standardize airtable column names so things aren't hella confusing
-    const displayName = person ? person[Columns.Person.Name] : '';
+    const displayName = person ? person.name : '';
 
     if (!isNavBarVisible) {
       return (

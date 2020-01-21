@@ -32,15 +32,15 @@ class BasicInfo extends React.Component {
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
       if (userId) {
-        const fullName = `${fname} ${lname}`;
+        const name = `${fname} ${lname}`;
         const updatedPerson = {
-          Name: fullName,
-          Email: email,
-          'Alternative Email': altEmail
+          name,
+          email,
+          alternativeEmail: altEmail
         };
 
         const newLogin = {
-          Email: email,
+          email,
           password
         };
 

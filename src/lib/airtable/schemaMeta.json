@@ -1,0 +1,8 @@
+{
+  "User Login": {
+    "lookupFields": ["Email"]
+  },
+  "Announcement": {
+    "lookupFields": ["Project Group"]
+  }
+}

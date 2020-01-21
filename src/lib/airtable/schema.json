@@ -151,8 +151,7 @@
       "ID",
       "Location",
       "Time"
-    ],
-    "lookupFields": ["Project Group"]
+    ]
   },
   "PGE Usage": {
     "columns": [
@@ -212,8 +211,7 @@
       "Password Reminder Token",
       "Password Reminder Expire",
       "Email Confirmation Token"
-    ],
-    "lookupFields": ["Email"]
+    ]
   },
   "Owner": {
     "columns": [

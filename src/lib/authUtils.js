@@ -1,5 +1,4 @@
 import { getUserLoginsByEmail } from './airtable/request';
-import { Columns } from './airtable/schema';
 import { store } from './redux/store';
 import { authenticate } from './redux/userDataSlice';
 import { refreshUserData, clearUserData } from './userDataUtils';
@@ -21,7 +20,7 @@ const loginUser = async (email, passwordHash) => {
   }
 
   const userLogin = records[0];
-  if (userLogin[Columns.UserLogin.Password] === passwordHash) {
+  if (userLogin.password === passwordHash) {
     // TODO: Replace with airlock auth token.
     // For now we can access airtable without restriction
     const key = 'temp_token';

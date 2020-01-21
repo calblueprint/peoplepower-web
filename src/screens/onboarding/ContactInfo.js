@@ -77,19 +77,19 @@ class ContactInfo extends React.Component {
     if (!(errorMessages && errorMessages.length > 0)) {
       if (userId) {
         const updatedPerson = {
-          Street: street,
-          Apt: apt,
-          City: city,
-          State: state,
-          Zipcode: zipcode,
-          'Phone Number': phoneNumber,
-          'Mailing Street': mailingStreet,
-          'Mailing Apt': mailingApt,
-          'Mailing City': mailingCity,
-          'Mailing State': mailingState,
-          'Mailing Zipcode': mailingZipcode,
-          'Mailing Phone Number': mailingPhoneNumber,
-          'Onboarding Step': 3
+          street,
+          apt,
+          city,
+          state,
+          zipcode,
+          phoneNumber,
+          mailingStreet,
+          mailingApt,
+          mailingCity,
+          mailingState,
+          mailingZipcode,
+          mailingPhoneNumber,
+          onboardingStep: 3
         };
         updatePerson(userId, updatedPerson);
         nextStep();

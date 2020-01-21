@@ -22,23 +22,17 @@ class ProjectGroups extends React.Component {
 
   async componentDidMount() {
     let projectGroups = await getAllProjectGroups();
+
     projectGroups = projectGroups.map(record => ({
-      id: record.ID,
-      name: record.Name,
-      description: record.Description,
-      street: record['Street 1'],
-      apt: record['Street 2'],
-      city: record.City,
-      state: record.State,
-      zipcode: record.Zipcode,
-      public: record['Is Public?'],
-      default: record['Is Default?']
+      ...record,
+      street: record.street1,
+      apt: record.street2
     }));
 
     const selectableGroups = projectGroups.filter(
-      group => group.public && !group.default
+      group => group.isPublic && !group.isDefault
     );
-    const defaultGroup = projectGroups.find(group => group.default);
+    const defaultGroup = projectGroups.find(group => group.isDefault);
     this.setState({ groups: selectableGroups, defaultGroup });
   }
 
@@ -81,12 +75,12 @@ class ProjectGroups extends React.Component {
       console.error('Need to make a selection');
     } else {
       const updatedPerson = {
-        'Onboarding Step': 4
+        onboardingStep: 4
       };
       await updatePerson(userId, updatedPerson);
 
       const newOwner = {
-        'Project Group': [projectGroup]
+        projectGroup: [projectGroup]
       };
 
       await updateOwner(personId, newOwner);

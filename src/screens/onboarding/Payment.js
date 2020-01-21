@@ -32,7 +32,7 @@ class Payment extends React.Component {
 
     // No validation as everything is already decided at this point (user has paid)
     const updatedPerson = {
-      'Onboarding Step': 6
+      onboardingStep: 6
     };
 
     updatePerson(userId, updatedPerson); // TODO(dfangshuo): no await?

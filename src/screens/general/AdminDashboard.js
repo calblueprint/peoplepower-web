@@ -7,7 +7,6 @@ import {
   getOwnersFromProjectGroup,
   updateProjectGroupOwners
 } from '../../lib/adminUtils';
-import { Columns } from '../../lib/airtable/schema';
 import '../../styles/AdminDashboard.css';
 
 class AdminDashboard extends React.Component {
@@ -42,24 +41,20 @@ class AdminDashboard extends React.Component {
       this.setState({
         access: true,
         isReady: true,
-        adminId: owner[Columns.Owner.OwnerID],
+        adminId: owner.ownerId,
         adminGroupId,
-        owners: owners.filter(
-          o => o[Columns.Owner.Person] !== person[Columns.Person.RECORDIDforDev]
-        )
+        owners: owners.filter(o => o.person !== person.recordIdforDev)
       });
     }
   }
 
   async removeUser(idToRemove) {
     const { adminGroupId, adminId, owners } = this.state;
-    let ownerIds = owners.map(owner => owner[Columns.Owner.OwnerID]);
+    let ownerIds = owners.map(owner => owner.ownerId);
 
     // FILTER
     ownerIds = ownerIds.filter(ownerId => ownerId !== idToRemove);
-    const newOwners = owners.filter(
-      owner => owner[Columns.Owner.OwnerID] !== idToRemove
-    );
+    const newOwners = owners.filter(owner => owner.ownerId !== idToRemove);
     ownerIds.push(adminId);
 
     await updateProjectGroupOwners(adminGroupId, ownerIds);
@@ -103,10 +98,10 @@ class AdminDashboard extends React.Component {
                 owners.map(owner => {
                   return (
                     <AdminDashboardCard
-                      name={owner[Columns.Owner.ID]}
+                      name={owner.id}
                       callback={idToRemove => this.removeUser(idToRemove)}
-                      ownerId={owner[Columns.Owner.OwnerID]}
-                      ownerType={owner[Columns.Owner.OwnerType]}
+                      ownerId={owner.ownerId}
+                      ownerType={owner.ownerType}
                     />
                   );
                 })

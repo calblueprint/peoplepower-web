@@ -42,13 +42,13 @@ const getTotalBalanceFromBills = pendingBills => {
 const recordShareBuySuccess = async (details, data, values) => {
   const { numShares, dividends, personId } = values;
   const updatedOwner = {
-    'Number of Shares': numShares,
-    'Receiving Dividends?': dividends
+    numberOfShares: numShares,
+    receivingDividends: dividends
   };
 
   await updateOwner(personId, updatedOwner);
 
-  const { orderID, payerID } = data;
+  const { orderId, payerId } = data;
 
   const { intent, status, payer } = details;
   const { amount, shipping } = details.purchase_units[0]; // assumes purchase_units is only of length 1
@@ -60,20 +60,21 @@ const recordShareBuySuccess = async (details, data, values) => {
   const { address, name } = shipping;
   const addressToSave = `${address.address_line_1}, ${address.admin_area_2} ${address.country_code} ${address.admin_area_1} ${address.postal_code}`;
 
+  // TODO: Couldn't this use the constructPaymentRecord function?
   const record = {
-    Owner: [personId],
-    Status: status,
-    'Order ID': orderID,
-    'Payer ID': payerID,
-    Amount: parseFloat(amount.value, 10) * 100,
-    'Currency Code': amount.currency_code,
-    Address: addressToSave,
-    'Payer Full Name': name.full_name,
-    'Payer Email': payer.email_address,
-    Intent: intent,
-    'Payment Create Time': details.create_time,
-    'Payment Update Time': details.update_time,
-    Type: BUY_SHARES_TYPE
+    owner: [personId],
+    status,
+    orderId,
+    payerId,
+    amount: parseFloat(amount.value, 10) * 100,
+    currencyCode: amount.currency_code,
+    address: addressToSave,
+    payerFullName: name.full_name,
+    payerEmail: payer.email_address,
+    intent,
+    paymentCreateTime: details.create_time,
+    paymentUpdateTime: details.update_time,
+    type: BUY_SHARES_TYPE
   };
 
   /*
@@ -158,7 +159,7 @@ const constructPaymentRecord = (details, data, bill) => {
     */
   const owner = bill['Subscriber Owner'];
 
-  const { orderID, payerID } = data;
+  const { orderId, payerId } = data;
 
   const { id, intent, status, payer } = details;
   const { amount, shipping } = details.purchase_units[0]; // assumes purchase_units is only of length 1
@@ -172,24 +173,24 @@ const constructPaymentRecord = (details, data, bill) => {
   // const amountInCents = dollarsToCents({ TODO: APPROPRIATE VALUE HERE });
   const amountInCents = bill.Balance; // TODO: currently assumes entire bill is paid
   const paymentRecord = {
-    Owner: [owner],
-    Status: status,
-    'Subscriber Bill': [bill.ID],
-    'Order ID': orderID,
-    'Payer ID': payerID,
-    Amount: amountInCents,
-    'Currency Code': amount.currency_code,
-    Address: addressToSave,
-    'Payer Full Name': name.full_name,
-    'Payer Email': payer.email_address,
-    Intent: intent,
-    'Payment Create Time': details.create_time,
-    'Payment Update Time': details.update_time,
-    Type: BILL_PAYMENT_TYPE
+    owner: [owner],
+    status,
+    subscriberBill: [bill.ID],
+    orderId,
+    payerId,
+    amount: amountInCents,
+    currencyCode: amount.currency_code,
+    address: addressToSave,
+    payerFullName: name.full_name,
+    payerEmail: payer.email_address,
+    intent,
+    paymentCreateTime: details.create_time,
+    paymentUpdatetime: details.update_time,
+    type: BILL_PAYMENT_TYPE
   };
 
-  if (id !== orderID) {
-    paymentRecord.Notes = 'id and order id mismatch';
+  if (id !== orderId) {
+    paymentRecord.notes = 'id and order id mismatch';
   }
   return paymentRecord;
 };
@@ -216,10 +217,10 @@ const recordBillPaymentSuccess = async (details, data, bill) => {
   // update bill
   // TODO: currently will always be 0, because amountInCents === bill.Balance
   // may not be the case for partial payments
-  const newBalance = bill.Balance - paymentRecord.Amount;
+  const newBalance = bill.balance - paymentRecord.amount;
   return updateSubscriberBill(bill.ID, {
-    Balance: newBalance,
-    Status: newBalance === 0 ? COMPLETED_STATUS : PENDING_STATUS
+    balance: newBalance,
+    status: newBalance === 0 ? COMPLETED_STATUS : PENDING_STATUS
   });
 };
 

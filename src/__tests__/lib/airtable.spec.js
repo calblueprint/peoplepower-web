@@ -19,17 +19,17 @@ const testId = 'rechutWysjm8RbJkq';
 // copies of records in Airtable.
 // If different, Airtable is source of truth
 const expectedTestResult = {
-  ID: 'rechutWysjm8RbJkq',
-  Name: 'TEST READ RECORD',
-  Tag: TEST_TAG
+  id: 'rechutWysjm8RbJkq',
+  name: 'TEST READ RECORD',
+  tag: TEST_TAG
 };
 
 const NUM_ENTRIES = 1;
 const expectedTestResultsArr = [expectedTestResult];
 
 const testNewRecord = {
-  Name: 'TEST NEW RECORD',
-  Tag: '83h)%uG9'
+  name: 'TEST NEW RECORD',
+  tag: '83h)%uG9'
 };
 
 describe('consistency of test data', () => {
@@ -86,21 +86,21 @@ describe('createRecord/updateRecord/deleteRecord functions', () => {
 
     // verifies that the right record has been created
     res = await getRecordById(TEST_TABLE, id);
-    expect(res.Name).toStrictEqual(testNewRecord.Name);
-    expect(res.Tag).toStrictEqual(testNewRecord.Tag);
+    expect(res.name).toStrictEqual(testNewRecord.name);
+    expect(res.tag).toStrictEqual(testNewRecord.tag);
 
     // update record
     const testUpdateRecord = {
-      Name: testNewRecord.Name,
-      Tag: testNewRecord.Tag
+      name: testNewRecord.name,
+      tag: testNewRecord.tag
     };
     id = await updateRecord(TEST_TABLE, id, testUpdateRecord);
     expect(id).toStrictEqual(id);
 
     // verifies that the right record has been updated
     res = await getRecordById(TEST_TABLE, id);
-    expect(res.Name).toStrictEqual(testNewRecord.Name);
-    expect(res.Tag).toStrictEqual(testNewRecord.Tag);
+    expect(res.name).toStrictEqual(testNewRecord.name);
+    expect(res.tag).toStrictEqual(testNewRecord.tag);
 
     // delete record
     res = await deleteRecord(TEST_TABLE, id);

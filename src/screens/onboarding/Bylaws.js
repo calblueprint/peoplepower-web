@@ -28,7 +28,7 @@ class Bylaws extends React.Component {
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
       const updatedPerson = {
-        'Onboarding Step': 5
+        onboardingStep: 5
       };
       updatePerson(userId, updatedPerson);
       nextStep();

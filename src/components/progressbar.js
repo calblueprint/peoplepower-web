@@ -10,6 +10,7 @@ function colorStep(activeStep, step) {
   return '';
 }
 
+// TODO: convert to a react component
 export default function ProgressBar(step) {
   return (
     <div className="progress-bar-container">

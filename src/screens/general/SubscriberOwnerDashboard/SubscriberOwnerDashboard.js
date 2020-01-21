@@ -5,7 +5,6 @@ import SubscriberOwnerDashboardMainView from './SubscriberOwnerDashboardMainView
 import LoadingComponent from '../../../components/LoadingComponent';
 import { areDiffBills, getSubscriberBills } from '../../../lib/subscriberUtils';
 import '../../../styles/SubscriberOwnerDashboard.css';
-import { Columns } from '../../../lib/airtable/schema';
 
 class SubscriberOwnerDashboard extends React.Component {
   constructor(props) {
@@ -63,7 +62,7 @@ class SubscriberOwnerDashboard extends React.Component {
   render() {
     const { mode, transactions, isReady, pendingBills } = this.state;
     const { person, isLoadingUserData } = this.props;
-    const personId = person[Columns.Person.RECORDIDforDev];
+    const personId = person.recordIdforDev;
     const isLoading = !isReady || isLoadingUserData;
 
     if (isLoading) {

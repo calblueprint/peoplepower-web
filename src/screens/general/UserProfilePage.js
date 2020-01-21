@@ -49,22 +49,24 @@ class UserProfilePage extends React.Component {
       return;
     }
 
-    // TODO This "RECORDIDforDev" shit could/is probably causing a lot of problems
+    // TODO This "RECORDIDforDev" stuff could/is probably causing a lot of problems
     // basically, while you think a person record's ID would be person.ID, it's actually
     // person.RECORDIDforDev
+    // TODO: We don't need to pull all of this data from props just to put it into state.
+    // We can be smarter about it
     const {
-      'RECORD ID (for dev)': id,
-      Email: email,
-      'Phone Number': phoneNumber,
-      Name: name,
-      'User Login': userLoginID,
-      City: city,
-      Street: street,
-      State: state,
-      Zipcode: zipCode
+      recordIdforDev: id,
+      email,
+      phoneNumber,
+      name,
+      userLogin: userLoginID,
+      city,
+      street,
+      state,
+      zipcode: zipCode
     } = person;
 
-    const { Name: projectGroupName } = projectGroup;
+    const { name: projectGroupName } = projectGroup;
     this.setState({
       id,
       email,
@@ -115,16 +117,16 @@ class UserProfilePage extends React.Component {
     */
 
     const newPerson = {
-      Name: updateName,
-      Email: updateEmail.toLowerCase(),
-      'Phone Number': updatePhone,
-      Street: updateStreet,
-      City: updateCity,
-      State: updateState.toUpperCase(),
-      Zipcode: updateZip
+      name: updateName,
+      email: updateEmail.toLowerCase(),
+      phoneNumber: updatePhone,
+      street: updateStreet,
+      city: updateCity,
+      state: updateState.toUpperCase(),
+      zipcode: updateZip
     };
     const newLogin = {
-      Email: updateEmail
+      email: updateEmail
     };
     // console.log(`UPDATE: ${userLoginID}`);
     await updatePerson(id, newPerson);

@@ -39,9 +39,9 @@ export default class AddAnnouncement extends React.Component {
 
     const { personId, projectGroupId, updateCards } = this.props;
     const newMessage = {
-      Author: [personId],
-      'Project Group': [projectGroupId],
-      Message: message
+      author: [personId],
+      projectGroup: [projectGroupId],
+      message
     };
 
     await createAnnouncement(newMessage);

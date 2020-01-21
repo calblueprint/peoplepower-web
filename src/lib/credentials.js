@@ -1,6 +1,5 @@
 import { getAdminTable } from './adminUtils';
 import constants from '../constants';
-import { Columns } from './airtable/schema';
 
 const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
 
@@ -17,7 +16,7 @@ async function applyCredentials(owner) {
     credentials += 'A';
   }
 
-  const ownerTypes = owner[Columns.Owner.OwnerType];
+  const ownerTypes = owner.ownerType;
 
   if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
     credentials += 'S';
