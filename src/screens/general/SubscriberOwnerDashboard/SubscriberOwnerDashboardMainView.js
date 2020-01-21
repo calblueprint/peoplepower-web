@@ -8,7 +8,7 @@ import { dateToFullMonth, formatDate } from '../../../lib/dateUtils';
 import {
   getTotalBalanceFromBills,
   recordPendingBillsPaymentSuccess
-} from '../../../lib/paypal';
+} from '../../../lib/paypalUtils';
 
 import constants from '../../../constants';
 
@@ -54,14 +54,6 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
           : createCondensedBillTransaction(t)
       )
     };
-  }
-
-  componentDidMount() {
-    const { history, personId } = this.props;
-    if (!personId) {
-      // They shouldn't be able to access this screen
-      history.push('/');
-    }
   }
 
   onPaypalPaymentSuccess = async (details, data) => {

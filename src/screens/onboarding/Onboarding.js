@@ -1,15 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import BasicInfo from './BasicInfo';
 import ContactInfo from './ContactInfo';
 import Bylaws from './Bylaws';
 import ProjectGroups from './ProjectGroups';
 import Payment from './Payment';
 import Complete from './Complete';
-import formValidation from '../../lib/formValidation';
-import { getLoggedInUserId } from '../../lib/auth';
-import { createPersonOwnerUserLoginRecord } from '../../lib/onboardingUtils';
+import formValidation from '../../lib/onboarding/formValidation';
+import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
 import Template from './Template';
-import { getPersonById, getOwnerById } from '../../lib/request';
+import { Columns } from '../../lib/airtable/schema';
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -91,14 +91,16 @@ class Onboarding extends React.Component {
   }
 
   async componentDidMount() {
-    const id = getLoggedInUserId();
-    // Person does not have a User Id
-    if (!id) {
+    const { person, owner } = this.props;
+
+    // TODO: Not sure what the state of redux will be as onboarding goes on.
+    // This is a whole nother PR to figure out...eek
+
+    if (!person) {
       return;
     }
 
-    this.setState({ userId: id });
-    const person = await getPersonById(id);
+    this.setState({ userId: person[Columns.Person.RECORDIDforDev] });
     const step = person['Onboarding Step'];
 
     this.setState({
@@ -128,8 +130,6 @@ class Onboarding extends React.Component {
       billingZipcode: person['Billing Zipcode'],
       projectGroup: person['Project Group'][0]
     });
-    const { Owner: ownerId } = person;
-    const owner = await getOwnerById(ownerId);
 
     if (step > 3) {
       const numShares = owner['Number of Shares'];
@@ -161,10 +161,15 @@ class Onboarding extends React.Component {
     this.setState({ step: step - 1 });
   };
 
-  handleRecordCreation = ({ createdOwnerId, createdPersonId }) => {
+  handleRecordCreation = ({
+    createdOwnerId,
+    createdPersonId,
+    createdUserLoginId
+  }) => {
     this.setState({
       userId: createdPersonId,
-      personId: createdOwnerId
+      personId: createdOwnerId,
+      userLoginId: createdUserLoginId
     });
   };
 
@@ -371,4 +376,8 @@ class Onboarding extends React.Component {
   }
 }
 
-export default Onboarding;
+const mapStateToProps = state => ({
+  person: state.userData.person,
+  owner: state.userData.owner
+});
+export default connect(mapStateToProps)(Onboarding);

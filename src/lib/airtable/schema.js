@@ -80,7 +80,6 @@ export const Columns = {
     Organization: `Organization`,
     DateCreated: `Date Created`,
     DateUpdated: `Date Updated`,
-    Address: `Address`,
     Tags: `Tags`,
     UserLogin: `User Login`,
     Name: `Name`,
@@ -105,7 +104,8 @@ export const Columns = {
     BillingCity: `Billing City`,
     BillingState: `Billing State`,
     BillingZipcode: `Billing Zipcode`,
-    ProjectGroup: `Project Group`
+    ProjectGroup: `Project Group`,
+    Address: `Address`
   },
   RateSchedule: {
     ID: `ID`,

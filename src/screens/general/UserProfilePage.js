@@ -1,21 +1,19 @@
-// SEE TODOS ON LINE ~131.
-
 import React from 'react';
-import '../../styles/UserProfilePage.css';
+import { connect } from 'react-redux';
 import {
-  getPersonById,
-  getOwnerById,
-  getProjectGroupById,
   updatePerson,
-  updateUserLogin
-} from '../../lib/request';
+  updateUserLogin,
+  getUserLoginById
+} from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
+import { refreshUserData } from '../../lib/userDataUtils';
+import '../../styles/UserProfilePage.css';
 
 const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;
 const STATUS_SUCCESS = 1;
 
-export default class UserProfilePage extends React.Component {
+class UserProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,26 +40,31 @@ export default class UserProfilePage extends React.Component {
   }
 
   async componentDidMount() {
-    // id taken from URL. React Router's useParams() threw an "invalid hook" error.
-    const { match } = this.props;
-    const { id } = match.params;
-    const personRecord = await getPersonById(id);
+    // TODO: Don't take ID from url, take it from redux
+
+    const { person, projectGroup, isLoadingUserData } = this.props;
+
+    // If data isn't in redux yet, don't do anything.
+    if (isLoadingUserData) {
+      return;
+    }
+
+    // TODO This "RECORDIDforDev" shit could/is probably causing a lot of problems
+    // basically, while you think a person record's ID would be person.ID, it's actually
+    // person.RECORDIDforDev
     const {
+      'RECORD ID (for dev)': id,
       Email: email,
       'Phone Number': phoneNumber,
-      Owner: ownerId,
       Name: name,
       'User Login': userLoginID,
       City: city,
       Street: street,
       State: state,
       Zipcode: zipCode
-    } = personRecord;
+    } = person;
 
-    const ownerRecord = await getOwnerById(ownerId);
-    const { 'Project Group': projectGroupID } = ownerRecord;
-    const projectRecord = await getProjectGroupById(projectGroupID);
-    const { Name: projectGroupName } = projectRecord;
+    const { Name: projectGroupName } = projectGroup;
     this.setState({
       id,
       email,
@@ -145,6 +148,12 @@ export default class UserProfilePage extends React.Component {
         zipcode: updateZip
       });
     }
+
+    // get latest copy of user login record
+    const userLogin = await getUserLoginById(userLoginID);
+
+    // Refresh local cache with latest user data
+    await refreshUserData(userLogin);
   };
 
   render() {
@@ -366,3 +375,11 @@ export default class UserProfilePage extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  person: state.userData.person,
+  owner: state.userData.owner,
+  projectGroup: state.userData.projectGroup,
+  isLoadingUserData: state.userData.isLoading
+});
+export default connect(mapStateToProps)(UserProfilePage);

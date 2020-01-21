@@ -1,8 +1,8 @@
 import React from 'react';
-import formValidation from '../../lib/formValidation';
+import formValidation from '../../lib/onboarding/formValidation';
 import '../../styles/Onboarding.css';
 import Tooltip from '../../components/Tooltip';
-import { updatePerson, updateUserLogin } from '../../lib/request';
+import { updatePerson, updateUserLogin } from '../../lib/airtable/request';
 
 class BasicInfo extends React.Component {
   // validates then moves on if no error messages

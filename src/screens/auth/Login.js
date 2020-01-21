@@ -1,7 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { loginUser } from '../../lib/authUtils';
 import '../../styles/Login.css';
-
-import { loginUser, getLoggedInUserId } from '../../lib/auth';
 
 const HOME_ROUTE = '/dashboard';
 const SIGNUP_ROUTE = '/onboarding';
@@ -16,8 +16,8 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-    const { history } = this.props;
-    if (getLoggedInUserId()) {
+    const { history, authenticated } = this.props;
+    if (authenticated) {
       history.push(HOME_ROUTE);
     }
   }
@@ -27,12 +27,12 @@ class Login extends React.Component {
   };
 
   handlePasswordChange = event => {
+    // TODO: Hash the password locally
     this.setState({ passwordHash: event.target.value });
   };
 
   handleSignUpOnClick = () => {
     const { history } = this.props;
-
     history.push(SIGNUP_ROUTE);
   };
 
@@ -112,4 +112,9 @@ class Login extends React.Component {
     );
   }
 }
-export default Login;
+
+const mapStateToProps = state => ({
+  authenticated: state.userData.authenticated
+});
+
+export default connect(mapStateToProps)(Login);

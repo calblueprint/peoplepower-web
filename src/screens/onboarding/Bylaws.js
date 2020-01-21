@@ -1,9 +1,9 @@
 import React from 'react';
-import OwnerAgreement1 from '../../images/ownerAgreement1.jpg';
-import OwnerAgreement2 from '../../images/ownerAgreement2.jpg';
+import OwnerAgreement1 from '../../assets/ownerAgreement1.jpg';
+import OwnerAgreement2 from '../../assets/ownerAgreement2.jpg';
 import Carousel from '../../components/Carousel';
-import formValidation from '../../lib/formValidation';
-import { updatePerson } from '../../lib/request';
+import formValidation from '../../lib/onboarding/formValidation';
+import { updatePerson } from '../../lib/airtable/request';
 
 class Bylaws extends React.Component {
   constructor(props) {

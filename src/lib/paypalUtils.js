@@ -1,4 +1,8 @@
-import { createPayment, updateOwner, updateSubscriberBill } from './request';
+import {
+  createPayment,
+  updateOwner,
+  updateSubscriberBill
+} from './airtable/request';
 import constants from '../constants';
 
 const {

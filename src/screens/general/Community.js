@@ -1,59 +1,29 @@
 import React from 'react';
 import 'react-table-v6/react-table.css';
-import '../../styles/Community.css';
-import {
-  getAnnouncementsByProjectGroup,
-  getPersonById,
-  getOwnerById
-} from '../../lib/request';
-import { getLoggedInUserId, getLoggedInUserName } from '../../lib/auth';
-import { applyCredentials, isAdmin } from '../../lib/credentials';
+import { connect } from 'react-redux';
+import { isAdmin } from '../../lib/credentials';
 import AnnouncementList from '../../components/AnnouncementList';
 import AddAnnouncement from '../../components/AddAnnouncement';
 import LoadingComponent from '../../components/LoadingComponent';
-import { Columns } from '../../lib/schema';
+import { Columns } from '../../lib/airtable/schema';
+import '../../styles/Community.css';
 
-export default class Community extends React.Component {
+class Community extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: [],
-      usersID: '',
-      usersGroup: '',
-      credentials: '',
-      isLoading: true
+      credentials: ''
     };
   }
 
   async componentDidMount() {
-    const { history } = this.props;
-    const personId = getLoggedInUserId();
-    if (!personId) {
+    const { history, authenticated } = this.props;
+
+    // TODO: this kind of redirect logic should be handled in App.js or Navbar.js
+    if (!authenticated) {
+      // They shouldn't be able to access this screen
       history.push('/');
-      return;
     }
-    this.setState({
-      usersID: personId
-    });
-
-    const personRecord = await getPersonById(personId);
-    const ownerId = personRecord[Columns.Person.Owner];
-    const ownerRecord = await getOwnerById(ownerId);
-    const projectGroupId = ownerRecord[Columns.Owner.ProjectGroup][0];
-    const announcements = await getAnnouncementsByProjectGroup(projectGroupId);
-
-    const credentials = await applyCredentials(personId);
-
-    this.setState({
-      usersGroup: projectGroupId,
-      cards: announcements,
-      credentials,
-      isLoading: false
-    });
-
-    const { updateState } = this.props;
-    const name = getLoggedInUserName();
-    updateState(personId, name);
   }
 
   addTempCard = announcement => {
@@ -65,7 +35,16 @@ export default class Community extends React.Component {
   };
 
   render() {
-    const { cards, isLoading, usersGroup, usersID, credentials } = this.state;
+    const {
+      announcements,
+      isLoadingAnnouncements,
+      isLoadingUserData,
+      owner,
+      credentials
+    } = this.props;
+    const projectGroupId = owner[Columns.Owner.ProjectGroup];
+    const personId = owner[Columns.Owner.Person];
+    const isLoading = isLoadingAnnouncements || isLoadingUserData;
     return isLoading ? (
       <LoadingComponent />
     ) : (
@@ -74,13 +53,13 @@ export default class Community extends React.Component {
           <h1>Community</h1>
           {isAdmin(credentials) ? (
             <AddAnnouncement
-              usersGroup={usersGroup}
-              usersID={usersID}
+              projectGroupId={projectGroupId}
+              personId={personId}
               updateCards={this.addTempCard}
             />
           ) : null}
           <AnnouncementList
-            announcements={cards}
+            announcements={announcements}
             css={isAdmin(credentials) ? '' : 'nonAdminHeight'}
           />
         </div>
@@ -88,3 +67,13 @@ export default class Community extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  authenticated: state.userData.authenticated,
+  owner: state.userData.owner,
+  credentials: state.userData.credentials,
+  announcements: state.community.announcements,
+  isLoadingUserData: state.userData.isLoading,
+  isLoadingAnnouncements: state.community.isLoading
+});
+export default connect(mapStateToProps)(Community);

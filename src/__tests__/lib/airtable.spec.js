@@ -7,7 +7,7 @@ import {
   getRecordsByAttribute,
   updateRecord,
   deleteRecord
-} from '../../lib/airtable';
+} from '../../lib/airtable/airtable';
 
 const RECORD_NOT_FOUND_ERR = 'Record not found';
 const TEST_TABLE = 'Test (Development)';

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import './styles/App.css';
+import { connect } from 'react-redux';
 import NavBar from './components/NavBar';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
@@ -11,38 +11,23 @@ import Community from './screens/general/Community';
 import GeneralOwnerDashboard from './screens/general/GeneralOwnerDashboard';
 import AdminDashboard from './screens/general/AdminDashboard';
 import UserProfilePage from './screens/general/UserProfilePage';
-import { applyCredentials } from './lib/credentials';
+import './styles/App.css';
+import { refreshUserData } from './lib/userDataUtils';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      personId: '',
-      displayName: '',
-      credentials: '',
       isNavBarVisible: true
     };
   }
 
-  updateState = async (personId, displayName) => {
-    if (personId) {
-      this.setState({
-        personId,
-        displayName
-      });
-
-      const credentials = await applyCredentials(personId);
-      this.setState({
-        credentials
-      });
-    } else {
-      this.setState({
-        personId: '',
-        displayName: '',
-        credentials: ''
-      });
+  componentDidMount() {
+    const { userLogin } = this.props;
+    if (userLogin) {
+      refreshUserData(userLogin);
     }
-  };
+  }
 
   toggleNavbar = () => {
     this.setState(prevState => ({
@@ -51,78 +36,25 @@ class App extends React.Component {
   };
 
   render() {
-    const { personId, displayName, credentials, isNavBarVisible } = this.state;
+    const { isNavBarVisible } = this.state;
+
     return (
       <Router>
         <div className="app-container">
-          <NavBar
-            personId={personId}
-            displayName={displayName}
-            credentials={credentials}
-            isNavBarVisible={isNavBarVisible}
-          />
+          <NavBar isNavBarVisible={isNavBarVisible} />
           <Switch>
-            <Route
-              exact
-              path="/"
-              render={props => (
-                <Login {...props} updateState={this.updateState} />
-              )}
-            />
+            <Route exact path="/" component={Login} />
             <Route
               path="/onboarding"
               render={props => (
                 <Onboarding {...props} toggleNavbar={this.toggleNavbar} />
               )}
             />
-            <Route
-              path="/dashboard"
-              render={props => (
-                <GeneralOwnerDashboard
-                  {...props}
-                  updateState={this.updateState}
-                />
-              )}
-            />
-            <Route
-              path="/admin"
-              render={props => (
-                <AdminDashboard {...props} updateState={this.updateState} />
-              )}
-            />
-            <Route
-              path="/community"
-              render={props => (
-                <Community {...props} updateState={this.updateState} />
-              )}
-            />
-            <Route
-              path="/billing"
-              render={props => (
-                <SubscriberOwnerDashboard
-                  {...props}
-                  updateState={this.updateState}
-                />
-              )}
-            />
-            <Route
-              path="/community"
-              render={props => (
-                <Community {...props} updateState={this.updateState} />
-              )}
-            />
-            <Route
-              path="/admin"
-              render={props => (
-                <AdminDashboard {...props} updateState={this.updateState} />
-              )}
-            />
-            <Route
-              path="/profile/:id"
-              render={props => (
-                <UserProfilePage {...props} updateState={this.updateState} />
-              )}
-            />
+            <Route path="/dashboard" component={GeneralOwnerDashboard} />
+            <Route path="/admin" component={AdminDashboard} />
+            <Route path="/community" component={Community} />
+            <Route path="/billing" component={SubscriberOwnerDashboard} />
+            <Route path="/profile" component={UserProfilePage} />
             <Route>
               <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>
             </Route>
@@ -133,4 +65,8 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  userLogin: state.userData.userLogin
+});
+
+export default connect(mapStateToProps)(App);

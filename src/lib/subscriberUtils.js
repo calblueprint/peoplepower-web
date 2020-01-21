@@ -1,8 +1,7 @@
-import { getOwnerById, getPaymentById, getSubscriberBillById } from './request';
-import getOwnerIdFromPersonId from './personUtils';
+import { getPaymentById, getSubscriberBillById } from './airtable/request';
 import { convertPaypalDateTimeToDate } from './dateUtils';
 
-import { Columns } from './schema';
+import { Columns } from './airtable/schema';
 import constants from '../constants';
 
 const { BILL_TYPE, ONLINE_PAYMENT_TYPE, COMPLETED_STATUS } = constants;
@@ -30,23 +29,13 @@ const centsToDollars = cents => {
   return (cents / 100).toFixed(2);
 };
 
-const getBillsAndPaymentsFromOwnerId = async ownerId => {
-  const owner = await getOwnerById(ownerId);
-  return {
-    billIds: owner[Columns.Owner.SubscriberBill],
-    paymentIds: owner[Columns.Owner.Payment]
-  };
-};
-
-const getSubscriberBills = async loggedInUserId => {
+const getSubscriberBills = async owner => {
   try {
-    const ownerId = await getOwnerIdFromPersonId(loggedInUserId);
-    const { billIds, paymentIds } = await getBillsAndPaymentsFromOwnerId(
-      ownerId
-    );
+    const billIds = owner[Columns.Owner.SubscriberBill];
+    const paymentIds = owner[Columns.Owner.Payment];
 
     if (!billIds && !paymentIds) {
-      return { transactions: [], totalBalance: 0 };
+      return { transactions: [], pendingBills: [] };
     }
 
     const billPromises = [];

@@ -1,11 +1,10 @@
-import { setLoginCookie } from './auth';
 import {
   createPerson,
   createOwner,
   createUserLogin,
   deleteOwner,
   deletePerson
-} from './request';
+} from '../airtable/request';
 
 const DEFAULT_NUM_RETRIES = 3;
 
@@ -210,7 +209,7 @@ const createPersonOwnerUserLoginRecord = async (
       password,
       numRetries - 1
     );
-    setLoginCookie(createdPersonId, fullName);
+
     return { createdOwnerId, createdPersonId, createdUserLoginId };
   } catch (err) {
     console.error(err);

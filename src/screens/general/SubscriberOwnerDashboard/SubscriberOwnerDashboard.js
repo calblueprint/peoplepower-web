@@ -1,45 +1,50 @@
 import React from 'react';
-import '../../../styles/SubscriberOwnerDashboard.css';
+import { connect } from 'react-redux';
 import SubscriberOwnerDashboardAllBillsView from './SubscriberOwnerDashboardAllBillsView';
 import SubscriberOwnerDashboardMainView from './SubscriberOwnerDashboardMainView';
-import { getLoggedInUserId, getLoggedInUserName } from '../../../lib/auth';
 import LoadingComponent from '../../../components/LoadingComponent';
-
 import { areDiffBills, getSubscriberBills } from '../../../lib/subscriberUtils';
+import '../../../styles/SubscriberOwnerDashboard.css';
+import { Columns } from '../../../lib/airtable/schema';
 
-export default class SubscriberOwnerDashboard extends React.Component {
+class SubscriberOwnerDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       transactions: [],
+      pendingBills: [],
       mode: 0,
       isReady: false
     };
   }
 
   async componentDidMount() {
-    const { history } = this.props;
-    const personId = getLoggedInUserId();
-    if (!personId) {
+    const { history, authenticated, owner, isLoadingUserData } = this.props;
+
+    // TODO: this kind of redirect logic should be handled in App.js or Navbar.js
+    if (!authenticated) {
       // They shouldn't be able to access this screen
       history.push('/');
-    } else {
-      this.setState({
-        personId
-      });
+      return;
+    }
+    // If data isn't in redux yet, don't do anything.
+    if (isLoadingUserData) {
+      return;
+    }
 
-      const { updateState } = this.props;
-      const name = getLoggedInUserName();
-      updateState(personId, name);
-      const { transactions, pendingBills } = await getSubscriberBills(personId);
-      if (transactions) {
-        this.setState(prevState => {
-          if (areDiffBills(prevState.transactions, transactions)) {
-            return { transactions, pendingBills, isReady: true };
-          }
-          return { isReady: true };
-        });
-      }
+    const { transactions, pendingBills } = await getSubscriberBills(owner);
+
+    if (transactions) {
+      this.setState(prevState => {
+        if (areDiffBills(prevState.transactions, transactions)) {
+          return {
+            transactions,
+            pendingBills,
+            isReady: true
+          };
+        }
+        return { isReady: true };
+      });
     }
   }
 
@@ -56,10 +61,15 @@ export default class SubscriberOwnerDashboard extends React.Component {
   }
 
   render() {
-    const { mode, transactions, isReady, pendingBills, personId } = this.state;
-    if (!isReady) {
+    const { mode, transactions, isReady, pendingBills } = this.state;
+    const { person, isLoadingUserData } = this.props;
+    const personId = person[Columns.Person.RECORDIDforDev];
+    const isLoading = !isReady || isLoadingUserData;
+
+    if (isLoading) {
       return <LoadingComponent />;
     }
+
     if (mode === 0) {
       return (
         <SubscriberOwnerDashboardMainView
@@ -83,3 +93,11 @@ export default class SubscriberOwnerDashboard extends React.Component {
     return <div>404: invalid state. Call your dev</div>;
   }
 }
+
+const mapStateToProps = state => ({
+  authenticated: state.userData.authenticated,
+  person: state.userData.person,
+  owner: state.userData.owner,
+  isLoadingUserData: state.userData.isLoading
+});
+export default connect(mapStateToProps)(SubscriberOwnerDashboard);

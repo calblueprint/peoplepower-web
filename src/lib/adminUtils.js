@@ -1,24 +1,11 @@
 import {
-  getPersonById,
   getOwnerById,
-  getProjectGroupById,
-  updateProjectGroup
-} from './request';
-import { Columns } from './schema';
+  updateProjectGroup,
+  getProjectGroupById
+} from './airtable/request';
+import { Columns } from './airtable/schema';
 
-const getOwnerFromPerson = async personId => {
-  const { Owner } = await getPersonById(personId);
-
-  if (Owner && Owner.length !== 1) {
-    throw new Error('Owner returned from person != 1');
-  }
-
-  return Owner[0];
-};
-
-const getAdminTable = async ownerId => {
-  const owner = await getOwnerById(ownerId);
-
+const getAdminTable = async owner => {
   const ownerOfArr = owner[Columns.Owner.AdminOf];
   if (ownerOfArr && ownerOfArr.length === 1) {
     return ownerOfArr[0];
@@ -27,12 +14,17 @@ const getAdminTable = async ownerId => {
   return -1;
 };
 
-const getOwnersFromProjectGroup = async groupId => {
-  const { Owner } = await getProjectGroupById(groupId);
+// TODO: reevaluate this function.
+// Can't the admin dashboard just deal in IDs instead of the actual objects?
+const getOwnersFromProjectGroup = async projectGroupId => {
+  const projectGroup = await getProjectGroupById(projectGroupId);
+  const { Owner } = projectGroup;
 
   const ownersObjects = await Promise.all(
     Owner.map(ownerId => getOwnerById(ownerId))
   );
+
+  // what is the point of this map??
   return ownersObjects.map(ownersObject => ownersObject);
 };
 
@@ -42,9 +34,4 @@ const updateProjectGroupOwners = async (groupId, newOwners) => {
   });
 };
 
-export {
-  getAdminTable,
-  getOwnersFromProjectGroup,
-  getOwnerFromPerson,
-  updateProjectGroupOwners
-};
+export { getAdminTable, getOwnersFromProjectGroup, updateProjectGroupOwners };

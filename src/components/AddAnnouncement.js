@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/Community.css';
-import { createAnnouncement } from '../lib/request';
+import { createAnnouncement } from '../lib/airtable/request';
 
 const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;
@@ -37,10 +37,10 @@ export default class AddAnnouncement extends React.Component {
       return;
     }
 
-    const { usersID: id, usersGroup: projectGroup, updateCards } = this.props;
+    const { personId, projectGroupId, updateCards } = this.props;
     const newMessage = {
-      Author: [id],
-      'Project Group': [projectGroup],
+      Author: [personId],
+      'Project Group': [projectGroupId],
       Message: message
     };
 

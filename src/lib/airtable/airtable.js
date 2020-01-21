@@ -9,7 +9,7 @@
 */
 
 import Airtable from 'airtable';
-import constants from '../constants';
+import constants from '../../constants';
 
 const { BASE_ID, ENDPOINT_URL, GRID_VIEW } = constants;
 
@@ -50,6 +50,10 @@ function createRecord(table, record) {
 
 // TODO(dfangshuo): pagination?
 // TODO(dfangshuo): current implementation only fetches the first page
+// TODO: Craaaazy idea but what if we transformed record objects to use
+// lowercase attribute names before we store them in redux
+// and then before we update them in airtable we transform them back!
+// 100% should do this
 function getAllRecords(table) {
   return new Promise(function(resolve, reject) {
     base(table)
@@ -113,7 +117,9 @@ function getRecordsByAttribute(table, fieldType, field) {
         }
         if (!records || records.length < 1) {
           console.log(`No record was retrieved using this ${fieldType}.`);
-          reject(new Error(`No record was retrieved using this ${fieldType}.`));
+          resolve([]);
+          // No need for this to throw an error, sometimes there's just no values
+          // reject(new Error(`No record was retrieved using this ${fieldType}.`));
           return;
         }
 
