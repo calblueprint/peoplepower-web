@@ -1,4 +1,8 @@
 import React from 'react';
+import { refreshUserData } from '../../lib/userDataUtils';
+import { getUserLoginById } from '../../lib/airtable/request';
+import { store } from '../../lib/redux/store';
+import { authenticate } from '../../lib/redux/userDataSlice';
 
 class Complete extends React.Component {
   constructor(props) {
@@ -6,8 +10,15 @@ class Complete extends React.Component {
     this.state = {};
   }
 
-  dashboardButton = () => {
-    const { history } = this.props;
+  dashboardButton = async () => {
+    const { history, toggleNavbar, values } = this.props;
+    toggleNavbar();
+
+    // TODO: Replace with proper airlock authentication
+    store.dispatch(authenticate('temp_token'));
+    const userLogin = await getUserLoginById(values.userLoginId);
+    refreshUserData(userLogin);
+
     history.push('/');
   };
 

@@ -65,12 +65,6 @@
   color: var(--pp-gray);
 }
 
-.cards-holder {
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-}
-
 .subscriber-all-billls-button {
   font-size: 24px;
   font-weight: bolder;
@@ -86,22 +80,26 @@
   cursor: pointer;
 }
 
-.payment-button {
-  float: right;
-}
-
 #divider {
   border: 1px solid var(--pp-light-gray);
   width: 85%;
   margin: 0 auto 1.5vw auto;
 }
 
-.billing-history-card-holder {
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-}
-
 .subscriber-dashboard-paypal-component {
   padding: 1.5em;
+}
+
+.subscriber-bills-display-row {
+  color: #24364d;
+  height: 20px;
+  padding: 15px 20px;
+}
+
+.subscriber-bills-display-header {
+  text-align: left;
+  height: 60px;
+  color: #24364d;
+  padding: 25px 20px;
+  font-weight: bold;
 }

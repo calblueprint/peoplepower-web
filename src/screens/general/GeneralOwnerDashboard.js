@@ -1,114 +1,19 @@
 import React from 'react';
-import '../../styles/GeneralOwnerDashboard.css';
-import { getRecord, getMultipleFromAttr } from '../../lib/request';
-import { getLoggedInUserId, logOut } from '../../lib/auth';
+import { connect } from 'react-redux';
+import { logOut } from '../../lib/authUtils';
 import AnnouncementList from '../../components/AnnouncementList';
 import LoadingComponent from '../../components/LoadingComponent';
+import '../../styles/GeneralOwnerDashboard.css';
 
-export default class GeneralOwnerDashboard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: 'N/A',
-      name: 'user',
-      phoneNumber: 'N/A',
-      address: '',
-      projectGroup: '',
-      projectGroupID: '',
-      solarProject: [],
-      cards: [],
-      isLoadingCards: true,
-      isLoadingDetails: true
-    };
-  }
+class GeneralOwnerDashboard extends React.Component {
+  async componentDidMount() {
+    const { authenticated, history } = this.props;
 
-  componentDidMount() {
-    const { history } = this.props;
-    const id = getLoggedInUserId();
-    if (!id) {
+    // TODO: this kind of redirect logic should be handled in App.js or Navbar.js
+    if (!authenticated) {
       // They shouldn't be able to access this screen
       history.push('/');
-      return;
     }
-
-    let email;
-    let phoneNumber;
-    let name;
-    let owner;
-    let city;
-    let street;
-    let zipCode;
-    let state;
-
-    // Get Person record from person id
-    getRecord('Person', id)
-      .then(payload => {
-        ({
-          Name: name,
-          Email: email,
-          'Phone Number': phoneNumber,
-          Owner: owner,
-          City: city,
-          Street: street,
-          State: state,
-          'Zip Code': zipCode
-        } = payload.record);
-
-        this.setState({
-          email,
-          name,
-          phoneNumber,
-          address: `${street}, ${city}, ${state} ${zipCode}`,
-
-          isLoadingDetails: false
-        });
-
-        // then get Owner record from owner id
-        return getRecord('Owner', owner);
-      })
-      .then(payload => {
-        const { 'Project Group': projectGroupID } = payload.record;
-        this.setState({
-          projectGroupID
-        });
-        // then get Project Group from project group id
-        return getRecord('Project Group', projectGroupID);
-      })
-      .then(payload => {
-        const {
-          Name: projectGroupName,
-          'Solar Project': solarProject
-        } = payload.record;
-        this.setState({
-          projectGroup: projectGroupName
-        });
-        const solarProjectNames = [];
-        solarProject.forEach(project => {
-          getRecord('Solar Project', project).then(res => {
-            solarProjectNames.push(res.record.Name);
-            this.setState({
-              solarProject: solarProjectNames
-            });
-          });
-        });
-      })
-      .then(() => {
-        const { projectGroupID } = this.state;
-        return getMultipleFromAttr(
-          'Announcement',
-          'Project Group',
-          projectGroupID
-        );
-      })
-      .then(payload => {
-        this.setState({
-          cards: payload,
-          isLoadingCards: false
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 
   handleLogoutClick = () => {
@@ -122,39 +27,30 @@ export default class GeneralOwnerDashboard extends React.Component {
      it when it's loaded.
   */
 
-  render() {
-    const {
-      name,
-      email,
-      phoneNumber,
-      address,
-      projectGroup,
-      solarProject,
-      cards,
-      isLoadingCards,
-      isLoadingDetails
-    } = this.state;
-    const solarProjectComponent = solarProject.map(project => {
-      return <li key={project}>{project}</li>;
+  renderUserDetails() {
+    const { person, projectGroup, solarProjects } = this.props;
+
+    const solarProjectComponent = solarProjects.map(project => {
+      return <li key={project.name}>{project.name}</li>;
     });
 
-    const userDetails = (
+    return (
       <div className="dash-solar-details">
         <p style={{ fontWeight: '800', color: 'var(--pp-black)' }}>
-          Welcome, {name}
+          Welcome, {person.name}
         </p>
         <div>
           <p>
-            <span>Email:</span> {email}
+            <span>Email:</span> {person.email}
           </p>
           <p>
-            <span>Phone Number:</span> {phoneNumber}
+            <span>Phone Number:</span> {person.phoneNumber}
           </p>
           <p>
-            <span>Address:</span> {address}
+            <span>Address:</span> {person.address}
           </p>
           <p>
-            <span>Project Group:</span> {projectGroup}
+            <span>Project Group:</span> {projectGroup.name}
           </p>
           <p>
             <span>Solar Project(s):</span>
@@ -171,25 +67,49 @@ export default class GeneralOwnerDashboard extends React.Component {
         </button>
       </div>
     );
+  }
 
-    if (isLoadingCards && isLoadingDetails) {
+  render() {
+    const {
+      announcements,
+      isLoadingAnnouncements,
+      isLoadingUserData
+    } = this.props;
+    if (isLoadingAnnouncements && isLoadingUserData) {
       return <LoadingComponent />;
     }
     return (
       <div className="dashboard">
         <div className="cont dash-announcements-cont">
           <h3>Community</h3>
-          {isLoadingCards ? (
+          {isLoadingAnnouncements ? (
             <div className="isLoadingDiv card" />
           ) : (
-            <AnnouncementList announcements={cards} css="" />
+            <AnnouncementList announcements={announcements} css="" />
           )}
         </div>
         <div className="dash-solar-details-cont">
           <h3>Solar Projects</h3>
-          {isLoadingDetails ? <div className="isLoadingDiv" /> : userDetails}
+          {isLoadingUserData ? (
+            <div className="isLoadingDiv" />
+          ) : (
+            this.renderUserDetails()
+          )}
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  authenticated: state.userData.authenticated,
+  person: state.userData.person,
+  owner: state.userData.owner,
+  projectGroup: state.userData.projectGroup,
+  solarProjects: state.userData.solarProjects,
+  announcements: state.community.announcements,
+  isLoadingUserData: state.userData.isLoading,
+  isLoadingAnnouncements: state.community.isLoading
+});
+
+export default connect(mapStateToProps)(GeneralOwnerDashboard);

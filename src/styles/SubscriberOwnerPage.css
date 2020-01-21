@@ -16,10 +16,3 @@ h3 {
 
 div p {
 }
-
-.cards-holder {
-  /* background-color: red; */
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-}

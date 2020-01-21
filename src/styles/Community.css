@@ -3,7 +3,6 @@
 }
 
 .community h1 {
-  font-family: Avenir;
   font-style: normal;
   font-weight: 900;
   font-size: 36px;
@@ -26,7 +25,6 @@
 }
 
 .announcementCard p {
-  font-family: Avenir;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -40,7 +38,6 @@
 }
 
 .announcementCard h2 {
-  font-family: Avenir;
   font-style: normal;
   font-weight: 800;
   font-size: 18px;

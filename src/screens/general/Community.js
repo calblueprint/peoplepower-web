@@ -1,96 +1,77 @@
 import React from 'react';
-import '../../styles/Community.css';
-import { getRecord, getMultipleFromAttr } from '../../lib/request';
-import { getLoggedInUserId } from '../../lib/auth';
-import applyCredentials from '../../lib/credentials';
+import 'react-table-v6/react-table.css';
+import { connect } from 'react-redux';
+import { isAdmin } from '../../lib/credentials';
 import AnnouncementList from '../../components/AnnouncementList';
 import AddAnnouncement from '../../components/AddAnnouncement';
 import LoadingComponent from '../../components/LoadingComponent';
+import '../../styles/Community.css';
 
-export default class Community extends React.Component {
+class Community extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: [],
-      usersID: '',
-      usersGroup: '',
-      credentials: '',
-      isLoading: true
+      credentials: ''
     };
-
-    this.addTempCard = this.addTempCard.bind(this);
   }
 
-  componentDidMount() {
-    const { history } = this.props;
-    const id = getLoggedInUserId();
-    if (!id) {
+  async componentDidMount() {
+    const { history, authenticated } = this.props;
+
+    // TODO: this kind of redirect logic should be handled in App.js or Navbar.js
+    if (!authenticated) {
+      // They shouldn't be able to access this screen
       history.push('/');
-      return;
     }
-    this.setState({
-      usersID: id
-    });
-
-    getRecord('Person', id)
-      .then(payload => {
-        const { Owner: owner } = payload.record;
-        return getRecord('Owner', owner);
-      })
-      .then(payload => {
-        const { 'Project Group': projectGroup } = payload.record;
-        this.setState({
-          usersGroup: projectGroup[0]
-        });
-        return getMultipleFromAttr(
-          'Announcement',
-          'Project Group',
-          `${projectGroup[0]}`
-        );
-      })
-      .then(payload => {
-        this.setState({
-          cards: payload,
-          isLoading: false
-        });
-      });
-
-    applyCredentials(id).then(credentials => {
-      this.setState({
-        credentials
-      });
-    });
   }
 
-  addTempCard(announcement) {
+  addTempCard = announcement => {
     const { cards } = this.state;
     const updatedCards = [announcement, ...cards];
     this.setState({
       cards: updatedCards
     });
-  }
+  };
 
   render() {
-    const { cards, isLoading, usersGroup, usersID, credentials } = this.state;
+    const {
+      announcements,
+      isLoadingAnnouncements,
+      isLoadingUserData,
+      owner,
+      credentials
+    } = this.props;
+
+    const isLoading = isLoadingAnnouncements || isLoadingUserData;
     return isLoading ? (
       <LoadingComponent />
     ) : (
       <div className="dashboard community">
         <div className="cont">
           <h1>Community</h1>
-          {credentials.includes('A') ? (
+          {isAdmin(credentials) ? (
             <AddAnnouncement
-              usersGroup={usersGroup}
-              usersID={usersID}
+              projectGroupId={owner.projectGroup}
+              personId={owner.person}
               updateCards={this.addTempCard}
             />
           ) : null}
           <AnnouncementList
-            announcements={cards}
-            css={credentials.includes('A') ? '' : 'nonAdminHeight'}
+            announcements={announcements}
+            css={isAdmin(credentials) ? '' : 'nonAdminHeight'}
           />
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  authenticated: state.userData.authenticated,
+  owner: state.userData.owner,
+  credentials: state.userData.credentials,
+  announcements: state.community.announcements,
+  isLoadingUserData: state.userData.isLoading,
+  isLoadingAnnouncements: state.community.isLoading
+});
+export default connect(mapStateToProps)(Community);

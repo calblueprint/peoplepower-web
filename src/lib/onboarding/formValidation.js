@@ -1,4 +1,4 @@
-import States from './states.json';
+import States from '../../assets/states.json';
 
 function formValidation(name, value) {
   const num = Number(value);

@@ -1,9 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { loginUser } from '../../lib/authUtils';
 import '../../styles/Login.css';
 import '../../styles/main.css';
-
-const { loginUser } = require('../../lib/auth.js');
-const { getLoggedInUserId } = require('../../lib/auth.js');
 
 const HOME_ROUTE = '/dashboard';
 const SIGNUP_ROUTE = '/onboarding';
@@ -15,45 +14,43 @@ class Login extends React.Component {
       email: '',
       passwordHash: ''
     };
-
-    // BINDINGS
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSignUpOnClick = this.handleSignUpOnClick.bind(this);
   }
 
   componentDidMount() {
-    const { history } = this.props;
-    if (getLoggedInUserId()) {
+    const { history, authenticated } = this.props;
+    if (authenticated) {
       history.push(HOME_ROUTE);
     }
   }
 
-  handleEmailChange(event) {
+  handleEmailChange = event => {
     this.setState({ email: event.target.value });
-  }
+  };
 
-  handlePasswordChange(event) {
+  handlePasswordChange = event => {
+    // TODO: Hash the password locally
     this.setState({ passwordHash: event.target.value });
-  }
+  };
 
-  handleSignUpOnClick() {
+  handleSignUpOnClick = () => {
     const { history } = this.props;
-
     history.push(SIGNUP_ROUTE);
-  }
+  };
 
-  async handleSubmit(evt) {
+  handleSubmit = async evt => {
     const { email, passwordHash } = this.state;
     evt.preventDefault();
-    const res = await loginUser(email, passwordHash);
-    if (res.found && res.match) {
-      this.segueToHome(evt);
-    } else {
-      // alert('Invalid email or password!');
+    try {
+      const res = await loginUser(email, passwordHash);
+      if (res.found && res.match) {
+        this.segueToHome(evt);
+      } else {
+        // alert('Invalid email or password!');
+      }
+    } catch (err) {
+      console.error(err);
     }
-  }
+  };
 
   segueToHome(evt) {
     const { history } = this.props;
@@ -119,4 +116,9 @@ class Login extends React.Component {
     );
   }
 }
-export default Login;
+
+const mapStateToProps = state => ({
+  authenticated: state.userData.authenticated
+});
+
+export default connect(mapStateToProps)(Login);

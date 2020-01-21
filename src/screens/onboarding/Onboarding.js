@@ -1,15 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import BasicInfo from './BasicInfo';
 import ContactInfo from './ContactInfo';
 import Bylaws from './Bylaws';
 import ProjectGroups from './ProjectGroups';
 import Payment from './Payment';
 import Complete from './Complete';
-import formValidation from '../../lib/formValidation';
-import { getLoggedInUserId } from '../../lib/auth';
-import { createPersonOwnerUserLoginRecord } from '../../lib/onboardingUtils';
+import formValidation from '../../lib/onboarding/formValidation';
+import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
 import Template from './Template';
-import { getRecord } from '../../lib/request';
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -88,71 +87,66 @@ class Onboarding extends React.Component {
       },
       step: 2
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.callBackBylawValidation = this.callBackBylawValidation.bind(this);
   }
 
-  componentDidMount() {
-    const id = getLoggedInUserId();
-    let step;
-    // Person does not have a User Id
-    if (!id) {
+  async componentDidMount() {
+    const { person, owner } = this.props;
+
+    // TODO: Not sure what the state of redux will be as onboarding goes on.
+    // This is a whole nother PR to figure out...eek
+
+    if (!person) {
       return;
     }
 
-    this.setState({ userId: id });
-    getRecord('Person', id)
-      .then(personRecord => {
-        step = personRecord.record['Onboarding Step'];
+    this.setState({ userId: person.recordIdforDev });
+    const step = person['Onboarding Step'];
 
-        this.setState({
-          step: personRecord.record['Onboarding Step'],
-          userLoginId: personRecord.record['User Login'][0],
-          personId: personRecord.record.Owner[0],
-          fname: personRecord.record.Name.split(' ')[0],
-          lname: personRecord.record.Name.split(' ')[1],
-          email: personRecord.record.Email,
-          altEmail: personRecord.record['Alternative Email'],
-          street: personRecord.record.Street,
-          apt: personRecord.record.Apt,
-          city: personRecord.record.City,
-          state: personRecord.record.State,
-          zipcode: personRecord.record.Zipcode,
-          phoneNumber: personRecord.record['Phone Number'],
-          mailingStreet: personRecord.record['Mailing Street'],
-          mailingApt: personRecord.record['Mailing Apt'],
-          mailingCity: personRecord.record['Mailing City'],
-          mailingState: personRecord.record['Mailing State'],
-          mailingZipcode: personRecord.record['Mailing Zipcode'],
-          mailingPhoneNumber: personRecord.record['Mailing Phone Number'],
-          billingStreet: personRecord.record['Billing Street'],
-          billingApt: personRecord.record['Billing Apt'],
-          billingCity: personRecord.record['Billing City'],
-          billingState: personRecord.record['Billing State'],
-          billingZipcode: personRecord.record['Billing Zipcode'],
-          projectGroup: personRecord.record['Project Group'][0]
-        });
-        const { Owner: owner } = personRecord.record;
-        return getRecord('Owner', owner);
-      })
-      .then(ownerRecord => {
-        if (step > 3) {
-          const numShares = ownerRecord.record['Number of Shares'];
+    // Todo: Clean up state code
+    this.setState({
+      step: person.onboardingStep,
+      userLoginId: person.userLogin[0],
+      personId: person.owner[0], // This is kinda messed up naming wise LOL
+      fname: person.name.split(' ')[0],
+      lname: person.name.split(' ')[1],
+      email: person.email,
+      altEmail: person.alternativeEmail,
+      street: person.street,
+      apt: person.apt,
+      city: person.city,
+      state: person.state,
+      zipcode: person.zipcode,
+      phoneNumber: person.phoneNumber,
+      mailingStreet: person.mailingStreet,
+      mailingApt: person.mailingApt,
+      mailingCity: person.mailingCity,
+      mailingState: person.mailingState,
+      mailingZipcode: person.mailingZipcode,
+      mailingPhoneNumber: person.mailingPhoneNumber,
+      billingStreet: person.billingStreet,
+      billingApt: person.billingApt,
+      billingCity: person.billingCity,
+      billingState: person.billingState,
+      billingZipcode: person.billingZipcode,
+      projectGroup: person.projectGroup[0]
+    });
 
-          this.setState({
-            projectGroup: ownerRecord.record['Project Group'][0],
-            numShares: numShares || 1,
-            dividends: ownerRecord.record['Receiving Dividends?']
-          });
+    if (step > 3) {
+      const numShares = owner.numberOfShares;
 
-          if (step > 4) {
-            this.setState({
-              bylaw1: true,
-              bylaw2: true
-            });
-          }
-        }
+      this.setState({
+        projectGroup: owner.projectGroup[0],
+        numShares: numShares || 1,
+        dividends: owner.receivingDividends
       });
+
+      if (step > 4) {
+        this.setState({
+          bylaw1: true,
+          bylaw2: true
+        });
+      }
+    }
   }
 
   // next function increments page up one and switches to that numbered page
@@ -167,10 +161,15 @@ class Onboarding extends React.Component {
     this.setState({ step: step - 1 });
   };
 
-  handleRecordCreation = ({ createdOwnerId, createdPersonId }) => {
+  handleRecordCreation = ({
+    createdOwnerId,
+    createdPersonId,
+    createdUserLoginId
+  }) => {
     this.setState({
       userId: createdPersonId,
-      personId: createdOwnerId
+      personId: createdOwnerId,
+      userLoginId: createdUserLoginId
     });
   };
 
@@ -287,16 +286,16 @@ class Onboarding extends React.Component {
   };
 
   // function for validation of bylaws
-  callBackBylawValidation() {
+  callBackBylawValidation = () => {
     const { errors } = this.state;
     this.setState({
       errors: { ...errors, bylaw1: 'Required' }
     });
-  }
+  };
 
   render() {
     const { step, noProjectGroup } = this.state;
-    const { history } = this.props;
+    const { history, toggleNavbar } = this.props;
     switch (step) {
       case 1:
         return (
@@ -305,6 +304,7 @@ class Onboarding extends React.Component {
             values={this.state}
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
+            toggleNavbar={toggleNavbar}
           />
         );
       case 2:
@@ -366,6 +366,7 @@ class Onboarding extends React.Component {
             handleFormValidation={this.handleFormValidation}
             handleDividends={this.handleDividends}
             history={history}
+            toggleNavbar={toggleNavbar}
           />,
           6
         );
@@ -375,4 +376,8 @@ class Onboarding extends React.Component {
   }
 }
 
-export default Onboarding;
+const mapStateToProps = state => ({
+  person: state.userData.person,
+  owner: state.userData.owner
+});
+export default connect(mapStateToProps)(Onboarding);

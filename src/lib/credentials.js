@@ -1,43 +1,54 @@
-import { getOwnerFromPerson, getAdminTable } from './adminHelper';
-import { getRecord } from './request';
+import { getAdminTable } from './adminUtils';
 import constants from '../constants';
 
-const {
-  OWNER_TABLE,
-  OWNER_TYPE_FIELD,
-  SUBSCRIBER_OWNER,
-  GENERAL_OWNER
-} = constants;
+const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
 
-export default function applyCredentials(userID) {
+async function applyCredentials(owner) {
   let credentials = '';
 
-  if (userID == null) {
+  // TODO: Will this ever be the case? Is this check necessary
+  if (owner == null) {
     return credentials;
   }
 
-  return getOwnerFromPerson(userID).then(ownerID => {
-    return getAdminTable(ownerID)
-      .then(isAdminPayload => {
-        if (isAdminPayload !== -1) {
-          credentials += 'A';
-        }
-      })
-      .then(() => {
-        return getRecord(OWNER_TABLE, ownerID);
-      })
-      .then(ownerRecord => {
-        const ownerTypes = ownerRecord.record[OWNER_TYPE_FIELD];
+  const isAdminPayload = await getAdminTable(owner);
+  if (isAdminPayload !== -1) {
+    credentials += 'A';
+  }
 
-        if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
-          credentials += 'S';
-        }
+  const ownerTypes = owner.ownerType;
 
-        if (ownerTypes.includes(GENERAL_OWNER)) {
-          credentials += 'G';
-        }
+  if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
+    credentials += 'S';
+  }
 
-        return credentials;
-      });
-  });
+  if (ownerTypes.includes(GENERAL_OWNER)) {
+    credentials += 'G';
+  }
+
+  return credentials;
 }
+
+function isSignedIn(credentials) {
+  return credentials !== '';
+}
+
+function isAdmin(credentials) {
+  return credentials.includes('A');
+}
+
+function isSubscriberOwner(credentials) {
+  return credentials.includes('S');
+}
+
+function isGeneralOwner(credentials) {
+  return credentials.includes('G');
+}
+
+export {
+  applyCredentials,
+  isAdmin,
+  isSubscriberOwner,
+  isGeneralOwner,
+  isSignedIn
+};

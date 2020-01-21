@@ -8,16 +8,6 @@
   color: var(--pp-black);
 }
 
-.all-bills-cards-header {
-  /* background-color: red; */
-}
-
-.all-bills-cards-holder {
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-}
-
 .subscriber-back-button {
   background-color: Transparent;
   border: 0;
@@ -42,5 +32,16 @@
 .subscriber-back-text {
   font-weight: bold;
   font-size: 16px;
-  margin: 0.4vw 1vw;
+  padding: 0vw 1vw;
+}
+
+.subscriber-all-bills-row {
+  color: #4f4f4f;
+  height: 60px;
+  padding: 25px 30px;
+}
+
+.subscriber-all-bills-header {
+  text-align: left;
+  font-weight: bold;
 }

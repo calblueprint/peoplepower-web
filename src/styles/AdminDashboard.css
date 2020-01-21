@@ -10,7 +10,6 @@
 .card-holder-cont h4 {
   margin-top: 40px;
   display: inline-block;
-  font-family: Avenir;
   font-style: normal;
   font-weight: 800;
   font-size: 18px;
@@ -20,7 +19,6 @@
 
 .card-holder-cont span {
   display: inline-block;
-  font-family: Avenir;
   font-style: normal;
   font-weight: 800;
   font-size: 18px;
@@ -57,7 +55,6 @@
 }
 
 .card-holder .admin-card .card-name h3 {
-  font-family: Avenir;
   font-style: normal;
   font-weight: 800;
   font-size: 16px;
@@ -100,7 +97,6 @@
 .dash-admin h3 {
   margin-top: 45px;
   margin-bottom: 17px;
-  font-family: Avenir;
   font-style: normal;
   font-weight: 800;
   font-size: 18px;

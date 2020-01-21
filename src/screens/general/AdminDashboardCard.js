@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/main.css';
 
-function Card({ name, callback, ownerId, ownerType }) {
+function AdminDashboardCard({ name, callback, ownerId, ownerType }) {
   const ownersTags = ownerType.map(type => {
     return (
       <div key={type} className="pp-tag">
@@ -30,4 +30,4 @@ function Card({ name, callback, ownerId, ownerType }) {
   );
 }
 
-export default Card;
+export default AdminDashboardCard;

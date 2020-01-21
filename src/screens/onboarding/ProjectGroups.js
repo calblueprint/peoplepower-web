@@ -1,10 +1,13 @@
 import React from 'react';
-import formValidation from '../../lib/formValidation';
+import formValidation from '../../lib/onboarding/formValidation';
 import '../../styles/Onboarding.css';
 import MapView from './ProjectGroupMapView';
 import ListView from './ProjectGroupListView';
-import { getAllProjectGroups } from '../../lib/onboardingUtils';
-import { updatePerson, updateOwner } from '../../lib/request';
+import {
+  updatePerson,
+  updateOwner,
+  getAllProjectGroups
+} from '../../lib/airtable/request';
 
 class ProjectGroups extends React.Component {
   constructor(props) {
@@ -17,29 +20,20 @@ class ProjectGroups extends React.Component {
     };
   }
 
-  componentDidMount() {
-    getAllProjectGroups().then(payload => {
-      const projectGroups = [];
-      payload.records.map(record =>
-        projectGroups.push({
-          id: record.id,
-          name: record.fields.Name,
-          description: record.fields.Description,
-          street: record.fields['Street 1'],
-          apt: record.fields['Street 2'],
-          city: record.fields.City,
-          state: record.fields.State,
-          zipcode: record.fields.Zipcode,
-          public: record.fields['Is Public?'],
-          default: record.fields['Is Default?']
-        })
-      );
-      const selectableGroups = projectGroups.filter(
-        group => group.public && !group.default
-      );
-      const defaultGroup = projectGroups.find(group => group.default);
-      this.setState({ groups: selectableGroups, defaultGroup });
-    });
+  async componentDidMount() {
+    let projectGroups = await getAllProjectGroups();
+
+    projectGroups = projectGroups.map(record => ({
+      ...record,
+      street: record.street1,
+      apt: record.street2
+    }));
+
+    const selectableGroups = projectGroups.filter(
+      group => group.isPublic && !group.isDefault
+    );
+    const defaultGroup = projectGroups.find(group => group.isDefault);
+    this.setState({ groups: selectableGroups, defaultGroup });
   }
 
   changeDisplayedGroup = id => {
@@ -81,19 +75,15 @@ class ProjectGroups extends React.Component {
       console.error('Need to make a selection');
     } else {
       const updatedPerson = {
-        id: userId,
-        fields: {
-          'Onboarding Step': 4
-        }
+        onboardingStep: 4
       };
-      await updatePerson(updatedPerson);
+      await updatePerson(userId, updatedPerson);
+
       const newOwner = {
-        id: personId,
-        fields: {
-          'Project Group': [projectGroup]
-        }
+        projectGroup: [projectGroup]
       };
-      await updateOwner(newOwner);
+
+      await updateOwner(personId, newOwner);
       nextStep();
     }
   };

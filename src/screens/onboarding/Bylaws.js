@@ -1,9 +1,9 @@
 import React from 'react';
-import OwnerAgreement1 from '../../images/ownerAgreement1.jpg';
-import OwnerAgreement2 from '../../images/ownerAgreement2.jpg';
+import OwnerAgreement1 from '../../assets/ownerAgreement1.jpg';
+import OwnerAgreement2 from '../../assets/ownerAgreement2.jpg';
 import Carousel from '../../components/Carousel';
-import formValidation from '../../lib/formValidation';
-import { updatePerson } from '../../lib/request';
+import formValidation from '../../lib/onboarding/formValidation';
+import { updatePerson } from '../../lib/airtable/request';
 
 class Bylaws extends React.Component {
   constructor(props) {
@@ -15,12 +15,12 @@ class Bylaws extends React.Component {
     e.preventDefault();
     const { values, nextStep } = this.props;
     const { errors, userId } = values;
-    const fields = ['bylaw1', 'bylaw2'];
+    const inputTypes = ['bylaw1', 'bylaw2'];
     const errorsMessages = [];
 
-    for (let i = 0; i < fields.length; i += 1) {
-      const errorMessage = formValidation(fields[i], values[fields[i]]);
-      errors[fields[i]] = errorMessage;
+    for (let i = 0; i < inputTypes.length; i += 1) {
+      const errorMessage = formValidation(inputTypes[i], values[inputTypes[i]]);
+      errors[inputTypes[i]] = errorMessage;
       if (errorMessage !== '') {
         errorsMessages.push(errorMessage);
       }
@@ -28,12 +28,9 @@ class Bylaws extends React.Component {
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
       const updatedPerson = {
-        id: userId,
-        fields: {
-          'Onboarding Step': 5
-        }
+        onboardingStep: 5
       };
-      updatePerson(updatedPerson);
+      updatePerson(userId, updatedPerson);
       nextStep();
     } else {
       this.forceUpdate();

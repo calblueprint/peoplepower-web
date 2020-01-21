@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/Community.css';
-import { createRecord } from '../lib/request';
+import { createAnnouncement } from '../lib/airtable/request';
 
 const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;
@@ -15,19 +15,16 @@ export default class AddAnnouncement extends React.Component {
       status: '',
       submitProgress: STATUS_IN_PROGRESS
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = event => {
     const target = event.target.name;
     this.setState({
       [target]: event.target.value
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = async event => {
     event.preventDefault();
     const { message } = this.state;
 
@@ -40,25 +37,23 @@ export default class AddAnnouncement extends React.Component {
       return;
     }
 
-    const { usersID: id, usersGroup: projectGroup, updateCards } = this.props;
+    const { personId, projectGroupId, updateCards } = this.props;
     const newMessage = {
-      fields: {
-        Author: [id],
-        'Project Group': [projectGroup],
-        Message: message
-      }
+      author: [personId],
+      projectGroup: [projectGroupId],
+      message
     };
-    createRecord('Announcement', newMessage).then(() => {
-      this.setState({
-        submitSuccess: true,
-        status: 'Announcement posted!',
-        message: '',
-        submitProgress: STATUS_SUCCESS
-      });
 
-      updateCards(newMessage);
+    await createAnnouncement(newMessage);
+    this.setState({
+      submitSuccess: true,
+      status: 'Announcement posted!',
+      message: '',
+      submitProgress: STATUS_SUCCESS
     });
-  }
+
+    updateCards(newMessage);
+  };
 
   render() {
     const { message, submitSuccess, status, submitProgress } = this.state;

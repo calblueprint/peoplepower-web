@@ -1,0 +1,248 @@
+{
+  "Payment": {
+    "columns": [
+      "ID",
+      "Date Created",
+      "Date Updated",
+      "Owner",
+      "Status",
+      "Type",
+      "Amount",
+      "Subscriber Bill",
+      "Order ID",
+      "Payer ID",
+      "Currency Code",
+      "Address",
+      "Payer Full Name",
+      "Intent",
+      "Payment Create Time",
+      "Payment Update Time",
+      "Notes",
+      "Payer Email"
+    ]
+  },
+  "Organization": {
+    "columns": [
+      "ID",
+      "Person(s) Affiliated",
+      "Date Created",
+      "Date Updated",
+      "Address",
+      "Name"
+    ]
+  },
+  "Project Group": {
+    "columns": [
+      "Primary Key",
+      "Owner",
+      "Date Created",
+      "Date Updated",
+      "Is Public?",
+      "Is taking pledges?",
+      "Name",
+      "Solar Project",
+      "Admin",
+      "Announcement",
+      "Street 1",
+      "Street 2",
+      "State",
+      "Zipcode",
+      "City",
+      "Description",
+      "Latitude",
+      "Longitude",
+      "Is Default?",
+      "ID"
+    ]
+  },
+  "Person": {
+    "columns": [
+      "ID",
+      "Email",
+      "Phone Number",
+      "Owner",
+      "Organization",
+      "Date Created",
+      "Date Updated",
+      "Tags",
+      "User Login",
+      "Name",
+      "RECORD ID (for dev)",
+      "Announcement",
+      "Street",
+      "City",
+      "State",
+      "Zipcode",
+      "Apt",
+      "Onboarding Step",
+      "Alternative Email",
+      "Mailing Street",
+      "Mailing Apt",
+      "Mailing City",
+      "Mailing State",
+      "Mailing Zipcode",
+      "Mailing Phone Number",
+      "Dividends",
+      "Billing Street",
+      "Billing Apt",
+      "Billing City",
+      "Billing State",
+      "Billing Zipcode",
+      "Project Group",
+      "Address"
+    ]
+  },
+  "Rate Schedule": {
+    "columns": [
+      "ID",
+      "Subscriber Bill",
+      "Date Created",
+      "Date Updated",
+      "Rate",
+      "Rebate Rate"
+    ]
+  },
+  "Address": {
+    "columns": [
+      "ID",
+      "Person",
+      "Organization",
+      "Date Created",
+      "Date Updated",
+      "Street",
+      "City",
+      "State",
+      "Zip Code",
+      "Solar Project",
+      "Apt"
+    ]
+  },
+  "Test (Development)": { "columns": ["Name", "Tag", "ID"] },
+  "Subscriber Bill": {
+    "columns": [
+      "ID",
+      "Date Created",
+      "Date Updated",
+      "Subscriber Owner",
+      "Statement Date",
+      "Start Date",
+      "End Date",
+      "Rate Schedule",
+      "Estimated Rebate",
+      "Total Estimated Rebate",
+      "Amount Due on Previous",
+      "Amount Received Since Previous",
+      "Amount Due",
+      "Owner",
+      "Payment",
+      "Status",
+      "Balance"
+    ]
+  },
+  "Announcement": {
+    "columns": [
+      "Title",
+      "Link",
+      "Attachments",
+      "Project Group",
+      "Author",
+      "Message",
+      "Event type",
+      "ID",
+      "Location",
+      "Time"
+    ]
+  },
+  "PGE Usage": {
+    "columns": [
+      "ID",
+      "Date Created",
+      "Date Updated",
+      "Solar Project",
+      "Subscriber Owner",
+      "Start Date",
+      "End Date",
+      "Amount",
+      "EBCE Rebate"
+    ]
+  },
+  "Pledge Invite": {
+    "columns": [
+      "ID",
+      "General Owner",
+      "Date Created",
+      "Date Updated",
+      "First Name",
+      "Last Name",
+      "Share Amount",
+      "Wants Dividends?",
+      "Phone Number",
+      "Email",
+      "Token",
+      "Status"
+    ]
+  },
+  "Solar Project": {
+    "columns": [
+      "ID",
+      "Date Created",
+      "Date Updated",
+      "Name",
+      "Size",
+      "Address",
+      "Status",
+      "Subscriber Owner",
+      "Generation",
+      "PGE Usage",
+      "Project Group"
+    ]
+  },
+  "User Login": {
+    "columns": [
+      "ID",
+      "Person",
+      "Owner",
+      "Date Created",
+      "Date Updated",
+      "Email",
+      "password",
+      "Password Salt",
+      "Password Hash",
+      "Password Reminder Token",
+      "Password Reminder Expire",
+      "Email Confirmation Token"
+    ]
+  },
+  "Owner": {
+    "columns": [
+      "ID",
+      "Person",
+      "Date Created",
+      "Date Updated",
+      "Agreement ID",
+      "Project Group",
+      "User Login",
+      "Payment",
+      "Owner Type",
+      "Owner ID",
+      "Subscriber Bill",
+      "Pledge Invite",
+      "Admin Of",
+      "Solar Project",
+      "Number of Shares",
+      "Receiving Dividends?"
+    ]
+  },
+  "Generation": {
+    "columns": [
+      "ID",
+      "Date Created",
+      "Date Updated",
+      "Solar Project",
+      "Subscriber Owner(s)?",
+      "Start Date",
+      "End Date",
+      "Amount"
+    ]
+  }
+}

@@ -1,29 +1,19 @@
-import { getAllRecords } from './request';
-import keys from '../secret';
-import { setLoginCookie } from './auth';
-import constants from '../constants';
-
-const {
-  BASE_ID,
-  USER_LOGIN_TABLE,
-  PERSON_TABLE,
-  OWNER_TABLE,
-  PROJECT_GROUP_TABLE
-} = constants;
-
-const { key } = keys;
-
-const Airtable = require('airtable');
-
-const base = new Airtable({ apiKey: key }).base(BASE_ID);
+import {
+  createPerson,
+  createOwner,
+  createUserLogin,
+  deleteOwner,
+  deletePerson
+} from '../airtable/request';
 
 const DEFAULT_NUM_RETRIES = 3;
 
 // Returns created person's ID
+// TODO: maybe have this function accept an object to...simplify
 const createPersonWithRetries = async (
   email,
   phoneNumber,
-  fullName,
+  name,
   street,
   city,
   state,
@@ -38,27 +28,22 @@ const createPersonWithRetries = async (
 ) => {
   // create a person record without an owner field nor user login field
   try {
-    const createdPerson = await base(PERSON_TABLE).create([
-      {
-        fields: {
-          Email: email,
-          'Phone Number': phoneNumber,
-          Name: fullName,
-          Street: street,
-          City: city,
-          State: state,
-          Apt: apt,
-          Zipcode: zipcode,
-          'Onboarding Step': 3,
-          'Mailing Street': mailingStreet,
-          'Mailing Apt': mailingApt,
-          'Mailing City': mailingCity,
-          'Mailing State': mailingState,
-          'Mailing Zipcode': mailingZipcode
-        }
-      }
-    ]);
-    return createdPerson[0].id;
+    return await createPerson({
+      email,
+      phoneNumber,
+      name,
+      street,
+      city,
+      state,
+      apt,
+      zipcode,
+      onboardingStep: 3,
+      mailingStreet,
+      mailingApt,
+      mailingCity,
+      mailingState,
+      mailingZipcode
+    });
   } catch (err) {
     if (numRetries === 0) {
       throw err;
@@ -67,7 +52,7 @@ const createPersonWithRetries = async (
     return createPersonWithRetries(
       email,
       phoneNumber,
-      fullName,
+      name,
       street,
       city,
       state,
@@ -86,15 +71,10 @@ const createPersonWithRetries = async (
 // Returns created owner's ID
 const createOwnerWithRetries = async (createdPersonId, numRetries) => {
   try {
-    const createdOwner = await base(OWNER_TABLE).create([
-      {
-        fields: {
-          Person: [createdPersonId],
-          'Owner Type': ['General']
-        }
-      }
-    ]);
-    return createdOwner[0].id;
+    return await createOwner({
+      person: [createdPersonId],
+      ownerType: ['General']
+    });
   } catch (err) {
     if (numRetries === 0) {
       throw err;
@@ -113,17 +93,14 @@ const createUserLoginWithRetries = async (
   numRetries
 ) => {
   try {
-    await base(USER_LOGIN_TABLE).create([
-      {
-        fields: {
-          Person: [createdPersonId],
-          Owner: [createdOwnerId],
-          Email: email,
-          password
-        }
-      }
-    ]);
-    return true;
+    const userLoginId = await createUserLogin({
+      person: [createdPersonId],
+      owner: [createdOwnerId],
+      email,
+      password
+    });
+
+    return userLoginId;
   } catch (err) {
     if (numRetries === 0) {
       throw err;
@@ -142,7 +119,7 @@ const createUserLoginWithRetries = async (
 // TODO: UNTESTED FUNCTION
 const rollbackPersonWithRetries = async (createdPersonId, numRetries) => {
   try {
-    await base(PERSON_TABLE).destroy([createdPersonId]);
+    await deletePerson(createdPersonId);
   } catch (err) {
     if (numRetries === 0) {
       console.error(`ATTENTION: ${err}`);
@@ -156,7 +133,7 @@ const rollbackPersonWithRetries = async (createdPersonId, numRetries) => {
 // TODO:UNTESTED FUNCTION
 const rollbackOwnerWithRetries = async (createdOwnerId, numRetries) => {
   try {
-    await base(OWNER_TABLE).destroy([createdOwnerId]);
+    await deleteOwner(createdOwnerId);
   } catch (err) {
     if (numRetries === 0) {
       console.error(`ATTENTION: ${err}`);
@@ -188,6 +165,7 @@ const createPersonOwnerUserLoginRecord = async (
   // necessary IDs
   let createdPersonId;
   let createdOwnerId;
+  let createdUserLoginId;
 
   try {
     createdPersonId = await createPersonWithRetries(
@@ -225,15 +203,15 @@ const createPersonOwnerUserLoginRecord = async (
 
   // create a user login record
   try {
-    await createUserLoginWithRetries(
+    createdUserLoginId = await createUserLoginWithRetries(
       createdPersonId,
       createdOwnerId,
       email,
       password,
       numRetries - 1
     );
-    setLoginCookie(createdPersonId);
-    return { createdOwnerId, createdPersonId };
+
+    return { createdOwnerId, createdPersonId, createdUserLoginId };
   } catch (err) {
     console.error(err);
 
@@ -245,8 +223,8 @@ const createPersonOwnerUserLoginRecord = async (
   }
 };
 
-const getAllProjectGroups = async () => {
-  return getAllRecords(PROJECT_GROUP_TABLE);
+export {
+  createPersonOwnerUserLoginRecord,
+  rollbackPersonWithRetries,
+  rollbackOwnerWithRetries
 };
-
-export { createPersonOwnerUserLoginRecord, getAllProjectGroups };

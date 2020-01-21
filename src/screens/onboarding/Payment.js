@@ -1,10 +1,9 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { recordShareBuySuccess } from '../../lib/paypal';
-import secret from '../../secret';
-import { updatePerson } from '../../lib/request';
+import { recordShareBuySuccess } from '../../lib/paypalUtils';
+import { updatePerson } from '../../lib/airtable/request';
 
-const { clientId } = secret;
+const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
 const SHARE_PRICE = 100;
 
@@ -17,32 +16,26 @@ class Payment extends React.Component {
     this.state = {
       paid: false
     };
-    this.onBuyShareWithPaypalSuccess = this.onBuyShareWithPaypalSuccess.bind(
-      this
-    );
   }
 
-  onBuyShareWithPaypalSuccess(details, data) {
+  onBuyShareWithPaypalSuccess = (details, data) => {
     const { values } = this.props;
-    recordShareBuySuccess(details, data, values);
+    recordShareBuySuccess(details, data, values); // TODO(dfangshuo): no await?
     console.log('Paypal success');
-    this.nextButton();
-  }
+    this.continue();
+  };
 
   // Only called after user has paid
-  nextButton = () => {
+  continue = () => {
     const { values, nextStep } = this.props;
     const { userId } = values;
 
     // No validation as everything is already decided at this point (user has paid)
     const updatedPerson = {
-      id: userId,
-      fields: {
-        'Onboarding Step': 6
-      }
+      onboardingStep: 6
     };
 
-    updatePerson(updatedPerson);
+    updatePerson(userId, updatedPerson); // TODO(dfangshuo): no await?
     nextStep();
   };
 
@@ -207,7 +200,7 @@ class Payment extends React.Component {
             {/* <button
               type="button"
               className="pp-blue-rounded-button continue-button"
-              onClick={this.nextButton}
+              onClick={this.continue}
             >
               Continue
             </button> */}

@@ -63,14 +63,10 @@ h3 {
   font-size: 28px;
 }
 
-.cards-holder {
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-}
-
-.payment-button {
-  float: right;
+.balance-header-section p {
+  font-size: 12px;
+  margin: 0.3vw 0.5vw;
+  color: #a4a4a4;
 }
 
 #divider {
@@ -78,20 +74,20 @@ h3 {
   width: 85%;
   margin: 0 auto 1.5vw auto;
 }
-
-.TEMP {
-  margin-top: 10vw;
-  padding: 18vw 0 0 0;
-  float: right;
-}
 .subscriber-header {
   font-weight: bolder;
   color: var(--pp-black);
 }
 
-/*.cards-holder {
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
+.rt-custom-pp-style {
+  height: 60vh;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+  /* "font-family": "Avenir" */
 }
-*/
+
+/* modifies react-table-v6 css */
+.rt-tr-group {
+  min-height: 60px;
+}

@@ -1,19 +1,16 @@
 import React from 'react';
-import Card from './Card';
-import '../../styles/main.css';
-import '../../styles/AdminDashboard.css';
-import { getLoggedInUserId } from '../../lib/auth';
+import { connect } from 'react-redux';
+import AdminDashboardCard from './AdminDashboardCard';
 import LoadingComponent from '../../components/LoadingComponent';
 import {
   getAdminTable,
   getOwnersFromProjectGroup,
-  removeOwnerFromProjectGroup,
-  getOwnerFromPerson
-} from '../../lib/adminHelper';
+  updateProjectGroupOwners
+} from '../../lib/adminUtils';
+import '../../styles/main.css';
+import '../../styles/AdminDashboard.css';
 
-const OWNER_ID_FIELD = 'Owner ID';
-
-export default class AdminDashboard extends React.Component {
+class AdminDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,54 +22,53 @@ export default class AdminDashboard extends React.Component {
   }
 
   async componentDidMount() {
-    const personId = getLoggedInUserId();
-    if (personId == null) {
+    const { person, owner, isLoadingUserData } = this.props;
+
+    // If data isn't in redux yet, don't do anything.
+    if (isLoadingUserData) {
       return;
     }
 
-    const ownerId = await getOwnerFromPerson(personId);
-    const adminGroupId = await getAdminTable(ownerId);
+    // TODO: Can any of this admin-related info be moved to redux?
+
+    const adminGroupId = await getAdminTable(owner);
     if (adminGroupId === -1) {
       this.setState({
         access: false,
         isReady: true
       });
-    }
-
-    const owners = await getOwnersFromProjectGroup(adminGroupId);
-    try {
+    } else {
+      const owners = await getOwnersFromProjectGroup(adminGroupId);
       this.setState({
         access: true,
-        adminId: ownerId,
+        isReady: true,
+        adminId: owner.ownerId,
         adminGroupId,
-        owners: owners.filter(owner => owner.Person[0] !== personId),
-        isReady: true
+        owners: owners.filter(o => o.person !== person.recordIdforDev)
       });
-    } catch (err) {
-      console.error(err);
     }
   }
 
   async removeUser(idToRemove) {
-    const { adminGroupId, adminId } = this.state;
-    let { owners } = this.state;
-    let ownerIds = owners.map(owner => owner[OWNER_ID_FIELD]);
+    const { adminGroupId, adminId, owners } = this.state;
+    let ownerIds = owners.map(owner => owner.ownerId);
 
     // FILTER
     ownerIds = ownerIds.filter(ownerId => ownerId !== idToRemove);
-    owners = owners.filter(owner => owner[OWNER_ID_FIELD] !== idToRemove);
+    const newOwners = owners.filter(owner => owner.ownerId !== idToRemove);
     ownerIds.push(adminId);
 
-    await removeOwnerFromProjectGroup(adminGroupId, ownerIds);
+    await updateProjectGroupOwners(adminGroupId, ownerIds);
     this.setState({
-      owners
+      owners: newOwners
     });
   }
 
   render() {
-    const { access, isReady } = this.state;
+    const { access, isReady, owners } = this.state;
+    const { isLoadingUserData } = this.props;
 
-    if (!isReady) {
+    if (!isReady || isLoadingUserData) {
       return <LoadingComponent />;
     }
 
@@ -83,7 +79,6 @@ export default class AdminDashboard extends React.Component {
         </div>
       );
     }
-    const { owners } = this.state;
     return (
       <div className="dashboard dash-admin">
         <div>
@@ -106,11 +101,11 @@ export default class AdminDashboard extends React.Component {
               {owners.length >= 1 ? (
                 owners.map(owner => {
                   return (
-                    <Card
-                      name={owner.ID}
+                    <AdminDashboardCard
+                      name={owner.id}
                       callback={idToRemove => this.removeUser(idToRemove)}
-                      ownerId={owner[OWNER_ID_FIELD]}
-                      ownerType={owner['Owner Type']}
+                      ownerId={owner.ownerId}
+                      ownerType={owner.ownerType}
                     />
                   );
                 })
@@ -126,3 +121,12 @@ export default class AdminDashboard extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  authenticated: state.userData.authenticated,
+  person: state.userData.person,
+  owner: state.userData.owner,
+  announcements: state.community.announcements,
+  isLoadingUserData: state.userData.isLoading
+});
+export default connect(mapStateToProps)(AdminDashboard);

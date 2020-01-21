@@ -1,23 +1,44 @@
+# People Power Web App
+
+_Last updated: Jan 14, 2019 (by Fang)_
+
+## Quickstart
+
+**STEP ONE: Clone this project**
+
+1. Click on 'Clone or Download' (green button near the top right) and copy the URL.
+2. Then in you desired directory, do `git clone {COPIED URL HERE}`
+
+**STEP TWO: Set up the `.env` file**
+
+The project uses a number of secrets that are passed via a `.env` file (for security reasons). We need to set this `.env` file now.
+
+1. In your top level directory (`/peoplepower-web`, the same directory containing the src folder, `package.json` and a couple of other files), create a file called `.env`.
+2. Copy and paste the following into `.env`:
+
+```
+REACT_APP_AIRTABLE_API_KEY={YOUR AIRTABLE API KEY HERE}
+
+REACT_APP_PAYPAL_CLIENT_ID={PAYPAL CLIENT ID}
+
+REACT_APP_GOOGLE_API_KEY={REACT APP GOOGLE API KEY}
+
+```
+
+You can get the `PAYPAL CLIENT ID` and `REACT APP GOOGLE API KEY` from Notion in 'Credentials Reference'. Follow the instructions in this [Airtable support page](https://support.airtable.com/hc/en-us/articles/219046777-How-do-I-get-my-API-key-) to get your Airtable API Key.
+
+3. Run `yarn start`. This starts the development server, and should open a tab with the url `localhost:3000` where you can find the People Power web app. If the tab doesn't open up normally, you can type `localhost:3000` in your browser manually to open it.
+4. To verify that you've done step two correctly, run `REACT_APP_AIRTABLE_API_KEY={YOUR AIRTABLE API KEY HERE} yarn test`. This command passes in an environment variable acccessible by `REACT_APP_AIRTABLE_API_KEY`, and runs tests locally. This should take about 30s to a minute, and if you've done everything so correctly so far, all tests shoulld pass.
+
+Congrats! You now have a working version of the People power on your local machine ✨
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Available Scripts (redacted from Create React App)
 
 In the project directory, you can run:
 
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
+`npm run build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -27,7 +48,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+`npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
@@ -43,26 +64,14 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+Code Splitting: https://facebook.github.io/create-react-app/docs/code-splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Analyzing the Bundle Size: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-### Analyzing the Bundle Size
+Making a Progressive Web App: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Advanced Configuration: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-### Making a Progressive Web App
+Deployment: https://facebook.github.io/create-react-app/docs/deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+`npm run build` fails to minify: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

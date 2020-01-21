@@ -1,8 +1,8 @@
 import React from 'react';
-import formValidation from '../../lib/formValidation';
-import { createPersonOwnerUserLoginRecord } from '../../lib/onboardingUtils';
+import formValidation from '../../lib/onboarding/formValidation';
+import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
 import Tooltip from '../../components/Tooltip';
-import { updatePerson } from '../../lib/request';
+import { updatePerson } from '../../lib/airtable/request';
 import '../../styles/main.css';
 
 class ContactInfo extends React.Component {
@@ -38,7 +38,7 @@ class ContactInfo extends React.Component {
       mailingPhoneNumber
     } = values;
     const { assertAddress } = this.state;
-    const fields = [
+    const inputTypes = [
       'street',
       'apt',
       'city',
@@ -55,16 +55,19 @@ class ContactInfo extends React.Component {
     ];
     const errorMessages = [];
 
-    for (let i = 0; i < fields.length; i += 1) {
-      if (fields[i] === 'assertAddress') {
+    for (let i = 0; i < inputTypes.length; i += 1) {
+      if (inputTypes[i] === 'assertAddress') {
         if (!assertAddress) {
           this.setState({ errorAssertAddress: 'Required' });
         } else {
           this.setState({ errorAssertAddress: '' });
         }
       } else {
-        const errorMessage = formValidation(fields[i], values[fields[i]]);
-        errors[fields[i]] = errorMessage;
+        const errorMessage = formValidation(
+          inputTypes[i],
+          values[inputTypes[i]]
+        );
+        errors[inputTypes[i]] = errorMessage;
         if (errorMessage !== '') {
           errorMessages.push(errorMessage);
         }
@@ -75,30 +78,28 @@ class ContactInfo extends React.Component {
     if (!(errorMessages && errorMessages.length > 0)) {
       if (userId) {
         const updatedPerson = {
-          id: userId,
-          fields: {
-            Street: street,
-            Apt: apt,
-            City: city,
-            State: state,
-            Zipcode: zipcode,
-            'Phone Number': phoneNumber,
-            'Mailing Street': mailingStreet,
-            'Mailing Apt': mailingApt,
-            'Mailing City': mailingCity,
-            'Mailing State': mailingState,
-            'Mailing Zipcode': mailingZipcode,
-            'Mailing Phone Number': mailingPhoneNumber,
-            'Onboarding Step': 3
-          }
+          street,
+          apt,
+          city,
+          state,
+          zipcode,
+          phoneNumber,
+          mailingStreet,
+          mailingApt,
+          mailingCity,
+          mailingState,
+          mailingZipcode,
+          mailingPhoneNumber,
+          onboardingStep: 3
         };
-        updatePerson(updatedPerson);
+        updatePerson(userId, updatedPerson);
         nextStep();
       } else {
         // create the person/owner record in Airtable
         const {
           createdOwnerId,
-          createdPersonId
+          createdPersonId,
+          createdUserLoginId
         } = await createPersonOwnerUserLoginRecord(
           email,
           password,
@@ -117,7 +118,8 @@ class ContactInfo extends React.Component {
           const { handleRecordCreation } = this.props;
           handleRecordCreation({
             createdOwnerId,
-            createdPersonId
+            createdPersonId,
+            createdUserLoginId
           });
           nextStep();
         }

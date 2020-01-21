@@ -1,20 +1,15 @@
 import React from 'react';
-import formValidation from '../../lib/formValidation';
+import formValidation from '../../lib/onboarding/formValidation';
+import Tooltip from '../../components/Tooltip';
+import { updatePerson, updateUserLogin } from '../../lib/airtable/request';
 import '../../styles/main.css';
 import '../../styles/Onboarding.css';
-import Tooltip from '../../components/Tooltip';
-import { updatePerson, updateRecord } from '../../lib/request';
 
 class BasicInfo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   // validates then moves on if no error messages
-  nextButton = e => {
+  nextButton = async e => {
     e.preventDefault();
-    const { values, nextStep } = this.props;
+    const { values, nextStep, toggleNavbar } = this.props;
     const {
       errors,
       userId,
@@ -25,12 +20,12 @@ class BasicInfo extends React.Component {
       password,
       altEmail
     } = values;
-    const fields = ['fname', 'lname', 'email', 'password', 'altEmail'];
+    const inputTypes = ['fname', 'lname', 'email', 'password', 'altEmail'];
     const errorsMessages = [];
 
-    for (let i = 0; i < fields.length; i += 1) {
-      const errorMessage = formValidation(fields[i], values[fields[i]]);
-      errors[fields[i]] = errorMessage;
+    for (let i = 0; i < inputTypes.length; i += 1) {
+      const errorMessage = formValidation(inputTypes[i], values[inputTypes[i]]);
+      errors[inputTypes[i]] = errorMessage;
       if (errorMessage !== '') {
         errorsMessages.push(errorMessage);
       }
@@ -38,28 +33,23 @@ class BasicInfo extends React.Component {
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
       if (userId) {
-        const fullName = `${fname} ${lname}`;
+        const name = `${fname} ${lname}`;
         const updatedPerson = {
-          id: userId,
-          fields: {
-            Name: fullName,
-            Email: email,
-            'Alternative Email': altEmail
-          }
+          name,
+          email,
+          alternativeEmail: altEmail
         };
 
         const newLogin = {
-          id: userLoginId,
-          fields: {
-            Email: email,
-            password
-          }
+          email,
+          password
         };
 
-        updatePerson(updatedPerson).then(() => {
-          return updateRecord('User Login', newLogin);
-        });
+        await updatePerson(userId, updatedPerson);
+        await updateUserLogin(userLoginId, newLogin);
       }
+
+      toggleNavbar();
       nextStep();
     } else {
       this.forceUpdate();
@@ -180,7 +170,7 @@ class BasicInfo extends React.Component {
             className="pp-pink-rounded-button getstarted-button"
             onClick={this.nextButton}
           >
-            Get started
+            Get Started
           </button>
         </div>
       </form>

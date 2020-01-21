@@ -8,6 +8,29 @@
         "extensions": [".js", ".jsx"]
       }
     ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "airtable",
+            "message": "Do not use the airtable module outside of airtable.js"
+          },
+          {
+            "name": "./airtable",
+            "message": "Do not use airtable.js outside of request.js"
+          },
+          {
+            "name": "../../lib/airtable",
+            "message": "Do not use airtable.js outside of request.js"
+          },
+          {
+            "name": "../../../lib/airtable",
+            "message": "Do not use airtable.js outside of request.js"
+          }
+        ]
+      }
+    ],
     "react/prop-types": 0,
     "no-underscore-dangle": 0,
     "react/no-unused-state": 0,
@@ -25,5 +48,8 @@
     "navigator": true,
     "alert": true
   },
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "env": {
+    "jest": true
+  }
 }

@@ -1,15 +1,19 @@
-// SEE TODOS ON LINE ~131.
-
 import React from 'react';
-import '../../styles/UserProfilePage.css';
-import { getRecord, updatePerson, updateRecord } from '../../lib/request';
+import { connect } from 'react-redux';
+import {
+  updatePerson,
+  updateUserLogin,
+  getUserLoginById
+} from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
+import { refreshUserData } from '../../lib/userDataUtils';
+import '../../styles/UserProfilePage.css';
 
 const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;
 const STATUS_SUCCESS = 1;
 
-export default class UserProfilePage extends React.Component {
+class UserProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,89 +37,67 @@ export default class UserProfilePage extends React.Component {
       updateZip: '',
       isLoading: true
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    // id taken from URL. React Router's useParams() threw an "invalid hook" error.
-    const { match } = this.props;
-    const { id } = match.params;
+  async componentDidMount() {
+    // TODO: Don't take ID from url, take it from redux
+
+    const { person, projectGroup, isLoadingUserData } = this.props;
+
+    // If data isn't in redux yet, don't do anything.
+    if (isLoadingUserData) {
+      return;
+    }
+
+    // TODO This "RECORDIDforDev" stuff could/is probably causing a lot of problems
+    // basically, while you think a person record's ID would be person.ID, it's actually
+    // person.RECORDIDforDev
+    // TODO: We don't need to pull all of this data from props just to put it into state.
+    // We can be smarter about it
+    const {
+      recordIdforDev: id,
+      email,
+      phoneNumber,
+      name,
+      userLogin: userLoginID,
+      city,
+      street,
+      state,
+      zipcode: zipCode
+    } = person;
+
+    const { name: projectGroupName } = projectGroup;
     this.setState({
-      id
+      id,
+      email,
+      updateEmail: email,
+      name,
+      updateName: name,
+      phoneNumber,
+      updatePhone: phoneNumber,
+      userLoginID: userLoginID[0],
+      street,
+      updateStreet: street,
+      city,
+      updateCity: city,
+      state,
+      updateState: state,
+      zipcode: zipCode,
+      updateZip: zipCode,
+      projectGroup: projectGroupName,
+      isLoading: false
     });
-
-    let email;
-    let phoneNumber;
-    let name;
-    let owner;
-    let city;
-    let street;
-    let state;
-    let zipCode;
-    let userLoginID;
-
-    getRecord('Person', id)
-      .then(payload => {
-        ({
-          Email: email,
-          'Phone Number': phoneNumber,
-          Owner: owner,
-          Name: name,
-          'User Login': userLoginID,
-          City: city,
-          Street: street,
-          State: state,
-          Zipcode: zipCode
-        } = payload.record);
-        this.setState({
-          email,
-          updateEmail: email,
-          name,
-          updateName: name,
-          phoneNumber,
-          updatePhone: phoneNumber,
-          userLoginID: userLoginID[0],
-          street,
-          updateStreet: street,
-          city,
-          updateCity: city,
-          state,
-          updateState: state,
-          zipcode: zipCode,
-          updateZip: zipCode
-        });
-
-        // Getting project group
-        return getRecord('Owner', owner);
-      })
-      .then(payload => {
-        const { 'Project Group': projectGroupID } = payload.record;
-
-        return getRecord('Project Group', projectGroupID);
-      })
-      .then(payload => {
-        const { Name: projectGroupName } = payload.record;
-        this.setState({
-          projectGroup: projectGroupName,
-          isLoading: false
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 
-  handleChange(event) {
+  handleChange = event => {
     const target = event.target.name;
 
     this.setState({
       [target]: event.target.value
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = async event => {
     event.preventDefault();
     const {
       id,
@@ -135,62 +117,46 @@ export default class UserProfilePage extends React.Component {
     */
 
     const newPerson = {
-      id,
-      fields: {
-        Name: updateName,
-        Email: updateEmail.toLowerCase(),
-        'Phone Number': updatePhone,
-        Street: updateStreet,
-        City: updateCity,
-        State: updateState.toUpperCase(),
-        Zipcode: updateZip
-      }
+      name: updateName,
+      email: updateEmail.toLowerCase(),
+      phoneNumber: updatePhone,
+      street: updateStreet,
+      city: updateCity,
+      state: updateState.toUpperCase(),
+      zipcode: updateZip
     };
     const newLogin = {
-      id: userLoginID,
-      fields: {
-        Email: updateEmail
-      }
+      email: updateEmail
     };
     // console.log(`UPDATE: ${userLoginID}`);
-    updatePerson(newPerson)
-      .then(() => {
-        this.setState({
-          status: STATUS_IN_PROGRESS,
-          name: updateName,
-          email: updateEmail,
-          street: updateStreet,
-          city: updateCity,
-          state: updateState,
-          zipcode: updateZip
-        });
-        return updateRecord('User Login', newLogin);
-      })
-      .then(payload => {
-        console.log(payload === '');
-        if (payload === '') {
-          this.setState({
-            status: STATUS_ERR,
-            name: updateName,
-            email: updateEmail,
-            street: updateStreet,
-            city: updateCity,
-            state: updateState,
-            zipcode: updateZip
-          });
-        } else {
-          this.setState({
-            status: STATUS_SUCCESS,
-            name: updateName,
-            email: updateEmail,
-            street: updateStreet,
-            city: updateCity,
-            state: updateState,
-            zipcode: updateZip
-          });
-        }
+    await updatePerson(id, newPerson);
+    this.setState({
+      status: STATUS_IN_PROGRESS
+    });
+    const result = await updateUserLogin(userLoginID, newLogin);
+
+    if (result === '') {
+      this.setState({
+        status: STATUS_ERR
       });
-  }
+    } else {
+      this.setState({
+        status: STATUS_SUCCESS,
+        name: updateName,
+        email: updateEmail,
+        street: updateStreet,
+        city: updateCity,
+        state: updateState,
+        zipcode: updateZip
+      });
+    }
+
+    // get latest copy of user login record
+    const userLogin = await getUserLoginById(userLoginID);
+
+    // Refresh local cache with latest user data
+    await refreshUserData(userLogin);
+  };
 
   render() {
     const {
@@ -411,3 +377,11 @@ export default class UserProfilePage extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  person: state.userData.person,
+  owner: state.userData.owner,
+  projectGroup: state.userData.projectGroup,
+  isLoadingUserData: state.userData.isLoading
+});
+export default connect(mapStateToProps)(UserProfilePage);
