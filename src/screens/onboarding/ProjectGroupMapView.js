@@ -26,7 +26,7 @@ function ProjectGroupMapView(props) {
           borderRadius: 10,
           zIndex: 0
         }}
-        // className="mapWindow"
+        // className="map-window"
         initialCenter={{
           lat: 37.8719,
           lng: -122.2585

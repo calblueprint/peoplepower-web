@@ -7,7 +7,8 @@
 .b-is-not-valid {
   border-color: red;
 }
-.mapWindow {
+
+.map-window {
   width: 50%;
   height: 50%;
   border-radius: 10px;
@@ -804,7 +805,7 @@ carousel__arrow--right {
   padding: 2rem 1.5rem;
 }
 
-.projectGroup-list-option {
+.project-group-list-option {
   width: 100%;
   border-radius: 5px;
   background-color: white;
@@ -812,36 +813,36 @@ carousel__arrow--right {
   padding: 1.5rem 1.25rem;
 }
 
-.projectGroup-list-option:hover {
+.project-group-list-option:hover {
   background-color: #f7f8fa;
 }
 
-.projectGroup-list-option-background {
+.project-group-list-option-background {
   background-color: #f7f8fa;
 }
 
-.projectGroup-list-option:focus {
+.project-group-list-option:focus {
   outline: none;
 }
 
-.projectGroup-list-option-header {
+.project-group-list-option-header {
   color: var(--pp-black);
   font-size: 16px;
   font-weight: bold;
   padding-bottom: 0.5rem;
 }
 
-.projectGroup-list-option-body {
+.project-group-list-option-body {
   color: var(--pp-black);
   font-size: 12px;
 }
 
-.projectGroup-list-view {
+.project-group-list-view {
   padding-top: 4rem;
   overflow: auto;
 }
 
-.projectGroup-list-search {
+.project-group-list-search {
   font-size: 12px;
   border-radius: 30px;
   border: #dbdbdb solid 2px;
@@ -849,11 +850,11 @@ carousel__arrow--right {
   color: #a7afb8;
 }
 
-.projectGroup-list-search::placeholder {
+.project-group-list-search::placeholder {
   color: #a7afb866;
 }
 
-.projectGroup-view-button {
+.project-group-view-button {
   border: none;
   background-color: white;
   font-size: 14px;

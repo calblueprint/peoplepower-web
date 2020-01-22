@@ -23,36 +23,36 @@ class ProjectGroupListView extends React.Component {
           <div className="flex justify-space-between">
             {/* TODO: Implement Search */}
             <input
-              className="projectGroup-list-search w-60"
+              className="project-group-list-search w-60"
               placeholder="Search for a project group"
             />
             <button
               type="button"
               onClick={handleViewChange}
-              className="projectGroup-view-button right"
+              className="project-group-view-button right"
             >
               {view === 'map' ? 'List View' : 'Map View'}
             </button>
           </div>
-          <div className="projectGroup-list-view">
+          <div className="project-group-list-view">
             {groups.map((group, index) => (
               <div key={group.id}>
                 <button
                   type="button"
                   onClick={() => changeDisplayedGroup(index)}
-                  className={`projectGroup-list-option justify-space-between left ${
+                  className={`project-group-list-option justify-space-between left ${
                     group.id === groups[displayGroup].id
-                      ? 'projectGroup-list-option-background'
+                      ? 'project-group-list-option-background'
                       : ''
                   }`}
                 >
                   <div className="">
-                    <div className="projectGroup-list-option-header">
+                    <div className="project-group-list-option-header">
                       {`${group.name} ${
                         projectGroup === group.id ? '(Selected)' : ''
                       }`}
                     </div>
-                    <div className="projectGroup-list-option-body">
+                    <div className="project-group-list-option-body">
                       {group.city}, {group.state}
                     </div>
                   </div>
