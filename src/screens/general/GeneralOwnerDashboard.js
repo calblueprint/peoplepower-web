@@ -60,7 +60,7 @@ class GeneralOwnerDashboard extends React.Component {
 
         <button
           type="button"
-          className="primary-button"
+          className="btn btn--square btn--blue btn--size16 primary"
           onClick={this.handleLogoutClick}
         >
           Logout

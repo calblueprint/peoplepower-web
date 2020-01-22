@@ -167,7 +167,7 @@ class BasicInfo extends React.Component {
         <div className="v-center">
           <button
             type="button"
-            className="pink-rounded-button getstarted-button"
+            className="btn btn--rounded btn--pink btn--size12 getstarted-button"
             onClick={this.nextButton}
           >
             Get Started

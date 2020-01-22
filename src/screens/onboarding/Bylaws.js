@@ -110,7 +110,7 @@ class Bylaws extends React.Component {
           <div className="right">
             <button
               type="button"
-              className="blue-rounded-button continue-button"
+              className="btn btn--rounded btn--blue btn--size16 continue-button"
               onClick={this.nextButton}
             >
               Continue

@@ -83,7 +83,7 @@ class ProjectGroupListView extends React.Component {
             ) : (
               <button
                 type="button"
-                className="pink-square-button projectgroup-select"
+                className="btn btn--square btn--pink btn--size16 btn--weight600 projectgroup-select"
                 onClick={() => changeSelectedGroup(groups[displayGroup])}
                 name="projectGroup"
               >

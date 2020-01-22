@@ -92,7 +92,7 @@ class AdminDashboard extends React.Component {
               </h4>
               <button
                 type="button"
-                className="pink-square-button invite-button"
+                className="btn btn--square btn--pink btn--size16 btn--weight600 invite-button"
               >
                 Invite
               </button>

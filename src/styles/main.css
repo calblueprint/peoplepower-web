@@ -14,7 +14,7 @@
   --pp-link-gray: #8f8f8f;
 }
 
-.pink-rounded-button {
+.btn {
   transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   background-color: var(--pp-pink);
@@ -23,33 +23,43 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 12px;
   margin: 4px 2px;
-  transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
   cursor: pointer;
+}
+
+.btn--rounded {
   border-radius: 50px;
 }
 
-.pink-rounded-button:hover {
+.btn--square {
+  border-radius: 2.5px;
+  font-size: 16px;
+}
+
+.btn--weight600 {
+  font-weight: 600;
+}
+
+.btn--size16 {
+  font-size: 16px;
+}
+
+.btn--size12 {
+  font-size: 12px;
+}
+
+.btn--pink {
+  background-color: var(--pp-pink);
+  color: white;
+}
+
+.btn--pink:hover {
   box-shadow: 0px 4px 30px rgba(205, 103, 149, 0.3);
 }
 
-.blue-rounded-button {
+.btn--blue {
   background-color: var(--pp-blue);
   color: white;
-  border: none;
-  border-radius: 40px;
-  font-size: 16px;
-}
-
-.pink-square-button {
-  border: none;
-  border-radius: 2.5px;
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  background: var(--pp-pink);
 }
 
 .pp-tag {
