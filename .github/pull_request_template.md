@@ -1,23 +1,28 @@
-## Feature Title
+[//]: # (These comments meant for your reference, they are invisible and don't need to be deleted) 
 
-[//]: # (Describe your feature here)
+## What's new in this PR?
+
+[//]: # (Describe what's new in this PR)
+
+### How to Review
+
+[//]: # (The order in which to review files and what to expect when testing locally)
 
 ### Related PRs
 
-[//]: # (Optional - any related PRs you're waiting on, or PRs that will conflict, etc)
+[//]: # (Optional - related PRs you're waiting on/ PRs that will conflict, etc)
 
-### Migrations
+### Next steps
 
-[//]: # (Optional - if you added anything to the database through migration[s])
+[//]: # (What doesn't work yet, what's NOT in this PR/has to be done )
 
 ### Tests Performed, Edge Cases
 
-[//]: # (If you made changes/additions to `airtable.js` or `request.js`,) 
-[//]: # (make sure you update/add [at least 1] corresponding unit tests in)
-[//]: # (`airtable.spec.js` or `request.spec.js`)
+[//]: # (If you made changes/additions to `airtable.js` make sure you update/add) 
+[//]: # ([at least 1] corresponding unit tests in `airtable.spec.js`)
 
 ### Screenshots
 
 [//]: # (Add screenshots!!! If you'd like)
 
-CC: @aivantg @dfangshuo
+CC: @dfangshuo
