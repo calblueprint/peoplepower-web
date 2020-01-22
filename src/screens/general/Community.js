@@ -58,7 +58,7 @@ class Community extends React.Component {
           ) : null}
           <AnnouncementList
             announcements={announcements}
-            css={isAdmin(credentials) ? '' : 'nonAdminHeight'}
+            css={isAdmin(credentials) ? '' : 'non-admin-height'}
           />
         </div>
       </div>

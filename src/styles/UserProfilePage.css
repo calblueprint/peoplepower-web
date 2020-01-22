@@ -9,7 +9,7 @@
   margin: 0px;
 }
 
-.userIcon {
+.user-icon {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,7 +19,7 @@
   border-radius: 5px;
 }
 
-.generalForm {
+.general-form {
   background: white;
   width: 500px;
   float: right;
@@ -29,29 +29,23 @@
   padding: 32px;
 }
 
-.generalForm h2 {
+.general-form h2 {
   margin-top: 0px;
   margin-bottom: 30px;
 }
 
-.inputFormCont h2,
-h3,
-label {
-  color: black;
-}
-
-.generalForm input {
+.general-form input {
   float: right;
   width: 50%;
   border: 0px;
   font-size: 16px;
 }
 
-.generalForm input:focus {
+.general-form input:focus {
   outline: none;
 }
 
-.contactInfoForm {
+.contact-info-form {
   background: white;
   float: right;
   border-radius: 5px;
@@ -61,14 +55,14 @@ label {
   margin-bottom: 30px;
 }
 
-.contactInfoForm input {
+.contact-info-form input {
   float: right;
   width: 50%;
   border: 0px;
   font-size: 16px;
 }
 
-.contactInfoForm input:focus {
+.contact-info-form input:focus {
   outline: none;
 }
 

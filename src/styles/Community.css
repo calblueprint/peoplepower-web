@@ -14,7 +14,7 @@
   color: var(--pp-black);
 }
 
-.announcementCard {
+.announcement-card {
   background: white;
   border-radius: 5px;
   padding: 35px;
@@ -24,7 +24,7 @@
   justify-content: space-between;
 }
 
-.announcementCard p {
+.announcement-card p {
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -33,11 +33,11 @@
   color: var(--pp-black);
 }
 
-.announcementCard:first-of-type {
+.announcement-card:first-of-type {
   margin-top: 0px;
 }
 
-.announcementCard h2 {
+.announcement-card h2 {
   font-style: normal;
   font-weight: 800;
   font-size: 18px;
@@ -45,34 +45,29 @@
   color: var(--pp-blue);
 }
 
-.community .announcementCard h2,
+.community .announcement-card h2,
 h3 {
   margin: 5px 0px;
 }
 
-.announcementCard img {
+.announcement-card img {
   clip-path: inset(20px 0px);
   width: 100%;
 }
 
-.announcementCardsCont {
-  overflow: scroll;
-  height: 350px;
-}
-
-.nonAdminHeight {
+.non-admin-height {
   height: 500px !important;
 }
 
-.community .cont .AddAnnouncement {
+.community .cont .add-announcement {
   display: block;
 }
 
-.community .cont .AddAnnouncement form {
+.community .cont .add-announcement form {
   width: 100%;
 }
 
-.community .cont .AddAnnouncement form textarea {
+.community .cont .add-announcement form textarea {
   width: 100%;
   outline: none;
   resize: none;
@@ -80,7 +75,7 @@ h3 {
   font-size: 16px;
 }
 
-.community .cont .AddAnnouncement form input {
+.community .cont .add-announcement form input {
   font-size: 16px;
   border: none;
   background: var(--pp-white);
@@ -91,15 +86,15 @@ h3 {
   float: right;
 }
 
-.community .cont .AddAnnouncement form .btn-success {
+.community .cont .add-announcement form .btn-success {
   background: green;
 }
 
-.community .cont .AddAnnouncement form .btn-fail {
+.community .cont .add-announcement form .btn-fail {
   background: red;
 }
 
-.community .cont .AddAnnouncement p {
+.community .cont .add-announcement p {
   margin-top: 10px;
   margin-bottom: 0px;
   color: var(--pp-white);

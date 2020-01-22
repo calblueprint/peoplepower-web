@@ -4,7 +4,7 @@
   Setting height 100% pushes the div below the fold due to the nav taking up room. 
 */
 
-.isLoadingDiv {
+.is-loading-div {
   height: 200px;
   border-radius: 5px;
   background: white;
@@ -42,12 +42,4 @@ button {
   font-size: 18px;
   font-weight: 800;
   line-height: 25px;
-}
-
-.dash-announcements-cont .cardsCont {
-  height: 500px;
-}
-
-.dash-announcements-cont .cardsCont .announcementCard {
-  width: 652px !important;
 }

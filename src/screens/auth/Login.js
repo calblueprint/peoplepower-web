@@ -92,10 +92,7 @@ class Login extends React.Component {
             />
           </div>
           <div className=" t-center">
-            <button
-              type="submit"
-              className="pp-pink-rounded-button login-button"
-            >
+            <button type="submit" className="pink-rounded-button login-button">
               Login
             </button>
           </div>

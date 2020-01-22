@@ -27,21 +27,6 @@
   border-radius: 4px;
 }
 
-.balance-nums-line {
-  display: flex;
-  margin: 0 1.7vw;
-  padding: 0;
-}
-
-.balance-nums-line .line-item {
-  margin: 0;
-  height: fit-content;
-}
-
-.balance-nums-line .descrip {
-  flex: 1;
-}
-
 h3 {
   font-size: 36px;
   font-weight: bolder;
@@ -74,6 +59,7 @@ h3 {
   width: 85%;
   margin: 0 auto 1.5vw auto;
 }
+
 .subscriber-header {
   font-weight: bolder;
   color: var(--pp-black);

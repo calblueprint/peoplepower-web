@@ -203,11 +203,11 @@ class UserProfilePage extends React.Component {
         <div className="cont">
           <h2>Settings</h2>
           <div className="row">
-            <div className="userIcon">
+            <div className="user-icon">
               <h3>{name}</h3>
               <h4>General Owner</h4>
             </div>
-            <div className="generalForm">
+            <div className="general-form">
               <h2>General</h2>
               <form onSubmit={this.handleSubmit}>
                 <div>
@@ -283,7 +283,7 @@ class UserProfilePage extends React.Component {
             </div>
           </div>
           <div className="row">
-            <div className="contactInfoForm">
+            <div className="contact-info-form">
               <h2>Contact Information</h2>
               <form onSubmit={this.handleSubmit}>
                 <div>

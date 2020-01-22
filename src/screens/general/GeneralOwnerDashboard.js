@@ -83,7 +83,7 @@ class GeneralOwnerDashboard extends React.Component {
         <div className="cont dash-announcements-cont">
           <h3>Community</h3>
           {isLoadingAnnouncements ? (
-            <div className="isLoadingDiv card" />
+            <div className="is-loading-div card" />
           ) : (
             <AnnouncementList announcements={announcements} css="" />
           )}
@@ -91,7 +91,7 @@ class GeneralOwnerDashboard extends React.Component {
         <div className="dash-solar-details-cont">
           <h3>Solar Projects</h3>
           {isLoadingUserData ? (
-            <div className="isLoadingDiv" />
+            <div className="is-loading-div" />
           ) : (
             this.renderUserDetails()
           )}

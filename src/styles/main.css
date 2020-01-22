@@ -14,7 +14,7 @@
   --pp-link-gray: #8f8f8f;
 }
 
-.pp-pink-rounded-button {
+.pink-rounded-button {
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   background-color: var(--pp-pink);
@@ -31,11 +31,11 @@
   border-radius: 50px;
 }
 
-.pp-pink-rounded-button:hover {
+.pink-rounded-button:hover {
   box-shadow: 0px 4px 30px rgba(205, 103, 149, 0.3);
 }
 
-.pp-blue-rounded-button {
+.blue-rounded-button {
   background-color: var(--pp-blue);
   color: white;
   border: none;
@@ -43,16 +43,13 @@
   font-size: 16px;
 }
 
-.pp-pink-square-button {
+.pink-square-button {
   border: none;
   border-radius: 2.5px;
   color: white;
   font-size: 16px;
   font-weight: 600;
   background: var(--pp-pink);
-}
-
-.pp-blue-square-button {
 }
 
 .pp-tag {

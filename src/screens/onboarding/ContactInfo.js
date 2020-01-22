@@ -463,7 +463,7 @@ class ContactInfo extends React.Component {
           <div className="right">
             <button
               type="button"
-              className="pp-blue-rounded-button continue-button"
+              className="blue-rounded-button continue-button"
               onClick={this.nextButton}
             >
               Continue

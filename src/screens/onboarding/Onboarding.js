@@ -85,7 +85,7 @@ class Onboarding extends React.Component {
         billingState: '',
         billingZipcode: ''
       },
-      step: 2
+      step: 1
     };
   }
 
