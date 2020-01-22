@@ -122,7 +122,6 @@
 }
 
 .left-arrow {
-  -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
   height: 1.05rem;
   margin-left: 0.15rem;
@@ -131,7 +130,6 @@
 }
 
 .right-arrow {
-  -webkit-transform: scaleX(1);
   transform: scaleX(1);
   height: 1.05rem;
   margin-right: 0.15rem;
@@ -374,9 +372,6 @@ w-pasword {
   padding-left: 1.5rem;
   cursor: pointer;
   font-size: 16px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   color: var(--pp-black);
 }
@@ -441,8 +436,6 @@ w-pasword {
   height: 8px;
   border: solid white;
   border-width: 0 1px 1px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
@@ -563,9 +556,6 @@ carousel__arrow--right {
 }
 
 .dd-wrapper {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   position: relative;
   width: 222px;
@@ -574,10 +564,10 @@ carousel__arrow--right {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
+  box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: justify;
+  box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
   line-height: 38px;
@@ -608,13 +598,12 @@ carousel__arrow--right {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
   background-color: white;
-  -webkit-box-shadow: 0 2px 5px -1px #e8e8e8;
   box-shadow: 0 2px 5px -1px #e8e8e8;
   font-weight: 700;
   padding: 15px 0;
   max-height: 215px;
   overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
 }
 .dd-list-item {
   width: 100%;
@@ -631,14 +620,13 @@ carousel__arrow--right {
   color: white;
   background-color: #ffcc01;
 }
+
 .dd-list-item:hover {
   color: white;
   background-color: #ffcc01;
 }
+
 .dd-wrapper-single {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   position: relative;
   width: 265px;
@@ -1041,17 +1029,14 @@ carousel__arrow--right {
   top: 4px;
   left: 4px;
   border-radius: 100%;
-  -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 [type='radio']:not(:checked) + label:after {
   opacity: 0;
-  -webkit-transform: scale(0);
   transform: scale(0);
 }
 [type='radio']:checked + label:after {
   opacity: 1;
-  -webkit-transform: scale(1);
   transform: scale(1);
 }
 
