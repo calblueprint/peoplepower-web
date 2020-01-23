@@ -1,16 +1,17 @@
 # People Power Web App
 
-*Last updated: Jan 14, 2019 (by Fang)*
+_Last updated: Jan 14, 2019 (by Fang)_
 
 ## Quickstart
+
 **STEP ONE: Clone this project**
 
-1. Click on 'Clone or Download' (green button near the top right) and copy the URL. 
+1. Click on 'Clone or Download' (green button near the top right) and copy the URL.
 2. Then in you desired directory, do `git clone {COPIED URL HERE}`
 
 **STEP TWO: Set up the `.env` file**
 
-The project uses a number of secrets that are passed via a `.env` file (for security reasons). We need to set this `.env` file now. 
+The project uses a number of secrets that are passed via a `.env` file (for security reasons). We need to set this `.env` file now.
 
 1. In your top level directory (`/peoplepower-web`, the same directory containing the src folder, `package.json` and a couple of other files), create a file called `.env`.
 2. Copy and paste the following into `.env`:

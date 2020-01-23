@@ -89,7 +89,7 @@ export default class AddAnnouncement extends React.Component {
     }
 
     return (
-      <div className="announcementCard AddAnnouncement">
+      <div className="announcement-card add-announcement">
         <form onSubmit={this.handleSubmit}>
           <textarea
             type="text"

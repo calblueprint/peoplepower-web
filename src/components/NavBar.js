@@ -20,7 +20,7 @@ class NavBar extends React.PureComponent {
 
     if (!isNavBarVisible) {
       return (
-        <div className="navBar">
+        <div className="nav-bar">
           <a href="/">
             <img
               className="logo"
@@ -34,7 +34,7 @@ class NavBar extends React.PureComponent {
 
     if (!isSignedIn(credentials)) {
       return (
-        <div className="navBar">
+        <div className="nav-bar">
           <a href="/">
             <img
               className="logo"
@@ -56,7 +56,7 @@ class NavBar extends React.PureComponent {
     }
 
     return (
-      <div className="navBar">
+      <div className="nav-bar">
         <a href="/">
           <img
             className="logo"

@@ -168,7 +168,7 @@ class ProjectGroups extends React.Component {
             <div className="right">
               <button
                 type="button"
-                className="continue-button"
+                className="btn btn--rounded btn--blue btn--size16 continue-button"
                 onClick={this.nextButton}
               >
                 Continue

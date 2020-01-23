@@ -7,15 +7,15 @@
   font-weight: 900;
   font-size: 36px;
   line-height: 49px;
-  color: #395578;
+  color: var(--pp-blue);
 }
 
 .community p {
-  color: black;
+  color: var(--pp-black);
 }
 
-.announcementCard {
-  background: #fff;
+.announcement-card {
+  background: white;
   border-radius: 5px;
   padding: 35px;
   margin: 10px 0px;
@@ -24,55 +24,50 @@
   justify-content: space-between;
 }
 
-.announcementCard p {
+.announcement-card p {
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
   line-height: 19px;
   letter-spacing: 0.01em;
-  color: #24364d;
+  color: var(--pp-black);
 }
 
-.announcementCard:first-of-type {
+.announcement-card:first-of-type {
   margin-top: 0px;
 }
 
-.announcementCard h2 {
+.announcement-card h2 {
   font-style: normal;
   font-weight: 800;
   font-size: 18px;
   line-height: 25px;
-  color: #395578;
+  color: var(--pp-blue);
 }
 
-.community .announcementCard h2,
+.community .announcement-card h2,
 h3 {
   margin: 5px 0px;
 }
 
-.announcementCard img {
+.announcement-card img {
   clip-path: inset(20px 0px);
   width: 100%;
 }
 
-.announcementCardsCont {
-  overflow: scroll;
-  height: 350px;
-}
-
-.nonAdminHeight {
+.non-admin-height {
   height: 500px !important;
 }
 
-.community .cont .AddAnnouncement {
+.community .cont .add-announcement {
   display: block;
 }
 
-.community .cont .AddAnnouncement form {
+.community .cont .add-announcement form {
   width: 100%;
 }
 
-.community .cont .AddAnnouncement form textarea {
+.community .cont .add-announcement form textarea {
   width: 100%;
   outline: none;
   resize: none;
@@ -80,10 +75,10 @@ h3 {
   font-size: 16px;
 }
 
-.community .cont .AddAnnouncement form input {
+.community .cont .add-announcement form input {
   font-size: 16px;
   border: none;
-  background: #c4c4c4;
+  background: var(--pp-white);
   border-radius: 2.5px;
   width: 60px;
   height: 30px;
@@ -91,16 +86,16 @@ h3 {
   float: right;
 }
 
-.community .cont .AddAnnouncement form .btn-success {
+.community .cont .add-announcement form .btn-success {
   background: green;
 }
 
-.community .cont .AddAnnouncement form .btn-fail {
+.community .cont .add-announcement form .btn-fail {
   background: red;
 }
 
-.community .cont .AddAnnouncement p {
+.community .cont .add-announcement p {
   margin-top: 10px;
   margin-bottom: 0px;
-  color: #c4c4c4;
+  color: var(--pp-white);
 }

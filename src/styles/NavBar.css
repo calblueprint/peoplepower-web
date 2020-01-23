@@ -1,5 +1,5 @@
-.navBar {
-  background: #ffffff;
+.nav-bar {
+  background: white;
   width: 100%;
   height: 104px;
   align-items: center;
@@ -7,16 +7,16 @@
   flex-direction: row;
 }
 
-.navBar nav {
+.nav-bar nav {
   text-align: left;
   width: 100%;
 }
 
-.navBar .logo {
+.nav-bar .logo {
   margin-left: 47px;
 }
 
-.navBar nav ul {
+.nav-bar nav ul {
   height: 100%;
   list-style: none;
   margin: 0px 0px;
@@ -26,14 +26,14 @@
   padding: 0px;
 }
 
-.navBar nav li {
+.nav-bar nav li {
   margin: 0px 40px;
 }
 
-.navBar nav ul a,
+.nav-bar nav ul a,
 span {
   text-decoration: none;
   font-weight: 600;
-  color: #000;
+  color: var(--pp-black);
   white-space: nowrap;
 }

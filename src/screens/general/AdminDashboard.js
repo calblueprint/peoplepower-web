@@ -7,6 +7,7 @@ import {
   getOwnersFromProjectGroup,
   updateProjectGroupOwners
 } from '../../lib/adminUtils';
+import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
 
 class AdminDashboard extends React.Component {
@@ -89,7 +90,10 @@ class AdminDashboard extends React.Component {
               <h4>
                 Members <span>({owners.length})</span>
               </h4>
-              <button type="button" className="invite-button">
+              <button
+                type="button"
+                className="btn btn--square btn--pink btn--size16 btn--weight600 invite-button"
+              >
                 Invite
               </button>
             </div>
