@@ -116,9 +116,6 @@ export default class SubscriberOwnerDashboardMainView extends React.Component {
                       options={{
                         clientId
                       }}
-                      style={{
-                        color: 'black'
-                      }}
                     />
                   )}
                 </div>

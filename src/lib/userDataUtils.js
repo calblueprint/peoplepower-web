@@ -9,20 +9,22 @@ import { store } from './redux/store';
 import {
   saveUserData,
   deauthenticateAndClearUserData,
-  fetchUserData
+  setLoadingForUserData
 } from './redux/userDataSlice';
 import {
   clearAnnouncements,
   saveAnnouncements,
-  fetchAnnouncements
+  setLoadingForAnnouncements
 } from './redux/communitySlice';
 import { applyCredentials } from './credentials';
 
 // TODO: validate records fetched using validator functions
+// This function takes in a userLogin record
+// (because the Login logic already looks up the user login record)
 const refreshUserData = async userLogin => {
   // Save loading status to Redux
-  store.dispatch(fetchUserData());
-  store.dispatch(fetchAnnouncements());
+  store.dispatch(setLoadingForUserData());
+  store.dispatch(setLoadingForAnnouncements());
 
   // Fetch all the data
 

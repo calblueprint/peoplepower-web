@@ -30,7 +30,7 @@ const userDataSlice = createSlice({
       state.authenticated = true;
       state.key = action.payload;
     },
-    fetchUserData(state, action) {
+    setLoadingForUserData(state, action) {
       state.isLoading = true;
     },
     saveUserData(state, action) {
@@ -59,7 +59,7 @@ const userDataSlice = createSlice({
 
 export const {
   authenticate,
-  fetchUserData,
+  setLoadingForUserData,
   saveUserData,
   deauthenticateAndClearUserData
 } = userDataSlice.actions;

@@ -36,7 +36,7 @@ class GeneralOwnerDashboard extends React.Component {
 
     return (
       <div className="dash-solar-details">
-        <p style={{ fontWeight: '800', color: 'black' }}>
+        <p style={{ fontWeight: '800', color: 'var(--pp-black)' }}>
           Welcome, {person.name}
         </p>
         <div>
@@ -60,7 +60,7 @@ class GeneralOwnerDashboard extends React.Component {
 
         <button
           type="button"
-          className="primary-button"
+          className="btn btn--square btn--blue btn--size16 primary"
           onClick={this.handleLogoutClick}
         >
           Logout
@@ -83,7 +83,7 @@ class GeneralOwnerDashboard extends React.Component {
         <div className="cont dash-announcements-cont">
           <h3>Community</h3>
           {isLoadingAnnouncements ? (
-            <div className="isLoadingDiv card" />
+            <div className="is-loading-div card" />
           ) : (
             <AnnouncementList announcements={announcements} css="" />
           )}
@@ -91,7 +91,7 @@ class GeneralOwnerDashboard extends React.Component {
         <div className="dash-solar-details-cont">
           <h3>Solar Projects</h3>
           {isLoadingUserData ? (
-            <div className="isLoadingDiv" />
+            <div className="is-loading-div" />
           ) : (
             this.renderUserDetails()
           )}

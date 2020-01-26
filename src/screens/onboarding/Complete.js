@@ -29,7 +29,7 @@ class Complete extends React.Component {
         <div className="right">
           <button
             type="button"
-            className="getstarted-button"
+            className="btn btn--rounded btn--pink btn--size12 getstarted-button"
             onClick={this.dashboardButton}
           >
             Continue to Dashboard

@@ -1,8 +1,9 @@
 import React from 'react';
 import formValidation from '../../lib/onboarding/formValidation';
-import '../../styles/Onboarding.css';
 import Tooltip from '../../components/Tooltip';
 import { updatePerson, updateUserLogin } from '../../lib/airtable/request';
+import '../../styles/main.css';
+import '../../styles/Onboarding.css';
 
 class BasicInfo extends React.Component {
   // validates then moves on if no error messages
@@ -32,9 +33,9 @@ class BasicInfo extends React.Component {
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
       if (userId) {
-        const fullName = `${fname} ${lname}`;
+        const name = `${fname} ${lname}`;
         const updatedPerson = {
-          name: fullName,
+          name,
           email,
           alternativeEmail: altEmail
         };
@@ -166,7 +167,7 @@ class BasicInfo extends React.Component {
         <div className="v-center">
           <button
             type="button"
-            className="getstarted-button"
+            className="btn btn--rounded btn--pink btn--size12 getstarted-button"
             onClick={this.nextButton}
           >
             Get Started

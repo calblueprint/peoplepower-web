@@ -1,9 +1,10 @@
 import React from 'react';
+import '../../styles/main.css';
 
 function AdminDashboardCard({ name, callback, ownerId, ownerType }) {
   const ownersTags = ownerType.map(type => {
     return (
-      <div key={type} className="tag">
+      <div key={type} className="pp-tag">
         {type}
       </div>
     );

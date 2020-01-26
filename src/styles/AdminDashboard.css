@@ -1,5 +1,5 @@
 .card-holder-cont {
-  background: #ffffff;
+  background: white;
   border-radius: 5px;
   overflow: scroll;
   height: 350px;
@@ -14,7 +14,7 @@
   font-weight: 800;
   font-size: 18px;
   line-height: 25px;
-  color: #7387a2;
+  color: var(--pp-gray);
 }
 
 .card-holder-cont span {
@@ -23,7 +23,7 @@
   font-weight: 800;
   font-size: 18px;
   line-height: 25px;
-  color: #7387a2;
+  color: var(--pp-gray);
 }
 
 .card-holder {
@@ -32,24 +32,12 @@
   flex-direction: column;
 }
 
-.card-holder-cont .invite-button {
-  border: none;
-  border-radius: 2.5px;
-  width: 108px;
-  color: white;
-  margin: 35px;
-  font-size: 16px;
-  font-weight: 600;
-  background: #cd6795;
-  height: 30px;
-}
-
 .card-holder .admin-card {
   display: flex;
   justify-content: flex-end;
   height: 70px;
   margin: 0px;
-  background: #fff;
+  background: white;
   align-items: center;
   padding: 35px 35px 35px 0px;
 }
@@ -58,7 +46,7 @@
   width: 77px;
   height: 77px;
   margin-right: 34px;
-  background: #efefef;
+  background: var(--pp-tag-gray);
   border-radius: 100%;
 }
 
@@ -71,7 +59,7 @@
   font-weight: 800;
   font-size: 16px;
   line-height: 22px;
-  color: #24364d;
+  color: var(--pp-black);
 }
 
 .card-holder .admin-card .card-tags {
@@ -80,11 +68,10 @@
   width: 200px;
 }
 
-.card-holder .admin-card .card-tags .tag {
-  padding: 5px 10px;
-  background: #d8d8d8;
-  border-radius: 20px;
-  margin: 0px 5px;
+.invite-button {
+  width: 108px;
+  margin: 35px;
+  height: 30px;
 }
 
 .card-holder .admin-card .card-button {
@@ -114,5 +101,5 @@
   font-weight: 800;
   font-size: 18px;
   line-height: 25px;
-  color: #7387a2;
+  color: var(--pp-gray);
 }

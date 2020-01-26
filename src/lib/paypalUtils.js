@@ -35,7 +35,7 @@ const dollarsToCents = dollars => {
 
 const getTotalBalanceFromBills = pendingBills => {
   return pendingBills
-    .map(pendingBill => pendingBill.Balance)
+    .map(pendingBill => pendingBill.balance)
     .reduce((a, b) => a + b, 0);
 };
 
