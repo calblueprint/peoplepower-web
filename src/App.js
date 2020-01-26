@@ -23,6 +23,7 @@ import {
   isSignedIn
 } from './lib/credentials';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
+import Investment from './screens/general/Investment';
 
 class App extends React.Component {
   componentDidMount() {
@@ -61,19 +62,29 @@ class App extends React.Component {
           <NavBar />
           <Switch>
             <Route exact path="/" component={HomeComponent} />
+            <AuthenticatedRoute path="/community" component={Community} />
+            <AuthenticatedRoute path="/profile" component={UserProfile} />
+
             <AuthenticatedRoute
-              noauth
+              noauth // Signed out users only
               path="/onboarding"
               component={Onboarding}
             />
             <AuthenticatedRoute
-              credential="A"
+              credential="A" // Admins only
               path="/admin"
               component={AdminDashboard}
             />
-            <AuthenticatedRoute path="/community" component={Community} />
-            <AuthenticatedRoute path="/billing" component={Billing} />
-            <AuthenticatedRoute path="/profile" component={UserProfile} />
+            <AuthenticatedRoute
+              credential="G" // General only
+              path="/investment"
+              component={Investment}
+            />
+            <AuthenticatedRoute
+              credential="S" // Subscribers only
+              path="/billing"
+              component={Billing}
+            />
             <Route>
               <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>
             </Route>
