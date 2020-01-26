@@ -9,7 +9,7 @@ _Last updated: Jan 14, 2019 (by Fang)_
 1. Click on 'Clone or Download' (green button near the top right) and copy the URL.
 2. Then in you desired directory, do `git clone {COPIED URL HERE}`
 
-**STEP TWO: Set up the `.env` file**
+**STEP TWO: Set up the `.env` files**
 
 The project uses a number of secrets that are passed via a `.env` file (for security reasons). We need to set this `.env` file now.
 
@@ -27,10 +27,26 @@ REACT_APP_GOOGLE_API_KEY={REACT APP GOOGLE API KEY}
 
 You can get the `PAYPAL CLIENT ID` and `REACT APP GOOGLE API KEY` from Notion in 'Credentials Reference'. Follow the instructions in this [Airtable support page](https://support.airtable.com/hc/en-us/articles/219046777-How-do-I-get-my-API-key-) to get your Airtable API Key.
 
-3. Run `yarn start`. This starts the development server, and should open a tab with the url `localhost:3000` where you can find the People Power web app. If the tab doesn't open up normally, you can type `localhost:3000` in your browser manually to open it.
-4. To verify that you've done step two correctly, run `REACT_APP_AIRTABLE_API_KEY={YOUR AIRTABLE API KEY HERE} yarn test`. This command passes in an environment variable acccessible by `REACT_APP_AIRTABLE_API_KEY`, and runs tests locally. This should take about 30s to a minute, and if you've done everything so correctly so far, all tests shoulld pass.
+3. Create a file called `.airtable-schema-generator.env` and paste the following:
+
+```
+AIRTABLE_BASE_ID=appFaOwKhMXrRIQIp
+AIRTABLE_EMAIL={YOUR AIRTABLE EMAIL}
+AIRTABLE_PASSWORD={YOUR AIRTABLE PASSWORD}
+```
+
+The airtable email and password are what you log into airtable with. This info is used for our automatic airtable API scraper.
+
+(More info about the schema generator found [here](https://github.com/aivantg/airtable-schema-generator))
+
+4. Run `yarn start`. This starts the development server, and should open a tab with the url `localhost:3000` where you can find the People Power web app. If the tab doesn't open up normally, you can type `localhost:3000` in your browser manually to open it.
+5. To verify that you've done step two correctly, run `REACT_APP_AIRTABLE_API_KEY={YOUR AIRTABLE API KEY HERE} yarn test`. This command passes in an environment variable acccessible by `REACT_APP_AIRTABLE_API_KEY`, and runs tests locally. This should take about 30s to a minute, and if you've done everything so correctly so far, all tests shoulld pass.
 
 Congrats! You now have a working version of the People power on your local machine ✨
+
+### Airtable Schema Generation
+
+Whenever you update the airtable schema, you'll need to run the script `yarn generate-schema` in order to re-generate some helper files!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
