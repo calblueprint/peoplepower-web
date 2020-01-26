@@ -15,16 +15,6 @@ class Community extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    const { history, authenticated } = this.props;
-
-    // TODO: this kind of redirect logic should be handled in App.js or Navbar.js
-    if (!authenticated) {
-      // They shouldn't be able to access this screen
-      history.push('/');
-    }
-  }
-
   addTempCard = announcement => {
     const { cards } = this.state;
     const updatedCards = [announcement, ...cards];
@@ -67,7 +57,6 @@ class Community extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  authenticated: state.userData.authenticated,
   owner: state.userData.owner,
   credentials: state.userData.credentials,
   announcements: state.community.announcements,

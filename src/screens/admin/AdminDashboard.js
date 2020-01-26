@@ -123,7 +123,6 @@ class AdminDashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  authenticated: state.userData.authenticated,
   person: state.userData.person,
   owner: state.userData.owner,
   announcements: state.community.announcements,

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { loginUser } from '../../lib/authUtils';
 import '../../styles/Login.css';
 import '../../styles/main.css';
@@ -14,13 +13,6 @@ class Login extends React.Component {
       email: '',
       passwordHash: ''
     };
-  }
-
-  componentDidMount() {
-    const { history, authenticated } = this.props;
-    if (authenticated) {
-      history.push(HOME_ROUTE);
-    }
   }
 
   handleEmailChange = event => {
@@ -117,8 +109,4 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  authenticated: state.userData.authenticated
-});
-
-export default connect(mapStateToProps)(Login);
+export default Login;

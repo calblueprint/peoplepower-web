@@ -18,14 +18,8 @@ class Billing extends React.Component {
   }
 
   async componentDidMount() {
-    const { history, authenticated, owner, isLoadingUserData } = this.props;
+    const { owner, isLoadingUserData } = this.props;
 
-    // TODO: this kind of redirect logic should be handled in App.js or Navbar.js
-    if (!authenticated) {
-      // They shouldn't be able to access this screen
-      history.push('/');
-      return;
-    }
     // If data isn't in redux yet, don't do anything.
     if (isLoadingUserData) {
       return;
@@ -94,7 +88,6 @@ class Billing extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  authenticated: state.userData.authenticated,
   person: state.userData.person,
   owner: state.userData.owner,
   isLoadingUserData: state.userData.isLoading

@@ -6,16 +6,6 @@ import LoadingComponent from '../../components/LoadingComponent';
 import '../../styles/GeneralOwnerDashboard.css';
 
 class GeneralOwnerDashboard extends React.Component {
-  async componentDidMount() {
-    const { authenticated, history } = this.props;
-
-    // TODO: this kind of redirect logic should be handled in App.js or Navbar.js
-    if (!authenticated) {
-      // They shouldn't be able to access this screen
-      history.push('/');
-    }
-  }
-
   handleLogoutClick = () => {
     const { history } = this.props;
     logOut();
@@ -102,7 +92,6 @@ class GeneralOwnerDashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  authenticated: state.userData.authenticated,
   person: state.userData.person,
   owner: state.userData.owner,
   projectGroup: state.userData.projectGroup,
