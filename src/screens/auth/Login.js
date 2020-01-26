@@ -4,7 +4,7 @@ import { loginUser } from '../../lib/authUtils';
 import '../../styles/Login.css';
 import '../../styles/main.css';
 
-const HOME_ROUTE = '/dashboard';
+const HOME_ROUTE = '/';
 const SIGNUP_ROUTE = '/onboarding';
 
 class Login extends React.Component {

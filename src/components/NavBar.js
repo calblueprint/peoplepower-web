@@ -68,7 +68,7 @@ class NavBar extends React.PureComponent {
         <nav>
           <ul>
             <li className="navItem">
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/">Dashboard</Link>
             </li>
             {isGeneralOwner(credentials) ? (
               <li className="navItem">

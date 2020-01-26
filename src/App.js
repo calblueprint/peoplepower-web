@@ -22,6 +22,7 @@ import {
   isSubscriberOwner,
   isSignedIn
 } from './lib/credentials';
+import AuthenticatedRoute from './components/AuthenticatedRoute';
 
 class App extends React.Component {
   componentDidMount() {
@@ -57,11 +58,19 @@ class App extends React.Component {
           <NavBar />
           <Switch>
             <Route exact path="/" component={HomeComponent} />
-            <Route path="/onboarding" component={Onboarding} />
-            <Route path="/admin" component={AdminDashboard} />
-            <Route path="/community" component={Community} />
-            <Route path="/billing" component={Billing} />
-            <Route path="/profile" component={UserProfile} />
+            <AuthenticatedRoute
+              noauth
+              path="/onboarding"
+              component={Onboarding}
+            />
+            <AuthenticatedRoute
+              credential="A"
+              path="/admin"
+              component={AdminDashboard}
+            />
+            <AuthenticatedRoute path="/community" component={Community} />
+            <AuthenticatedRoute path="/billing" component={Billing} />
+            <AuthenticatedRoute path="/profile" component={UserProfile} />
             <Route>
               <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>
             </Route>
