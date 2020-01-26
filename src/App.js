@@ -1,8 +1,9 @@
 /* eslint react/jsx-props-no-spreading: 0 */
 
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import NavBar from './components/NavBar';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
@@ -13,6 +14,7 @@ import AdminDashboard from './screens/general/AdminDashboard';
 import UserProfilePage from './screens/general/UserProfilePage';
 import './styles/App.css';
 import { refreshUserData } from './lib/userDataUtils';
+import { history } from './lib/redux/store';
 
 class App extends React.Component {
   constructor(props) {
@@ -39,7 +41,7 @@ class App extends React.Component {
     const { isNavBarVisible } = this.state;
 
     return (
-      <Router>
+      <ConnectedRouter history={history}>
         <div className="app-container">
           <NavBar isNavBarVisible={isNavBarVisible} />
           <Switch>
@@ -60,7 +62,7 @@ class App extends React.Component {
             </Route>
           </Switch>
         </div>
-      </Router>
+      </ConnectedRouter>
     );
   }
 }
