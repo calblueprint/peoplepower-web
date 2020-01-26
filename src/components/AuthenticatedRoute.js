@@ -28,7 +28,8 @@ class AuthenticatedRoute extends React.PureComponent {
 
     // TODO: If you visit a non-authenticated route, it should show you an error or something.
     // Right now it just redirects to the homepage
-    // Alternatively, we can render a generic 404 component if they reach somewhere they shouldn't, like github does
+    // Alternatively, we can render a generic 404 component if they reach somewhere they shouldn't,
+    // like github does
     return (
       <Route
         {...rest}

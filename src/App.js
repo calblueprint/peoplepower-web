@@ -27,11 +27,14 @@ import AuthenticatedRoute from './components/AuthenticatedRoute';
 class App extends React.Component {
   componentDidMount() {
     const { userLogin } = this.props;
+
+    // If userLogin info is in Redux, fetch latest version
     if (userLogin) {
       refreshUserData(userLogin);
     }
   }
 
+  // Figure out component to be shown at root based on user credentials
   getHomeComponent() {
     const { credentials } = this.props;
     const signedIn = isSignedIn(credentials);
