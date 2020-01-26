@@ -17,13 +17,6 @@ import { refreshUserData } from './lib/userDataUtils';
 import { history } from './lib/redux/store';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isNavBarVisible: true
-    };
-  }
-
   componentDidMount() {
     const { userLogin } = this.props;
     if (userLogin) {
@@ -31,27 +24,14 @@ class App extends React.Component {
     }
   }
 
-  toggleNavbar = () => {
-    this.setState(prevState => ({
-      isNavBarVisible: !prevState.isNavBarVisible
-    }));
-  };
-
   render() {
-    const { isNavBarVisible } = this.state;
-
     return (
       <ConnectedRouter history={history}>
         <div className="app-container">
-          <NavBar isNavBarVisible={isNavBarVisible} />
+          <NavBar />
           <Switch>
             <Route exact path="/" component={Login} />
-            <Route
-              path="/onboarding"
-              render={props => (
-                <Onboarding {...props} toggleNavbar={this.toggleNavbar} />
-              )}
-            />
+            <Route path="/onboarding" component={Onboarding} />
             <Route path="/dashboard" component={GeneralOwnerDashboard} />
             <Route path="/admin" component={AdminDashboard} />
             <Route path="/community" component={Community} />
