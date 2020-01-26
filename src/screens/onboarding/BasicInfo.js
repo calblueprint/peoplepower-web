@@ -1,6 +1,6 @@
 import React from 'react';
 import formValidation from '../../lib/onboarding/formValidation';
-import Tooltip from '../../components/Tooltip';
+import Tooltip from './components/Tooltip';
 import { updatePerson, updateUserLogin } from '../../lib/airtable/request';
 import '../../styles/main.css';
 import '../../styles/Onboarding.css';

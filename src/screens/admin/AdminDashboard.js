@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AdminDashboardCard from './AdminDashboardCard';
+import AdminDashboardCard from './components/AdminDashboardCard';
 import LoadingComponent from '../../components/LoadingComponent';
 import {
   getAdminTable,

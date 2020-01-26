@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SubscriberOwnerDashboardAllBillsView from './SubscriberOwnerDashboardAllBillsView';
-import SubscriberOwnerDashboardMainView from './SubscriberOwnerDashboardMainView';
-import LoadingComponent from '../../../components/LoadingComponent';
-import { areDiffBills, getSubscriberBills } from '../../../lib/subscriberUtils';
-import '../../../styles/SubscriberOwnerDashboard.css';
+import BillingAllBillsView from './components/BillingAllBillsView';
+import BillingMainView from './components/BillingMainView';
+import LoadingComponent from '../../components/LoadingComponent';
+import { areDiffBills, getSubscriberBills } from '../../lib/subscriberUtils';
+import '../../styles/SubscriberOwnerDashboard.css';
 
-class SubscriberOwnerDashboard extends React.Component {
+class Billing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,13 +47,13 @@ class SubscriberOwnerDashboard extends React.Component {
     }
   }
 
-  seeSubscriberOwnerDashboardAllBillsView() {
+  seeAllBillsView() {
     this.setState({
       mode: 1
     });
   }
 
-  seeDashboard() {
+  seeMainView() {
     this.setState({
       mode: 0
     });
@@ -71,8 +71,8 @@ class SubscriberOwnerDashboard extends React.Component {
 
     if (mode === 0) {
       return (
-        <SubscriberOwnerDashboardMainView
-          callback={() => this.seeSubscriberOwnerDashboardAllBillsView()}
+        <BillingMainView
+          callback={() => this.seeAllBillsView()}
           transactions={transactions}
           pendingBills={pendingBills}
           personId={personId}
@@ -81,8 +81,8 @@ class SubscriberOwnerDashboard extends React.Component {
     }
     if (mode === 1) {
       return (
-        <SubscriberOwnerDashboardAllBillsView
-          callback={() => this.seeDashboard()}
+        <BillingAllBillsView
+          callback={() => this.seeMainView()}
           transactions={transactions}
           personId={personId}
         />
@@ -99,4 +99,4 @@ const mapStateToProps = state => ({
   owner: state.userData.owner,
   isLoadingUserData: state.userData.isLoading
 });
-export default connect(mapStateToProps)(SubscriberOwnerDashboard);
+export default connect(mapStateToProps)(Billing);

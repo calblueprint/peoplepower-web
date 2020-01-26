@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Community.css';
+import '../../../styles/Community.css';
 
 const AnnouncementList = props => {
   const { announcements, css } = props;

@@ -43,7 +43,7 @@ const createCondensedBillTransaction = transaction => {
   };
 };
 
-export default class SubscriberOwnerDashboardMainView extends React.Component {
+export default class BillingMainView extends React.Component {
   constructor(props) {
     super(props);
     const { transactions } = this.props;

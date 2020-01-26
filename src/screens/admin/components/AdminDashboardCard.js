@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/main.css';
+import '../../../styles/main.css';
 
 function AdminDashboardCard({ name, callback, ownerId, ownerType }) {
   const ownersTags = ownerType.map(type => {

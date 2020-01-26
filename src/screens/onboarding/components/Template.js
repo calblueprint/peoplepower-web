@@ -1,5 +1,5 @@
 import React from 'react';
-import ProgressBar from '../../components/progressbar';
+import ProgressBar from './progressbar';
 
 const text = [
   'Tell us some general contact information so we can get started setting up your account.',

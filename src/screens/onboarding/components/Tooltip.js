@@ -1,5 +1,5 @@
 import React from 'react';
-import ToolTipIcon from '../assets/tooltip.svg';
+import ToolTipIcon from '../../../assets/tooltip.svg';
 
 function Tooltip({ label }) {
   return (

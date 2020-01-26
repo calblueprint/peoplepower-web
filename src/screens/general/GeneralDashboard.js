@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { logOut } from '../../lib/authUtils';
-import AnnouncementList from '../../components/AnnouncementList';
+import AnnouncementList from '../shared/components/AnnouncementList';
 import LoadingComponent from '../../components/LoadingComponent';
 import '../../styles/GeneralOwnerDashboard.css';
 

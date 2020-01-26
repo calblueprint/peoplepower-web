@@ -1,7 +1,7 @@
 import React from 'react';
 import OwnerAgreement1 from '../../assets/ownerAgreement1.jpg';
 import OwnerAgreement2 from '../../assets/ownerAgreement2.jpg';
-import Carousel from '../../components/Carousel';
+import Carousel from './components/Carousel';
 import formValidation from '../../lib/onboarding/formValidation';
 import { updatePerson } from '../../lib/airtable/request';
 

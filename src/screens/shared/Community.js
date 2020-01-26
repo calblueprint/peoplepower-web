@@ -2,8 +2,8 @@ import React from 'react';
 import 'react-table-v6/react-table.css';
 import { connect } from 'react-redux';
 import { isAdmin } from '../../lib/credentials';
-import AnnouncementList from '../../components/AnnouncementList';
-import AddAnnouncement from '../../components/AddAnnouncement';
+import AnnouncementList from './components/AnnouncementList';
+import AddAnnouncement from './components/AddAnnouncement';
 import LoadingComponent from '../../components/LoadingComponent';
 import '../../styles/Community.css';
 

@@ -3,7 +3,7 @@ import constants from '../constants';
 
 const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
 
-async function applyCredentials(owner) {
+async function getCredentials(owner) {
   let credentials = '';
 
   // TODO: Will this ever be the case? Is this check necessary
@@ -46,7 +46,7 @@ function isGeneralOwner(credentials) {
 }
 
 export {
-  applyCredentials,
+  getCredentials,
   isAdmin,
   isSubscriberOwner,
   isGeneralOwner,
