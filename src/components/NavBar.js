@@ -10,15 +10,16 @@ import {
 import Logo from '../assets/PPSC-logo.png';
 import '../styles/NavBar.css';
 
+const ONBOARDING_ROUTE = '/onboarding';
+
 class NavBar extends React.PureComponent {
   render() {
-    // TODO: move routing to redux and update navbar display based on route
-    const { person, credentials, isNavBarVisible } = this.props;
+    const { person, credentials, path } = this.props;
     // TODO: Holy crap so apparently the "ID" column on airtable is their NAME not the record ID.
     // we NEED to standardize airtable column names so things aren't hella confusing
     const displayName = person ? person.name : '';
 
-    if (!isNavBarVisible) {
+    if (path === ONBOARDING_ROUTE) {
       return (
         <div className="nav-bar">
           <a href="/">
@@ -101,7 +102,7 @@ class NavBar extends React.PureComponent {
 
 const mapStateToProps = state => ({
   person: state.userData.person,
-  owner: state.userData.owner,
+  path: state.router.location.pathname,
   credentials: state.userData.credentials
 });
 export default connect(mapStateToProps)(NavBar);

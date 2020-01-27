@@ -10,7 +10,7 @@ class BasicInfo extends React.Component {
   // validates then moves on if no error messages
   nextButton = async e => {
     e.preventDefault();
-    const { values, nextStep, toggleNavbar } = this.props;
+    const { values, nextStep } = this.props;
     const {
       errors,
       userId,
@@ -58,7 +58,6 @@ class BasicInfo extends React.Component {
         await updateUserLogin(userLoginId, newLogin);
       }
 
-      toggleNavbar();
       nextStep();
     } else {
       this.forceUpdate();

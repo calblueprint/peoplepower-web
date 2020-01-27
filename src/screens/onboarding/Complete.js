@@ -11,9 +11,7 @@ class Complete extends React.Component {
   }
 
   dashboardButton = async () => {
-    const { history, toggleNavbar, values } = this.props;
-    toggleNavbar();
-
+    const { history, values } = this.props;
     // TODO: Replace with proper airlock authentication
     store.dispatch(authenticate('temp_token'));
     const userLogin = await getUserLoginById(values.userLoginId);
