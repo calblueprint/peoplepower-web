@@ -24,7 +24,7 @@ class BasicInfo extends React.Component {
 
     const isNewEmail = await isUniqueEmail(email);
     if (!isNewEmail) {
-      // TODO: surface issue to user here
+      // TODO: surface issue to user here OR add to onboarding error messages
       console.log('Email exists');
       return;
     }
