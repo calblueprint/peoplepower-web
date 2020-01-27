@@ -1,12 +1,12 @@
 import React from 'react';
-import '../styles/App.css';
+import '../styles/LoadingComponent.css';
 
 const LoadingComponent = () => {
   return (
-    <div className="loadingComponent">
+    <div className="loading-component">
       <img
         src="https://image.flaticon.com/icons/svg/25/25220.svg"
-        className="rotate"
+        className="loading-component__rotate"
         alt="page is loading"
       />
       <h1>Generating Power...</h1>

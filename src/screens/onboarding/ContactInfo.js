@@ -3,6 +3,7 @@ import formValidation from '../../lib/onboarding/formValidation';
 import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
 import Tooltip from '../../components/Tooltip';
 import { updatePerson } from '../../lib/airtable/request';
+import '../../styles/main.css';
 
 class ContactInfo extends React.Component {
   constructor(props) {
@@ -462,7 +463,7 @@ class ContactInfo extends React.Component {
           <div className="right">
             <button
               type="button"
-              className="continue-button"
+              className="btn btn--rounded btn--blue btn--size16 continue-button"
               onClick={this.nextButton}
             >
               Continue

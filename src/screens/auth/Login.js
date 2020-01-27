@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../../lib/authUtils';
 import '../../styles/Login.css';
+import '../../styles/main.css';
 
 const HOME_ROUTE = '/dashboard';
 const SIGNUP_ROUTE = '/onboarding';
@@ -74,7 +75,7 @@ class Login extends React.Component {
               placeholder="Email address"
               onChange={this.handleEmailChange}
               defaultValue={email}
-              className="input-gray "
+              className="input-gray"
             />
           </div>
           <div className="w-100 ">
@@ -91,7 +92,10 @@ class Login extends React.Component {
             />
           </div>
           <div className=" t-center">
-            <button type="submit" className="login-button">
+            <button
+              type="submit"
+              className="btn btn--rounded btn--pink btn--size12 login-button"
+            >
               Login
             </button>
           </div>

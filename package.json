@@ -27,6 +27,7 @@
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
+    "generate-schema": "generate-airtable-schema && pretty-quick",
     "deploy": "react-scripts build && mv ./build/index.html ./build/200.html &&surge ./build https://peoplepower.surge.sh"
   },
   "eslintConfig": {
@@ -45,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "airtable-schema-generator": "^1.0.12",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
@@ -68,6 +70,10 @@
       "eslint src/ --fix",
       "git add"
     ]
+  },
+  "airtable-schema-generator": {
+    "output": "src/lib/airtable",
+    "input": "src/lib/airtable"
   },
   "babel": {
     "plugins": [

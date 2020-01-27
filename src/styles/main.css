@@ -1,0 +1,70 @@
+:root {
+  --pp-blue: #395578;
+  --pp-pink: #cd6795;
+  --pp-gray: #7387a2;
+  --pp-green: #62b16f;
+  --pp-yellow: #e0b64c;
+  --pp-black: #24364d;
+  --pp-dark-gray: #3e4a59;
+  --pp-white: #edf1f5;
+
+  --pp-light-gray: #f5f5f5;
+  --pp-bg-white: #efefef;
+  --pp-tag-gray: #d8d8d8;
+  --pp-link-gray: #8f8f8f;
+}
+
+.btn {
+  transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  background-color: var(--pp-pink);
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.btn--rounded {
+  border-radius: 50px;
+}
+
+.btn--square {
+  border-radius: 2.5px;
+  font-size: 16px;
+}
+
+.btn--weight600 {
+  font-weight: 600;
+}
+
+.btn--size16 {
+  font-size: 16px;
+}
+
+.btn--size12 {
+  font-size: 12px;
+}
+
+.btn--pink {
+  background-color: var(--pp-pink);
+  color: white;
+}
+
+.btn--pink:hover {
+  box-shadow: 0px 4px 30px rgba(205, 103, 149, 0.3);
+}
+
+.btn--blue {
+  background-color: var(--pp-blue);
+  color: white;
+}
+
+.pp-tag {
+  padding: 5px 10px;
+  background: var(--pp-tag-gray);
+  border-radius: 20px;
+  margin: 0px 5px;
+}

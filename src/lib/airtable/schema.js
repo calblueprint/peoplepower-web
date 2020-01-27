@@ -50,7 +50,7 @@ export const Columns = {
     address: `Address`,
     name: `Name`
   },
-  ProjectGroup: {
+  'Project Group': {
     primaryKey: `Primary Key`,
     owner: `Owner`,
     dateCreated: `Date Created`,
@@ -107,7 +107,7 @@ export const Columns = {
     projectGroup: `Project Group`,
     address: `Address`
   },
-  RateSchedule: {
+  'Rate Schedule': {
     id: `ID`,
     subscriberBill: `Subscriber Bill`,
     dateCreated: `Date Created`,
@@ -128,12 +128,12 @@ export const Columns = {
     solarProject: `Solar Project`,
     apt: `Apt`
   },
-  TestDevelopment: {
+  'Test (Development)': {
     name: `Name`,
     tag: `Tag`,
     id: `ID`
   },
-  SubscriberBill: {
+  'Subscriber Bill': {
     id: `ID`,
     dateCreated: `Date Created`,
     dateUpdated: `Date Updated`,
@@ -164,7 +164,7 @@ export const Columns = {
     location: `Location`,
     time: `Time`
   },
-  PGEUsage: {
+  'PGE Usage': {
     id: `ID`,
     dateCreated: `Date Created`,
     dateUpdated: `Date Updated`,
@@ -175,7 +175,7 @@ export const Columns = {
     amount: `Amount`,
     ebceRebate: `EBCE Rebate`
   },
-  PledgeInvite: {
+  'Pledge Invite': {
     id: `ID`,
     generalOwner: `General Owner`,
     dateCreated: `Date Created`,
@@ -189,7 +189,7 @@ export const Columns = {
     token: `Token`,
     status: `Status`
   },
-  SolarProject: {
+  'Solar Project': {
     id: `ID`,
     dateCreated: `Date Created`,
     dateUpdated: `Date Updated`,
@@ -202,7 +202,7 @@ export const Columns = {
     pgeUsage: `PGE Usage`,
     projectGroup: `Project Group`
   },
-  UserLogin: {
+  'User Login': {
     id: `ID`,
     person: `Person`,
     owner: `Owner`,
