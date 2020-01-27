@@ -2,6 +2,7 @@ import React from 'react';
 import formValidation from '../../lib/onboarding/formValidation';
 import Tooltip from '../../components/Tooltip';
 import { updatePerson, updateUserLogin } from '../../lib/airtable/request';
+import { isUniqueEmail } from '../../lib/onboarding/onboardingUtils';
 import '../../styles/main.css';
 import '../../styles/Onboarding.css';
 
@@ -20,6 +21,14 @@ class BasicInfo extends React.Component {
       password,
       altEmail
     } = values;
+
+    const isNewEmail = await isUniqueEmail(email);
+    if (!isNewEmail) {
+      // TODO: surface issue to user here OR add to onboarding error messages
+      console.log('Email exists');
+      return;
+    }
+
     const inputTypes = ['fname', 'lname', 'email', 'password', 'altEmail'];
     const errorsMessages = [];
 
