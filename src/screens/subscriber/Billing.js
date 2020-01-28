@@ -41,13 +41,13 @@ class Billing extends React.Component {
     }
   }
 
-  seeAllBillsView() {
+  seeAllBills() {
     this.setState({
       mode: 1
     });
   }
 
-  seeMainView() {
+  seeMain() {
     this.setState({
       mode: 0
     });
@@ -66,7 +66,7 @@ class Billing extends React.Component {
     if (mode === 0) {
       return (
         <BillingMainView
-          callback={() => this.seeAllBillsView()}
+          callback={() => this.seeAllBills()}
           transactions={transactions}
           pendingBills={pendingBills}
           personId={personId}
@@ -76,7 +76,7 @@ class Billing extends React.Component {
     if (mode === 1) {
       return (
         <BillingAllBillsView
-          callback={() => this.seeMainView()}
+          callback={() => this.seeMain()}
           transactions={transactions}
           personId={personId}
         />
