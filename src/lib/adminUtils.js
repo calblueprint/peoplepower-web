@@ -1,8 +1,12 @@
-import { updateProjectGroup, getProjectGroupById } from './airtable/request';
+import {
+  updateProjectGroup,
+  getProjectGroupById,
+  getOwnerById
+} from './airtable/request';
 import { refreshUserData } from './userDataUtils';
 import { store } from './redux/store';
 
-export default async function removeOwner(ownerRecord) {
+export async function removeOwner(ownerRecord) {
   const projectGroupId = ownerRecord.projectGroup;
   const projectGroup = await getProjectGroupById(projectGroupId);
 
@@ -14,7 +18,12 @@ export default async function removeOwner(ownerRecord) {
     owner: newOwners
   });
 
-  // Download latest data, including new project group info
+  // Refresh local copy of data after updating owners
   const { userLogin } = store.getState().userData;
   await refreshUserData(userLogin);
+}
+
+export function getOwnerRecordsForProjectGroup(projectGroup) {
+  const ownerPromises = projectGroup.owner.map(getOwnerById);
+  return Promise.all(ownerPromises);
 }

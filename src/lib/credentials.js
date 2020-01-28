@@ -12,6 +12,7 @@ function getCredentials(owner) {
     return credentials;
   }
 
+  // Assumes that admin is only owner of one project group
   if (owner.adminOf && owner.adminOf.length >= 0) {
     credentials += Credentials.ADMIN;
   }

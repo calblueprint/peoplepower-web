@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AdminDashboardCard from './components/AdminDashboardCard';
 import LoadingComponent from '../../components/LoadingComponent';
+import { getOwnerRecordsForProjectGroup } from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
-import { getOwnerById } from '../../lib/airtable/request';
 
 class AdminDashboard extends React.Component {
   constructor(props) {
@@ -25,8 +25,7 @@ class AdminDashboard extends React.Component {
 
   async fetchOwnerRecords() {
     const { projectGroup } = this.props;
-    const ownerPromises = projectGroup.owner.map(getOwnerById);
-    const ownerRecords = await Promise.all(ownerPromises);
+    const ownerRecords = await getOwnerRecordsForProjectGroup(projectGroup);
     this.setState({
       owners: ownerRecords
     });

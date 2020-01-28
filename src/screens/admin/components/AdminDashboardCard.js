@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../../styles/main.css';
-import removeOwner from '../../../lib/adminUtils';
+import { removeOwner } from '../../../lib/adminUtils';
 import { getCredentials, isAdmin } from '../../../lib/credentials';
 
 class AdminDashboardCard extends React.PureComponent {
@@ -8,8 +8,8 @@ class AdminDashboardCard extends React.PureComponent {
     const { owner } = this.props;
     const { ownerType: ownerTypes } = owner;
     const credentials = getCredentials(owner);
-    const admin = isAdmin(credentials);
-    if (admin) {
+    const isAdminOwner = isAdmin(credentials);
+    if (isAdminOwner) {
       ownerTypes.push('Admin');
     }
 
@@ -27,7 +27,8 @@ class AdminDashboardCard extends React.PureComponent {
           <div className="card-tags">{ownerTags}</div>
         </div>
         <div>
-          {!admin && (
+          {/* Ensures you can only remove non-admin owners */}
+          {!isAdminOwner && (
             <button
               type="button"
               onClick={() => removeOwner(owner)}
