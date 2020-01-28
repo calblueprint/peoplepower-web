@@ -22,11 +22,12 @@ class AuthenticatedRoute extends React.PureComponent {
 
   render() {
     const { component: Component, ...rest } = this.props;
+    const authorized = this.isAuthorized();
     return (
       <Route
         {...rest}
         render={props =>
-          this.isAuthorized() ? (
+          authorized ? (
             <Component {...props} />
           ) : (
             <Redirect to={{ pathname: '/', state: { from: props.location } }} />
