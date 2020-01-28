@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
-import AllBillsTable from './AllBillsTable';
+import AllBillsTable from './SubscriberAllBillsTable';
 
 export default class BillingAllBillsView extends React.PureComponent {
   render() {

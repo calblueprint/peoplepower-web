@@ -13,7 +13,11 @@ const constants = {
   BILL_TYPE: 'Bill',
   ONLINE_PAYMENT_TYPE: 'Online Payment',
   COMPLETED_STATUS: 'Completed',
-  PENDING_STATUS: 'Pending'
+  PENDING_STATUS: 'Pending',
+
+  // ROUTES
+  HOME_ROUTE: '/',
+  SIGNUP_ROUTE: '/onboarding'
 };
 
 export default constants;

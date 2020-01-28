@@ -2,9 +2,7 @@ import React from 'react';
 import { loginUser } from '../../lib/authUtils';
 import '../../styles/Login.css';
 import '../../styles/main.css';
-
-const HOME_ROUTE = '/';
-const SIGNUP_ROUTE = '/onboarding';
+import Constants from '../../constants';
 
 class Login extends React.Component {
   constructor(props) {
@@ -26,7 +24,7 @@ class Login extends React.Component {
 
   handleSignUpOnClick = () => {
     const { history } = this.props;
-    history.push(SIGNUP_ROUTE);
+    history.push(Constants.SIGNUP_ROUTE);
   };
 
   handleSubmit = async evt => {
@@ -47,7 +45,7 @@ class Login extends React.Component {
   segueToHome(evt) {
     const { history } = this.props;
 
-    history.push(HOME_ROUTE);
+    history.push(Constants.HOME_ROUTE);
     evt.preventDefault();
   }
 

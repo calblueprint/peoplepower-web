@@ -20,7 +20,8 @@ import { history } from './lib/redux/store';
 import {
   isGeneralOwner,
   isSubscriberOwner,
-  isSignedIn
+  isSignedIn,
+  Credentials
 } from './lib/credentials';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Investment from './screens/general/Investment';
@@ -71,17 +72,17 @@ class App extends React.Component {
               component={Onboarding}
             />
             <AuthenticatedRoute
-              credential="A" // Admins only
+              credential={Credentials.ADMIN} // Admins only
               path="/admin"
               component={AdminDashboard}
             />
             <AuthenticatedRoute
-              credential="G" // General only
+              credential={Credentials.GENERAL} // General only
               path="/investment"
               component={Investment}
             />
             <AuthenticatedRoute
-              credential="S" // Subscribers only
+              credential={Credentials.SUBSCRIBER} // Subscribers only
               path="/billing"
               component={Billing}
             />
