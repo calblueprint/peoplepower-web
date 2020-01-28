@@ -1,35 +1,20 @@
-import {
-  getOwnerById,
-  updateProjectGroup,
-  getProjectGroupById
-} from './airtable/request';
+import { updateProjectGroup, getProjectGroupById } from './airtable/request';
+import { refreshUserData } from './userDataUtils';
+import { store } from './redux/store';
 
-const getAdminTable = async owner => {
-  const ownerOfArr = owner.adminOf;
-  if (ownerOfArr && ownerOfArr.length === 1) {
-    return ownerOfArr[0];
-  }
-
-  return -1;
-};
-
-// TODO: reevaluate this function.
-// Can't the admin dashboard just deal in IDs instead of the actual objects?
-const getOwnersFromProjectGroup = async projectGroupId => {
+export default async function removeOwner(ownerRecord) {
+  const projectGroupId = ownerRecord.projectGroup;
   const projectGroup = await getProjectGroupById(projectGroupId);
 
-  const ownersObjects = await Promise.all(
-    projectGroup.owner.map(ownerId => getOwnerById(ownerId))
+  const newOwners = projectGroup.owner.filter(
+    ownerId => ownerId !== ownerRecord.ownerId
   );
 
-  // what is the point of this map??
-  return ownersObjects.map(ownersObject => ownersObject);
-};
-
-const updateProjectGroupOwners = async (groupId, newOwners) => {
-  return updateProjectGroup(groupId, {
+  await updateProjectGroup(projectGroup.id, {
     owner: newOwners
   });
-};
 
-export { getAdminTable, getOwnersFromProjectGroup, updateProjectGroupOwners };
+  // Download latest data, including new project group info
+  const { userLogin } = store.getState().userData;
+  await refreshUserData(userLogin);
+}

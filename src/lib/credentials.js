@@ -1,9 +1,8 @@
-import { getAdminTable } from './adminUtils';
 import constants from '../constants';
 
 const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
 
-async function getCredentials(owner) {
+function getCredentials(owner) {
   let credentials = '';
 
   // TODO: Will this ever be the case? Is this check necessary
@@ -11,8 +10,7 @@ async function getCredentials(owner) {
     return credentials;
   }
 
-  const isAdminPayload = await getAdminTable(owner);
-  if (isAdminPayload !== -1) {
+  if (owner.adminOf && owner.adminOf.length >= 0) {
     credentials += 'A';
   }
 

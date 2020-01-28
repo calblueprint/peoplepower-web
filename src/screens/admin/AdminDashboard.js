@@ -2,83 +2,44 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AdminDashboardCard from './components/AdminDashboardCard';
 import LoadingComponent from '../../components/LoadingComponent';
-import {
-  getAdminTable,
-  getOwnersFromProjectGroup,
-  updateProjectGroupOwners
-} from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
+import { getOwnerById } from '../../lib/airtable/request';
 
 class AdminDashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      access: false,
-      adminGroupId: -1,
-      owners: [],
-      isReady: false
-    };
+    this.state = { owners: [] };
   }
 
-  async componentDidMount() {
-    const { person, owner, isLoadingUserData } = this.props;
+  componentDidMount() {
+    this.fetchOwnerRecords();
+  }
 
-    // If data isn't in redux yet, don't do anything.
-    if (isLoadingUserData) {
-      return;
-    }
-
-    // TODO: Can any of this admin-related info be moved to redux?
-
-    const adminGroupId = await getAdminTable(owner);
-    if (adminGroupId === -1) {
-      this.setState({
-        access: false,
-        isReady: true
-      });
-    } else {
-      const owners = await getOwnersFromProjectGroup(adminGroupId);
-      this.setState({
-        access: true,
-        isReady: true,
-        adminId: owner.ownerId,
-        adminGroupId,
-        owners: owners.filter(o => o.person !== person.recordIdforDev)
-      });
+  componentDidUpdate(prevProps) {
+    const { projectGroup } = this.props;
+    if (prevProps.projectGroup !== projectGroup) {
+      this.fetchOwnerRecords();
     }
   }
 
-  async removeUser(idToRemove) {
-    const { adminGroupId, adminId, owners } = this.state;
-    let ownerIds = owners.map(owner => owner.ownerId);
-
-    // FILTER
-    ownerIds = ownerIds.filter(ownerId => ownerId !== idToRemove);
-    const newOwners = owners.filter(owner => owner.ownerId !== idToRemove);
-    ownerIds.push(adminId);
-
-    await updateProjectGroupOwners(adminGroupId, ownerIds);
+  async fetchOwnerRecords() {
+    const { projectGroup } = this.props;
+    const ownerPromises = projectGroup.owner.map(getOwnerById);
+    const ownerRecords = await Promise.all(ownerPromises);
     this.setState({
-      owners: newOwners
+      owners: ownerRecords
     });
   }
 
   render() {
-    const { access, isReady, owners } = this.state;
     const { isLoadingUserData } = this.props;
+    const { owners } = this.state;
 
-    if (!isReady || isLoadingUserData) {
+    if (isLoadingUserData) {
       return <LoadingComponent />;
     }
 
-    if (!access) {
-      return (
-        <div className="cont">
-          <h3>ACCESS DENIED</h3>
-        </div>
-      );
-    }
     return (
       <div className="dashboard dash-admin">
         <div>
@@ -100,14 +61,7 @@ class AdminDashboard extends React.Component {
             <div className="card-holder">
               {owners.length >= 1 ? (
                 owners.map(owner => {
-                  return (
-                    <AdminDashboardCard
-                      name={owner.id}
-                      callback={idToRemove => this.removeUser(idToRemove)}
-                      ownerId={owner.ownerId}
-                      ownerType={owner.ownerType}
-                    />
-                  );
+                  return <AdminDashboardCard owner={owner} />;
                 })
               ) : (
                 <div className="white-text">
@@ -123,9 +77,9 @@ class AdminDashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  person: state.userData.person,
   owner: state.userData.owner,
-  announcements: state.community.announcements,
+  userLogin: state.userData.userLogin,
+  projectGroup: state.userData.projectGroup,
   isLoadingUserData: state.userData.isLoading
 });
 export default connect(mapStateToProps)(AdminDashboard);
