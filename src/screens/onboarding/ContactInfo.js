@@ -1,7 +1,7 @@
 import React from 'react';
 import formValidation from '../../lib/onboarding/formValidation';
 import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
-import Tooltip from '../../components/Tooltip';
+import Tooltip from './components/Tooltip';
 import { updatePerson } from '../../lib/airtable/request';
 import '../../styles/main.css';
 

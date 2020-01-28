@@ -16,7 +16,7 @@ import {
   saveAnnouncements,
   setLoadingForAnnouncements
 } from './redux/communitySlice';
-import { applyCredentials } from './credentials';
+import { getCredentials } from './credentials';
 
 // TODO: validate records fetched using validator functions
 // This function takes in a userLogin record
@@ -46,7 +46,7 @@ const refreshUserData = async userLogin => {
     solarProjects = await Promise.all(solarProjectPromises);
   }
 
-  const credentials = await applyCredentials(owner);
+  const credentials = await getCredentials(owner);
 
   // Save fetched user data to the redux store
   const userData = {

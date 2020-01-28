@@ -10,51 +10,10 @@ import {
 import Logo from '../assets/PPSC-logo.png';
 import '../styles/NavBar.css';
 
-const ONBOARDING_ROUTE = '/onboarding';
-
 class NavBar extends React.PureComponent {
   render() {
-    const { person, credentials, path } = this.props;
-    // TODO: Holy crap so apparently the "ID" column on airtable is their NAME not the record ID.
-    // we NEED to standardize airtable column names so things aren't hella confusing
+    const { person, credentials } = this.props;
     const displayName = person ? person.name : '';
-
-    if (path === ONBOARDING_ROUTE) {
-      return (
-        <div className="nav-bar">
-          <a href="/">
-            <img
-              className="logo"
-              src={Logo}
-              alt="People Power Solar Cooperative Logo"
-            />
-          </a>
-        </div>
-      );
-    }
-
-    if (!isSignedIn(credentials)) {
-      return (
-        <div className="nav-bar">
-          <a href="/">
-            <img
-              className="logo"
-              src={Logo}
-              alt="People Power Solar Cooperative Logo"
-            />
-          </a>
-          <nav>
-            <ul>
-              <li className="navItem">
-                <Link to="/">
-                  <span>Sign In</span>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      );
-    }
 
     return (
       <div className="nav-bar">
@@ -66,34 +25,36 @@ class NavBar extends React.PureComponent {
           />
         </a>
         <nav>
-          <ul>
-            <li className="navItem">
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            {isGeneralOwner(credentials) ? (
+          {isSignedIn(credentials) && (
+            <ul>
               <li className="navItem">
-                <Link to="/investment">My Investment</Link>
+                <Link to="/">Dashboard</Link>
               </li>
-            ) : null}
-            {isSubscriberOwner(credentials) ? (
+              {isGeneralOwner(credentials) && (
+                <li className="navItem">
+                  <Link to="/investment">My Investment</Link>
+                </li>
+              )}
+              {isSubscriberOwner(credentials) && (
+                <li className="navItem">
+                  <Link to="/billing">Billing</Link>
+                </li>
+              )}
               <li className="navItem">
-                <Link to="/billing">Billing</Link>
+                <Link to="/community">Community</Link>
               </li>
-            ) : null}
-            <li className="navItem">
-              <Link to="/community">Community</Link>
-            </li>
-            {isAdmin(credentials) ? (
+              {isAdmin(credentials) && (
+                <li className="navItem">
+                  <Link to="/admin">Admin</Link>
+                </li>
+              )}
               <li className="navItem">
-                <Link to="/admin">Admin</Link>
+                <Link to="/profile">
+                  <span>{displayName}</span>
+                </Link>
               </li>
-            ) : null}
-            <li className="navItem">
-              <Link to="/profile">
-                <span>{displayName}</span>
-              </Link>
-            </li>
-          </ul>
+            </ul>
+          )}
         </nav>
       </div>
     );
@@ -102,7 +63,6 @@ class NavBar extends React.PureComponent {
 
 const mapStateToProps = state => ({
   person: state.userData.person,
-  path: state.router.location.pathname,
   credentials: state.userData.credentials
 });
 export default connect(mapStateToProps)(NavBar);

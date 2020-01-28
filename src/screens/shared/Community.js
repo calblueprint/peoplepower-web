@@ -2,8 +2,8 @@ import React from 'react';
 import 'react-table-v6/react-table.css';
 import { connect } from 'react-redux';
 import { isAdmin } from '../../lib/credentials';
-import AnnouncementList from '../../components/AnnouncementList';
-import AddAnnouncement from '../../components/AddAnnouncement';
+import AnnouncementList from './components/AnnouncementList';
+import AddAnnouncement from './components/AddAnnouncement';
 import LoadingComponent from '../../components/LoadingComponent';
 import '../../styles/Community.css';
 
@@ -13,16 +13,6 @@ class Community extends React.Component {
     this.state = {
       credentials: ''
     };
-  }
-
-  async componentDidMount() {
-    const { history, authenticated } = this.props;
-
-    // TODO: this kind of redirect logic should be handled in App.js or Navbar.js
-    if (!authenticated) {
-      // They shouldn't be able to access this screen
-      history.push('/');
-    }
   }
 
   addTempCard = announcement => {
@@ -67,7 +57,6 @@ class Community extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  authenticated: state.userData.authenticated,
   owner: state.userData.owner,
   credentials: state.userData.credentials,
   announcements: state.community.announcements,

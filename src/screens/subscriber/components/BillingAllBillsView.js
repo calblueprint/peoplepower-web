@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
-import SubscriberOwnerDashboardAllBillsTable from './SubscriberOwnerDashboardAllBillsTable';
+import AllBillsTable from './SubscriberAllBillsTable';
 
-export default class SubscriberOwnerDashboardAllBillsView extends React.PureComponent {
+export default class BillingAllBillsView extends React.PureComponent {
   render() {
     const { callback, transactions } = this.props;
     return (
@@ -19,7 +19,7 @@ export default class SubscriberOwnerDashboardAllBillsView extends React.PureComp
           </div>
         </button>
         <p className="all-bills-header">Billing History</p>
-        <SubscriberOwnerDashboardAllBillsTable transactions={transactions} />
+        <AllBillsTable transactions={transactions} />
       </div>
     );
   }

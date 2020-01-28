@@ -1,6 +1,6 @@
 import React from 'react';
-import '../styles/Community.css';
-import { createAnnouncement } from '../lib/airtable/request';
+import '../../../styles/Community.css';
+import { createAnnouncement } from '../../../lib/airtable/request';
 
 const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;

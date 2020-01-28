@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SubscriberOwnerDashboardAllBillsView from './SubscriberOwnerDashboardAllBillsView';
-import SubscriberOwnerDashboardMainView from './SubscriberOwnerDashboardMainView';
-import LoadingComponent from '../../../components/LoadingComponent';
-import { areDiffBills, getSubscriberBills } from '../../../lib/subscriberUtils';
-import '../../../styles/SubscriberOwnerDashboard.css';
+import BillingAllBillsView from './components/BillingAllBillsView';
+import BillingMainView from './components/BillingMainView';
+import LoadingComponent from '../../components/LoadingComponent';
+import { areDiffBills, getSubscriberBills } from '../../lib/subscriberUtils';
+import '../../styles/SubscriberOwnerDashboard.css';
 
-class SubscriberOwnerDashboard extends React.Component {
+class Billing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,14 +18,8 @@ class SubscriberOwnerDashboard extends React.Component {
   }
 
   async componentDidMount() {
-    const { history, authenticated, owner, isLoadingUserData } = this.props;
+    const { owner, isLoadingUserData } = this.props;
 
-    // TODO: this kind of redirect logic should be handled in App.js or Navbar.js
-    if (!authenticated) {
-      // They shouldn't be able to access this screen
-      history.push('/');
-      return;
-    }
     // If data isn't in redux yet, don't do anything.
     if (isLoadingUserData) {
       return;
@@ -47,13 +41,13 @@ class SubscriberOwnerDashboard extends React.Component {
     }
   }
 
-  seeSubscriberOwnerDashboardAllBillsView() {
+  seeAllBills() {
     this.setState({
       mode: 1
     });
   }
 
-  seeDashboard() {
+  seeMain() {
     this.setState({
       mode: 0
     });
@@ -71,8 +65,8 @@ class SubscriberOwnerDashboard extends React.Component {
 
     if (mode === 0) {
       return (
-        <SubscriberOwnerDashboardMainView
-          callback={() => this.seeSubscriberOwnerDashboardAllBillsView()}
+        <BillingMainView
+          callback={() => this.seeAllBills()}
           transactions={transactions}
           pendingBills={pendingBills}
           personId={personId}
@@ -81,8 +75,8 @@ class SubscriberOwnerDashboard extends React.Component {
     }
     if (mode === 1) {
       return (
-        <SubscriberOwnerDashboardAllBillsView
-          callback={() => this.seeDashboard()}
+        <BillingAllBillsView
+          callback={() => this.seeMain()}
           transactions={transactions}
           personId={personId}
         />
@@ -94,9 +88,8 @@ class SubscriberOwnerDashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  authenticated: state.userData.authenticated,
   person: state.userData.person,
   owner: state.userData.owner,
   isLoadingUserData: state.userData.isLoading
 });
-export default connect(mapStateToProps)(SubscriberOwnerDashboard);
+export default connect(mapStateToProps)(Billing);

@@ -1,11 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { loginUser } from '../../lib/authUtils';
 import '../../styles/Login.css';
 import '../../styles/main.css';
-
-const HOME_ROUTE = '/dashboard';
-const SIGNUP_ROUTE = '/onboarding';
+import Constants from '../../constants';
 
 class Login extends React.Component {
   constructor(props) {
@@ -14,13 +11,6 @@ class Login extends React.Component {
       email: '',
       passwordHash: ''
     };
-  }
-
-  componentDidMount() {
-    const { history, authenticated } = this.props;
-    if (authenticated) {
-      history.push(HOME_ROUTE);
-    }
   }
 
   handleEmailChange = event => {
@@ -34,7 +24,7 @@ class Login extends React.Component {
 
   handleSignUpOnClick = () => {
     const { history } = this.props;
-    history.push(SIGNUP_ROUTE);
+    history.push(Constants.SIGNUP_ROUTE);
   };
 
   handleSubmit = async evt => {
@@ -55,7 +45,7 @@ class Login extends React.Component {
   segueToHome(evt) {
     const { history } = this.props;
 
-    history.push(HOME_ROUTE);
+    history.push(Constants.HOME_ROUTE);
     evt.preventDefault();
   }
 
@@ -117,8 +107,4 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  authenticated: state.userData.authenticated
-});
-
-export default connect(mapStateToProps)(Login);
+export default Login;

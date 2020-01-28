@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Arrow from '../assets/Arrow.png';
+import Arrow from '../../../assets/Arrow.png';
 
 class Carousel extends Component {
   constructor(props) {

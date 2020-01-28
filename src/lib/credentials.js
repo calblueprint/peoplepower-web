@@ -3,7 +3,9 @@ import constants from '../constants';
 
 const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
 
-async function applyCredentials(owner) {
+const Credentials = { ADMIN: 'A', GENERAL: 'G', SUBSCRIBER: 'S' };
+
+async function getCredentials(owner) {
   let credentials = '';
 
   // TODO: Will this ever be the case? Is this check necessary
@@ -13,17 +15,17 @@ async function applyCredentials(owner) {
 
   const isAdminPayload = await getAdminTable(owner);
   if (isAdminPayload !== -1) {
-    credentials += 'A';
+    credentials += Credentials.ADMIN;
   }
 
   const ownerTypes = owner.ownerType;
 
   if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
-    credentials += 'S';
+    credentials += Credentials.SUBSCRIBER;
   }
 
   if (ownerTypes.includes(GENERAL_OWNER)) {
-    credentials += 'G';
+    credentials += Credentials.GENERAL;
   }
 
   return credentials;
@@ -34,21 +36,22 @@ function isSignedIn(credentials) {
 }
 
 function isAdmin(credentials) {
-  return credentials.includes('A');
+  return credentials.includes(Credentials.ADMIN);
 }
 
 function isSubscriberOwner(credentials) {
-  return credentials.includes('S');
+  return credentials.includes(Credentials.SUBSCRIBER);
 }
 
 function isGeneralOwner(credentials) {
-  return credentials.includes('G');
+  return credentials.includes(Credentials.GENERAL);
 }
 
 export {
-  applyCredentials,
+  getCredentials,
   isAdmin,
   isSubscriberOwner,
   isGeneralOwner,
-  isSignedIn
+  isSignedIn,
+  Credentials
 };

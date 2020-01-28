@@ -1,8 +1,8 @@
 import React from 'react';
 import formValidation from '../../lib/onboarding/formValidation';
 import '../../styles/Onboarding.css';
-import MapView from './ProjectGroupMapView';
-import ListView from './ProjectGroupListView';
+import MapView from './components/ProjectGroupMapView';
+import ListView from './components/ProjectGroupListView';
 import {
   updatePerson,
   updateOwner,

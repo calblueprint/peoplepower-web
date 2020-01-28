@@ -8,7 +8,7 @@ import Payment from './Payment';
 import Complete from './Complete';
 import formValidation from '../../lib/onboarding/formValidation';
 import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
-import Template from './Template';
+import Template from './components/Template';
 
 class Onboarding extends React.Component {
   constructor(props) {

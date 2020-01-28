@@ -13,7 +13,7 @@ const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;
 const STATUS_SUCCESS = 1;
 
-class UserProfilePage extends React.Component {
+class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -384,4 +384,4 @@ const mapStateToProps = state => ({
   projectGroup: state.userData.projectGroup,
   isLoadingUserData: state.userData.isLoading
 });
-export default connect(mapStateToProps)(UserProfilePage);
+export default connect(mapStateToProps)(UserProfile);
