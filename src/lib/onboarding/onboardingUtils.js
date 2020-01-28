@@ -3,7 +3,8 @@ import {
   createOwner,
   createUserLogin,
   deleteOwner,
-  deletePerson
+  deletePerson,
+  getUserLoginsByEmail
 } from '../airtable/request';
 
 const DEFAULT_NUM_RETRIES = 3;
@@ -223,8 +224,14 @@ const createPersonOwnerUserLoginRecord = async (
   }
 };
 
+const isUniqueEmail = async email => {
+  const userLogins = await getUserLoginsByEmail(email);
+  return userLogins.length === 0;
+};
+
 export {
   createPersonOwnerUserLoginRecord,
+  isUniqueEmail,
   rollbackPersonWithRetries,
   rollbackOwnerWithRetries
 };
