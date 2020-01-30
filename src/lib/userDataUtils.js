@@ -46,7 +46,7 @@ const refreshUserData = async userLogin => {
     solarProjects = await Promise.all(solarProjectPromises);
   }
 
-  const credentials = await getCredentials(owner);
+  const credentials = getCredentials(owner);
 
   // Save fetched user data to the redux store
   const userData = {

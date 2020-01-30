@@ -4,5 +4,8 @@
   },
   "Announcement": {
     "lookupFields": ["Project Group"]
+  },
+  "Owner": {
+    "lookupFields": ["Project Group"]
   }
 }
