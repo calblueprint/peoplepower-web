@@ -30,7 +30,7 @@ You can get the `PAYPAL CLIENT ID` and `REACT APP GOOGLE API KEY` from Notion in
 3. Create a file called `.airtable-schema-generator.env` and paste the following:
 
 ```
-AIRTABLE_BASE_ID=appFaOwKhMXrRIQIp
+AIRTABLE_BASE_ID={THE AIRTABLE BASE ID}
 AIRTABLE_EMAIL={YOUR AIRTABLE EMAIL}
 AIRTABLE_PASSWORD={YOUR AIRTABLE PASSWORD}
 ```
