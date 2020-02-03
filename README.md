@@ -11,6 +11,8 @@ _Last updated: Jan 14, 2019 (by Fang)_
 
 **STEP TWO: Set up the `.env` files**
 
+*NOTE: Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `REACT_APP_AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `REACT_APP_AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well*
+
 The project uses a number of secrets that are passed via a `.env` file (for security reasons). We need to set this `.env` file now.
 
 1. In your top level directory (`/peoplepower-web`, the same directory containing the src folder, `package.json` and a couple of other files), create a file called `.env`.
