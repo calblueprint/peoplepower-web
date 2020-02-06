@@ -1,10 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  updatePerson,
-  updateUserLogin,
-  getUserLoginById
-} from '../../lib/airtable/request';
+import { updateOwner } from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
 import { refreshUserData } from '../../lib/userDataUtils';
 import '../../styles/UserProfilePage.css';
@@ -42,20 +38,17 @@ class UserProfile extends React.Component {
   async componentDidMount() {
     // TODO: Don't take ID from url, take it from redux
 
-    const { person, projectGroup, isLoadingUserData } = this.props;
+    const { owner, projectGroup, isLoadingUserData } = this.props;
 
     // If data isn't in redux yet, don't do anything.
     if (isLoadingUserData) {
       return;
     }
 
-    // TODO This "RECORDIDforDev" stuff could/is probably causing a lot of problems
-    // basically, while you think a person record's ID would be person.ID, it's actually
-    // person.RECORDIDforDev
     // TODO: We don't need to pull all of this data from props just to put it into state.
     // We can be smarter about it
     const {
-      recordIdforDev: id,
+      id,
       email,
       phoneNumber,
       name,
@@ -64,7 +57,7 @@ class UserProfile extends React.Component {
       street,
       state,
       zipcode: zipCode
-    } = person;
+    } = owner;
 
     const { name: projectGroupName } = projectGroup;
     this.setState({

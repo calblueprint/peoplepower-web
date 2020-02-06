@@ -6,24 +6,21 @@ import {
 import { refreshUserData } from './userDataUtils';
 import { store } from './redux/store';
 
-export async function removeOwner(ownerRecord) {
-  const projectGroupId = ownerRecord.projectGroup;
-  const projectGroup = await getProjectGroupById(projectGroupId);
+export async function removeOwner(owner) {
+  const projectGroup = await getProjectGroupById(owner.projectGroupId);
 
-  const newOwners = projectGroup.owner.filter(
-    ownerId => ownerId !== ownerRecord.ownerId
-  );
+  const newOwnerIds = projectGroup.ownerIds.filter(id => id !== owner.id);
 
   await updateProjectGroup(projectGroup.id, {
-    owners: newOwners
+    ownerIds: newOwnerIds
   });
 
   // Refresh local copy of data after updating owners
-  const { userLogin } = store.getState().userData;
-  await refreshUserData(userLogin);
+  const { owner: loggedInOwner } = store.getState().userData;
+  await refreshUserData(loggedInOwner);
 }
 
 export function getOwnerRecordsForProjectGroup(projectGroup) {
-  const ownerPromises = projectGroup.owners.map(getOwnerById);
+  const ownerPromises = projectGroup.ownerIds.map(getOwnerById);
   return Promise.all(ownerPromises);
 }

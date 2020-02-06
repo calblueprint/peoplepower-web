@@ -6,7 +6,7 @@ import { getCredentials, isAdmin } from '../../../lib/credentials';
 class AdminDashboardCard extends React.PureComponent {
   render() {
     const { owner } = this.props;
-    const { ownerType: ownerTypes } = owner;
+    const { ownerTypes } = owner;
     const credentials = getCredentials(owner);
     const isAdminOwner = isAdmin(credentials);
     if (isAdminOwner) {

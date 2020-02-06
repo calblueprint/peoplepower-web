@@ -121,10 +121,10 @@ export const getAllAnnouncements = async () => {
   return getAllRecords(Tables.Announcement);
 };
 
-export const getAnnouncementsByProjectGroup = async value => {
+export const getAnnouncementsByProjectGroupId = async value => {
   return getRecordsByAttribute(
     Tables.Announcement,
-    Columns[Tables.Announcement].projectGroup,
+    Columns[Tables.Announcement].projectGroupId,
     value
   );
 };
@@ -161,10 +161,18 @@ export const getAllOwners = async () => {
   return getAllRecords(Tables.Owner);
 };
 
-export const getOwnersByProjectGroup = async value => {
+export const getOwnersByEmail = async value => {
   return getRecordsByAttribute(
     Tables.Owner,
-    Columns[Tables.Owner].projectGroup,
+    Columns[Tables.Owner].email,
+    value
+  );
+};
+
+export const getOwnersByProjectGroupId = async value => {
+  return getRecordsByAttribute(
+    Tables.Owner,
+    Columns[Tables.Owner].projectGroupId,
     value
   );
 };

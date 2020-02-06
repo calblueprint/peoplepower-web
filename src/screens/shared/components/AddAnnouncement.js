@@ -37,10 +37,10 @@ export default class AddAnnouncement extends React.Component {
       return;
     }
 
-    const { personId, projectGroupId, updateCards } = this.props;
+    const { owner, updateCards } = this.props;
     const newMessage = {
-      author: [personId],
-      projectGroup: [projectGroupId],
+      author: owner.id,
+      projectGroupId: [owner.projectGroupId],
       message
     };
 

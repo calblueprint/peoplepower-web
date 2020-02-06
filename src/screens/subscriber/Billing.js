@@ -55,8 +55,7 @@ class Billing extends React.Component {
 
   render() {
     const { mode, transactions, isReady, pendingBills } = this.state;
-    const { person, isLoadingUserData } = this.props;
-    const personId = person.recordIdforDev;
+    const { owner, isLoadingUserData } = this.props;
     const isLoading = !isReady || isLoadingUserData;
 
     if (isLoading) {
@@ -69,7 +68,6 @@ class Billing extends React.Component {
           callback={() => this.seeAllBills()}
           transactions={transactions}
           pendingBills={pendingBills}
-          personId={personId}
         />
       );
     }
@@ -78,7 +76,6 @@ class Billing extends React.Component {
         <BillingAllBillsView
           callback={() => this.seeMain()}
           transactions={transactions}
-          personId={personId}
         />
       );
     }
@@ -88,7 +85,6 @@ class Billing extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  person: state.userData.person,
   owner: state.userData.owner,
   isLoadingUserData: state.userData.isLoading
 });

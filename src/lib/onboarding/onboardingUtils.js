@@ -1,137 +1,136 @@
-import {
-  createPerson,
-  createOwner,
-  createUserLogin,
-  deleteOwner,
-  deletePerson,
-  getUserLoginsByEmail
-} from '../airtable/request';
+import { deleteOwner, getOwnersByEmail } from '../airtable/request';
 
-const DEFAULT_NUM_RETRIES = 3;
+// const DEFAULT_NUM_RETRIES = 3;
 
 // Returns created person's ID
 // TODO: maybe have this function accept an object to...simplify
-const createPersonWithRetries = async (
-  email,
-  phoneNumber,
-  name,
-  street,
-  city,
-  state,
-  apt,
-  mailingStreet,
-  mailingApt,
-  mailingCity,
-  mailingState,
-  mailingZipcode,
-  zipcode,
-  numRetries
-) => {
-  // create a person record without an owner field nor user login field
-  try {
-    return await createPerson({
-      email,
-      phoneNumber,
-      name,
-      street,
-      city,
-      state,
-      apt,
-      zipcode,
-      onboardingStep: 3,
-      mailingStreet,
-      mailingApt,
-      mailingCity,
-      mailingState,
-      mailingZipcode
-    });
-  } catch (err) {
-    if (numRetries === 0) {
-      throw err;
-    }
+// TODO: Fix with onboarding focused PR
 
-    return createPersonWithRetries(
-      email,
-      phoneNumber,
-      name,
-      street,
-      city,
-      state,
-      apt,
-      zipcode,
-      mailingStreet,
-      mailingApt,
-      mailingCity,
-      mailingState,
-      mailingZipcode,
-      numRetries - 1
-    );
-  }
-};
+// const createPersonWithRetries = async (
+//   email,
+//   phoneNumber,
+//   name,
+//   street,
+//   city,
+//   state,
+//   apt,
+//   mailingStreet,
+//   mailingApt,
+//   mailingCity,
+//   mailingState,
+//   mailingZipcode,
+//   zipcode,
+//   numRetries
+// ) => {
+//   // create a person record without an owner field nor user login field
+//   try {
+//     return await createPerson({
+//       email,
+//       phoneNumber,
+//       name,
+//       street,
+//       city,
+//       state,
+//       apt,
+//       zipcode,
+//       onboardingStep: 3,
+//       mailingStreet,
+//       mailingApt,
+//       mailingCity,
+//       mailingState,
+//       mailingZipcode
+//     });
+//   } catch (err) {
+//     if (numRetries === 0) {
+//       throw err;
+//     }
 
-// Returns created owner's ID
-const createOwnerWithRetries = async (createdPersonId, numRetries) => {
-  try {
-    return await createOwner({
-      person: [createdPersonId],
-      ownerType: ['General']
-    });
-  } catch (err) {
-    if (numRetries === 0) {
-      throw err;
-    }
+//     return createPersonWithRetries(
+//       email,
+//       phoneNumber,
+//       name,
+//       street,
+//       city,
+//       state,
+//       apt,
+//       zipcode,
+//       mailingStreet,
+//       mailingApt,
+//       mailingCity,
+//       mailingState,
+//       mailingZipcode,
+//       numRetries - 1
+//     );
+//   }
+// };
 
-    return createOwnerWithRetries(createdPersonId, numRetries - 1);
-  }
-};
+// // Returns created owner's ID
+// const createOwnerWithRetries = async (createdPersonId, numRetries) => {
+//   try {
+//     return await createOwner({
+//       person: [createdPersonId],
+//       ownerType: ['General']
+//     });
+//   } catch (err) {
+//     if (numRetries === 0) {
+//       throw err;
+//     }
 
-// Returns true or false based on success
-const createUserLoginWithRetries = async (
-  createdPersonId,
-  createdOwnerId,
-  email,
-  password,
-  numRetries
-) => {
-  try {
-    const userLoginId = await createUserLogin({
-      person: [createdPersonId],
-      owner: [createdOwnerId],
-      email,
-      password
-    });
+//     return createOwnerWithRetries(createdPersonId, numRetries - 1);
+//   }
+// };
 
-    return userLoginId;
-  } catch (err) {
-    if (numRetries === 0) {
-      throw err;
-    }
+// // Returns true or false based on success
+// TODO: Fix with onboarding focused PR
 
-    return createUserLoginWithRetries(
-      createdPersonId,
-      createdOwnerId,
-      email,
-      password,
-      numRetries - 1
-    );
-  }
-};
+// const createUserLoginWithRetries = async (
+//   createdPersonId,
+//   createdOwnerId,
+//   email,
+//   password,
+//   numRetries
+// ) => {
+//   try {
+//     const userLoginId = await createUserLogin({
+//       person: [createdPersonId],
+//       owner: [createdOwnerId],
+//       email,
+//       password
+//     });
 
-// TODO: UNTESTED FUNCTION
-const rollbackPersonWithRetries = async (createdPersonId, numRetries) => {
-  try {
-    await deletePerson(createdPersonId);
-  } catch (err) {
-    if (numRetries === 0) {
-      console.error(`ATTENTION: ${err}`);
+//     return userLoginId;
+//   } catch (err) {
+//     if (numRetries === 0) {
+//       throw err;
+//     }
 
-      // take any additional action here to notify admin to rectify inconsistency
-    }
-    await rollbackPersonWithRetries(createdPersonId, numRetries - 1);
-  }
-};
+//     return createUserLoginWithRetries(
+//       createdPersonId,
+//       createdOwnerId,
+//       email,
+//       password,
+//       numRetries - 1
+//     );
+//   }
+// };
 
-// TODO:UNTESTED FUNCTION
+// TODO: Fix with onboarding focused PR
+
+// // TODO: UNTESTED FUNCTION
+// const rollbackPersonWithRetries = async (createdPersonId, numRetries) => {
+//   try {
+//     await deletePerson(createdPersonId);
+//   } catch (err) {
+//     if (numRetries === 0) {
+//       console.error(`ATTENTION: ${err}`);
+
+//       // take any additional action here to notify admin to rectify inconsistency
+//     }
+//     await rollbackPersonWithRetries(createdPersonId, numRetries - 1);
+//   }
+// };
+
+// // TODO:UNTESTED FUNCTION
 const rollbackOwnerWithRetries = async (createdOwnerId, numRetries) => {
   try {
     await deleteOwner(createdOwnerId);
@@ -141,97 +140,97 @@ const rollbackOwnerWithRetries = async (createdOwnerId, numRetries) => {
 
       // take any additional action here to notify admin to rectify inconsistency
     }
-    await rollbackPersonWithRetries(createdOwnerId, numRetries - 1);
+    // await rollbackPersonWithRetries(createdOwnerId, numRetries - 1);
   }
 };
 
-// returns person and owner ID in object
-const createPersonOwnerUserLoginRecord = async (
-  email,
-  password,
-  phoneNumber,
-  fullName,
-  street,
-  apt,
-  city,
-  state,
-  zipcode,
-  mailingStreet,
-  mailingApt,
-  mailingCity,
-  mailingState,
-  mailingZipcode,
-  numRetries = DEFAULT_NUM_RETRIES
-) => {
-  // necessary IDs
-  let createdPersonId;
-  let createdOwnerId;
-  let createdUserLoginId;
+// // returns person and owner ID in object
+// const createPersonOwnerUserLoginRecord = async (
+//   email,
+//   password,
+//   phoneNumber,
+//   fullName,
+//   street,
+//   apt,
+//   city,
+//   state,
+//   zipcode,
+//   mailingStreet,
+//   mailingApt,
+//   mailingCity,
+//   mailingState,
+//   mailingZipcode,
+//   numRetries = DEFAULT_NUM_RETRIES
+// ) => {
+//   // necessary IDs
+//   let createdPersonId;
+//   let createdOwnerId;
+//   let createdUserLoginId;
 
-  try {
-    createdPersonId = await createPersonWithRetries(
-      email,
-      phoneNumber,
-      fullName,
-      street,
-      city,
-      state,
-      apt,
-      zipcode,
-      mailingStreet,
-      mailingApt,
-      mailingCity,
-      mailingState,
-      mailingZipcode,
-      numRetries
-    );
-  } catch (err) {
-    console.error(err);
-    return {};
-  }
+//   try {
+//     createdPersonId = await createPersonWithRetries(
+//       email,
+//       phoneNumber,
+//       fullName,
+//       street,
+//       city,
+//       state,
+//       apt,
+//       zipcode,
+//       mailingStreet,
+//       mailingApt,
+//       mailingCity,
+//       mailingState,
+//       mailingZipcode,
+//       numRetries
+//     );
+//   } catch (err) {
+//     console.error(err);
+//     return {};
+//   }
 
-  // create an owner record
-  try {
-    createdOwnerId = await createOwnerWithRetries(createdPersonId, numRetries);
-  } catch (err) {
-    console.error(err);
+//   // create an owner record
+//   try {
+//     createdOwnerId = await createOwnerWithRetries(createdPersonId, numRetries);
+//   } catch (err) {
+//     console.error(err);
 
-    // if fail to create an owner record, rollback the created person
-    await rollbackPersonWithRetries(createdPersonId, numRetries);
+//     // if fail to create an owner record, rollback the created person
+//     await rollbackPersonWithRetries(createdPersonId, numRetries);
 
-    return {};
-  }
+//     return {};
+//   }
 
-  // create a user login record
-  try {
-    createdUserLoginId = await createUserLoginWithRetries(
-      createdPersonId,
-      createdOwnerId,
-      email,
-      password,
-      numRetries - 1
-    );
+//   // create a user login record
+//   try {
+//     createdUserLoginId = await createUserLoginWithRetries(
+//       createdPersonId,
+//       createdOwnerId,
+//       email,
+//       password,
+//       numRetries - 1
+//     );
 
-    return { createdOwnerId, createdPersonId, createdUserLoginId };
-  } catch (err) {
-    console.error(err);
+//     return { createdOwnerId, createdPersonId, createdUserLoginId };
+//   } catch (err) {
+//     console.error(err);
 
-    // if fail to create a User Login record, rollback the created person and owner
-    await rollbackPersonWithRetries(createdPersonId, numRetries);
-    await rollbackOwnerWithRetries(createdOwnerId, numRetries);
+//     // if fail to create a User Login record, rollback the created person and owner
+//     await rollbackPersonWithRetries(createdPersonId, numRetries);
+//     await rollbackOwnerWithRetries(createdOwnerId, numRetries);
 
-    return {};
-  }
-};
+//     return {};
+//   }
+// };
 
 const isUniqueEmail = async email => {
-  const userLogins = await getUserLoginsByEmail(email);
-  return userLogins.length === 0;
+  const owners = await getOwnersByEmail(email);
+  return owners.length === 0;
 };
 
 export {
-  createPersonOwnerUserLoginRecord,
+  // createPersonOwnerUserLoginRecord,
   isUniqueEmail,
-  rollbackPersonWithRetries,
+  // rollbackPersonWithRetries,
   rollbackOwnerWithRetries
 };

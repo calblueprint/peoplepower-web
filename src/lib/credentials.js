@@ -17,7 +17,7 @@ function getCredentials(owner) {
     credentials += Credentials.ADMIN;
   }
 
-  const ownerTypes = owner.ownerType;
+  const { ownerTypes } = owner;
 
   if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
     credentials += Credentials.SUBSCRIBER;

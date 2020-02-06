@@ -1,5 +1,7 @@
 import States from '../../assets/states.json';
 
+// TODO: Fix with onboarding focused PR
+
 function formValidation(name, value) {
   const num = Number(value);
   switch (name) {

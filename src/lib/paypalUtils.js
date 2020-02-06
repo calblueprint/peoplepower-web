@@ -40,13 +40,13 @@ const getTotalBalanceFromBills = pendingBills => {
 };
 
 const recordShareBuySuccess = async (details, data, values) => {
-  const { numShares, dividends, personId } = values;
+  const { numShares, dividends, ownerId } = values;
   const updatedOwner = {
     numberOfShares: numShares,
-    receivingDividends: dividends
+    isReceivingDividends: dividends
   };
 
-  await updateOwner(personId, updatedOwner);
+  await updateOwner(updatedOwner);
 
   const { orderId, payerId } = data;
 
@@ -62,7 +62,7 @@ const recordShareBuySuccess = async (details, data, values) => {
 
   // TODO: Couldn't this use the constructPaymentRecord function?
   const record = {
-    owner: [personId],
+    ownerId,
     status,
     orderId,
     payerId,
@@ -157,7 +157,9 @@ const constructPaymentRecord = (details, data, bill) => {
           status: "SOME STATUS HERE"
           update_time: "2019-11-12T04:58:14Z"
     */
-  const owner = bill['Subscriber Owner'];
+
+  // TODO: Not sure if this function needs to change with schema updates..
+  const ownerId = bill['Subscriber Owner'];
 
   const { orderId, payerId } = data;
 
@@ -173,7 +175,7 @@ const constructPaymentRecord = (details, data, bill) => {
   // const amountInCents = dollarsToCents({ TODO: APPROPRIATE VALUE HERE });
   const amountInCents = bill.Balance; // TODO: currently assumes entire bill is paid
   const paymentRecord = {
-    owner: [owner],
+    ownerId,
     status,
     subscriberBill: [bill.ID],
     orderId,
@@ -218,7 +220,7 @@ const recordBillPaymentSuccess = async (details, data, bill) => {
   // TODO: currently will always be 0, because amountInCents === bill.Balance
   // may not be the case for partial payments
   const newBalance = bill.balance - paymentRecord.amount;
-  return updateSubscriberBill(bill.ID, {
+  return updateSubscriberBill(bill.id, {
     balance: newBalance,
     status: newBalance === 0 ? COMPLETED_STATUS : PENDING_STATUS
   });
