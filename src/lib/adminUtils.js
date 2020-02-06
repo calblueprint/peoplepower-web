@@ -15,7 +15,7 @@ export async function removeOwner(ownerRecord) {
   );
 
   await updateProjectGroup(projectGroup.id, {
-    owner: newOwners
+    owners: newOwners
   });
 
   // Refresh local copy of data after updating owners
@@ -24,6 +24,6 @@ export async function removeOwner(ownerRecord) {
 }
 
 export function getOwnerRecordsForProjectGroup(projectGroup) {
-  const ownerPromises = projectGroup.owner.map(getOwnerById);
+  const ownerPromises = projectGroup.owners.map(getOwnerById);
   return Promise.all(ownerPromises);
 }
