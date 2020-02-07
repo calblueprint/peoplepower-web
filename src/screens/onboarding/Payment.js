@@ -1,7 +1,6 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { recordShareBuySuccess } from '../../lib/paypalUtils';
-import { updatePerson } from '../../lib/airtable/request';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
@@ -27,16 +26,14 @@ class Payment extends React.Component {
 
   // Only called after user has paid
   continue = () => {
-    const { values, nextStep } = this.props;
-    const { userId } = values;
-
-    // No validation as everything is already decided at this point (user has paid)
-    const updatedPerson = {
-      onboardingStep: 6
-    };
-
-    updatePerson(userId, updatedPerson); // TODO(dfangshuo): no await?
-    nextStep();
+    // const { values, nextStep } = this.props;
+    // const { userId } = values;
+    // // No validation as everything is already decided at this point (user has paid)
+    // const updatedPerson = {
+    //   onboardingStep: 6
+    // };
+    // updatePerson(userId, updatedPerson); // TODO(dfangshuo): no await?
+    // nextStep();
   };
 
   minusShares = () => {

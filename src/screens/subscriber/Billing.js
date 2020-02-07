@@ -55,7 +55,7 @@ class Billing extends React.Component {
 
   render() {
     const { mode, transactions, isReady, pendingBills } = this.state;
-    const { owner, isLoadingUserData } = this.props;
+    const { isLoadingUserData } = this.props;
     const isLoading = !isReady || isLoadingUserData;
 
     if (isLoading) {

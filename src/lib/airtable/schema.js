@@ -186,7 +186,10 @@ export const Columns = {
     phoneNumber: `Phone Number`,
     onboardingStep: `Onboarding Step`,
     password: `Password`,
-    announcementIds: `Announcements`
+    announcementIds: `Announcements`,
+    name: `Name`,
+    permanentAddress: `Permanent Address`,
+    mailingAddress: `Mailing Address`
   },
   Generation: {
     primaryKey: `Primary Key`,

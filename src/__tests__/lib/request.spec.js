@@ -1,30 +1,21 @@
 import {
-  createPerson,
-  createUserLogin,
-  deletePerson,
   getAllProjectGroups,
-  getAnnouncementsByProjectGroup,
-  getUserLoginsByEmail,
-  getPersonById,
+  getAnnouncementsByProjectGroupId,
   getOwnerById,
   getProjectGroupById,
   getSubscriberBillById,
   getSolarProjectById,
   updateSubscriberBill,
+  getOwnersByEmail,
   updateOwner,
-  updatePerson,
-  updateUserLogin,
   createOwner,
-  deleteOwner,
-  deleteUserLogin
+  deleteOwner
 } from '../../lib/airtable/request';
 
-const testPerson = 'recaUqFEg1nI91hyi';
 const testOwner = 'reckNsjHnv0IpwN5M';
 const testProjectGroup = 'recxJehaSlKk8IiS9';
 const testSubscriberBill = 'recBd7TIFJfjh2k7U';
 const testSolarProject = 'rec9BemtHIasDI2aQ';
-const testUserLogin = 'recMc8BUEWE5gIP7f';
 const testEmail = 'sample@peoplepower.com';
 
 const billFieldToModify = 'balance';
@@ -33,63 +24,49 @@ const oldBalance = 1996;
 const testNewSubscriberBill = {};
 testNewSubscriberBill[billFieldToModify] = newBalance;
 
-const personFieldToModify = 'name';
-const newPersonName = 'NEW PERSON';
-const oldPersonName = 'SAMPLE PERSON';
-const testNewPerson = {};
-testNewPerson[personFieldToModify] = newPersonName;
-
 const ownerFieldToModify = 'numberOfShares';
 const newNumberOfShares = 99;
 const oldNumberOfShares = 1;
 const testNewOwner = {};
 testNewOwner[ownerFieldToModify] = newNumberOfShares;
 
-const userLoginFieldToModify = 'email';
-const newEmail = 'new_sample@peoplepower.com';
-const oldEmail = 'sample@peoplepower.com';
-const testNewUserLogin = {};
-testNewUserLogin[userLoginFieldToModify] = newEmail;
-
 const nameMap = {};
-nameMap[testPerson] = 'name';
 nameMap[testOwner] = 'person';
 nameMap[testProjectGroup] = 'name';
 nameMap[testSubscriberBill] = 'balance';
 nameMap[testSolarProject] = 'name';
 
 const expectedResultsMap = {};
-expectedResultsMap[testPerson] = 'SAMPLE PERSON';
 expectedResultsMap[testOwner] = ['recaUqFEg1nI91hyi'];
 expectedResultsMap[testProjectGroup] = 'SAMPLE PROJECT GROUP';
 expectedResultsMap[testSubscriberBill] = 1996;
 expectedResultsMap[testSolarProject] = 'SAMPLE SOLAR PROJECT';
 
-const testPersonToCreate = {
-  email: 'new_person@pppower.com',
-  phoneNumber: '1111111111',
-  name: 'NEW PERSON',
-  street: 'NEW PERSON STREET',
-  city: 'NEW PERSON CITY',
-  state: 'NEW PERSON STATE',
-  apt: 'NEW PERSON APT',
-  zipcode: 'NEW PERSON ZIPCODE',
-  onboardingStep: 6,
-  mailingStreet: 'NEW PERSON MAILING STREET',
-  mailingApt: 'NEW PERSON MAILING APT',
-  mailingCity: 'NEW PERSON MAILING CITY',
-  mailingState: 'NEW PERSON MAILING STATE',
-  mailingZipcode: 'NEW PERSON MAILING ZIPCODE'
-};
+// const testPersonToCreate = {
+//   email: 'new_person@pppower.com',
+//   phoneNumber: '1111111111',
+//   name: 'NEW PERSON',
+//   street: 'NEW PERSON STREET',
+//   city: 'NEW PERSON CITY',
+//   state: 'NEW PERSON STATE',
+//   apt: 'NEW PERSON APT',
+//   zipcode: 'NEW PERSON ZIPCODE',
+//   onboardingStep: 6,
+//   mailingStreet: 'NEW PERSON MAILING STREET',
+//   mailingApt: 'NEW PERSON MAILING APT',
+//   mailingCity: 'NEW PERSON MAILING CITY',
+//   mailingState: 'NEW PERSON MAILING STATE',
+//   mailingZipcode: 'NEW PERSON MAILING ZIPCODE'
+// };
 
 const testOwnerToCreate = {
   ownerType: ['General', 'Subscriber']
 };
 
-const testUserLoginToCreate = {
-  email: 'new_person@pppower.com',
-  password: 'apple_jacks'
-};
+// const testUserLoginToCreate = {
+//   email: 'new_person@pppower.com',
+//   password: 'apple_jacks'
+// };
 
 // the describe(...) clause the function being tested
 // the test(...) claus describes the expected behavior
@@ -103,26 +80,15 @@ describe('getAllProjectGroups function', () => {
 
 describe('getAnnouncementsByProjectGroup function', () => {
   test('expect list of announcements', async () => {
-    const res = await getAnnouncementsByProjectGroup(testProjectGroup);
+    const res = await getAnnouncementsByProjectGroupId(testProjectGroup);
     expect(res.length).not.toBe(undefined);
   });
 });
 
-describe('getUserLoginsByEmail function', () => {
+describe('getOwnersByEmail function', () => {
   test('expect list of users', async () => {
-    const res = await getUserLoginsByEmail(testEmail);
+    const res = await getOwnersByEmail(testEmail);
     expect(res.length).not.toBe(undefined);
-  });
-});
-
-describe('getPersonById function', () => {
-  test('expect person record', async () => {
-    const res = await getPersonById(testPerson);
-    expect(res).not.toBe(undefined);
-
-    const key = nameMap[testPerson];
-    const value = expectedResultsMap[testPerson];
-    expect(res[key]).toStrictEqual(value);
   });
 });
 
@@ -186,19 +152,6 @@ describe('updateSubscriberBill function', () => {
   });
 });
 
-describe('updatePerson function', () => {
-  test('expect id of updated person', async () => {
-    let res = await updatePerson(testPerson, testNewPerson);
-    expect(res).toBe(testPerson);
-
-    const testOldPerson = {};
-    testOldPerson[personFieldToModify] = oldPersonName;
-
-    res = await updatePerson(testPerson, testOldPerson);
-    expect(res).toBe(testPerson);
-  });
-});
-
 describe('updateOwner function', () => {
   test('expect id of updated owner', async () => {
     let res = await updateOwner(testOwner, testNewOwner);
@@ -211,31 +164,6 @@ describe('updateOwner function', () => {
   });
 });
 
-describe('updateUserLogin function', () => {
-  test('expect id of updated user login', async () => {
-    let res = await updateUserLogin(testUserLogin, testNewUserLogin);
-    expect(res).toBe(testUserLogin);
-
-    const testOldUserLogin = {};
-    testOldUserLogin[userLoginFieldToModify] = oldEmail;
-
-    res = await updateUserLogin(testUserLogin, testOldUserLogin);
-    expect(res).toBe(testUserLogin);
-  });
-});
-
-describe('createPerson/deletePerson function', () => {
-  test('expect id of created person and {} after deletion', async () => {
-    // create person
-    const id = await createPerson(testPersonToCreate);
-    expect(id).not.toBe(null);
-
-    // delete person
-    const res = await deletePerson(id);
-    expect(res).toStrictEqual({});
-  });
-});
-
 describe('createOwner/deleteOwner function', () => {
   test('expect id of created owner and {} after deletion', async () => {
     // create owner
@@ -244,18 +172,6 @@ describe('createOwner/deleteOwner function', () => {
 
     // delete owner
     const res = await deleteOwner(id);
-    expect(res).toStrictEqual({});
-  });
-});
-
-describe('createUserLogin/deleteUserLogin function', () => {
-  test('expect id of created user login and {} after deletion', async () => {
-    // create owner
-    const id = await createUserLogin(testUserLoginToCreate);
-    expect(id).not.toBe(null);
-
-    // delete owner
-    const res = await deleteUserLogin(id);
     expect(res).toStrictEqual({});
   });
 });

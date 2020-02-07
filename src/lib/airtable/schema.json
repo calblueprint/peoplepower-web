@@ -186,7 +186,10 @@
       { "type": "phone", "name": "Phone Number" },
       { "type": "text", "name": "Onboarding Step" },
       { "type": "text", "name": "Password" },
-      { "type": "foreignKey", "name": "Announcements" }
+      { "type": "foreignKey", "name": "Announcements" },
+      { "type": "formula", "name": "Name" },
+      { "type": "formula", "name": "Permanent Address" },
+      { "type": "formula", "name": "Mailing Address" }
     ]
   },
   "Generation": {

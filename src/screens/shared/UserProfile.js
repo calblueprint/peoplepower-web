@@ -13,74 +13,51 @@ class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
-      email: '',
-      name: 'user',
-      phoneNumber: '',
-      projectGroup: '',
-      status: '',
-      street: '',
-      city: '',
-      state: '',
-      zipcode: '',
-      updateName: '',
+      updateFirstName: '',
+      updateLastName: '',
       updateEmail: '',
-      updatePhone: '',
-      userLoginID: '',
-      updateStreet: '',
+      updatePhoneNumber: '',
+      updateStreet1: '',
+      updateStreet2: '',
       updateCity: '',
       updateState: '',
-      updateZip: '',
+      updateZipcode: '',
+      status: '',
       isLoading: true
     };
   }
 
-  async componentDidMount() {
-    // TODO: Don't take ID from url, take it from redux
+  componentDidMount() {
+    this.pullPropsIntoState();
+  }
 
-    const { owner, projectGroup, isLoadingUserData } = this.props;
+  componentDidUpdate(prevProps) {
+    const { owner } = this.props;
+    if (owner !== prevProps.owner) {
+      this.pullPropsIntoState();
+    }
+  }
+
+  pullPropsIntoState = () => {
+    const { owner, isLoadingUserData } = this.props;
 
     // If data isn't in redux yet, don't do anything.
     if (isLoadingUserData) {
       return;
     }
 
-    // TODO: We don't need to pull all of this data from props just to put it into state.
-    // We can be smarter about it
-    const {
-      id,
-      email,
-      phoneNumber,
-      name,
-      userLogin: userLoginID,
-      city,
-      street,
-      state,
-      zipcode: zipCode
-    } = owner;
-
-    const { name: projectGroupName } = projectGroup;
     this.setState({
-      id,
-      email,
-      updateEmail: email,
-      name,
-      updateName: name,
-      phoneNumber,
-      updatePhone: phoneNumber,
-      userLoginID: userLoginID[0],
-      street,
-      updateStreet: street,
-      city,
-      updateCity: city,
-      state,
-      updateState: state,
-      zipcode: zipCode,
-      updateZip: zipCode,
-      projectGroup: projectGroupName,
-      isLoading: false
+      updateFirstName: owner.firstName,
+      updateLastName: owner.lastName,
+      updateEmail: owner.email,
+      updatePhoneNumber: owner.phoneNumber,
+      updateStreet1: owner.permanentStreet1,
+      updateStreet2: owner.permanentStreet2,
+      updateCity: owner.permanentCity,
+      updateState: owner.permanentState,
+      updateZipcode: owner.permanentZipcode
     });
-  }
+  };
 
   handleChange = event => {
     const target = event.target.name;
@@ -93,85 +70,67 @@ class UserProfile extends React.Component {
   handleSubmit = async event => {
     event.preventDefault();
     const {
-      id,
-      updateName,
+      updateFirstName,
+      updateLastName,
       updateEmail,
-      updatePhone,
-      userLoginID,
-      updateStreet,
+      updatePhoneNumber,
+      updateStreet1,
+      updateStreet2,
       updateCity,
       updateState,
-      updateZip
+      updateZipcode
     } = this.state;
+
+    const { owner } = this.props;
 
     /* TODO:
       1. implement change password
       2. form validation
     */
 
-    const newPerson = {
-      name: updateName,
+    const newOwner = {
+      lastName: updateLastName,
+      firstName: updateFirstName,
       email: updateEmail.toLowerCase(),
-      phoneNumber: updatePhone,
-      street: updateStreet,
+      phoneNumber: updatePhoneNumber,
+      permanentStreet1: updateStreet1,
+      permanentStreet2: updateStreet2,
       city: updateCity,
       state: updateState.toUpperCase(),
-      zipcode: updateZip
+      zipcode: updateZipcode
     };
-    const newLogin = {
-      email: updateEmail
-    };
-    // console.log(`UPDATE: ${userLoginID}`);
-    await updatePerson(id, newPerson);
-    this.setState({
-      status: STATUS_IN_PROGRESS
-    });
-    const result = await updateUserLogin(userLoginID, newLogin);
+
+    const result = await updateOwner(owner.id, newOwner);
 
     if (result === '') {
       this.setState({
         status: STATUS_ERR
       });
     } else {
+      // Refresh local cache with latest user data
+      await refreshUserData(owner);
       this.setState({
-        status: STATUS_SUCCESS,
-        name: updateName,
-        email: updateEmail,
-        street: updateStreet,
-        city: updateCity,
-        state: updateState,
-        zipcode: updateZip
+        status: STATUS_SUCCESS
       });
     }
-
-    // get latest copy of user login record
-    const userLogin = await getUserLoginById(userLoginID);
-
-    // Refresh local cache with latest user data
-    await refreshUserData(userLogin);
   };
 
   render() {
     const {
-      name,
-      email,
-      phoneNumber,
-      projectGroup,
-      street,
-      city,
-      state,
-      zipcode,
-      newName,
-      newEmail,
-      newPhone,
-      newStreet,
-      newCity,
-      newState,
-      newZip,
-      newPass,
+      updateFirstName,
+      updateLastName,
+      updateEmail,
+      updatePhoneNumber,
+      updateStreet1,
+      updateStreet2,
+      updateCity,
+      updateState,
+      updateZipcode,
       status,
       isLoading
     } = this.state;
+
+    const { projectGroup } = this.props;
 
     let formStatus = '';
 
@@ -197,7 +156,7 @@ class UserProfile extends React.Component {
           <h2>Settings</h2>
           <div className="row">
             <div className="user-icon">
-              <h3>{name}</h3>
+              <h3>{`${updateFirstName} ${updateLastName}`}</h3>
               <h4>General Owner</h4>
             </div>
             <div className="general-form">
@@ -205,13 +164,13 @@ class UserProfile extends React.Component {
               <form onSubmit={this.handleSubmit}>
                 <div>
                   <p>
-                    <label htmlFor="updateName">
-                      Name
+                    <label htmlFor="updateFirstName">
+                      First Name
                       <input
                         type="text"
-                        name="updateName"
-                        placeholder={name}
-                        value={newName}
+                        name="updateFirstName"
+                        placeholder={updateFirstName}
+                        value={updateFirstName}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -223,28 +182,15 @@ class UserProfile extends React.Component {
                       Email
                       <input
                         type="text"
-                        placeholder={email}
+                        placeholder={updateEmail}
                         name="updateEmail"
-                        value={newEmail}
+                        value={updateEmail}
                         onChange={this.handleChange}
                       />
                     </label>
                   </p>
                 </div>
-                <div>
-                  <p>
-                    <label htmlFor="updatePass">
-                      Password
-                      <input
-                        type="text"
-                        name="updatePass"
-                        placeholder="••••••••"
-                        value={newPass}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                  </p>
-                </div>
+
                 <div>
                   <p className="pg">
                     <label htmlFor="updatePG">
@@ -252,7 +198,7 @@ class UserProfile extends React.Component {
                       <input
                         type="text"
                         name="updatePG"
-                        placeholder={projectGroup}
+                        placeholder={projectGroup.name}
                         disabled
                         onChange={this.handleChange}
                       />
@@ -286,8 +232,8 @@ class UserProfile extends React.Component {
                       <input
                         type="text"
                         name="updatePhone"
-                        placeholder={phoneNumber}
-                        value={newPhone}
+                        placeholder={updatePhoneNumber}
+                        value={updatePhoneNumber}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -295,13 +241,27 @@ class UserProfile extends React.Component {
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="updateStreet">
+                    <label htmlFor="updateStreet1">
                       Street:
                       <input
                         type="text"
-                        name="updateStreet"
-                        placeholder={street}
-                        value={newStreet}
+                        name="updateStreet1"
+                        placeholder={updateStreet1}
+                        value={updateStreet1}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <label htmlFor="updateStreet2">
+                      Street:
+                      <input
+                        type="text"
+                        name="updateStreet2"
+                        placeholder={updateStreet2}
+                        value={updateStreet2}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -314,8 +274,8 @@ class UserProfile extends React.Component {
                       <input
                         type="text"
                         name="updateCity"
-                        placeholder={city}
-                        value={newCity}
+                        placeholder={updateCity}
+                        value={updateCity}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -328,8 +288,8 @@ class UserProfile extends React.Component {
                       <input
                         type="text"
                         name="updateState"
-                        placeholder={state}
-                        value={newState}
+                        placeholder={updateState}
+                        value={updateState}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -342,8 +302,8 @@ class UserProfile extends React.Component {
                       <input
                         type="text"
                         name="updateZip"
-                        placeholder={zipcode}
-                        value={newZip}
+                        placeholder={updateZipcode}
+                        value={updateZipcode}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -372,7 +332,6 @@ class UserProfile extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  person: state.userData.person,
   owner: state.userData.owner,
   projectGroup: state.userData.projectGroup,
   isLoadingUserData: state.userData.isLoading

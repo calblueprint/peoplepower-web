@@ -37,7 +37,7 @@ class GeneralOwnerDashboard extends React.Component {
             <span>Phone Number:</span> {owner.phoneNumber}
           </p>
           <p>
-            <span>Address:</span> {owner.address}
+            <span>Address:</span> {owner.permanentAddress}
           </p>
           <p>
             <span>Project Group:</span> {projectGroup.name}
