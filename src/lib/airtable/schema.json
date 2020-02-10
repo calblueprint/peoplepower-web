@@ -92,14 +92,15 @@
       { "type": "formula", "name": "Primary Key" },
       { "type": "text", "name": "Link" },
       { "type": "multipleAttachment", "name": "Attachments" },
-      { "type": "foreignKey", "name": "Project Groups" },
+      { "type": "foreignKey", "name": "Project Group" },
       { "type": "foreignKey", "name": "Author" },
       { "type": "multilineText", "name": "Message" },
       { "type": "select", "name": "Event type" },
       { "type": "formula", "name": "ID" },
       { "type": "text", "name": "Location" },
       { "type": "text", "name": "Time" },
-      { "type": "text", "name": "Title" }
+      { "type": "text", "name": "Title" },
+      { "type": "checkbox", "name": "Is Global?" }
     ]
   },
   "PGE Usage": {

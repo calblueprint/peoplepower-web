@@ -22,8 +22,7 @@ class UserProfile extends React.Component {
       updateCity: '',
       updateState: '',
       updateZipcode: '',
-      status: '',
-      isLoading: true
+      status: ''
     };
   }
 
@@ -95,9 +94,9 @@ class UserProfile extends React.Component {
       phoneNumber: updatePhoneNumber,
       permanentStreet1: updateStreet1,
       permanentStreet2: updateStreet2,
-      city: updateCity,
-      state: updateState.toUpperCase(),
-      zipcode: updateZipcode
+      permanentCity: updateCity,
+      permanentState: updateState.toUpperCase(),
+      permanentZipcode: updateZipcode
     };
 
     const result = await updateOwner(owner.id, newOwner);
@@ -126,11 +125,10 @@ class UserProfile extends React.Component {
       updateCity,
       updateState,
       updateZipcode,
-      status,
-      isLoading
+      status
     } = this.state;
 
-    const { projectGroup } = this.props;
+    const { projectGroup, isLoadingUserData } = this.props;
 
     let formStatus = '';
 
@@ -148,7 +146,7 @@ class UserProfile extends React.Component {
         break;
     }
 
-    return isLoading ? (
+    return isLoadingUserData ? (
       <LoadingComponent />
     ) : (
       <div className="dashboard settings">
@@ -171,6 +169,20 @@ class UserProfile extends React.Component {
                         name="updateFirstName"
                         placeholder={updateFirstName}
                         value={updateFirstName}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <label htmlFor="updateLastName">
+                      Last Name
+                      <input
+                        type="text"
+                        name="updateLastName"
+                        placeholder={updateLastName}
+                        value={updateLastName}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -242,7 +254,7 @@ class UserProfile extends React.Component {
                 <div>
                   <p>
                     <label htmlFor="updateStreet1">
-                      Street:
+                      Street 1:
                       <input
                         type="text"
                         name="updateStreet1"
@@ -256,7 +268,7 @@ class UserProfile extends React.Component {
                 <div>
                   <p>
                     <label htmlFor="updateStreet2">
-                      Street:
+                      Street 2:
                       <input
                         type="text"
                         name="updateStreet2"

@@ -27,9 +27,7 @@ const refreshUserData = async owner => {
   // Fetch all the data
 
   const projectGroup = await getProjectGroupById(owner.projectGroupId);
-  const announcements = await getAnnouncementsByProjectGroupId(
-    owner.projectGroupId
-  );
+  const announcements = await getAnnouncementsByProjectGroupId(projectGroup.id);
 
   let solarProjects = [];
   const { solarProjectIds } = projectGroup;

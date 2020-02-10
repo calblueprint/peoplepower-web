@@ -12,8 +12,8 @@ import '../styles/NavBar.css';
 
 class NavBar extends React.PureComponent {
   render() {
-    const { person, credentials } = this.props;
-    const displayName = person ? person.name : '';
+    const { owner, credentials } = this.props;
+    const displayName = owner.name;
 
     return (
       <div className="nav-bar">
@@ -62,7 +62,7 @@ class NavBar extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  person: state.userData.person,
+  owner: state.userData.owner,
   credentials: state.userData.credentials
 });
 export default connect(mapStateToProps)(NavBar);

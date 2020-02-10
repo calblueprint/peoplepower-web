@@ -100,14 +100,15 @@ export const Columns = {
     primaryKey: `Primary Key`,
     link: `Link`,
     attachments: `Attachments`,
-    projectGroupIds: `Project Groups`,
+    projectGroupId: `Project Group`,
     authorId: `Author`,
     message: `Message`,
     eventType: `Event type`,
     id: `ID`,
     location: `Location`,
     time: `Time`,
-    title: `Title`
+    title: `Title`,
+    isGlobal: `Is Global?`
   },
   'PGE Usage': {
     primaryKey: `Primary Key`,

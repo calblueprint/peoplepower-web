@@ -28,11 +28,11 @@ import Investment from './screens/general/Investment';
 
 class App extends React.Component {
   componentDidMount() {
-    const { userLogin } = this.props;
+    const { owner } = this.props;
 
     // If userLogin info is in Redux, fetch latest version
-    if (userLogin) {
-      refreshUserData(userLogin);
+    if (owner) {
+      refreshUserData(owner);
     }
   }
 
@@ -97,7 +97,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  userLogin: state.userData.userLogin,
+  owner: state.userData.owner,
   credentials: state.userData.credentials
 });
 
