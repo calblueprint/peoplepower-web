@@ -1,58 +1,13 @@
 import React from 'react';
-import formValidation from '../../lib/onboarding/formValidation';
 import Tooltip from './components/Tooltip';
-import { isUniqueEmail } from '../../lib/onboarding/onboardingUtils';
 import '../../styles/main.css';
 import '../../styles/Onboarding.css';
-import { updateOwner } from '../../lib/airtable/request';
 
-class BasicInfo extends React.Component {
+class BasicInfo extends React.PureComponent {
   // validates then moves on if no error messages
-  nextButton = async e => {
-    e.preventDefault();
-    const { values, nextStep } = this.props;
-    const { errors, userId, fname, lname, email, password } = values;
-
-    const isNewEmail = await isUniqueEmail(email);
-    if (!isNewEmail) {
-      // TODO: surface issue to user here OR add to onboarding error messages
-      console.log('Email exists');
-      return;
-    }
-
-    const inputTypes = ['fname', 'lname', 'email', 'password', 'altEmail'];
-    const errorsMessages = [];
-
-    for (let i = 0; i < inputTypes.length; i += 1) {
-      const errorMessage = formValidation(inputTypes[i], values[inputTypes[i]]);
-      errors[inputTypes[i]] = errorMessage;
-      if (errorMessage !== '') {
-        errorsMessages.push(errorMessage);
-      }
-    }
-
-    if (!(errorsMessages && errorsMessages.length > 0)) {
-      if (userId) {
-        const updatedOwner = {
-          firstName: fname,
-          lastName: lname,
-          email,
-          password
-        };
-
-        // I'm pretty sure this userID is false lol but will fix later
-        await updateOwner(userId, updatedOwner);
-      }
-
-      nextStep();
-    } else {
-      this.forceUpdate();
-    }
-  };
 
   render() {
-    const { values, handleChange, handleFormValidation } = this.props;
-    const { errors } = values;
+    const { owner, errors, onSubmit, handleChange } = this.props;
     return (
       <form className="center card flex onboarding-col">
         <div className=" ">
@@ -66,36 +21,34 @@ class BasicInfo extends React.Component {
               Your Name
             </label>
             <input
-              name="fname"
+              name="firstName"
               placeholder="First name"
               onChange={handleChange}
-              defaultValue={values.fname}
+              defaultValue={owner.firstName}
               className={` input-gray ${
-                errors.fname !== '' ? 'b-is-not-valid' : 'b-is-invalid'
+                errors.firstName !== '' ? 'b-is-not-valid' : 'b-is-invalid'
               }`}
-              onBlur={handleFormValidation}
             />
           </div>
           <div className="w-50">
             <div style={{ marginBottom: '20px' }} />
             <input
-              name="lname"
+              name="lastName"
               placeholder="Last name"
               onChange={handleChange}
-              defaultValue={values.lname}
+              defaultValue={owner.lastName}
               className={` input-gray ${
-                errors.lname !== '' ? 'b-is-not-valid' : 'b-is-invalid'
+                errors.lastName !== '' ? 'b-is-not-valid' : 'b-is-invalid'
               }`}
-              onBlur={handleFormValidation}
             />
           </div>
         </div>
         <div className="flex onboarding-row">
           <div className="w-50 pr-1 validation">
-            {errors.fname ? errors.fname : '\u00A0'}
+            {errors.firstName ? errors.firstName : '\u00A0'}
           </div>
           <div className="w-50 validation">
-            {errors.lname ? errors.lname : '\u00A0'}
+            {errors.lastName ? errors.lastName : '\u00A0'}
           </div>
         </div>
         <div className="w-100">
@@ -106,11 +59,10 @@ class BasicInfo extends React.Component {
             name="email"
             placeholder="Enter your Email address"
             onChange={handleChange}
-            defaultValue={values.email}
+            defaultValue={owner.email}
             className={`input-gray ${
               errors.email !== '' ? 'b-is-not-valid' : 'b-is-invalid'
             }`}
-            onBlur={handleFormValidation}
           />
           <div className=" validation">
             {errors.email ? errors.email : '\u00A0'}
@@ -126,17 +78,16 @@ class BasicInfo extends React.Component {
             />
           </label>
           <input
-            name="altEmail"
-            placeholder="Enter your Email address"
+            name="alternateEmail"
+            placeholder="Enter an Email address"
             onChange={handleChange}
-            defaultValue={values.altEmail}
+            defaultValue={owner.alternateEmail}
             className={`input-gray ${
-              errors.altEmail !== '' ? 'b-is-not-valid' : 'b-is-invalid'
+              errors.alternateEmail !== '' ? 'b-is-not-valid' : 'b-is-invalid'
             }`}
-            onBlur={handleFormValidation}
           />
           <div className=" validation">
-            {errors.altEmail ? errors.altEmail : '\u00A0'}
+            {errors.alternateEmail ? errors.alternateEmail : '\u00A0'}
           </div>
         </div>
         <div className="w-100">
@@ -148,11 +99,10 @@ class BasicInfo extends React.Component {
             type="password"
             placeholder="Create a password"
             onChange={handleChange}
-            defaultValue={values.password}
+            defaultValue={owner.password}
             className={`input-gray ${
               errors.password !== '' ? 'b-is-not-valid' : 'b-is-invalid'
             }`}
-            onBlur={handleFormValidation}
           />
           <div className=" validation">
             {errors.password ? errors.password : '\u00A0'}
@@ -162,7 +112,7 @@ class BasicInfo extends React.Component {
           <button
             type="button"
             className="btn btn--rounded btn--pink btn--size12 getstarted-button"
-            onClick={this.nextButton}
+            onClick={onSubmit}
           >
             Get Started
           </button>

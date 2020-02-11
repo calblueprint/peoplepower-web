@@ -1,379 +1,144 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import BasicInfo from './BasicInfo';
-import ContactInfo from './ContactInfo';
-import Bylaws from './Bylaws';
-import ProjectGroups from './ProjectGroups';
-import Payment from './Payment';
-import Complete from './Complete';
-import formValidation from '../../lib/onboarding/formValidation';
-import Template from './components/Template';
+import { updateOwner } from '../../lib/airtable/request';
+import { OnboardingData, validateField } from '../../lib/onboardingUtils';
 
 class Onboarding extends React.Component {
   constructor(props) {
     super(props);
+
+    // State should contain owner values, error messages
     this.state = {
-      userId: '',
-      userLoginId: '',
-      personId: '',
-      fname: '',
-      lname: '',
-      email: '',
-      altEmail: '',
-      password: '',
-      street: '',
-      city: '',
-      apt: '',
-      state: '',
-      zipcode: '',
-      phoneNumber: '',
-      mailingAddressSame: false,
-      mailingStreet: '',
-      mailingCity: '',
-      mailingApt: '',
-      mailingState: '',
-      mailingZipcode: '',
-      mailingPhoneNumber: '',
-      bylaw1: false,
-      bylaw2: false,
-      dividends: false,
-      projectGroup: '',
-      noProjectGroup: false,
-      numShares: 1, // TODO(dfangshuo): 0 causes a bug
-      beneficiaries: [],
-      billingAddressSame: false,
-      ccnumber: '',
-      expmonth: '',
-      expyear: '',
-      cvv: '',
-      billingStreet: '',
-      billingApt: '',
-      billingState: '',
-      billingZipcode: '',
-      errors: {
-        // object that holds all the error messages
-        fname: '',
-        lname: '',
-        email: '',
-        password: '',
-        street: '',
-        apt: '',
-        city: '',
-        state: '',
-        zipcode: '',
-        phoneNumber: '',
-        mailingStreet: '',
-        mailingCity: '',
-        mailingApt: '',
-        mailingState: '',
-        mailingZipcode: '',
-        mailingPhoneNumber: '',
-        bylaw1: '',
-        bylaw2: '',
-        projectGroup: '',
-        numShares: 0,
-        dividends: '',
-        beneficiaries: [],
-        ccNumber: '',
-        expmonth: '',
-        expyear: '',
-        cvv: '',
-        billingStreet: '',
-        billingApt: '',
-        billingCity: '',
-        billingState: '',
-        billingZipcode: ''
-      },
-      step: 1
+      owner: {},
+      errors: {}
     };
   }
 
-  async componentDidMount() {
-    const { person, owner } = this.props;
+  componentDidMount() {
+    // Pull existing onboarding data and set up things based on onboarding step
+    this.refreshState();
+  }
 
-    // TODO: Not sure what the state of redux will be as onboarding goes on.
-    // This is a whole nother PR to figure out...eek
-
-    if (!person) {
-      return;
-    }
-
-    this.setState({ userId: person.recordIdforDev });
-    const step = person['Onboarding Step'];
-
-    // Todo: Clean up state code
-    this.setState({
-      step: person.onboardingStep,
-      userLoginId: person.userLogin[0],
-      personId: person.owner[0], // This is kinda messed up naming wise LOL
-      fname: person.name.split(' ')[0],
-      lname: person.name.split(' ')[1],
-      email: person.email,
-      altEmail: person.alternativeEmail,
-      street: person.street,
-      apt: person.apt,
-      city: person.city,
-      state: person.state,
-      zipcode: person.zipcode,
-      phoneNumber: person.phoneNumber,
-      mailingStreet: person.mailingStreet,
-      mailingApt: person.mailingApt,
-      mailingCity: person.mailingCity,
-      mailingState: person.mailingState,
-      mailingZipcode: person.mailingZipcode,
-      mailingPhoneNumber: person.mailingPhoneNumber,
-      billingStreet: person.billingStreet,
-      billingApt: person.billingApt,
-      billingCity: person.billingCity,
-      billingState: person.billingState,
-      billingZipcode: person.billingZipcode,
-      projectGroup: person.projectGroup[0]
-    });
-
-    if (step > 3) {
-      const numShares = owner.numberOfShares;
-
-      this.setState({
-        projectGroup: owner.projectGroup[0],
-        numShares: numShares || 1,
-        dividends: owner.receivingDividends
-      });
-
-      if (step > 4) {
-        this.setState({
-          bylaw1: true,
-          bylaw2: true
-        });
-      }
+  componentDidUpdate(prevProps) {
+    const { owner } = this.props;
+    if (owner !== prevProps.owner) {
+      this.refreshState();
     }
   }
 
-  // next function increments page up one and switches to that numbered page
-  nextStep = () => {
-    const { step } = this.state;
-    this.setState({ step: step + 1 });
+  refreshState = () => {
+    const { owner, isLoadingUserData } = this.props;
+
+    if (isLoadingUserData) {
+      return;
+    }
+
+    this.setState({ owner: { ...owner } });
   };
 
-  // prev function decrements page down one and switches to that numbered page
-  prevStep = () => {
-    const { step } = this.state;
-    this.setState({ step: step - 1 });
-  };
+  nextStep = async event => {
+    const { owner } = this.state;
+    event.preventDefault();
 
-  handleRecordCreation = ({
-    createdOwnerId,
-    createdPersonId,
-    createdUserLoginId
-  }) => {
-    this.setState({
-      userId: createdPersonId,
-      personId: createdOwnerId,
-      userLoginId: createdUserLoginId
-    });
-  };
+    // Validate each field and add to error object
+    let foundErrors = false;
+    const newErrors = OnboardingData[owner.step].fields.reduce(
+      async (errorsPromise, field) => {
+        const errors = await errorsPromise;
+        const errorMessages = await validateField(field, owner[field]);
 
-  // updates the state whenever there is a change made
-  handleChange = event => {
-    const {
-      bylaw1,
-      bylaw2,
-      street,
-      apt,
-      city,
-      state,
-      zipcode,
-      phoneNumber,
-      billingAddressSame,
-      mailingAddressSame
-    } = this.state;
-    const key = event.target.name;
-    const newValue = event.target.value;
-    switch (key) {
-      case 'bylaw1':
-        this.setState({
-          bylaw1: !bylaw1
-        });
-        break;
-      case 'bylaw2':
-        this.setState({
-          bylaw2: !bylaw2
-        });
-        break;
-      case 'dividends':
-        this.setState({
-          dividends: newValue === 'yes'
-        });
-        break;
-      case 'street':
-      case 'apt':
-      case 'city':
-      case 'state':
-      case 'zipcode':
-        if (billingAddressSame) {
-          const billingKey = `billing${key
-            .charAt(0)
-            .toUpperCase()}${key.substring(1)}`;
-          this.setState({
-            [billingKey]: newValue
-          });
+        // Take just the first error
+        if (errorMessages) {
+          foundErrors = true;
+          errors[field] = errorMessages[0];
         }
-        if (mailingAddressSame) {
-          const mailingKey = `mailing${key
-            .charAt(0)
-            .toUpperCase()}${key.substring(1)}`;
-          this.setState({
-            [mailingKey]: newValue
-          });
-        }
-        this.setState({ [key]: newValue });
-        break;
-      case 'billingAddressSame':
-        if (!billingAddressSame) {
-          this.setState({
-            billingStreet: street,
-            billingApt: apt,
-            billingCity: city,
-            billingState: state,
-            billingZipcode: zipcode
-          });
-        }
-        this.setState({
-          billingAddressSame: !billingAddressSame
-        });
-        break;
-      case 'mailingAddressSame':
-        if (!mailingAddressSame) {
-          this.setState({
-            mailingStreet: street,
-            mailingApt: apt,
-            mailingCity: city,
-            mailingState: state,
-            mailingZipcode: zipcode,
-            mailingPhoneNumber: phoneNumber
-          });
-        }
-        this.setState({
-          mailingAddressSame: !mailingAddressSame
-        });
-        break;
-      case 'projectGroup':
-        this.setState({
-          projectGroup: newValue
-        });
-        break;
-      case 'numShares':
-        this.setState({
-          numShares: newValue
-        });
-        break;
-      default:
-        this.setState({
-          [key]: newValue
-        });
+
+        return errorsAcc;
+      },
+      Promise.resolve({})
+    );
+
+    this.setState({ errors: newErrors });
+
+    if (!foundErrors) {
+      // Save to Airtable and update Step
+      // TODO: Account for step 0 where owner doesn't exist
+      const newOwner = { ...owner, step: owner.step + 1 };
+
+      // according to fang shuo deng this should be in it's own util file
+      // which makes sense so that we can create/update partial record
+      await updateOwner(owner.id, newOwner);
+
+      // Note: Should we refresh redux? Perhaps with a partial update
+      this.setState({ owner: newOwner });
     }
   };
 
-  // validates the input divs
-  handleFormValidation = event => {
-    const { value, name } = event.target;
-    const errorMessage = formValidation(name, value);
-    const { errors } = this.state;
+  // Note, some sort of validation needs to happen on prevStep, that or nextStep only performs a partial update
+  prevStep = event => {
+    const { owner } = this.state;
+    event.preventDefault();
 
-    this.setState({
-      errors: { ...errors, [name]: errorMessage }
-    });
+    // Decrement Step
+    this.setState({ owner: { ...owner, step: owner.step - 1 } });
   };
 
-  // function for validation of bylaws
-  callBackBylawValidation = () => {
-    const { errors } = this.state;
-    this.setState({
-      errors: { ...errors, bylaw1: 'Required' }
-    });
+  handleChange = event => {
+    const { name, value } = event.target;
+    const { owner } = this.state;
+    const newOwner = { ...owner };
+    switch (name) {
+      case 'permanentStreet1':
+      case 'permanentStreet2':
+      case 'permanentCity':
+      case 'permanentState':
+      case 'permanentZipcode':
+        if (owner.mailingAddressSame) {
+          const mailingKey = name.replace('permanant', 'mailing');
+          newOwner[mailingKey] = value;
+        }
+        break;
+      case 'mailingAddressSame':
+        if (value) {
+          newOwner.mailingStreet1 = owner.permanentStreet1;
+          newOwner.mailingStreet2 = owner.permanentStreet2;
+          newOwner.mailingCity = owner.permanentCity;
+          newOwner.mailingState = owner.permanentState;
+          newOwner.mailingZipcode = owner.permanentZipcode;
+          newOwner.mailingAddressSame = value;
+        }
+        break;
+      default:
+        newOwner[name] = value;
+    }
+    this.setState({ owner: newOwner });
   };
 
   render() {
-    const { step, noProjectGroup } = this.state;
-    const { history } = this.props;
-    switch (step) {
-      case 1:
-        return (
-          <BasicInfo
-            nextStep={this.nextStep}
-            values={this.state}
-            handleChange={this.handleChange}
-            handleFormValidation={this.handleFormValidation}
-          />
-        );
-      case 2:
-        return Template(
-          <ContactInfo
-            nextStep={this.nextStep}
-            values={this.state}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            handleFormValidation={this.handleFormValidation}
-            handleRecordCreation={this.handleRecordCreation}
-          />,
-          2
-        );
-      case 3:
-        return Template(
-          <ProjectGroups
-            nextStep={this.nextStep}
-            values={this.state}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            handleFormValidation={this.handleFormValidation}
-            noProjectGroup={noProjectGroup}
-          />,
-          3
-        );
-      case 4:
-        return Template(
-          <Bylaws
-            nextStep={this.nextStep}
-            values={this.state}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            callBackBylawValidation={this.callBackBylawValidation}
-            handleClick={this.handleClick}
-          />,
-          4
-        );
-      case 5:
-        return Template(
-          <Payment
-            values={this.state}
-            prevStep={this.prevStep}
-            nextStep={this.nextStep}
-            handleChange={this.handleChange}
-            handleFormValidation={this.handleFormValidation}
-            handleDividends={this.handleDividends}
-          />,
-          5
-        );
-      case 6:
-        return Template(
-          <Complete
-            values={this.state}
-            prevStep={this.prevStep}
-            onSubmit={this.onSubmit}
-            handleChange={this.handleChange}
-            handleFormValidation={this.handleFormValidation}
-            handleDividends={this.handleDividends}
-            history={history}
-          />,
-          6
-        );
-      default:
-        return <div>Page not Found</div>;
-    }
+    const { owner } = this.state;
+    const stepData = OnboardingData[step];
+    const StepComponent = stepData.component;
+    return (
+      <div className="flex onboarding-col template-center w-70">
+        <div className="template-card">
+          <h1 className="template-header">{stepData.header}</h1>
+          <p className="template-body">{stepData.copy}</p>
+          <ProgressBar step={owner.step} />
+        </div>
+        <StepComponent
+          owner={owner}
+          errors={errors}
+          onSubmit={this.nextStep}
+          onBack={this.prevStep}
+          handleChange={this.handleChange}
+        />
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => ({
-  person: state.userData.person,
-  owner: state.userData.owner
+  owner: state.userData.owner,
+  isLoadingUserData: state.userData.isLoadingUserData
 });
 export default connect(mapStateToProps)(Onboarding);

@@ -69,6 +69,10 @@ const ValidatorData = {
   permanentZipcode: [validateExistence, validateNumber, validateZipcode],
   mailingZipcode: [validateExistence, validateNumber, validateZipcode],
   numberOfShares: [validateExistence, validateNumber, validateShares],
+  mailingAddressSame: [],
+  alternateEmail: [],
+  permanentStreet2: [],
+  mailingStreet2: [],
   projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
 };
 
@@ -92,13 +96,25 @@ const validateField = async (name, value) => {
 const OnboardingData = [
   {
     component: BasicInfo,
-    fields: [],
+    fields: ['firstName', 'lastName', 'email', 'alternativeEmail', 'password'],
     copy: '',
     header: ''
   },
   {
     component: ContactInfo,
-    fields: [],
+    fields: [
+      'permanentStreet1',
+      'permanentStreet2',
+      'permanentCity',
+      'permanentState',
+      'permanentZipcode',
+      'mailingStreet1',
+      'mailingStreet2',
+      'mailingCity',
+      'mailingState',
+      'mailingZipcode',
+      'phoneNumber'
+    ],
     copy:
       'Tell us some general contact information so we can get started setting up your account.',
     header: 'Welcome Aboard!'

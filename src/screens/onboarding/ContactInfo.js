@@ -1,152 +1,10 @@
 import React from 'react';
-import formValidation from '../../lib/onboarding/formValidation';
 import Tooltip from './components/Tooltip';
 import '../../styles/main.css';
 
-class ContactInfo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      assertAddress: false,
-      errorAssertAddress: ''
-    };
-  }
-
-  nextButton = async e => {
-    e.preventDefault();
-    const { values } = this.props;
-    const {
-      errors
-      // userId,
-      // email,
-      // password,
-      // fname,
-      // lname,
-      // street,
-      // apt,
-      // state,
-      // city,
-      // zipcode,
-      // phoneNumber,
-      // mailingStreet,
-      // mailingApt,
-      // mailingCity,
-      // mailingState,
-      // mailingZipcode,
-      // mailingPhoneNumber
-    } = values;
-    const { assertAddress } = this.state;
-    const inputTypes = [
-      'street',
-      'apt',
-      'city',
-      'state',
-      'zipcode',
-      'phoneNumber',
-      'assertAddress',
-      'mailingStreet',
-      'mailingApt',
-      'mailingCity',
-      'mailingState',
-      'mailingZipcode',
-      'mailingPhoneNumber'
-    ];
-    const errorMessages = [];
-
-    for (let i = 0; i < inputTypes.length; i += 1) {
-      if (inputTypes[i] === 'assertAddress') {
-        if (!assertAddress) {
-          this.setState({ errorAssertAddress: 'Required' });
-        } else {
-          this.setState({ errorAssertAddress: '' });
-        }
-      } else {
-        const errorMessage = formValidation(
-          inputTypes[i],
-          values[inputTypes[i]]
-        );
-        errors[inputTypes[i]] = errorMessage;
-        if (errorMessage !== '') {
-          errorMessages.push(errorMessage);
-        }
-      }
-    }
-
-    console.log(errorMessages);
-    // if (!(errorMessages && errorMessages.length > 0)) {
-    //   if (userId) {
-    //     const updatedPerson = {
-    //       street,
-    //       apt,
-    //       city,
-    //       state,
-    //       zipcode,
-    //       phoneNumber,
-    //       mailingStreet,
-    //       mailingApt,
-    //       mailingCity,
-    //       mailingState,
-    //       mailingZipcode,
-    //       mailingPhoneNumber,
-    //       onboardingStep: 3
-    //     };
-    //     updatePerson(userId, updatedPerson);
-    //     nextStep();
-    //   } else {
-    //     // create the person/owner record in Airtable
-    //     const {
-    //       createdOwnerId,
-    //       createdPersonId,
-    //       createdUserLoginId
-    //     } = await createPersonOwnerUserLoginRecord(
-    //       email,
-    //       password,
-    //       phoneNumber,
-    //       `${fname} ${lname}`,
-    //       street,
-    //       apt,
-    //       city,
-    //       state,
-    //       zipcode
-    //     );
-
-    //     if (!createdOwnerId || !createdPersonId) {
-    //       console.error('createPersonOwnerUserLoginRecord FAILED');
-    //     } else {
-    //       const { handleRecordCreation } = this.props;
-    //       handleRecordCreation({
-    //         createdOwnerId,
-    //         createdPersonId,
-    //         createdUserLoginId
-    //       });
-    //       nextStep();
-    //     }
-    //   }
-    // } else {
-    //   this.forceUpdate();
-    // }
-  };
-
-  prevButton = e => {
-    const { prevStep, values } = this.props;
-    const { userId } = values;
-    e.preventDefault();
-    if (!userId) {
-      prevStep();
-    }
-  };
-
-  changeAssertAddress = () => {
-    const { assertAddress } = this.state;
-    this.setState({
-      assertAddress: !assertAddress
-    });
-  };
-
+class ContactInfo extends React.PureComponent {
   render() {
-    const { values, handleChange, handleFormValidation } = this.props;
-    const { errors, mailingAddressSame, userId } = values;
-    const { assertAddress, errorAssertAddress } = this.state;
+    const { owner, errors, onSubmit, onBack, handleChange } = this.props;
     return (
       <div>
         <form className="template-card">
@@ -154,28 +12,29 @@ class ContactInfo extends React.Component {
           <div className="flex row">
             <div className="w-80 pr-1">
               <label className="onboarding-label" htmlFor="password">
-                Address *
+                Street 1 *
               </label>
               <input
-                name="street"
-                placeholder="Address"
+                name="permanentStreet1"
+                placeholder="Street 2"
                 onChange={handleChange}
-                defaultValue={values.street}
+                defaultValue={owner.permanentStreet1}
                 className={`input-white ${
-                  errors.street !== '' ? 'b-is-not-valid' : 'b-is-invalid'
+                  errors.permanentStreet1 !== ''
+                    ? 'b-is-not-valid'
+                    : 'b-is-invalid'
                 }`}
-                onBlur={handleFormValidation}
               />
             </div>
             <div className="w-20 ">
               <label className="onboarding-label" htmlFor="password">
-                Apt
+                Street 2
               </label>
               <input
-                name="apt"
-                placeholder="Apt"
+                name="permanentStreet2"
+                placeholder="Street 2"
                 onChange={handleChange}
-                defaultValue={values.apt}
+                defaultValue={owner.permanentStreet2}
                 className="input-white"
               />
             </div>
@@ -183,11 +42,11 @@ class ContactInfo extends React.Component {
           <div className="flex onboarding-row">
             <div className="w-80 pr-1 validation">
               {' '}
-              {errors.street ? errors.street : '\u00A0'}
+              {errors.permanentStreet1 ? errors.permanentStreet1 : '\u00A0'}
             </div>
 
             <div className="w-20 validation">
-              {errors.apt ? errors.apt : '\u00A0'}
+              {errors.permanentStreet2 ? errors.permanentStreet2 : '\u00A0'}
             </div>
           </div>
           <div className="flex onboarding-row">
@@ -196,14 +55,15 @@ class ContactInfo extends React.Component {
                 City *
               </label>
               <input
-                name="city"
+                name="permanentCity"
                 placeholder="City"
                 onChange={handleChange}
-                defaultValue={values.city}
+                defaultValue={owner.city}
                 className={`input-white ${
-                  errors.city !== '' ? 'b-is-not-valid' : 'b-is-invalid'
+                  errors.permanentCity !== ''
+                    ? 'b-is-not-valid'
+                    : 'b-is-invalid'
                 }`}
-                onBlur={handleFormValidation}
               />
             </div>
             <div className="w-15 pr-1">
@@ -211,14 +71,15 @@ class ContactInfo extends React.Component {
                 State *
               </label>
               <input
-                name="state"
+                name="permanentState"
                 placeholder="State"
                 onChange={handleChange}
-                defaultValue={values.state}
+                defaultValue={owner.permanentState}
                 className={`input-white ${
-                  errors.state !== '' ? 'b-is-not-valid' : 'b-is-invalid'
+                  errors.permanentState !== ''
+                    ? 'b-is-not-valid'
+                    : 'b-is-invalid'
                 }`}
-                onBlur={handleFormValidation}
               />
             </div>
             <div className="w-25">
@@ -226,27 +87,28 @@ class ContactInfo extends React.Component {
                 Zipcode *
               </label>
               <input
-                name="zipcode"
+                name="permanentZipcode"
                 placeholder="Zipcode"
                 onChange={handleChange}
-                defaultValue={values.zipcode}
+                defaultValue={owner.permanentZipcode}
                 className={`input-white ${
-                  errors.zipcode !== '' ? 'b-is-not-valid' : 'b-is-invalid'
+                  errors.permanentZipcode !== ''
+                    ? 'b-is-not-valid'
+                    : 'b-is-invalid'
                 }`}
-                onBlur={handleFormValidation}
               />
             </div>
           </div>
           <div className="flex onboarding-row">
             <div className="w-60 pr-1 validation">
-              {errors.city ? errors.city : '\u00A0'}
+              {errors.permanentCity ? errors.permanentCity : '\u00A0'}
             </div>
             <div className="w-15 pr-1 validation">
-              {errors.state ? errors.state : '\u00A0'}
+              {errors.permanentState ? errors.permanentState : '\u00A0'}
             </div>
 
             <div className="w-25 validation">
-              {errors.zipcode ? errors.zipcode : '\u00A0'}
+              {errors.permanentZipcode ? errors.permanentZipcode : '\u00A0'}
             </div>
           </div>
           <div className="flex onboarding-row">
@@ -258,11 +120,10 @@ class ContactInfo extends React.Component {
                 name="phoneNumber"
                 placeholder="Phone"
                 onChange={handleChange}
-                defaultValue={values.phoneNumber}
+                defaultValue={owner.phoneNumber}
                 className={`input-white ${
                   errors.phoneNumber !== '' ? 'b-is-not-valid' : 'b-is-invalid'
                 }`}
-                onBlur={handleFormValidation}
               />
             </div>
             <div className="w-15 pr-1" />
@@ -277,14 +138,14 @@ class ContactInfo extends React.Component {
               residence.
               <input
                 type="checkbox"
-                name="assertAddress"
-                onClick={this.changeAssertAddress}
-                checked={assertAddress}
+                name="mailingAddressSame"
+                onChange={handleChange}
+                checked={owner.certifyPermanentAddress}
               />
               <span className="checkmark" />
             </label>
             <div className="w-passwrod validation">
-              {errorAssertAddress || '\u00A0'}
+              {errors.certifyPermanentAddress || '\u00A0'}
             </div>
           </div>
         </form>
@@ -304,41 +165,39 @@ class ContactInfo extends React.Component {
               <input
                 type="checkbox"
                 name="mailingAddressSame"
-                onClick={this.changeMailingAddress}
                 onChange={handleChange}
-                checked={mailingAddressSame}
+                checked={owner.mailingAddressSame}
               />
               <span className="checkmark" />
             </label>
           </div>
-          <div style={{ display: mailingAddressSame ? 'none' : 'block' }}>
+          <div style={{ display: owner.mailingAddressSame ? 'none' : 'block' }}>
             <div className="flex onboarding-row">
               <div className="w-80 pr-1">
                 <label className="onboarding-label" htmlFor="password">
-                  Address *
+                  Street 1 *
                 </label>
                 <input
-                  name="mailingStreet"
+                  name="mailingStreet1"
                   placeholder="Address"
                   onChange={handleChange}
-                  defaultValue={values.mailingStreet}
+                  defaultValue={owner.mailingStreet1}
                   className={`input-white ${
-                    errors.mailingStreet !== ''
+                    errors.mailingStreet1 !== ''
                       ? 'b-is-not-valid'
                       : 'b-is-invalid'
                   }`}
-                  onBlur={handleFormValidation}
                 />
               </div>
               <div className="w-20 ">
                 <label className="onboarding-label" htmlFor="password">
-                  Apt
+                  Street 2
                 </label>
                 <input
-                  name="mailingApt"
-                  placeholder="Apt"
+                  name="mailingStreet2"
+                  placeholder="Street 2"
                   onChange={handleChange}
-                  defaultValue={values.mailingApt}
+                  defaultValue={owner.mailingStreet2}
                   className="input-white"
                 />
               </div>
@@ -346,11 +205,11 @@ class ContactInfo extends React.Component {
             <div className="flex onboarding-row">
               <div className="w-80 pr-1 validation">
                 {' '}
-                {errors.mailingStreet ? errors.mailingStreet : '\u00A0'}
+                {errors.mailingStreet1 ? errors.mailingStreet1 : '\u00A0'}
               </div>
 
               <div className="w-20 validation">
-                {errors.mailingApt ? errors.mailingApt : '\u00A0'}
+                {errors.mailingStreet2 ? errors.mailingStreet2 : '\u00A0'}
               </div>
             </div>
             <div className="flex onboarding-row">
@@ -362,13 +221,12 @@ class ContactInfo extends React.Component {
                   name="mailingCity"
                   placeholder="City"
                   onChange={handleChange}
-                  defaultValue={values.mailingCity}
+                  defaultValue={owner.mailingCity}
                   className={`input-white ${
                     errors.mailingCity !== ''
                       ? 'b-is-not-valid'
                       : 'b-is-invalid'
                   }`}
-                  onBlur={handleFormValidation}
                 />
               </div>
               <div className="w-15 pr-1">
@@ -379,13 +237,12 @@ class ContactInfo extends React.Component {
                   name="mailingState"
                   placeholder="State"
                   onChange={handleChange}
-                  defaultValue={values.mailingState}
+                  defaultValue={owner.mailingState}
                   className={`input-white ${
                     errors.mailingState !== ''
                       ? 'b-is-not-valid'
                       : 'b-is-invalid'
                   }`}
-                  onBlur={handleFormValidation}
                 />
               </div>
               <div className="w-25">
@@ -396,13 +253,12 @@ class ContactInfo extends React.Component {
                   name="mailingZipcode"
                   placeholder="Zipcode"
                   onChange={handleChange}
-                  defaultValue={values.mailingZipcode}
+                  defaultValue={owner.mailingZipcode}
                   className={`input-white ${
                     errors.mailingZipcode !== ''
                       ? 'b-is-not-valid'
                       : 'b-is-invalid'
                   }`}
-                  onBlur={handleFormValidation}
                 />
               </div>
             </div>
@@ -418,51 +274,21 @@ class ContactInfo extends React.Component {
                 {errors.mailingZipcode ? errors.mailingZipcode : '\u00A0'}
               </div>
             </div>
-            <div className="flex onboarding-row">
-              <div className="w-60 pr-1">
-                <label className="onboarding-label" htmlFor="password">
-                  Phone *
-                </label>
-                <input
-                  name="mailingPhoneNumber"
-                  placeholder="Phone"
-                  onChange={handleChange}
-                  defaultValue={values.mailingPhoneNumber}
-                  className={`input-white ${
-                    errors.mailingPhoneNumber !== ''
-                      ? 'b-is-not-valid'
-                      : 'b-is-invalid'
-                  }`}
-                  onBlur={handleFormValidation}
-                />
-              </div>
-              <div className="w-15 pr-1" />
-              <div className="w-25" />
-            </div>
-            <div className="w-passwrod validation">
-              {errors.mailingPhoneNumber ? errors.mailingPhoneNumber : '\u00A0'}
-            </div>
           </div>
         </form>
 
         <div className="flex steps-buttons  onboarding-row w-100 right mt-2 justify-space-between">
           <div className="left">
-            {!userId ? (
-              <button
-                type="button"
-                className="back-button"
-                onClick={this.prevButton}
-              >
-                Go back
-              </button>
-            ) : null}
+            <button type="button" className="back-button" onClick={onBack}>
+              Go back
+            </button>
           </div>
 
           <div className="right">
             <button
               type="button"
               className="btn btn--rounded btn--blue btn--size16 continue-button"
-              onClick={this.nextButton}
+              onClick={onSubmit}
             >
               Continue
             </button>
