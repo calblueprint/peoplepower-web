@@ -17,13 +17,13 @@ export default class ProgressBar extends React.PureComponent {
     return (
       <div className="progress-bar-container">
         <div className="progressbar">
-          <div className={`${this.colorStep(1)} progress-step`}>
+          <div className={`${this.colorStep(0)} progress-step`}>
             <svg height="4rem" width="4rem">
               <circle
                 className="progress-bar-circle"
                 cx="2rem"
                 cy="2rem"
-                strokeLocation="inside"
+                strokelocation="inside"
               />
               <polyline
                 className="progress-bar-checkmark"
@@ -42,13 +42,13 @@ export default class ProgressBar extends React.PureComponent {
               step >= 3 ? 'progressbar-line-active' : ''
             } progressbar-line`}
           />
-          <div className={`${this.colorStep(3)} progress-step`}>
+          <div className={`${this.colorStep(2)} progress-step`}>
             <svg className="progress-bar-svg" height="4rem" width="4rem">
               <circle
                 className="progress-bar-circle"
                 cx="2rem"
                 cy="2rem"
-                strokeLocation="inside"
+                strokelocation="inside"
               />
               <polyline
                 className="progress-bar-checkmark"
@@ -67,13 +67,13 @@ export default class ProgressBar extends React.PureComponent {
               step >= 4 ? 'progressbar-line-active' : ''
             } progressbar-line`}
           />
-          <div className={`${this.colorStep(4)} progress-step`}>
+          <div className={`${this.colorStep(3)} progress-step`}>
             <svg className="progress-bar-svg" height="4rem" width="4rem">
               <circle
                 className="progress-bar-circle"
                 cx="2rem"
                 cy="2rem"
-                strokeLocation="inside"
+                strokelocation="inside"
               />
               <polyline
                 className="progress-bar-checkmark"
@@ -92,13 +92,13 @@ export default class ProgressBar extends React.PureComponent {
               step >= 5 ? 'progressbar-line-active' : ''
             } progressbar-line`}
           />
-          <div className={`${this.colorStep(5)} progress-step`}>
+          <div className={`${this.colorStep(4)} progress-step`}>
             <svg className="progress-bar-svg" height="4rem" width="4rem">
               <circle
                 className="progress-bar-circle"
                 cx="2rem"
                 cy="2rem"
-                strokeLocation="inside"
+                strokelocation="inside"
               />
               <polyline
                 className="progress-bar-checkmark"

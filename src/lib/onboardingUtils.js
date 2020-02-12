@@ -1,11 +1,11 @@
 import States from '../assets/states.json';
-import { getOwnersByEmail } from './airtable/request';
-import ContactInfoStep from '../screens/onboarding/steps/ContactInfoStep';
-import BasicInfoStep from '../screens/onboarding/steps/BasicInfoStep';
-import ProjectGroupStep from '../screens/onboarding/steps/ProjectGroupStep';
-import PaymentStep from '../screens/onboarding/steps/PaymentStep';
-import CompleteStep from '../screens/onboarding/steps/CompleteStep';
-import BylawStep from '../screens/onboarding/steps/BylawStep';
+import {
+  getOwnersByEmail,
+  getAllProjectGroups,
+  updateOwner,
+  createOwner
+} from './airtable/request';
+import { refreshUserData } from './userDataUtils';
 
 // Helper functions to validate owner record fields
 
@@ -16,11 +16,13 @@ const validateExistence = (value, error = 'Required') => {
 };
 
 // Ensure valid and unique email
-const validateEmail = async value => {
-  if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)) {
-    return 'Invalid Email';
-  }
+const validateEmail = value => {
+  return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)
+    ? ''
+    : 'Invalid Email';
+};
 
+const validateUniqueEmail = async value => {
   const owners = await getOwnersByEmail(value);
   return owners.length === 0 ? '' : 'Email is already taken';
 };
@@ -62,7 +64,7 @@ const validateZipcode = value => {
 // Specify special validation functions for fields
 // Default for all fields: [validateExistence]
 const ValidatorData = {
-  email: [validateExistence, validateEmail],
+  email: [validateExistence, validateEmail, validateUniqueEmail],
   password: [validateExistence, validatePassword],
   permanentState: [validateExistence, validateState],
   mailingState: [validateExistence, validateState],
@@ -92,53 +94,33 @@ const validateField = async (name, value) => {
   return errors.filter(e => e !== '');
 };
 
-// Maps Step to Component and Fields via Indices
-const OnboardingData = [
-  {
-    component: BasicInfoStep,
-    fields: ['firstName', 'lastName', 'email', 'alternativeEmail', 'password'],
-    copy: '',
-    header: ''
-  },
-  {
-    component: ContactInfoStep,
-    fields: [
-      'permanentStreet1',
-      'permanentStreet2',
-      'permanentCity',
-      'permanentState',
-      'permanentZipcode',
-      'mailingStreet1',
-      'mailingStreet2',
-      'mailingCity',
-      'mailingState',
-      'mailingZipcode',
-      'phoneNumber'
-    ],
-    copy:
-      'Tell us some general contact information so we can get started setting up your account.',
-    header: 'Welcome Aboard!'
-  },
-  {
-    component: ProjectGroupStep,
-    fields: [],
-    copy:
-      'Project groups in People Power represent the different communities involved in our cooperative. ',
-    header: 'Select your project group'
-  },
-  {
-    component: BylawStep,
-    fields: [],
-    copy: '',
-    header: 'Owner Agreement and Acknowledgment'
-  },
-  { component: PaymentStep, fields: [], copy: '', header: 'Purchase shares' },
-  {
-    component: CompleteStep,
-    fields: [],
-    copy: '',
-    header: 'Registration complete!'
-  }
-];
+const getAvailableProjectGroups = async () => {
+  const projectGroups = await getAllProjectGroups();
 
-export { validateField, OnboardingData };
+  // TODO: double check this logic
+  const selectableGroups = projectGroups.filter(
+    group => group.isPublic && !group.isDefault
+  );
+  const defaultGroup = projectGroups.find(group => group.isDefault);
+  return { selectableGroups, defaultGroup };
+};
+
+const updateOwnerFields = async (owner, fields) => {
+  console.log('Received Owner Update:');
+  console.log(owner);
+  const ownerUpdate = fields.reduce(
+    (value, field) => ({ ...value, [field]: owner[field] }),
+    { onboardingStep: owner.onboardingStep } // 1 pre-existing field
+  );
+  console.log('Selected Fields');
+  console.log(ownerUpdate);
+  if (owner.id) {
+    await updateOwner(owner.id, ownerUpdate);
+    refreshUserData(owner.id);
+  } else {
+    const ownerId = await createOwner(ownerUpdate);
+    refreshUserData(ownerId);
+  }
+};
+
+export { validateField, getAvailableProjectGroups, updateOwnerFields };

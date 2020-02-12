@@ -22,7 +22,7 @@ class BylawStep extends React.PureComponent {
                   type="checkbox"
                   name="bylaw1"
                   onChange={handleChange}
-                  checked={owner.bylaw1}
+                  defaultChecked={owner.bylaw1}
                 />
                 <span className="checkmark" />
               </label>
@@ -48,7 +48,7 @@ class BylawStep extends React.PureComponent {
                   type="checkbox"
                   name="bylaw2"
                   onChange={handleChange}
-                  checked={owner.bylaw2}
+                  defaultChecked={owner.bylaw2}
                 />
                 <span className="checkmark" />
               </label>

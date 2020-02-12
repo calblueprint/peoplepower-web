@@ -1,23 +1,8 @@
 import React from 'react';
-import { refreshUserData } from '../../../lib/userDataUtils';
-import { store } from '../../../lib/redux/store';
-import { authenticate } from '../../../lib/redux/userDataSlice';
-import { getOwnerById } from '../../../lib/airtable/request';
 
-class CompleteStep extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  dashboardButton = async () => {
-    const { history, values } = this.props;
-    // TODO: Replace with proper airlock authentication
-    store.dispatch(authenticate('temp_token'));
-    // TODO: Revisit this
-    const owner = await getOwnerById(values.userId);
-    refreshUserData(owner);
-
+class CompleteStep extends React.PureComponent {
+  dashboardButton = () => {
+    const { history } = this.props;
     history.push('/');
   };
 

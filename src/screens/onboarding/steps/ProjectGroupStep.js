@@ -2,28 +2,24 @@ import React from 'react';
 import '../../../styles/Onboarding.css';
 import MapView from '../components/ProjectGroupMapView';
 import ListView from '../components/ProjectGroupListView';
-import { getAllProjectGroups } from '../../../lib/airtable/request';
+import { getAvailableProjectGroups } from '../../../lib/onboardingUtils';
 
 class ProjectGroupStep extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       defaultGroup: {},
-      allProjectGoups: [],
+      allProjectGroups: [],
       displayGroup: 0,
       view: 'list'
     };
   }
 
   async componentDidMount() {
-    // TODO: Move this to onboarding Utils
-    const projectGroups = await getAllProjectGroups();
-
-    // TODO: double check this logic
-    const selectableGroups = projectGroups.filter(
-      group => group.isPublic && !group.isDefault
-    );
-    const defaultGroup = projectGroups.find(group => group.isDefault);
+    const {
+      selectableGroups,
+      defaultGroup
+    } = await getAvailableProjectGroups();
     this.setState({ allProjectGroups: selectableGroups, defaultGroup });
   }
 
@@ -34,7 +30,7 @@ class ProjectGroupStep extends React.Component {
   changeSelectedGroup = group => {
     const { handleChange, owner } = this.props;
     let event;
-    if (group.id === owner.projectGroupId) {
+    if (group.id === owner.projectGroupId[0]) {
       event = {
         target: {
           name: 'projectGroupId',
@@ -101,8 +97,8 @@ class ProjectGroupStep extends React.Component {
               <input
                 type="checkbox"
                 name="selectNoProjectGroup"
-                onClick={() => this.changeSelectedGroup(defaultGroup)}
-                checked={owner.projectGroupId === defaultGroup.id}
+                onChange={() => this.changeSelectedGroup(defaultGroup)}
+                checked={owner.projectGroupId[0] === defaultGroup.id}
               />
               <span className="checkmark" />
             </label>

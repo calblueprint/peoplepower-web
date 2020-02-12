@@ -1,8 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateOwner } from '../../lib/airtable/request';
-import { OnboardingData, validateField } from '../../lib/onboardingUtils';
+import OnboardingData from '../../lib/onboardingData';
+import { validateField, updateOwnerFields } from '../../lib/onboardingUtils';
 import ProgressBar from './components/ProgressBar';
+import constants from '../../constants';
+
+const { GENERAL_OWNER } = constants;
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -10,13 +13,12 @@ class Onboarding extends React.Component {
 
     // State should contain owner values, error messages
     this.state = {
-      owner: {},
+      owner: { onboardingStep: 0, ownerTypes: [GENERAL_OWNER] },
       errors: {}
     };
   }
 
   componentDidMount() {
-    // Pull existing onboarding data and set up things based on onboarding step
     this.refreshState();
   }
 
@@ -28,28 +30,28 @@ class Onboarding extends React.Component {
   }
 
   refreshState = () => {
-    const { owner, isLoadingUserData } = this.props;
+    const { owner } = this.props;
 
-    if (isLoadingUserData) {
-      return;
+    if (owner) {
+      this.setState({ owner: { ...owner } });
     }
-
-    this.setState({ owner: { ...owner } });
   };
 
   nextStep = async event => {
     const { owner } = this.state;
     event.preventDefault();
 
-    // Validate each field and add to error object
+    // Keep track of whether we've found any errors
     let foundErrors = false;
-    const newErrors = OnboardingData[owner.step].fields.reduce(
+
+    // For each field in this onboarding step, validate, and add to errors object
+    const newErrors = OnboardingData[owner.onboardingStep].fields.reduce(
       async (errorsPromise, field) => {
         const errors = await errorsPromise;
         const errorMessages = await validateField(field, owner[field]);
 
         // Take just the first error
-        if (errorMessages) {
+        if (errorMessages !== []) {
           foundErrors = true;
           const [firstError] = errorMessages;
           errors[field] = firstError;
@@ -63,16 +65,13 @@ class Onboarding extends React.Component {
     this.setState({ errors: newErrors });
 
     if (!foundErrors) {
-      // Save to Airtable and update Step
-      // TODO: Account for step 0 where owner doesn't exist
-      const newOwner = { ...owner, step: owner.step + 1 };
-
-      // according to fang shuo deng this should be in it's own util file
-      // which makes sense so that we can create/update partial record
-      await updateOwner(owner.id, newOwner);
-
-      // Note: Should we refresh redux? Perhaps with a partial update
-      this.setState({ owner: newOwner });
+      // Create/Update specific owner fields
+      // State should be refreshed when data is successfully pulled from redux
+      const newOwner = { ...owner, onboardingStep: owner.onboardingStep + 1 };
+      await updateOwnerFields(
+        newOwner,
+        OnboardingData[owner.onboardingStep].fields
+      );
     }
   };
 
@@ -82,7 +81,9 @@ class Onboarding extends React.Component {
     event.preventDefault();
 
     // Decrement Step
-    this.setState({ owner: { ...owner, step: owner.step - 1 } });
+    this.setState({
+      owner: { ...owner, onboardingStep: owner.onboardingStep - 1 }
+    });
   };
 
   handleChange = event => {
@@ -90,6 +91,15 @@ class Onboarding extends React.Component {
     const { owner } = this.state;
     const newOwner = { ...owner };
     switch (name) {
+      case 'certifyPermanentAddress':
+      case 'bylaw1':
+      case 'bylaw2':
+      case 'isReceivingDividends':
+        newOwner[name] = event.target.checked;
+        break;
+      case 'projectGroupId':
+        newOwner[name] = [value];
+        break;
       case 'permanentStreet1':
       case 'permanentStreet2':
       case 'permanentCity':
@@ -99,6 +109,7 @@ class Onboarding extends React.Component {
           const mailingKey = name.replace('permanant', 'mailing');
           newOwner[mailingKey] = value;
         }
+        newOwner[name] = value;
         break;
       case 'mailingAddressSame':
         if (value) {
@@ -107,7 +118,7 @@ class Onboarding extends React.Component {
           newOwner.mailingCity = owner.permanentCity;
           newOwner.mailingState = owner.permanentState;
           newOwner.mailingZipcode = owner.permanentZipcode;
-          newOwner.mailingAddressSame = value;
+          newOwner.mailingAddressSame = event.target.checked;
         }
         break;
       default:
@@ -118,15 +129,20 @@ class Onboarding extends React.Component {
 
   render() {
     const { owner, errors } = this.state;
-    const stepData = OnboardingData[owner.step];
+    const stepData = OnboardingData[owner.onboardingStep];
     const StepComponent = stepData.component;
+    const showStyles = owner.onboardingStep > 0;
     return (
-      <div className="flex onboarding-col template-center w-70">
-        <div className="template-card">
-          <h1 className="template-header">{stepData.header}</h1>
-          <p className="template-body">{stepData.copy}</p>
-          <ProgressBar step={owner.step} />
-        </div>
+      <div
+        className={showStyles ? 'flex onboarding-col template-center w-70' : ''}
+      >
+        {showStyles && (
+          <div className="template-card">
+            <h1 className="template-header">{stepData.header}</h1>
+            <p className="template-body">{stepData.copy}</p>
+            <ProgressBar step={owner.step} />
+          </div>
+        )}
         <StepComponent
           owner={owner}
           errors={errors}
@@ -140,7 +156,6 @@ class Onboarding extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  isLoadingUserData: state.userData.isLoadingUserData
+  owner: state.userData.owner
 });
 export default connect(mapStateToProps)(Onboarding);

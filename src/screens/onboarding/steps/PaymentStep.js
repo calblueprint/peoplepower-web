@@ -75,10 +75,10 @@ class PaymentStep extends React.Component {
                     -
                   </button>
                   <input
-                    name="numShares"
+                    name="numberOfShares"
                     className="payment-shares-input-field"
                     onChange={handleChange}
-                    value={owner.numShares}
+                    value={owner.numberOfShares}
                   />
                   <button
                     type="button"
@@ -90,7 +90,7 @@ class PaymentStep extends React.Component {
                 </label>
               </div>
               <div className="validation">
-                {errors.numShares ? errors.numShares : '\u00A0'}
+                {errors.numberOfShares ? errors.numberOfShares : '\u00A0'}
               </div>
               <div>
                 <div className="payment-dividends-header">
@@ -113,7 +113,7 @@ class PaymentStep extends React.Component {
                 <div className="payment-dividends-option">
                   <input
                     type="radio"
-                    name="dividends"
+                    name="isReceivingDividends"
                     className="payment-dividends-radio"
                     value="no"
                     checked={!owner.isReceivingDividends}

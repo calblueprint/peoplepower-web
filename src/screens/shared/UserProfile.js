@@ -107,7 +107,7 @@ class UserProfile extends React.Component {
       });
     } else {
       // Refresh local cache with latest user data
-      await refreshUserData(owner);
+      await refreshUserData(owner.id);
       this.setState({
         status: STATUS_SUCCESS
       });

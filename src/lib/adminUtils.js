@@ -17,7 +17,7 @@ export async function removeOwner(owner) {
 
   // Refresh local copy of data after updating owners
   const { owner: loggedInOwner } = store.getState().userData;
-  await refreshUserData(loggedInOwner);
+  await refreshUserData(loggedInOwner.id);
 }
 
 export function getOwnerRecordsForProjectGroup(projectGroup) {

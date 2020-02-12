@@ -4,7 +4,7 @@ import '../../../styles/main.css';
 
 class ContactInfoStep extends React.PureComponent {
   render() {
-    const { owner, errors, onSubmit, onBack, handleChange } = this.props;
+    const { owner, errors, onSubmit, handleChange } = this.props;
     return (
       <div>
         <form className="template-card">
@@ -16,7 +16,7 @@ class ContactInfoStep extends React.PureComponent {
               </label>
               <input
                 name="permanentStreet1"
-                placeholder="Street 2"
+                placeholder="Street 1"
                 onChange={handleChange}
                 defaultValue={owner.permanentStreet1}
                 className={`input-white ${
@@ -58,7 +58,7 @@ class ContactInfoStep extends React.PureComponent {
                 name="permanentCity"
                 placeholder="City"
                 onChange={handleChange}
-                defaultValue={owner.city}
+                defaultValue={owner.permanentCity}
                 className={`input-white ${
                   errors.permanentCity !== ''
                     ? 'b-is-not-valid'
@@ -138,9 +138,9 @@ class ContactInfoStep extends React.PureComponent {
               residence.
               <input
                 type="checkbox"
-                name="mailingAddressSame"
-                onChange={handleChange}
-                checked={owner.certifyPermanentAddress}
+                name="certifyPermanentAddress"
+                onClick={handleChange}
+                defaultChecked={owner.certifyPermanentAddress}
               />
               <span className="checkmark" />
             </label>
@@ -165,8 +165,11 @@ class ContactInfoStep extends React.PureComponent {
               <input
                 type="checkbox"
                 name="mailingAddressSame"
-                onChange={handleChange}
-                checked={owner.mailingAddressSame}
+                onClick={e => {
+                  console.log(e);
+                  handleChange(e);
+                }}
+                defaultChecked={owner.mailingAddressSame}
               />
               <span className="checkmark" />
             </label>
@@ -279,9 +282,9 @@ class ContactInfoStep extends React.PureComponent {
 
         <div className="flex steps-buttons  onboarding-row w-100 right mt-2 justify-space-between">
           <div className="left">
-            <button type="button" className="back-button" onClick={onBack}>
+            {/* <button type="button" className="back-button" onClick={onBack}>
               Go back
-            </button>
+            </button> */}
           </div>
 
           <div className="right">

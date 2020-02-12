@@ -13,7 +13,7 @@ import '../styles/NavBar.css';
 class NavBar extends React.PureComponent {
   render() {
     const { owner, credentials } = this.props;
-    const displayName = owner.name;
+    const displayName = owner && owner.name;
 
     return (
       <div className="nav-bar">

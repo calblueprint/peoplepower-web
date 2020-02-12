@@ -32,7 +32,7 @@ class App extends React.Component {
 
     // If userLogin info is in Redux, fetch latest version
     if (owner) {
-      refreshUserData(owner);
+      refreshUserData(owner.id);
     }
   }
 

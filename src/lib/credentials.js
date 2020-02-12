@@ -7,13 +7,11 @@ const Credentials = { ADMIN: 'A', GENERAL: 'G', SUBSCRIBER: 'S' };
 function getCredentials(owner) {
   let credentials = '';
 
-  // TODO: Will this ever be the case? Is this check necessary
-  if (owner == null) {
+  if (owner == null || owner.onboardingStep !== -1) {
     return credentials;
   }
 
   // Assumes that admin is only owner of one project group
-  console.log(owner);
   if (owner.adminOfId && owner.adminOfId.length >= 0) {
     credentials += Credentials.ADMIN;
   }

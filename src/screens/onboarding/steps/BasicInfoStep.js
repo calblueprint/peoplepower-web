@@ -57,7 +57,7 @@ class BasicInfoStep extends React.PureComponent {
           </label>
           <input
             name="email"
-            placeholder="Enter your Email address"
+            placeholder="Enter your primary email address"
             onChange={handleChange}
             defaultValue={owner.email}
             className={`input-gray ${
@@ -79,7 +79,7 @@ class BasicInfoStep extends React.PureComponent {
           </label>
           <input
             name="alternateEmail"
-            placeholder="Enter an Email address"
+            placeholder="Enter an alternate email address"
             onChange={handleChange}
             defaultValue={owner.alternateEmail}
             className={`input-gray ${
