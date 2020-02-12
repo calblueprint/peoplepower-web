@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateOwner } from '../../lib/airtable/request';
 import { OnboardingData, validateField } from '../../lib/onboardingUtils';
+import ProgressBar from './components/ProgressBar';
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -50,10 +51,11 @@ class Onboarding extends React.Component {
         // Take just the first error
         if (errorMessages) {
           foundErrors = true;
-          errors[field] = errorMessages[0];
+          const [firstError] = errorMessages;
+          errors[field] = firstError;
         }
 
-        return errorsAcc;
+        return errors;
       },
       Promise.resolve({})
     );
@@ -115,8 +117,8 @@ class Onboarding extends React.Component {
   };
 
   render() {
-    const { owner } = this.state;
-    const stepData = OnboardingData[step];
+    const { owner, errors } = this.state;
+    const stepData = OnboardingData[owner.step];
     const StepComponent = stepData.component;
     return (
       <div className="flex onboarding-col template-center w-70">

@@ -1,39 +1,30 @@
 import React from 'react';
-import formValidation from '../../lib/onboarding/formValidation';
-import '../../styles/Onboarding.css';
-import MapView from './components/ProjectGroupMapView';
-import ListView from './components/ProjectGroupListView';
-import {
-  // updatePerson,
-  updateOwner,
-  getAllProjectGroups
-} from '../../lib/airtable/request';
+import '../../../styles/Onboarding.css';
+import MapView from '../components/ProjectGroupMapView';
+import ListView from '../components/ProjectGroupListView';
+import { getAllProjectGroups } from '../../../lib/airtable/request';
 
-class ProjectGroups extends React.Component {
+class ProjectGroupStep extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       defaultGroup: {},
-      groups: [{}],
+      allProjectGoups: [],
       displayGroup: 0,
       view: 'list'
     };
   }
 
   async componentDidMount() {
-    let projectGroups = await getAllProjectGroups();
+    // TODO: Move this to onboarding Utils
+    const projectGroups = await getAllProjectGroups();
 
-    projectGroups = projectGroups.map(record => ({
-      ...record,
-      street: record.street1,
-      apt: record.street2
-    }));
-
+    // TODO: double check this logic
     const selectableGroups = projectGroups.filter(
       group => group.isPublic && !group.isDefault
     );
     const defaultGroup = projectGroups.find(group => group.isDefault);
-    this.setState({ groups: selectableGroups, defaultGroup });
+    this.setState({ allProjectGroups: selectableGroups, defaultGroup });
   }
 
   changeDisplayedGroup = id => {
@@ -41,57 +32,24 @@ class ProjectGroups extends React.Component {
   };
 
   changeSelectedGroup = group => {
-    const { handleChange, values } = this.props;
-    const { projectGroup } = values;
+    const { handleChange, owner } = this.props;
     let event;
-    if (group.id === projectGroup) {
+    if (group.id === owner.projectGroupId) {
       event = {
         target: {
-          name: 'projectGroup',
+          name: 'projectGroupId',
           value: ''
         }
       };
     } else {
       event = {
         target: {
-          name: 'projectGroup',
+          name: 'projectGroupId',
           value: group.id
         }
       };
     }
     handleChange(event);
-  };
-
-  nextButton = async () => {
-    const {
-      values: { errors, projectGroup, personId },
-      nextStep
-    } = this.props;
-
-    const errorMessage = formValidation('projectGroup', projectGroup);
-    errors.projectGroup = errorMessage;
-
-    if (projectGroup === '') {
-      console.error('Need to make a selection');
-    } else {
-      // const updatedPerson = {
-      //   onboardingStep: 4
-      // };
-      // await updatePerson(userId, updatedPerson);
-
-      const newOwner = {
-        projectGroup: [projectGroup]
-      };
-
-      await updateOwner(personId, newOwner);
-      nextStep();
-    }
-  };
-
-  prevButton = e => {
-    const { prevStep } = this.props;
-    e.preventDefault();
-    prevStep();
   };
 
   handleViewChange = () => {
@@ -101,11 +59,9 @@ class ProjectGroups extends React.Component {
   };
 
   render() {
-    const { values } = this.props;
-    const { projectGroup, errors } = values;
-    const { groups, displayGroup, view, defaultGroup } = this.state;
-    console.log(projectGroup);
-    console.log(defaultGroup);
+    const { owner, errors, onSubmit, onBack } = this.props;
+    const { allProjectGroups, displayGroup, view, defaultGroup } = this.state;
+
     return (
       <div
         style={{
@@ -119,8 +75,8 @@ class ProjectGroups extends React.Component {
           {view === 'map' ? (
             <MapView
               style={{ display: 'block', position: 'fixed' }}
-              values={values}
-              markers={groups}
+              owner={owner}
+              markers={allProjectGroups}
               displayGroup={displayGroup}
               handleViewChange={this.handleViewChange}
               changeDisplayedGroup={this.changeDisplayedGroup}
@@ -130,8 +86,8 @@ class ProjectGroups extends React.Component {
           ) : (
             <ListView
               style={{ display: 'block', position: 'fixed' }}
-              values={values}
-              groups={groups}
+              owner={owner}
+              groups={allProjectGroups}
               displayGroup={displayGroup}
               handleViewChange={this.handleViewChange}
               changeSelectedGroup={this.changeSelectedGroup}
@@ -146,22 +102,18 @@ class ProjectGroups extends React.Component {
                 type="checkbox"
                 name="selectNoProjectGroup"
                 onClick={() => this.changeSelectedGroup(defaultGroup)}
-                checked={projectGroup === defaultGroup.id}
+                checked={owner.projectGroupId === defaultGroup.id}
               />
               <span className="checkmark" />
             </label>
             <div className=" validation">
-              {errors.projectGroup ? errors.projectGroup : '\u00A0'}
+              {errors.projectGroupId ? errors.projectGroupId : '\u00A0'}
             </div>
           </div>
 
           <div className="flex onboarding-col w-100 right mt-2 justify-space-between">
             <div className="left">
-              <button
-                type="button"
-                className="back-button"
-                onClick={this.prevButton}
-              >
+              <button type="button" className="back-button" onClick={onBack}>
                 Go back
               </button>
             </div>
@@ -169,7 +121,7 @@ class ProjectGroups extends React.Component {
               <button
                 type="button"
                 className="btn btn--rounded btn--blue btn--size16 continue-button"
-                onClick={this.nextButton}
+                onClick={onSubmit}
               >
                 Continue
               </button>
@@ -181,4 +133,4 @@ class ProjectGroups extends React.Component {
   }
 }
 
-export default ProjectGroups;
+export default ProjectGroupStep;

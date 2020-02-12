@@ -1,8 +1,8 @@
 import React from 'react';
-import Tooltip from './components/Tooltip';
-import '../../styles/main.css';
+import Tooltip from '../components/Tooltip';
+import '../../../styles/main.css';
 
-class ContactInfo extends React.PureComponent {
+class ContactInfoStep extends React.PureComponent {
   render() {
     const { owner, errors, onSubmit, onBack, handleChange } = this.props;
     return (
@@ -299,4 +299,4 @@ class ContactInfo extends React.PureComponent {
   }
 }
 
-export default ContactInfo;
+export default ContactInfoStep;

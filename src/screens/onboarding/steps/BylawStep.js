@@ -1,9 +1,9 @@
 import React from 'react';
-import OwnerAgreement1 from '../../assets/ownerAgreement1.jpg';
-import OwnerAgreement2 from '../../assets/ownerAgreement2.jpg';
-import Carousel from './components/Carousel';
+import OwnerAgreement1 from '../../../assets/ownerAgreement1.jpg';
+import OwnerAgreement2 from '../../../assets/ownerAgreement2.jpg';
+import Carousel from '../components/Carousel';
 
-class Bylaws extends React.PureComponent {
+class BylawStep extends React.PureComponent {
   render() {
     const { owner, errors, onSubmit, onBack, handleChange } = this.props;
 
@@ -79,4 +79,4 @@ class Bylaws extends React.PureComponent {
   }
 }
 
-export default Bylaws;
+export default BylawStep;

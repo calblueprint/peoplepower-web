@@ -1,12 +1,12 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { recordShareBuySuccess } from '../../lib/paypalUtils';
+import { recordShareBuySuccess } from '../../../lib/paypalUtils';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
 const SHARE_PRICE = 100;
 
-class Payment extends React.Component {
+class PaymentStep extends React.Component {
   constructor(props) {
     super(props);
     // this.state = {
@@ -208,4 +208,4 @@ class Payment extends React.Component {
   }
 }
 
-export default Payment;
+export default PaymentStep;

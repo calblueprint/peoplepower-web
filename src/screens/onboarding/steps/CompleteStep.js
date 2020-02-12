@@ -1,10 +1,10 @@
 import React from 'react';
-import { refreshUserData } from '../../lib/userDataUtils';
-import { store } from '../../lib/redux/store';
-import { authenticate } from '../../lib/redux/userDataSlice';
-import { getOwnerById } from '../../lib/airtable/request';
+import { refreshUserData } from '../../../lib/userDataUtils';
+import { store } from '../../../lib/redux/store';
+import { authenticate } from '../../../lib/redux/userDataSlice';
+import { getOwnerById } from '../../../lib/airtable/request';
 
-class Complete extends React.Component {
+class CompleteStep extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -39,4 +39,4 @@ class Complete extends React.Component {
   }
 }
 
-export default Complete;
+export default CompleteStep;

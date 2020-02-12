@@ -1,9 +1,9 @@
 import React from 'react';
-import Tooltip from './components/Tooltip';
-import '../../styles/main.css';
-import '../../styles/Onboarding.css';
+import Tooltip from '../components/Tooltip';
+import '../../../styles/main.css';
+import '../../../styles/Onboarding.css';
 
-class BasicInfo extends React.PureComponent {
+class BasicInfoStep extends React.PureComponent {
   // validates then moves on if no error messages
 
   render() {
@@ -122,4 +122,4 @@ class BasicInfo extends React.PureComponent {
   }
 }
 
-export default BasicInfo;
+export default BasicInfoStep;

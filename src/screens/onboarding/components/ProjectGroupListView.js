@@ -14,9 +14,9 @@ class ProjectGroupListView extends React.Component {
       changeSelectedGroup,
       changeDisplayedGroup,
       handleViewChange,
-      values
+      owner
     } = this.props;
-    const { projectGroup } = values;
+
     return (
       <div className="justify-space-between h-75" style={{ display: 'flex' }}>
         <div className="w-65 template-card left projectgroup-list-card">
@@ -49,7 +49,7 @@ class ProjectGroupListView extends React.Component {
                   <div className="">
                     <div className="project-group-list-option-header">
                       {`${group.name} ${
-                        projectGroup === group.id ? '(Selected)' : ''
+                        owner.projectGroupId === group.id ? '(Selected)' : ''
                       }`}
                     </div>
                     <div className="project-group-list-option-body">
@@ -71,7 +71,7 @@ class ProjectGroupListView extends React.Component {
             <div className="projectgroup-selected-body">
               {groups[displayGroup].description}
             </div>
-            {projectGroup === groups[displayGroup].id ? (
+            {owner.projectGroupId === groups[displayGroup].id ? (
               <button
                 type="button"
                 className="projectgroup-selected"

@@ -1,11 +1,11 @@
 import States from '../assets/states.json';
 import { getOwnersByEmail } from './airtable/request';
-import ContactInfo from '../screens/onboarding/ContactInfo';
-import BasicInfo from '../screens/onboarding/BasicInfo';
-import ProjectGroups from '../screens/onboarding/ProjectGroups';
-import Payment from '../screens/onboarding/Payment';
-import Complete from '../screens/onboarding/Complete';
-import Bylaws from '../screens/onboarding/Bylaws';
+import ContactInfoStep from '../screens/onboarding/steps/ContactInfoStep';
+import BasicInfoStep from '../screens/onboarding/steps/BasicInfoStep';
+import ProjectGroupStep from '../screens/onboarding/steps/ProjectGroupStep';
+import PaymentStep from '../screens/onboarding/steps/PaymentStep';
+import CompleteStep from '../screens/onboarding/steps/CompleteStep';
+import BylawStep from '../screens/onboarding/steps/BylawStep';
 
 // Helper functions to validate owner record fields
 
@@ -95,13 +95,13 @@ const validateField = async (name, value) => {
 // Maps Step to Component and Fields via Indices
 const OnboardingData = [
   {
-    component: BasicInfo,
+    component: BasicInfoStep,
     fields: ['firstName', 'lastName', 'email', 'alternativeEmail', 'password'],
     copy: '',
     header: ''
   },
   {
-    component: ContactInfo,
+    component: ContactInfoStep,
     fields: [
       'permanentStreet1',
       'permanentStreet2',
@@ -120,21 +120,21 @@ const OnboardingData = [
     header: 'Welcome Aboard!'
   },
   {
-    component: ProjectGroups,
+    component: ProjectGroupStep,
     fields: [],
     copy:
       'Project groups in People Power represent the different communities involved in our cooperative. ',
     header: 'Select your project group'
   },
   {
-    component: Bylaws,
+    component: BylawStep,
     fields: [],
     copy: '',
     header: 'Owner Agreement and Acknowledgment'
   },
-  { component: Payment, fields: [], copy: '', header: 'Purchase shares' },
+  { component: PaymentStep, fields: [], copy: '', header: 'Purchase shares' },
   {
-    component: Complete,
+    component: CompleteStep,
     fields: [],
     copy: '',
     header: 'Registration complete!'
