@@ -17,9 +17,7 @@ import {
 } from './redux/communitySlice';
 import { getCredentials } from './credentials';
 
-// TODO: validate records fetched using validator functions
-// This function takes in a userLogin record
-// (because the Login logic already looks up the user login record)
+// Function takes in an ownerId and fetches the latest owner object and all associated user data
 const refreshUserData = async ownerId => {
   // Save loading status to Redux
   store.dispatch(setLoadingForUserData());

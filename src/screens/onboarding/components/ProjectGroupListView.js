@@ -49,7 +49,7 @@ class ProjectGroupListView extends React.Component {
                   <div className="">
                     <div className="project-group-list-option-header">
                       {`${group.name} ${
-                        owner.projectGroupId[0] === group.id ? '(Selected)' : ''
+                        owner.projectGroupId === group.id ? '(Selected)' : ''
                       }`}
                     </div>
                     <div className="project-group-list-option-body">
@@ -72,7 +72,7 @@ class ProjectGroupListView extends React.Component {
               <div className="projectgroup-selected-body">
                 {groups[displayGroup].description}
               </div>
-              {owner.projectGroupId[0] === groups[displayGroup].id ? (
+              {owner.projectGroupId === groups[displayGroup].id ? (
                 <button
                   type="button"
                   className="projectgroup-selected"

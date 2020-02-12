@@ -33,7 +33,10 @@ class Onboarding extends React.Component {
     const { owner } = this.props;
 
     if (owner) {
-      this.setState({ owner: { ...owner } });
+      // Account for edge case of project group id being wrapped in an array
+      this.setState({
+        owner: { ...owner, projectGroupId: owner.projectGroupId[0] }
+      });
     }
   };
 
@@ -68,6 +71,12 @@ class Onboarding extends React.Component {
       // Create/Update specific owner fields
       // State should be refreshed when data is successfully pulled from redux
       const newOwner = { ...owner, onboardingStep: owner.onboardingStep + 1 };
+
+      // Account for edge case of project group ID needing to be wrapped in an array
+      if (newOwner.projectGroupId) {
+        newOwner.projectGroupId = [newOwner.projectGroupId];
+      }
+
       await updateOwnerFields(
         newOwner,
         OnboardingData[owner.onboardingStep].fields
@@ -96,9 +105,6 @@ class Onboarding extends React.Component {
       case 'bylaw2':
       case 'isReceivingDividends':
         newOwner[name] = event.target.checked;
-        break;
-      case 'projectGroupId':
-        newOwner[name] = [value];
         break;
       case 'permanentStreet1':
       case 'permanentStreet2':

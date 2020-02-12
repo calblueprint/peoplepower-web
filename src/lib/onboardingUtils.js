@@ -110,7 +110,7 @@ const updateOwnerFields = async (owner, fields) => {
   console.log(owner);
   const ownerUpdate = fields.reduce(
     (value, field) => ({ ...value, [field]: owner[field] }),
-    { onboardingStep: owner.onboardingStep } // 1 pre-existing field
+    { onboardingStep: owner.onboardingStep } // 1 field constant throughout all
   );
   console.log('Selected Fields');
   console.log(ownerUpdate);
