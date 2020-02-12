@@ -18,31 +18,21 @@ class PaymentStep extends React.Component {
   }
 
   onBuyShareWithPaypalSuccess = (details, data) => {
-    const { values } = this.props;
-    recordShareBuySuccess(details, data, values); // TODO(dfangshuo): no await?
+    const { owner, onSubmit } = this.props;
+    recordShareBuySuccess(details, data, owner); // TODO(dfangshuo): no await?
     console.log('Paypal success');
-    this.continue();
-  };
-
-  // Only called after user has paid
-  continue = () => {
-    // const { values, nextStep } = this.props;
-    // const { userId } = values;
-    // // No validation as everything is already decided at this point (user has paid)
-    // const updatedPerson = {
-    //   onboardingStep: 6
-    // };
-    // updatePerson(userId, updatedPerson); // TODO(dfangshuo): no await?
-    // nextStep();
+    // Todo: Deal with validation somehow...
+    // Might need to manually validate fields before paying
+    // Will revisit!
+    onSubmit();
   };
 
   minusShares = () => {
-    const { values, handleChange } = this.props;
-    const { numShares } = values;
+    const { owner, handleChange } = this.props;
     const event = {
       target: {
-        name: 'numShares',
-        value: numShares - 1
+        name: 'numberOfShares',
+        value: owner.numberOfShares - 1
       }
     };
     if (event.target.value > -1) {
@@ -51,12 +41,12 @@ class PaymentStep extends React.Component {
   };
 
   addShares = () => {
-    const { values, handleChange } = this.props;
-    const { numShares } = values;
+    const { owner, handleChange } = this.props;
+
     const event = {
       target: {
-        name: 'numShares',
-        value: numShares + 1
+        name: 'numberOfShares',
+        value: owner.numberOfShares + 1
       }
     };
     if (event.target.value < 11) {
@@ -64,15 +54,8 @@ class PaymentStep extends React.Component {
     }
   };
 
-  prevButton = e => {
-    const { prevStep } = this.props;
-    e.preventDefault();
-    prevStep();
-  };
-
   render() {
-    const { values, handleChange } = this.props;
-    const { errors, numShares } = values;
+    const { owner, errors, onBack, handleChange } = this.props;
     const { paid } = this.state;
     return (
       <div className="w-100">
@@ -95,7 +78,7 @@ class PaymentStep extends React.Component {
                     name="numShares"
                     className="payment-shares-input-field"
                     onChange={handleChange}
-                    value={numShares}
+                    value={owner.numShares}
                   />
                   <button
                     type="button"
@@ -117,10 +100,10 @@ class PaymentStep extends React.Component {
                 <div className="payment-dividends-option">
                   <input
                     type="radio"
-                    name="dividends"
+                    name="isReceivingDividends"
                     className="payment-dividends-radio"
                     value="yes"
-                    checked={values.dividends}
+                    checked={owner.isReceivingDividends}
                     onChange={handleChange}
                   />
                   <label htmlFor="" className="payment-dividends-choice">
@@ -133,7 +116,7 @@ class PaymentStep extends React.Component {
                     name="dividends"
                     className="payment-dividends-radio"
                     value="no"
-                    checked={!values.dividends}
+                    checked={!owner.isReceivingDividends}
                     onChange={handleChange}
                   />
                   <label htmlFor="" className="payment-dividends-choice">
@@ -144,7 +127,9 @@ class PaymentStep extends React.Component {
                   </label>
                 </div>
                 <div className=" validation">
-                  {errors.dividends ? errors.dividends : '\u00A0'}
+                  {errors.isReceivingDividends
+                    ? errors.isReceivingDividends
+                    : '\u00A0'}
                 </div>
               </div>
             </div>
@@ -153,7 +138,7 @@ class PaymentStep extends React.Component {
                 <div className="payment-shares-header">Payment Information</div>
                 <div className="mt-3">
                   <PayPalButton
-                    amount={numShares * SHARE_PRICE}
+                    amount={owner.numberOfShares * SHARE_PRICE}
                     onSuccess={this.onBuyShareWithPaypalSuccess}
                     options={{
                       clientId
@@ -169,15 +154,17 @@ class PaymentStep extends React.Component {
               <div className="flex justify-space-between">
                 <div className="left payment-summary-shares">Shares</div>
                 <div className="right payment-summary-shares">
-                  ${numShares * SHARE_PRICE}.00
+                  ${owner.numberOfShares * SHARE_PRICE}.00
                 </div>
               </div>
-              <div className="payment-summary-qty">QTY: {numShares}</div>
+              <div className="payment-summary-qty">
+                QTY: {owner.numberOfShares}
+              </div>
               <hr className="payment-summary-hr" />
               <div className="flex justify-space-between">
                 <div className="left payment-summary-total">Total</div>
                 <div className="right payment-summary-total">
-                  ${numShares * SHARE_PRICE}.00
+                  ${owner.numberOfShares * SHARE_PRICE}.00
                 </div>
               </div>
             </div>
@@ -185,11 +172,7 @@ class PaymentStep extends React.Component {
         </div>
         <div className="steps-buttons flex onboarding-row w-100 right justify-space-between">
           <div className="left">
-            <button
-              type="button"
-              className="back-button"
-              onClick={this.prevButton}
-            >
+            <button type="button" className="back-button" onClick={onBack}>
               Go back
             </button>
           </div>
