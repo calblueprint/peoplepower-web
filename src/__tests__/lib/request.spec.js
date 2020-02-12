@@ -12,7 +12,7 @@ import {
   deleteOwner
 } from '../../lib/airtable/request';
 
-const testOwner = 'reckNsjHnv0IpwN5M';
+const testOwner = 'recG1RskfrRXd1RgS';
 const testProjectGroup = 'recxJehaSlKk8IiS9';
 const testSubscriberBill = 'recBd7TIFJfjh2k7U';
 const testSolarProject = 'rec9BemtHIasDI2aQ';
@@ -31,13 +31,13 @@ const testNewOwner = {};
 testNewOwner[ownerFieldToModify] = newNumberOfShares;
 
 const nameMap = {};
-nameMap[testOwner] = 'person';
+nameMap[testOwner] = 'firstName';
 nameMap[testProjectGroup] = 'name';
 nameMap[testSubscriberBill] = 'balance';
 nameMap[testSolarProject] = 'name';
 
 const expectedResultsMap = {};
-expectedResultsMap[testOwner] = ['recaUqFEg1nI91hyi'];
+expectedResultsMap[testOwner] = 'Test';
 expectedResultsMap[testProjectGroup] = 'SAMPLE PROJECT GROUP';
 expectedResultsMap[testSubscriberBill] = 1996;
 expectedResultsMap[testSolarProject] = 'SAMPLE SOLAR PROJECT';
@@ -60,7 +60,7 @@ expectedResultsMap[testSolarProject] = 'SAMPLE SOLAR PROJECT';
 // };
 
 const testOwnerToCreate = {
-  ownerType: ['General', 'Subscriber']
+  ownerTypes: ['General', 'Subscriber']
 };
 
 // const testUserLoginToCreate = {
