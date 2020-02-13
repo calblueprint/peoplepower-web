@@ -28,13 +28,10 @@ class ProjectGroupStep extends React.Component {
   }
 
   changeDisplayedGroup = groupId => {
-    console.log(`Changing Displayed Group: ${groupId}`);
-
     this.setState({ displayGroupId: groupId });
   };
 
   changeSelectedGroup = groupId => {
-    console.log(`Changing Selected Group: ${groupId}`);
     const { handleChange, owner } = this.props;
     let event;
     if (groupId === owner.projectGroupId) {
@@ -102,7 +99,7 @@ class ProjectGroupStep extends React.Component {
               <input
                 type="checkbox"
                 name="selectNoProjectGroup"
-                onChange={() => this.changeSelectedGroup(defaultGroup)}
+                onChange={() => this.changeSelectedGroup(defaultGroup.id)}
                 checked={owner.projectGroupId === defaultGroup.id}
               />
               <span className="checkmark" />

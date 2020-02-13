@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class ProgressBar extends React.PureComponent {
+export default class ProgressBarHeader extends React.PureComponent {
   colorStep = step => {
     const { step: activeStep } = this.props;
     if (activeStep === step) {
