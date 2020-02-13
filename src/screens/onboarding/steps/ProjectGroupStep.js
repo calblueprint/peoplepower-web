@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../styles/Onboarding.css';
-import MapView from '../components/ProjectGroupMapView';
-import ListView from '../components/ProjectGroupListView';
+import MapView from './ProjectGroupMapView';
+import ListView from './ProjectGroupListView';
 import { getAvailableProjectGroups } from '../../../lib/onboardingUtils';
 
 class ProjectGroupStep extends React.Component {
@@ -10,7 +10,7 @@ class ProjectGroupStep extends React.Component {
     this.state = {
       defaultGroup: {},
       allProjectGroups: [],
-      displayGroup: 0,
+      displayGroupId: '',
       view: 'list'
     };
   }
@@ -20,17 +20,24 @@ class ProjectGroupStep extends React.Component {
       selectableGroups,
       defaultGroup
     } = await getAvailableProjectGroups();
-    this.setState({ allProjectGroups: selectableGroups, defaultGroup });
+    this.setState({
+      allProjectGroups: selectableGroups,
+      defaultGroup,
+      displayGroupId: selectableGroups.length > 0 && selectableGroups[0].id
+    });
   }
 
-  changeDisplayedGroup = id => {
-    this.setState({ displayGroup: id });
+  changeDisplayedGroup = groupId => {
+    console.log(`Changing Displayed Group: ${groupId}`);
+
+    this.setState({ displayGroupId: groupId });
   };
 
-  changeSelectedGroup = group => {
+  changeSelectedGroup = groupId => {
+    console.log(`Changing Selected Group: ${groupId}`);
     const { handleChange, owner } = this.props;
     let event;
-    if (group.id === owner.projectGroupId) {
+    if (groupId === owner.projectGroupId) {
       event = {
         target: {
           name: 'projectGroupId',
@@ -41,7 +48,7 @@ class ProjectGroupStep extends React.Component {
       event = {
         target: {
           name: 'projectGroupId',
-          value: group.id
+          value: groupId
         }
       };
     }
@@ -56,7 +63,7 @@ class ProjectGroupStep extends React.Component {
 
   render() {
     const { owner, errors, onSubmit, onBack } = this.props;
-    const { allProjectGroups, displayGroup, view, defaultGroup } = this.state;
+    const { allProjectGroups, displayGroupId, view, defaultGroup } = this.state;
 
     return (
       <div
@@ -70,10 +77,9 @@ class ProjectGroupStep extends React.Component {
         <div>
           {view === 'map' ? (
             <MapView
-              style={{ display: 'block', position: 'fixed' }}
               owner={owner}
               markers={allProjectGroups}
-              displayGroup={displayGroup}
+              displayGroup={displayGroupId}
               handleViewChange={this.handleViewChange}
               changeDisplayedGroup={this.changeDisplayedGroup}
               changeSelectedGroup={this.changeSelectedGroup}
@@ -81,10 +87,9 @@ class ProjectGroupStep extends React.Component {
             />
           ) : (
             <ListView
-              style={{ display: 'block', position: 'fixed' }}
-              owner={owner}
               groups={allProjectGroups}
-              displayGroup={displayGroup}
+              displayedGroupId={displayGroupId}
+              selectedGroupId={owner.projectGroupId}
               handleViewChange={this.handleViewChange}
               changeSelectedGroup={this.changeSelectedGroup}
               changeDisplayedGroup={this.changeDisplayedGroup}

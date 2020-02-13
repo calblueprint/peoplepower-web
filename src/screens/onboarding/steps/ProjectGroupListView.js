@@ -9,13 +9,15 @@ class ProjectGroupListView extends React.Component {
   render() {
     const {
       groups,
-      displayGroup,
+      displayedGroupId,
+      selectedGroupId,
       view,
       changeSelectedGroup,
       changeDisplayedGroup,
-      handleViewChange,
-      owner
+      handleViewChange
     } = this.props;
+
+    const displayedGroup = groups.find(g => g.id === displayedGroupId);
 
     return (
       <div className="justify-space-between h-75" style={{ display: 'flex' }}>
@@ -39,9 +41,9 @@ class ProjectGroupListView extends React.Component {
               <div key={group.id}>
                 <button
                   type="button"
-                  onClick={() => changeDisplayedGroup(index)}
+                  onClick={() => changeDisplayedGroup(group.id)}
                   className={`project-group-list-option justify-space-between left ${
-                    group.id === groups[displayGroup].id
+                    group.id === displayedGroupId
                       ? 'project-group-list-option-background'
                       : ''
                   }`}
@@ -49,7 +51,7 @@ class ProjectGroupListView extends React.Component {
                   <div className="">
                     <div className="project-group-list-option-header">
                       {`${group.name} ${
-                        owner.projectGroupId === group.id ? '(Selected)' : ''
+                        group.id === selectedGroupId ? '(Selected)' : ''
                       }`}
                     </div>
                     <div className="project-group-list-option-body">
@@ -67,16 +69,16 @@ class ProjectGroupListView extends React.Component {
           <div className="w-20 template-card projectgroup-selected-card">
             <div className="">
               <div className="projectgroup-selected-header">
-                {groups[displayGroup].name}
+                {displayedGroup.name}
               </div>
               <div className="projectgroup-selected-body">
-                {groups[displayGroup].description}
+                {displayedGroup.description}
               </div>
-              {owner.projectGroupId === groups[displayGroup].id ? (
+              {selectedGroupId === displayedGroupId ? (
                 <button
                   type="button"
                   className="projectgroup-selected"
-                  onClick={() => changeSelectedGroup(groups[displayGroup])}
+                  onClick={() => changeSelectedGroup(displayedGroupId)}
                   name="projectGroup"
                 >
                   Selected
@@ -85,7 +87,7 @@ class ProjectGroupListView extends React.Component {
                 <button
                   type="button"
                   className="btn btn--square btn--pink btn--size16 btn--weight600 projectgroup-select"
-                  onClick={() => changeSelectedGroup(groups[displayGroup])}
+                  onClick={() => changeSelectedGroup(displayedGroupId)}
                   name="projectGroup"
                 >
                   Select
