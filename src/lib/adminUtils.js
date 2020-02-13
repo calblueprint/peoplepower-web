@@ -22,5 +22,8 @@ export async function removeOwner(owner) {
 
 export function getOwnerRecordsForProjectGroup(projectGroup) {
   const ownerPromises = projectGroup.ownerIds.map(getOwnerById);
-  return Promise.all(ownerPromises);
+  const allOwners = Promise.all(ownerPromises);
+
+  // Ensure onboarding users aren't considered
+  return allOwners.filter(o => o.onboardingStep === -1);
 }

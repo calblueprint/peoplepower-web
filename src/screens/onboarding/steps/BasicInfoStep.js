@@ -70,7 +70,7 @@ class BasicInfoStep extends React.PureComponent {
         </div>
         <div className="w-100">
           <label className="onboarding-label left pr-half" htmlFor="altEmail">
-            Alternative Email
+            Alternate Email
             <Tooltip
               label={
                 'We’ll use this email to reach you if we can’t\ncontact you at your primary email.'

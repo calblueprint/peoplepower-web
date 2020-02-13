@@ -1,12 +1,8 @@
 import React from 'react';
 
 class CompleteStep extends React.PureComponent {
-  dashboardButton = () => {
-    const { history } = this.props;
-    history.push('/');
-  };
-
   render() {
+    const { onFinish } = this.props;
     return (
       <div className="flex onboarding-row w-100 right justify-space-between">
         <div className="left" />
@@ -14,7 +10,7 @@ class CompleteStep extends React.PureComponent {
           <button
             type="button"
             className="btn btn--rounded btn--pink btn--size12 getstarted-button"
-            onClick={this.dashboardButton}
+            onClick={onFinish}
           >
             Continue to Dashboard
           </button>

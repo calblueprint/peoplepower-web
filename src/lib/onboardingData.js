@@ -4,12 +4,22 @@ import ProjectGroupStep from '../screens/onboarding/steps/ProjectGroupStep';
 import PaymentStep from '../screens/onboarding/steps/PaymentStep';
 import CompleteStep from '../screens/onboarding/steps/CompleteStep';
 import BylawStep from '../screens/onboarding/steps/BylawStep';
+import PaymentDetailsStep from '../screens/onboarding/steps/PaymentDetailsStep';
 
 // Maps Step to Component and Fields via Indices
 const OnboardingData = [
   {
     component: BasicInfoStep,
-    fields: ['firstName', 'lastName', 'email', 'alternativeEmail', 'password'],
+    fields: [
+      'firstName',
+      'lastName',
+      'email',
+      'alternateEmail',
+      'password',
+      'ownerTypes',
+      'isReceivingDividends',
+      'numberOfShares'
+    ],
     copy: '',
     header: ''
   },
@@ -48,15 +58,22 @@ const OnboardingData = [
     header: 'Owner Agreement and Acknowledgment'
   },
   {
-    component: PaymentStep,
+    component: PaymentDetailsStep,
     fields: ['isReceivingDividends', 'numberOfShares'],
     copy: '',
     header: 'Purchase shares'
   },
   {
-    component: CompleteStep,
+    component: PaymentStep,
     fields: [],
     copy: '',
+    header: 'Finish Payment'
+  },
+  {
+    component: CompleteStep,
+    fields: [],
+    copy:
+      'Great! Congrats on finishing onboarding. Click to go to your dashboard!',
     header: 'Registration complete!'
   }
 ];

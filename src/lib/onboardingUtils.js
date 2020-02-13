@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import States from '../assets/states.json';
 import {
   getOwnersByEmail,
@@ -75,6 +76,7 @@ const ValidatorData = {
   alternateEmail: [],
   permanentStreet2: [],
   mailingStreet2: [],
+  isReceivingDividends: [],
   projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
 };
 
@@ -87,11 +89,15 @@ const validateField = async (name, value) => {
     validators = [validateExistence];
   }
 
-  // For each validator, compute error message
-  const errors = await Promise.all(validators.map(f => f(value)));
+  for (let i = 0; i < validators.length; i += 1) {
+    const validateFunc = validators[i];
+    const error = await validateFunc(value);
+    if (error !== '') {
+      return error;
+    }
+  }
 
-  // filter out empty strings
-  return errors.filter(e => e !== '');
+  return '';
 };
 
 const getAvailableProjectGroups = async () => {
@@ -106,14 +112,10 @@ const getAvailableProjectGroups = async () => {
 };
 
 const updateOwnerFields = async (owner, fields) => {
-  console.log('Received Owner Update:');
-  console.log(owner);
   const ownerUpdate = fields.reduce(
     (value, field) => ({ ...value, [field]: owner[field] }),
     { onboardingStep: owner.onboardingStep } // 1 field constant throughout all
   );
-  console.log('Selected Fields');
-  console.log(ownerUpdate);
   if (owner.id) {
     await updateOwner(owner.id, ownerUpdate);
     refreshUserData(owner.id);
