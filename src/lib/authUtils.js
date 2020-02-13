@@ -1,10 +1,10 @@
-import { getUserLoginsByEmail } from './airtable/request';
+import { getOwnersByEmail } from './airtable/request';
 import { store } from './redux/store';
 import { authenticate } from './redux/userDataSlice';
 import { refreshUserData, clearUserData } from './userDataUtils';
 
 const loginUser = async (email, passwordHash) => {
-  const records = await getUserLoginsByEmail(email);
+  const records = await getOwnersByEmail(email);
 
   if (records.length > 1) {
     // Todo: We could/should ultimately try and handle this case smoothly
@@ -19,15 +19,15 @@ const loginUser = async (email, passwordHash) => {
     return { match: false, found: false };
   }
 
-  const userLogin = records[0];
-  if (userLogin.password === passwordHash) {
+  const owner = records[0];
+  if (owner.password === passwordHash) {
     // TODO: Replace with airlock auth token.
     // For now we can access airtable without restriction
     const key = 'temp_token';
 
     // Save key to redux store
     store.dispatch(authenticate(key));
-    refreshUserData(userLogin);
+    refreshUserData(owner);
     return { match: true, found: true };
   }
 

@@ -4,7 +4,7 @@ import '../../styles/Onboarding.css';
 import MapView from './components/ProjectGroupMapView';
 import ListView from './components/ProjectGroupListView';
 import {
-  updatePerson,
+  // updatePerson,
   updateOwner,
   getAllProjectGroups
 } from '../../lib/airtable/request';
@@ -64,7 +64,7 @@ class ProjectGroups extends React.Component {
 
   nextButton = async () => {
     const {
-      values: { errors, projectGroup, personId, userId },
+      values: { errors, projectGroup, personId },
       nextStep
     } = this.props;
 
@@ -74,10 +74,10 @@ class ProjectGroups extends React.Component {
     if (projectGroup === '') {
       console.error('Need to make a selection');
     } else {
-      const updatedPerson = {
-        onboardingStep: 4
-      };
-      await updatePerson(userId, updatedPerson);
+      // const updatedPerson = {
+      //   onboardingStep: 4
+      // };
+      // await updatePerson(userId, updatedPerson);
 
       const newOwner = {
         projectGroup: [projectGroup]

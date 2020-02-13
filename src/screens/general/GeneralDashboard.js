@@ -18,7 +18,7 @@ class GeneralOwnerDashboard extends React.Component {
   */
 
   renderUserDetails() {
-    const { person, projectGroup, solarProjects } = this.props;
+    const { owner, projectGroup, solarProjects } = this.props;
 
     const solarProjectComponent = solarProjects.map(project => {
       return <li key={project.name}>{project.name}</li>;
@@ -27,17 +27,17 @@ class GeneralOwnerDashboard extends React.Component {
     return (
       <div className="dash-solar-details">
         <p style={{ fontWeight: '800', color: 'var(--pp-black)' }}>
-          Welcome, {person.name}
+          Welcome, {owner.name}
         </p>
         <div>
           <p>
-            <span>Email:</span> {person.email}
+            <span>Email:</span> {owner.email}
           </p>
           <p>
-            <span>Phone Number:</span> {person.phoneNumber}
+            <span>Phone Number:</span> {owner.phoneNumber}
           </p>
           <p>
-            <span>Address:</span> {person.address}
+            <span>Address:</span> {owner.permanentAddress}
           </p>
           <p>
             <span>Project Group:</span> {projectGroup.name}
@@ -92,7 +92,6 @@ class GeneralOwnerDashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  person: state.userData.person,
   owner: state.userData.owner,
   projectGroup: state.userData.projectGroup,
   solarProjects: state.userData.solarProjects,

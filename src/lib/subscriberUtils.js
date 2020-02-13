@@ -29,8 +29,8 @@ const centsToDollars = cents => {
 
 const getSubscriberBills = async owner => {
   try {
-    const billIds = owner.subscriberBill;
-    const paymentIds = owner.payment;
+    const billIds = owner.subscriberBillIds;
+    const { paymentIds } = owner;
 
     if (!billIds && !paymentIds) {
       return { transactions: [], pendingBills: [] };
@@ -70,11 +70,11 @@ const getSubscriberBills = async owner => {
           // TODO: Could this be simpler since it's copying most of the properties of billObject
           pendingBills.push({
             id: billObject.id,
-            subscriberOwner: billObject.subscriberOwner[0], // assumes exactly 1 subscriber owner
+            subscriberOwnerId: billObject.subscriberOwner[0], // assumes exactly 1 subscriber owner
             transactionDate: billObject.statementDate,
             startDate: billObject.startDate,
             endDate: billObject.endDate,
-            rateSchedule: billObject.rateSchedule,
+            rateScheduleId: billObject.rateSchedule,
             estimatedRebate: billObject.estimatedRebate,
             totalEstimatedRebate: billObject.totalEstimatedRebate,
             amountDueOnPrevious: billObject.amountDueOnPrevious,

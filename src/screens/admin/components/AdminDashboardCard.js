@@ -6,7 +6,7 @@ import { getCredentials, isAdmin } from '../../../lib/credentials';
 class AdminDashboardCard extends React.PureComponent {
   render() {
     const { owner } = this.props;
-    const { ownerType: ownerTypes } = owner;
+    const { ownerTypes } = owner;
     const credentials = getCredentials(owner);
     const isAdminOwner = isAdmin(credentials);
     if (isAdminOwner) {
@@ -22,8 +22,7 @@ class AdminDashboardCard extends React.PureComponent {
       <div className="admin-card">
         <div className="card-profile-image" />
         <div className="card-name">
-          {/* We can use their ID here because their id is...technically their name */}
-          <h3>{owner.id}</h3>
+          <h3>{owner.name}</h3>
           <div className="card-tags">{ownerTags}</div>
         </div>
         <div>

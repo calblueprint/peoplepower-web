@@ -7,7 +7,6 @@ import ProjectGroups from './ProjectGroups';
 import Payment from './Payment';
 import Complete from './Complete';
 import formValidation from '../../lib/onboarding/formValidation';
-import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
 import Template from './components/Template';
 
 class Onboarding extends React.Component {
@@ -315,7 +314,6 @@ class Onboarding extends React.Component {
             handleChange={this.handleChange}
             handleFormValidation={this.handleFormValidation}
             handleRecordCreation={this.handleRecordCreation}
-            createPersonOwnerUserLoginRecord={createPersonOwnerUserLoginRecord}
           />,
           2
         );

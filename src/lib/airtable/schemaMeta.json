@@ -1,11 +1,8 @@
 {
-  "User Login": {
-    "lookupFields": ["Email"]
-  },
   "Announcement": {
-    "lookupFields": ["Project Group"]
+    "lookupFields": ["Project Group ID"]
   },
   "Owner": {
-    "lookupFields": ["Project Group"]
+    "lookupFields": ["Email", "Project Group ID"]
   }
 }

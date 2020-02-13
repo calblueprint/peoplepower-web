@@ -40,11 +40,7 @@ class Community extends React.Component {
         <div className="cont">
           <h1>Community</h1>
           {isAdmin(credentials) ? (
-            <AddAnnouncement
-              projectGroupId={owner.projectGroup}
-              personId={owner.person}
-              updateCards={this.addTempCard}
-            />
+            <AddAnnouncement owner={owner} updateCards={this.addTempCard} />
           ) : null}
           <AnnouncementList
             announcements={announcements}

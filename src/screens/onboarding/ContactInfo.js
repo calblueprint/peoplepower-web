@@ -1,8 +1,6 @@
 import React from 'react';
 import formValidation from '../../lib/onboarding/formValidation';
-import { createPersonOwnerUserLoginRecord } from '../../lib/onboarding/onboardingUtils';
 import Tooltip from './components/Tooltip';
-import { updatePerson } from '../../lib/airtable/request';
 import '../../styles/main.css';
 
 class ContactInfo extends React.Component {
@@ -16,26 +14,26 @@ class ContactInfo extends React.Component {
 
   nextButton = async e => {
     e.preventDefault();
-    const { values, nextStep } = this.props;
+    const { values } = this.props;
     const {
-      errors,
-      userId,
-      email,
-      password,
-      fname,
-      lname,
-      street,
-      apt,
-      state,
-      city,
-      zipcode,
-      phoneNumber,
-      mailingStreet,
-      mailingApt,
-      mailingCity,
-      mailingState,
-      mailingZipcode,
-      mailingPhoneNumber
+      errors
+      // userId,
+      // email,
+      // password,
+      // fname,
+      // lname,
+      // street,
+      // apt,
+      // state,
+      // city,
+      // zipcode,
+      // phoneNumber,
+      // mailingStreet,
+      // mailingApt,
+      // mailingCity,
+      // mailingState,
+      // mailingZipcode,
+      // mailingPhoneNumber
     } = values;
     const { assertAddress } = this.state;
     const inputTypes = [
@@ -75,58 +73,58 @@ class ContactInfo extends React.Component {
     }
 
     console.log(errorMessages);
-    if (!(errorMessages && errorMessages.length > 0)) {
-      if (userId) {
-        const updatedPerson = {
-          street,
-          apt,
-          city,
-          state,
-          zipcode,
-          phoneNumber,
-          mailingStreet,
-          mailingApt,
-          mailingCity,
-          mailingState,
-          mailingZipcode,
-          mailingPhoneNumber,
-          onboardingStep: 3
-        };
-        updatePerson(userId, updatedPerson);
-        nextStep();
-      } else {
-        // create the person/owner record in Airtable
-        const {
-          createdOwnerId,
-          createdPersonId,
-          createdUserLoginId
-        } = await createPersonOwnerUserLoginRecord(
-          email,
-          password,
-          phoneNumber,
-          `${fname} ${lname}`,
-          street,
-          apt,
-          city,
-          state,
-          zipcode
-        );
+    // if (!(errorMessages && errorMessages.length > 0)) {
+    //   if (userId) {
+    //     const updatedPerson = {
+    //       street,
+    //       apt,
+    //       city,
+    //       state,
+    //       zipcode,
+    //       phoneNumber,
+    //       mailingStreet,
+    //       mailingApt,
+    //       mailingCity,
+    //       mailingState,
+    //       mailingZipcode,
+    //       mailingPhoneNumber,
+    //       onboardingStep: 3
+    //     };
+    //     updatePerson(userId, updatedPerson);
+    //     nextStep();
+    //   } else {
+    //     // create the person/owner record in Airtable
+    //     const {
+    //       createdOwnerId,
+    //       createdPersonId,
+    //       createdUserLoginId
+    //     } = await createPersonOwnerUserLoginRecord(
+    //       email,
+    //       password,
+    //       phoneNumber,
+    //       `${fname} ${lname}`,
+    //       street,
+    //       apt,
+    //       city,
+    //       state,
+    //       zipcode
+    //     );
 
-        if (!createdOwnerId || !createdPersonId) {
-          console.error('createPersonOwnerUserLoginRecord FAILED');
-        } else {
-          const { handleRecordCreation } = this.props;
-          handleRecordCreation({
-            createdOwnerId,
-            createdPersonId,
-            createdUserLoginId
-          });
-          nextStep();
-        }
-      }
-    } else {
-      this.forceUpdate();
-    }
+    //     if (!createdOwnerId || !createdPersonId) {
+    //       console.error('createPersonOwnerUserLoginRecord FAILED');
+    //     } else {
+    //       const { handleRecordCreation } = this.props;
+    //       handleRecordCreation({
+    //         createdOwnerId,
+    //         createdPersonId,
+    //         createdUserLoginId
+    //       });
+    //       nextStep();
+    //     }
+    //   }
+    // } else {
+    //   this.forceUpdate();
+    // }
   };
 
   prevButton = e => {

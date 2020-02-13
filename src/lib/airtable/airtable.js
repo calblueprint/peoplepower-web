@@ -148,7 +148,9 @@ function getRecordsByAttribute(table, fieldType, field) {
           return;
         }
         if (!records || records.length < 1) {
-          console.log(`No record was retrieved using this ${fieldType}.`);
+          console.log(
+            `No record was retrieved using this ${fieldType} for value ${field}.`
+          );
           resolve([]);
           // No need for this to throw an error, sometimes there's just no values
           // reject(new Error(`No record was retrieved using this ${fieldType}.`));

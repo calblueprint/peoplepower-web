@@ -13,11 +13,12 @@ function getCredentials(owner) {
   }
 
   // Assumes that admin is only owner of one project group
-  if (owner.adminOf && owner.adminOf.length >= 0) {
+  console.log(owner);
+  if (owner.adminOfId && owner.adminOfId.length >= 0) {
     credentials += Credentials.ADMIN;
   }
 
-  const ownerTypes = owner.ownerType;
+  const { ownerTypes } = owner;
 
   if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
     credentials += Credentials.SUBSCRIBER;

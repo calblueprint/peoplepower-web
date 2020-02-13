@@ -1,26 +1,17 @@
 import React from 'react';
 import formValidation from '../../lib/onboarding/formValidation';
 import Tooltip from './components/Tooltip';
-import { updatePerson, updateUserLogin } from '../../lib/airtable/request';
 import { isUniqueEmail } from '../../lib/onboarding/onboardingUtils';
 import '../../styles/main.css';
 import '../../styles/Onboarding.css';
+import { updateOwner } from '../../lib/airtable/request';
 
 class BasicInfo extends React.Component {
   // validates then moves on if no error messages
   nextButton = async e => {
     e.preventDefault();
     const { values, nextStep } = this.props;
-    const {
-      errors,
-      userId,
-      userLoginId,
-      fname,
-      lname,
-      email,
-      password,
-      altEmail
-    } = values;
+    const { errors, userId, fname, lname, email, password } = values;
 
     const isNewEmail = await isUniqueEmail(email);
     if (!isNewEmail) {
@@ -42,20 +33,15 @@ class BasicInfo extends React.Component {
 
     if (!(errorsMessages && errorsMessages.length > 0)) {
       if (userId) {
-        const name = `${fname} ${lname}`;
-        const updatedPerson = {
-          name,
-          email,
-          alternativeEmail: altEmail
-        };
-
-        const newLogin = {
+        const updatedOwner = {
+          firstName: fname,
+          lastName: lname,
           email,
           password
         };
 
-        await updatePerson(userId, updatedPerson);
-        await updateUserLogin(userLoginId, newLogin);
+        // I'm pretty sure this userID is false lol but will fix later
+        await updateOwner(userId, updatedOwner);
       }
 
       nextStep();

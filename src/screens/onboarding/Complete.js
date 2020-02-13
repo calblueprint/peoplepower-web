@@ -1,8 +1,8 @@
 import React from 'react';
 import { refreshUserData } from '../../lib/userDataUtils';
-import { getUserLoginById } from '../../lib/airtable/request';
 import { store } from '../../lib/redux/store';
 import { authenticate } from '../../lib/redux/userDataSlice';
+import { getOwnerById } from '../../lib/airtable/request';
 
 class Complete extends React.Component {
   constructor(props) {
@@ -14,8 +14,9 @@ class Complete extends React.Component {
     const { history, values } = this.props;
     // TODO: Replace with proper airlock authentication
     store.dispatch(authenticate('temp_token'));
-    const userLogin = await getUserLoginById(values.userLoginId);
-    refreshUserData(userLogin);
+    // TODO: Revisit this
+    const owner = await getOwnerById(values.userId);
+    refreshUserData(owner);
 
     history.push('/');
   };
