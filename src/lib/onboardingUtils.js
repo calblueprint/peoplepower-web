@@ -18,9 +18,10 @@ const validateExistence = (value, error = 'Required') => {
 
 // Ensure valid and unique email
 const validateEmail = value => {
-  return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)
-    ? ''
-    : 'Invalid Email';
+  // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
+  // eslint-disable-next-line no-useless-escape
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(value) ? '' : 'Invalid Email';
 };
 
 const validateUniqueEmail = async value => {
