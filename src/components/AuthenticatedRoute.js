@@ -15,8 +15,6 @@ class AuthenticatedRoute extends React.PureComponent {
 
     if (credential) {
       // If credential prop exists, ensure they are authorized
-      // If noauth prop exists, ensure they are NOT signed in
-      // else, just ensure they are signed in
       return userCredentials.includes(credential);
     }
 
@@ -26,6 +24,7 @@ class AuthenticatedRoute extends React.PureComponent {
       return !isSignedIn(userCredentials);
     }
 
+    // else, just ensure they are signed in
     return isSignedIn(userCredentials);
   }
 
