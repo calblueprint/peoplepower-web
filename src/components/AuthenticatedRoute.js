@@ -2,27 +2,36 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { isSignedIn } from '../lib/credentials';
+import { isSignedIn, isOnboarding } from '../lib/credentials';
 
 class AuthenticatedRoute extends React.PureComponent {
   isAuthorized() {
-    const { userCredentials, credential, noauth } = this.props;
+    const { userCredentials, credential, onboarding } = this.props;
 
-    // If credential prop exists, ensure they are authorized
-    // If noauth prop exists, ensure they are NOT signed in
-    // else, just ensure they are signed in
+    // If user is still onboarding, they can only access onboarding routes
+    if (isOnboarding(userCredentials)) {
+      return onboarding;
+    }
+
     if (credential) {
+      // If credential prop exists, ensure they are authorized
       return userCredentials.includes(credential);
     }
-    if (noauth) {
+
+    // If this is the onboarding route, user must either be signed out
+    // or actively onboarding (handled above)
+    if (onboarding) {
       return !isSignedIn(userCredentials);
     }
+
+    // else, just ensure they are signed in
     return isSignedIn(userCredentials);
   }
 
   render() {
-    const { component: Component, ...rest } = this.props;
+    const { component: Component, userCredentials, ...rest } = this.props;
     const authorized = this.isAuthorized();
+    const redirectRoute = isOnboarding(userCredentials) ? '/onboarding' : '/';
     return (
       <Route
         {...rest}
@@ -30,7 +39,9 @@ class AuthenticatedRoute extends React.PureComponent {
           authorized ? (
             <Component {...props} />
           ) : (
-            <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+            <Redirect
+              to={{ pathname: redirectRoute, state: { from: props.location } }}
+            />
           )
         }
       />

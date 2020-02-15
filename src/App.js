@@ -1,7 +1,7 @@
 /* eslint react/jsx-props-no-spreading: 0 */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import NavBar from './components/NavBar';
@@ -21,7 +21,8 @@ import {
   isGeneralOwner,
   isSubscriberOwner,
   isSignedIn,
-  Credentials
+  Credentials,
+  isOnboarding
 } from './lib/credentials';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Investment from './screens/general/Investment';
@@ -32,18 +33,21 @@ class App extends React.Component {
 
     // If userLogin info is in Redux, fetch latest version
     if (owner) {
-      refreshUserData(owner);
+      refreshUserData(owner.id);
     }
   }
 
   // Figure out component to be shown at root based on user credentials
   getHomeComponent() {
     const { credentials } = this.props;
+    const onboarding = isOnboarding(credentials);
     const signedIn = isSignedIn(credentials);
     const isGeneral = isGeneralOwner(credentials);
     const isSubscriber = isSubscriberOwner(credentials);
     let homeComponent;
-    if (!signedIn) {
+    if (onboarding) {
+      homeComponent = () => <Redirect to={{ pathname: '/onboarding' }} />;
+    } else if (!signedIn) {
       homeComponent = Login;
     } else if (isGeneral && isSubscriber) {
       homeComponent = SubscriberWithSharesDashboard;
@@ -67,7 +71,7 @@ class App extends React.Component {
             <AuthenticatedRoute path="/profile" component={UserProfile} />
 
             <AuthenticatedRoute
-              noauth // Signed out users only
+              onboarding // Signed out/Onboarding Users Only
               path="/onboarding"
               component={Onboarding}
             />

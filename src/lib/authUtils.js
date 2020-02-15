@@ -27,7 +27,7 @@ const loginUser = async (email, passwordHash) => {
 
     // Save key to redux store
     store.dispatch(authenticate(key));
-    refreshUserData(owner);
+    refreshUserData(owner.id);
     return { match: true, found: true };
   }
 

@@ -726,7 +726,6 @@ carousel__arrow--right {
   border-style: solid;
   padding: 1rem 1.75rem;
   margin: 1rem 0;
-  z-index: -1;
 }
 
 .template-bylaws-card {
@@ -827,6 +826,7 @@ carousel__arrow--right {
 
 .project-group-list-view {
   padding-top: 4rem;
+  max-height: 250px;
   overflow: auto;
 }
 

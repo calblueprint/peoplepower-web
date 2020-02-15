@@ -1,51 +1,12 @@
 import React from 'react';
-import OwnerAgreement1 from '../../assets/ownerAgreement1.jpg';
-import OwnerAgreement2 from '../../assets/ownerAgreement2.jpg';
-import Carousel from './components/Carousel';
-import formValidation from '../../lib/onboarding/formValidation';
-import { updateOwner } from '../../lib/airtable/request';
+import OwnerAgreement1 from '../../../assets/ownerAgreement1.jpg';
+import OwnerAgreement2 from '../../../assets/ownerAgreement2.jpg';
+import Carousel from '../components/Carousel';
 
-class Bylaws extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  nextButton = e => {
-    e.preventDefault();
-    const { values, nextStep } = this.props;
-    const { errors, userId } = values;
-    const inputTypes = ['bylaw1', 'bylaw2'];
-    const errorsMessages = [];
-
-    for (let i = 0; i < inputTypes.length; i += 1) {
-      const errorMessage = formValidation(inputTypes[i], values[inputTypes[i]]);
-      errors[inputTypes[i]] = errorMessage;
-      if (errorMessage !== '') {
-        errorsMessages.push(errorMessage);
-      }
-    }
-
-    if (!(errorsMessages && errorsMessages.length > 0)) {
-      const updatedOwner = {
-        onboardingStep: 5
-      };
-      updateOwner(userId, updatedOwner);
-      nextStep();
-    } else {
-      this.forceUpdate();
-    }
-  };
-
-  prevButton = e => {
-    const { prevStep } = this.props;
-    e.preventDefault();
-    prevStep();
-  };
-
+class BylawStep extends React.PureComponent {
   render() {
-    const { values, handleChange } = this.props;
-    const { errors, bylaw1, bylaw2 } = values;
+    const { owner, errors, onSubmit, onBack, handleChange } = this.props;
+
     const imgs = [OwnerAgreement1, OwnerAgreement2];
     return (
       <form className="">
@@ -61,7 +22,7 @@ class Bylaws extends React.Component {
                   type="checkbox"
                   name="bylaw1"
                   onChange={handleChange}
-                  checked={bylaw1}
+                  defaultChecked={owner.bylaw1}
                 />
                 <span className="checkmark" />
               </label>
@@ -87,7 +48,7 @@ class Bylaws extends React.Component {
                   type="checkbox"
                   name="bylaw2"
                   onChange={handleChange}
-                  checked={bylaw2}
+                  defaultChecked={owner.bylaw2}
                 />
                 <span className="checkmark" />
               </label>
@@ -99,11 +60,7 @@ class Bylaws extends React.Component {
         </div>
         <div className="steps-buttons flex onboarding-row w-100 right justify-space-between">
           <div className="left">
-            <button
-              type="button"
-              className="back-button"
-              onClick={this.prevButton}
-            >
+            <button type="button" className="back-button" onClick={onBack}>
               Go back
             </button>
           </div>
@@ -111,7 +68,7 @@ class Bylaws extends React.Component {
             <button
               type="button"
               className="btn btn--rounded btn--blue btn--size16 continue-button"
-              onClick={this.nextButton}
+              onClick={onSubmit}
             >
               Continue
             </button>
@@ -122,4 +79,4 @@ class Bylaws extends React.Component {
   }
 }
 
-export default Bylaws;
+export default BylawStep;

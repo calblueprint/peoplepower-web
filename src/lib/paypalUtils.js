@@ -1,8 +1,4 @@
-import {
-  createPayment,
-  updateOwner,
-  updateSubscriberBill
-} from './airtable/request';
+import { createPayment, updateSubscriberBill } from './airtable/request';
 import constants from '../constants';
 
 const {
@@ -39,15 +35,7 @@ const getTotalBalanceFromBills = pendingBills => {
     .reduce((a, b) => a + b, 0);
 };
 
-const recordShareBuySuccess = async (details, data, values) => {
-  const { numShares, dividends, ownerId } = values;
-  const updatedOwner = {
-    numberOfShares: numShares,
-    isReceivingDividends: dividends
-  };
-
-  await updateOwner(updatedOwner);
-
+const recordShareBuySuccess = async (details, data, ownerId) => {
   const { orderId, payerId } = data;
 
   const { intent, status, payer } = details;
@@ -62,7 +50,7 @@ const recordShareBuySuccess = async (details, data, values) => {
 
   // TODO: Couldn't this use the constructPaymentRecord function?
   const record = {
-    ownerId,
+    ownerId: [ownerId],
     status,
     orderId,
     payerId,

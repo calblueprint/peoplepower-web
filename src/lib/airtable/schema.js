@@ -190,7 +190,11 @@ export const Columns = {
     announcementIds: `Announcements`,
     name: `Name`,
     permanentAddress: `Permanent Address`,
-    mailingAddress: `Mailing Address`
+    mailingAddress: `Mailing Address`,
+    mailingAddressSame: `Mailing Address Same`,
+    bylaw1: `Bylaw 1`,
+    bylaw2: `Bylaw 2`,
+    certifyPermanentAddress: `Certify Permanent Address`
   },
   Generation: {
     primaryKey: `Primary Key`,

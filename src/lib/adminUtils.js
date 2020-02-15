@@ -17,10 +17,13 @@ export async function removeOwner(owner) {
 
   // Refresh local copy of data after updating owners
   const { owner: loggedInOwner } = store.getState().userData;
-  await refreshUserData(loggedInOwner);
+  await refreshUserData(loggedInOwner.id);
 }
 
 export function getOwnerRecordsForProjectGroup(projectGroup) {
   const ownerPromises = projectGroup.ownerIds.map(getOwnerById);
-  return Promise.all(ownerPromises);
+  const allOwners = Promise.all(ownerPromises);
+
+  // Ensure onboarding users aren't considered
+  return allOwners.filter(o => o.onboardingStep === -1);
 }

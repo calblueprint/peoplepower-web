@@ -9,14 +9,16 @@ class ProjectGroupListView extends React.Component {
   render() {
     const {
       groups,
-      displayGroup,
+      displayedGroupId,
+      selectedGroupId,
       view,
       changeSelectedGroup,
       changeDisplayedGroup,
-      handleViewChange,
-      values
+      handleViewChange
     } = this.props;
-    const { projectGroup } = values;
+
+    const displayedGroup = groups.find(g => g.id === displayedGroupId);
+
     return (
       <div className="justify-space-between h-75" style={{ display: 'flex' }}>
         <div className="w-65 template-card left projectgroup-list-card">
@@ -39,9 +41,9 @@ class ProjectGroupListView extends React.Component {
               <div key={group.id}>
                 <button
                   type="button"
-                  onClick={() => changeDisplayedGroup(index)}
+                  onClick={() => changeDisplayedGroup(group.id)}
                   className={`project-group-list-option justify-space-between left ${
-                    group.id === groups[displayGroup].id
+                    group.id === displayedGroupId
                       ? 'project-group-list-option-background'
                       : ''
                   }`}
@@ -49,7 +51,7 @@ class ProjectGroupListView extends React.Component {
                   <div className="">
                     <div className="project-group-list-option-header">
                       {`${group.name} ${
-                        projectGroup === group.id ? '(Selected)' : ''
+                        group.id === selectedGroupId ? '(Selected)' : ''
                       }`}
                     </div>
                     <div className="project-group-list-option-body">
@@ -63,35 +65,37 @@ class ProjectGroupListView extends React.Component {
             ))}
           </div>
         </div>
-        <div className="w-20 template-card projectgroup-selected-card">
-          <div className="">
-            <div className="projectgroup-selected-header">
-              {groups[displayGroup].name}
+        {groups.length > 0 && (
+          <div className="w-20 template-card projectgroup-selected-card">
+            <div className="">
+              <div className="projectgroup-selected-header">
+                {displayedGroup.name}
+              </div>
+              <div className="projectgroup-selected-body">
+                {displayedGroup.description}
+              </div>
+              {selectedGroupId === displayedGroupId ? (
+                <button
+                  type="button"
+                  className="projectgroup-selected"
+                  onClick={() => changeSelectedGroup(displayedGroupId)}
+                  name="projectGroup"
+                >
+                  Selected
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn--square btn--pink btn--size16 btn--weight600 projectgroup-select"
+                  onClick={() => changeSelectedGroup(displayedGroupId)}
+                  name="projectGroup"
+                >
+                  Select
+                </button>
+              )}
             </div>
-            <div className="projectgroup-selected-body">
-              {groups[displayGroup].description}
-            </div>
-            {projectGroup === groups[displayGroup].id ? (
-              <button
-                type="button"
-                className="projectgroup-selected"
-                onClick={() => changeSelectedGroup(groups[displayGroup])}
-                name="projectGroup"
-              >
-                Selected
-              </button>
-            ) : (
-              <button
-                type="button"
-                className="btn btn--square btn--pink btn--size16 btn--weight600 projectgroup-select"
-                onClick={() => changeSelectedGroup(groups[displayGroup])}
-                name="projectGroup"
-              >
-                Select
-              </button>
-            )}
           </div>
-        </div>
+        )}
       </div>
     );
   }

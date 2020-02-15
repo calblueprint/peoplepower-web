@@ -93,6 +93,7 @@ class Carousel extends Component {
                     ? ' slide-img slide-img-active'
                     : ' slide-img slide-img-inactive'
                 }
+                key={slide}
                 src={slides[activeIndex]}
                 alt="This is the Owner Agreement"
               />

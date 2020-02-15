@@ -1,7 +1,8 @@
 import {
   getSolarProjectById,
   getProjectGroupById,
-  getAnnouncementsByProjectGroupId
+  getAnnouncementsByProjectGroupId,
+  getOwnerById
 } from './airtable/request';
 import { store } from './redux/store';
 import {
@@ -16,27 +17,33 @@ import {
 } from './redux/communitySlice';
 import { getCredentials } from './credentials';
 
-// TODO: validate records fetched using validator functions
-// This function takes in a userLogin record
-// (because the Login logic already looks up the user login record)
-const refreshUserData = async owner => {
+// Function takes in an ownerId and fetches the latest owner object and all associated user data
+const refreshUserData = async ownerId => {
   // Save loading status to Redux
   store.dispatch(setLoadingForUserData());
   store.dispatch(setLoadingForAnnouncements());
 
+  // Fetch latest version of owner
+  const owner = await getOwnerById(ownerId);
+
   // Fetch all the data
 
-  const projectGroup = await getProjectGroupById(owner.projectGroupId);
-  const announcements = await getAnnouncementsByProjectGroupId(projectGroup.id);
-
+  let projectGroup = {};
+  let announcements = [];
   let solarProjects = [];
-  const { solarProjectIds } = projectGroup;
-  if (solarProjectIds) {
-    const solarProjectPromises = solarProjectIds.map(id =>
-      getSolarProjectById(id)
-    );
 
-    solarProjects = await Promise.all(solarProjectPromises);
+  if (owner.projectGroupId) {
+    projectGroup = await getProjectGroupById(owner.projectGroupId);
+    announcements = await getAnnouncementsByProjectGroupId(projectGroup.id);
+
+    const { solarProjectIds } = projectGroup;
+    if (solarProjectIds) {
+      const solarProjectPromises = solarProjectIds.map(id =>
+        getSolarProjectById(id)
+      );
+
+      solarProjects = await Promise.all(solarProjectPromises);
+    }
   }
 
   const credentials = getCredentials(owner);

@@ -2,18 +2,26 @@ import constants from '../constants';
 
 const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
 
-const Credentials = { ADMIN: 'A', GENERAL: 'G', SUBSCRIBER: 'S' };
+const Credentials = {
+  ADMIN: 'A',
+  GENERAL: 'G',
+  SUBSCRIBER: 'S',
+  ONBOARDING: 'O'
+};
 
 function getCredentials(owner) {
   let credentials = '';
 
-  // TODO: Will this ever be the case? Is this check necessary
   if (owner == null) {
     return credentials;
   }
 
+  if (owner.onboardingStep !== -1) {
+    credentials += Credentials.ONBOARDING;
+    return credentials;
+  }
+
   // Assumes that admin is only owner of one project group
-  console.log(owner);
   if (owner.adminOfId && owner.adminOfId.length >= 0) {
     credentials += Credentials.ADMIN;
   }
@@ -31,6 +39,9 @@ function getCredentials(owner) {
   return credentials;
 }
 
+function isOnboarding(credentials) {
+  return credentials.includes(Credentials.ONBOARDING);
+}
 function isSignedIn(credentials) {
   return credentials !== '';
 }
@@ -53,5 +64,6 @@ export {
   isSubscriberOwner,
   isGeneralOwner,
   isSignedIn,
+  isOnboarding,
   Credentials
 };

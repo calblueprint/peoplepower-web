@@ -5,7 +5,8 @@ import {
   isAdmin,
   isSubscriberOwner,
   isGeneralOwner,
-  isSignedIn
+  isSignedIn,
+  isOnboarding
 } from '../lib/credentials';
 import Logo from '../assets/PPSC-logo.png';
 import '../styles/NavBar.css';
@@ -13,7 +14,8 @@ import '../styles/NavBar.css';
 class NavBar extends React.PureComponent {
   render() {
     const { owner, credentials } = this.props;
-    const displayName = owner.name;
+    const displayName = owner && owner.name;
+    const displayNavbar = isSignedIn(credentials) && !isOnboarding(credentials);
 
     return (
       <div className="nav-bar">
@@ -25,7 +27,7 @@ class NavBar extends React.PureComponent {
           />
         </a>
         <nav>
-          {isSignedIn(credentials) && (
+          {displayNavbar && (
             <ul>
               <li className="navItem">
                 <Link to="/">Dashboard</Link>
