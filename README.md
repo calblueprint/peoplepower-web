@@ -1,6 +1,6 @@
 # People Power Web App
 
-_Last updated: Feb 19, 2019 (by Aivant)_
+_Last updated: Feb 19, 2019 (by Cindy)_
 
 ## Quickstart
 
