@@ -14,6 +14,7 @@ export default class ProgressBarHeader extends React.PureComponent {
 
   render() {
     const { step } = this.props;
+    console.log(step);
     return (
       <div className="progress-bar-container">
         <div className="progressbar">
@@ -39,7 +40,7 @@ export default class ProgressBarHeader extends React.PureComponent {
           </div>
           <div
             className={`${
-              step >= 3 ? 'progressbar-line-active' : ''
+              step >= 2 ? 'progressbar-line-active' : ''
             } progressbar-line`}
           />
           <div className={`${this.colorStep(2)} progress-step`}>
@@ -64,7 +65,7 @@ export default class ProgressBarHeader extends React.PureComponent {
           </div>
           <div
             className={`${
-              step >= 4 ? 'progressbar-line-active' : ''
+              step >= 3 ? 'progressbar-line-active' : ''
             } progressbar-line`}
           />
           <div className={`${this.colorStep(3)} progress-step`}>
@@ -89,7 +90,7 @@ export default class ProgressBarHeader extends React.PureComponent {
           </div>
           <div
             className={`${
-              step >= 5 ? 'progressbar-line-active' : ''
+              step >= 4 ? 'progressbar-line-active' : ''
             } progressbar-line`}
           />
           <div className={`${this.colorStep(4)} progress-step`}>
