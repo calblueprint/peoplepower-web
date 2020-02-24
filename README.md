@@ -11,7 +11,7 @@ _Last updated: Feb 19, 2019 (by Aivant)_
 
 **STEP TWO: Set up the `.env` files**
 
-*NOTE: Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `REACT_APP_AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `REACT_APP_AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well*
+_NOTE: Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `REACT_APP_AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `REACT_APP_AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well_
 
 The project uses a number of secrets that are passed via a `.env` file (for security reasons). We need to set this `.env` file now.
 
@@ -32,9 +32,7 @@ You can get the `PAYPAL CLIENT ID` and `REACT APP GOOGLE API KEY` from Notion in
 3. Create a file called `.airtable-schema-generator.env` and paste the following:
 
 ```
-AIRTABLE_BASE_ID={THE AIRTABLE BASE ID}
-AIRTABLE_EMAIL={YOUR AIRTABLE EMAIL}
-AIRTABLE_PASSWORD={YOUR AIRTABLE PASSWORD}
+AIRTABLE_BASE_ID=appFaOwKhMXrRIQIp
 ```
 
 The airtable email and password are what you log into airtable with. This info is used for our automatic airtable API scraper.
@@ -49,7 +47,13 @@ Congrats! You now have a working version of the People power on your local machi
 
 ### Airtable Schema Generation
 
-Whenever you update the airtable schema, you'll need to run the script `yarn generate-schema` in order to re-generate some helper files!
+Whenever you update the airtable schema, you'll need to do the following:
+
+1. Navigate to https://airtable.com/appFaOwKhMXrRIQIp/api/docs
+2. Open the Javascript console (Cmd-Option-J on Chrome for Macs)
+3. Run this command: `copy(_.mapValues(application.tablesById, table => _.set(_.omit(table, ['sampleRows']),'columns',_.map(table.columns, item =>_.set(item, 'foreignTable', _.get(item, 'foreignTable.id'))))));`
+4. Paste the result into `/src/lib/airtable/schemaRaw.json`
+5. run the script `yarn generate-schema` in order to re-generate some helper files!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
