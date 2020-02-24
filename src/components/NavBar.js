@@ -43,7 +43,7 @@ class NavBar extends React.PureComponent {
                 </li>
               )}
               <li className="navItem">
-                <Link to="/community">Community</Link>
+                <Link to="/projectnews">Project News</Link>
               </li>
               {isAdmin(credentials) && (
                 <li className="navItem">

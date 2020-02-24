@@ -38,7 +38,7 @@ class Community extends React.Component {
     ) : (
       <div className="dashboard community">
         <div className="cont">
-          <h1>Community</h1>
+          <h1>Project News</h1>
           {isAdmin(credentials) ? (
             <AddAnnouncement owner={owner} updateCards={this.addTempCard} />
           ) : null}
