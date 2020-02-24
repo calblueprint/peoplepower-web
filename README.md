@@ -1,6 +1,8 @@
 # People Power Web App
 
-_Last updated: Feb 19, 2019 (by Aivant)_
+_Last updated: Feb 23, 2020 (by Fang)_
+
+For the peoplepower-node repo, go to: https://github.com/calblueprint/peoplepower-node
 
 ## Quickstart
 
