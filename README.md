@@ -3,6 +3,7 @@
 _Last updated: Feb 23, 2020 (by Fang)_
 
 See the live app (master): https://peoplepower.netlify.com
+
 For the peoplepower-node repo, go to: https://github.com/calblueprint/peoplepower-node
 
 ## Quickstart
