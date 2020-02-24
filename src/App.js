@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
 import Billing from './screens/subscriber/Billing';
+import BillingBuilder from './screens/subscriber/BillingBuilder';
 import SubscriberDashboard from './screens/subscriber/SubscriberDashboard';
 import SubscriberWithSharesDashboard from './screens/subscriber/SubscriberWithSharesDashboard';
 import Community from './screens/shared/Community';
@@ -89,6 +90,11 @@ class App extends React.Component {
               credential={Credentials.SUBSCRIBER} // Subscribers only
               path="/billing"
               component={Billing}
+            />
+            <AuthenticatedRoute
+              credential={Credentials.GENERAL} // Subscribers only
+              path="/workshop"
+              component={BillingBuilder}
             />
             <Route>
               <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>

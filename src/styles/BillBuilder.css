@@ -1,0 +1,43 @@
+.b-white {
+  background-color: white;
+}
+
+.gray-10 {
+  color: #747474;
+}
+
+.font-700 {
+  font-weight: 700;
+}
+
+.block {
+  display: block;
+}
+
+.t-right {
+  text-align: right;
+}
+
+.f-18 {
+  font-size: 18px;
+}
+
+.f-36 {
+  font-size: 36px;
+}
+
+.blue-90 {
+  color: #395578;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.total-border {
+  border: 1px solid black;
+}
+
+.bg-gray {
+  background-color: #f3f3f3;
+}
