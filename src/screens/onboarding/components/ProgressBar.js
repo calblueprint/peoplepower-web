@@ -14,7 +14,6 @@ export default class ProgressBarHeader extends React.PureComponent {
 
   render() {
     const { step } = this.props;
-    console.log(step);
     return (
       <div className="progress-bar-container">
         <div className="progressbar">
