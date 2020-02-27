@@ -15,14 +15,6 @@ class Community extends React.Component {
     };
   }
 
-  addTempCard = announcement => {
-    const { cards } = this.state;
-    const updatedCards = [announcement, ...cards];
-    this.setState({
-      cards: updatedCards
-    });
-  };
-
   render() {
     const {
       announcements,
@@ -39,9 +31,7 @@ class Community extends React.Component {
       <div className="dashboard community">
         <div className="cont">
           <h1>Project News</h1>
-          {isAdmin(credentials) ? (
-            <AddAnnouncement owner={owner} updateCards={this.addTempCard} />
-          ) : null}
+          {isAdmin(credentials) ? <AddAnnouncement owner={owner} /> : null}
           <AnnouncementList
             announcements={announcements}
             css={isAdmin(credentials) ? '' : 'non-admin-height'}
