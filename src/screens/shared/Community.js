@@ -43,7 +43,7 @@ class Community extends React.Component {
             <AddAnnouncement owner={owner} updateCards={this.addTempCard} />
           ) : null}
           <AnnouncementList
-            announcements={announcements}
+            announcements={[...announcements].reverse()}
             css={isAdmin(credentials) ? '' : 'non-admin-height'}
           />
         </div>
