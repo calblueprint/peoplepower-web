@@ -103,3 +103,57 @@
   line-height: 25px;
   color: var(--pp-gray);
 }
+
+.admin-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0px;
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  width: 845px;
+  height: 485px;
+}
+
+.admin-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0, 0, 0, 0.1);
+}
+
+.admin-modal h3 {
+  margin-top: 46px;
+  margin-left: 58px;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 38px;
+  color: #395578;
+}
+
+.admin-invite-form {
+  padding-left: 60px;
+  display: flex;
+}
+
+.admin-invite-form-row {
+  display: flex;
+}
+
+.admin-invite-form label {
+  display: flex;
+  flex-direction: column;
+  width: 361px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.01em;
+  color: #7387a2;
+}
