@@ -13,7 +13,7 @@
 import Airtable from 'airtable';
 import { Columns } from './schema';
 
-const BASE_ID = 'appFaOwKhMXrRIQIp';
+const BASE_ID = '0';
 const VIEW = 'Grid view';
 const ENDPOINT_URL = 'https://api.airtable.com';
 
