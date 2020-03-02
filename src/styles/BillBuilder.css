@@ -41,3 +41,20 @@
 .bg-gray {
   background-color: #f3f3f3;
 }
+
+.pdfContainer {
+  padding: 16px;
+  height: 100%;
+  margin: auto;
+  width: 50%;
+}
+
+.pdf {
+  margin-top: 16px;
+  padding: 16px;
+  background-color: #fff;
+}
+
+.border {
+  border-bottom: 1px solid #000;
+}

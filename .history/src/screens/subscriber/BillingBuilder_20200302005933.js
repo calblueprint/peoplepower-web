@@ -16,7 +16,9 @@ export default class App extends Component {
           <BillingTemplate />
         </PDFViewer>
         <PDFDownloadLink document={<BillingTemplate />} fileName="bill.pdf">
-          {({ loading }) => (loading ? 'Loading document...' : 'Download Pdf')}
+          {({ blob, url, loading, error }) =>
+            loading ? 'Loading document...' : 'Download Pdf'
+          }
         </PDFDownloadLink>
       </div>
     );

@@ -6,6 +6,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
+    "@react-pdf/renderer": "^1.6.8",
     "@reduxjs/toolkit": "^1.2.1",
     "airtable": "^0.7.2",
     "babel-jest": "^24.9.0",
