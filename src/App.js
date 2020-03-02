@@ -68,7 +68,7 @@ class App extends React.Component {
           <NavBar />
           <Switch>
             <Route exact path="/" component={HomeComponent} />
-            <AuthenticatedRoute path="/community" component={Community} />
+            <AuthenticatedRoute path="/projectnews" component={Community} />
             <AuthenticatedRoute path="/profile" component={UserProfile} />
 
             <AuthenticatedRoute

@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../../styles/Community.css';
 import { createAnnouncement } from '../../../lib/airtable/request';
+import { refreshUserData } from '../../../lib/userDataUtils';
 
 const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;
@@ -37,10 +38,11 @@ export default class AddAnnouncement extends React.Component {
       return;
     }
 
-    const { owner, updateCards } = this.props;
+    const { owner } = this.props;
     const newMessage = {
-      author: owner.id,
-      projectGroupId: [owner.projectGroupId],
+      authorId: [owner.id],
+      // We don't need to put this value below in the array because it's already an array
+      projectGroupId: owner.projectGroupId,
       message
     };
 
@@ -51,8 +53,7 @@ export default class AddAnnouncement extends React.Component {
       message: '',
       submitProgress: STATUS_SUCCESS
     });
-
-    updateCards(newMessage);
+    await refreshUserData(owner.id);
   };
 
   render() {
