@@ -44,9 +44,7 @@ class AdminDashboard extends React.Component {
         <div>
           <h3>Project Group</h3>
           <div className="card-holder-cont">
-            <div
-              style={{ display: 'flex', 'justify-content': 'space-between' }}
-            >
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <h4>
                 Members <span>({owners.length})</span>
               </h4>
@@ -60,7 +58,7 @@ class AdminDashboard extends React.Component {
             <div className="card-holder">
               {owners.length >= 1 ? (
                 owners.map(owner => {
-                  return <AdminDashboardCard owner={owner} />;
+                  return <AdminDashboardCard key={owner.id} owner={owner} />;
                 })
               ) : (
                 <div className="white-text">
