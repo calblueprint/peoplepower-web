@@ -38,11 +38,9 @@ _❗️Any code in the that is enclosed in `{` `}` is meant to be replaced. Henc
 
 ```
 AIRTABLE_BASE_ID=appFaOwKhMXrRIQIp
-AIRTABLE_EMAIL={YOUR EMAIL HERE}
-AIRTABLE_PASSWORD={YOUR PASSWORD HERE}
 ```
 
-The airtable email and password are what you log into airtable with. This info is used for our automatic airtable API scraper.
+~~The airtable email and password are what you log into airtable with. This info is used for our automatic airtable API scraper.~~
 
 (More info about the schema generator found [here](https://github.com/aivantg/airtable-schema-generator))
 
