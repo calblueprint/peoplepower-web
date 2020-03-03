@@ -7,6 +7,9 @@ import { getOwnerRecordsForProjectGroup } from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
 
+// COULD JUST DO THIS IN adminUtils.js
+import { createPledgeInvite } from '../../lib/airtable/request';
+
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);
 
@@ -18,8 +21,11 @@ class AdminDashboard extends React.Component {
       showModal: false,
       firstName: '',
       lastName: '',
-      phone: '',
-      email: ''
+      phoneNumber: '',
+      email: '',
+      shareAmount: 0,
+      wantsDividends: 'False',
+      status: ''
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -48,9 +54,38 @@ class AdminDashboard extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    const { firstName, lastName, phone, email } = this.state;
 
-    console.log(firstName, lastName, phone, email);
+    const {
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      shareAmount,
+      wantsDividends
+    } = this.state;
+
+    // some form validation?
+
+    const newPledgeInvite = {
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      shareAmount: parseInt(shareAmount, 10),
+      wantsDividends
+    };
+
+    const result = await createPledgeInvite(newPledgeInvite);
+
+    if (result === '') {
+      this.setState({
+        status: 'An error occurent when sending the invitation.'
+      });
+    } else {
+      this.setState({
+        status: 'Successfully sent invitation.'
+      });
+    }
   };
 
   async fetchOwnerRecords() {
@@ -72,7 +107,17 @@ class AdminDashboard extends React.Component {
 
   render() {
     const { isLoadingUserData } = this.props;
-    const { showModal, owners, firstName, lastName, phone, email } = this.state;
+    const {
+      showModal,
+      owners,
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      shareAmount,
+      wantsDividends,
+      status
+    } = this.state;
 
     if (isLoadingUserData) {
       return <LoadingComponent />;
@@ -125,11 +170,11 @@ class AdminDashboard extends React.Component {
                       htmlFor="firstName"
                       style={{ paddingRight: '6.5px' }}
                     >
-                      First Name
+                      First name
                       <input
                         type="text"
                         name="firstName"
-                        placeholder="First Name:"
+                        placeholder="Aivant"
                         value={firstName}
                         onChange={this.handleChange}
                       />
@@ -139,11 +184,11 @@ class AdminDashboard extends React.Component {
                 <div>
                   <p>
                     <label htmlFor="lastName" style={{ paddingLeft: '6.5px' }}>
-                      Last Name
+                      Last name
                       <input
                         type="text"
                         name="lastName"
-                        placeholder="Last Name:"
+                        placeholder="Goyal"
                         value={lastName}
                         onChange={this.handleChange}
                       />
@@ -154,13 +199,16 @@ class AdminDashboard extends React.Component {
               <div className="admin-invite-form-row">
                 <div>
                   <p>
-                    <label htmlFor="phone" style={{ paddingRight: '6.5px' }}>
-                      Phone
+                    <label
+                      htmlFor="phoneNumber"
+                      style={{ paddingRight: '6.5px' }}
+                    >
+                      Phone number
                       <input
                         type="text"
-                        name="phone"
-                        placeholder="Phone Number:"
-                        value={phone}
+                        name="phoneNumber"
+                        placeholder="123-456-7890"
+                        value={phoneNumber}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -173,7 +221,7 @@ class AdminDashboard extends React.Component {
                       <input
                         type="text"
                         name="email"
-                        placeholder="Email:"
+                        placeholder="abc@peoplepower.org"
                         value={email}
                         onChange={this.handleChange}
                       />
@@ -181,17 +229,64 @@ class AdminDashboard extends React.Component {
                   </p>
                 </div>
               </div>
-              <div>
-                <input
-                  type="submit"
-                  value="Submit"
-                  style={{
-                    border: '1px solid var(--pp-black)',
-                    float: 'left',
-                    padding: '5px 10px',
-                    width: '100px'
-                  }}
-                />
+              <div className="admin-invite-form-row">
+                <div>
+                  <p>
+                    <label
+                      htmlFor="shareAmount"
+                      style={{ paddingRight: '6.5px' }}
+                    >
+                      Number of shares
+                      <select
+                        name="shareAmount"
+                        value={shareAmount}
+                        onChange={this.handleChange}
+                      >
+                        <option value={0}>0</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                      </select>
+                    </label>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <label
+                      htmlFor="wantsDividends"
+                      style={{ paddingLeft: '6.5px' }}
+                    >
+                      Wants Dividends
+                      <select
+                        name="wantsDividends"
+                        value={wantsDividends}
+                        onChange={this.handleChange}
+                      >
+                        <option value="True">Yes</option>
+                        <option value="False">No</option>
+                      </select>
+                    </label>
+                  </p>
+                </div>
+              </div>
+              <div
+                className="admin-invite-form-row"
+                style={{ flexDirection: 'column', alignItems: 'center' }}
+              >
+                <div style={{ margin: 'auto' }}>
+                  <input
+                    type="submit"
+                    value="Submit"
+                    style={{
+                      border: '1px solid var(--pp-black)',
+                      float: 'left',
+                      padding: '5px 10px',
+                      width: '100px'
+                    }}
+                  />
+                </div>
+                <p>{status}</p>
               </div>
             </form>
           </div>
