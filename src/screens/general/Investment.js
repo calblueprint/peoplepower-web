@@ -1,20 +1,13 @@
 import React from 'react';
 import '../../styles/Investments.css';
 
-class Investment extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: null
-    };
-  }
-
+class Investment extends React.PureComponent {
   render() {
     return (
       <div className="dashboard">
-        <div className="everything">
+        <div className="mainheader">
           <h1>My Investment</h1>
-          <div className="leftandright-content">
+          <div className="columnformat">
             <div className="left-content">
               <h2>My Investment</h2>
               <div className="investment-box-1">investments box 1 test</div>
