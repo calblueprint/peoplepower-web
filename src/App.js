@@ -8,7 +8,7 @@ import NavBar from './components/NavBar';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
 import Billing from './screens/subscriber/Billing';
-import BillingBuilder from './screens/subscriber/BillingBuilder';
+import BillingBuilder from './screens/workshop/BillingBuilder';
 import SubscriberDashboard from './screens/subscriber/SubscriberDashboard';
 import SubscriberWithSharesDashboard from './screens/subscriber/SubscriberWithSharesDashboard';
 import Community from './screens/shared/Community';
@@ -93,7 +93,7 @@ class App extends React.Component {
             />
             <AuthenticatedRoute
               credential={Credentials.GENERAL} // Subscribers only
-              path="/workshop"
+              path="/workshop/billing"
               component={BillingBuilder}
             />
             <Route>

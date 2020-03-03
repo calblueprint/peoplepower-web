@@ -10,21 +10,6 @@ import {
 import Logo from '../../assets/PPSC-logo-no-padding.png';
 
 const styles = StyleSheet.create({
-  sectionLayout: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  graySectionLayout: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    backgroundColor: '#f3f3f3'
-  },
-  borderSectionLayout: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    backgroundColor: '#f3f3f3',
-    border: '1px solid black'
-  },
   backgroundWhite: {
     backgroundColor: 'white'
   },
@@ -79,7 +64,9 @@ const styles = StyleSheet.create({
     float: 'right'
   },
   flex: {
-    display: 'flex'
+    display: 'flex',
+    flexDirection: 'row'
+    // justifyContent: 'space-between'
   }
 });
 
@@ -97,25 +84,27 @@ export default class BillingTemplate extends Component {
             <View>
               <Image src={Logo} alt="People Power Solar Cooperative Logo" />
             </View>
-            <View style={styles.sectionLayout}>
+            <View style={styles.flex}>
               <View style={[styles.left, styles.gray10]}>
                 <Text>1234 Address St.</Text>
                 <Text>City, CA 12345</Text>
                 <Text style={styles.font700}>Questions? Please Email:</Text>
                 <Text>hello@peoplepowerolar.org</Text>
               </View>
-              <View style={[styles.right, styles.flex]}>
-                <View style={[styles.left, styles.font700, styles.textRight]}>
-                  <Text>Account No:</Text>
-                  <Text>Statement No:</Text>
-                  <Text>Statement Date:</Text>
-                  <Text>Due Date:</Text>
-                </View>
-                <View style={styles.right}>
-                  <Text>001</Text>
-                  <Text>002</Text>
-                  <Text>01/05/2020</Text>
-                  <Text>02/05/2020</Text>
+              <View style={[]}>
+                <View style={[styles.flex]}>
+                  <View style={[styles.left, styles.font700]}>
+                    <Text>Account No:</Text>
+                    <Text>Statement No:</Text>
+                    <Text>Statement Date:</Text>
+                    <Text>Due Date:</Text>
+                  </View>
+                  <View style={[styles.right]}>
+                    <Text>001</Text>
+                    <Text>002</Text>
+                    <Text>01/05/2020</Text>
+                    <Text>02/05/2020</Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -128,7 +117,7 @@ export default class BillingTemplate extends Component {
                 01/05/2020 - 02/05/2020
               </Text>
             </View>
-            <View style={[styles.flex, styles.justifySpaceBetween]}>
+            <View style={[styles.flex]}>
               <View style={styles.left}>
                 <Text style={[styles.font700, styles.font18]}>
                   Service For:
@@ -141,13 +130,7 @@ export default class BillingTemplate extends Component {
                 <Text style={[styles.font700, styles.font18]}>
                   Your Account Summary
                 </Text>
-                <View
-                  style={[
-                    styles.flex,
-                    styles.backgroundGray,
-                    styles.justifySpaceBetween
-                  ]}
-                >
+                <View style={[styles.flex, styles.backgroundGray]}>
                   <View style={styles.left}>
                     <Text>Amount Due on Previous Statement:</Text>
                     <Text>Payment Recieved Since Last Statement:</Text>
@@ -166,7 +149,6 @@ export default class BillingTemplate extends Component {
                   style={[
                     styles.backgronudGray,
                     styles.flex,
-                    styles.justifySpaceBetween,
                     styles.totalBorder
                   ]}
                 >
@@ -183,13 +165,7 @@ export default class BillingTemplate extends Component {
               <Text style={[styles.font700, styles.font18]}>
                 Details of Charges
               </Text>
-              <View
-                style={[
-                  styles.font700,
-                  styles.flex,
-                  styles.justifySpaceBetween
-                ]}
-              >
+              <View style={[styles.font700, styles.flex]}>
                 <Text>Description</Text>
                 <Text>Production</Text>
                 <Text>Rate</Text>
