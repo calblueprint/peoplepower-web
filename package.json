@@ -48,7 +48,7 @@
     ]
   },
   "devDependencies": {
-    "airtable-schema-generator": "^1.2.5",
+    "airtable-schema-generator": "^1.2.9",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
@@ -75,7 +75,9 @@
   },
   "airtable-schema-generator": {
     "output": "src/lib/airtable",
-    "input": "src/lib/airtable"
+    "input": "src/lib/airtable",
+    "defaultView": "Grid view",
+    "baseId": "appFaOwKhMXrRIQIp"
   },
   "babel": {
     "plugins": [

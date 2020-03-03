@@ -9,11 +9,9 @@ export const Tables = {
   Announcement: 'Announcement',
   SolarProject: 'Solar Project',
   SubscriberBill: 'Subscriber Bill',
+  RateSchedule: 'Rate Schedule',
   PledgeInvite: 'Pledge Invite',
   Payment: 'Payment',
-  Generation: 'Generation',
-  PGEUsage: 'PGE Usage',
-  RateSchedule: 'Rate Schedule',
   TestDevelopment: 'Test (Development)'
 };
 
@@ -56,7 +54,11 @@ export const Columns = {
     mailingAddressSame: `Mailing Address Same`,
     bylaw1: `Bylaw 1`,
     bylaw2: `Bylaw 2`,
-    certifyPermanentAddress: `Certify Permanent Address`
+    certifyPermanentAddress: `Certify Permanent Address`,
+    generation: `Generation`,
+    pgeUsage: `PGE Usage`,
+    rateScheduleId: `Rate Schedule`,
+    latestBillNumber: `Latest Bill Number`
   },
   'Project Group': {
     primaryKey: `Primary Key`,
@@ -103,8 +105,8 @@ export const Columns = {
     size: `Size`,
     address: `Address`,
     status: `Status`,
-    generationId: `Generation`,
-    pgeUsageId: `PGE Usage`,
+    generation: `Generation`,
+    pgeUsage: `PGE Usage`,
     projectGroupId: `Project Group`,
     street1: `Street 1`,
     street2: `Street 2`,
@@ -112,27 +114,45 @@ export const Columns = {
     state: `State`,
     zipcode: `Zipcode`,
     id: `ID`,
-    subscriberOwnerIds: `Subscriber Owners`
+    subscriberIds: `Subscribers`,
+    enphaseSystemId: `Enphase System ID`,
+    enphaseUserId: `Enphase User ID`
   },
   'Subscriber Bill': {
     primaryKey: `Primary Key`,
     dateCreated: `Date Created`,
     dateUpdated: `Date Updated`,
-    subscriberOwnerId: `Subscriber Owner`,
+    subscriberId: `Subscriber`,
     statementDate: `Statement Date`,
     startDate: `Start Date`,
     endDate: `End Date`,
     rateScheduleId: `Rate Schedule`,
     estimatedRebate: `Estimated Rebate`,
-    totalEstimatedRebate: `Total Estimated Rebate`,
-    amountDueOnPrevious: `Amount Due on Previous`,
-    amountReceivedSincePrevious: `Amount Received Since Previous`,
-    amountDue: `Amount Due`,
-    owner: `Owner`,
+    previousTotalEstimatedRebate: `Previous Total Estimated Rebate`,
+    balanceOnPreviousBill: `Balance on Previous Bill`,
     paymentIds: `Payments`,
-    status: `Status`,
+    amountDue: `Amount Due`,
+    id: `ID`,
+    statementNumber: `Statement Number`,
+    netPgeUsage: `Net PGE Usage`,
+    ebceRebate: `EBCE Rebate`,
+    systemProduction: `System Production`,
+    ppRate: `PP Rate`,
+    rebateRate: `Rebate Rate`,
+    currentCharges: `Current Charges`,
     balance: `Balance`,
-    id: `ID`
+    amountReceived: `Amount Received`,
+    totalEstimatedRebate: `Total Estimated Rebate`
+  },
+  'Rate Schedule': {
+    primaryKey: `Primary Key`,
+    subscriberBillId: `Subscriber Bill`,
+    dateCreated: `Date Created`,
+    dateUpdated: `Date Updated`,
+    rate: `Rate`,
+    rebateRate: `Rebate Rate`,
+    id: `ID`,
+    subscriberIds: `Subscribers`
   },
   'Pledge Invite': {
     primaryKey: `Primary Key`,
@@ -145,7 +165,6 @@ export const Columns = {
     wantsDividends: `Wants Dividends?`,
     phoneNumber: `Phone Number`,
     email: `Email`,
-    token: `Token`,
     status: `Status`,
     id: `ID`
   },
@@ -168,38 +187,6 @@ export const Columns = {
     paymentUpdateTime: `Payment Update Time`,
     notes: `Notes`,
     payerEmail: `Payer Email`,
-    id: `ID`
-  },
-  Generation: {
-    primaryKey: `Primary Key`,
-    dateCreated: `Date Created`,
-    dateUpdated: `Date Updated`,
-    solarProjectId: `Solar Project`,
-    subscriberOwners: `Subscriber Owner(s)?`,
-    startDate: `Start Date`,
-    endDate: `End Date`,
-    amount: `Amount`,
-    id: `ID`
-  },
-  'PGE Usage': {
-    primaryKey: `Primary Key`,
-    dateCreated: `Date Created`,
-    dateUpdated: `Date Updated`,
-    solarProjectId: `Solar Project`,
-    subscriberOwner: `Subscriber Owner`,
-    startDate: `Start Date`,
-    endDate: `End Date`,
-    amount: `Amount`,
-    ebceRebate: `EBCE Rebate`,
-    id: `ID`
-  },
-  'Rate Schedule': {
-    primaryKey: `Primary Key`,
-    subscriberBillId: `Subscriber Bill`,
-    dateCreated: `Date Created`,
-    dateUpdated: `Date Updated`,
-    rate: `Rate`,
-    rebateRate: `Rebate Rate`,
     id: `ID`
   },
   'Test (Development)': {
