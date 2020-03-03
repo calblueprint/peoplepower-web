@@ -24,7 +24,13 @@ const styles = StyleSheet.create({
     lineHeight: '25px',
     backgroundColor: 'white',
     font: '800 18px system-ui',
-    textAlign: 'center'
+    textAlign: 'center',
+    width: '25%',
+    margin: 'auto',
+    marginTop: '2rem',
+    padding: ' .5rem .1rem',
+    borderRadius: '10px',
+    border: 'none'
   }
 });
 
@@ -48,7 +54,7 @@ export default class App extends Component {
     return (
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <h1>Bill Statement</h1>
-        <button onClick={this.toggleViewer} type="button">
+        <button onClick={this.toggleViewer} type="button" style={styles.button}>
           View PDF
         </button>
         {viewerVisible ? (
