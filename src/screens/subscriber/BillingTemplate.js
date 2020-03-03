@@ -7,7 +7,7 @@ import {
   Document,
   Image
 } from '@react-pdf/renderer';
-import Logo from '../../assets/logo.png';
+import Logo from '../../assets/PPSC-logo-no-padding.png';
 
 const styles = StyleSheet.create({
   sectionLayout: {
