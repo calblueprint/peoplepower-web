@@ -18,6 +18,7 @@
 .env.test.local
 .env.production.local
 .airtable-schema-generator.env
+.history
 
 # IDE related
 .idea
