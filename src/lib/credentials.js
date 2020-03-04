@@ -6,7 +6,8 @@ const Credentials = {
   ADMIN: 'A',
   GENERAL: 'G',
   SUBSCRIBER: 'S',
-  ONBOARDING: 'O'
+  ONBOARDING: 'O',
+  SUPERADMIN: 'X'
 };
 
 function getCredentials(owner) {
@@ -24,6 +25,10 @@ function getCredentials(owner) {
   // Assumes that admin is only owner of one project group
   if (owner.adminOfId && owner.adminOfId.length >= 0) {
     credentials += Credentials.ADMIN;
+  }
+
+  if (owner.isSuperAdmin) {
+    credentials += Credentials.SUPERADMIN;
   }
 
   const { ownerTypes } = owner;
@@ -58,11 +63,16 @@ function isGeneralOwner(credentials) {
   return credentials.includes(Credentials.GENERAL);
 }
 
+function isSuperAdmin(credentials) {
+  return credentials.includes(Credentials.SUPERADMIN);
+}
+
 export {
   getCredentials,
   isAdmin,
   isSubscriberOwner,
   isGeneralOwner,
+  isSuperAdmin,
   isSignedIn,
   isOnboarding,
   Credentials

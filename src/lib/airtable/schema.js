@@ -57,7 +57,8 @@ export const Columns = {
     certifyPermanentAddress: `Certify Permanent Address`,
     rateScheduleId: `Rate Schedule`,
     latestBillNumber: `Latest Bill Number`,
-    meterId: `Meter ID`
+    meterId: `Meter ID`,
+    isSuperAdmin: `Is Super Admin?`
   },
   'Project Group': {
     primaryKey: `Primary Key`,

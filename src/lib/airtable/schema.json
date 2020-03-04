@@ -41,7 +41,8 @@
       { "type": "checkbox", "name": "Certify Permanent Address" },
       { "type": "foreignKey", "name": "Rate Schedule" },
       { "type": "rollup", "name": "Latest Bill Number" },
-      { "type": "text", "name": "Meter ID" }
+      { "type": "text", "name": "Meter ID" },
+      { "type": "checkbox", "name": "Is Super Admin?" }
     ]
   },
   "Project Group": {
