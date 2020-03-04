@@ -15,6 +15,16 @@ class SuperAdminDashboard extends React.Component {
     this.setState({ solarProjects });
   };
 
+  generateBillsForSolarProject(solarProjectId) {
+    return fetch(Constants.BILL_GENERATION_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ solarProjectId })
+    });
+  }
+
   render() {
     const { solarProjects } = this.state;
     return (
@@ -27,18 +37,7 @@ class SuperAdminDashboard extends React.Component {
         {solarProjects.map(proj => (
           <div key={proj.id}>
             <h4>{proj.name}</h4>
-            <button
-              type="button"
-              onClick={() =>
-                fetch(Constants.BILL_GENERATION_URL, {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({ solarProjectId: proj.id })
-                })
-              }
-            >
+            <button type="button" onClick={() => this.newMethod(proj.id)}>
               Generate Bills
             </button>
           </div>
