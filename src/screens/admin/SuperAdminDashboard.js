@@ -37,7 +37,10 @@ class SuperAdminDashboard extends React.Component {
         {solarProjects.map(proj => (
           <div key={proj.id}>
             <h4>{proj.name}</h4>
-            <button type="button" onClick={() => this.newMethod(proj.id)}>
+            <button
+              type="button"
+              onClick={() => this.generateBillsForSolarProject(proj.id)}
+            >
               Generate Bills
             </button>
           </div>
