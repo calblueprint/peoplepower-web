@@ -71,7 +71,7 @@ class GeneralOwnerDashboard extends React.Component {
     return (
       <div className="dashboard">
         <div className="cont dash-announcements-cont">
-          <h3>Community</h3>
+          <h3>Project News</h3>
           {isLoadingAnnouncements ? (
             <div className="is-loading-div card" />
           ) : (

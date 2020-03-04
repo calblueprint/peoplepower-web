@@ -20,9 +20,9 @@ export async function removeOwner(owner) {
   await refreshUserData(loggedInOwner.id);
 }
 
-export function getOwnerRecordsForProjectGroup(projectGroup) {
+export async function getOwnerRecordsForProjectGroup(projectGroup) {
   const ownerPromises = projectGroup.ownerIds.map(getOwnerById);
-  const allOwners = Promise.all(ownerPromises);
+  const allOwners = await Promise.all(ownerPromises);
 
   // Ensure onboarding users aren't considered
   return allOwners.filter(o => o.onboardingStep === -1);

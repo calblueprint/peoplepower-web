@@ -1,21 +1,18 @@
 # People Power Web App
 
-_Last updated: Feb 23, 2020 (by Fang)_
+_Last updated: Mar 3, 2020 (by Fang)_
 
-See the live app (master): https://peoplepower.netlify.com
+- live app (master): https://peoplepower.netlify.com
+- peoplepower-node repo, go to: https://github.com/calblueprint/peoplepower-node
 
-For the peoplepower-node repo, go to: https://github.com/calblueprint/peoplepower-node
+## 1. Quickstart
 
-## Quickstart
-
-**STEP ONE: Clone this project**
+**SECTION 1️⃣: CLONE THIS PROJECT**
 
 1. Click on 'Clone or Download' (green button near the top right) and copy the URL.
 2. Then in you desired directory, do `git clone {COPIED URL HERE}`
 
-**STEP TWO: Set up the `.env` files**
-
-*NOTE: Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `REACT_APP_AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `REACT_APP_AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well*
+**SECTION 2️⃣: SET UP ENVIRONMENT**
 
 The project uses a number of secrets that are passed via a `.env` file (for security reasons). We need to set this `.env` file now.
 
@@ -31,17 +28,19 @@ REACT_APP_GOOGLE_API_KEY={REACT APP GOOGLE API KEY}
 
 ```
 
-You can get the `PAYPAL CLIENT ID` and `REACT APP GOOGLE API KEY` from Notion in 'Credentials Reference'. Follow the instructions in this [Airtable support page](https://support.airtable.com/hc/en-us/articles/219046777-How-do-I-get-my-API-key-) to get your Airtable API Key.
+_❗️Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `REACT_APP_AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `REACT_APP_AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well_
+
+- `PAYPAL CLIENT ID`: Get it from the People Power Notion ('Credentials Reference')
+- `REACT APP GOOGLE API KEY`: Get it from the People Power Notion ('Credentials Reference') 
+- Airtable API Key: follow the instructions in this [Airtable support page](https://support.airtable.com/hc/en-us/articles/219046777-How-do-I-get-my-API-key-)
 
 3. Create a file called `.airtable-schema-generator.env` and paste the following:
 
 ```
-AIRTABLE_BASE_ID={THE AIRTABLE BASE ID}
-AIRTABLE_EMAIL={YOUR AIRTABLE EMAIL}
-AIRTABLE_PASSWORD={YOUR AIRTABLE PASSWORD}
+AIRTABLE_BASE_ID=appFaOwKhMXrRIQIp
 ```
 
-The airtable email and password are what you log into airtable with. This info is used for our automatic airtable API scraper.
+~~The airtable email and password are what you log into airtable with. This info is used for our automatic airtable API scraper.~~
 
 (More info about the schema generator found [here](https://github.com/aivantg/airtable-schema-generator))
 
@@ -51,50 +50,14 @@ The airtable email and password are what you log into airtable with. This info i
 
 Congrats! You now have a working version of the People power on your local machine ✨
 
-### Airtable Schema Generation
+## 2. Airtable Schema Generation
 
-Whenever you update the airtable schema, you'll need to run the script `yarn generate-schema` in order to re-generate some helper files!
+Whenever you update the airtable schema, you'll need to do the following:
+
+1. Navigate to https://airtable.com/appFaOwKhMXrRIQIp/api/docs
+2. Open the Javascript console (Cmd-Option-J on Chrome for Macs)
+3. Run this command: `copy(_.mapValues(application.tablesById, table => _.set(_.omit(table, ['sampleRows']),'columns',_.map(table.columns, item =>_.set(item, 'foreignTable', _.get(item, 'foreignTable.id'))))));`
+4. Paste the result into `/src/lib/airtable/schemaRaw.json`
+5. run the script `yarn generate-schema` in order to re-generate some helper files!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts (redacted from Create React App)
-
-In the project directory, you can run:
-
-`npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-`npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-Code Splitting: https://facebook.github.io/create-react-app/docs/code-splitting
-
-Analyzing the Bundle Size: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-Making a Progressive Web App: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-Advanced Configuration: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-Deployment: https://facebook.github.io/create-react-app/docs/deployment
-
-`npm run build` fails to minify: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

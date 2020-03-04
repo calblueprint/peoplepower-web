@@ -169,7 +169,7 @@ class Onboarding extends React.Component {
           <div className="template-card">
             <h1 className="template-header">{stepData.header}</h1>
             <p className="template-body">{stepData.copy}</p>
-            <ProgressBar step={owner.step} />
+            <ProgressBar step={owner.onboardingStep} />
           </div>
         )}
         <StepComponent
