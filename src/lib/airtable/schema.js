@@ -55,10 +55,9 @@ export const Columns = {
     bylaw1: `Bylaw 1`,
     bylaw2: `Bylaw 2`,
     certifyPermanentAddress: `Certify Permanent Address`,
-    generation: `Generation`,
-    pgeUsage: `PGE Usage`,
     rateScheduleId: `Rate Schedule`,
-    latestBillNumber: `Latest Bill Number`
+    latestBillNumber: `Latest Bill Number`,
+    meterId: `Meter ID`
   },
   'Project Group': {
     primaryKey: `Primary Key`,
@@ -105,8 +104,6 @@ export const Columns = {
     size: `Size`,
     address: `Address`,
     status: `Status`,
-    generation: `Generation`,
-    pgeUsage: `PGE Usage`,
     projectGroupId: `Project Group`,
     street1: `Street 1`,
     street2: `Street 2`,
@@ -116,7 +113,8 @@ export const Columns = {
     id: `ID`,
     subscriberIds: `Subscribers`,
     enphaseSystemId: `Enphase System ID`,
-    enphaseUserId: `Enphase User ID`
+    enphaseUserId: `Enphase User ID`,
+    subscriberBillId: `Subscriber Bill`
   },
   'Subscriber Bill': {
     primaryKey: `Primary Key`,
@@ -142,7 +140,9 @@ export const Columns = {
     currentCharges: `Current Charges`,
     balance: `Balance`,
     amountReceived: `Amount Received`,
-    totalEstimatedRebate: `Total Estimated Rebate`
+    totalEstimatedRebate: `Total Estimated Rebate`,
+    status: `Status`,
+    solarProjectId: `Solar Project`
   },
   'Rate Schedule': {
     primaryKey: `Primary Key`,
@@ -166,7 +166,8 @@ export const Columns = {
     phoneNumber: `Phone Number`,
     email: `Email`,
     status: `Status`,
-    id: `ID`
+    id: `ID`,
+    field13: `Field 13`
   },
   Payment: {
     primaryKey: `Primary Key`,
