@@ -75,17 +75,33 @@ class AdminDashboard extends React.Component {
       wantsDividends
     };
 
-    const result = await createPledgeInvite(newPledgeInvite);
+    const pledgeInviteID = await createPledgeInvite(newPledgeInvite);
 
-    if (result === '') {
+    if (pledgeInviteID === '') {
       this.setState({
         status: 'An error occurent when sending the invitation.'
       });
-    } else {
-      this.setState({
-        status: 'Successfully sent invitation.'
-      });
     }
+
+    fetch('http://localhost:3001/invite', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        pledgeInviteID
+      })
+    })
+    .then(res => res.json())
+    .then(json => {
+      console.log(json)
+    })
+
+    this.setState({
+      status: pledgeInviteID
+    });
+    
   };
 
   async fetchOwnerRecords() {
