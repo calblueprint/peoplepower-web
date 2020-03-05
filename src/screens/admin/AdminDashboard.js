@@ -83,25 +83,29 @@ class AdminDashboard extends React.Component {
       });
     }
 
+    // POST to backend to trigger email.
     fetch('http://localhost:3001/invite', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         pledgeInviteID
       })
     })
-    .then(res => res.json())
-    .then(json => {
-      console.log(json)
-    })
+      .then(res => res.json())
+      .then(json => {
+        let status = json.status;
+        this.setState({
+          status,
+          showModal: false
+        });
+      });
 
     this.setState({
-      status: pledgeInviteID
+      status: 'Sending...'
     });
-    
   };
 
   async fetchOwnerRecords() {
