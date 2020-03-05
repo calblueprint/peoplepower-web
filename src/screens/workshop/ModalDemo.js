@@ -1,5 +1,5 @@
 import React from 'react';
-import PpModal from '../../components/PpModal';
+import PPModal from '../../components/PPModal';
 import '../../styles/Modal.css';
 
 export default class ModalDemo extends React.PureComponent {
@@ -26,7 +26,7 @@ export default class ModalDemo extends React.PureComponent {
     const { showModal } = this.state;
     return (
       <div>
-        <PpModal
+        <PPModal
           // header="Optional Heading"
           body="Hello"
           actionName="Close"

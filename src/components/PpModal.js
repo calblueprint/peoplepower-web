@@ -5,7 +5,7 @@ import '../styles/Modal.css';
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);
 
-export default class PpModal extends React.PureComponent {
+export default class PPModal extends React.PureComponent {
   render() {
     const {
       showModal,
