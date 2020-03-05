@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class App extends Component {
+export default class BillingBuilder extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,6 +70,9 @@ export default class App extends Component {
         >
           {({ loading }) => (loading ? 'Loading document...' : 'Download Pdf')}
         </PDFDownloadLink>
+        {/* <PDFViewer style={[styles.opens, styles.viewer]}>
+          <BillingTemplate />
+        </PDFViewer> */}
       </div>
     );
   }
