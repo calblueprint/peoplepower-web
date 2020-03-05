@@ -96,7 +96,7 @@ class AdminDashboard extends React.Component {
     })
       .then(res => res.json())
       .then(json => {
-        let status = json.status;
+        const { status } = json;
         this.setState({
           status,
           showModal: false
