@@ -8,19 +8,17 @@ import {
   Image,
   Font
 } from '@react-pdf/renderer';
+import fontRegular from '../../assets/fonts/OpenSans-Regular.ttf';
+import fontBold from '../../assets/fonts/OpenSans-Bold.ttf';
 import Logo from '../../assets/PPSC-logo-no-padding.png';
 
 Font.register({
   family: 'Open Sans',
-  fonts: [
-    {
-      src: `https://fonts.googleapis.com/css?family=Open+Sans:400&display=swap`
-    },
-    {
-      src: `https://fonts.googleapis.com/css?family=Open+Sans:600&display=swap`,
-      fontWeight: 'bold'
-    }
-  ]
+  src: fontRegular
+});
+Font.register({
+  family: 'Open Sans Bold',
+  src: fontBold
 });
 
 const styles = StyleSheet.create({
@@ -36,14 +34,18 @@ const styles = StyleSheet.create({
   block: {
     display: 'block'
   },
+  flexRight: {
+    display: 'flex',
+    flexDirection: 'col'
+  },
   textRight: {
-    textAlign: 'right'
+    direction: 'rtl'
   },
   font18: {
     fontSize: 18
   },
   font36: {
-    fontSize: 36
+    fontSize: 24
   },
   blue90: {
     color: '#395578'
@@ -69,7 +71,14 @@ const styles = StyleSheet.create({
     width: '90%'
   },
   border: {
-    borderBottom: '1px solid #000'
+    border: '1 solid #555'
+  },
+  borderTop: {
+    paddingTop: 3,
+    borderTop: '1 solid #555'
+  },
+  marginTop: {
+    marginTop: 10
   },
   left: {
     float: 'left'
@@ -80,7 +89,8 @@ const styles = StyleSheet.create({
   flex: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    flex: 1
   },
   logo: {
     width: '30%'
@@ -92,13 +102,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 1.5,
     color: '#747474',
-    fontWeight: 'normal'
+    fontFamily: 'Open Sans'
   },
   boldText: {
     fontSize: 12,
     lineHeight: 1.5,
-    color: '#747474',
-    fontWeight: 'bold'
+    color: '#555',
+    fontFamily: 'Open Sans Bold'
   },
   lineHeight24: {
     lineHeight: 1.5
@@ -109,28 +119,50 @@ const styles = StyleSheet.create({
   pinkText: {
     color: '#cd6795',
     fontSize: 14,
-    fontWeight: 'bold'
+    padding: 3,
+    fontFamily: 'Open Sans Bold'
   },
   midText: {
     fontSize: 14,
     lineHeight: 1.5,
-    color: '#747474',
-    fontWeight: 'normal'
+    color: '#555',
+    fontFamily: 'Open Sans'
   },
   midTextBold: {
     fontSize: 14,
     lineHeight: 1.5,
-    color: '#747474',
-    fontWeight: 'bold'
+    color: '#555',
+    fontFamily: 'Open Sans Bold'
   },
   midTextBoldBlue: {
     fontSize: 14,
     lineHeight: 1.5,
-    color: '#395578',
-    fontWeight: 'bold'
+    color: '#555',
+    fontFamily: 'Open Sans Bold'
+  },
+  largeTextBold: {
+    fontSize: 16,
+    lineHeight: 1.5,
+    color: '#555',
+    fontFamily: 'Open Sans Bold'
+  },
+  header: {
+    fontFamily: 'Open Sans Bold',
+    fontSize: 24,
+    color: '#395578'
   },
   paddingBottom: {
-    paddingBottom: 10
+    paddingBottom: 5
+  },
+  paddingLeft: {
+    paddingLeft: 40
+  },
+  width25: {
+    width: '25%'
+  },
+  thinBorder: {
+    borderTop: '.001 solid #eee',
+    borderBottom: '.01 solid #eee'
   }
 });
 
@@ -167,7 +199,7 @@ export default class BillingTemplate extends Component {
                     <Text style={[styles.boldText]}>Statement Date:</Text>
                     <Text style={[styles.boldText]}>Due Date:</Text>
                   </View>
-                  <View style={[styles.right]}>
+                  <View style={[styles.right, styles.paddingLeft]}>
                     <Text style={[styles.text]}>001</Text>
                     <Text style={[styles.text]}>002</Text>
                     <Text style={[styles.text]}>01/05/2020</Text>
@@ -177,16 +209,7 @@ export default class BillingTemplate extends Component {
               </View>
             </View>
             <View>
-              <Text
-                style={[
-                  styles.font36,
-                  styles.font700,
-                  styles.blue90,
-                  styles.paddingTop
-                ]}
-              >
-                Bill
-              </Text>
+              <Text style={[styles.header, styles.paddingTop]}>Bill</Text>
               <Text style={[styles.midText]}>For Service during:</Text>
               <Text style={[styles.midTextBoldBlue]}>
                 01/05/2020 - 02/05/2020
@@ -209,16 +232,18 @@ export default class BillingTemplate extends Component {
                     <Text style={[styles.text]}>
                       Payment Recieved Since Last Statement:
                     </Text>
-                    <Text style={[styles.text]}>Previous Unpaid Balance:</Text>
+                    <Text style={[styles.text, styles.borderTop]}>
+                      Previous Unpaid Balance:
+                    </Text>
                     <Text style={[styles.text]}>
                       Current People Power Charges:
                     </Text>
                   </View>
-                  <View style={styles.right}>
+                  <View style={[styles.right, styles.paddingLeft]}>
                     <Text style={[styles.text]}>$10.01</Text>
                     <Text style={[styles.text]}>$10.01</Text>
                     {/* <View style={border"><View/> */}
-                    <Text style={[styles.text]}>$10.01</Text>
+                    <Text style={[styles.text, styles.borderTop]}>$10.01</Text>
                     <Text style={[styles.text]}>$10.01</Text>
                   </View>
                 </View>
@@ -226,7 +251,8 @@ export default class BillingTemplate extends Component {
                   style={[
                     styles.flex,
                     styles.totalBorder,
-                    styles.backgroundGray
+                    styles.backgroundGray,
+                    styles.border
                   ]}
                 >
                   <Text style={[styles.left, styles.pinkText]}>
@@ -237,16 +263,20 @@ export default class BillingTemplate extends Component {
               </View>
             </View>
             <View style={styles.paddingTop}>
-              <Text
-                style={[styles.font700, styles.font18, styles.paddingBottom]}
-              >
+              <Text style={[styles.largeTextBold, styles.paddingBottom]}>
                 Details of Charges
               </Text>
               <View style={[styles.flex]}>
-                <Text style={[styles.boldText]}>Description</Text>
-                <Text style={[styles.boldText]}>Production</Text>
-                <Text style={[styles.boldText]}>Rate</Text>
-                <Text style={[styles.boldText]}>Total Price</Text>
+                <Text style={[styles.boldText, styles.width25]}>
+                  Description
+                </Text>
+                <Text style={[styles.boldText, styles.width25]}>
+                  Production
+                </Text>
+                <Text style={[styles.boldText, styles.width25]}>Rate</Text>
+                <Text style={[styles.boldText, styles.width25]}>
+                  Total Price
+                </Text>
               </View>
               <View
                 style={[
@@ -255,10 +285,12 @@ export default class BillingTemplate extends Component {
                   styles.justifySpaceBetween
                 ]}
               >
-                <Text style={[styles.text]}>Energy Production</Text>
-                <Text style={[styles.text]}>000.000 kWh</Text>
-                <Text style={[styles.text]}>$00.0016</Text>
-                <Text style={[styles.text]}>$11.01</Text>
+                <Text style={[styles.text, styles.width25]}>
+                  Energy Production
+                </Text>
+                <Text style={[styles.text, styles.width25]}>000.000 kWh</Text>
+                <Text style={[styles.text, styles.width25]}>$00.0016</Text>
+                <Text style={[styles.text, styles.width25]}>$11.01</Text>
               </View>
             </View>
             {/* <View style={border"><View/> */}
@@ -266,7 +298,8 @@ export default class BillingTemplate extends Component {
               style={[
                 styles.flex,
                 styles.justifySpaceBetween,
-                styles.paddingTop
+                styles.marginTop,
+                styles.thinBorder
               ]}
             >
               <View style={styles.left}>
