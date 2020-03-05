@@ -23,7 +23,7 @@ export default class Modal extends React.PureComponent {
       <div className={`modal ${isOpen ? '' : 'close'}`}>
         <div className="modal-content">
           <div className="modal-header">{header}</div>
-          <div className="modal-body">{body}</div>
+          <div className="modal-body">{body || "Uh oh! Something went wrong."}</div>
           <button
             onClick={this.closeModal}
             type="button"
