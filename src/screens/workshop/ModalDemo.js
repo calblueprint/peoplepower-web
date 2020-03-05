@@ -11,9 +11,9 @@ export default class ModalDemo extends React.PureComponent {
     return (
       <div>
         <Modal
-          header="Optional Heading"
-          body="Uh oh! Something went wrong."
-          action="Close"
+          // header="Optional Heading"
+          body="Hello"
+          actionName="Close"
         />
       </div>
     );
