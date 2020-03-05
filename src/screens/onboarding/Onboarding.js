@@ -1,11 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import OnboardingData from '../../lib/onboardingData';
-import { validateField, updateOwnerFields } from '../../lib/onboardingUtils';
+import {
+  validateField,
+  safeGetPledgeInviteById,
+  updateOwnerFields
+} from '../../lib/onboardingUtils';
 import ProgressBar from './components/ProgressBar';
 import constants from '../../constants';
 
 const { GENERAL_OWNER } = constants;
+const keyRegExp = /__key=([a-zA-Z0-9]+)/g;
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -19,12 +24,28 @@ class Onboarding extends React.Component {
         isReceivingDividends: true,
         numberOfShares: 1
       },
+      pledgeInvite: null,
       errors: {}
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.refreshState();
+
+    const {
+      location: { search }
+    } = this.props;
+    const matches = [...search.matchAll(keyRegExp)];
+
+    if (matches.length === 1) {
+      const pledgeInviteId = matches[0] && matches[0][1];
+      const pledgeInvite = await safeGetPledgeInviteById(pledgeInviteId);
+      this.setState({
+        pledgeInvite
+      });
+    } else {
+      // TODO: error
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -144,7 +165,7 @@ class Onboarding extends React.Component {
   };
 
   onFinish = () => {
-    const { owner } = this.state;
+    const { owner, pledgeInvite } = this.state;
     const newOwner = { ...owner, onboardingStep: -1 };
 
     // Account for edge case of project group ID needing to be wrapped in an array
@@ -152,12 +173,17 @@ class Onboarding extends React.Component {
       newOwner.projectGroupId = [newOwner.projectGroupId];
     }
 
+    // Delete/Update the status of the pledge invite
+    if (pledgeInvite) {
+      // TODO(dfangshuo): delete pledgeInvite or update status of pledgeInvite
+    }
+
     // Should trigger redux refresh navigating user away from onboarding
     updateOwnerFields(newOwner, []);
   };
 
   render() {
-    const { owner, errors } = this.state;
+    const { owner, errors, pledgeInvite } = this.state;
     const stepData = OnboardingData[owner.onboardingStep];
     const StepComponent = stepData.component;
     const showStyles = owner.onboardingStep > 0;
@@ -179,6 +205,7 @@ class Onboarding extends React.Component {
           onBack={this.prevStep}
           onFinish={this.onFinish}
           handleChange={this.handleChange}
+          pledgeInvite={pledgeInvite}
         />
       </div>
     );

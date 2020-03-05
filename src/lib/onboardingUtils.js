@@ -3,6 +3,7 @@ import States from '../assets/states.json';
 import {
   getOwnersByEmail,
   getAllProjectGroups,
+  getPledgeInviteById,
   updateOwner,
   createOwner
 } from './airtable/request';
@@ -126,4 +127,19 @@ const updateOwnerFields = async (owner, fields) => {
   }
 };
 
-export { validateField, getAvailableProjectGroups, updateOwnerFields };
+const safeGetPledgeInviteById = async pledgeInviteId => {
+  try {
+    const pledgeInvite = await getPledgeInviteById(pledgeInviteId);
+    return pledgeInvite;
+  } catch (e) {
+    console.log(e); // TODO: more granular error handling
+    return null;
+  }
+};
+
+export {
+  validateField,
+  getAvailableProjectGroups,
+  safeGetPledgeInviteById,
+  updateOwnerFields
+};

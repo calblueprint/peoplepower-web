@@ -4,7 +4,10 @@ import '../../../styles/main.css';
 
 class ContactInfoStep extends React.PureComponent {
   render() {
-    const { owner, errors, onSubmit, handleChange } = this.props;
+    const { owner, errors, onSubmit, handleChange, pledgeInvite } = this.props;
+    if (pledgeInvite) {
+      owner.phoneNumber = pledgeInvite.phoneNumber;
+    }
     return (
       <div>
         <form className="template-card">

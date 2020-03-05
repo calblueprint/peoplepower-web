@@ -7,7 +7,12 @@ class BasicInfoStep extends React.PureComponent {
   // validates then moves on if no error messages
 
   render() {
-    const { owner, errors, onSubmit, handleChange } = this.props;
+    const { owner, errors, onSubmit, handleChange, pledgeInvite } = this.props;
+    if (pledgeInvite) {
+      owner.firstName = pledgeInvite.firstName;
+      owner.lastName = pledgeInvite.lastName;
+      owner.email = pledgeInvite.email;
+    }
     return (
       <form className="center card flex onboarding-col">
         <div className=" ">

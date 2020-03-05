@@ -31,7 +31,18 @@ class PaymentDetailsStep extends React.Component {
   };
 
   render() {
-    const { owner, errors, onBack, onSubmit, handleChange } = this.props;
+    const {
+      owner,
+      errors,
+      onBack,
+      onSubmit,
+      handleChange,
+      pledgeInvite
+    } = this.props;
+    if (pledgeInvite) {
+      owner.numberOfShares = pledgeInvite.shareAmount;
+      // owner.isReceivingDividends = pledgeInvite.wantsDividends; // TODO(dfangshuo): come back to it
+    }
     return (
       <div className="w-100">
         <div className="flex w-100 justify-space-between onboarding-row ">
