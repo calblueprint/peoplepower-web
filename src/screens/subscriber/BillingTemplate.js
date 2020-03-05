@@ -14,8 +14,7 @@ Font.register({
   family: 'Open Sans',
   fonts: [
     {
-      src: `https://fonts.googleapis.com/css?family=Open+Sans:400&display=swap`,
-      fontWeight: 'normal'
+      src: `https://fonts.googleapis.com/css?family=Open+Sans:400&display=swap`
     },
     {
       src: `https://fonts.googleapis.com/css?family=Open+Sans:600&display=swap`,
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   font36: {
-    fontSize: 39
+    fontSize: 36
   },
   blue90: {
     color: '#395578'
@@ -106,6 +105,32 @@ const styles = StyleSheet.create({
   },
   paddingTop: {
     paddingTop: 16
+  },
+  pinkText: {
+    color: '#cd6795',
+    fontSize: 14,
+    fontWeight: 'bold'
+  },
+  midText: {
+    fontSize: 14,
+    lineHeight: 1.5,
+    color: '#747474',
+    fontWeight: 'normal'
+  },
+  midTextBold: {
+    fontSize: 14,
+    lineHeight: 1.5,
+    color: '#747474',
+    fontWeight: 'bold'
+  },
+  midTextBoldBlue: {
+    fontSize: 14,
+    lineHeight: 1.5,
+    color: '#395578',
+    fontWeight: 'bold'
+  },
+  paddingBottom: {
+    paddingBottom: 10
   }
 });
 
@@ -162,16 +187,14 @@ export default class BillingTemplate extends Component {
               >
                 Bill
               </Text>
-              <Text style={styles.font18}>For Service during:</Text>
-              <Text style={[styles.font18, styles.blue90, styles.font700]}>
+              <Text style={[styles.midText]}>For Service during:</Text>
+              <Text style={[styles.midTextBoldBlue]}>
                 01/05/2020 - 02/05/2020
               </Text>
             </View>
-            <View style={[styles.flex]}>
+            <View style={[styles.flex, styles.paddingTop]}>
               <View style={styles.left}>
-                <Text style={[styles.font700, styles.font18]}>
-                  Service For:
-                </Text>
+                <Text style={[styles.boldText]}>Service For:</Text>
                 <Text style={[styles.text]}>Name 1</Text>
                 <Text style={[styles.text]}>123 Address St.</Text>
                 <Text style={[styles.text]}>City, CA 12345</Text>
@@ -201,29 +224,29 @@ export default class BillingTemplate extends Component {
                 </View>
                 <View
                   style={[
-                    styles.backgronudGray,
                     styles.flex,
-                    styles.totalBorder
+                    styles.totalBorder,
+                    styles.backgroundGray
                   ]}
                 >
-                  <Text style={[styles.left, styles.font700, styles.font18]}>
+                  <Text style={[styles.left, styles.pinkText]}>
                     Total Amount Due
                   </Text>
-                  <Text style={[styles.right, styles.font700, styles.font18]}>
-                    $11.01
-                  </Text>
+                  <Text style={[styles.right, styles.pinkText]}>$11.01</Text>
                 </View>
               </View>
             </View>
-            <View>
-              <Text style={[styles.font700, styles.font18]}>
+            <View style={styles.paddingTop}>
+              <Text
+                style={[styles.font700, styles.font18, styles.paddingBottom]}
+              >
                 Details of Charges
               </Text>
-              <View style={[styles.font700, styles.flex]}>
-                <Text>Description</Text>
-                <Text>Production</Text>
-                <Text>Rate</Text>
-                <Text>Total Price</Text>
+              <View style={[styles.flex]}>
+                <Text style={[styles.boldText]}>Description</Text>
+                <Text style={[styles.boldText]}>Production</Text>
+                <Text style={[styles.boldText]}>Rate</Text>
+                <Text style={[styles.boldText]}>Total Price</Text>
               </View>
               <View
                 style={[
@@ -239,7 +262,13 @@ export default class BillingTemplate extends Component {
               </View>
             </View>
             {/* <View style={border"><View/> */}
-            <View style={[styles.flex, styles.justifySpaceBetween]}>
+            <View
+              style={[
+                styles.flex,
+                styles.justifySpaceBetween,
+                styles.paddingTop
+              ]}
+            >
               <View style={styles.left}>
                 <Text style={[styles.text]}>
                   Excess Energy Produced During Bill Period:

@@ -70,9 +70,6 @@ export default class BillingBuilder extends Component {
         >
           {({ loading }) => (loading ? 'Loading document...' : 'Download Pdf')}
         </PDFDownloadLink>
-        {/* <PDFViewer style={[styles.opens, styles.viewer]}>
-          <BillingTemplate />
-        </PDFViewer> */}
       </div>
     );
   }
