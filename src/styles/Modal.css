@@ -1,4 +1,4 @@
-.modal {
+.pp-general-modal {
   position: fixed;
   z-index: 1;
   width: 100%;
@@ -8,7 +8,7 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+.pp-general-modal-content {
   margin: 15% auto;
   border: 1px solid #888;
   width: 30rem;
@@ -21,7 +21,7 @@
   border-radius: 10px;
 }
 
-.modal-header {
+.pp-general-modal-header {
   color: #395578;
   font-weight: 800;
   font-size: 18px;
@@ -29,7 +29,7 @@
   margin-bottom: 2rem;
 }
 
-.modal-body {
+.pp-general-modal-body {
   color: #24364d;
   font-weight: heavy;
   font-size: 18px;
@@ -39,7 +39,7 @@
   margin-bottom: 2rem;
 }
 
-.modal-button {
+.pp-general-modal-button {
   background: #cd6795;
   border-radius: 40px;
   color: #fff;
@@ -48,6 +48,6 @@
   font-weight: 800;
 }
 
-.close {
+.pp-general-close {
   display: none;
 }
