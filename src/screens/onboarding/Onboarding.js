@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import OnboardingData from '../../lib/onboardingData';
 import {
   validateField,
+  safeDeletePledgeInvite,
   safeGetPledgeInviteById,
   updateOwnerFields
 } from '../../lib/onboardingUtils';
@@ -70,7 +71,7 @@ class Onboarding extends React.Component {
   };
 
   nextStep = async event => {
-    const { owner } = this.state;
+    const { owner, pledgeInvite } = this.state;
     if (event) {
       event.preventDefault();
     }
@@ -104,6 +105,14 @@ class Onboarding extends React.Component {
       // Account for edge case of project group ID needing to be wrapped in an array
       if (newOwner.projectGroupId) {
         newOwner.projectGroupId = [newOwner.projectGroupId];
+      }
+
+      // delete the pledge invite if it exists on success
+      if (owner.onboardingStep === 5 && pledgeInvite) {
+        const deletedRes = await safeDeletePledgeInvite(pledgeInvite.id);
+        if (!deletedRes) {
+          console.log('pledge invite not successfully deleted'); // TODO: error handling
+        }
       }
 
       await updateOwnerFields(
@@ -165,17 +174,12 @@ class Onboarding extends React.Component {
   };
 
   onFinish = () => {
-    const { owner, pledgeInvite } = this.state;
+    const { owner } = this.state;
     const newOwner = { ...owner, onboardingStep: -1 };
 
     // Account for edge case of project group ID needing to be wrapped in an array
     if (newOwner.projectGroupId) {
       newOwner.projectGroupId = [newOwner.projectGroupId];
-    }
-
-    // Delete/Update the status of the pledge invite
-    if (pledgeInvite) {
-      // TODO(dfangshuo): delete pledgeInvite or update status of pledgeInvite
     }
 
     // Should trigger redux refresh navigating user away from onboarding

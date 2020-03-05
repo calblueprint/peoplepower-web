@@ -1,6 +1,7 @@
 /* eslint-disable no-await-in-loop */
 import States from '../assets/states.json';
 import {
+  deletePledgeInvite,
   getOwnersByEmail,
   getAllProjectGroups,
   getPledgeInviteById,
@@ -137,9 +138,20 @@ const safeGetPledgeInviteById = async pledgeInviteId => {
   }
 };
 
+const safeDeletePledgeInvite = async pledgeInviteId => {
+  try {
+    const pledgeInvite = await deletePledgeInvite(pledgeInviteId);
+    return pledgeInvite;
+  } catch (e) {
+    console.log(e); // TODO: more granular error handling
+    return null;
+  }
+};
+
 export {
   validateField,
   getAvailableProjectGroups,
+  safeDeletePledgeInvite,
   safeGetPledgeInviteById,
   updateOwnerFields
 };
