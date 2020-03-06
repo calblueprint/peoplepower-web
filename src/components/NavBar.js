@@ -68,7 +68,7 @@ class NavBar extends React.PureComponent {
               )}
               <li className="navItem">
                 <Link to="/profile">
-                  <img src={Gear} alt="Profile" />
+                  <img src={Gear} alt="Settings" />
                 </Link>
               </li>
             </ul>
