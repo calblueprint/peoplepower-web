@@ -43,3 +43,24 @@ button {
   font-weight: 800;
   line-height: 25px;
 }
+
+.headerbutton {
+  display: flex;
+}
+
+.headeronly {
+  display: flex;
+  width: 50%;
+  justify-content: flex-start;
+}
+
+.headerbutton h3 {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.rightbutton {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+}

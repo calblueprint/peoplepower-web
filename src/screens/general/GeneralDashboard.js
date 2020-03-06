@@ -4,6 +4,7 @@ import { logOut } from '../../lib/authUtils';
 import AnnouncementList from '../shared/components/AnnouncementList';
 import LoadingComponent from '../../components/LoadingComponent';
 import '../../styles/GeneralOwnerDashboard.css';
+import RightArrow from '../../assets/see more.png';
 
 class GeneralOwnerDashboard extends React.Component {
   handleLogoutClick = () => {
@@ -71,7 +72,16 @@ class GeneralOwnerDashboard extends React.Component {
     return (
       <div className="dashboard">
         <div className="cont dash-announcements-cont">
-          <h3>Project News</h3>
+          <div className="headerbutton">
+            <div className="headeronly">
+              <h3>Project News</h3>
+            </div>
+            <div className="rightbutton">
+              <a href="/projectnews">
+                <img className="button" src={RightArrow} alt="right arrow" />
+              </a>
+            </div>
+          </div>
           {isLoadingAnnouncements ? (
             <div className="is-loading-div card" />
           ) : (
