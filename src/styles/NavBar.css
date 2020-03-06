@@ -34,6 +34,13 @@
 span {
   text-decoration: none;
   font-weight: 600;
-  color: var(--pp-black);
   white-space: nowrap;
+}
+
+.navItem a {
+  color: var(--pp-blue);
+}
+
+.navItemSelected a {
+  color: var(--pp-selected-gray);
 }
