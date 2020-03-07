@@ -95,6 +95,19 @@ class GeneralOwnerDashboard extends React.Component {
           ) : (
             this.renderUserDetails()
           )}
+          <div className="my-investment">
+            <div className="headerbutton">
+              <div className="headeronly">
+                <h3>My Investment</h3>
+              </div>
+              <div className="rightbutton">
+                <a href="/investment">
+                  <img className="button" src={RightArrow} alt="right arrow" />
+                </a>
+              </div>
+            </div>
+            <div className="my-investment-box">test</div>
+          </div>
         </div>
       </div>
     );
