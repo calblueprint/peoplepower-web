@@ -9,7 +9,7 @@ import {
   isOnboarding
 } from '../lib/credentials';
 import Logo from '../assets/PPSC-logo.png';
-import Gear from '../assets/settings.jpg';
+import Gear from '../assets/settings.png';
 import '../styles/NavBar.css';
 
 class NavBar extends React.PureComponent {
@@ -29,13 +29,17 @@ class NavBar extends React.PureComponent {
         <nav>
           {displayNavbar && (
             <ul>
-              <li className={pathname === '/' ? 'navItemSelected' : 'navItem'}>
+              <li
+                className={pathname === '/' ? 'nav-item-selected' : 'nav-item'}
+              >
                 <Link to="/">Dashboard</Link>
               </li>
               {isGeneralOwner(credentials) && (
                 <li
                   className={
-                    pathname === '/investment' ? 'navItemSelected' : 'navItem'
+                    pathname === '/investment'
+                      ? 'nav-item-selected'
+                      : 'nav-item'
                   }
                 >
                   <Link to="/investment">My Investment</Link>
@@ -44,7 +48,7 @@ class NavBar extends React.PureComponent {
               {isSubscriberOwner(credentials) && (
                 <li
                   className={
-                    pathname === '/billing' ? 'navItemSelected' : 'navItem'
+                    pathname === '/billing' ? 'nav-item-selected' : 'nav-item'
                   }
                 >
                   <Link to="/billing">Billing</Link>
@@ -52,7 +56,7 @@ class NavBar extends React.PureComponent {
               )}
               <li
                 className={
-                  pathname === '/projectnews' ? 'navItemSelected' : 'navItem'
+                  pathname === '/projectnews' ? 'nav-item-selected' : 'nav-item'
                 }
               >
                 <Link to="/projectnews">Project News</Link>
@@ -60,15 +64,15 @@ class NavBar extends React.PureComponent {
               {isAdmin(credentials) && (
                 <li
                   className={
-                    pathname === '/admin' ? 'navItemSelected' : 'navItem'
+                    pathname === '/admin' ? 'nav-item-selected' : 'nav-item'
                   }
                 >
                   <Link to="/admin">Admin</Link>
                 </li>
               )}
-              <li className="navItem">
+              <li className="nav-item">
                 <Link to="/profile">
-                  <img src={Gear} alt="Settings" />
+                  <img className="nav-item-gear" src={Gear} alt="Settings" />
                 </Link>
               </li>
             </ul>
