@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { logOut } from '../../lib/authUtils';
 import AnnouncementList from '../shared/components/AnnouncementList';
 import LoadingComponent from '../../components/LoadingComponent';
 import '../../styles/GeneralOwnerDashboard.css';
-import RightArrow from '../../assets/see more.png';
+import RightArrow from '../../assets/right_arrow.png';
 
 class GeneralOwnerDashboard extends React.Component {
   handleLogoutClick = () => {
@@ -77,9 +78,9 @@ class GeneralOwnerDashboard extends React.Component {
               <h3>Project News</h3>
             </div>
             <div className="rightbutton">
-              <a href="/projectnews">
+              <Link href="/projectnews">
                 <img className="button" src={RightArrow} alt="right arrow" />
-              </a>
+              </Link>
             </div>
           </div>
           {isLoadingAnnouncements ? (
@@ -101,9 +102,9 @@ class GeneralOwnerDashboard extends React.Component {
                 <h3>My Investment</h3>
               </div>
               <div className="rightbutton">
-                <a href="/investment">
+                <Link to="/investment">
                   <img className="button" src={RightArrow} alt="right arrow" />
-                </a>
+                </Link>
               </div>
             </div>
             <div className="my-investment-box">test</div>
