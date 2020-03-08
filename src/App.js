@@ -27,6 +27,7 @@ import {
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Investment from './screens/general/Investment';
 import Modal from './screens/workshop/ModalDemo';
+import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
 
 class App extends React.Component {
   componentDidMount() {
@@ -80,6 +81,11 @@ class App extends React.Component {
               credential={Credentials.ADMIN} // Admins only
               path="/admin"
               component={AdminDashboard}
+            />
+            <AuthenticatedRoute
+              credential={Credentials.SUPERADMIN} // Admins only
+              path="/superadmin"
+              component={SuperAdminDashboard}
             />
             <AuthenticatedRoute
               credential={Credentials.GENERAL} // General only

@@ -39,10 +39,10 @@
       { "type": "checkbox", "name": "Bylaw 1" },
       { "type": "checkbox", "name": "Bylaw 2" },
       { "type": "checkbox", "name": "Certify Permanent Address" },
-      { "type": "text", "name": "Generation" },
-      { "type": "text", "name": "PGE Usage" },
       { "type": "foreignKey", "name": "Rate Schedule" },
-      { "type": "rollup", "name": "Latest Bill Number" }
+      { "type": "rollup", "name": "Latest Bill Number" },
+      { "type": "text", "name": "Meter ID" },
+      { "type": "checkbox", "name": "Is Super Admin?" }
     ]
   },
   "Project Group": {
@@ -95,8 +95,6 @@
       { "type": "number", "name": "Size" },
       { "type": "formula", "name": "Address" },
       { "type": "select", "name": "Status" },
-      { "type": "text", "name": "Generation" },
-      { "type": "text", "name": "PGE Usage" },
       { "type": "foreignKey", "name": "Project Group" },
       { "type": "text", "name": "Street 1" },
       { "type": "text", "name": "Street 2" },
@@ -106,7 +104,8 @@
       { "type": "formula", "name": "ID" },
       { "type": "foreignKey", "name": "Subscribers" },
       { "type": "text", "name": "Enphase System ID" },
-      { "type": "text", "name": "Enphase User ID" }
+      { "type": "text", "name": "Enphase User ID" },
+      { "type": "foreignKey", "name": "Subscriber Bill" }
     ]
   },
   "Subscriber Bill": {
@@ -134,7 +133,9 @@
       { "type": "formula", "name": "Current Charges" },
       { "type": "formula", "name": "Balance" },
       { "type": "rollup", "name": "Amount Received" },
-      { "type": "formula", "name": "Total Estimated Rebate" }
+      { "type": "formula", "name": "Total Estimated Rebate" },
+      { "type": "select", "name": "Status" },
+      { "type": "foreignKey", "name": "Solar Project" }
     ]
   },
   "Rate Schedule": {
@@ -162,7 +163,8 @@
       { "type": "phone", "name": "Phone Number" },
       { "type": "text", "name": "Email" },
       { "type": "text", "name": "Status" },
-      { "type": "formula", "name": "ID" }
+      { "type": "formula", "name": "ID" },
+      { "type": "text", "name": "Field 13" }
     ]
   },
   "Payment": {

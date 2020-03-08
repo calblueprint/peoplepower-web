@@ -9,12 +9,12 @@ import {
   isOnboarding
 } from '../lib/credentials';
 import Logo from '../assets/PPSC-logo.png';
+import Gear from '../assets/settings.jpg';
 import '../styles/NavBar.css';
 
 class NavBar extends React.PureComponent {
   render() {
-    const { owner, credentials } = this.props;
-    const displayName = owner && owner.name;
+    const { credentials, pathname } = this.props;
     const displayNavbar = isSignedIn(credentials) && !isOnboarding(credentials);
 
     return (
@@ -29,30 +29,46 @@ class NavBar extends React.PureComponent {
         <nav>
           {displayNavbar && (
             <ul>
-              <li className="navItem">
+              <li className={pathname === '/' ? 'navItemSelected' : 'navItem'}>
                 <Link to="/">Dashboard</Link>
               </li>
               {isGeneralOwner(credentials) && (
-                <li className="navItem">
+                <li
+                  className={
+                    pathname === '/investment' ? 'navItemSelected' : 'navItem'
+                  }
+                >
                   <Link to="/investment">My Investment</Link>
                 </li>
               )}
               {isSubscriberOwner(credentials) && (
-                <li className="navItem">
+                <li
+                  className={
+                    pathname === '/billing' ? 'navItemSelected' : 'navItem'
+                  }
+                >
                   <Link to="/billing">Billing</Link>
                 </li>
               )}
-              <li className="navItem">
+              <li
+                className={
+                  pathname === '/projectnews' ? 'navItemSelected' : 'navItem'
+                }
+              >
                 <Link to="/projectnews">Project News</Link>
               </li>
               {isAdmin(credentials) && (
-                <li className="navItem">
+                <li
+                  className={
+                    pathname === '/admin' ? 'navItemSelected' : 'navItem'
+                  }
+                >
                   <Link to="/admin">Admin</Link>
                 </li>
               )}
               <li className="navItem">
                 <Link to="/profile">
-                  <span>{displayName}</span>
+                  <img src={Gear} alt="Settings" />
                 </Link>
               </li>
             </ul>
@@ -64,7 +80,7 @@ class NavBar extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  credentials: state.userData.credentials
+  credentials: state.userData.credentials,
+  pathname: state.router.location.pathname
 });
 export default connect(mapStateToProps)(NavBar);
