@@ -78,7 +78,7 @@ class GeneralOwnerDashboard extends React.Component {
               <h3>Project News</h3>
             </div>
             <div className="rightbutton">
-              <Link href="/projectnews">
+              <Link to="/projectnews">
                 <img className="button" src={RightArrow} alt="right arrow" />
               </Link>
             </div>
