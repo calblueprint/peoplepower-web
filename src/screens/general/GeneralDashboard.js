@@ -31,6 +31,7 @@ class GeneralOwnerDashboard extends React.Component {
         <p style={{ fontWeight: '800', color: 'var(--pp-black)' }}>
           Welcome, {owner.name}
         </p>
+        <p>{'< Placeholder Admin Details >'} </p>
         <div>
           <p>
             <span>Email:</span> {owner.email}
@@ -79,7 +80,11 @@ class GeneralOwnerDashboard extends React.Component {
             </div>
             <div className="rightbutton">
               <Link to="/projectnews">
-                <img className="button" src={RightArrow} alt="right arrow" />
+                <img
+                  className="button right-arrow-button"
+                  src={RightArrow}
+                  alt="right arrow"
+                />
               </Link>
             </div>
           </div>
@@ -103,7 +108,11 @@ class GeneralOwnerDashboard extends React.Component {
               </div>
               <div className="rightbutton">
                 <Link to="/investment">
-                  <img className="button" src={RightArrow} alt="right arrow" />
+                  <img
+                    className="button right-arrow-button"
+                    src={RightArrow}
+                    alt="right arrow"
+                  />
                 </Link>
               </div>
             </div>
