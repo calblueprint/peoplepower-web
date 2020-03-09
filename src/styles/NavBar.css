@@ -37,10 +37,22 @@ span {
   white-space: nowrap;
 }
 
-.navItem a {
+.nav-item a {
   color: var(--pp-blue);
 }
 
-.navItemSelected a {
+.nav-item a:hover {
+  opacity: 0.8;
+}
+
+.nav-item-selected a {
   color: var(--pp-selected-gray);
+}
+
+.nav-item-gear {
+  height: 3vh;
+}
+
+.nav-item-gear:hover {
+  opacity: 0.8;
 }

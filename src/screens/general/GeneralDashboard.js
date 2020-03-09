@@ -31,6 +31,7 @@ class GeneralOwnerDashboard extends React.Component {
         <p style={{ fontWeight: '800', color: 'var(--pp-black)' }}>
           Welcome, {owner.name}
         </p>
+        <p>{'< Placeholder Admin Details >'} </p>
         <div>
           <p>
             <span>Email:</span> {owner.email}
@@ -73,13 +74,17 @@ class GeneralOwnerDashboard extends React.Component {
     return (
       <div className="dashboard">
         <div className="cont dash-announcements-cont">
-          <div className="headerbutton">
-            <div className="headeronly">
+          <div className="header-button">
+            <div className="header-only">
               <h3>Project News</h3>
             </div>
-            <div className="rightbutton">
+            <div className="right-button">
               <Link to="/projectnews">
-                <img className="button" src={RightArrow} alt="right arrow" />
+                <img
+                  className="button right-arrow-button"
+                  src={RightArrow}
+                  alt="right arrow"
+                />
               </Link>
             </div>
           </div>
@@ -89,25 +94,35 @@ class GeneralOwnerDashboard extends React.Component {
             <AnnouncementList announcements={announcements} css="" />
           )}
         </div>
-        <div className="dash-solar-details-cont">
-          <h3>Solar Projects</h3>
-          {isLoadingUserData ? (
-            <div className="is-loading-div" />
-          ) : (
-            this.renderUserDetails()
-          )}
-          <div className="my-investment">
-            <div className="headerbutton">
-              <div className="headeronly">
+        <div>
+          <div className="dash-solar-details-cont">
+            <h3>Solar Projects</h3>
+            {/* TODO: to be eventually replaced with solar project */}
+            {isLoadingUserData ? (
+              <div className="is-loading-div" />
+            ) : (
+              this.renderUserDetails()
+            )}
+          </div>
+
+          <div className="dash-investment-cont">
+            <div className="header-button">
+              <div className="header-only">
                 <h3>My Investment</h3>
               </div>
-              <div className="rightbutton">
+              <div className="right-button">
                 <Link to="/investment">
-                  <img className="button" src={RightArrow} alt="right arrow" />
+                  <img
+                    className="button right-arrow-button"
+                    src={RightArrow}
+                    alt="right arrow"
+                  />
                 </Link>
               </div>
             </div>
-            <div className="my-investment-box">test</div>
+            <div className="dash-investment-details-cont">
+              {'< Investment Information here >'}
+            </div>
           </div>
         </div>
       </div>

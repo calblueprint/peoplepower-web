@@ -1192,3 +1192,19 @@ button {
 .progressbar-line-active {
   background-color: var(--pp-blue);
 }
+
+.already-have-account {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.already-have-account h6 {
+  color: var(--pp-selected-gray);
+  font-weight: 400;
+}
+
+.already-have-account a {
+  color: var(--pp-selected-gray);
+  text-decoration: none;
+  font-weight: bold;
+}

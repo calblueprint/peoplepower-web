@@ -116,6 +116,11 @@ class BasicInfoStep extends React.PureComponent {
           >
             Get Started
           </button>
+          <div className="already-have-account">
+            <h6>
+              Already have an account? <a href="/">Sign in</a>
+            </h6>
+          </div>
         </div>
       </form>
     );
