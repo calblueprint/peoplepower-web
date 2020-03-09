@@ -41,6 +41,10 @@ span {
   color: var(--pp-blue);
 }
 
+.nav-item a:hover {
+  opacity: 80%;
+}
+
 .nav-item-selected a {
   color: var(--pp-selected-gray);
 }
