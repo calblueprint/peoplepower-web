@@ -160,7 +160,7 @@
       { "type": "text", "name": "First Name" },
       { "type": "text", "name": "Last Name" },
       { "type": "number", "name": "Share Amount" },
-      { "type": "select", "name": "Wants Dividends?" },
+      { "type": "checkbox", "name": "Wants Dividends?" },
       { "type": "phone", "name": "Phone Number" },
       { "type": "text", "name": "Email" },
       { "type": "text", "name": "Status" },

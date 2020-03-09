@@ -1764,22 +1764,10 @@
       {
         "id": "fldjiRryJXxs0J4zD",
         "name": "Wants Dividends?",
-        "type": "select",
+        "type": "checkbox",
         "typeOptions": {
-          "choiceOrder": ["seli9wVbXwkfFlcxM", "selRfc3hoODrTiemh"],
-          "choices": {
-            "seli9wVbXwkfFlcxM": {
-              "id": "seli9wVbXwkfFlcxM",
-              "color": "blue",
-              "name": "True"
-            },
-            "selRfc3hoODrTiemh": {
-              "id": "selRfc3hoODrTiemh",
-              "color": "cyan",
-              "name": "False"
-            }
-          },
-          "disableColors": false
+          "color": "green",
+          "icon": "check"
         },
         "$$hashKey": "object:1458"
       },
@@ -1858,7 +1846,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:1610"
+        "$$hashKey": "object:1591"
       },
       {
         "id": "fldIT8wK8SyqiibSd",
@@ -1875,7 +1863,7 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:1611"
+        "$$hashKey": "object:1592"
       },
       {
         "id": "fldCsBRW1D1NY8GK8",
@@ -1893,7 +1881,7 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:1612"
+        "$$hashKey": "object:1593"
       },
       {
         "id": "fld6ZCGI0afrN8qrY",
@@ -1905,14 +1893,14 @@
           "symmetricColumnId": "fldt69IlRNBMhXRsX"
         },
         "foreignTable": "tblz1dquH21O9QSle",
-        "$$hashKey": "object:1613"
+        "$$hashKey": "object:1594"
       },
       {
         "id": "fldyxafmf03pNebzG",
         "name": "Status",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1614"
+        "$$hashKey": "object:1595"
       },
       {
         "id": "fldj0zlTfovxhHwtP",
@@ -1934,7 +1922,7 @@
           },
           "disableColors": false
         },
-        "$$hashKey": "object:1615"
+        "$$hashKey": "object:1596"
       },
       {
         "id": "fldfg1BuzowPi6tjH",
@@ -1945,7 +1933,7 @@
           "negative": false,
           "validatorName": "positive"
         },
-        "$$hashKey": "object:1616"
+        "$$hashKey": "object:1597"
       },
       {
         "id": "fldpTSKzGrMKpqStb",
@@ -1957,77 +1945,77 @@
           "symmetricColumnId": "fldzXjOiOkPw3CcfW"
         },
         "foreignTable": "tblZ2eBBhNq2VEA2D",
-        "$$hashKey": "object:1617"
+        "$$hashKey": "object:1598"
       },
       {
         "id": "fld5ZwiPI5lcQTnsI",
         "name": "Order ID",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1618"
+        "$$hashKey": "object:1599"
       },
       {
         "id": "fldN3NCtzXNeZkF3n",
         "name": "Payer ID",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1619"
+        "$$hashKey": "object:1600"
       },
       {
         "id": "fld90XbMC46tLjBZX",
         "name": "Currency Code",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1620"
+        "$$hashKey": "object:1601"
       },
       {
         "id": "fldF3Ler4fBxfMdxl",
         "name": "Address",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1621"
+        "$$hashKey": "object:1602"
       },
       {
         "id": "fldpsfSDrffSq5JTu",
         "name": "Payer Full Name",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1622"
+        "$$hashKey": "object:1603"
       },
       {
         "id": "fldWZ6j026pbFJmL0",
         "name": "Intent",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1623"
+        "$$hashKey": "object:1604"
       },
       {
         "id": "fldIpts0JZXbRgJaq",
         "name": "Payment Create Time",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1624"
+        "$$hashKey": "object:1605"
       },
       {
         "id": "fldKTbJ7uYualyNKT",
         "name": "Payment Update Time",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1625"
+        "$$hashKey": "object:1606"
       },
       {
         "id": "fldoiyvM4ju3z3Avn",
         "name": "Notes",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1626"
+        "$$hashKey": "object:1607"
       },
       {
         "id": "fldlPjfnI9DzSDb0V",
         "name": "Payer Email",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1627"
+        "$$hashKey": "object:1608"
       },
       {
         "id": "fldVXLvkkBEtMhirP",
@@ -2040,7 +2028,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:1628"
+        "$$hashKey": "object:1609"
       }
     ],
     "primaryColumnName": "Primary Key",
@@ -2063,14 +2051,14 @@
         "name": "Name",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1858"
+        "$$hashKey": "object:1839"
       },
       {
         "id": "fldJclgmu194rPRlJ",
         "name": "Tag",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1859"
+        "$$hashKey": "object:1840"
       },
       {
         "id": "fldYGdJCg7s42qKEL",
@@ -2083,7 +2071,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:1860"
+        "$$hashKey": "object:1841"
       }
     ],
     "primaryColumnName": "Name",

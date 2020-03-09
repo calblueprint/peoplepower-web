@@ -26,7 +26,7 @@ class AdminDashboard extends React.Component {
       invitePhoneNumber: '',
       inviteEmail: '',
       inviteShareAmount: 0,
-      inviteWantsDividends: 'False',
+      inviteWantsDividends: false,
       status: ''
     };
 
@@ -74,9 +74,11 @@ class AdminDashboard extends React.Component {
       phoneNumber: invitePhoneNumber,
       email: inviteEmail,
       shareAmount: parseInt(inviteShareAmount, 10),
-      wantsDividends: inviteWantsDividends,
+      wantsDividends: JSON.parse(inviteWantsDividends),
       projectGroupId: [projectGroup.id]
     };
+
+    console.log(typeof newPledgeInvite.wantsDividends);
 
     const recordStatus = await generatePledgeInviteOnAirTable(newPledgeInvite);
 
@@ -281,8 +283,8 @@ class AdminDashboard extends React.Component {
                         value={inviteWantsDividends}
                         onChange={this.handleChange}
                       >
-                        <option value="True">Yes</option>
-                        <option value="False">No</option>
+                        <option value>Yes</option>
+                        <option value={false}>No</option>
                       </select>
                     </label>
                   </p>
