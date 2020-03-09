@@ -67,7 +67,8 @@
       { "type": "number", "name": "Longitude" },
       { "type": "checkbox", "name": "Is Default?" },
       { "type": "formula", "name": "ID" },
-      { "type": "formula", "name": "Address" }
+      { "type": "formula", "name": "Address" },
+      { "type": "foreignKey", "name": "Pledge Invite" }
     ]
   },
   "Announcement": {
@@ -153,7 +154,7 @@
   "Pledge Invite": {
     "columns": [
       { "type": "formula", "name": "Primary Key" },
-      { "type": "foreignKey", "name": "General Owner" },
+      { "type": "foreignKey", "name": "Owner" },
       { "type": "formula", "name": "Date Created" },
       { "type": "formula", "name": "Date Updated" },
       { "type": "text", "name": "First Name" },
@@ -164,7 +165,7 @@
       { "type": "text", "name": "Email" },
       { "type": "text", "name": "Status" },
       { "type": "formula", "name": "ID" },
-      { "type": "text", "name": "Field 13" }
+      { "type": "foreignKey", "name": "Project Group" }
     ]
   },
   "Payment": {

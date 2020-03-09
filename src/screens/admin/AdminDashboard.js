@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AdminDashboardCard from './components/AdminDashboardCard';
 import LoadingComponent from '../../components/LoadingComponent';
-import { getOwnerRecordsForProjectGroup } from '../../lib/adminUtils';
+import {
+  getOwnerRecordsForProjectGroup,
+  generatePledgeInviteOnAirTable
+} from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
 import { isSuperAdmin } from '../../lib/credentials';
-
-// COULD JUST DO THIS IN adminUtils.js
-import { createPledgeInvite } from '../../lib/airtable/request';
 
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);
@@ -21,12 +21,12 @@ class AdminDashboard extends React.Component {
     this.state = {
       owners: [],
       showModal: false,
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      email: '',
-      shareAmount: 0,
-      wantsDividends: 'False',
+      inviteFirstName: '',
+      inviteLastName: '',
+      invitePhoneNumber: '',
+      inviteEmail: '',
+      inviteShareAmount: 0,
+      inviteWantsDividends: 'False',
       status: ''
     };
 
@@ -58,28 +58,29 @@ class AdminDashboard extends React.Component {
     event.preventDefault();
 
     const {
-      firstName,
-      lastName,
-      phoneNumber,
-      email,
-      shareAmount,
-      wantsDividends
+      inviteFirstName,
+      inviteLastName,
+      invitePhoneNumber,
+      inviteEmail,
+      inviteShareAmount,
+      inviteWantsDividends
     } = this.state;
 
-    // some form validation?
+    const { projectGroup } = this.props;
 
     const newPledgeInvite = {
-      firstName,
-      lastName,
-      phoneNumber,
-      email,
-      shareAmount: parseInt(shareAmount, 10),
-      wantsDividends
+      firstName: inviteFirstName,
+      lastName: inviteLastName,
+      phoneNumber: invitePhoneNumber,
+      email: inviteEmail,
+      shareAmount: parseInt(inviteShareAmount, 10),
+      wantsDividends: inviteWantsDividends,
+      projectGroupId: [projectGroup.id]
     };
 
-    const result = await createPledgeInvite(newPledgeInvite);
+    const recordStatus = await generatePledgeInviteOnAirTable(newPledgeInvite);
 
-    if (result === '') {
+    if (recordStatus === '') {
       this.setState({
         status: 'An error occurent when sending the invitation.'
       });
@@ -108,16 +109,16 @@ class AdminDashboard extends React.Component {
   }
 
   render() {
-    const { isLoadingUserData, credentials } = this.props;
+    const { isLoadingUserData, credentials, projectGroup } = this.props;
     const {
       showModal,
       owners,
-      firstName,
-      lastName,
-      phoneNumber,
-      email,
-      shareAmount,
-      wantsDividends,
+      inviteFirstName,
+      inviteLastName,
+      invitePhoneNumber,
+      inviteEmail,
+      inviteShareAmount,
+      inviteWantsDividends,
       status
     } = this.state;
 
@@ -172,15 +173,15 @@ class AdminDashboard extends React.Component {
                 <div>
                   <p>
                     <label
-                      htmlFor="firstName"
+                      htmlFor="inviteFirstName"
                       style={{ paddingRight: '6.5px' }}
                     >
                       First name
                       <input
                         type="text"
-                        name="firstName"
+                        name="inviteFirstName"
                         placeholder="Aivant"
-                        value={firstName}
+                        value={inviteFirstName}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -188,13 +189,16 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="lastName" style={{ paddingLeft: '6.5px' }}>
+                    <label
+                      htmlFor="inviteLastName"
+                      style={{ paddingLeft: '6.5px' }}
+                    >
                       Last name
                       <input
                         type="text"
-                        name="lastName"
+                        name="inviteLastName"
                         placeholder="Goyal"
-                        value={lastName}
+                        value={inviteLastName}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -205,15 +209,15 @@ class AdminDashboard extends React.Component {
                 <div>
                   <p>
                     <label
-                      htmlFor="phoneNumber"
+                      htmlFor="invitePhoneNumber"
                       style={{ paddingRight: '6.5px' }}
                     >
                       Phone number
                       <input
                         type="text"
-                        name="phoneNumber"
+                        name="invitePhoneNumber"
                         placeholder="123-456-7890"
-                        value={phoneNumber}
+                        value={invitePhoneNumber}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -221,13 +225,16 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="email" style={{ paddingLeft: '6.5px' }}>
+                    <label
+                      htmlFor="inviteEmail"
+                      style={{ paddingLeft: '6.5px' }}
+                    >
                       Email
                       <input
                         type="text"
-                        name="email"
-                        placeholder="abc@peoplepower.org"
-                        value={email}
+                        name="inviteEmail"
+                        placeholder="invitees_email@gmail.com"
+                        value={inviteEmail}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -238,13 +245,13 @@ class AdminDashboard extends React.Component {
                 <div>
                   <p>
                     <label
-                      htmlFor="shareAmount"
+                      htmlFor="inviteShareAmount"
                       style={{ paddingRight: '6.5px' }}
                     >
                       Number of shares
                       <select
-                        name="shareAmount"
-                        value={shareAmount}
+                        name="inviteShareAmount"
+                        value={inviteShareAmount}
                         onChange={this.handleChange}
                       >
                         <option value={0}>0</option>
@@ -265,13 +272,13 @@ class AdminDashboard extends React.Component {
                 <div>
                   <p>
                     <label
-                      htmlFor="wantsDividends"
+                      htmlFor="inviteWantsDividends"
                       style={{ paddingLeft: '6.5px' }}
                     >
                       Wants Dividends
                       <select
-                        name="wantsDividends"
-                        value={wantsDividends}
+                        name="inviteWantsDividends"
+                        value={inviteWantsDividends}
                         onChange={this.handleChange}
                       >
                         <option value="True">Yes</option>
@@ -279,6 +286,12 @@ class AdminDashboard extends React.Component {
                       </select>
                     </label>
                   </p>
+                </div>
+              </div>
+              <div className="admin-invite-form-row">
+                <div>
+                  <p>Project Group</p>
+                  <p>{projectGroup.name}</p>
                 </div>
               </div>
               <div
