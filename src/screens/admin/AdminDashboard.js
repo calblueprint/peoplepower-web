@@ -1,11 +1,13 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import AdminDashboardCard from './components/AdminDashboardCard';
 import LoadingComponent from '../../components/LoadingComponent';
 import { getOwnerRecordsForProjectGroup } from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
+import { isSuperAdmin } from '../../lib/credentials';
 
 // COULD JUST DO THIS IN adminUtils.js
 import { createPledgeInvite } from '../../lib/airtable/request';
@@ -106,7 +108,7 @@ class AdminDashboard extends React.Component {
   }
 
   render() {
-    const { isLoadingUserData } = this.props;
+    const { isLoadingUserData, credentials } = this.props;
     const {
       showModal,
       owners,
@@ -128,6 +130,9 @@ class AdminDashboard extends React.Component {
         <div>
           <h3>Project Group</h3>
           <div className="card-holder-cont">
+            {isSuperAdmin(credentials) && (
+              <Link to="/superadmin">Super Admin Dashboard</Link>
+            )}
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <h4>
                 Members <span>({owners.length})</span>
@@ -304,6 +309,7 @@ class AdminDashboard extends React.Component {
 
 const mapStateToProps = state => ({
   owner: state.userData.owner,
+  credentials: state.userData.credentials,
   userLogin: state.userData.userLogin,
   projectGroup: state.userData.projectGroup,
   isLoadingUserData: state.userData.isLoading

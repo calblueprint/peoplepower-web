@@ -70,7 +70,7 @@ const getSubscriberBills = async owner => {
           // TODO: Could this be simpler since it's copying most of the properties of billObject
           pendingBills.push({
             id: billObject.id,
-            subscriberOwnerId: billObject.subscriberOwnerId[0], // assumes exactly 1 subscriber owner
+            subscriberId: billObject.subscriberId[0], // assumes exactly 1 subscriber owner
             transactionDate: billObject.statementDate,
             startDate: billObject.startDate,
             endDate: billObject.endDate,

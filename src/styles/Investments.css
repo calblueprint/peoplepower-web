@@ -1,0 +1,66 @@
+.mainheader h1 {
+  margin-top: 54px;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 49px;
+  color: var(--pp-blue);
+}
+
+.mainheader {
+  flex-direction: column;
+}
+
+.columnformat {
+  height: 70%;
+  width: 70%;
+  text-align: left;
+  display: flex;
+}
+
+.investment-box-1 {
+  background: white;
+  border-radius: 5px;
+  padding: 35px;
+  margin-left: 0px;
+  margin-right: 20px;
+  width: 450px;
+  height: 80px;
+  display: flex;
+}
+
+.investment-box-2 {
+  background: white;
+  border-radius: 5px;
+  padding: 35px;
+  margin-left: 0px;
+  margin-left: 0px;
+  margin-top: 10px;
+  width: 450px;
+  display: flex;
+}
+
+.transactions-box {
+  background: white;
+  border-radius: 5px;
+  padding: 35px;
+  margin-left: 0px;
+  margin-left: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 450px;
+  height: 200px;
+  display: flex;
+}
+
+.fin-box {
+  background: white;
+  border-radius: 5px;
+  padding: 35px;
+  margin-left: 0px;
+  margin-left: 0px;
+  margin-top: 10px;
+  width: 450px;
+  height: 250px;
+  display: flex;
+}
