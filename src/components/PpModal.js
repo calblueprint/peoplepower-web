@@ -20,20 +20,22 @@ export default class PPModal extends React.PureComponent {
         isOpen={showModal}
         contentLabel="onRequestClose Example"
         onRequestClose={handleCloseModal}
-        className="pp-general-modal-content"
+        className="pp-general-modal"
         // overlayClassName="pp-general-modal"
       >
-        <div className="pp-general-modal-header">{header}</div>
-        <div className="pp-general-modal-body">
-          {body || 'Uh oh! Something went wrong.'}
+        <div className="pp-general-modal-content">
+          <div className="pp-general-modal-header">{header}</div>
+          <div className="pp-general-modal-body">
+            {body || 'Uh oh! Something went wrong.'}
+          </div>
+          <button
+            onClick={action || handleCloseModal}
+            type="button"
+            className="pp-general-modal-button"
+          >
+            {actionName || 'Close'}
+          </button>
         </div>
-        <button
-          onClick={action || handleCloseModal}
-          type="button"
-          className="pp-general-modal-button"
-        >
-          {actionName || 'Close'}
-        </button>
       </Modal>
     );
   }

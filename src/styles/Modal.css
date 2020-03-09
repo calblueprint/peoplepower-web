@@ -4,12 +4,7 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: (
-    0,
-    0,
-    0,
-    0.4
-  ); /*needed to apply opacity to just background*/
+  background: rgba(0, 0, 0, 0.4); /*needed to apply opacity to just background*/
 }
 
 .pp-general-modal-content {
