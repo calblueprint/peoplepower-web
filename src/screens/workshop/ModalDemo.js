@@ -27,8 +27,8 @@ export default class ModalDemo extends React.PureComponent {
     return (
       <div>
         <PPModal
-          // header="Optional Heading"
-          body="Hello"
+          header="Optional Heading"
+          body=""
           actionName="Close"
           showModal={showModal}
           handleCloseModal={this.handleCloseModal}
