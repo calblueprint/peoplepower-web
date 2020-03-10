@@ -1,0 +1,33 @@
+.subscriber-page {
+  margin: 5rem 5rem;
+  display: flex;
+}
+
+.subscriber-main {
+  width: 60%;
+  margin-right: 2rem;
+}
+
+.subscriber-side {
+  width: 40%;
+}
+
+.subscriber-section {
+  margin: 2rem;
+}
+
+.subscriber-section-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.subscriber-section-body {
+  margin-top: 1rem;
+}
+
+.subscriber-header {
+  color: var(--pp-gray);
+  font-weight: 700;
+  font-size: 1.17em;
+}
