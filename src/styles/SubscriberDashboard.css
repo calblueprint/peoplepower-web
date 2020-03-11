@@ -1,19 +1,20 @@
 .subscriber-page {
-  margin: 5rem 5rem;
+  margin: 5rem 7rem;
   display: flex;
 }
 
 .subscriber-main {
-  width: 60%;
+  width: 70%;
   margin-right: 2rem;
 }
 
 .subscriber-side {
-  width: 40%;
+  width: 30%;
+  right: 0;
 }
 
 .subscriber-section {
-  margin: 2rem;
+  margin: 3rem 2rem;
 }
 
 .subscriber-section-header {
@@ -30,4 +31,77 @@
   color: var(--pp-gray);
   font-weight: 700;
   font-size: 1.17em;
+}
+
+.subscriber-billing-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.subscriber-billing-current-container {
+  border-radius: 5px;
+  background-color: white;
+  padding: 2rem;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 0.5rem;
+}
+
+.subscriber-billing-header {
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 1rem;
+  color: var(--pp-blue);
+}
+
+.subscriber-billing-balance {
+  font-weight: bold;
+  color: var(--pp-blue);
+  padding-bottom: 1rem;
+}
+
+.subscriber-billing-make-payment-button {
+  border-radius: 2.5px;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+  background-color: var(--pp-blue);
+  padding: 0.25rem 1rem;
+}
+
+.subscriber-billing-header-inline {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.subscriber-billing-recent-container {
+  border-radius: 5px;
+  background-color: white;
+  padding: 2rem;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.subscriber-billing-view-all-button {
+  border-radius: 40px;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+  background-color: var(--pp-blue);
+  padding: 0.1rem 1.75rem;
+}
+
+.subscriber-billing-recent-table {
+  border: none;
+  box-shadow: none;
+}
+
+.subscriber-billing-recent-row {
+  border: none;
+  box-shadow: none;
 }

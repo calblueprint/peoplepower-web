@@ -1,30 +1,56 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { PayPalButton } from 'react-paypal-button-v2';
+import ReactTable from 'react-table-v6';
 import AnnouncementList from '../shared/components/AnnouncementList';
 import '../../styles/SubscriberDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
-import { isAdmin } from '../../lib/credentials';
 import '../../styles/Community.css';
 import LoadingComponent from '../../components/LoadingComponent';
 import {
   areDiffBills,
   getSubscriberBills,
-  centsToDollars
+  centsToDollars,
+  formatStatus
 } from '../../lib/subscriberUtils';
+import { dateToFullMonth, formatDate } from '../../lib/dateUtils';
 import '../../styles/SubscriberOwnerDashboard.css';
 import { getTotalBalanceFromBills } from '../../lib/paypalUtils';
 
-const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
+import constants from '../../constants';
+
+const { ONLINE_PAYMENT_TYPE } = constants;
+
+const createCondensedPaymentTransaction = transaction => {
+  return {
+    startDate: transaction.startDate,
+    statementDate: formatDate(transaction.transactionDate),
+    description: transaction.type,
+    status: formatStatus(transaction.status),
+    payment: `$${centsToDollars(transaction.amount)}`
+  };
+};
+
+const createCondensedBillTransaction = transaction => {
+  return {
+    balance: transaction.balance,
+    startDate: transaction.startDate,
+    statementDate: formatDate(transaction.transactionDate),
+    description: `${dateToFullMonth(transaction.startDate)} Power Bill`,
+    status: transaction.status,
+    amtDue: `$${centsToDollars(transaction.amountDue)}`
+  };
+};
 class SubscriberDashboard extends React.Component {
   constructor(props) {
     super(props);
+    // const { transactions } = this.props;
     this.state = {
       credentials: '',
       transactions: [],
       pendingBills: [],
       mode: 0,
-      isReady: false
+      isReady: false,
+      data: []
     };
   }
 
@@ -50,6 +76,14 @@ class SubscriberDashboard extends React.Component {
         return { isReady: true };
       });
     }
+
+    this.setState({
+      data: transactions.map(t =>
+        t.type === ONLINE_PAYMENT_TYPE
+          ? createCondensedPaymentTransaction(t)
+          : createCondensedBillTransaction(t)
+      )
+    });
   }
 
   seeAllBills() {
@@ -65,8 +99,8 @@ class SubscriberDashboard extends React.Component {
   }
 
   render() {
-    const { announcements, credentials } = this.props;
-    const { isLoading, pendingBills } = this.state;
+    const { announcements, isLoadingAnnouncements } = this.props;
+    const { isLoading, data, pendingBills } = this.state;
     const totalBalance = getTotalBalanceFromBills(pendingBills);
 
     return (
@@ -75,30 +109,104 @@ class SubscriberDashboard extends React.Component {
           <div className="subscriber-section">
             <div className="subscriber-section-header">
               <div className="subscriber-header">Billing Summary</div>
-              <button type="button">
+              <a href="/">
                 <img src={RightArrow} alt="right arrow" />
-              </button>
+              </a>
             </div>
             <div className="subscriber-section-body">
               {isLoading ? (
                 <LoadingComponent />
               ) : (
                 <div>
-                  <div>
-                    <div>
-                      Current Balance
-                      {centsToDollars(totalBalance)}
-                      <div className="subscriber-dashboard-paypal-component">
+                  <div className="subscriber-billing-container">
+                    <div className="subscriber-billing-current-container">
+                      <div className="subscriber-billing-header">
+                        Current Balance
+                      </div>
+                      <h3 className="subscriber-billing-balance">
+                        ${centsToDollars(totalBalance)}
+                      </h3>
+                      <div>
                         {totalBalance === 0 ? null : (
-                          <PayPalButton
-                            amount={centsToDollars(totalBalance)}
-                            onSuccess={this.onPaypalPaymentSuccess}
-                            options={{
-                              clientId
-                            }}
-                          />
+                          <button
+                            type="button"
+                            className="subscriber-billing-make-payment-button"
+                          >
+                            Make Payment
+                          </button>
                         )}
                       </div>
+                    </div>
+                    <div className="subscriber-billing-recent-container">
+                      <div className="subscriber-billing-header-inline">
+                        <div className="subscriber-billing-header">
+                          Recent Transactions
+                        </div>
+                        <div>
+                          <button
+                            type="button"
+                            className="subscriber-billing-view-all-button"
+                          >
+                            View All
+                          </button>
+                        </div>
+                      </div>
+                      <ReactTable
+                        data={data}
+                        columns={[
+                          {
+                            id: 'statementDate',
+                            accessor: d => (
+                              <div className="subscriber-billing-recent-row ">
+                                {d.statementDate}
+                              </div>
+                            )
+                            // width: 100
+                          },
+                          {
+                            id: 'description',
+                            accessor: d => (
+                              <div className="subscriber-billing-recent-row ">
+                                <b>{d.description}</b>
+                              </div>
+                            ),
+                            width: 200
+                          },
+                          {
+                            id: 'amtDue',
+                            accessor: d => (
+                              <div className="subscriber-billing-recent-row ">
+                                {d.amtDue}
+                              </div>
+                            )
+                            // width: 150
+                          },
+                          {
+                            id: 'payment',
+                            accessor: d => (
+                              <div className="subscriber-billing-recent-row ">
+                                {d.payment}
+                              </div>
+                            )
+                            // width: 150
+                          },
+                          {
+                            id: 'status',
+                            accessor: d => (
+                              <div className="subscriber-billing-recent-row ">
+                                {d.status}
+                              </div>
+                            )
+                            // width: 100
+                          }
+                        ]}
+                        getTdProps={() => ({
+                          style: { border: 'none' }
+                        })}
+                        defaultPageSize={2}
+                        className="subscriber-billing-recent-table"
+                        showPagination={false}
+                      />
                     </div>
                   </div>
                 </div>
@@ -108,9 +216,9 @@ class SubscriberDashboard extends React.Component {
           <div className="subscriber-section">
             <div className="subscriber-section-header">
               <div className="subscriber-header">My Solar Project</div>
-              <button type="button">
+              <a href="/">
                 <img src={RightArrow} alt="right arrow" />
-              </button>
+              </a>
             </div>
             <div className="subscriber-section-body">Very nice graphs</div>
           </div>
@@ -119,16 +227,17 @@ class SubscriberDashboard extends React.Component {
           <div className="subscriber-section">
             <div className="subscriber-section-header">
               <div className="subscriber-header">Community</div>
-              <button type="button">
+              <a href="/">
                 <img src={RightArrow} alt="right arrow" />
-              </button>
+              </a>
             </div>
             <div className="subscriber-section-body">
               <div className="cont">
-                <AnnouncementList
-                  announcements={[...announcements].reverse()}
-                  css={isAdmin(credentials) ? '' : 'non-admin-height'}
-                />
+                {isLoadingAnnouncements ? (
+                  <div className="is-loading-div card" />
+                ) : (
+                  <AnnouncementList announcements={announcements} css="" />
+                )}
               </div>
             </div>
           </div>
