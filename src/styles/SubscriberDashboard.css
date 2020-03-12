@@ -80,6 +80,13 @@
   font-weight: 700;
   font-size: 1.17em;
   margin-right: 7rem;
+  border: none;
+  background-color: transparent;
+  opacity: 50%;
+}
+
+.subscriber-billing-tab.active {
+  opacity: 100%;
 }
 
 .subscriber-billing-balance {
@@ -95,6 +102,14 @@
   color: white;
   background-color: var(--pp-blue);
   padding: 0.25rem 1rem;
+}
+
+.subscriber-billing-make-payment-button.disabled {
+  background-color: var(--pp-disabled);
+}
+
+.subscriber-billing-make-payment-button.disabled .subscriber-link-text-white {
+  pointer-events: none;
 }
 
 .subscriber-billing-header-inline {

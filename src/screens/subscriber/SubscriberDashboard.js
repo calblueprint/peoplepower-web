@@ -51,8 +51,10 @@ class SubscriberDashboard extends React.Component {
       mode: 0,
       isReady: false,
       data: [],
-      hasShares: false
+      hasShares: false,
+      activeTab: 'My Solar Project'
     };
+    this.switchChartView = this.switchChartView.bind(this);
   }
 
   async componentDidMount() {
@@ -105,9 +107,22 @@ class SubscriberDashboard extends React.Component {
     });
   }
 
+  switchChartView() {
+    const { activeTab, hasShares } = this.state;
+    if (activeTab === 'My Solar Project' && hasShares) {
+      this.setState({
+        activeTab: 'Community Solar Projects'
+      });
+    } else {
+      this.setState({
+        activeTab: 'My Solar Project'
+      });
+    }
+  }
+
   render() {
     const { announcements, isLoadingAnnouncements } = this.props;
-    const { isLoading, data, pendingBills, hasShares } = this.state;
+    const { isLoading, data, pendingBills, hasShares, activeTab } = this.state;
     const totalBalance = getTotalBalanceFromBills(pendingBills);
     return (
       <div className="subscriber-page ">
@@ -133,19 +148,20 @@ class SubscriberDashboard extends React.Component {
                         ${centsToDollars(totalBalance)}
                       </h3>
                       <div>
-                        {totalBalance === 0 ? null : (
-                          <button
-                            type="button"
-                            className="subscriber-billing-make-payment-button"
+                        <button
+                          type="button"
+                          className={`subscriber-billing-make-payment-button ${
+                            totalBalance === 0 ? 'disabled' : ''
+                          }`}
+                          disabled={totalBalance === 0}
+                        >
+                          <Link
+                            to="/billing"
+                            className="subscriber-link-text-white"
                           >
-                            <Link
-                              to="/billing"
-                              className="subscriber-link-text-white"
-                            >
-                              Make Payment
-                            </Link>
-                          </button>
-                        )}
+                            Make Payment
+                          </Link>
+                        </button>
                       </div>
                     </div>
                     <div className="subscriber-billing-recent-container">
@@ -240,18 +256,40 @@ class SubscriberDashboard extends React.Component {
           </div>
           <div className="subscriber-section">
             <div className="subscriber-section-tabs">
-              <div className="subscriber-billing-tab">My Solar Project</div>
+              <button
+                type="button"
+                onClick={this.switchChartView}
+                className={`subscriber-billing-tab ${
+                  activeTab === 'My Solar Project' ? 'active' : ''
+                }`}
+              >
+                My Solar Project
+              </button>
               {hasShares ? (
-                <div className="subscriber-billing-tab">
+                <button
+                  type="button"
+                  onClick={this.switchChartView}
+                  className={`subscriber-billing-tab ${
+                    activeTab === 'Community Solar Projects' ? 'active' : ''
+                  }`}
+                >
                   Community Solar Projects
-                </div>
+                </button>
               ) : null}
             </div>
-            <div className="subscriber-section-body">
-              <div className="subscriber-billing-chart-container">
-                Very nice graphs
+            {activeTab === 'My Solar Project' ? (
+              <div className="subscriber-section-body">
+                <div className="subscriber-billing-chart-container">
+                  Very nice graphs for my solar project
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="subscriber-section-body">
+                <div className="subscriber-billing-chart-container">
+                  Very nice graphs for community solar projects
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div className="subscriber-side">
