@@ -22,6 +22,11 @@
   justify-content: space-between;
 }
 
+.subscriber-section-tabs {
+  display: flex;
+  flex-direction: row;
+}
+
 .subscriber-section-body {
   margin-top: 1rem;
 }
@@ -65,6 +70,15 @@
   font-weight: bold;
   padding-bottom: 1rem;
   color: var(--pp-blue);
+}
+
+.subscriber-billing-tab {
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 1rem;
+  margin-right: 7rem;
+  color: var(--pp-blue);
+  background-color: none;
 }
 
 .subscriber-billing-balance {
@@ -116,4 +130,15 @@
   border: none !important;
   box-shadow: none !important;
   color: var(--pp-black);
+}
+
+.subscriber-link-text-white {
+  text-decoration: none;
+  color: white;
+}
+
+.subscriber-billing-chart-container {
+  background-color: white;
+  padding: 8rem;
+  border-radius: 5px;
 }

@@ -51,7 +51,8 @@ class SubscriberDashboard extends React.Component {
       pendingBills: [],
       mode: 0,
       isReady: false,
-      data: []
+      data: [],
+      hasShares: false
     };
   }
 
@@ -61,6 +62,12 @@ class SubscriberDashboard extends React.Component {
     // If data isn't in redux yet, don't do anything.
     if (isLoadingUserData) {
       return;
+    }
+
+    if (owner.numberOfShares !== 0) {
+      this.setState({
+        hasShares: true
+      });
     }
 
     const { transactions, pendingBills } = await getSubscriberBills(owner);
@@ -101,7 +108,7 @@ class SubscriberDashboard extends React.Component {
 
   render() {
     const { announcements, isLoadingAnnouncements } = this.props;
-    const { isLoading, data, pendingBills } = this.state;
+    const { isLoading, data, pendingBills, hasShares } = this.state;
     const totalBalance = getTotalBalanceFromBills(pendingBills);
     return (
       <div className="subscriber-page ">
@@ -132,7 +139,12 @@ class SubscriberDashboard extends React.Component {
                             type="button"
                             className="subscriber-billing-make-payment-button"
                           >
-                            Make Payment
+                            <Link
+                              to="/billing"
+                              className="subscriber-link-text-white"
+                            >
+                              Make Payment
+                            </Link>
                           </button>
                         )}
                       </div>
@@ -147,7 +159,12 @@ class SubscriberDashboard extends React.Component {
                             type="button"
                             className="subscriber-billing-view-all-button"
                           >
-                            View All
+                            <Link
+                              to="/billing"
+                              className="subscriber-link-text-white "
+                            >
+                              View All
+                            </Link>
                           </button>
                         </div>
                       </div>
@@ -223,19 +240,25 @@ class SubscriberDashboard extends React.Component {
             </div>
           </div>
           <div className="subscriber-section">
-            <div className="subscriber-section-header">
-              <div className="subscriber-header">My Solar Project</div>
-              <Link to="/">
-                <img src={RightArrow} alt="right arrow" />
-              </Link>
+            <div className="subscriber-section-tabs">
+              <div className="subscriber-billing-tab">My Solar Project</div>
+              {hasShares ? (
+                <div className="subscriber-billing-tab">
+                  Community Solar Projects
+                </div>
+              ) : null}
             </div>
-            <div className="subscriber-section-body">Very nice graphs</div>
+            <div className="subscriber-section-body">
+              <div className="subscriber-billing-chart-container">
+                Very nice graphs
+              </div>
+            </div>
           </div>
         </div>
         <div className="subscriber-side">
           <div className="subscriber-billing-side-container">
             <div className="subscriber-section-header">
-              <div className="subscriber-header">Community</div>
+              <div className="subscriber-header">Project News</div>
               <Link to="/projectnews">
                 <img src={RightArrow} alt="right arrow" />
               </Link>
