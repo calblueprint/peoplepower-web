@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table-v6';
+import { Link } from 'react-router-dom';
 import AnnouncementList from '../shared/components/AnnouncementList';
 import '../../styles/SubscriberDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
@@ -102,16 +103,15 @@ class SubscriberDashboard extends React.Component {
     const { announcements, isLoadingAnnouncements } = this.props;
     const { isLoading, data, pendingBills } = this.state;
     const totalBalance = getTotalBalanceFromBills(pendingBills);
-
     return (
       <div className="subscriber-page ">
         <div className="subscriber-main">
           <div className="subscriber-section">
             <div className="subscriber-section-header">
               <div className="subscriber-header">Billing Summary</div>
-              <a href="/">
+              <Link to="/billing">
                 <img src={RightArrow} alt="right arrow" />
-              </a>
+              </Link>
             </div>
             <div className="subscriber-section-body">
               {isLoading ? (
@@ -151,62 +151,71 @@ class SubscriberDashboard extends React.Component {
                           </button>
                         </div>
                       </div>
-                      <ReactTable
-                        data={data}
-                        columns={[
-                          {
-                            id: 'statementDate',
-                            accessor: d => (
-                              <div className="subscriber-billing-recent-row ">
-                                {d.statementDate}
-                              </div>
-                            )
-                            // width: 100
-                          },
-                          {
-                            id: 'description',
-                            accessor: d => (
-                              <div className="subscriber-billing-recent-row ">
-                                <b>{d.description}</b>
-                              </div>
-                            ),
-                            width: 200
-                          },
-                          {
-                            id: 'amtDue',
-                            accessor: d => (
-                              <div className="subscriber-billing-recent-row ">
-                                {d.amtDue}
-                              </div>
-                            )
-                            // width: 150
-                          },
-                          {
-                            id: 'payment',
-                            accessor: d => (
-                              <div className="subscriber-billing-recent-row ">
-                                {d.payment}
-                              </div>
-                            )
-                            // width: 150
-                          },
-                          {
-                            id: 'status',
-                            accessor: d => (
-                              <div className="subscriber-billing-recent-row ">
-                                {d.status}
-                              </div>
-                            )
-                            // width: 100
-                          }
-                        ]}
-                        getTdProps={() => ({
-                          style: { border: 'none' }
-                        })}
-                        defaultPageSize={2}
-                        className="subscriber-billing-recent-table"
-                        showPagination={false}
-                      />
+                      {isLoading ? (
+                        <LoadingComponent />
+                      ) : (
+                        <ReactTable
+                          data={data}
+                          columns={[
+                            {
+                              id: 'statementDate',
+                              accessor: d => (
+                                <div className="subscriber-billing-recent-row ">
+                                  {d.statementDate}
+                                </div>
+                              )
+                              // width: 100
+                            },
+                            {
+                              id: 'description',
+                              accessor: d => (
+                                <div className="subscriber-billing-recent-row ">
+                                  <b>{d.description}</b>
+                                </div>
+                              ),
+                              width: 200
+                            },
+                            {
+                              id: 'amtDue',
+                              accessor: d => (
+                                <div className="subscriber-billing-recent-row ">
+                                  {d.amtDue ? `+${d.amtDue}` : `-${d.payment}`}
+                                </div>
+                              )
+                              // width: 150
+                            },
+                            {
+                              id: 'status',
+                              accessor: d => (
+                                <div className="subscriber-billing-recent-row ">
+                                  {d.status}
+                                </div>
+                              )
+                              // width: 100
+                            }
+                          ]}
+                          getTdProps={() => ({
+                            style: { border: 'none' }
+                          })}
+                          defaultPageSize={2}
+                          className="subscriber-billing-recent-table"
+                          showPagination={false}
+                          getTrGroupProps={() => {
+                            return {
+                              style: {
+                                border: 'none'
+                              }
+                            };
+                          }}
+                          getTheadProps={() => {
+                            return {
+                              style: {
+                                boxShadow: 'none'
+                              }
+                            };
+                          }}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -216,25 +225,25 @@ class SubscriberDashboard extends React.Component {
           <div className="subscriber-section">
             <div className="subscriber-section-header">
               <div className="subscriber-header">My Solar Project</div>
-              <a href="/">
+              <Link to="/">
                 <img src={RightArrow} alt="right arrow" />
-              </a>
+              </Link>
             </div>
             <div className="subscriber-section-body">Very nice graphs</div>
           </div>
         </div>
         <div className="subscriber-side">
-          <div className="subscriber-section">
+          <div className="subscriber-billing-side-container">
             <div className="subscriber-section-header">
               <div className="subscriber-header">Community</div>
-              <a href="/">
+              <Link to="/projectnews">
                 <img src={RightArrow} alt="right arrow" />
-              </a>
+              </Link>
             </div>
             <div className="subscriber-section-body">
               <div className="cont">
                 {isLoadingAnnouncements ? (
-                  <div className="is-loading-div card" />
+                  <LoadingComponent />
                 ) : (
                   <AnnouncementList announcements={announcements} css="" />
                 )}

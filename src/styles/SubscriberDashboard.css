@@ -1,11 +1,10 @@
 .subscriber-page {
-  margin: 5rem 7rem;
+  margin: 1rem 7rem;
   display: flex;
 }
 
 .subscriber-main {
   width: 70%;
-  margin-right: 2rem;
 }
 
 .subscriber-side {
@@ -37,6 +36,18 @@
   display: flex;
   flex-direction: row;
   width: 100%;
+}
+
+.subscriber-billing-side-container {
+  margin: 3rem 2rem;
+}
+
+.subscriber-section-body {
+  margin-top: 1rem;
+  position: relative;
+  overflow-y: scroll;
+  top: 0;
+  bottom: 0;
 }
 
 .subscriber-billing-current-container {
@@ -97,11 +108,12 @@
 }
 
 .subscriber-billing-recent-table {
-  border: none;
-  box-shadow: none;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .subscriber-billing-recent-row {
-  border: none;
-  box-shadow: none;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--pp-black);
 }
