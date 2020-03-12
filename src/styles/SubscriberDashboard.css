@@ -5,6 +5,8 @@
 
 .subscriber-main {
   width: 70%;
+  display: flex;
+  flex-direction: column;
 }
 
 .subscriber-side {
@@ -13,7 +15,7 @@
 }
 
 .subscriber-section {
-  margin: 3rem 2rem;
+  margin: 3rem 2rem 0 0;
 }
 
 .subscriber-section-header {
@@ -44,13 +46,14 @@
 }
 
 .subscriber-billing-side-container {
-  margin: 3rem 2rem;
+  margin: 3rem 0;
 }
 
-.subscriber-section-body {
+.subscriber-side-section-body {
   margin-top: 1rem;
   position: relative;
   overflow-y: scroll;
+  height: 38.5rem;
   top: 0;
   bottom: 0;
 }
@@ -73,12 +76,10 @@
 }
 
 .subscriber-billing-tab {
-  font-size: 16px;
-  font-weight: bold;
-  padding-bottom: 1rem;
+  color: var(--pp-gray);
+  font-weight: 700;
+  font-size: 1.17em;
   margin-right: 7rem;
-  color: var(--pp-blue);
-  background-color: none;
 }
 
 .subscriber-billing-balance {
@@ -141,4 +142,28 @@
   background-color: white;
   padding: 8rem;
   border-radius: 5px;
+}
+
+.subscriber-news-card {
+  background-color: white;
+  border-radius: 5px;
+  padding: 35px;
+  margin: 0 0 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.subscriber-news-card p {
+  color: var(--pp-black);
+  font-size: 16px;
+}
+
+.subscriber-news-card h3 {
+  color: var(--pp-blue);
+  font-size: 1.17em;
+}
+
+.subscriber-news-card img {
+  /* clip-path: inset(20px 0px); */
+  width: 100%;
 }

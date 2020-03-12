@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table-v6';
 import { Link } from 'react-router-dom';
-import AnnouncementList from '../shared/components/AnnouncementList';
 import '../../styles/SubscriberDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
 import '../../styles/Community.css';
@@ -160,7 +159,7 @@ class SubscriberDashboard extends React.Component {
                             className="subscriber-billing-view-all-button"
                           >
                             <Link
-                              to="/billing"
+                              to={{ pathname: '/billing', state: { mode2: 1 } }}
                               className="subscriber-link-text-white "
                             >
                               View All
@@ -263,14 +262,32 @@ class SubscriberDashboard extends React.Component {
                 <img src={RightArrow} alt="right arrow" />
               </Link>
             </div>
-            <div className="subscriber-section-body">
-              <div className="cont">
-                {isLoadingAnnouncements ? (
-                  <LoadingComponent />
-                ) : (
-                  <AnnouncementList announcements={announcements} css="" />
-                )}
-              </div>
+            <div className="subscriber-side-section-body">
+              {isLoadingAnnouncements ? (
+                <LoadingComponent />
+              ) : (
+                announcements.map(announcement => {
+                  const { title, message, attachments } = announcement;
+
+                  let url = '';
+                  let filename = '';
+                  if (attachments) {
+                    url = attachments[0].url;
+                    filename = attachments[0].filename;
+                  }
+
+                  return (
+                    <div key={title} className="subscriber-news-card">
+                      <div className="cardHeading">
+                        <h3>{title}</h3>
+                        {url ? <img src={url} alt={filename} /> : null}
+                        <p>{message}</p>
+                      </div>
+                      <div className="cardDetails" />
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>
