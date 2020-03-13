@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import QueryString from 'query-string';
 import OnboardingData from '../../lib/onboardingData';
 import { validateField, updateOwnerFields } from '../../lib/onboardingUtils';
 import ProgressBar from './components/ProgressBar';
 import constants from '../../constants';
+import { getPledgeInviteById } from '../../lib/airtable/request';
 
 const { GENERAL_OWNER } = constants;
 
@@ -15,6 +17,7 @@ class Onboarding extends React.Component {
     this.state = {
       owner: {
         onboardingStep: 0,
+        inviteFlag: false,
         ownerTypes: [GENERAL_OWNER],
         isReceivingDividends: true,
         numberOfShares: 1
@@ -34,22 +37,41 @@ class Onboarding extends React.Component {
     }
   }
 
-  refreshState = () => {
-    const { owner } = this.props;
+  refreshState = async () => {
+    const { owner, inviteToken } = this.props;
 
     if (owner) {
-      // Account for edge case of project group id being wrapped in an array
-      this.setState({
-        owner: {
-          ...owner,
-          projectGroupId: owner.projectGroupId && owner.projectGroupId[0]
+      let newOwner = {
+        ...owner,
+        projectGroupId: owner.projectGroupId && owner.projectGroupId[0]
+      };
+
+      let inviteFlag = false;
+
+      if (inviteToken && owner.onboardingStep === 0) {
+        const pledgeInvite = await getPledgeInviteById(inviteToken);
+        if (pledgeInvite) {
+          inviteFlag = true;
+          newOwner = {
+            ...newOwner,
+            firstName: pledgeInvite.firstName,
+            lastName: pledgeInvite.lastName,
+            numberOfShares: pledgeInvite.numberOfShares,
+            isReceivingDividends: pledgeInvite.wantsDividends,
+            phoneNumber: pledgeInvite.phoneNumber,
+            email: pledgeInvite.email,
+            projectGroupId: pledgeInvite.projectGroupId[0],
+            invited: true
+          };
         }
-      });
+      }
+
+      this.setState({ owner: newOwner, inviteFlag });
     }
   };
 
   nextStep = async event => {
-    const { owner } = this.state;
+    const { owner, inviteFlag } = this.state;
     if (event) {
       event.preventDefault();
     }
@@ -85,10 +107,13 @@ class Onboarding extends React.Component {
         newOwner.projectGroupId = [newOwner.projectGroupId];
       }
 
-      await updateOwnerFields(
-        newOwner,
-        OnboardingData[owner.onboardingStep].fields
-      );
+      const fieldsToUpdate = [...OnboardingData[owner.onboardingStep].fields];
+      if (inviteFlag) {
+        // Update extra fields if user has been invited
+        fieldsToUpdate.push('phoneNumber', 'projectGroupId', 'invited');
+      }
+
+      await updateOwnerFields(newOwner, fieldsToUpdate);
     }
   };
 
@@ -186,6 +211,7 @@ class Onboarding extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner
+  owner: state.userData.owner,
+  inviteToken: QueryString.parse(state.router.location.search).token
 });
 export default connect(mapStateToProps)(Onboarding);

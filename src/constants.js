@@ -20,7 +20,7 @@ const constants = {
   SIGNUP_ROUTE: '/onboarding',
 
   // BILL GENERATION
-  BILL_GENERATION_URL: 'https://peoplepower-node.herokuapp.com/generate'
+  BACKEND_URL: 'https://peoplepower-node.herokuapp.com'
 };
 
 export default constants;
