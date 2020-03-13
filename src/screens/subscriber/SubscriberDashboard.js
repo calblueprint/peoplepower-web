@@ -156,7 +156,10 @@ class SubscriberDashboard extends React.Component {
                           disabled={totalBalance === 0}
                         >
                           <Link
-                            to="/billing"
+                            to={{
+                              pathname: '/billing',
+                              mode2: 1
+                            }}
                             className="subscriber-link-text-white"
                           >
                             Make Payment

@@ -55,26 +55,27 @@ class Billing extends React.Component {
 
   render() {
     const { mode, transactions, isReady, pendingBills } = this.state;
-    const { isLoadingUserData } = this.props;
+    const { isLoadingUserData, location } = this.props;
+    const { state } = location;
+    const { mode2 } = state;
     const isLoading = !isReady || isLoadingUserData;
     if (isLoading) {
       return <LoadingComponent />;
     }
-
+    if (mode === 1 || mode2 === 1) {
+      return (
+        <BillingAllBillsView
+          callback={() => this.seeMain()}
+          transactions={transactions}
+        />
+      );
+    }
     if (mode === 0) {
       return (
         <BillingMainView
           callback={() => this.seeAllBills()}
           transactions={transactions}
           pendingBills={pendingBills}
-        />
-      );
-    }
-    if (mode === 1) {
-      return (
-        <BillingAllBillsView
-          callback={() => this.seeMain()}
-          transactions={transactions}
         />
       );
     }
