@@ -45,24 +45,16 @@ export const createSubscriberBill = async record => {
   return createRecord(Tables.SubscriberBill, record);
 };
 
+export const createRateSchedule = async record => {
+  return createRecord(Tables.RateSchedule, record);
+};
+
 export const createPledgeInvite = async record => {
   return createRecord(Tables.PledgeInvite, record);
 };
 
 export const createPayment = async record => {
   return createRecord(Tables.Payment, record);
-};
-
-export const createGeneration = async record => {
-  return createRecord(Tables.Generation, record);
-};
-
-export const createPGEUsage = async record => {
-  return createRecord(Tables.PGEUsage, record);
-};
-
-export const createRateSchedule = async record => {
-  return createRecord(Tables.RateSchedule, record);
 };
 
 export const createTestDevelopment = async record => {
@@ -137,6 +129,14 @@ export const getAllSubscriberBills = async () => {
   return getAllRecords(Tables.SubscriberBill);
 };
 
+export const getRateScheduleById = async id => {
+  return getRecordById(Tables.RateSchedule, id);
+};
+
+export const getAllRateSchedules = async () => {
+  return getAllRecords(Tables.RateSchedule);
+};
+
 export const getPledgeInviteById = async id => {
   return getRecordById(Tables.PledgeInvite, id);
 };
@@ -151,30 +151,6 @@ export const getPaymentById = async id => {
 
 export const getAllPayments = async () => {
   return getAllRecords(Tables.Payment);
-};
-
-export const getGenerationById = async id => {
-  return getRecordById(Tables.Generation, id);
-};
-
-export const getAllGenerations = async () => {
-  return getAllRecords(Tables.Generation);
-};
-
-export const getPGEUsageById = async id => {
-  return getRecordById(Tables.PGEUsage, id);
-};
-
-export const getAllPGEUsages = async () => {
-  return getAllRecords(Tables.PGEUsage);
-};
-
-export const getRateScheduleById = async id => {
-  return getRecordById(Tables.RateSchedule, id);
-};
-
-export const getAllRateSchedules = async () => {
-  return getAllRecords(Tables.RateSchedule);
 };
 
 export const getTestDevelopmentById = async id => {
@@ -209,24 +185,16 @@ export const updateSubscriberBill = async (id, recordUpdates) => {
   return updateRecord(Tables.SubscriberBill, id, recordUpdates);
 };
 
+export const updateRateSchedule = async (id, recordUpdates) => {
+  return updateRecord(Tables.RateSchedule, id, recordUpdates);
+};
+
 export const updatePledgeInvite = async (id, recordUpdates) => {
   return updateRecord(Tables.PledgeInvite, id, recordUpdates);
 };
 
 export const updatePayment = async (id, recordUpdates) => {
   return updateRecord(Tables.Payment, id, recordUpdates);
-};
-
-export const updateGeneration = async (id, recordUpdates) => {
-  return updateRecord(Tables.Generation, id, recordUpdates);
-};
-
-export const updatePGEUsage = async (id, recordUpdates) => {
-  return updateRecord(Tables.PGEUsage, id, recordUpdates);
-};
-
-export const updateRateSchedule = async (id, recordUpdates) => {
-  return updateRecord(Tables.RateSchedule, id, recordUpdates);
 };
 
 export const updateTestDevelopment = async (id, recordUpdates) => {
@@ -252,20 +220,14 @@ export const deleteSolarProject = async id => {
 export const deleteSubscriberBill = async id => {
   return deleteRecord(Tables.SubscriberBill, id);
 };
+export const deleteRateSchedule = async id => {
+  return deleteRecord(Tables.RateSchedule, id);
+};
 export const deletePledgeInvite = async id => {
   return deleteRecord(Tables.PledgeInvite, id);
 };
 export const deletePayment = async id => {
   return deleteRecord(Tables.Payment, id);
-};
-export const deleteGeneration = async id => {
-  return deleteRecord(Tables.Generation, id);
-};
-export const deletePGEUsage = async id => {
-  return deleteRecord(Tables.PGEUsage, id);
-};
-export const deleteRateSchedule = async id => {
-  return deleteRecord(Tables.RateSchedule, id);
 };
 export const deleteTestDevelopment = async id => {
   return deleteRecord(Tables.TestDevelopment, id);

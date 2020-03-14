@@ -46,7 +46,8 @@
     "FileReader": true,
     "Blob": true,
     "navigator": true,
-    "alert": true
+    "alert": true,
+    "fetch": true
   },
   "parser": "babel-eslint",
   "env": {

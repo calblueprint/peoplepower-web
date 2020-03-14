@@ -1,7 +1,8 @@
 import {
   updateProjectGroup,
   getProjectGroupById,
-  getOwnerById
+  getOwnerById,
+  createPledgeInvite
 } from './airtable/request';
 import { refreshUserData } from './userDataUtils';
 import { store } from './redux/store';
@@ -26,4 +27,8 @@ export async function getOwnerRecordsForProjectGroup(projectGroup) {
 
   // Ensure onboarding users aren't considered
   return allOwners.filter(o => o.onboardingStep === -1);
+}
+
+export async function generatePledgeInviteOnAirTable(pledgeInviteRecord) {
+  return createPledgeInvite(pledgeInviteRecord);
 }

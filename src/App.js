@@ -26,6 +26,7 @@ import {
 } from './lib/credentials';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Investment from './screens/general/Investment';
+import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
 
 class App extends React.Component {
   componentDidMount() {
@@ -79,6 +80,11 @@ class App extends React.Component {
               credential={Credentials.ADMIN} // Admins only
               path="/admin"
               component={AdminDashboard}
+            />
+            <AuthenticatedRoute
+              credential={Credentials.SUPERADMIN} // Admins only
+              path="/superadmin"
+              component={SuperAdminDashboard}
             />
             <AuthenticatedRoute
               credential={Credentials.GENERAL} // General only

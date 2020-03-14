@@ -3,9 +3,9 @@ import {
   getAnnouncementsByProjectGroupId,
   getOwnerById,
   getProjectGroupById,
-  getSubscriberBillById,
+  // getSubscriberBillById,
   getSolarProjectById,
-  updateSubscriberBill,
+  // updateSubscriberBill,
   getOwnersByEmail,
   updateOwner,
   createOwner,
@@ -20,7 +20,7 @@ const testEmail = 'sample@peoplepower.com';
 
 const billFieldToModify = 'balance';
 const newBalance = 1999;
-const oldBalance = 1996;
+// const oldBalance = 1996;
 const testNewSubscriberBill = {};
 testNewSubscriberBill[billFieldToModify] = newBalance;
 
@@ -114,16 +114,16 @@ describe('getProjectGroupById function', () => {
   });
 });
 
-describe('getSubscriberBillById function', () => {
-  test('expect subscriber bill record', async () => {
-    const res = await getSubscriberBillById(testSubscriberBill);
-    expect(res).not.toBe(undefined);
+// describe('getSubscriberBillById function', () => {
+//   test('expect subscriber bill record', async () => {
+//     const res = await getSubscriberBillById(testSubscriberBill);
+//     expect(res).not.toBe(undefined);
 
-    const key = nameMap[testSubscriberBill];
-    const value = expectedResultsMap[testSubscriberBill];
-    expect(res[key]).toStrictEqual(value);
-  });
-});
+//     const key = nameMap[testSubscriberBill];
+//     const value = expectedResultsMap[testSubscriberBill];
+//     expect(res[key]).toStrictEqual(value);
+//   });
+// });
 
 describe('getSolarProjectById function', () => {
   test('expect solar project record', async () => {
@@ -136,21 +136,21 @@ describe('getSolarProjectById function', () => {
   });
 });
 
-describe('updateSubscriberBill function', () => {
-  test('expect id of updated bill', async () => {
-    let res = await updateSubscriberBill(
-      testSubscriberBill,
-      testNewSubscriberBill
-    );
-    expect(res).toBe(testSubscriberBill);
+// describe('updateSubscriberBill function', () => {
+//   test('expect id of updated bill', async () => {
+//     let res = await updateSubscriberBill(
+//       testSubscriberBill,
+//       testNewSubscriberBill
+//     );
+//     expect(res).toBe(testSubscriberBill);
 
-    const testOldBill = {};
-    testOldBill[billFieldToModify] = oldBalance;
+//     const testOldBill = {};
+//     testOldBill[billFieldToModify] = oldBalance;
 
-    res = await updateSubscriberBill(testSubscriberBill, testOldBill);
-    expect(res).toBe(testSubscriberBill);
-  });
-});
+//     res = await updateSubscriberBill(testSubscriberBill, testOldBill);
+//     expect(res).toBe(testSubscriberBill);
+//   });
+// });
 
 describe('updateOwner function', () => {
   test('expect id of updated owner', async () => {

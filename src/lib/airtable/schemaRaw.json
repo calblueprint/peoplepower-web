@@ -17,7 +17,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:94"
+        "$$hashKey": "object:78"
       },
       {
         "id": "fldyXTH5rXFRLufWX",
@@ -34,7 +34,7 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:95"
+        "$$hashKey": "object:79"
       },
       {
         "id": "fldvESewA2Z7YLiVS",
@@ -52,7 +52,7 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:96"
+        "$$hashKey": "object:80"
       },
       {
         "id": "fldbvtSXzsX6PRkXR",
@@ -64,7 +64,7 @@
           "symmetricColumnId": "fld5iPFRwYHQzQkWj"
         },
         "foreignTable": "tblLThuEdRTuqCBpR",
-        "$$hashKey": "object:97"
+        "$$hashKey": "object:81"
       },
       {
         "id": "fldt69IlRNBMhXRsX",
@@ -76,7 +76,7 @@
           "relationship": "many"
         },
         "foreignTable": "tbl1W7ArDUv9zzmq0",
-        "$$hashKey": "object:98"
+        "$$hashKey": "object:82"
       },
       {
         "id": "fldHmCGyddbmsot0s",
@@ -113,7 +113,7 @@
           },
           "disableColors": false
         },
-        "$$hashKey": "object:99"
+        "$$hashKey": "object:83"
       },
       {
         "id": "fldEEYtjj4I5WirnE",
@@ -126,7 +126,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:100"
+        "$$hashKey": "object:84"
       },
       {
         "id": "fldJ8T6NHBU75ZqCW",
@@ -138,7 +138,7 @@
           "relationship": "many"
         },
         "foreignTable": "tblZ2eBBhNq2VEA2D",
-        "$$hashKey": "object:101"
+        "$$hashKey": "object:85"
       },
       {
         "id": "fld8ACQZoxeu0Axi9",
@@ -150,7 +150,7 @@
           "symmetricColumnId": "fldwky2RISOgVbnjw"
         },
         "foreignTable": "tblnLYnT6QW8hO7Aw",
-        "$$hashKey": "object:102"
+        "$$hashKey": "object:86"
       },
       {
         "id": "fld6X0OlfWc6EazuW",
@@ -162,7 +162,7 @@
           "symmetricColumnId": "fldBX40bRkBT4btM7"
         },
         "foreignTable": "tblLThuEdRTuqCBpR",
-        "$$hashKey": "object:103"
+        "$$hashKey": "object:87"
       },
       {
         "id": "fldT7O2NVBckB9d05",
@@ -173,7 +173,7 @@
           "negative": false,
           "validatorName": "positive"
         },
-        "$$hashKey": "object:104"
+        "$$hashKey": "object:88"
       },
       {
         "id": "fldRKt2QfRTwIiZRP",
@@ -183,7 +183,7 @@
           "color": "green",
           "icon": "check"
         },
-        "$$hashKey": "object:105"
+        "$$hashKey": "object:89"
       },
       {
         "id": "fldOyNuQy3yLyh3uD",
@@ -195,21 +195,21 @@
           "symmetricColumnId": "fld0dZJNQ86sRUXnF"
         },
         "foreignTable": "tblpppeJpGXgnbPbx",
-        "$$hashKey": "object:106"
+        "$$hashKey": "object:90"
       },
       {
         "id": "fldAYWsPSx5cXXKow",
         "name": "First Name",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:107"
+        "$$hashKey": "object:91"
       },
       {
         "id": "fldmBcJ23KF6pdMTc",
         "name": "Last Name",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:108"
+        "$$hashKey": "object:92"
       },
       {
         "id": "fldfiPj7M4nRLWBY4",
@@ -218,7 +218,7 @@
         "typeOptions": {
           "validatorName": "email"
         },
-        "$$hashKey": "object:109"
+        "$$hashKey": "object:93"
       },
       {
         "id": "fldLrnTT8ZqsCjxdB",
@@ -227,84 +227,84 @@
         "typeOptions": {
           "validatorName": "email"
         },
-        "$$hashKey": "object:110"
+        "$$hashKey": "object:94"
       },
       {
         "id": "fldkthwZsgzbDh4GA",
         "name": "Permanent Street 1",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:111"
+        "$$hashKey": "object:95"
       },
       {
         "id": "fldvQZRiEHqhGquDM",
         "name": "Permanent Street 2",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:112"
+        "$$hashKey": "object:96"
       },
       {
         "id": "fld3B8jjXTaAng5ZY",
         "name": "Permanent City",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:113"
+        "$$hashKey": "object:97"
       },
       {
         "id": "fld0cWNHAczIMb61u",
         "name": "Permanent State",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:114"
+        "$$hashKey": "object:98"
       },
       {
         "id": "fldOijiK2KXLW56Kp",
         "name": "Permanent Zipcode",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:115"
+        "$$hashKey": "object:99"
       },
       {
         "id": "fldQHYJu6mhPbMaWn",
         "name": "Mailing Street 1",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:116"
+        "$$hashKey": "object:100"
       },
       {
         "id": "fldl6tlIvOAz7qNsZ",
         "name": "Mailing Street 2",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:117"
+        "$$hashKey": "object:101"
       },
       {
         "id": "fldhl1AJMfhXzRfMv",
         "name": "Mailing City",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:118"
+        "$$hashKey": "object:102"
       },
       {
         "id": "fldmNFZMHw3z4myOT",
         "name": "Mailing State",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:119"
+        "$$hashKey": "object:103"
       },
       {
         "id": "fldIKc9lQcCJ4xT3c",
         "name": "Mailing Zipcode",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:120"
+        "$$hashKey": "object:104"
       },
       {
         "id": "fldBnV1LTl8lGHR0V",
         "name": "Phone Number",
         "type": "phone",
         "typeOptions": null,
-        "$$hashKey": "object:121"
+        "$$hashKey": "object:105"
       },
       {
         "id": "fld3UowcI3Veis2M3",
@@ -314,14 +314,14 @@
           "format": "integer",
           "negative": true
         },
-        "$$hashKey": "object:122"
+        "$$hashKey": "object:106"
       },
       {
         "id": "fldFuIrcqkQmsUs51",
         "name": "Password",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:123"
+        "$$hashKey": "object:107"
       },
       {
         "id": "fldGJ9xpyoUH8fqSm",
@@ -333,7 +333,7 @@
           "relationship": "many"
         },
         "foreignTable": "tblZouKimJQmZkzmD",
-        "$$hashKey": "object:124"
+        "$$hashKey": "object:108"
       },
       {
         "id": "fldX0crlzjJKuC8xi",
@@ -349,7 +349,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:125"
+        "$$hashKey": "object:109"
       },
       {
         "id": "fldFqac9p4j6Luxxw",
@@ -368,7 +368,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:126"
+        "$$hashKey": "object:110"
       },
       {
         "id": "fldAXFiQl3Ruou5gm",
@@ -387,7 +387,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:127"
+        "$$hashKey": "object:111"
       },
       {
         "id": "fldgSZhHEWJtGCCBn",
@@ -397,7 +397,7 @@
           "color": "green",
           "icon": "check"
         },
-        "$$hashKey": "object:128"
+        "$$hashKey": "object:112"
       },
       {
         "id": "fld9Hf8VMwLYwZZff",
@@ -407,7 +407,7 @@
           "color": "green",
           "icon": "check"
         },
-        "$$hashKey": "object:129"
+        "$$hashKey": "object:113"
       },
       {
         "id": "fldqcQOV4swElgXLo",
@@ -417,7 +417,7 @@
           "color": "green",
           "icon": "check"
         },
-        "$$hashKey": "object:130"
+        "$$hashKey": "object:114"
       },
       {
         "id": "fldax1sM2zFW7puxi",
@@ -427,7 +427,56 @@
           "color": "green",
           "icon": "check"
         },
-        "$$hashKey": "object:131"
+        "$$hashKey": "object:115"
+      },
+      {
+        "id": "fldqJ73npDiEfsFkq",
+        "name": "Rate Schedule",
+        "type": "foreignKey",
+        "typeOptions": {
+          "foreignTableId": "tblTXzlIwQ6znEf4R",
+          "symmetricColumnId": "fldyFLnN6E2XBk0Gl",
+          "relationship": "many"
+        },
+        "foreignTable": "tblTXzlIwQ6znEf4R",
+        "$$hashKey": "object:116"
+      },
+      {
+        "id": "fldOUjjqzDOUt8u0I",
+        "name": "Latest Bill Number",
+        "type": "rollup",
+        "typeOptions": {
+          "relationColumnId": "fldJ8T6NHBU75ZqCW",
+          "foreignTableRollupColumnId": "fldYuP2uCUsSy0IHq",
+          "formulaTextParsed": "MAX(values)",
+          "dependencies": {
+            "referencedColumnIdsForValue": [
+              "fldJ8T6NHBU75ZqCW",
+              "fldYuP2uCUsSy0IHq"
+            ]
+          },
+          "resultType": "number"
+        },
+        "foreignTableName": "Subscriber Bill",
+        "foreignTableRollupColumnName": "Statement Number",
+        "$$hashKey": "object:117"
+      },
+      {
+        "id": "fldRp249NLMVvOV4X",
+        "name": "Meter ID",
+        "type": "text",
+        "typeOptions": null,
+        "$$hashKey": "object:118"
+      },
+      {
+        "id": "fldUeuNtSaetvuBZw",
+        "name": "Is Super Admin?",
+        "type": "checkbox",
+        "typeOptions": {
+          "color": "green",
+          "icon": "check"
+        },
+        "$$hashKey": "object:119"
       }
     ],
     "primaryColumnName": "Primary Key",
@@ -456,7 +505,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:487"
+        "$$hashKey": "object:522"
       },
       {
         "id": "fld5iPFRwYHQzQkWj",
@@ -468,7 +517,7 @@
           "relationship": "many"
         },
         "foreignTable": "tblz1dquH21O9QSle",
-        "$$hashKey": "object:488"
+        "$$hashKey": "object:523"
       },
       {
         "id": "fldEDU9VjKFtcrbND",
@@ -485,7 +534,7 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:489"
+        "$$hashKey": "object:524"
       },
       {
         "id": "fldSFXX0OtIJ0Maj2",
@@ -503,7 +552,7 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:490"
+        "$$hashKey": "object:525"
       },
       {
         "id": "fldsVYe4Ma6U9Bb96",
@@ -513,7 +562,7 @@
           "color": "green",
           "icon": "check"
         },
-        "$$hashKey": "object:491"
+        "$$hashKey": "object:526"
       },
       {
         "id": "fldvvLC1jFB8yg1tu",
@@ -523,14 +572,14 @@
           "color": "green",
           "icon": "check"
         },
-        "$$hashKey": "object:492"
+        "$$hashKey": "object:527"
       },
       {
         "id": "fldHLwymDrbli8kQq",
         "name": "Name",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:493"
+        "$$hashKey": "object:528"
       },
       {
         "id": "fldZbpB87AhZu3H0k",
@@ -542,7 +591,7 @@
           "symmetricColumnId": "fld5CGScrThLmkAct"
         },
         "foreignTable": "tblpppeJpGXgnbPbx",
-        "$$hashKey": "object:494"
+        "$$hashKey": "object:529"
       },
       {
         "id": "fldBX40bRkBT4btM7",
@@ -554,7 +603,7 @@
           "symmetricColumnId": "fld6X0OlfWc6EazuW"
         },
         "foreignTable": "tblz1dquH21O9QSle",
-        "$$hashKey": "object:495"
+        "$$hashKey": "object:530"
       },
       {
         "id": "fldhBSqsrZSN6zCfG",
@@ -566,49 +615,49 @@
           "relationship": "many"
         },
         "foreignTable": "tblZouKimJQmZkzmD",
-        "$$hashKey": "object:496"
+        "$$hashKey": "object:531"
       },
       {
         "id": "fldWYmM32s3MbRuuS",
         "name": "Street 1",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:497"
+        "$$hashKey": "object:532"
       },
       {
         "id": "fldp00nHnevxpBsGO",
         "name": "Street 2",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:498"
+        "$$hashKey": "object:533"
       },
       {
         "id": "fldgcdaQIdik2k2Zq",
         "name": "State",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:499"
+        "$$hashKey": "object:534"
       },
       {
         "id": "fldA9ssuV8AANGftF",
         "name": "Zipcode",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:500"
+        "$$hashKey": "object:535"
       },
       {
         "id": "fldOyPKTxwqmo5zE1",
         "name": "City",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:501"
+        "$$hashKey": "object:536"
       },
       {
         "id": "fldatfJZrizfXDw3b",
         "name": "Description",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:502"
+        "$$hashKey": "object:537"
       },
       {
         "id": "fld5p0tUlvvTkCSZk",
@@ -619,7 +668,7 @@
           "precision": 8,
           "negative": true
         },
-        "$$hashKey": "object:503"
+        "$$hashKey": "object:538"
       },
       {
         "id": "fldxykS4LSFtXHC9j",
@@ -630,7 +679,7 @@
           "precision": 8,
           "negative": true
         },
-        "$$hashKey": "object:504"
+        "$$hashKey": "object:539"
       },
       {
         "id": "fldf4Q7QixMWJt9A6",
@@ -640,7 +689,7 @@
           "color": "green",
           "icon": "check"
         },
-        "$$hashKey": "object:505"
+        "$$hashKey": "object:540"
       },
       {
         "id": "fldK1CiG5nEcG9SzI",
@@ -653,7 +702,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:506"
+        "$$hashKey": "object:541"
       },
       {
         "id": "fldOEEW9NnB5T7Y2u",
@@ -672,7 +721,19 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:507"
+        "$$hashKey": "object:542"
+      },
+      {
+        "id": "fldZXb43vJlBtxQOO",
+        "name": "Pledge Invite",
+        "type": "foreignKey",
+        "typeOptions": {
+          "foreignTableId": "tblnLYnT6QW8hO7Aw",
+          "symmetricColumnId": "fld1bJ8MBIKuGO0Ez",
+          "relationship": "many"
+        },
+        "foreignTable": "tblnLYnT6QW8hO7Aw",
+        "$$hashKey": "object:543"
       }
     ],
     "primaryColumnName": "Primary Key",
@@ -701,7 +762,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:700"
+        "$$hashKey": "object:750"
       },
       {
         "id": "fld5K559anVIAE4aj",
@@ -710,14 +771,14 @@
         "typeOptions": {
           "validatorName": "url"
         },
-        "$$hashKey": "object:701"
+        "$$hashKey": "object:751"
       },
       {
         "id": "flddDufyKDNfozCMr",
         "name": "Attachments",
         "type": "multipleAttachment",
         "typeOptions": null,
-        "$$hashKey": "object:702"
+        "$$hashKey": "object:752"
       },
       {
         "id": "flda1gW85LVGLGMNr",
@@ -729,7 +790,7 @@
           "symmetricColumnId": "fldhBSqsrZSN6zCfG"
         },
         "foreignTable": "tblLThuEdRTuqCBpR",
-        "$$hashKey": "object:703"
+        "$$hashKey": "object:753"
       },
       {
         "id": "fldyiQJezFPH8g5Wv",
@@ -741,14 +802,14 @@
           "symmetricColumnId": "fldGJ9xpyoUH8fqSm"
         },
         "foreignTable": "tblz1dquH21O9QSle",
-        "$$hashKey": "object:704"
+        "$$hashKey": "object:754"
       },
       {
         "id": "fldwISHqrHK6bkhps",
         "name": "Message",
         "type": "multilineText",
         "typeOptions": null,
-        "$$hashKey": "object:705"
+        "$$hashKey": "object:755"
       },
       {
         "id": "fldRHxmN1OFMRey1F",
@@ -770,7 +831,7 @@
           },
           "disableColors": false
         },
-        "$$hashKey": "object:706"
+        "$$hashKey": "object:756"
       },
       {
         "id": "fldJfbsvD8AzugSKJ",
@@ -783,28 +844,28 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:707"
+        "$$hashKey": "object:757"
       },
       {
         "id": "fldYVXaDslU5QpACk",
         "name": "Location",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:708"
+        "$$hashKey": "object:758"
       },
       {
         "id": "fld9anb8mrv2MGzsL",
         "name": "Time",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:709"
+        "$$hashKey": "object:759"
       },
       {
         "id": "fldxsvekE40DfvIh7",
         "name": "Title",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:710"
+        "$$hashKey": "object:760"
       },
       {
         "id": "fldkhXpb1ohga5Yvr",
@@ -814,7 +875,7 @@
           "color": "green",
           "icon": "check"
         },
-        "$$hashKey": "object:711"
+        "$$hashKey": "object:761"
       }
     ],
     "primaryColumnName": "Primary Key",
@@ -843,7 +904,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:847"
+        "$$hashKey": "object:899"
       },
       {
         "id": "fldTDCj2Yic3J6FBM",
@@ -860,7 +921,7 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:848"
+        "$$hashKey": "object:900"
       },
       {
         "id": "fldjvQrJwNpTG65vn",
@@ -878,14 +939,14 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:849"
+        "$$hashKey": "object:901"
       },
       {
         "id": "fldYETgS8HZQFJm9L",
         "name": "Name",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:850"
+        "$$hashKey": "object:902"
       },
       {
         "id": "fldclC1d6QuavpSws",
@@ -896,7 +957,7 @@
           "negative": false,
           "validatorName": "positive"
         },
-        "$$hashKey": "object:851"
+        "$$hashKey": "object:903"
       },
       {
         "id": "fldnJRKazRDqm7cws",
@@ -915,7 +976,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:852"
+        "$$hashKey": "object:904"
       },
       {
         "id": "fldIyleqitAOmiNcT",
@@ -946,31 +1007,7 @@
           },
           "disableColors": false
         },
-        "$$hashKey": "object:853"
-      },
-      {
-        "id": "fldGrllNxy5otXTn4",
-        "name": "Generation",
-        "type": "foreignKey",
-        "typeOptions": {
-          "foreignTableId": "tblzbuukCzjAfDrro",
-          "symmetricColumnId": "fldJw4SedzgnXlr4s",
-          "relationship": "many"
-        },
-        "foreignTable": "tblzbuukCzjAfDrro",
-        "$$hashKey": "object:854"
-      },
-      {
-        "id": "fldy91MLBkZg9Ew1C",
-        "name": "PGE Usage",
-        "type": "foreignKey",
-        "typeOptions": {
-          "foreignTableId": "tblaF0vRw2LmVAnM9",
-          "symmetricColumnId": "fldVj8yF7rDwesx25",
-          "relationship": "many"
-        },
-        "foreignTable": "tblaF0vRw2LmVAnM9",
-        "$$hashKey": "object:855"
+        "$$hashKey": "object:905"
       },
       {
         "id": "fld5CGScrThLmkAct",
@@ -982,42 +1019,42 @@
           "symmetricColumnId": "fldZbpB87AhZu3H0k"
         },
         "foreignTable": "tblLThuEdRTuqCBpR",
-        "$$hashKey": "object:856"
+        "$$hashKey": "object:906"
       },
       {
         "id": "flddBAOmDYJZuturO",
         "name": "Street 1",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:857"
+        "$$hashKey": "object:907"
       },
       {
         "id": "fld47PFvaMPWDxUrP",
         "name": "Street 2",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:858"
+        "$$hashKey": "object:908"
       },
       {
         "id": "fldCVaqHzNXwmnenp",
         "name": "City",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:859"
+        "$$hashKey": "object:909"
       },
       {
         "id": "fldr84YbqaEm87tKW",
         "name": "State",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:860"
+        "$$hashKey": "object:910"
       },
       {
         "id": "fldAcc38CbU4YvIOE",
         "name": "Zipcode",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:861"
+        "$$hashKey": "object:911"
       },
       {
         "id": "fld9OWeUPXVha5zSH",
@@ -1030,11 +1067,11 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:862"
+        "$$hashKey": "object:912"
       },
       {
         "id": "fld0dZJNQ86sRUXnF",
-        "name": "Subscriber Owners",
+        "name": "Subscribers",
         "type": "foreignKey",
         "typeOptions": {
           "foreignTableId": "tblz1dquH21O9QSle",
@@ -1042,7 +1079,33 @@
           "relationship": "many"
         },
         "foreignTable": "tblz1dquH21O9QSle",
-        "$$hashKey": "object:863"
+        "$$hashKey": "object:913"
+      },
+      {
+        "id": "fldxTMLMo1lSo9V6N",
+        "name": "Enphase System ID",
+        "type": "text",
+        "typeOptions": null,
+        "$$hashKey": "object:914"
+      },
+      {
+        "id": "fldtJ7bSggBjPP2lM",
+        "name": "Enphase User ID",
+        "type": "text",
+        "typeOptions": null,
+        "$$hashKey": "object:915"
+      },
+      {
+        "id": "fldmTHMwr5WcCUNv2",
+        "name": "Subscriber Bill",
+        "type": "foreignKey",
+        "typeOptions": {
+          "foreignTableId": "tblZ2eBBhNq2VEA2D",
+          "symmetricColumnId": "fldPbPkHINBGdYwwK",
+          "relationship": "many"
+        },
+        "foreignTable": "tblZ2eBBhNq2VEA2D",
+        "$$hashKey": "object:916"
       }
     ],
     "primaryColumnName": "Primary Key",
@@ -1065,13 +1128,16 @@
         "name": "Primary Key",
         "type": "formula",
         "typeOptions": {
-          "formulaTextParsed": "RECORD_ID()",
+          "formulaTextParsed": "\"#\" & {column_value_fldYuP2uCUsSy0IHq} & \": $\" &  column_value_fldKPKZyNix02O7Dj ",
           "dependencies": {
-            "referencedColumnIdsForValue": []
+            "referencedColumnIdsForValue": [
+              "fldYuP2uCUsSy0IHq",
+              "fldKPKZyNix02O7Dj"
+            ]
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:1033"
+        "$$hashKey": "object:1103"
       },
       {
         "id": "fld510BJvEy5tRLMx",
@@ -1088,7 +1154,7 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:1034"
+        "$$hashKey": "object:1104"
       },
       {
         "id": "flddM9v570MbHInCN",
@@ -1106,19 +1172,20 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:1035"
+        "$$hashKey": "object:1105"
       },
       {
         "id": "fldZAlv2G9jUIIaFh",
-        "name": "Subscriber Owner",
+        "name": "Subscriber",
         "type": "foreignKey",
         "typeOptions": {
           "relationship": "one",
           "foreignTableId": "tblz1dquH21O9QSle",
-          "symmetricColumnId": "fldJ8T6NHBU75ZqCW"
+          "symmetricColumnId": "fldJ8T6NHBU75ZqCW",
+          "viewIdForRecordSelection": "viwIG34fV3VkyaGNu"
         },
         "foreignTable": "tblz1dquH21O9QSle",
-        "$$hashKey": "object:1036"
+        "$$hashKey": "object:1106"
       },
       {
         "id": "fldaCQEu0kyVsEzbe",
@@ -1128,7 +1195,7 @@
           "isDateTime": false,
           "dateFormat": "Local"
         },
-        "$$hashKey": "object:1037"
+        "$$hashKey": "object:1107"
       },
       {
         "id": "fldm22m48pUFtnK78",
@@ -1138,7 +1205,7 @@
           "isDateTime": false,
           "dateFormat": "Local"
         },
-        "$$hashKey": "object:1038"
+        "$$hashKey": "object:1108"
       },
       {
         "id": "fldgUZjJarfroZEr0",
@@ -1148,7 +1215,7 @@
           "isDateTime": false,
           "dateFormat": "Local"
         },
-        "$$hashKey": "object:1039"
+        "$$hashKey": "object:1109"
       },
       {
         "id": "fldLAlePnIpFMEO7T",
@@ -1160,74 +1227,52 @@
           "symmetricColumnId": "fldxGLtkhooiAcymW"
         },
         "foreignTable": "tblTXzlIwQ6znEf4R",
-        "$$hashKey": "object:1040"
+        "$$hashKey": "object:1110"
       },
       {
         "id": "fldp3TUKBPEyJHf3A",
         "name": "Estimated Rebate",
-        "type": "number",
+        "type": "formula",
         "typeOptions": {
-          "format": "decimal",
-          "precision": 1,
-          "negative": false,
-          "validatorName": "positive"
+          "format": "currency",
+          "precision": 3,
+          "symbol": "$",
+          "formulaTextParsed": "-1 * {column_value_fldvxCsxJ0JaNLpfj} * {column_value_fldaMr7y16vNAfomo}",
+          "dependencies": {
+            "referencedColumnIdsForValue": [
+              "fldvxCsxJ0JaNLpfj",
+              "fldaMr7y16vNAfomo"
+            ]
+          },
+          "resultType": "number"
         },
-        "$$hashKey": "object:1041"
+        "$$hashKey": "object:1111"
       },
       {
         "id": "fldTVSLX8JYHgUpTz",
-        "name": "Total Estimated Rebate",
+        "name": "Previous Total Estimated Rebate",
         "type": "number",
         "typeOptions": {
-          "format": "decimal",
-          "precision": 1,
+          "format": "currency",
+          "precision": 3,
+          "symbol": "$",
           "negative": false,
           "validatorName": "positive"
         },
-        "$$hashKey": "object:1042"
+        "$$hashKey": "object:1112"
       },
       {
         "id": "fldedgm72gXhGhoIL",
-        "name": "Amount Due on Previous",
+        "name": "Balance on Previous Bill",
         "type": "number",
         "typeOptions": {
-          "format": "decimal",
-          "precision": 1,
+          "format": "currency",
+          "precision": 3,
+          "symbol": "$",
           "negative": false,
           "validatorName": "positive"
         },
-        "$$hashKey": "object:1043"
-      },
-      {
-        "id": "fldKN19fCtCyhBS1N",
-        "name": "Amount Received Since Previous",
-        "type": "number",
-        "typeOptions": {
-          "format": "decimal",
-          "precision": 1,
-          "negative": false,
-          "validatorName": "positive"
-        },
-        "$$hashKey": "object:1044"
-      },
-      {
-        "id": "fldEnv0Z0mIGBmkx5",
-        "name": "Amount Due",
-        "type": "number",
-        "typeOptions": {
-          "format": "decimal",
-          "precision": 1,
-          "negative": false,
-          "validatorName": "positive"
-        },
-        "$$hashKey": "object:1045"
-      },
-      {
-        "id": "fldmMlgeatdsvzGsv",
-        "name": "Owner",
-        "type": "text",
-        "typeOptions": null,
-        "$$hashKey": "object:1046"
+        "$$hashKey": "object:1113"
       },
       {
         "id": "fldzXjOiOkPw3CcfW",
@@ -1239,56 +1284,27 @@
           "symmetricColumnId": "fldpTSKzGrMKpqStb"
         },
         "foreignTable": "tbl1W7ArDUv9zzmq0",
-        "$$hashKey": "object:1047"
-      },
-      {
-        "id": "fldvqpowPRYfQO7st",
-        "name": "Status",
-        "type": "select",
-        "typeOptions": {
-          "choiceOrder": [
-            "selsyTACpdPhYRu60",
-            "seloqSLdbEjd3mpDP",
-            "selI79ug5euTY1cyG",
-            "sel6XMicpj16DYiua"
-          ],
-          "choices": {
-            "selsyTACpdPhYRu60": {
-              "id": "selsyTACpdPhYRu60",
-              "color": "blue",
-              "name": "Incomplete"
-            },
-            "seloqSLdbEjd3mpDP": {
-              "id": "seloqSLdbEjd3mpDP",
-              "color": "cyan",
-              "name": "Pending"
-            },
-            "selI79ug5euTY1cyG": {
-              "id": "selI79ug5euTY1cyG",
-              "color": "teal",
-              "name": "Completed"
-            },
-            "sel6XMicpj16DYiua": {
-              "id": "sel6XMicpj16DYiua",
-              "color": "green",
-              "name": "Successful"
-            }
-          },
-          "disableColors": false
-        },
-        "$$hashKey": "object:1048"
+        "$$hashKey": "object:1114"
       },
       {
         "id": "fldPuCd1AT1tOzGmY",
-        "name": "Balance",
-        "type": "number",
+        "name": "Amount Due",
+        "type": "formula",
         "typeOptions": {
-          "format": "decimal",
-          "precision": 1,
-          "negative": false,
-          "validatorName": "positive"
+          "format": "currency",
+          "precision": 3,
+          "symbol": "$",
+          "formulaTextParsed": "{column_value_fld3xckqBg5DwoP01} + {column_value_fldedgm72gXhGhoIL} - {column_value_fldp3TUKBPEyJHf3A} ",
+          "dependencies": {
+            "referencedColumnIdsForValue": [
+              "fld3xckqBg5DwoP01",
+              "fldedgm72gXhGhoIL",
+              "fldp3TUKBPEyJHf3A"
+            ]
+          },
+          "resultType": "number"
         },
-        "$$hashKey": "object:1049"
+        "$$hashKey": "object:1115"
       },
       {
         "id": "fldu7oIiWkN5c1jtn",
@@ -1301,7 +1317,214 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:1050"
+        "$$hashKey": "object:1116"
+      },
+      {
+        "id": "fldYuP2uCUsSy0IHq",
+        "name": "Statement Number",
+        "type": "number",
+        "typeOptions": {
+          "format": "integer",
+          "negative": false,
+          "validatorName": "positive"
+        },
+        "$$hashKey": "object:1117"
+      },
+      {
+        "id": "fldvxCsxJ0JaNLpfj",
+        "name": "Net PGE Usage",
+        "type": "number",
+        "typeOptions": {
+          "format": "decimal",
+          "precision": 5,
+          "negative": true
+        },
+        "$$hashKey": "object:1118"
+      },
+      {
+        "id": "fldKafwmqqbJtw0Nh",
+        "name": "EBCE Rebate",
+        "type": "number",
+        "typeOptions": {
+          "symbol": "$",
+          "format": "currency",
+          "precision": 3,
+          "negative": true
+        },
+        "$$hashKey": "object:1119"
+      },
+      {
+        "id": "fldBEkjfzvO1As6Rw",
+        "name": "System Production",
+        "type": "number",
+        "typeOptions": {
+          "format": "decimal",
+          "precision": 5,
+          "negative": true
+        },
+        "$$hashKey": "object:1120"
+      },
+      {
+        "id": "fldUNaLmqVA8yIirI",
+        "name": "PP Rate",
+        "type": "lookup",
+        "typeOptions": {
+          "relationColumnId": "fldLAlePnIpFMEO7T",
+          "foreignTableRollupColumnId": "fldpz4vRjy848JohJ",
+          "format": "decimal",
+          "precision": 3,
+          "dependencies": {
+            "referencedColumnIdsForValue": [
+              "fldLAlePnIpFMEO7T",
+              "fldpz4vRjy848JohJ"
+            ]
+          },
+          "resultType": "number"
+        },
+        "foreignTableName": "Rate Schedule",
+        "foreignTableRollupColumnName": "Rate",
+        "$$hashKey": "object:1121"
+      },
+      {
+        "id": "fldaMr7y16vNAfomo",
+        "name": "Rebate Rate",
+        "type": "lookup",
+        "typeOptions": {
+          "relationColumnId": "fldLAlePnIpFMEO7T",
+          "foreignTableRollupColumnId": "fldLOUHrAiktwKYsJ",
+          "format": "decimal",
+          "precision": 3,
+          "dependencies": {
+            "referencedColumnIdsForValue": [
+              "fldLAlePnIpFMEO7T",
+              "fldLOUHrAiktwKYsJ"
+            ]
+          },
+          "resultType": "number"
+        },
+        "foreignTableName": "Rate Schedule",
+        "foreignTableRollupColumnName": "Rebate Rate",
+        "$$hashKey": "object:1122"
+      },
+      {
+        "id": "fld3xckqBg5DwoP01",
+        "name": "Current Charges",
+        "type": "formula",
+        "typeOptions": {
+          "format": "currency",
+          "precision": 3,
+          "symbol": "$",
+          "formulaTextParsed": "{column_value_fldBEkjfzvO1As6Rw}*{column_value_fldUNaLmqVA8yIirI}",
+          "dependencies": {
+            "referencedColumnIdsForValue": [
+              "fldBEkjfzvO1As6Rw",
+              "fldUNaLmqVA8yIirI"
+            ]
+          },
+          "resultType": "number"
+        },
+        "$$hashKey": "object:1123"
+      },
+      {
+        "id": "fldKPKZyNix02O7Dj",
+        "name": "Balance",
+        "type": "formula",
+        "typeOptions": {
+          "format": "currency",
+          "precision": 3,
+          "symbol": "$",
+          "formulaTextParsed": "{column_value_fldPuCd1AT1tOzGmY} - {column_value_fldls380U2xYGHsEq}",
+          "dependencies": {
+            "referencedColumnIdsForValue": [
+              "fldPuCd1AT1tOzGmY",
+              "fldls380U2xYGHsEq"
+            ]
+          },
+          "resultType": "number"
+        },
+        "$$hashKey": "object:1124"
+      },
+      {
+        "id": "fldls380U2xYGHsEq",
+        "name": "Amount Received",
+        "type": "rollup",
+        "typeOptions": {
+          "relationColumnId": "fldzXjOiOkPw3CcfW",
+          "foreignTableRollupColumnId": "fldfg1BuzowPi6tjH",
+          "format": "currency",
+          "precision": 3,
+          "symbol": "$",
+          "formulaTextParsed": "SUM(values)",
+          "dependencies": {
+            "referencedColumnIdsForValue": [
+              "fldzXjOiOkPw3CcfW",
+              "fldfg1BuzowPi6tjH"
+            ]
+          },
+          "resultType": "number"
+        },
+        "foreignTableName": "Payment",
+        "foreignTableRollupColumnName": "Amount",
+        "$$hashKey": "object:1125"
+      },
+      {
+        "id": "fld3XqRKGSb0osXjW",
+        "name": "Total Estimated Rebate",
+        "type": "formula",
+        "typeOptions": {
+          "formulaTextParsed": "{column_value_fldTVSLX8JYHgUpTz} + {column_value_fldp3TUKBPEyJHf3A}",
+          "dependencies": {
+            "referencedColumnIdsForValue": [
+              "fldTVSLX8JYHgUpTz",
+              "fldp3TUKBPEyJHf3A"
+            ]
+          },
+          "resultType": "number"
+        },
+        "$$hashKey": "object:1126"
+      },
+      {
+        "id": "fld9FxNUg7LZwVXIc",
+        "name": "Status",
+        "type": "select",
+        "typeOptions": {
+          "choiceOrder": [
+            "seltOC4DepXuUUGv6",
+            "sel8rc20eyjJajDVO",
+            "self4rZ4DAuBO89PW"
+          ],
+          "choices": {
+            "seltOC4DepXuUUGv6": {
+              "id": "seltOC4DepXuUUGv6",
+              "color": "gray",
+              "name": "Previous"
+            },
+            "sel8rc20eyjJajDVO": {
+              "id": "sel8rc20eyjJajDVO",
+              "color": "red",
+              "name": "Pending"
+            },
+            "self4rZ4DAuBO89PW": {
+              "id": "self4rZ4DAuBO89PW",
+              "color": "green",
+              "name": "Active"
+            }
+          },
+          "disableColors": false
+        },
+        "$$hashKey": "object:1127"
+      },
+      {
+        "id": "fldPbPkHINBGdYwwK",
+        "name": "Solar Project",
+        "type": "foreignKey",
+        "typeOptions": {
+          "foreignTableId": "tblpppeJpGXgnbPbx",
+          "relationship": "one",
+          "symmetricColumnId": "fldmTHMwr5WcCUNv2"
+        },
+        "foreignTable": "tblpppeJpGXgnbPbx",
+        "$$hashKey": "object:1128"
       }
     ],
     "primaryColumnName": "Primary Key",
@@ -1313,6 +1536,137 @@
     "isEmpty": false,
     "nameForUrl": "subscriber%20bill",
     "$$hashKey": "object:7",
+    "numRecordsToList": 3
+  },
+  "tblTXzlIwQ6znEf4R": {
+    "id": "tblTXzlIwQ6znEf4R",
+    "name": "Rate Schedule",
+    "columns": [
+      {
+        "id": "fld7zbjw6w1hOBtSo",
+        "name": "Primary Key",
+        "type": "formula",
+        "typeOptions": {
+          "formulaTextParsed": "\"PP Rate: \" & column_value_fldpz4vRjy848JohJ & \", Rebate Rate: \" & {column_value_fldLOUHrAiktwKYsJ}",
+          "dependencies": {
+            "referencedColumnIdsForValue": [
+              "fldpz4vRjy848JohJ",
+              "fldLOUHrAiktwKYsJ"
+            ]
+          },
+          "resultType": "text"
+        },
+        "$$hashKey": "object:1353"
+      },
+      {
+        "id": "fldxGLtkhooiAcymW",
+        "name": "Subscriber Bill",
+        "type": "foreignKey",
+        "typeOptions": {
+          "foreignTableId": "tblZ2eBBhNq2VEA2D",
+          "symmetricColumnId": "fldLAlePnIpFMEO7T",
+          "relationship": "many"
+        },
+        "foreignTable": "tblZ2eBBhNq2VEA2D",
+        "$$hashKey": "object:1354"
+      },
+      {
+        "id": "fldgf9LRHipp0MQAC",
+        "name": "Date Created",
+        "type": "formula",
+        "typeOptions": {
+          "isDateTime": true,
+          "dateFormat": "Local",
+          "displayType": "createdTime",
+          "timeZone": "client",
+          "formulaTextParsed": "CREATED_TIME()",
+          "dependencies": {
+            "referencedColumnIdsForValue": []
+          },
+          "resultType": "date"
+        },
+        "$$hashKey": "object:1355"
+      },
+      {
+        "id": "fld5VhlRCKLW7ETtK",
+        "name": "Date Updated",
+        "type": "formula",
+        "typeOptions": {
+          "isDateTime": true,
+          "dateFormat": "Local",
+          "displayType": "lastModifiedTime",
+          "timeZone": "client",
+          "formulaTextParsed": "LAST_MODIFIED_TIME()",
+          "dependencies": {
+            "referencedColumnIdsForValue": [],
+            "dependsOnAllColumnsModifiedTime": true
+          },
+          "resultType": "date"
+        },
+        "$$hashKey": "object:1356"
+      },
+      {
+        "id": "fldpz4vRjy848JohJ",
+        "name": "Rate",
+        "type": "number",
+        "typeOptions": {
+          "format": "currency",
+          "precision": 3,
+          "symbol": "$",
+          "negative": false,
+          "validatorName": "positive"
+        },
+        "$$hashKey": "object:1357"
+      },
+      {
+        "id": "fldLOUHrAiktwKYsJ",
+        "name": "Rebate Rate",
+        "type": "number",
+        "typeOptions": {
+          "format": "currency",
+          "precision": 3,
+          "symbol": "$",
+          "negative": false,
+          "validatorName": "positive"
+        },
+        "$$hashKey": "object:1358"
+      },
+      {
+        "id": "fld1smVM7wbm4tH8v",
+        "name": "ID",
+        "type": "formula",
+        "typeOptions": {
+          "formulaTextParsed": "RECORD_ID()",
+          "dependencies": {
+            "referencedColumnIdsForValue": []
+          },
+          "resultType": "text"
+        },
+        "$$hashKey": "object:1359"
+      },
+      {
+        "id": "fldyFLnN6E2XBk0Gl",
+        "name": "Subscribers",
+        "type": "foreignKey",
+        "typeOptions": {
+          "foreignTableId": "tblz1dquH21O9QSle",
+          "relationship": "many",
+          "viewIdForRecordSelection": "viwIG34fV3VkyaGNu",
+          "symmetricColumnId": "fldqJ73npDiEfsFkq"
+        },
+        "foreignTable": "tblz1dquH21O9QSle",
+        "$$hashKey": "object:1360"
+      }
+    ],
+    "primaryColumnName": "Primary Key",
+    "defaultView": {
+      "id": "viwrY81bx5h0y9NhJ",
+      "name": "Grid view"
+    },
+    "isEmptyDueToFilter": false,
+    "isEmpty": false,
+    "nameForUrl": "rate%20schedule",
+    "$$hashKey": "object:8",
     "numRecordsToList": 3
   },
   "tblnLYnT6QW8hO7Aw": {
@@ -1333,11 +1687,11 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:1260"
+        "$$hashKey": "object:1451"
       },
       {
         "id": "fldwky2RISOgVbnjw",
-        "name": "General Owner",
+        "name": "Owner",
         "type": "foreignKey",
         "typeOptions": {
           "relationship": "one",
@@ -1345,7 +1699,7 @@
           "symmetricColumnId": "fld8ACQZoxeu0Axi9"
         },
         "foreignTable": "tblz1dquH21O9QSle",
-        "$$hashKey": "object:1261"
+        "$$hashKey": "object:1452"
       },
       {
         "id": "fldJMzE99cMaXp38k",
@@ -1362,7 +1716,7 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:1262"
+        "$$hashKey": "object:1453"
       },
       {
         "id": "fldNKTdVtVsk9LQeb",
@@ -1380,21 +1734,21 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:1263"
+        "$$hashKey": "object:1454"
       },
       {
         "id": "fldAZDkGy86GQOKXe",
         "name": "First Name",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1264"
+        "$$hashKey": "object:1455"
       },
       {
         "id": "fldDZfNOG9dCA3BWN",
         "name": "Last Name",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1265"
+        "$$hashKey": "object:1456"
       },
       {
         "id": "fldrEwcdnE1BVArxC",
@@ -1405,36 +1759,24 @@
           "negative": false,
           "validatorName": "positive"
         },
-        "$$hashKey": "object:1266"
+        "$$hashKey": "object:1457"
       },
       {
         "id": "fldjiRryJXxs0J4zD",
         "name": "Wants Dividends?",
-        "type": "select",
+        "type": "checkbox",
         "typeOptions": {
-          "choiceOrder": ["seli9wVbXwkfFlcxM", "selRfc3hoODrTiemh"],
-          "choices": {
-            "seli9wVbXwkfFlcxM": {
-              "id": "seli9wVbXwkfFlcxM",
-              "color": "blue",
-              "name": "True"
-            },
-            "selRfc3hoODrTiemh": {
-              "id": "selRfc3hoODrTiemh",
-              "color": "cyan",
-              "name": "False"
-            }
-          },
-          "disableColors": false
+          "color": "green",
+          "icon": "check"
         },
-        "$$hashKey": "object:1267"
+        "$$hashKey": "object:1458"
       },
       {
         "id": "fldRQfqpMTmJRG2fj",
         "name": "Phone Number",
         "type": "phone",
         "typeOptions": null,
-        "$$hashKey": "object:1268"
+        "$$hashKey": "object:1459"
       },
       {
         "id": "fld8JZB5wWfKe2ZpH",
@@ -1443,21 +1785,14 @@
         "typeOptions": {
           "validatorName": "email"
         },
-        "$$hashKey": "object:1269"
-      },
-      {
-        "id": "fldU4jbDCCxphFgWr",
-        "name": "Token",
-        "type": "text",
-        "typeOptions": null,
-        "$$hashKey": "object:1270"
+        "$$hashKey": "object:1460"
       },
       {
         "id": "fldMxRJlvfsSHZF4d",
         "name": "Status",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1271"
+        "$$hashKey": "object:1461"
       },
       {
         "id": "fld1xJfDTXl1W5lo1",
@@ -1470,7 +1805,19 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:1272"
+        "$$hashKey": "object:1462"
+      },
+      {
+        "id": "fld1bJ8MBIKuGO0Ez",
+        "name": "Project Group",
+        "type": "foreignKey",
+        "typeOptions": {
+          "foreignTableId": "tblLThuEdRTuqCBpR",
+          "relationship": "one",
+          "symmetricColumnId": "fldZXb43vJlBtxQOO"
+        },
+        "foreignTable": "tblLThuEdRTuqCBpR",
+        "$$hashKey": "object:1463"
       }
     ],
     "primaryColumnName": "Primary Key",
@@ -1479,9 +1826,9 @@
       "name": "Grid view"
     },
     "isEmptyDueToFilter": false,
-    "isEmpty": true,
+    "isEmpty": false,
     "nameForUrl": "pledge%20invite",
-    "$$hashKey": "object:8",
+    "$$hashKey": "object:9",
     "numRecordsToList": 3
   },
   "tbl1W7ArDUv9zzmq0": {
@@ -1499,7 +1846,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:1389"
+        "$$hashKey": "object:1591"
       },
       {
         "id": "fldIT8wK8SyqiibSd",
@@ -1516,7 +1863,7 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:1390"
+        "$$hashKey": "object:1592"
       },
       {
         "id": "fldCsBRW1D1NY8GK8",
@@ -1534,7 +1881,7 @@
           },
           "resultType": "date"
         },
-        "$$hashKey": "object:1391"
+        "$$hashKey": "object:1593"
       },
       {
         "id": "fld6ZCGI0afrN8qrY",
@@ -1546,14 +1893,14 @@
           "symmetricColumnId": "fldt69IlRNBMhXRsX"
         },
         "foreignTable": "tblz1dquH21O9QSle",
-        "$$hashKey": "object:1392"
+        "$$hashKey": "object:1594"
       },
       {
         "id": "fldyxafmf03pNebzG",
         "name": "Status",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1393"
+        "$$hashKey": "object:1595"
       },
       {
         "id": "fldj0zlTfovxhHwtP",
@@ -1575,7 +1922,7 @@
           },
           "disableColors": false
         },
-        "$$hashKey": "object:1394"
+        "$$hashKey": "object:1596"
       },
       {
         "id": "fldfg1BuzowPi6tjH",
@@ -1586,7 +1933,7 @@
           "negative": false,
           "validatorName": "positive"
         },
-        "$$hashKey": "object:1395"
+        "$$hashKey": "object:1597"
       },
       {
         "id": "fldpTSKzGrMKpqStb",
@@ -1598,77 +1945,77 @@
           "symmetricColumnId": "fldzXjOiOkPw3CcfW"
         },
         "foreignTable": "tblZ2eBBhNq2VEA2D",
-        "$$hashKey": "object:1396"
+        "$$hashKey": "object:1598"
       },
       {
         "id": "fld5ZwiPI5lcQTnsI",
         "name": "Order ID",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1397"
+        "$$hashKey": "object:1599"
       },
       {
         "id": "fldN3NCtzXNeZkF3n",
         "name": "Payer ID",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1398"
+        "$$hashKey": "object:1600"
       },
       {
         "id": "fld90XbMC46tLjBZX",
         "name": "Currency Code",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1399"
+        "$$hashKey": "object:1601"
       },
       {
         "id": "fldF3Ler4fBxfMdxl",
         "name": "Address",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1400"
+        "$$hashKey": "object:1602"
       },
       {
         "id": "fldpsfSDrffSq5JTu",
         "name": "Payer Full Name",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1401"
+        "$$hashKey": "object:1603"
       },
       {
         "id": "fldWZ6j026pbFJmL0",
         "name": "Intent",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1402"
+        "$$hashKey": "object:1604"
       },
       {
         "id": "fldIpts0JZXbRgJaq",
         "name": "Payment Create Time",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1403"
+        "$$hashKey": "object:1605"
       },
       {
         "id": "fldKTbJ7uYualyNKT",
         "name": "Payment Update Time",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1404"
+        "$$hashKey": "object:1606"
       },
       {
         "id": "fldoiyvM4ju3z3Avn",
         "name": "Notes",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1405"
+        "$$hashKey": "object:1607"
       },
       {
         "id": "fldlPjfnI9DzSDb0V",
         "name": "Payer Email",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1406"
+        "$$hashKey": "object:1608"
       },
       {
         "id": "fldVXLvkkBEtMhirP",
@@ -1681,7 +2028,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:1407"
+        "$$hashKey": "object:1609"
       }
     ],
     "primaryColumnName": "Primary Key",
@@ -1692,388 +2039,7 @@
     "isEmptyDueToFilter": false,
     "isEmpty": false,
     "nameForUrl": "payment",
-    "$$hashKey": "object:9",
-    "numRecordsToList": 3
-  },
-  "tblzbuukCzjAfDrro": {
-    "id": "tblzbuukCzjAfDrro",
-    "name": "Generation",
-    "columns": [
-      {
-        "id": "fldyR7B0OkW5xOd2h",
-        "name": "Primary Key",
-        "type": "formula",
-        "typeOptions": {
-          "formulaTextParsed": "RECORD_ID()",
-          "dependencies": {
-            "referencedColumnIdsForValue": []
-          },
-          "resultType": "text"
-        },
-        "$$hashKey": "object:1637"
-      },
-      {
-        "id": "fldMkIuCRhgMpKUfN",
-        "name": "Date Created",
-        "type": "formula",
-        "typeOptions": {
-          "isDateTime": true,
-          "dateFormat": "Local",
-          "displayType": "createdTime",
-          "timeZone": "client",
-          "formulaTextParsed": "CREATED_TIME()",
-          "dependencies": {
-            "referencedColumnIdsForValue": []
-          },
-          "resultType": "date"
-        },
-        "$$hashKey": "object:1638"
-      },
-      {
-        "id": "fldVwiBjXKXnU2zgF",
-        "name": "Date Updated",
-        "type": "formula",
-        "typeOptions": {
-          "isDateTime": true,
-          "dateFormat": "Local",
-          "displayType": "lastModifiedTime",
-          "timeZone": "client",
-          "formulaTextParsed": "LAST_MODIFIED_TIME()",
-          "dependencies": {
-            "referencedColumnIdsForValue": [],
-            "dependsOnAllColumnsModifiedTime": true
-          },
-          "resultType": "date"
-        },
-        "$$hashKey": "object:1639"
-      },
-      {
-        "id": "fldJw4SedzgnXlr4s",
-        "name": "Solar Project",
-        "type": "foreignKey",
-        "typeOptions": {
-          "relationship": "one",
-          "foreignTableId": "tblpppeJpGXgnbPbx",
-          "symmetricColumnId": "fldGrllNxy5otXTn4"
-        },
-        "foreignTable": "tblpppeJpGXgnbPbx",
-        "$$hashKey": "object:1640"
-      },
-      {
-        "id": "fldy5St4p5k5xN4RB",
-        "name": "Subscriber Owner(s)?",
-        "type": "text",
-        "typeOptions": null,
-        "$$hashKey": "object:1641"
-      },
-      {
-        "id": "fldCMYTWrPIDdJhcZ",
-        "name": "Start Date",
-        "type": "date",
-        "typeOptions": {
-          "isDateTime": false,
-          "dateFormat": "Local"
-        },
-        "$$hashKey": "object:1642"
-      },
-      {
-        "id": "fldanPYJOW1c1ZQGN",
-        "name": "End Date",
-        "type": "date",
-        "typeOptions": {
-          "isDateTime": false,
-          "dateFormat": "Local"
-        },
-        "$$hashKey": "object:1643"
-      },
-      {
-        "id": "fld3AtI7UJk9g6eXm",
-        "name": "Amount",
-        "type": "number",
-        "typeOptions": {
-          "format": "decimal",
-          "precision": 1,
-          "negative": false,
-          "validatorName": "positive"
-        },
-        "$$hashKey": "object:1644"
-      },
-      {
-        "id": "fldOOobIEwGKk2O6j",
-        "name": "ID",
-        "type": "formula",
-        "typeOptions": {
-          "formulaTextParsed": "RECORD_ID()",
-          "dependencies": {
-            "referencedColumnIdsForValue": []
-          },
-          "resultType": "text"
-        },
-        "$$hashKey": "object:1645"
-      }
-    ],
-    "primaryColumnName": "Primary Key",
-    "defaultView": {
-      "id": "viwxoinlV2F9U2ULQ",
-      "name": "Grid view"
-    },
-    "isEmptyDueToFilter": false,
-    "isEmpty": false,
-    "nameForUrl": "generation",
     "$$hashKey": "object:10",
-    "numRecordsToList": 3
-  },
-  "tblaF0vRw2LmVAnM9": {
-    "id": "tblaF0vRw2LmVAnM9",
-    "name": "PGE Usage",
-    "columns": [
-      {
-        "id": "fld8sIVTeG8M9D035",
-        "name": "Primary Key",
-        "type": "formula",
-        "typeOptions": {
-          "formulaTextParsed": "RECORD_ID()",
-          "dependencies": {
-            "referencedColumnIdsForValue": []
-          },
-          "resultType": "text"
-        },
-        "$$hashKey": "object:1744"
-      },
-      {
-        "id": "fldEy9UfMJuy75mNT",
-        "name": "Date Created",
-        "type": "formula",
-        "typeOptions": {
-          "isDateTime": true,
-          "dateFormat": "Local",
-          "displayType": "createdTime",
-          "timeZone": "client",
-          "formulaTextParsed": "CREATED_TIME()",
-          "dependencies": {
-            "referencedColumnIdsForValue": []
-          },
-          "resultType": "date"
-        },
-        "$$hashKey": "object:1745"
-      },
-      {
-        "id": "fldHVB1QxJcUhDtZr",
-        "name": "Date Updated",
-        "type": "formula",
-        "typeOptions": {
-          "isDateTime": true,
-          "dateFormat": "Local",
-          "displayType": "lastModifiedTime",
-          "timeZone": "client",
-          "formulaTextParsed": "LAST_MODIFIED_TIME()",
-          "dependencies": {
-            "referencedColumnIdsForValue": [],
-            "dependsOnAllColumnsModifiedTime": true
-          },
-          "resultType": "date"
-        },
-        "$$hashKey": "object:1746"
-      },
-      {
-        "id": "fldVj8yF7rDwesx25",
-        "name": "Solar Project",
-        "type": "foreignKey",
-        "typeOptions": {
-          "relationship": "one",
-          "foreignTableId": "tblpppeJpGXgnbPbx",
-          "symmetricColumnId": "fldy91MLBkZg9Ew1C"
-        },
-        "foreignTable": "tblpppeJpGXgnbPbx",
-        "$$hashKey": "object:1747"
-      },
-      {
-        "id": "fldGZB1CCWzsnec8P",
-        "name": "Subscriber Owner",
-        "type": "text",
-        "typeOptions": null,
-        "$$hashKey": "object:1748"
-      },
-      {
-        "id": "fldL9KhMFuYFrkb3V",
-        "name": "Start Date",
-        "type": "date",
-        "typeOptions": {
-          "isDateTime": false,
-          "dateFormat": "Local"
-        },
-        "$$hashKey": "object:1749"
-      },
-      {
-        "id": "fldFXB7EGvXKKtkLA",
-        "name": "End Date",
-        "type": "date",
-        "typeOptions": {
-          "isDateTime": false,
-          "dateFormat": "Local"
-        },
-        "$$hashKey": "object:1750"
-      },
-      {
-        "id": "fldCK3OXhLRrHX6Vn",
-        "name": "Amount",
-        "type": "number",
-        "typeOptions": {
-          "format": "decimal",
-          "precision": 1,
-          "negative": false,
-          "validatorName": "positive"
-        },
-        "$$hashKey": "object:1751"
-      },
-      {
-        "id": "fldh1hhUJyPPMo3DQ",
-        "name": "EBCE Rebate",
-        "type": "number",
-        "typeOptions": {
-          "format": "decimal",
-          "precision": 1,
-          "negative": false,
-          "validatorName": "positive"
-        },
-        "$$hashKey": "object:1752"
-      },
-      {
-        "id": "fldbOkL0AuyKQql1w",
-        "name": "ID",
-        "type": "formula",
-        "typeOptions": {
-          "formulaTextParsed": "RECORD_ID()",
-          "dependencies": {
-            "referencedColumnIdsForValue": []
-          },
-          "resultType": "text"
-        },
-        "$$hashKey": "object:1753"
-      }
-    ],
-    "primaryColumnName": "Primary Key",
-    "defaultView": {
-      "id": "viwjbvEd3e6Z4ADWa",
-      "name": "Grid view"
-    },
-    "isEmptyDueToFilter": false,
-    "isEmpty": false,
-    "nameForUrl": "pge%20usage",
-    "$$hashKey": "object:11",
-    "numRecordsToList": 3
-  },
-  "tblTXzlIwQ6znEf4R": {
-    "id": "tblTXzlIwQ6znEf4R",
-    "name": "Rate Schedule",
-    "columns": [
-      {
-        "id": "fld7zbjw6w1hOBtSo",
-        "name": "Primary Key",
-        "type": "formula",
-        "typeOptions": {
-          "formulaTextParsed": "RECORD_ID()",
-          "dependencies": {
-            "referencedColumnIdsForValue": []
-          },
-          "resultType": "text"
-        },
-        "$$hashKey": "object:1859"
-      },
-      {
-        "id": "fldxGLtkhooiAcymW",
-        "name": "Subscriber Bill",
-        "type": "foreignKey",
-        "typeOptions": {
-          "foreignTableId": "tblZ2eBBhNq2VEA2D",
-          "symmetricColumnId": "fldLAlePnIpFMEO7T",
-          "relationship": "many"
-        },
-        "foreignTable": "tblZ2eBBhNq2VEA2D",
-        "$$hashKey": "object:1860"
-      },
-      {
-        "id": "fldgf9LRHipp0MQAC",
-        "name": "Date Created",
-        "type": "formula",
-        "typeOptions": {
-          "isDateTime": true,
-          "dateFormat": "Local",
-          "displayType": "createdTime",
-          "timeZone": "client",
-          "formulaTextParsed": "CREATED_TIME()",
-          "dependencies": {
-            "referencedColumnIdsForValue": []
-          },
-          "resultType": "date"
-        },
-        "$$hashKey": "object:1861"
-      },
-      {
-        "id": "fld5VhlRCKLW7ETtK",
-        "name": "Date Updated",
-        "type": "formula",
-        "typeOptions": {
-          "isDateTime": true,
-          "dateFormat": "Local",
-          "displayType": "lastModifiedTime",
-          "timeZone": "client",
-          "formulaTextParsed": "LAST_MODIFIED_TIME()",
-          "dependencies": {
-            "referencedColumnIdsForValue": [],
-            "dependsOnAllColumnsModifiedTime": true
-          },
-          "resultType": "date"
-        },
-        "$$hashKey": "object:1862"
-      },
-      {
-        "id": "fldpz4vRjy848JohJ",
-        "name": "Rate",
-        "type": "number",
-        "typeOptions": {
-          "format": "decimal",
-          "precision": 1,
-          "negative": false,
-          "validatorName": "positive"
-        },
-        "$$hashKey": "object:1863"
-      },
-      {
-        "id": "fldLOUHrAiktwKYsJ",
-        "name": "Rebate Rate",
-        "type": "number",
-        "typeOptions": {
-          "format": "decimal",
-          "precision": 1,
-          "negative": false,
-          "validatorName": "positive"
-        },
-        "$$hashKey": "object:1864"
-      },
-      {
-        "id": "fld1smVM7wbm4tH8v",
-        "name": "ID",
-        "type": "formula",
-        "typeOptions": {
-          "formulaTextParsed": "RECORD_ID()",
-          "dependencies": {
-            "referencedColumnIdsForValue": []
-          },
-          "resultType": "text"
-        },
-        "$$hashKey": "object:1865"
-      }
-    ],
-    "primaryColumnName": "Primary Key",
-    "defaultView": {
-      "id": "viwrY81bx5h0y9NhJ",
-      "name": "Grid view"
-    },
-    "isEmptyDueToFilter": false,
-    "isEmpty": true,
-    "nameForUrl": "rate%20schedule",
-    "$$hashKey": "object:12",
     "numRecordsToList": 3
   },
   "tblUxjDdJWvQtCwfX": {
@@ -2085,14 +2051,14 @@
         "name": "Name",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1944"
+        "$$hashKey": "object:1839"
       },
       {
         "id": "fldJclgmu194rPRlJ",
         "name": "Tag",
         "type": "text",
         "typeOptions": null,
-        "$$hashKey": "object:1945"
+        "$$hashKey": "object:1840"
       },
       {
         "id": "fldYGdJCg7s42qKEL",
@@ -2105,7 +2071,7 @@
           },
           "resultType": "text"
         },
-        "$$hashKey": "object:1946"
+        "$$hashKey": "object:1841"
       }
     ],
     "primaryColumnName": "Name",
@@ -2116,7 +2082,7 @@
     "isEmptyDueToFilter": false,
     "isEmpty": false,
     "nameForUrl": "test%20(development)",
-    "$$hashKey": "object:13",
+    "$$hashKey": "object:11",
     "numRecordsToList": 3
   }
 }
