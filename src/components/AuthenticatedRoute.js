@@ -3,6 +3,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isSignedIn, isOnboarding } from '../lib/credentials';
+import PageShell from './PageShell';
 
 class AuthenticatedRoute extends React.PureComponent {
   isAuthorized() {
@@ -37,7 +38,7 @@ class AuthenticatedRoute extends React.PureComponent {
         {...rest}
         render={props =>
           authorized ? (
-            <Component {...props} />
+            PageShell(<Component {...props} />)
           ) : (
             <Redirect
               to={{ pathname: redirectRoute, state: { from: props.location } }}

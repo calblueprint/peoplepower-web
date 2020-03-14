@@ -27,6 +27,7 @@ import {
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Investment from './screens/general/Investment';
 import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
+import PageShell from './components/PageShell';
 
 class App extends React.Component {
   componentDidMount() {
@@ -67,7 +68,7 @@ class App extends React.Component {
         <div className="app-container">
           <NavBar />
           <Switch>
-            <Route exact path="/" component={HomeComponent} />
+            <Route exact path="/" component={PageShell(HomeComponent)} />
             <AuthenticatedRoute path="/projectnews" component={Community} />
             <AuthenticatedRoute path="/profile" component={UserProfile} />
 
