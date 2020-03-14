@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ReactTable from 'react-table-v6';
-import { Link } from 'react-router-dom';
+import DashboardBillingSection from './components/DashboardBillingSection';
+import DashboardChartsSection from './components/DashboardChartsSection';
+import DashboardProjectNewsSection from './components/DashboardProjectNewsSection';
 import '../../styles/SubscriberDashboard.css';
-import RightArrow from '../../assets/right_arrow.png';
 import '../../styles/Community.css';
-import LoadingComponent from '../../components/LoadingComponent';
 import {
   areDiffBills,
   getSubscriberBills,
@@ -13,9 +12,7 @@ import {
   formatStatus
 } from '../../lib/subscriberUtils';
 import { dateToFullMonth, formatDate } from '../../lib/dateUtils';
-import '../../styles/SubscriberOwnerDashboard.css';
 import { getTotalBalanceFromBills } from '../../lib/paypalUtils';
-
 import constants from '../../constants';
 
 const { ONLINE_PAYMENT_TYPE } = constants;
@@ -40,10 +37,10 @@ const createCondensedBillTransaction = transaction => {
     amtDue: `$${centsToDollars(transaction.amountDue)}`
   };
 };
+
 class SubscriberDashboard extends React.Component {
   constructor(props) {
     super(props);
-    // const { transactions } = this.props;
     this.state = {
       credentials: '',
       transactions: [],
@@ -122,215 +119,27 @@ class SubscriberDashboard extends React.Component {
 
   render() {
     const { announcements, isLoadingAnnouncements } = this.props;
-    const { isLoading, data, pendingBills, hasShares, activeTab } = this.state;
+    const { data, pendingBills, hasShares, activeTab } = this.state;
     const totalBalance = getTotalBalanceFromBills(pendingBills);
     return (
       <div className="subscriber-page ">
         <div className="subscriber-main">
           <div className="subscriber-section">
-            <div className="subscriber-section-header">
-              <div className="subscriber-header">Billing Summary</div>
-              <Link to="/billing">
-                <img src={RightArrow} alt="right arrow" />
-              </Link>
-            </div>
-            <div className="subscriber-section-body">
-              {isLoading ? (
-                <LoadingComponent />
-              ) : (
-                <div>
-                  <div className="subscriber-billing-container">
-                    <div className="subscriber-billing-current-container">
-                      <div className="subscriber-billing-header">
-                        Current Balance
-                      </div>
-                      <h3 className="subscriber-billing-balance">
-                        ${centsToDollars(totalBalance)}
-                      </h3>
-                      <div>
-                        <button
-                          type="button"
-                          className={`subscriber-billing-make-payment-button ${
-                            totalBalance === 0 ? 'disabled' : ''
-                          }`}
-                          disabled={totalBalance === 0}
-                        >
-                          <Link
-                            to={{
-                              pathname: '/billing',
-                              mode2: 1
-                            }}
-                            className="subscriber-link-text-white"
-                          >
-                            Make Payment
-                          </Link>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="subscriber-billing-recent-container">
-                      <div className="subscriber-billing-header-inline">
-                        <div className="subscriber-billing-header">
-                          Recent Transactions
-                        </div>
-                        <div>
-                          <button
-                            type="button"
-                            className="subscriber-billing-view-all-button"
-                          >
-                            <Link
-                              to={{ pathname: '/billing', state: { mode2: 1 } }}
-                              className="subscriber-link-text-white "
-                            >
-                              View All
-                            </Link>
-                          </button>
-                        </div>
-                      </div>
-                      {isLoading ? (
-                        <LoadingComponent />
-                      ) : (
-                        <ReactTable
-                          data={data}
-                          columns={[
-                            {
-                              id: 'statementDate',
-                              accessor: d => (
-                                <div className="subscriber-billing-recent-row ">
-                                  {d.statementDate}
-                                </div>
-                              )
-                              // width: 100
-                            },
-                            {
-                              id: 'description',
-                              accessor: d => (
-                                <div className="subscriber-billing-recent-row ">
-                                  <b>{d.description}</b>
-                                </div>
-                              ),
-                              width: 200
-                            },
-                            {
-                              id: 'amtDue',
-                              accessor: d => (
-                                <div className="subscriber-billing-recent-row ">
-                                  {d.amtDue ? `+${d.amtDue}` : `-${d.payment}`}
-                                </div>
-                              )
-                              // width: 150
-                            },
-                            {
-                              id: 'status',
-                              accessor: d => (
-                                <div className="subscriber-billing-recent-row ">
-                                  {d.status}
-                                </div>
-                              )
-                              // width: 100
-                            }
-                          ]}
-                          getTdProps={() => ({
-                            style: { border: 'none' }
-                          })}
-                          defaultPageSize={2}
-                          className="subscriber-billing-recent-table"
-                          showPagination={false}
-                          getTrGroupProps={() => {
-                            return {
-                              style: {
-                                border: 'none'
-                              }
-                            };
-                          }}
-                          getTheadProps={() => {
-                            return {
-                              style: {
-                                boxShadow: 'none'
-                              }
-                            };
-                          }}
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+            <DashboardBillingSection data={data} totalBalance={totalBalance} />
           </div>
           <div className="subscriber-section">
-            <div className="subscriber-section-tabs">
-              <button
-                type="button"
-                onClick={this.switchChartView}
-                className={`subscriber-billing-tab ${
-                  activeTab === 'My Solar Project' ? 'active' : ''
-                }`}
-              >
-                My Solar Project
-              </button>
-              {hasShares ? (
-                <button
-                  type="button"
-                  onClick={this.switchChartView}
-                  className={`subscriber-billing-tab ${
-                    activeTab === 'Community Solar Projects' ? 'active' : ''
-                  }`}
-                >
-                  Community Solar Projects
-                </button>
-              ) : null}
-            </div>
-            {activeTab === 'My Solar Project' ? (
-              <div className="subscriber-section-body">
-                <div className="subscriber-billing-chart-container">
-                  Very nice graphs for my solar project
-                </div>
-              </div>
-            ) : (
-              <div className="subscriber-section-body">
-                <div className="subscriber-billing-chart-container">
-                  Very nice graphs for community solar projects
-                </div>
-              </div>
-            )}
+            <DashboardChartsSection
+              switchChartView={this.switchChartView}
+              hasShare={hasShares}
+              activeTab={activeTab}
+            />
           </div>
         </div>
         <div className="subscriber-side">
-          <div className="subscriber-billing-side-container">
-            <div className="subscriber-section-header">
-              <div className="subscriber-header">Project News</div>
-              <Link to="/projectnews">
-                <img src={RightArrow} alt="right arrow" />
-              </Link>
-            </div>
-            <div className="subscriber-side-section-body">
-              {isLoadingAnnouncements ? (
-                <LoadingComponent />
-              ) : (
-                announcements.map(announcement => {
-                  const { title, message, attachments } = announcement;
-
-                  let url = '';
-                  let filename = '';
-                  if (attachments) {
-                    url = attachments[0].url;
-                    filename = attachments[0].filename;
-                  }
-
-                  return (
-                    <div key={title} className="subscriber-news-card">
-                      <div className="cardHeading">
-                        <h3>{title}</h3>
-                        {url ? <img src={url} alt={filename} /> : null}
-                        <p>{message}</p>
-                      </div>
-                      <div className="cardDetails" />
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          </div>
+          <DashboardProjectNewsSection
+            announcements={announcements}
+            isLoadingAnnouncements={isLoadingAnnouncements}
+          />
         </div>
       </div>
     );
