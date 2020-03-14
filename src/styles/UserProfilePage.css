@@ -9,6 +9,25 @@
   margin: 0px;
 }
 
+.settings-edit-disabled input {
+  float: right;
+  width: 50%;
+  border: 0px;
+  font-size: 16px;
+}
+
+.settings-edit-enabled input {
+  float: right;
+  width: 50%;
+  font-size: 16px;
+}
+
+.settings-label {
+  float: right;
+  width: 50%;
+  font-size: 16px;
+}
+
 .user-icon {
   display: flex;
   flex-direction: column;
@@ -29,20 +48,21 @@
   padding: 32px;
 }
 
-.general-form h2 {
+.general-form-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.general-form-header h2 {
   margin-top: 0px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
 }
 
-.general-form input {
-  float: right;
-  width: 50%;
-  border: 0px;
-  font-size: 16px;
-}
-
-.general-form input:focus {
-  outline: none;
+.general-form-header button {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .contact-info-form {
@@ -55,15 +75,22 @@
   margin-bottom: 30px;
 }
 
-.contact-info-form input {
-  float: right;
-  width: 50%;
-  border: 0px;
-  font-size: 16px;
+.contact-form-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.contact-info-form input:focus {
-  outline: none;
+.contact-form-header h2 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.contact-form-header button {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .form-success {
