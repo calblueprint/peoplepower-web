@@ -13,7 +13,7 @@
     "connected-react-router": "^6.6.1",
     "google-maps-react": "^2.0.2",
     "history": "^4.10.1",
-    "query-string": "^6.11.1",
+    "qs": "^6.9.1",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-modal": "^3.11.2",

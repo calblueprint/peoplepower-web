@@ -25,7 +25,6 @@ export const Columns = {
     ownerTypes: `Owner Types`,
     id: `ID`,
     subscriberBillIds: `Subscriber Bills`,
-    pledgeInvite: `Pledge Invite`,
     adminOfId: `Admin Of`,
     numberOfShares: `Number of Shares`,
     isReceivingDividends: `Is Receiving Dividends?`,
@@ -59,7 +58,8 @@ export const Columns = {
     latestBillNumber: `Latest Bill Number`,
     meterId: `Meter ID`,
     isSuperAdmin: `Is Super Admin?`,
-    invited: `Invited?`
+    invited: `Invited?`,
+    pledgeInviteId: `Pledge Invite`
   },
   'Project Group': {
     primaryKey: `Primary Key`,
@@ -170,7 +170,9 @@ export const Columns = {
     phoneNumber: `Phone Number`,
     email: `Email`,
     id: `ID`,
-    projectGroupId: `Project Group`
+    projectGroupId: `Project Group`,
+    ownerId: `Owner`,
+    status: `Status`
   },
   Payment: {
     primaryKey: `Primary Key`,

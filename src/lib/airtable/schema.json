@@ -9,7 +9,6 @@
       { "type": "multiSelect", "name": "Owner Types" },
       { "type": "formula", "name": "ID" },
       { "type": "foreignKey", "name": "Subscriber Bills" },
-      { "type": "text", "name": "Pledge Invite" },
       { "type": "foreignKey", "name": "Admin Of" },
       { "type": "number", "name": "Number of Shares" },
       { "type": "checkbox", "name": "Is Receiving Dividends?" },
@@ -43,7 +42,8 @@
       { "type": "rollup", "name": "Latest Bill Number" },
       { "type": "text", "name": "Meter ID" },
       { "type": "checkbox", "name": "Is Super Admin?" },
-      { "type": "checkbox", "name": "Invited?" }
+      { "type": "checkbox", "name": "Invited?" },
+      { "type": "foreignKey", "name": "Pledge Invite" }
     ]
   },
   "Project Group": {
@@ -166,7 +166,9 @@
       { "type": "phone", "name": "Phone Number" },
       { "type": "text", "name": "Email" },
       { "type": "formula", "name": "ID" },
-      { "type": "foreignKey", "name": "Project Group" }
+      { "type": "foreignKey", "name": "Project Group" },
+      { "type": "foreignKey", "name": "Owner" },
+      { "type": "select", "name": "Status" }
     ]
   },
   "Payment": {

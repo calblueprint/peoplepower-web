@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import QueryString from 'query-string';
+import qs from 'qs';
 import OnboardingData from '../../lib/onboardingData';
 import { validateField, updateOwnerFields } from '../../lib/onboardingUtils';
 import ProgressBar from './components/ProgressBar';
-import constants from '../../constants';
-import { getPledgeInviteById } from '../../lib/airtable/request';
+import Constants from '../../constants';
+import {
+  getPledgeInviteById,
+  updatePledgeInvite
+} from '../../lib/airtable/request';
 
-const { GENERAL_OWNER } = constants;
+const { GENERAL_OWNER, PLEDGE_INVITE_USED } = Constants;
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -17,7 +20,7 @@ class Onboarding extends React.Component {
     this.state = {
       owner: {
         onboardingStep: 0,
-        inviteFlag: false,
+        inviteToken: '',
         ownerTypes: [GENERAL_OWNER],
         isReceivingDividends: true,
         numberOfShares: 1
@@ -38,40 +41,47 @@ class Onboarding extends React.Component {
   }
 
   refreshState = async () => {
-    const { owner, inviteToken } = this.props;
+    const { owner, location } = this.props;
 
+    // If there is a logged-in owner, copy it to state
     if (owner) {
-      let newOwner = {
-        ...owner,
-        projectGroupId: owner.projectGroupId && owner.projectGroupId[0]
-      };
+      this.setState({
+        owner: {
+          ...owner,
+          projectGroupId: owner.projectGroupId && owner.projectGroupId[0]
+        }
+      });
+    } else {
+      // Otherwise, check for invite in query string
+      const inviteToken = qs.parse(location.search, {
+        ignoreQueryPrefix: true
+      }).token;
 
-      let inviteFlag = false;
-
-      if (inviteToken && owner.onboardingStep === 0) {
+      if (inviteToken) {
+        // Download pledge invite and update state
         const pledgeInvite = await getPledgeInviteById(inviteToken);
-        if (pledgeInvite) {
-          inviteFlag = true;
-          newOwner = {
-            ...newOwner,
-            firstName: pledgeInvite.firstName,
-            lastName: pledgeInvite.lastName,
-            numberOfShares: pledgeInvite.numberOfShares,
-            isReceivingDividends: pledgeInvite.wantsDividends,
-            phoneNumber: pledgeInvite.phoneNumber,
-            email: pledgeInvite.email,
-            projectGroupId: pledgeInvite.projectGroupId[0],
-            invited: true
-          };
+        if (pledgeInvite && pledgeInvite.status !== PLEDGE_INVITE_USED) {
+          this.setState(prevState => ({
+            owner: {
+              ...prevState.owner,
+              firstName: pledgeInvite.firstName,
+              lastName: pledgeInvite.lastName,
+              numberOfShares: pledgeInvite.shareAmount,
+              isReceivingDividends: pledgeInvite.wantsDividends,
+              phoneNumber: pledgeInvite.phoneNumber,
+              email: pledgeInvite.email,
+              projectGroupId: pledgeInvite.projectGroupId[0],
+              pledgeInviteId: [pledgeInvite.id]
+            },
+            inviteToken: pledgeInvite.id
+          }));
         }
       }
-
-      this.setState({ owner: newOwner, inviteFlag });
     }
   };
 
   nextStep = async event => {
-    const { owner, inviteFlag } = this.state;
+    const { owner, inviteToken } = this.state;
     if (event) {
       event.preventDefault();
     }
@@ -81,11 +91,9 @@ class Onboarding extends React.Component {
 
     // For each field in this onboarding step, validate, and add to errors object
     const fieldsToValidate = OnboardingData[owner.onboardingStep].fields;
-    const validationPromises = fieldsToValidate.map(f =>
-      validateField(f, owner[f])
+    const allErrorMessages = await Promise.all(
+      fieldsToValidate.map(f => validateField(f, owner[f]))
     );
-
-    const allErrorMessages = await Promise.all(validationPromises);
     const newErrors = {};
     allErrorMessages.forEach((errorMessage, i) => {
       const field = fieldsToValidate[i];
@@ -95,12 +103,17 @@ class Onboarding extends React.Component {
       }
     });
 
+    console.log(newErrors);
+
     this.setState({ errors: newErrors });
 
     if (!foundErrors) {
       // Create/Update specific owner fields
       // State should be refreshed when data is successfully pulled from redux
-      const newOwner = { ...owner, onboardingStep: owner.onboardingStep + 1 };
+      const newOwner = {
+        ...owner,
+        onboardingStep: owner.onboardingStep + 1
+      };
 
       // Account for edge case of project group ID needing to be wrapped in an array
       if (newOwner.projectGroupId) {
@@ -108,9 +121,13 @@ class Onboarding extends React.Component {
       }
 
       const fieldsToUpdate = [...OnboardingData[owner.onboardingStep].fields];
-      if (inviteFlag) {
-        // Update extra fields if user has been invited
-        fieldsToUpdate.push('phoneNumber', 'projectGroupId', 'invited');
+
+      // Update extra fields if user has a valid invitation
+      if (inviteToken) {
+        fieldsToUpdate.push('phoneNumber', 'projectGroupId', 'pledgeInviteId');
+        updatePledgeInvite(inviteToken, {
+          status: PLEDGE_INVITE_USED
+        });
       }
 
       await updateOwnerFields(newOwner, fieldsToUpdate);
@@ -211,7 +228,6 @@ class Onboarding extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  inviteToken: QueryString.parse(state.router.location.search).token
+  owner: state.userData.owner
 });
 export default connect(mapStateToProps)(Onboarding);
