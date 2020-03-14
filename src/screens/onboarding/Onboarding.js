@@ -102,9 +102,6 @@ class Onboarding extends React.Component {
         foundErrors = true;
       }
     });
-
-    console.log(newErrors);
-
     this.setState({ errors: newErrors });
 
     if (!foundErrors) {

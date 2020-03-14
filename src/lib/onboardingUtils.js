@@ -121,8 +121,6 @@ const updateOwnerFields = async (owner, fields) => {
     await updateOwner(owner.id, ownerUpdate);
     refreshUserData(owner.id);
   } else {
-    console.log('Creating new owner');
-    console.log(ownerUpdate);
     const ownerId = await createOwner(ownerUpdate);
     refreshUserData(ownerId);
   }
