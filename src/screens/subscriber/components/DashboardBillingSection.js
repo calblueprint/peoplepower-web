@@ -11,7 +11,12 @@ export default class DashboardBilling extends React.PureComponent {
       <div>
         <div className="subscriber-section-header">
           <div className="subscriber-header">Billing Summary</div>
-          <Link to="/billing">
+          <Link
+            to={{
+              pathname: '/billing',
+              mode2: 0
+            }}
+          >
             <img src={RightArrow} alt="right arrow" />
           </Link>
         </div>
@@ -54,7 +59,7 @@ export default class DashboardBilling extends React.PureComponent {
                       className="subscriber-billing-view-all-button"
                     >
                       <Link
-                        to={{ pathname: '/billing', state: { mode2: 1 } }}
+                        to={{ pathname: '/billing', mode2: 1 }}
                         className="subscriber-link-text-white "
                       >
                         View All

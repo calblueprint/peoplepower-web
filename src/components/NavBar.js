@@ -47,7 +47,14 @@ class NavBar extends React.PureComponent {
                     pathname === '/billing' ? 'navItemSelected' : 'navItem'
                   }
                 >
-                  <Link to="/billing">Billing</Link>
+                  <Link
+                    to={{
+                      pathname: '/billing',
+                      mode2: 0
+                    }}
+                  >
+                    Billing
+                  </Link>
                 </li>
               )}
               <li
