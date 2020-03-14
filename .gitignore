@@ -21,7 +21,7 @@
 .gradle/*
 gradle/*
 gradlew
-gradle.bat
+gradlew.bat
 
 # IDE related
 .idea
