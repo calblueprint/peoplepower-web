@@ -18,6 +18,10 @@
 .env.test.local
 .env.production.local
 .airtable-schema-generator.env
+.gradle/*
+gradle/*
+gradlew
+gradle.bat
 
 # IDE related
 .idea
