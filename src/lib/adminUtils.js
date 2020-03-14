@@ -29,6 +29,6 @@ export async function getOwnerRecordsForProjectGroup(projectGroup) {
   return allOwners.filter(o => o.onboardingStep === -1);
 }
 
-export async function generatePledgeInviteOnAirTable(pledgeInviteRecord) {
-  return createPledgeInvite(pledgeInviteRecord);
+export async function inviteMember(pledgeInvite) {
+  return createPledgeInvite(pledgeInvite);
 }

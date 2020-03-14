@@ -6,7 +6,7 @@ import AdminDashboardCard from './components/AdminDashboardCard';
 import LoadingComponent from '../../components/LoadingComponent';
 import {
   getOwnerRecordsForProjectGroup,
-  createPledgeInvite
+  inviteMember
 } from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
@@ -26,7 +26,7 @@ class AdminDashboard extends React.Component {
       invitePhoneNumber: '',
       inviteEmail: '',
       inviteShareAmount: 0,
-      inviteWantsDividends: false,
+      inviteWantsDividends: true,
       status: ''
     };
 
@@ -78,7 +78,7 @@ class AdminDashboard extends React.Component {
       projectGroupId: [projectGroup.id]
     };
 
-    const pledgeInviteID = await createPledgeInvite(newPledgeInvite);
+    const pledgeInviteID = await inviteMember(newPledgeInvite);
 
     if (pledgeInviteID === '') {
       this.setState({
