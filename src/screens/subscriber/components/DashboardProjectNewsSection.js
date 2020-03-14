@@ -5,7 +5,9 @@ import RightArrow from '../../../assets/right_arrow.png';
 
 export default class DashboardProjectNewsSection extends React.PureComponent {
   render() {
-    const { announcements, isLoadingAnnouncements } = this.props;
+    let { announcements } = this.props;
+    const { isLoadingAnnouncements } = this.props;
+    announcements = [...announcements].reverse();
     return (
       <div className="subscriber-side-container">
         <div className="subscriber-section-header">

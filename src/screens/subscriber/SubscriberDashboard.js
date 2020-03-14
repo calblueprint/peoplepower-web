@@ -48,10 +48,8 @@ class SubscriberDashboard extends React.Component {
       mode: 0,
       isReady: false,
       data: [],
-      hasShares: false,
-      activeTab: 'My Solar Project'
+      hasShares: false
     };
-    this.switchChartView = this.switchChartView.bind(this);
   }
 
   async componentDidMount() {
@@ -60,12 +58,6 @@ class SubscriberDashboard extends React.Component {
     // If data isn't in redux yet, don't do anything.
     if (isLoadingUserData) {
       return;
-    }
-
-    if (owner.numberOfShares !== 0) {
-      this.setState({
-        hasShares: true
-      });
     }
 
     const { transactions, pendingBills } = await getSubscriberBills(owner);
@@ -90,6 +82,12 @@ class SubscriberDashboard extends React.Component {
           : createCondensedBillTransaction(t)
       )
     });
+
+    if (owner.numberOfShares !== 0) {
+      this.setState({
+        hasShares: true
+      });
+    }
   }
 
   seeAllBills() {
@@ -98,28 +96,9 @@ class SubscriberDashboard extends React.Component {
     });
   }
 
-  seeMain() {
-    this.setState({
-      mode: 0
-    });
-  }
-
-  switchChartView() {
-    const { activeTab, hasShares } = this.state;
-    if (activeTab === 'My Solar Project' && hasShares) {
-      this.setState({
-        activeTab: 'Community Solar Projects'
-      });
-    } else {
-      this.setState({
-        activeTab: 'My Solar Project'
-      });
-    }
-  }
-
   render() {
     const { announcements, isLoadingAnnouncements } = this.props;
-    const { data, pendingBills, hasShares, activeTab } = this.state;
+    const { data, pendingBills, hasShares } = this.state;
     const totalBalance = getTotalBalanceFromBills(pendingBills);
     return (
       <div className="subscriber-page ">
@@ -128,11 +107,7 @@ class SubscriberDashboard extends React.Component {
             <DashboardBillingSection data={data} totalBalance={totalBalance} />
           </div>
           <div className="subscriber-section">
-            <DashboardChartsSection
-              switchChartView={this.switchChartView}
-              hasShare={hasShares}
-              activeTab={activeTab}
-            />
+            <DashboardChartsSection hasShares={hasShares} />
           </div>
         </div>
         <div className="subscriber-side">

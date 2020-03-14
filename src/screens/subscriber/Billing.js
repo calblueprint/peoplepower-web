@@ -1,4 +1,5 @@
 import React from 'react';
+import qs from 'qs';
 import { connect } from 'react-redux';
 import BillingAllBillsView from './components/BillingAllBillsView';
 import BillingMainView from './components/BillingMainView';
@@ -15,6 +16,15 @@ class Billing extends React.Component {
       mode: 0,
       isReady: false
     };
+    const { location } = this.props;
+    const { search } = location;
+    const {view} = qs.parse(search, {
+      ignoreQueryPrefix: true
+    });
+
+    if (view === 'all') {
+      this.state.mode = 1;
+    }
   }
 
   async componentDidMount() {
@@ -55,19 +65,10 @@ class Billing extends React.Component {
 
   render() {
     const { mode, transactions, isReady, pendingBills } = this.state;
-    const { isLoadingUserData, location } = this.props;
-    const { mode2 } = location;
+    const { isLoadingUserData } = this.props;
     const isLoading = !isReady || isLoadingUserData;
     if (isLoading) {
       return <LoadingComponent />;
-    }
-    if (mode === 1 || mode2 === 1) {
-      return (
-        <BillingAllBillsView
-          callback={() => this.seeMain()}
-          transactions={transactions}
-        />
-      );
     }
     if (mode === 0) {
       return (
@@ -75,6 +76,14 @@ class Billing extends React.Component {
           callback={() => this.seeAllBills()}
           transactions={transactions}
           pendingBills={pendingBills}
+        />
+      );
+    }
+    if (mode === 1) {
+      return (
+        <BillingAllBillsView
+          callback={() => this.seeMain()}
+          transactions={transactions}
         />
       );
     }
