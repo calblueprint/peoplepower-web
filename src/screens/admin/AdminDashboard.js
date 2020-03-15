@@ -6,7 +6,8 @@ import AdminDashboardCard from './components/AdminDashboardCard';
 import LoadingComponent from '../../components/LoadingComponent';
 import {
   getOwnerRecordsForProjectGroup,
-  inviteMember
+  inviteMember,
+  triggerEmail
 } from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
@@ -57,6 +58,10 @@ class AdminDashboard extends React.Component {
   handleSubmit = async event => {
     event.preventDefault();
 
+    this.setState({
+      status: 'Sending...'
+    });
+
     const {
       inviteFirstName,
       inviteLastName,
@@ -78,37 +83,26 @@ class AdminDashboard extends React.Component {
       projectGroupId: [projectGroup.id]
     };
 
-    const pledgeInviteID = await inviteMember(newPledgeInvite);
+    const pledgeInviteId = await inviteMember(newPledgeInvite);
 
-    if (pledgeInviteID === '') {
+    if (pledgeInviteId === '') {
       this.setState({
         status: 'An error occurent when sending the invitation.'
       });
     }
 
-    // POST to backend to trigger email.
-    fetch('http://localhost:3001/invite', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        pledgeInviteID
-      })
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { status } = json;
-        this.setState({
-          status,
-          showModal: false
-        });
-      });
+    const emailStatus = await triggerEmail(pledgeInviteId);
 
-    this.setState({
-      status: 'Sending...'
-    });
+    if (emailStatus === 'error') {
+      this.setState({
+        status: 'An error occurent when sending the invitation.'
+      });
+    } else {
+      this.setState({
+        status: emailStatus,
+        showModal: false
+      });
+    }
   };
 
   async fetchOwnerRecords() {
