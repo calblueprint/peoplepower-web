@@ -1,5 +1,6 @@
 # People Power Web App
 
+
 _Last updated: Mar 3, 2020 (by Fang)_
 
 - live app (master): https://peoplepower.netlify.com
@@ -31,7 +32,7 @@ REACT_APP_GOOGLE_API_KEY={REACT APP GOOGLE API KEY}
 _❗️Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `REACT_APP_AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `REACT_APP_AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well_
 
 - `PAYPAL CLIENT ID`: Get it from the People Power Notion ('Credentials Reference')
-- `REACT APP GOOGLE API KEY`: Get it from the People Power Notion ('Credentials Reference') 
+- `REACT APP GOOGLE API KEY`: Get it from the People Power Notion ('Credentials Reference')
 - Airtable API Key: follow the instructions in this [Airtable support page](https://support.airtable.com/hc/en-us/articles/219046777-How-do-I-get-my-API-key-)
 
 3. Create a file called `.airtable-schema-generator.env` and paste the following:
