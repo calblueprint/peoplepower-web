@@ -103,3 +103,120 @@
   line-height: 25px;
   color: var(--pp-gray);
 }
+
+.admin-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0px;
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  width: 845px;
+  height: 515px;
+}
+
+.admin-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0, 0, 0, 0.1);
+}
+
+.admin-modal h3 {
+  margin-top: 46px;
+  margin-left: 58px;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 38px;
+  color: #395578;
+}
+
+.admin-invite-form {
+  padding-left: 60px;
+  display: flex;
+}
+
+.admin-invite-form-row {
+  display: flex;
+}
+
+.admin-invite-form-row div:nth-child(1) {
+  padding-right: 13px;
+}
+
+.admin-invite-form label,
+p {
+  display: flex;
+  flex-direction: column;
+  width: 361px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.01em;
+  color: var(--pp-gray);
+}
+
+.admin-invite-form-input {
+  background: var(--pp-light-gray);
+  height: 39px;
+  border: 0px;
+  padding-left: 14px;
+  margin-top: 8px;
+  border-radius: 2.5px;
+}
+
+.admin-project-group {
+  background: var(--pp-light-gray);
+  height: 39px;
+  display: flex;
+  justify-content: center;
+  padding-left: 14px;
+  margin-top: 0px;
+  width: 347px;
+  border-radius: 2.5px;
+  margin-bottom: 30px;
+  margin-top: 8px;
+}
+
+.admin-invite-form-submit {
+  width: 161px;
+  height: 33px;
+  background: var(--pp-pink);
+  border-radius: 40px;
+  border: 0px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.admin-invite-form-required-flag {
+  color: var(--pp-pink);
+  margin-left: 3px;
+}
+
+.admin-invite-form-label-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
+  padding: 0px !important;
+}
+
+.admin-invite-form-row-submit {
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+}
+
+.status-text {
+  text-align: center;
+  margin: 0px;
+}
