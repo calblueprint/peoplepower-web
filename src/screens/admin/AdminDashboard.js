@@ -6,8 +6,7 @@ import AdminDashboardCard from './components/AdminDashboardCard';
 import LoadingComponent from '../../components/LoadingComponent';
 import {
   getOwnerRecordsForProjectGroup,
-  inviteMember,
-  triggerEmail
+  generatePledgeInviteOnAirTable
 } from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
@@ -27,7 +26,7 @@ class AdminDashboard extends React.Component {
       invitePhoneNumber: '',
       inviteEmail: '',
       inviteShareAmount: 0,
-      inviteWantsDividends: true,
+      inviteWantsDividends: false,
       status: ''
     };
 
@@ -58,10 +57,6 @@ class AdminDashboard extends React.Component {
   handleSubmit = async event => {
     event.preventDefault();
 
-    this.setState({
-      status: 'Sending...'
-    });
-
     const {
       inviteFirstName,
       inviteLastName,
@@ -83,24 +78,17 @@ class AdminDashboard extends React.Component {
       projectGroupId: [projectGroup.id]
     };
 
-    const pledgeInviteId = await inviteMember(newPledgeInvite);
+    console.log(typeof newPledgeInvite.wantsDividends);
 
-    if (pledgeInviteId === '') {
-      this.setState({
-        status: 'An error occurent when sending the invitation.'
-      });
-    }
+    const recordStatus = await generatePledgeInviteOnAirTable(newPledgeInvite);
 
-    const emailStatus = await triggerEmail(pledgeInviteId);
-
-    if (emailStatus === 'error') {
+    if (recordStatus === '') {
       this.setState({
         status: 'An error occurent when sending the invitation.'
       });
     } else {
       this.setState({
-        status: emailStatus,
-        showModal: false
+        status: 'Successfully sent invitation.'
       });
     }
   };
@@ -180,24 +168,21 @@ class AdminDashboard extends React.Component {
           className="admin-modal"
           overlayClassName="admin-modal-overlay"
         >
-          <h3>Invite a Member to {projectGroup.name}</h3>
+          <h3>Invite a PP Person </h3>
           <div className="admin-invite-form">
             <form onSubmit={this.handleSubmit}>
               <div className="admin-invite-form-row">
                 <div>
                   <p>
-                    <label htmlFor="inviteFirstName">
-                      <p className="admin-invite-form-label-wrapper">
-                        First name{' '}
-                        <span className="admin-invite-form-required-flag">
-                          *
-                        </span>
-                      </p>
+                    <label
+                      htmlFor="inviteFirstName"
+                      style={{ paddingRight: '6.5px' }}
+                    >
+                      First name
                       <input
                         type="text"
                         name="inviteFirstName"
                         placeholder="Aivant"
-                        className="admin-invite-form-input"
                         value={inviteFirstName}
                         onChange={this.handleChange}
                       />
@@ -206,18 +191,15 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="inviteLastName">
-                      <p className="admin-invite-form-label-wrapper">
-                        Last name{' '}
-                        <span className="admin-invite-form-required-flag">
-                          *
-                        </span>
-                      </p>
+                    <label
+                      htmlFor="inviteLastName"
+                      style={{ paddingLeft: '6.5px' }}
+                    >
+                      Last name
                       <input
                         type="text"
                         name="inviteLastName"
                         placeholder="Goyal"
-                        className="admin-invite-form-input"
                         value={inviteLastName}
                         onChange={this.handleChange}
                       />
@@ -228,18 +210,15 @@ class AdminDashboard extends React.Component {
               <div className="admin-invite-form-row">
                 <div>
                   <p>
-                    <label htmlFor="invitePhoneNumber">
-                      <p className="admin-invite-form-label-wrapper">
-                        Phone number{' '}
-                        <span className="admin-invite-form-required-flag">
-                          *
-                        </span>
-                      </p>
+                    <label
+                      htmlFor="invitePhoneNumber"
+                      style={{ paddingRight: '6.5px' }}
+                    >
+                      Phone number
                       <input
                         type="text"
                         name="invitePhoneNumber"
                         placeholder="123-456-7890"
-                        className="admin-invite-form-input"
                         value={invitePhoneNumber}
                         onChange={this.handleChange}
                       />
@@ -248,18 +227,15 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="inviteEmail">
-                      <p className="admin-invite-form-label-wrapper">
-                        Email{' '}
-                        <span className="admin-invite-form-required-flag">
-                          *
-                        </span>
-                      </p>
+                    <label
+                      htmlFor="inviteEmail"
+                      style={{ paddingLeft: '6.5px' }}
+                    >
+                      Email
                       <input
                         type="text"
                         name="inviteEmail"
                         placeholder="invitees_email@gmail.com"
-                        className="admin-invite-form-input"
                         value={inviteEmail}
                         onChange={this.handleChange}
                       />
@@ -270,7 +246,10 @@ class AdminDashboard extends React.Component {
               <div className="admin-invite-form-row">
                 <div>
                   <p>
-                    <label htmlFor="inviteShareAmount">
+                    <label
+                      htmlFor="inviteShareAmount"
+                      style={{ paddingRight: '6.5px' }}
+                    >
                       Number of shares
                       <select
                         name="inviteShareAmount"
@@ -294,7 +273,10 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="inviteWantsDividends">
+                    <label
+                      htmlFor="inviteWantsDividends"
+                      style={{ paddingLeft: '6.5px' }}
+                    >
                       Wants Dividends
                       <select
                         name="inviteWantsDividends"
@@ -311,18 +293,26 @@ class AdminDashboard extends React.Component {
               <div className="admin-invite-form-row">
                 <div>
                   <p>Project Group</p>
-                  <p className="admin-project-group">{projectGroup.name}</p>
+                  <p>{projectGroup.name}</p>
                 </div>
               </div>
-              <div className="admin-invite-form-row admin-invite-form-row-submit">
-                <div>
+              <div
+                className="admin-invite-form-row"
+                style={{ flexDirection: 'column', alignItems: 'center' }}
+              >
+                <div style={{ margin: 'auto' }}>
                   <input
                     type="submit"
                     value="Submit"
-                    className="admin-invite-form-submit"
+                    style={{
+                      border: '1px solid var(--pp-black)',
+                      float: 'left',
+                      padding: '5px 10px',
+                      width: '100px'
+                    }}
                   />
                 </div>
-                <h4 className="status-text">{status}</h4>
+                <p>{status}</p>
               </div>
             </form>
           </div>

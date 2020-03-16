@@ -115,7 +115,7 @@
   border-radius: 4px;
   outline: none;
   width: 845px;
-  height: 515px;
+  height: 485px;
 }
 
 .admin-modal-overlay {
@@ -146,12 +146,7 @@
   display: flex;
 }
 
-.admin-invite-form-row div:nth-child(1) {
-  padding-right: 13px;
-}
-
-.admin-invite-form label,
-p {
+.admin-invite-form label {
   display: flex;
   flex-direction: column;
   width: 361px;
@@ -160,63 +155,5 @@ p {
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.01em;
-  color: var(--pp-gray);
-}
-
-.admin-invite-form-input {
-  background: var(--pp-light-gray);
-  height: 39px;
-  border: 0px;
-  padding-left: 14px;
-  margin-top: 8px;
-  border-radius: 2.5px;
-}
-
-.admin-project-group {
-  background: var(--pp-light-gray);
-  height: 39px;
-  display: flex;
-  justify-content: center;
-  padding-left: 14px;
-  margin-top: 0px;
-  width: 347px;
-  border-radius: 2.5px;
-  margin-bottom: 30px;
-  margin-top: 8px;
-}
-
-.admin-invite-form-submit {
-  width: 161px;
-  height: 33px;
-  background: var(--pp-pink);
-  border-radius: 40px;
-  border: 0px;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 22px;
-  color: white;
-  margin-bottom: 10px;
-}
-
-.admin-invite-form-required-flag {
-  color: var(--pp-pink);
-  margin-left: 3px;
-}
-
-.admin-invite-form-label-wrapper {
-  display: flex;
-  flex-direction: row;
-  margin: 0px;
-  padding: 0px !important;
-}
-
-.admin-invite-form-row-submit {
-  flex-direction: column;
-  align-items: center;
-  padding: 0px;
-}
-
-.status-text {
-  text-align: center;
-  margin: 0px;
+  color: #7387a2;
 }

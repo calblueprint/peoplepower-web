@@ -44,50 +44,42 @@ button {
   line-height: 25px;
 }
 
-.header-button {
+.headerbutton {
   display: flex;
 }
 
-.header-only {
+.headeronly {
   display: flex;
   width: 50%;
   justify-content: flex-start;
 }
 
-.header-button h3 {
+.headerbutton h3 {
   display: flex;
   justify-content: flex-start;
 }
 
-.right-button {
+.rightbutton {
   display: flex;
   justify-content: flex-end;
   width: 50%;
 }
 
-.dash-investment-cont h3 {
+.my-investment h3 {
   margin-bottom: 23px;
-  color: var(--pp-gray);
+  color: var(--pp-blue);
   font-size: 18px;
   font-weight: 800;
   line-height: 25px;
 }
 
-.dash-investment-cont {
-  margin: 32px 35px auto 35px;
+.my-investment {
+  margin-top: 20px;
 }
 
-.dash-investment-details-cont {
+.my-investment-box {
   background: white;
   padding: 20px 20px;
   border-radius: 5px;
   height: 100px;
-}
-
-.right-arrow-button {
-  width: 4vh;
-}
-
-.right-arrow-button:hover {
-  opacity: 0.8;
 }
