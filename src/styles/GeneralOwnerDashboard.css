@@ -83,3 +83,11 @@ button {
   border-radius: 5px;
   height: 100px;
 }
+
+.right-arrow-button {
+  width: 4vh;
+}
+
+.right-arrow-button:hover {
+  opacity: 80%;
+}
