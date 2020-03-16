@@ -9,6 +9,7 @@
       { "type": "multiSelect", "name": "Owner Types" },
       { "type": "formula", "name": "ID" },
       { "type": "foreignKey", "name": "Subscriber Bills" },
+      { "type": "foreignKey", "name": "Pledge Invite" },
       { "type": "foreignKey", "name": "Admin Of" },
       { "type": "number", "name": "Number of Shares" },
       { "type": "checkbox", "name": "Is Receiving Dividends?" },
@@ -41,9 +42,7 @@
       { "type": "foreignKey", "name": "Rate Schedule" },
       { "type": "rollup", "name": "Latest Bill Number" },
       { "type": "text", "name": "Meter ID" },
-      { "type": "checkbox", "name": "Is Super Admin?" },
-      { "type": "checkbox", "name": "Invited?" },
-      { "type": "foreignKey", "name": "Pledge Invite" }
+      { "type": "checkbox", "name": "Is Super Admin?" }
     ]
   },
   "Project Group": {
@@ -137,9 +136,7 @@
       { "type": "rollup", "name": "Amount Received" },
       { "type": "formula", "name": "Total Estimated Rebate" },
       { "type": "select", "name": "Status" },
-      { "type": "foreignKey", "name": "Solar Project" },
-      { "type": "multipleAttachment", "name": "Bill PDF" },
-      { "type": "date", "name": "Due Date" }
+      { "type": "foreignKey", "name": "Solar Project" }
     ]
   },
   "Rate Schedule": {
@@ -157,6 +154,7 @@
   "Pledge Invite": {
     "columns": [
       { "type": "formula", "name": "Primary Key" },
+      { "type": "foreignKey", "name": "Owner" },
       { "type": "formula", "name": "Date Created" },
       { "type": "formula", "name": "Date Updated" },
       { "type": "text", "name": "First Name" },
@@ -165,10 +163,9 @@
       { "type": "checkbox", "name": "Wants Dividends?" },
       { "type": "phone", "name": "Phone Number" },
       { "type": "text", "name": "Email" },
+      { "type": "text", "name": "Status" },
       { "type": "formula", "name": "ID" },
-      { "type": "foreignKey", "name": "Project Group" },
-      { "type": "foreignKey", "name": "Owner" },
-      { "type": "select", "name": "Status" }
+      { "type": "foreignKey", "name": "Project Group" }
     ]
   },
   "Payment": {

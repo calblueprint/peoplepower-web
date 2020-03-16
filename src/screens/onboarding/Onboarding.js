@@ -1,16 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import qs from 'qs';
 import OnboardingData from '../../lib/onboardingData';
 import { validateField, updateOwnerFields } from '../../lib/onboardingUtils';
 import ProgressBar from './components/ProgressBar';
-import Constants from '../../constants';
-import {
-  getPledgeInviteById,
-  updatePledgeInvite
-} from '../../lib/airtable/request';
+import constants from '../../constants';
 
-const { GENERAL_OWNER, PLEDGE_INVITE_USED } = Constants;
+const { GENERAL_OWNER } = constants;
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -20,7 +15,6 @@ class Onboarding extends React.Component {
     this.state = {
       owner: {
         onboardingStep: 0,
-        inviteToken: '',
         ownerTypes: [GENERAL_OWNER],
         isReceivingDividends: true,
         numberOfShares: 1
@@ -40,48 +34,22 @@ class Onboarding extends React.Component {
     }
   }
 
-  refreshState = async () => {
-    const { owner, location } = this.props;
+  refreshState = () => {
+    const { owner } = this.props;
 
-    // If there is a logged-in owner, copy it to state
     if (owner) {
+      // Account for edge case of project group id being wrapped in an array
       this.setState({
         owner: {
           ...owner,
           projectGroupId: owner.projectGroupId && owner.projectGroupId[0]
         }
       });
-    } else {
-      // Otherwise, check for invite in query string
-      const inviteToken = qs.parse(location.search, {
-        ignoreQueryPrefix: true
-      }).token;
-
-      if (inviteToken) {
-        // Download pledge invite and update state
-        const pledgeInvite = await getPledgeInviteById(inviteToken);
-        if (pledgeInvite && pledgeInvite.status !== PLEDGE_INVITE_USED) {
-          this.setState(prevState => ({
-            owner: {
-              ...prevState.owner,
-              firstName: pledgeInvite.firstName,
-              lastName: pledgeInvite.lastName,
-              numberOfShares: pledgeInvite.shareAmount,
-              isReceivingDividends: pledgeInvite.wantsDividends,
-              phoneNumber: pledgeInvite.phoneNumber,
-              email: pledgeInvite.email,
-              projectGroupId: pledgeInvite.projectGroupId[0],
-              pledgeInviteId: [pledgeInvite.id]
-            },
-            inviteToken: pledgeInvite.id
-          }));
-        }
-      }
     }
   };
 
   nextStep = async event => {
-    const { owner, inviteToken } = this.state;
+    const { owner } = this.state;
     if (event) {
       event.preventDefault();
     }
@@ -91,9 +59,11 @@ class Onboarding extends React.Component {
 
     // For each field in this onboarding step, validate, and add to errors object
     const fieldsToValidate = OnboardingData[owner.onboardingStep].fields;
-    const allErrorMessages = await Promise.all(
-      fieldsToValidate.map(f => validateField(f, owner[f]))
+    const validationPromises = fieldsToValidate.map(f =>
+      validateField(f, owner[f])
     );
+
+    const allErrorMessages = await Promise.all(validationPromises);
     const newErrors = {};
     allErrorMessages.forEach((errorMessage, i) => {
       const field = fieldsToValidate[i];
@@ -102,32 +72,23 @@ class Onboarding extends React.Component {
         foundErrors = true;
       }
     });
+
     this.setState({ errors: newErrors });
 
     if (!foundErrors) {
       // Create/Update specific owner fields
       // State should be refreshed when data is successfully pulled from redux
-      const newOwner = {
-        ...owner,
-        onboardingStep: owner.onboardingStep + 1
-      };
+      const newOwner = { ...owner, onboardingStep: owner.onboardingStep + 1 };
 
       // Account for edge case of project group ID needing to be wrapped in an array
       if (newOwner.projectGroupId) {
         newOwner.projectGroupId = [newOwner.projectGroupId];
       }
 
-      const fieldsToUpdate = [...OnboardingData[owner.onboardingStep].fields];
-
-      // Update extra fields if user has a valid invitation
-      if (inviteToken) {
-        fieldsToUpdate.push('phoneNumber', 'projectGroupId', 'pledgeInviteId');
-        updatePledgeInvite(inviteToken, {
-          status: PLEDGE_INVITE_USED
-        });
-      }
-
-      await updateOwnerFields(newOwner, fieldsToUpdate);
+      await updateOwnerFields(
+        newOwner,
+        OnboardingData[owner.onboardingStep].fields
+      );
     }
   };
 
