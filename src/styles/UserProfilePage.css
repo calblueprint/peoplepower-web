@@ -55,6 +55,24 @@
   margin-bottom: 20px;
 }
 
+.general-form-header-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.general-form-header-buttons button {
+  margin: 8px;
+}
+
+.contact-form-header-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.contact-form-header-buttons button {
+  margin: 8px;
+}
+
 .general-form-header h2 {
   margin-top: 0px;
   margin-bottom: 0px;
