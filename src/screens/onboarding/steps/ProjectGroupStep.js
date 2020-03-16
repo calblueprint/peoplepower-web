@@ -72,42 +72,48 @@ class ProjectGroupStep extends React.Component {
         }}
       >
         <div>
-          {view === 'map' ? (
-            <MapView
-              owner={owner}
-              markers={allProjectGroups}
-              displayGroup={displayGroupId}
-              handleViewChange={this.handleViewChange}
-              changeDisplayedGroup={this.changeDisplayedGroup}
-              changeSelectedGroup={this.changeSelectedGroup}
-              view={view}
-            />
+          {owner.pledgeInviteId ? (
+            <h2>Your project group is locked in. no changing, sorry :(</h2>
           ) : (
-            <ListView
-              groups={allProjectGroups}
-              displayedGroupId={displayGroupId}
-              selectedGroupId={owner.projectGroupId}
-              handleViewChange={this.handleViewChange}
-              changeSelectedGroup={this.changeSelectedGroup}
-              changeDisplayedGroup={this.changeDisplayedGroup}
-              view={view}
-            />
-          )}
-          <div style={{ display: 'inline', position: 'relative' }}>
-            <label className="checkbox-container">
-              I don’t want to join a project group at this time.
-              <input
-                type="checkbox"
-                name="selectNoProjectGroup"
-                onChange={() => this.changeSelectedGroup(defaultGroup.id)}
-                checked={owner.projectGroupId === defaultGroup.id}
-              />
-              <span className="checkmark" />
-            </label>
-            <div className=" validation">
-              {errors.projectGroupId ? errors.projectGroupId : '\u00A0'}
+            <div>
+              {view === 'map' ? (
+                <MapView
+                  owner={owner}
+                  markers={allProjectGroups}
+                  displayGroup={displayGroupId}
+                  handleViewChange={this.handleViewChange}
+                  changeDisplayedGroup={this.changeDisplayedGroup}
+                  changeSelectedGroup={this.changeSelectedGroup}
+                  view={view}
+                />
+              ) : (
+                <ListView
+                  groups={allProjectGroups}
+                  displayedGroupId={displayGroupId}
+                  selectedGroupId={owner.projectGroupId}
+                  handleViewChange={this.handleViewChange}
+                  changeSelectedGroup={this.changeSelectedGroup}
+                  changeDisplayedGroup={this.changeDisplayedGroup}
+                  view={view}
+                />
+              )}
+              <div style={{ display: 'inline', position: 'relative' }}>
+                <label className="checkbox-container">
+                  I don’t want to join a project group at this time.
+                  <input
+                    type="checkbox"
+                    name="selectNoProjectGroup"
+                    onChange={() => this.changeSelectedGroup(defaultGroup.id)}
+                    checked={owner.projectGroupId === defaultGroup.id}
+                  />
+                  <span className="checkmark" />
+                </label>
+                <div className=" validation">
+                  {errors.projectGroupId ? errors.projectGroupId : '\u00A0'}
+                </div>
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="flex onboarding-col w-100 right mt-2 justify-space-between">
             <div className="left">
