@@ -13,6 +13,8 @@
   --pp-bg-white: #efefef;
   --pp-tag-gray: #d8d8d8;
   --pp-link-gray: #8f8f8f;
+
+  --pp-loading-spinner-speed: 2.5s;
 }
 
 .btn {

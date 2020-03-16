@@ -6,24 +6,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
   flex-direction: column;
-}
-
-/* SPINNER */
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
-}
-
-.loading-component__rotate {
-  width: 100px;
-  height: 100px;
-  color: red;
-  animation: rotation 2s infinite linear;
-  display: block;
 }
