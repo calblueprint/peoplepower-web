@@ -19,8 +19,11 @@ const constants = {
   HOME_ROUTE: '/',
   SIGNUP_ROUTE: '/onboarding',
 
+  // INVITE TYPES
+  PLEDGE_INVITE_USED: 'Used',
+
   // BILL GENERATION
-  BILL_GENERATION_URL: 'https://peoplepower-node.herokuapp.com/generate'
+  BACKEND_URL: 'https://peoplepower-node.herokuapp.com'
 };
 
 export default constants;
