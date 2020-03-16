@@ -209,3 +209,14 @@ p {
   margin: 0px;
   padding: 0px !important;
 }
+
+.admin-invite-form-row-submit {
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+}
+
+.status-text {
+  text-align: center;
+  margin: 0px;
+}

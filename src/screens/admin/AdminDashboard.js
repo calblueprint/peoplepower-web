@@ -302,14 +302,7 @@ class AdminDashboard extends React.Component {
                   <p className="admin-project-group">{projectGroup.name}</p>
                 </div>
               </div>
-              <div
-                className="admin-invite-form-row"
-                style={{
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  padding: '0px'
-                }}
-              >
+              <div className="admin-invite-form-row admin-invite-form-row-submit">
                 <div>
                   <input
                     type="submit"
@@ -317,7 +310,7 @@ class AdminDashboard extends React.Component {
                     className="admin-invite-form-submit"
                   />
                 </div>
-                <h4 style={{ textAlign: 'center', margin: '0px' }}>{status}</h4>
+                <h4 className="status-text">{status}</h4>
               </div>
             </form>
           </div>
