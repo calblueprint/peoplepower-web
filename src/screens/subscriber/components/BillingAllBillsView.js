@@ -2,6 +2,7 @@ import React from 'react';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
 import AllBillsTable from './SubscriberAllBillsTable';
+import RightArrow from '../../../assets/right_arrow.png';
 
 export default class BillingAllBillsView extends React.PureComponent {
   render() {
@@ -14,8 +15,11 @@ export default class BillingAllBillsView extends React.PureComponent {
           onClick={callback}
         >
           <div className="subscriber-back-button-container">
-            <div className="subscriber-back-arrow">←</div>
-            <div className="subscriber-back-text">Back</div>
+            <img
+              className="button right-arrow-button-flipped"
+              src={RightArrow}
+              alt="right arrow"
+            />
           </div>
         </button>
         <p className="all-bills-header">Billing History</p>
