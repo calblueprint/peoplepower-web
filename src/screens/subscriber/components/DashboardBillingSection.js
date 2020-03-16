@@ -12,7 +12,11 @@ export default class DashboardBilling extends React.PureComponent {
         <div className="subscriber-section-header">
           <div className="subscriber-header">Billing Summary</div>
           <Link to="/billing">
-            <img src={RightArrow} alt="right arrow" />
+            <img
+              className="button right-arrow-button"
+              src={RightArrow}
+              alt="right arrow"
+            />
           </Link>
         </div>
         <div className="subscriber-section-body">
