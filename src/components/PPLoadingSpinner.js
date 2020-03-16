@@ -4,11 +4,11 @@ import '../styles/PPLoadingSpinner.css';
 class PPLoadingSpinner extends React.PureComponent {
   render() {
     return (
-      <div className="spinner">
-        <div className="dot blue-dot" />
-        <div className="dot pink-dot" />
-        <div className="dot yellow-dot" />
-        <div className="dot green-dot" />
+      <div className="pp-loading-spinner">
+        <div className="pp-loading-dot pp-loading-blue-dot" />
+        <div className="pp-loading-dot pp-loading-pink-dot" />
+        <div className="pp-loading-dot pp-loading-yellow-dot" />
+        <div className="pp-loading-dot pp-loading-green-dot" />
       </div>
     );
   }

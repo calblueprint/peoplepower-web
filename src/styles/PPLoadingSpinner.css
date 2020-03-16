@@ -1,9 +1,9 @@
-.spinner {
+.pp-loading-spinner {
   width: 40px;
   height: 40px;
 }
 
-.blue-dot {
+.pp-loading-blue-dot {
   top: 0px;
   left: 0px;
   background-color: var(--pp-blue);
@@ -11,7 +11,7 @@
     ease-in-out;
 }
 
-.pink-dot {
+.pp-loading-pink-dot {
   top: -20px;
   left: 60px;
   background-color: var(--pp-pink);
@@ -19,7 +19,7 @@
     ease-in-out;
 }
 
-.yellow-dot {
+.pp-loading-yellow-dot {
   top: 20px;
   left: 60px;
   background-color: var(--pp-yellow);
@@ -27,13 +27,13 @@
     ease-in-out;
 }
 
-.green-dot {
+.pp-loading-green-dot {
   background-color: var(--pp-green);
   animation: sk-green-dot-rotate var(--pp-loading-spinner-speed) infinite
     ease-in-out;
 }
 
-.dot {
+.pp-loading-dot {
   width: 20px;
   height: 20px;
   border-radius: 10px;
