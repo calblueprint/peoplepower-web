@@ -50,7 +50,7 @@ class App extends React.Component {
     } else if (!signedIn) {
       homeComponent = Login;
     } else if (isSubscriber) {
-      // Subscriber with shares is accounted for in dashboard
+      // Dashboard for both subscriber and subscriber ownrers (subscribers with shares)
       homeComponent = SubscriberDashboard;
     } else if (isGeneral) {
       homeComponent = GeneralDashboard;
