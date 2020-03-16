@@ -9,7 +9,6 @@ import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
 import Billing from './screens/subscriber/Billing';
 import SubscriberDashboard from './screens/subscriber/SubscriberDashboard';
-import SubscriberWithSharesDashboard from './screens/subscriber/SubscriberWithSharesDashboard';
 import Community from './screens/shared/Community';
 import GeneralDashboard from './screens/general/GeneralDashboard';
 import AdminDashboard from './screens/admin/AdminDashboard';
@@ -50,12 +49,11 @@ class App extends React.Component {
       homeComponent = () => <Redirect to={{ pathname: '/onboarding' }} />;
     } else if (!signedIn) {
       homeComponent = Login;
-    } else if (isGeneral && isSubscriber) {
-      homeComponent = SubscriberWithSharesDashboard;
+    } else if (isSubscriber) {
+      // Subscriber with shares is accounted for in dashboard
+      homeComponent = SubscriberDashboard;
     } else if (isGeneral) {
       homeComponent = GeneralDashboard;
-    } else if (isSubscriber) {
-      homeComponent = SubscriberDashboard;
     }
     return homeComponent;
   }
