@@ -91,3 +91,12 @@ button {
 .right-arrow-button:hover {
   opacity: 0.8;
 }
+
+.right-arrow-button-flipped {
+  width: 4vh;
+  transform: scaleX(-1);
+}
+
+.right-arrow-button-flipped:hover {
+  opacity: 0.8;
+}
