@@ -11,17 +11,19 @@ export default class DashboardChartsSection extends React.PureComponent {
 
   // need to make sure the value doesnt switch if its the same button
   switchChartView = e => {
-    const { activeTab } = this.state;
     const { hasShares } = this.props;
-    if (e.target.value != 0 && activeTab === 0 && hasShares) {
-      this.setState({
-        activeTab: 1
-      });
-    } else if (e.target.value != 1) {
-      this.setState({
-        activeTab: 0
-      });
+    if (!hasShares) {
+      return;
     }
+    // const { activeTab } = this.state;
+    const toSelect = parseInt(e.target.value, 10);
+    this.setState(prevState => {
+      const { activeTab: prevActiveTab } = prevState;
+      if (prevActiveTab === toSelect) {
+        return {};
+      }
+      return { activeTab: toSelect };
+    });
   };
 
   render() {
