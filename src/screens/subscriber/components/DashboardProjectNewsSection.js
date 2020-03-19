@@ -13,7 +13,11 @@ export default class DashboardProjectNewsSection extends React.PureComponent {
         <div className="subscriber-section-header">
           <div className="subscriber-header">Project News</div>
           <Link to="/projectnews">
-            <img src={RightArrow} alt="right arrow" />
+            <img
+              src={RightArrow}
+              className="button right-arrow-button"
+              alt="right arrow"
+            />
           </Link>
         </div>
         <div className="subscriber-side-section-body">
