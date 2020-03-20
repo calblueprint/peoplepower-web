@@ -6,6 +6,7 @@ import AnnouncementList from './components/AnnouncementList';
 import AddAnnouncement from './components/AddAnnouncement';
 import LoadingComponent from '../../components/LoadingComponent';
 import '../../styles/Community.css';
+import PPSCBanner from '../../assets/ppsc-banner.svg';
 
 class Community extends React.Component {
   constructor(props) {
@@ -25,9 +26,29 @@ class Community extends React.Component {
     } = this.props;
 
     const isLoading = isLoadingAnnouncements || isLoadingUserData;
-    return isLoading ? (
-      <LoadingComponent />
-    ) : (
+    if (isLoading) {
+      return <LoadingComponent />;
+    }
+    if (announcements.length === 0) {
+      return (
+        <div className="cont">
+          <div className="ppsc-coomunity-center">
+            <h1 className="project-news-header">Project News</h1>
+            <img
+              src={PPSCBanner}
+              alt="People Power Solar Cooperation Banner"
+              className="ppsc-banner"
+            />
+            <h3 className="ppsc-community-h3">No project news</h3>
+            <div className="ppsc-community-body">
+              Looks like there’s no project news available right now. Check back
+              later!
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return (
       <div className="dashboard community">
         <div className="cont">
           <h1>Project News</h1>
