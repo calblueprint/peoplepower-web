@@ -71,25 +71,25 @@
   display: flex;
 }
 
-.buy-shares-button {
+.investments-buy-shares-button {
   font-family: 'Nunito Sans', sans-serif;
   justify-content: center;
   font-weight: normal;
 }
 
-.dividend {
+.investments-dividend {
   justify-content: center;
   align-content: center;
 }
 
-.buttons {
+.investments-buttons {
   display: flex;
   flex-direction: column;
   text-align: center;
   margin-right: -10px;
 }
 
-.buy-shares-button a {
+.investments-buy-shares-button a {
   background-color: var(--pp-pink);
   border-radius: 2.5px;
   color: white;
