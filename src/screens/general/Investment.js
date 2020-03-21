@@ -1,15 +1,65 @@
 import React from 'react';
+import Modal from 'react-modal';
 import 'react-circular-progressbar/dist/styles.css';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { connect } from 'react-redux';
+import { updateOwner } from '../../lib/airtable/request';
+import { refreshUserData } from '../../lib/userDataUtils';
 import '../../styles/Investments.css';
 import GreenCheck from '../../assets/green_check.png';
 import RedX from '../../assets/red_x.png';
 
 class Investment extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: false,
+      newIsReceivingDividends: props.owner.isReceivingDividends
+    };
+
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+  }
+
+  submitPreference = async newIsReceivingDividends => {
+    const { owner } = this.props;
+    await updateOwner(owner.id, newIsReceivingDividends);
+    await refreshUserData(owner.id, owner.isReceivingDividends);
+  };
+
+  onSavePreferencesPressed = async () => {
+    const { newIsReceivingDividends } = this.state;
+    this.submitPreference({
+      isReceivingDividends: newIsReceivingDividends
+    });
+  };
+
+  onClickSavePreferences = () => {
+    this.onSavePreferencesPressed();
+    this.handleCloseModal();
+  };
+
+  handleOpenModal() {
+    this.setState({ showModal: true });
+  }
+
+  handleCloseModal() {
+    this.setState({ showModal: false });
+  }
+
+  handleCheckYes() {
+    this.setState({ newIsReceivingDividends: true });
+  }
+
+  handleCheckNo() {
+    this.setState({ newIsReceivingDividends: false });
+  }
+
   render() {
     const { owner } = this.props;
+    const { showModal, newIsReceivingDividends } = this.state;
     const percentage = owner.numberOfShares * 10;
+
     return (
       <div className="dashboard">
         <div className="mainheader">
@@ -32,12 +82,12 @@ class Investment extends React.PureComponent {
                   />
                 </div>
                 <div className="box-text">
-                  <p>
+                  <h5>
                     You currently own {owner.numberOfShares} out of 10 possible
                     shares
                     <br />
                     <h4>${owner.numberOfShares * 100}.00</h4>
-                  </p>
+                  </h5>
                 </div>
                 <div className="buttons">
                   <div className="buy-shares-button">
@@ -73,9 +123,71 @@ class Investment extends React.PureComponent {
                   </div>
                 </div>
                 <div className="dividends-button">
-                  <a className="change-button" href="/investment">
-                    <span>Change</span>
-                  </a>
+                  <button
+                    type="button"
+                    className="change-button"
+                    onClick={this.handleOpenModal}
+                  >
+                    Change
+                  </button>
+                  <Modal
+                    isOpen={showModal}
+                    contentLabel="onRequestClose Example"
+                    onRequestClose={this.handleCloseModal}
+                    className="dividends-modal"
+                    overlayClassName="admin-modal-overlay"
+                  >
+                    <div className="dividends-modal-content">
+                      <h3>Dividend Preferences</h3>
+                      <h4>
+                        We aim to provide dividends of around 1.5% per year.
+                        Please select your preference for dividends:
+                      </h4>
+                      <form>
+                        <div>
+                          <input
+                            type="radio"
+                            id="yes-dividends"
+                            name="dividends-choice"
+                            value="yes"
+                            checked={
+                              newIsReceivingDividends ? 'checked' : false
+                            }
+                            onClick={() => this.handleCheckYes()}
+                          />
+                          <label htmlFor="yes-dividends">
+                            Yes! I&apos;d like dividends, thank you!
+                          </label>
+                        </div>
+                        <div className="other-options">
+                          <input
+                            type="radio"
+                            id="no-dividends"
+                            name="dividends-choice"
+                            value="no"
+                            checked={
+                              !newIsReceivingDividends ? 'checked' : false
+                            }
+                            onClick={() => this.handleCheckNo()}
+                          />
+                          <label htmlFor="no-dividends">
+                            No dividends please! (No pressure to choose this
+                            option. We provide the option because people who
+                            waive dividends reduce the cost of capital, which
+                            reduces the cost of solar and that helps our
+                            cooperative grow its impact.)
+                          </label>
+                        </div>
+                        <button
+                          type="button"
+                          className="save-preferences-button"
+                          onClick={this.onClickSavePreferences}
+                        >
+                          Save Preferences
+                        </button>
+                      </form>
+                    </div>
+                  </Modal>
                 </div>
               </div>
               <h2>Transactions</h2>
