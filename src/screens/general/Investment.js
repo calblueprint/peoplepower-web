@@ -59,26 +59,27 @@ class Investment extends React.PureComponent {
     const { owner } = this.props;
     const { showModal, newIsReceivingDividends } = this.state;
     const percentage = owner.numberOfShares * 10;
+    const circularProgressBarStyles = {
+      pathColor: '#cd6795',
+      textSize: '30px',
+      textColor: '#cd6795',
+      trailColor: '#F4F1F24'
+    };
 
     return (
       <div className="dashboard">
         <div className="mainheader">
           <h1>My Investment</h1>
           <div className="columnformat">
-            <div className="left-content">
+            <div className="investment-and-transactions-content">
               <h2>My Investment</h2>
-              <div className="investment-box-1">
+              <div className="investments-box-shares">
                 <div className="circle-progress-bar">
                   <CircularProgressbar
                     viewBox="0 0 0 0"
                     value={percentage}
                     text={owner.numberOfShares}
-                    styles={buildStyles({
-                      pathColor: '#cd6795',
-                      textSize: '30px',
-                      textColor: '#cd6795',
-                      trailColor: '#F4F1F24'
-                    })}
+                    styles={buildStyles(circularProgressBarStyles)}
                   />
                 </div>
                 <div className="box-text">
@@ -98,8 +99,8 @@ class Investment extends React.PureComponent {
                   <div className="investments-dividend">Divest</div>
                 </div>
               </div>
-              <div className="investment-box-2">
-                <div className="preferences">
+              <div className="investments-box-dividends">
+                <div className="dividends-preferences-box">
                   <h4>Dividend Preferences</h4>
                   <div className="status">
                     <img

@@ -18,7 +18,7 @@
   display: flex;
 }
 
-.investment-box-1 {
+.investments-box-shares {
   background: white;
   border-radius: 5px;
   padding: 35px;
@@ -30,7 +30,7 @@
   align-content: flex-start;
 }
 
-.investment-box-2 {
+.investments-box-dividends {
   background: white;
   border-radius: 5px;
   padding: 35px;
@@ -42,7 +42,7 @@
   justify-content: space-between;
 }
 
-.investment-box-2 h4 {
+.investments-box-dividends h4 {
   display: flex;
 }
 
@@ -100,17 +100,17 @@
   width: 150px;
 }
 
-.investment-box-2 h4 {
+.investments-box-dividends h4 {
   text-align: left;
   color: var(--pp-blue);
 }
 
-.preferences {
+.dividends-preferences-box {
   display: flex;
   flex-direction: column;
 }
 
-.preferences h4 {
+.dividends-preferences-box h4 {
   color: var(--pp-black);
   margin-block-start: 0;
   margin-block-end: 0;
