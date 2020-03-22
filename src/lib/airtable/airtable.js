@@ -81,9 +81,6 @@ function createRecord(table, record) {
     });
   });
 }
-
-// TODO pagination?
-// TODO: current implementation only fetches the first page
 function getAllRecords(table) {
   return new Promise(function(resolve, reject) {
     base(table)
@@ -115,7 +112,6 @@ function getAllRecords(table) {
       );
   });
 }
-
 // Given a table and record ID, return the associated record object using a Promise.
 function getRecordById(table, id) {
   return new Promise(function(resolve, reject) {
@@ -129,8 +125,6 @@ function getRecordById(table, id) {
     });
   });
 }
-
-// TODO: current implementation only returns the first page
 /*
   Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'),
   return the associated record object.
@@ -161,7 +155,6 @@ function getRecordsByAttribute(table, fieldType, field) {
       });
   });
 }
-
 // Given a table and a record object, update a record on Airtable.
 function updateRecord(table, id, updatedRecord) {
   return new Promise(function(resolve, reject) {
@@ -194,7 +187,6 @@ function updateRecord(table, id, updatedRecord) {
     );
   });
 }
-
 function deleteRecord(table, id) {
   return new Promise(function(resolve, reject) {
     base(table).destroy([id], function(err, deletedRecords) {

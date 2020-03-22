@@ -19,9 +19,7 @@ const { ONLINE_PAYMENT_TYPE } = constants;
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
 const renderCondensedBillDisplayHeader = headerText => {
-  return () => (
-    <div className="subscriber-bills-display-header">{headerText}</div>
-  );
+  return () => <div className="billing-bills-display-header">{headerText}</div>;
 };
 
 const createCondensedPaymentTransaction = transaction => {
@@ -74,61 +72,56 @@ export default class BillingMainView extends React.Component {
     const { pendingBills } = this.props;
     const totalBalance = getTotalBalanceFromBills(pendingBills);
     return (
-      <div className="subscriber-dash-outer-container">
-        <h3>My Finances</h3>
-        <div className="subscriber-dash-inner-container">
-          <div className="subscriber-left-col subscriber-dash-col">
-            <p className="subscriber-header">Billing Summary</p>
-            <div className="col-card">
-              <div className="class-elems">
-                <div className="balance-header-section">
-                  <p>Your Balance</p>
+      <div className="billing-dash-outer-container">
+        <h1>Billing</h1>
+        <div className="billing-dash-inner-container">
+          <div className="billing-left-col billing-dash-col">
+            <p className="billing-header">My Balance</p>
+            <div className="billing-col-card">
+              <div className="class-elems billing-balance-section">
+                <div className="billing-balance-header-section">
+                  <p className="">Current Balance</p>
                   <h3>${centsToDollars(totalBalance)}</h3>
                 </div>
-                <hr id="divider" />
-                <div className="balance-nums-section">
-                  <div className="balance-nums-line">
-                    <p className="line-item descrip">Due Now</p>
-                    <p className="line-item">${centsToDollars(totalBalance)}</p>
+                <hr id="billing-divider" />
+                <div className="billing-balance-nums-section">
+                  <div className="billing-balance-nums-line">
+                    <p className="line-item">Outstanding Balance</p>
+                    <p className="line-item line-item-value">
+                      ${centsToDollars(totalBalance)}
+                    </p>
                   </div>
-                  <div className="balance-nums-line">
-                    <p className="line-item descrip">Upcoming</p>
-                    <p className="line-item">$0.00</p>{' '}
-                    {/* TODO: currently assumes all bills due now */}
+                  <div className="billing-balance-nums-line">
+                    <p className="line-item">Latest Power Bill</p>
+                    <p className="line-item line-item-value">$0.00</p>
                   </div>
-                  <br />
-                  <br />
-                  <div className="balance-nums-line">
-                    <p className="line-item descrip">
+                  <div className="billing-balance-divider-container">
+                    <div className="billing-full-width-container" />
+                    <hr id="balance-billing-divider" />
+                  </div>
+
+                  <div className="billing-balance-nums-line">
+                    <p className="line-item-total">
                       <strong>Total</strong>
                     </p>
-                    <p className="line-item">
+                    <p className="line-item-total line-item-value">
                       <strong>${centsToDollars(totalBalance)}</strong>
                     </p>
                   </div>
-                </div>
-                <br />
-                <br />
-                <br />
-                <div className="subscriber-dashboard-paypal-component">
-                  {totalBalance === 0 ? null : (
-                    <PayPalButton
-                      amount={centsToDollars(totalBalance)}
-                      onSuccess={this.onPaypalPaymentSuccess}
-                      options={{
-                        clientId
-                      }}
-                    />
-                  )}
+                  <div className="billing-payment-button-container">
+                    <button type="button" className="billing-payment-button">
+                      Make Payment
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="subscriber-right-col subscriber-dash-col">
-            <div className="subscriber-right-duo-header">
-              <p className="subscriber-header">Billing History</p>
+          <div className="billing-right-col billing-dash-col">
+            <div className="billing-right-duo-header">
+              <p className="billing-header">Transaction History</p>
               <button
-                className="subscriber-all-billls-button"
+                className="billing-all-billls-button"
                 type="button"
                 onClick={callback}
               >
@@ -139,7 +132,7 @@ export default class BillingMainView extends React.Component {
                 />
               </button>
             </div>
-            <div className="col-card">
+            <div className="billing-col-card">
               <ReactTable
                 data={data}
                 columns={[
@@ -147,7 +140,7 @@ export default class BillingMainView extends React.Component {
                     Header: renderCondensedBillDisplayHeader('DATE'),
                     id: 'statementDate',
                     accessor: d => (
-                      <div className="subscriber-bills-display-row">
+                      <div className="billing-bills-display-row">
                         {d.statementDate}
                       </div>
                     )
@@ -157,7 +150,7 @@ export default class BillingMainView extends React.Component {
                     Header: renderCondensedBillDisplayHeader('DESCRIPTION'),
                     id: 'description',
                     accessor: d => (
-                      <div className="subscriber-bills-display-row">
+                      <div className="billing-bills-display-row">
                         <b>{d.description}</b>
                       </div>
                     ),
@@ -167,7 +160,7 @@ export default class BillingMainView extends React.Component {
                     Header: renderCondensedBillDisplayHeader('CHARGE'),
                     id: 'amtDue',
                     accessor: d => (
-                      <div className="subscriber-bills-display-row">
+                      <div className="billing-bills-display-row">
                         {d.amtDue}
                       </div>
                     )
@@ -177,7 +170,7 @@ export default class BillingMainView extends React.Component {
                     Header: renderCondensedBillDisplayHeader('PAYMENT'),
                     id: 'payment',
                     accessor: d => (
-                      <div className="subscriber-bills-display-row">
+                      <div className="billing-bills-display-row">
                         {d.payment}
                       </div>
                     )
@@ -187,7 +180,7 @@ export default class BillingMainView extends React.Component {
                     Header: renderCondensedBillDisplayHeader('STATUS'),
                     id: 'status',
                     accessor: d => (
-                      <div className="subscriber-bills-display-row">
+                      <div className="billing-bills-display-row">
                         {d.status}
                       </div>
                     )
