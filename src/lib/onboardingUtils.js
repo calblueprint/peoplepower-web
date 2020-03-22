@@ -79,7 +79,7 @@ const validateState = value => {
     }
     return '';
   }
-  return 'Invalid Sstate';
+  return 'Invalid State';
 };
 
 // Ensure Zipcode is of valid length

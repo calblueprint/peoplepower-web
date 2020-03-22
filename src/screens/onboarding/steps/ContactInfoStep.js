@@ -2,6 +2,8 @@ import React from 'react';
 import Tooltip from '../components/Tooltip';
 import '../../../styles/main.css';
 import PPModal from '../../../components/PPModal';
+import { clearUserData } from '../../../lib/userDataUtils';
+import { deleteRecord } from '../../../lib/airtable/airtable';
 
 class ContactInfoStep extends React.PureComponent {
   constructor(props) {
@@ -29,6 +31,8 @@ class ContactInfoStep extends React.PureComponent {
   returnToHomepage() {
     const { owner } = this.props;
     console.log(owner);
+    deleteRecord('Owner', owner.id);
+    clearUserData();
   }
 
   render() {
