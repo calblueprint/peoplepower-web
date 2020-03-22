@@ -79,7 +79,20 @@
     "output": "src/lib/airtable",
     "input": "src/lib/airtable",
     "defaultView": "Grid view",
-    "baseId": "appFaOwKhMXrRIQIp"
+    "baseId": "appFaOwKhMXrRIQIp",
+    "schemaMeta": {
+      "Announcement": {
+        "lookupFields": [
+          "Project Group ID"
+        ]
+      },
+      "Owner": {
+        "lookupFields": [
+          "Email",
+          "Project Group ID"
+        ]
+      }
+    }
   },
   "babel": {
     "plugins": [
