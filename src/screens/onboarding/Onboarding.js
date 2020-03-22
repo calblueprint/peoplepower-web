@@ -22,7 +22,7 @@ class Onboarding extends React.Component {
         onboardingStep: 0,
         inviteToken: '',
         ownerTypes: [GENERAL_OWNER],
-        isReceivingDividends: true,
+        isReceivingDividends: false,
         numberOfShares: 1
       },
       errors: {}
@@ -39,6 +39,15 @@ class Onboarding extends React.Component {
       this.refreshState();
     }
   }
+
+  checkValid = (input, type) => {
+    if (type === 0) {
+      return input !== '' && typeof input !== 'undefined'
+        ? 'b-is-not-valid'
+        : 'b-is-valid';
+    }
+    return !input ? '\u00A0' : input;
+  };
 
   refreshState = async () => {
     const { owner, location } = this.props;
@@ -218,6 +227,7 @@ class Onboarding extends React.Component {
           onBack={this.prevStep}
           onFinish={this.onFinish}
           handleChange={this.handleChange}
+          checkValid={this.checkValid}
         />
       </div>
     );

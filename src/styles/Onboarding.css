@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
 
 .b-is-valid {
-  border-color: green;
+  border: none;
 }
 
 .b-is-not-valid {
-  border-color: red;
+  border: 1px solid var(--pp-invalid);
 }
 
 .map-window {
@@ -161,7 +161,6 @@
   box-shadow: none;
   margin: 0.1rem 0.1rem;
   padding: 0.4rem 0.5rem;
-  border: none;
   font-family: 'Nunito Sans', sans-serif;
   width: 100%;
   box-sizing: border-box;
@@ -318,7 +317,7 @@ w-pasword {
 .validation {
   font-size: 9px;
   padding-top: 0.1rem;
-  color: #cd679580;
+  color: var(--pp-invalid);
 }
 
 .v-center {

@@ -1,4 +1,5 @@
 /* eslint-disable no-await-in-loop */
+import React from 'react';
 import States from '../assets/states.json';
 import {
   getOwnersByEmail,
@@ -7,12 +8,28 @@ import {
   createOwner
 } from './airtable/request';
 import { refreshUserData } from './userDataUtils';
+import Error from '../assets/error.svg';
 
 // Helper functions to validate owner record fields
 
 // Ensure value exists
 // Allows custom error message
-const validateExistence = (value, error = 'Required') => {
+const validateExistence = (
+  value,
+  error = 'Please enter this required field.'
+) => {
+  return value ? '' : error;
+};
+
+const errorText = (
+  <div className="error-container">
+    <img src={Error} alt="error" className="error-icon" />
+    <div className="error-text">
+      Please certify the above address in order to proceed.
+    </div>
+  </div>
+);
+const validateCertifyPermanentAddress = (value, error = errorText) => {
   return value ? '' : error;
 };
 
@@ -21,12 +38,14 @@ const validateEmail = value => {
   // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
   // eslint-disable-next-line no-useless-escape
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(value) ? '' : 'Invalid Email';
+  return re.test(value) ? '' : 'Please enter a valid email address.';
 };
 
 const validateUniqueEmail = async value => {
   const owners = await getOwnersByEmail(value);
-  return owners.length === 0 ? '' : 'Email is already taken';
+  return owners.length === 0
+    ? ''
+    : 'It looks like an account with this email already exists.';
 };
 
 // TODO: Add Better Password Rules
@@ -53,9 +72,14 @@ const validateShares = value => {
 
 // Ensure State is a real state (either abbreivation or full name)
 const validateState = value => {
-  return States.map(s => s.toUpperCase()).indexOf(value.toUpperCase()) !== -1
-    ? ''
-    : 'Invalid State';
+  const upperCaseValue = value.toUpperCase();
+  if (States.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
+    if (upperCaseValue !== 'CA') {
+      return 'Not California';
+    }
+    return '';
+  }
+  return 'Invalid Sstate';
 };
 
 // Ensure Zipcode is of valid length
@@ -77,6 +101,7 @@ const ValidatorData = {
   alternateEmail: [],
   permanentStreet2: [],
   mailingStreet2: [],
+  certifyPermanentAddress: [validateCertifyPermanentAddress],
   isReceivingDividends: [],
   projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
 };
