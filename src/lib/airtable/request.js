@@ -76,7 +76,7 @@ export const getAllOwners = async () => {
 export const getOwnersByEmail = async value => {
   return getRecordsByAttribute(
     Tables.Owner,
-    Columns[Tables.Owner].email,
+    Columns[Tables.Owner].email.name,
     value
   );
 };
@@ -84,7 +84,7 @@ export const getOwnersByEmail = async value => {
 export const getOwnersByProjectGroupId = async value => {
   return getRecordsByAttribute(
     Tables.Owner,
-    Columns[Tables.Owner].projectGroupId,
+    Columns[Tables.Owner].projectGroupId.name,
     value
   );
 };
@@ -108,7 +108,7 @@ export const getAllAnnouncements = async () => {
 export const getAnnouncementsByProjectGroupId = async value => {
   return getRecordsByAttribute(
     Tables.Announcement,
-    Columns[Tables.Announcement].projectGroupId,
+    Columns[Tables.Announcement].projectGroupId.name,
     value
   );
 };

@@ -4,15 +4,15 @@
       { "type": "formula", "name": "Primary Key" },
       { "type": "formula", "name": "Date Created" },
       { "type": "formula", "name": "Date Updated" },
-      { "type": "foreignKey", "name": "Project Group" },
-      { "type": "foreignKey", "name": "Payments" },
+      { "type": "foreignKey-one", "name": "Project Group" },
+      { "type": "foreignKey-many", "name": "Payments" },
       { "type": "multiSelect", "name": "Owner Types" },
       { "type": "formula", "name": "ID" },
-      { "type": "foreignKey", "name": "Subscriber Bills" },
-      { "type": "foreignKey", "name": "Admin Of" },
+      { "type": "foreignKey-many", "name": "Subscriber Bills" },
+      { "type": "foreignKey-one", "name": "Admin Of" },
       { "type": "number", "name": "Number of Shares" },
       { "type": "checkbox", "name": "Is Receiving Dividends?" },
-      { "type": "foreignKey", "name": "Solar Project" },
+      { "type": "foreignKey-one", "name": "Solar Project" },
       { "type": "text", "name": "First Name" },
       { "type": "text", "name": "Last Name" },
       { "type": "text", "name": "Email" },
@@ -30,7 +30,7 @@
       { "type": "phone", "name": "Phone Number" },
       { "type": "number", "name": "Onboarding Step" },
       { "type": "text", "name": "Password" },
-      { "type": "foreignKey", "name": "Announcements" },
+      { "type": "foreignKey-many", "name": "Announcements" },
       { "type": "formula", "name": "Name" },
       { "type": "formula", "name": "Permanent Address" },
       { "type": "formula", "name": "Mailing Address" },
@@ -38,26 +38,26 @@
       { "type": "checkbox", "name": "Bylaw 1" },
       { "type": "checkbox", "name": "Bylaw 2" },
       { "type": "checkbox", "name": "Certify Permanent Address" },
-      { "type": "foreignKey", "name": "Rate Schedule" },
+      { "type": "foreignKey-many", "name": "Rate Schedule" },
       { "type": "rollup", "name": "Latest Bill Number" },
       { "type": "text", "name": "Meter ID" },
       { "type": "checkbox", "name": "Is Super Admin?" },
-      { "type": "checkbox", "name": "Invited?" },
-      { "type": "foreignKey", "name": "Pledge Invite" }
+      { "type": "foreignKey-one", "name": "Pledge Invite" },
+      { "type": "number", "name": "Subscriber Account Number" }
     ]
   },
   "Project Group": {
     "columns": [
       { "type": "formula", "name": "Primary Key" },
-      { "type": "foreignKey", "name": "Owners" },
+      { "type": "foreignKey-many", "name": "Owners" },
       { "type": "formula", "name": "Date Created" },
       { "type": "formula", "name": "Date Updated" },
       { "type": "checkbox", "name": "Is Public?" },
       { "type": "checkbox", "name": "Is Taking Pledges?" },
       { "type": "text", "name": "Name" },
-      { "type": "foreignKey", "name": "Solar Projects" },
-      { "type": "foreignKey", "name": "Admins" },
-      { "type": "foreignKey", "name": "Announcements" },
+      { "type": "foreignKey-many", "name": "Solar Projects" },
+      { "type": "foreignKey-many", "name": "Admins" },
+      { "type": "foreignKey-many", "name": "Announcements" },
       { "type": "text", "name": "Street 1" },
       { "type": "text", "name": "Street 2" },
       { "type": "text", "name": "State" },
@@ -69,7 +69,7 @@
       { "type": "checkbox", "name": "Is Default?" },
       { "type": "formula", "name": "ID" },
       { "type": "formula", "name": "Address" },
-      { "type": "foreignKey", "name": "Pledge Invite" }
+      { "type": "foreignKey-many", "name": "Pledge Invite" }
     ]
   },
   "Announcement": {
@@ -77,8 +77,8 @@
       { "type": "formula", "name": "Primary Key" },
       { "type": "text", "name": "Link" },
       { "type": "multipleAttachment", "name": "Attachments" },
-      { "type": "foreignKey", "name": "Project Group" },
-      { "type": "foreignKey", "name": "Author" },
+      { "type": "foreignKey-one", "name": "Project Group" },
+      { "type": "foreignKey-one", "name": "Author" },
       { "type": "multilineText", "name": "Message" },
       { "type": "select", "name": "Event type" },
       { "type": "formula", "name": "ID" },
@@ -97,17 +97,17 @@
       { "type": "number", "name": "Size" },
       { "type": "formula", "name": "Address" },
       { "type": "select", "name": "Status" },
-      { "type": "foreignKey", "name": "Project Group" },
+      { "type": "foreignKey-one", "name": "Project Group" },
       { "type": "text", "name": "Street 1" },
       { "type": "text", "name": "Street 2" },
       { "type": "text", "name": "City" },
       { "type": "text", "name": "State" },
       { "type": "text", "name": "Zipcode" },
       { "type": "formula", "name": "ID" },
-      { "type": "foreignKey", "name": "Subscribers" },
+      { "type": "foreignKey-many", "name": "Subscribers" },
       { "type": "text", "name": "Enphase System ID" },
       { "type": "text", "name": "Enphase User ID" },
-      { "type": "foreignKey", "name": "Subscriber Bill" }
+      { "type": "foreignKey-many", "name": "Subscriber Bill" }
     ]
   },
   "Subscriber Bill": {
@@ -115,15 +115,15 @@
       { "type": "formula", "name": "Primary Key" },
       { "type": "formula", "name": "Date Created" },
       { "type": "formula", "name": "Date Updated" },
-      { "type": "foreignKey", "name": "Subscriber" },
+      { "type": "foreignKey-one", "name": "Subscriber" },
       { "type": "date", "name": "Statement Date" },
       { "type": "date", "name": "Start Date" },
       { "type": "date", "name": "End Date" },
-      { "type": "foreignKey", "name": "Rate Schedule" },
+      { "type": "foreignKey-one", "name": "Rate Schedule" },
       { "type": "formula", "name": "Estimated Rebate" },
       { "type": "number", "name": "Previous Total Estimated Rebate" },
       { "type": "number", "name": "Balance on Previous Bill" },
-      { "type": "foreignKey", "name": "Payments" },
+      { "type": "foreignKey-many", "name": "Payments" },
       { "type": "formula", "name": "Amount Due" },
       { "type": "formula", "name": "ID" },
       { "type": "number", "name": "Statement Number" },
@@ -137,7 +137,7 @@
       { "type": "rollup", "name": "Amount Received" },
       { "type": "formula", "name": "Total Estimated Rebate" },
       { "type": "select", "name": "Status" },
-      { "type": "foreignKey", "name": "Solar Project" },
+      { "type": "foreignKey-one", "name": "Solar Project" },
       { "type": "multipleAttachment", "name": "Bill PDF" },
       { "type": "date", "name": "Due Date" }
     ]
@@ -145,13 +145,13 @@
   "Rate Schedule": {
     "columns": [
       { "type": "formula", "name": "Primary Key" },
-      { "type": "foreignKey", "name": "Subscriber Bill" },
+      { "type": "foreignKey-many", "name": "Subscriber Bill" },
       { "type": "formula", "name": "Date Created" },
       { "type": "formula", "name": "Date Updated" },
       { "type": "number", "name": "Rate" },
       { "type": "number", "name": "Rebate Rate" },
       { "type": "formula", "name": "ID" },
-      { "type": "foreignKey", "name": "Subscribers" }
+      { "type": "foreignKey-many", "name": "Subscribers" }
     ]
   },
   "Pledge Invite": {
@@ -166,8 +166,8 @@
       { "type": "phone", "name": "Phone Number" },
       { "type": "text", "name": "Email" },
       { "type": "formula", "name": "ID" },
-      { "type": "foreignKey", "name": "Project Group" },
-      { "type": "foreignKey", "name": "Owner" },
+      { "type": "foreignKey-one", "name": "Project Group" },
+      { "type": "foreignKey-one", "name": "Owner" },
       { "type": "select", "name": "Status" }
     ]
   },
@@ -176,11 +176,11 @@
       { "type": "formula", "name": "Primary Key" },
       { "type": "formula", "name": "Date Created" },
       { "type": "formula", "name": "Date Updated" },
-      { "type": "foreignKey", "name": "Owner" },
+      { "type": "foreignKey-one", "name": "Owner" },
       { "type": "text", "name": "Status" },
       { "type": "select", "name": "Type" },
       { "type": "number", "name": "Amount" },
-      { "type": "foreignKey", "name": "Subscriber Bill" },
+      { "type": "foreignKey-one", "name": "Subscriber Bill" },
       { "type": "text", "name": "Order ID" },
       { "type": "text", "name": "Payer ID" },
       { "type": "text", "name": "Currency Code" },

@@ -80,7 +80,7 @@ class AdminDashboard extends React.Component {
       email: inviteEmail,
       shareAmount: parseInt(inviteShareAmount, 10),
       wantsDividends: JSON.parse(inviteWantsDividends),
-      projectGroupId: [projectGroup.id]
+      projectGroupId: projectGroup.id
     };
 
     const pledgeInviteId = await inviteMember(newPledgeInvite);
