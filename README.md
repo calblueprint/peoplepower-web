@@ -29,7 +29,7 @@ AIRTABLE_EMAIL={AIRTABLE EMAIL}
 AIRTABLE_PASSWORD={AIRTABLE PASSWORD}
 ```
 
-_❗️Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well_
+_❗️Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `REACT_APP_AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `REACT_APP_AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well_
 
 - `PAYPAL CLIENT ID`: Get it from the People Power Notion ('Credentials Reference')
 - `GOOGLE API KEY`: Get it from the People Power Notion ('Credentials Reference')
@@ -40,7 +40,7 @@ _❗️Any code in the that is enclosed in `{` `}` is meant to be replaced. Henc
 
 4. Run `yarn install`. This might take a little bit of time.
 5. Run `yarn start`. This starts the development server, and should open a tab with the url `localhost:3000` where you can find the People Power web app. If the tab doesn't open up normally, you can type `localhost:3000` in your browser manually to open it.
-6. To verify that you've done step two correctly, run `AIRTABLE_API_KEY={YOUR AIRTABLE API KEY HERE} yarn test`. This command passes in an environment variable acccessible by `AIRTABLE_API_KEY`, and runs tests locally. This should take about 30s to a minute, and if you've done everything so correctly so far, all tests shoulld pass.
+6. To verify that you've done step two correctly, run `REACT_APP_AIRTABLE_API_KEY={YOUR AIRTABLE API KEY HERE} yarn test`. This command passes in an environment variable acccessible by `REACT_APP_AIRTABLE_API_KEY`, and runs tests locally. This should take about 30s to a minute, and if you've done everything so correctly so far, all tests shoulld pass.
 
 Congrats! You now have a working version of the People power on your local machine ✨
 
