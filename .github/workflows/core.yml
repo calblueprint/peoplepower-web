@@ -10,7 +10,7 @@ jobs:
           cmd: install # will run `yarn install` command
       - uses: borales/actions-yarn@v2.0.0
         env:
-          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          REACT_APP_AIRTABLE_API_KEY: ${{ secrets.REACT_APP_AIRTABLE_API_KEY }}
         with:
           cmd: test # will run `yarn test` command
     # steps:
