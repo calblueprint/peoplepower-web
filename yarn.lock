@@ -1859,12 +1859,12 @@ aggregate-error@^3.0.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
-airtable-schema-generator@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/airtable-schema-generator/-/airtable-schema-generator-1.3.0.tgz#978ccb47bc98388d3cbf1e73d4645b5fdcc1c689"
-  integrity sha512-Lg1MGGYNTBgu9y0ygFoCDUFC2coLbYxZY+LMhSb/d4cc5DXeMhMBFYrDe0K2zTVPjw2leeXpO79HL58J86+xDw==
+airtable-schema-generator@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/airtable-schema-generator/-/airtable-schema-generator-1.3.2.tgz#0000d85065eb493b8a2c8be8d7a4e2c7111656a8"
+  integrity sha512-PHHbEuG5ZKmE2YqndNbEpIOC7B44+sO1Gc6savP84Ky+1+njfPGgUWTDv+CFVcrnsRCLP8sMP/U6gIuB9Potww==
   dependencies:
-    dotenv-safe "^8.2.0"
+    dotenv "^8.2.0"
     puppeteer "^2.1.1"
 
 airtable@^0.7.2:
@@ -3870,13 +3870,6 @@ dotenv-expand@5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
   integrity sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==
-
-dotenv-safe@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/dotenv-safe/-/dotenv-safe-8.2.0.tgz#8d548c7318a62c09a66c4dc8c31864cc007c78ba"
-  integrity sha512-uWwWWdUQkSs5a3mySDB22UtNwyEYi0JtEQu+vDzIqr9OjbDdC2Ip13PnSpi/fctqlYmzkxCeabiyCAOROuAIaA==
-  dependencies:
-    dotenv "^8.2.0"
 
 dotenv@6.2.0:
   version "6.2.0"
