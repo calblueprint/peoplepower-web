@@ -16,7 +16,7 @@ import constants from '../../../constants';
 
 const { ONLINE_PAYMENT_TYPE } = constants;
 
-const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
+const clientId = process.env.PAYPAL_CLIENT_ID;
 
 const renderCondensedBillDisplayHeader = headerText => {
   return () => (
