@@ -79,7 +79,6 @@
     "output": "src/lib/airtable",
     "input": "src/lib/airtable",
     "defaultView": "Grid view",
-    "baseId": "appFaOwKhMXrRIQIp",
     "mode": "auto-headless",
     "schemaMeta": {
       "Announcement": {
