@@ -1191,3 +1191,7 @@ button {
 .progressbar-line-active {
   background-color: var(--pp-blue);
 }
+
+.mb-22px {
+  margin-bottom: 22px;
+}

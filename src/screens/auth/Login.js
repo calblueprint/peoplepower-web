@@ -3,7 +3,7 @@ import { loginUser } from '../../lib/authUtils';
 import '../../styles/Login.css';
 import '../../styles/main.css';
 import Constants from '../../constants';
-import Error from '../../assets/error.svg';
+import ErrorIcon from '../../assets/error.svg';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       passwordHash: '',
-      isValid: true
+      showLoginError: true
     };
   }
 
@@ -38,7 +38,7 @@ class Login extends React.Component {
         this.segueToHome(evt);
       } else {
         this.setState({
-          isValid: false
+          showLoginError: false
         });
       }
     } catch (err) {
@@ -46,9 +46,9 @@ class Login extends React.Component {
     }
   };
 
-  checkValid() {
-    const { isValid } = this.state;
-    return isValid ? 'b-is-valid' : 'b-is-not-valid';
+  checkValidCSSClass() {
+    const { showLoginError } = this.state;
+    return showLoginError ? 'b-is-valid' : 'b-is-not-valid';
   }
 
   segueToHome(evt) {
@@ -59,7 +59,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, passwordHash, isValid } = this.state;
+    const { email, passwordHash, showLoginError } = this.state;
     return (
       <div className="center card flex column">
         <h1 className="t-center login-header">Welcome back!</h1>
@@ -74,7 +74,9 @@ class Login extends React.Component {
               placeholder="Email address"
               onChange={this.handleEmailChange}
               defaultValue={email}
-              className={` input-gray ${this.checkValid(isValid)}`}
+              className={` input-gray ${this.checkValidCSSClass(
+                showLoginError
+              )}`}
             />
           </div>
           <div className="w-100 ">
@@ -87,7 +89,9 @@ class Login extends React.Component {
               placeholder="Password"
               onChange={this.handlePasswordChange}
               defaultValue={passwordHash}
-              className={` input-gray ${this.checkValid(isValid)}`}
+              className={` input-gray ${this.checkValidCSSClass(
+                showLoginError
+              )}`}
             />
           </div>
           <div className=" t-center">
@@ -99,11 +103,11 @@ class Login extends React.Component {
             </button>
           </div>
         </form>
-        {isValid ? (
+        {showLoginError ? (
           '\u00A0'
         ) : (
           <div className="error-container mt-15">
-            <img src={Error} alt="error" className="error-icon" />
+            <img src={ErrorIcon} alt="error" className="mr-1" />
             <div className="error-text">Incorrect email or password</div>
           </div>
         )}

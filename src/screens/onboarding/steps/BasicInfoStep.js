@@ -7,7 +7,13 @@ class BasicInfoStep extends React.PureComponent {
   // validates then moves on if no error messages
 
   render() {
-    const { owner, errors, onSubmit, handleChange, checkValid } = this.props;
+    const {
+      owner,
+      errors,
+      onSubmit,
+      handleChange,
+      checkValidCSSClass
+    } = this.props;
     return (
       <form className="center card flex onboarding-col">
         <div className=" ">
@@ -25,26 +31,32 @@ class BasicInfoStep extends React.PureComponent {
               placeholder="First name"
               onChange={handleChange}
               defaultValue={owner.firstName}
-              className={` input-gray ${checkValid(errors.firstName, 0)}`}
+              className={` input-gray ${checkValidCSSClass(
+                errors.firstName,
+                0
+              )}`}
             />
           </div>
           <div className="w-50">
-            <div style={{ marginBottom: '22px' }} />
+            <div className="mb-22px" />
             <input
               name="lastName"
               placeholder="Last name"
               onChange={handleChange}
               defaultValue={owner.lastName}
-              className={` input-gray ${checkValid(errors.lastName, 0)}`}
+              className={` input-gray ${checkValidCSSClass(
+                errors.lastName,
+                0
+              )}`}
             />
           </div>
         </div>
         <div className="flex onboarding-row">
           <div className="w-50 pr-1 validation">
-            {checkValid(errors.firstName, 1)}
+            {checkValidCSSClass(errors.firstName, 1)}
           </div>
           <div className="w-50 validation">
-            {checkValid(errors.lastName, 1)}
+            {checkValidCSSClass(errors.lastName, 1)}
           </div>
         </div>
         <div className="w-100">
@@ -56,9 +68,11 @@ class BasicInfoStep extends React.PureComponent {
             placeholder="Enter your primary email address"
             onChange={handleChange}
             defaultValue={owner.email}
-            className={`input-gray ${checkValid(errors.email, 0)}`}
+            className={`input-gray ${checkValidCSSClass(errors.email, 0)}`}
           />
-          <div className=" validation">{checkValid(errors.email, 1)}</div>
+          <div className=" validation">
+            {checkValidCSSClass(errors.email, 1)}
+          </div>
         </div>
         <div className="w-100">
           <label className="onboarding-label left pr-half" htmlFor="altEmail">
@@ -74,10 +88,13 @@ class BasicInfoStep extends React.PureComponent {
             placeholder="Enter an alternate email address"
             onChange={handleChange}
             defaultValue={owner.alternateEmail}
-            className={`input-gray ${checkValid(errors.alternateEmail, 0)}`}
+            className={`input-gray ${checkValidCSSClass(
+              errors.alternateEmail,
+              0
+            )}`}
           />
           <div className=" validation">
-            {checkValid(errors.alternateEmail, 1)}
+            {checkValidCSSClass(errors.alternateEmail, 1)}
           </div>
         </div>
         <div className="w-100">
@@ -90,9 +107,11 @@ class BasicInfoStep extends React.PureComponent {
             placeholder="Create a password"
             onChange={handleChange}
             defaultValue={owner.password}
-            className={`input-gray ${checkValid(errors.password, 0)}`}
+            className={`input-gray ${checkValidCSSClass(errors.password, 0)}`}
           />
-          <div className=" validation">{checkValid(errors.password, 1)}</div>
+          <div className=" validation">
+            {checkValidCSSClass(errors.password, 1)}
+          </div>
         </div>
         <div className="v-center">
           <button

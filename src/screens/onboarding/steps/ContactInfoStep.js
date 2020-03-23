@@ -2,8 +2,7 @@ import React from 'react';
 import Tooltip from '../components/Tooltip';
 import '../../../styles/main.css';
 import PPModal from '../../../components/PPModal';
-import { clearUserData } from '../../../lib/userDataUtils';
-import { deleteRecord } from '../../../lib/airtable/airtable';
+import { returnToHomepage } from '../../../lib/onboardingUtils';
 
 class ContactInfoStep extends React.PureComponent {
   constructor(props) {
@@ -13,7 +12,6 @@ class ContactInfoStep extends React.PureComponent {
     };
 
     this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.returnToHomepage = this.returnToHomepage.bind(this);
   }
 
   componentDidMount() {
@@ -28,16 +26,15 @@ class ContactInfoStep extends React.PureComponent {
     window.location.reload();
   }
 
-  returnToHomepage() {
-    const { owner } = this.props;
-    console.log(owner);
-    deleteRecord('Owner', owner.id);
-    clearUserData();
-  }
-
   render() {
     const { showModal } = this.state;
-    const { owner, errors, onSubmit, handleChange, checkValid } = this.props;
+    const {
+      owner,
+      errors,
+      onSubmit,
+      handleChange,
+      checkValidCSSClass
+    } = this.props;
     return (
       <div>
         <form className="template-card">
@@ -52,7 +49,7 @@ class ContactInfoStep extends React.PureComponent {
                 placeholder="Street 1"
                 onChange={handleChange}
                 defaultValue={owner.permanentStreet1}
-                className={`input-white ${checkValid(
+                className={`input-white ${checkValidCSSClass(
                   errors.permanentStreet1,
                   0
                 )}`}
@@ -74,11 +71,11 @@ class ContactInfoStep extends React.PureComponent {
           <div className="flex onboarding-row">
             <div className="w-80 pr-1 validation">
               {' '}
-              {checkValid(errors.permanentStreet1, 1)}
+              {checkValidCSSClass(errors.permanentStreet1, 1)}
             </div>
 
             <div className="w-20 validation">
-              {checkValid(errors.permanentStreet2, 1)}
+              {checkValidCSSClass(errors.permanentStreet2, 1)}
             </div>
           </div>
           <div className="flex onboarding-row">
@@ -91,7 +88,10 @@ class ContactInfoStep extends React.PureComponent {
                 placeholder="City"
                 onChange={handleChange}
                 defaultValue={owner.permanentCity}
-                className={`input-white ${checkValid(errors.permanentCity, 0)}`}
+                className={`input-white ${checkValidCSSClass(
+                  errors.permanentCity,
+                  0
+                )}`}
               />
             </div>
             <div className="w-15 pr-1">
@@ -103,7 +103,7 @@ class ContactInfoStep extends React.PureComponent {
                 placeholder="State"
                 onChange={handleChange}
                 defaultValue={owner.permanentState}
-                className={`input-white ${checkValid(
+                className={`input-white ${checkValidCSSClass(
                   errors.permanentState,
                   0
                 )}`}
@@ -118,7 +118,7 @@ class ContactInfoStep extends React.PureComponent {
                 placeholder="Zipcode"
                 onChange={handleChange}
                 defaultValue={owner.permanentZipcode}
-                className={`input-white ${checkValid(
+                className={`input-white ${checkValidCSSClass(
                   errors.permanentZipcode,
                   0
                 )}`}
@@ -127,7 +127,7 @@ class ContactInfoStep extends React.PureComponent {
           </div>
           <div className="flex onboarding-row">
             <div className="w-60 pr-1 validation">
-              {checkValid(errors.permanentCity, 1)}
+              {checkValidCSSClass(errors.permanentCity, 1)}
             </div>
             <div className="w-15 pr-1 validation">
               {errors.permanentState === 'Not California' ? (
@@ -136,7 +136,7 @@ class ContactInfoStep extends React.PureComponent {
                   body="People Power Solar Cooperative membership is currently only available for residents of California."
                   header="Are you a resident of California?"
                   actionName="Edit my location"
-                  returnHome={this.returnToHomepage}
+                  returnHome={returnToHomepage}
                   handleCloseModal={this.handleCloseModal}
                 />
               ) : (
@@ -145,7 +145,7 @@ class ContactInfoStep extends React.PureComponent {
             </div>
 
             <div className="w-25 validation">
-              {checkValid(errors.permanentZipcode, 1)}
+              {checkValidCSSClass(errors.permanentZipcode, 1)}
             </div>
           </div>
           <div className="flex onboarding-row">
@@ -158,14 +158,17 @@ class ContactInfoStep extends React.PureComponent {
                 placeholder="Phone"
                 onChange={handleChange}
                 defaultValue={owner.phoneNumber}
-                className={`input-white ${checkValid(errors.phoneNumber, 0)}`}
+                className={`input-white ${checkValidCSSClass(
+                  errors.phoneNumber,
+                  0
+                )}`}
               />
             </div>
             <div className="w-15 pr-1" />
             <div className="w-25" />
           </div>
           <div className="w-passwrod validation">
-            {checkValid(errors.phoneNumber, 1)}
+            {checkValidCSSClass(errors.phoneNumber, 1)}
           </div>
           <div style={{ display: 'inline', position: 'relative' }}>
             <label className="checkbox-container">
@@ -180,7 +183,7 @@ class ContactInfoStep extends React.PureComponent {
               <span className="checkmark" />
             </label>
             <div className="w-passwrod validation">
-              {checkValid(errors.certifyPermanentAddress, 1)}
+              {checkValidCSSClass(errors.certifyPermanentAddress, 1)}
             </div>
           </div>
         </form>
@@ -217,7 +220,7 @@ class ContactInfoStep extends React.PureComponent {
                   placeholder="Address"
                   onChange={handleChange}
                   defaultValue={owner.mailingStreet1}
-                  className={`input-white ${checkValid(
+                  className={`input-white ${checkValidCSSClass(
                     errors.mailingStreet1,
                     0
                   )}`}
@@ -239,11 +242,11 @@ class ContactInfoStep extends React.PureComponent {
             <div className="flex onboarding-row">
               <div className="w-80 pr-1 validation">
                 {' '}
-                {checkValid(errors.mailingStreet1, 1)}
+                {checkValidCSSClass(errors.mailingStreet1, 1)}
               </div>
 
               <div className="w-20 validation">
-                {checkValid(errors.mailingStreet2, 1)}
+                {checkValidCSSClass(errors.mailingStreet2, 1)}
               </div>
             </div>
             <div className="flex onboarding-row">
@@ -256,7 +259,10 @@ class ContactInfoStep extends React.PureComponent {
                   placeholder="City"
                   onChange={handleChange}
                   defaultValue={owner.mailingCity}
-                  className={`input-white ${checkValid(errors.mailingCity, 0)}`}
+                  className={`input-white ${checkValidCSSClass(
+                    errors.mailingCity,
+                    0
+                  )}`}
                 />
               </div>
               <div className="w-15 pr-1">
@@ -268,7 +274,7 @@ class ContactInfoStep extends React.PureComponent {
                   placeholder="State"
                   onChange={handleChange}
                   defaultValue={owner.mailingState}
-                  className={`input-white ${checkValid(
+                  className={`input-white ${checkValidCSSClass(
                     errors.mailingState,
                     0
                   )}`}
@@ -283,7 +289,7 @@ class ContactInfoStep extends React.PureComponent {
                   placeholder="Zipcode"
                   onChange={handleChange}
                   defaultValue={owner.mailingZipcode}
-                  className={`input-white ${checkValid(
+                  className={`input-white ${checkValidCSSClass(
                     errors.mailingZipcode,
                     0
                   )}`}
@@ -292,14 +298,14 @@ class ContactInfoStep extends React.PureComponent {
             </div>
             <div className="flex onboarding-row">
               <div className="w-60 pr-1 validation">
-                {checkValid(errors.mailingCity, 1)}
+                {checkValidCSSClass(errors.mailingCity, 1)}
               </div>
               <div className="w-15 pr-1 validation">
-                {checkValid(errors.mailingState, 1)}
+                {checkValidCSSClass(errors.mailingState, 1)}
               </div>
 
               <div className="w-25 validation">
-                {checkValid(errors.mailingZipcode, 1)}
+                {checkValidCSSClass(errors.mailingZipcode, 1)}
               </div>
             </div>
           </div>

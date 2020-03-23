@@ -1,14 +1,15 @@
 /* eslint-disable no-await-in-loop */
 import React from 'react';
-import States from '../assets/states.json';
+import USStates from '../assets/states.json';
 import {
   getOwnersByEmail,
   getAllProjectGroups,
   updateOwner,
-  createOwner
+  createOwner,
+  deleteOwner
 } from './airtable/request';
-import { refreshUserData } from './userDataUtils';
-import Error from '../assets/error.svg';
+import { refreshUserData, clearUserData } from './userDataUtils';
+import ErrorIcon from '../assets/error.svg';
 
 // Helper functions to validate owner record fields
 
@@ -21,16 +22,17 @@ const validateExistence = (
   return value ? '' : error;
 };
 
-const errorText = (
-  <div className="error-container">
-    <img src={Error} alt="error" className="error-icon" />
-    <div className="error-text">
-      Please certify the above address in order to proceed.
+const validateCertifyPermanentAddress = value => {
+  return value ? (
+    ''
+  ) : (
+    <div className="error-container">
+      <img src={ErrorIcon} alt="error" className="mr-1" />
+      <div className="error-text">
+        Please certify the above address in order to proceed.
+      </div>
     </div>
-  </div>
-);
-const validateCertifyPermanentAddress = (value, error = errorText) => {
-  return value ? '' : error;
+  );
 };
 
 // Ensure valid and unique email
@@ -71,9 +73,9 @@ const validateShares = value => {
 };
 
 // Ensure State is a real state (either abbreivation or full name)
-const validateState = value => {
+const ValidateUSState = value => {
   const upperCaseValue = value.toUpperCase();
-  if (States.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
+  if (USStates.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
     if (upperCaseValue !== 'CA') {
       return 'Not California';
     }
@@ -92,8 +94,8 @@ const validateZipcode = value => {
 const ValidatorData = {
   email: [validateExistence, validateEmail, validateUniqueEmail],
   password: [validateExistence, validatePassword],
-  permanentState: [validateExistence, validateState],
-  mailingState: [validateExistence, validateState],
+  permanentState: [validateExistence, ValidateUSState],
+  mailingState: [validateExistence, ValidateUSState],
   permanentZipcode: [validateExistence, validateNumber, validateZipcode],
   mailingZipcode: [validateExistence, validateNumber, validateZipcode],
   numberOfShares: [validateExistence, validateNumber, validateShares],
@@ -151,4 +153,14 @@ const updateOwnerFields = async (owner, fields) => {
   }
 };
 
-export { validateField, getAvailableProjectGroups, updateOwnerFields };
+const returnToHomepage = owner => {
+  deleteOwner(owner.id);
+  clearUserData();
+};
+
+export {
+  validateField,
+  getAvailableProjectGroups,
+  updateOwnerFields,
+  returnToHomepage
+};

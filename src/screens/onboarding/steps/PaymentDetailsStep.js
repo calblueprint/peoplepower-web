@@ -1,5 +1,5 @@
 import React from 'react';
-import Error from '../../../assets/error.svg';
+import ErrorIcon from '../../../assets/error.svg';
 
 const SHARE_PRICE = 100;
 
@@ -139,7 +139,7 @@ class PaymentDetailsStep extends React.Component {
                 </div>
                 {displayUnmarkedDividend ? (
                   <div className="error-container">
-                    <img src={Error} alt="error" className="error-icon" />
+                    <img src={ErrorIcon} alt="error" className="mr-1" />
                     <div className="error-text">
                       Please certify the above address in order to proceed.
                     </div>

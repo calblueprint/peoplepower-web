@@ -22,7 +22,7 @@ class Onboarding extends React.Component {
         onboardingStep: 0,
         inviteToken: '',
         ownerTypes: [GENERAL_OWNER],
-        isReceivingDividends: false,
+        isReceivingDividends: true,
         numberOfShares: 1
       },
       errors: {}
@@ -40,8 +40,8 @@ class Onboarding extends React.Component {
     }
   }
 
-  checkValid = (input, type) => {
-    if (type === 0) {
+  checkValidCSSClass = (input, type) => {
+    if (!type) {
       return input !== '' && typeof input !== 'undefined'
         ? 'b-is-not-valid'
         : 'b-is-valid';
@@ -227,7 +227,7 @@ class Onboarding extends React.Component {
           onBack={this.prevStep}
           onFinish={this.onFinish}
           handleChange={this.handleChange}
-          checkValid={this.checkValid}
+          checkValidCSSClass={this.checkValidCSSClass}
         />
       </div>
     );
