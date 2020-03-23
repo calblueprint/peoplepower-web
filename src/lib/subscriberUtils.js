@@ -42,11 +42,11 @@ const getSubscriberBills = async owner => {
     let paymentObjects = [];
 
     if (billIds) {
-      billObjects = getSubscriberBillByIds(billIds);
+      billObjects = await getSubscriberBillByIds(billIds);
     }
 
     if (paymentIds) {
-      paymentObjects = getSubscriberBillByIds(paymentIds);
+      paymentObjects = await getSubscriberBillByIds(paymentIds);
     }
 
     if (billObjects) {

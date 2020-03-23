@@ -15,8 +15,8 @@ const BASE_ID = 'appFaOwKhMXrRIQIp';
 const VIEW = 'Grid view';
 const ENDPOINT_URL = 'https://api.airtable.com';
 
-const apiKey = process.env.AIRTABLE_API_KEY;
-console.log(process.env);
+const apiKey = process.env.REACT_APP_AIRTABLE_API_KEY;
+
 Airtable.configure({
   endpointUrl: ENDPOINT_URL,
   apiKey

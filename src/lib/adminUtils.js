@@ -23,7 +23,7 @@ export async function removeOwner(owner) {
 }
 
 export async function getOwnerRecordsForProjectGroup(projectGroup) {
-  const allOwners = getOwnerByIds(projectGroup.ownerIds);
+  const allOwners = await getOwnerByIds(projectGroup.ownerIds);
 
   // Ensure onboarding users aren't considered
   return allOwners.filter(o => o.onboardingStep === -1);

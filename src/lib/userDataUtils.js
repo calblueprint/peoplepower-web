@@ -38,7 +38,7 @@ const refreshUserData = async ownerId => {
 
     const { solarProjectIds } = projectGroup;
     if (solarProjectIds) {
-      solarProjects = getSolarProjectByIds(solarProjectIds);
+      solarProjects = await getSolarProjectByIds(solarProjectIds);
     }
   }
 

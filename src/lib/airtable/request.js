@@ -70,7 +70,10 @@ export const getOwnerById = async id => {
 };
 
 export const getOwnerByIds = async ids => {
-  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
   return getAllRecords(Tables.Owner, formula);
 };
 
@@ -101,7 +104,10 @@ export const getProjectGroupById = async id => {
 };
 
 export const getProjectGroupByIds = async ids => {
-  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
   return getAllRecords(Tables.ProjectGroup, formula);
 };
 
@@ -114,7 +120,10 @@ export const getAnnouncementById = async id => {
 };
 
 export const getAnnouncementByIds = async ids => {
-  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
   return getAllRecords(Tables.Announcement, formula);
 };
 
@@ -136,7 +145,10 @@ export const getSolarProjectById = async id => {
 };
 
 export const getSolarProjectByIds = async ids => {
-  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
   return getAllRecords(Tables.SolarProject, formula);
 };
 
@@ -149,7 +161,10 @@ export const getSubscriberBillById = async id => {
 };
 
 export const getSubscriberBillByIds = async ids => {
-  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
   return getAllRecords(Tables.SubscriberBill, formula);
 };
 
@@ -165,7 +180,10 @@ export const getRateScheduleById = async id => {
 };
 
 export const getRateScheduleByIds = async ids => {
-  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
   return getAllRecords(Tables.RateSchedule, formula);
 };
 
@@ -178,7 +196,10 @@ export const getPledgeInviteById = async id => {
 };
 
 export const getPledgeInviteByIds = async ids => {
-  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
   return getAllRecords(Tables.PledgeInvite, formula);
 };
 
@@ -191,7 +212,10 @@ export const getPaymentById = async id => {
 };
 
 export const getPaymentByIds = async ids => {
-  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
   return getAllRecords(Tables.Payment, formula);
 };
 
@@ -204,7 +228,10 @@ export const getTestDevelopmentById = async id => {
 };
 
 export const getTestDevelopmentByIds = async ids => {
-  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
   return getAllRecords(Tables.TestDevelopment, formula);
 };
 

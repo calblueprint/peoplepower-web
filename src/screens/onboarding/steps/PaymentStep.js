@@ -2,7 +2,7 @@ import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { recordShareBuySuccess } from '../../../lib/paypalUtils';
 
-const clientId = process.env.PAYPAL_CLIENT_ID;
+const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
 const SHARE_PRICE = 100;
 
