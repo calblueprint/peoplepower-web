@@ -206,13 +206,13 @@ class UserProfile extends React.Component {
               <h4>General Owner</h4>
             </div>
             <div
-              className={`general-form settings-edit-${
+              className={`user-profile-general-form settings-edit-${
                 generalEditMode ? 'enabled' : 'disabled'
               }`}
             >
-              <div className="general-form-header">
+              <div className="user-profile-general-form-header">
                 <h2>General</h2>
-                <div className="general-form-header-buttons">
+                <div className="user-profile-general-form-header-buttons">
                   <button type="button" onClick={this.onGeneralButtonPressed}>
                     {generalEditMode ? 'Save' : 'Edit'}
                   </button>
@@ -273,9 +273,9 @@ class UserProfile extends React.Component {
                 contactEditMode ? 'enabled' : 'disabled'
               }`}
             >
-              <div className="contact-form-header">
+              <div className="user-profile-contact-form-header">
                 <h2>Contact Information</h2>
-                <div className="contact-form-header-buttons">
+                <div className="user-profile-contact-form-header-buttons">
                   <button type="button" onClick={this.onContactButtonPressed}>
                     {contactEditMode ? 'Save' : 'Edit'}
                   </button>
