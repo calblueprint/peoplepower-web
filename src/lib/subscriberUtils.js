@@ -1,4 +1,4 @@
-import { getPaymentById, getSubscriberBillById } from './airtable/request';
+import { getSubscriberBillByIds } from './airtable/request';
 import { convertPaypalDateTimeToDate } from './dateUtils';
 import constants from '../constants';
 
@@ -36,25 +36,18 @@ const getSubscriberBills = async owner => {
       return { transactions: [], pendingBills: [] };
     }
 
-    const billPromises = [];
-    const paymentPromises = [];
     const transactions = [];
     const pendingBills = [];
+    let billObjects = [];
+    let paymentObjects = [];
 
     if (billIds) {
-      billIds.forEach(billId => {
-        billPromises.push(getSubscriberBillById(billId));
-      });
+      billObjects = getSubscriberBillByIds(billIds);
     }
-    const billObjects = await Promise.all(billPromises);
 
     if (paymentIds) {
-      paymentIds.forEach(paymentId => {
-        paymentPromises.push(getPaymentById(paymentId));
-      });
+      paymentObjects = getSubscriberBillByIds(paymentIds);
     }
-    const paymentObjects = await Promise.all(paymentPromises);
-    console.log(billObjects);
 
     if (billObjects) {
       billObjects.forEach(billObject => {

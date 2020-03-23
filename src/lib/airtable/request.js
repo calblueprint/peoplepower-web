@@ -69,6 +69,11 @@ export const getOwnerById = async id => {
   return getRecordById(Tables.Owner, id);
 };
 
+export const getOwnerByIds = async ids => {
+  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  return getAllRecords(Tables.Owner, formula);
+};
+
 export const getAllOwners = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.Owner, filterByFormula, sort);
 };
@@ -95,12 +100,22 @@ export const getProjectGroupById = async id => {
   return getRecordById(Tables.ProjectGroup, id);
 };
 
+export const getProjectGroupByIds = async ids => {
+  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  return getAllRecords(Tables.ProjectGroup, formula);
+};
+
 export const getAllProjectGroups = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.ProjectGroup, filterByFormula, sort);
 };
 
 export const getAnnouncementById = async id => {
   return getRecordById(Tables.Announcement, id);
+};
+
+export const getAnnouncementByIds = async ids => {
+  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  return getAllRecords(Tables.Announcement, formula);
 };
 
 export const getAllAnnouncements = async (filterByFormula = '', sort = []) => {
@@ -120,12 +135,22 @@ export const getSolarProjectById = async id => {
   return getRecordById(Tables.SolarProject, id);
 };
 
+export const getSolarProjectByIds = async ids => {
+  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  return getAllRecords(Tables.SolarProject, formula);
+};
+
 export const getAllSolarProjects = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.SolarProject, filterByFormula, sort);
 };
 
 export const getSubscriberBillById = async id => {
   return getRecordById(Tables.SubscriberBill, id);
+};
+
+export const getSubscriberBillByIds = async ids => {
+  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  return getAllRecords(Tables.SubscriberBill, formula);
 };
 
 export const getAllSubscriberBills = async (
@@ -139,12 +164,22 @@ export const getRateScheduleById = async id => {
   return getRecordById(Tables.RateSchedule, id);
 };
 
+export const getRateScheduleByIds = async ids => {
+  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  return getAllRecords(Tables.RateSchedule, formula);
+};
+
 export const getAllRateSchedules = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.RateSchedule, filterByFormula, sort);
 };
 
 export const getPledgeInviteById = async id => {
   return getRecordById(Tables.PledgeInvite, id);
+};
+
+export const getPledgeInviteByIds = async ids => {
+  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  return getAllRecords(Tables.PledgeInvite, formula);
 };
 
 export const getAllPledgeInvites = async (filterByFormula = '', sort = []) => {
@@ -155,12 +190,22 @@ export const getPaymentById = async id => {
   return getRecordById(Tables.Payment, id);
 };
 
+export const getPaymentByIds = async ids => {
+  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  return getAllRecords(Tables.Payment, formula);
+};
+
 export const getAllPayments = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.Payment, filterByFormula, sort);
 };
 
 export const getTestDevelopmentById = async id => {
   return getRecordById(Tables.TestDevelopment, id);
+};
+
+export const getTestDevelopmentByIds = async ids => {
+  const formula = `OR(${ids.reduce((f, id) => `${f}, {ID}='${id}'`)})`;
+  return getAllRecords(Tables.TestDevelopment, formula);
 };
 
 export const getAllTestDevelopments = async (
