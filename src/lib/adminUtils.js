@@ -2,7 +2,7 @@ import {
   updateProjectGroup,
   getProjectGroupById,
   createPledgeInvite,
-  getOwnerByIds
+  getOwnersByIds
 } from './airtable/request';
 import { refreshUserData } from './userDataUtils';
 import { store } from './redux/store';
@@ -23,7 +23,7 @@ export async function removeOwner(owner) {
 }
 
 export async function getOwnerRecordsForProjectGroup(projectGroup) {
-  const allOwners = await getOwnerByIds(projectGroup.ownerIds);
+  const allOwners = await getOwnersByIds(projectGroup.ownerIds);
 
   // Ensure onboarding users aren't considered
   return allOwners.filter(o => o.onboardingStep === -1);

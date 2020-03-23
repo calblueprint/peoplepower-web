@@ -2,7 +2,7 @@ import {
   getProjectGroupById,
   getAnnouncementsByProjectGroupId,
   getOwnerById,
-  getSolarProjectByIds
+  getSolarProjectsByIds
 } from './airtable/request';
 import { store } from './redux/store';
 import {
@@ -38,7 +38,7 @@ const refreshUserData = async ownerId => {
 
     const { solarProjectIds } = projectGroup;
     if (solarProjectIds) {
-      solarProjects = await getSolarProjectByIds(solarProjectIds);
+      solarProjects = await getSolarProjectsByIds(solarProjectIds);
     }
   }
 

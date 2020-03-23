@@ -1,4 +1,4 @@
-import { getSubscriberBillByIds } from './airtable/request';
+import { getSubscriberBillsByIds } from './airtable/request';
 import { convertPaypalDateTimeToDate } from './dateUtils';
 import constants from '../constants';
 
@@ -42,11 +42,11 @@ const getSubscriberBills = async owner => {
     let paymentObjects = [];
 
     if (billIds) {
-      billObjects = await getSubscriberBillByIds(billIds);
+      billObjects = await getSubscriberBillsByIds(billIds);
     }
 
     if (paymentIds) {
-      paymentObjects = await getSubscriberBillByIds(paymentIds);
+      paymentObjects = await getSubscriberBillsByIds(paymentIds);
     }
 
     if (billObjects) {

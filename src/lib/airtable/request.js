@@ -69,7 +69,7 @@ export const getOwnerById = async id => {
   return getRecordById(Tables.Owner, id);
 };
 
-export const getOwnerByIds = async ids => {
+export const getOwnersByIds = async ids => {
   const formula = `OR(${ids.reduce(
     (f, id) => `${f} {ID}='${id}',`,
     ''
@@ -103,7 +103,7 @@ export const getProjectGroupById = async id => {
   return getRecordById(Tables.ProjectGroup, id);
 };
 
-export const getProjectGroupByIds = async ids => {
+export const getProjectGroupsByIds = async ids => {
   const formula = `OR(${ids.reduce(
     (f, id) => `${f} {ID}='${id}',`,
     ''
@@ -119,7 +119,7 @@ export const getAnnouncementById = async id => {
   return getRecordById(Tables.Announcement, id);
 };
 
-export const getAnnouncementByIds = async ids => {
+export const getAnnouncementsByIds = async ids => {
   const formula = `OR(${ids.reduce(
     (f, id) => `${f} {ID}='${id}',`,
     ''
@@ -144,7 +144,7 @@ export const getSolarProjectById = async id => {
   return getRecordById(Tables.SolarProject, id);
 };
 
-export const getSolarProjectByIds = async ids => {
+export const getSolarProjectsByIds = async ids => {
   const formula = `OR(${ids.reduce(
     (f, id) => `${f} {ID}='${id}',`,
     ''
@@ -160,7 +160,7 @@ export const getSubscriberBillById = async id => {
   return getRecordById(Tables.SubscriberBill, id);
 };
 
-export const getSubscriberBillByIds = async ids => {
+export const getSubscriberBillsByIds = async ids => {
   const formula = `OR(${ids.reduce(
     (f, id) => `${f} {ID}='${id}',`,
     ''
@@ -179,7 +179,7 @@ export const getRateScheduleById = async id => {
   return getRecordById(Tables.RateSchedule, id);
 };
 
-export const getRateScheduleByIds = async ids => {
+export const getRateSchedulesByIds = async ids => {
   const formula = `OR(${ids.reduce(
     (f, id) => `${f} {ID}='${id}',`,
     ''
@@ -195,7 +195,7 @@ export const getPledgeInviteById = async id => {
   return getRecordById(Tables.PledgeInvite, id);
 };
 
-export const getPledgeInviteByIds = async ids => {
+export const getPledgeInvitesByIds = async ids => {
   const formula = `OR(${ids.reduce(
     (f, id) => `${f} {ID}='${id}',`,
     ''
@@ -211,7 +211,7 @@ export const getPaymentById = async id => {
   return getRecordById(Tables.Payment, id);
 };
 
-export const getPaymentByIds = async ids => {
+export const getPaymentsByIds = async ids => {
   const formula = `OR(${ids.reduce(
     (f, id) => `${f} {ID}='${id}',`,
     ''
@@ -227,7 +227,7 @@ export const getTestDevelopmentById = async id => {
   return getRecordById(Tables.TestDevelopment, id);
 };
 
-export const getTestDevelopmentByIds = async ids => {
+export const getTestDevelopmentsByIds = async ids => {
   const formula = `OR(${ids.reduce(
     (f, id) => `${f} {ID}='${id}',`,
     ''
