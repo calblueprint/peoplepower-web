@@ -29,13 +29,13 @@ class Investment extends React.PureComponent {
 
   onSavePreferencesPressed = async () => {
     const { newIsReceivingDividends } = this.state;
-    this.submitPreference({
+    await this.submitPreference({
       isReceivingDividends: newIsReceivingDividends
     });
   };
 
-  onClickSavePreferences = () => {
-    this.onSavePreferencesPressed();
+  onClickSavePreferences = async () => {
+    await this.onSavePreferencesPressed();
     this.handleCloseModal();
   };
 
@@ -59,11 +59,15 @@ class Investment extends React.PureComponent {
     const { owner } = this.props;
     const { showModal, newIsReceivingDividends } = this.state;
     const percentage = owner.numberOfShares * 10;
+    const progressbarPink = '#cd6795';
+    const progressbarGray = '#F4F1F24';
+    const progressbarText = '30px';
+
     const circularProgressBarStyles = {
-      pathColor: '#cd6795',
-      textSize: '30px',
-      textColor: '#cd6795',
-      trailColor: '#F4F1F24'
+      pathColor: progressbarPink,
+      textSize: progressbarText,
+      textColor: progressbarPink,
+      trailColor: progressbarGray
     };
 
     return (

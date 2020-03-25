@@ -72,7 +72,6 @@
 }
 
 .investments-buy-shares-button {
-  font-family: 'Nunito Sans', sans-serif;
   justify-content: center;
   font-weight: normal;
 }
@@ -147,7 +146,6 @@
   width: 100px;
   height: 25px;
   align-content: flex-end;
-  font-family: 'Nunito Sans', sans-serif;
   font-weight: normal;
   border: 0px;
 }
@@ -185,7 +183,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border: 0px;
-  background: rgb(255, 255, 255);
+  background: white;
   overflow: auto;
   border-radius: 4px;
   outline: none;
