@@ -50,7 +50,7 @@ const recordShareBuySuccess = async (details, data, ownerId) => {
 
   // TODO: Couldn't this use the constructPaymentRecord function?
   const record = {
-    ownerId: [ownerId],
+    ownerId,
     status,
     orderId,
     payerId,
@@ -165,7 +165,7 @@ const constructPaymentRecord = (details, data, bill) => {
   const paymentRecord = {
     ownerId,
     status,
-    subscriberBill: [bill.ID],
+    subscriberBill: bill.ID,
     orderId,
     payerId,
     amount: amountInCents,
