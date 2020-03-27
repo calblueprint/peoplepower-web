@@ -62,7 +62,7 @@ const createFullBillTransaction = transaction => {
   };
 };
 
-export default class SubscriberAllBillsTable extends React.Component {
+export default class SubscriberAllTransactionsTable extends React.Component {
   constructor(props) {
     super(props);
     const { transactions } = this.props;

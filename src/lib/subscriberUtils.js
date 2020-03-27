@@ -9,27 +9,12 @@ const formatStatus = status => {
   return lower.charAt(0).toUpperCase() + lower.substring(1);
 };
 
-const areDiffBills = (b1, b2) => {
-  if (b1 === b2) return false;
-  if (b1 === null || b2 === null) return true;
-  if (b1.length !== b2.length) return true;
-
-  for (let i = 0; i < b1.length; i += 1) {
-    if (b1[i] !== b2[i]) {
-      return true;
-    }
-  }
-
-  return false;
-};
-
-const centsToDollars = cents => {
-  return (cents / 100).toFixed(2);
-};
-
 const getSubscriberTransactionData = async owner => {
-  // const bills = getSu;
+  const bills = getSubscriberBillsByIds(owner.subscriberBillIds);
+  const payments = getPaymentsByIds(owner.paymentIds);
+  return { bills, payments };
 };
+
 const getSubscriberBills = async owner => {
   try {
     const billIds = owner.subscriberBillIds;
@@ -107,4 +92,10 @@ const getSubscriberBills = async owner => {
   }
 };
 
-export { areDiffBills, centsToDollars, formatStatus, getSubscriberBills };
+export {
+  getSubscriberTransactionData,
+  areDiffBills,
+  centsToDollars,
+  formatStatus,
+  getSubscriberBills
+};

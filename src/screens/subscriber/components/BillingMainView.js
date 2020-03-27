@@ -42,7 +42,7 @@ const createCondensedBillTransaction = transaction => {
 export default class BillingMainView extends React.Component {
   constructor(props) {
     super(props);
-    const { transactions } = this.props;
+    const { bills, payments } = this.props;
     this.state = {
       data: transactions.map(t =>
         t.type === ONLINE_PAYMENT_TYPE
@@ -62,7 +62,7 @@ export default class BillingMainView extends React.Component {
   };
 
   render() {
-    const { callback } = this.props;
+    const { seeAllBills, bills, payments } = this.props;
     const { data } = this.state;
 
     const { pendingBills } = this.props;
@@ -132,7 +132,7 @@ export default class BillingMainView extends React.Component {
               <button
                 className="billing-all-billls-button"
                 type="button"
-                onClick={callback}
+                onClick={seeAllBills}
               >
                 <img
                   className="button right-arrow-button"

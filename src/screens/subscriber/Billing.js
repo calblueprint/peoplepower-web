@@ -1,10 +1,10 @@
 import React from 'react';
 import qs from 'qs';
 import { connect } from 'react-redux';
-import BillingAllBillsView from './components/BillingAllBillsView';
+import BillingAllBillsView from './components/BillingAllTransactionsView';
 import BillingMainView from './components/BillingMainView';
 import LoadingComponent from '../../components/LoadingComponent';
-import { areDiffBills, getSubscriberBills } from '../../lib/subscriberUtils';
+import { getSubscriberTransactionData } from '../../lib/subscriberUtils';
 import '../../styles/SubscriberOwnerDashboard.css';
 
 class Billing extends React.Component {
@@ -13,8 +13,7 @@ class Billing extends React.Component {
     this.state = {
       bills: [],
       payments: [],
-      mode: 0, // 0 for Billing, 1 for Both
-      isReady: false
+      mode: 0 // 0 for main billing view, 1 for all bills view
     };
 
     const { view } = qs.parse(props.location.search, {
@@ -51,31 +50,25 @@ class Billing extends React.Component {
   }
 
   render() {
-    const { mode, transactions, isReady, pendingBills } = this.state;
+    const { mode, bills, payments } = this.state;
     const { isLoadingUserData } = this.props;
-    const isLoading = !isReady || isLoadingUserData;
-    if (isLoading) {
+    if (isLoadingUserData) {
       return <LoadingComponent />;
     }
-    if (mode === 0) {
-      return (
-        <BillingMainView
-          callback={() => this.seeAllBills()}
-          transactions={transactions}
-          pendingBills={pendingBills}
-        />
-      );
-    }
-    if (mode === 1) {
-      return (
-        <BillingAllBillsView
-          callback={() => this.seeMain()}
-          transactions={transactions}
-        />
-      );
-    }
 
-    return <div>404: invalid state. Call your dev</div>;
+    return mode === 0 ? (
+      <BillingMainView
+        seeAllBills={() => this.seeAllBills()}
+        bills={bills}
+        payments={payments}
+      />
+    ) : (
+      <BillingAllBillsView
+        seeMain={() => this.seeMain()}
+        bills={bills}
+        payments={payments}
+      />
+    );
   }
 }
 
