@@ -27,6 +27,9 @@ const centsToDollars = cents => {
   return (cents / 100).toFixed(2);
 };
 
+const getSubscriberTransactionData = async owner => {
+  // const bills = getSu;
+};
 const getSubscriberBills = async owner => {
   try {
     const billIds = owner.subscriberBillIds;

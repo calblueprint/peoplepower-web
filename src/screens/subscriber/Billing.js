@@ -11,14 +11,13 @@ class Billing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      transactions: [],
-      pendingBills: [],
-      mode: 0,
+      bills: [],
+      payments: [],
+      mode: 0, // 0 for Billing, 1 for Both
       isReady: false
     };
-    const { location } = this.props;
-    const { search } = location;
-    const {view} = qs.parse(search, {
+
+    const { view } = qs.parse(props.location.search, {
       ignoreQueryPrefix: true
     });
 
@@ -35,20 +34,8 @@ class Billing extends React.Component {
       return;
     }
 
-    const { transactions, pendingBills } = await getSubscriberBills(owner);
-
-    if (transactions) {
-      this.setState(prevState => {
-        if (areDiffBills(prevState.transactions, transactions)) {
-          return {
-            transactions,
-            pendingBills,
-            isReady: true
-          };
-        }
-        return { isReady: true };
-      });
-    }
+    const { bills, payments } = await getSubscriberTransactionData(owner);
+    this.setState({ bills, payments });
   }
 
   seeAllBills() {

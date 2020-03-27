@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactTable from 'react-table-v6';
-import { PayPalButton } from 'react-paypal-button-v2';
 import RightArrow from '../../../assets/right_arrow.png';
-
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import { centsToDollars, formatStatus } from '../../../lib/subscriberUtils';
@@ -15,8 +13,6 @@ import {
 import constants from '../../../constants';
 
 const { ONLINE_PAYMENT_TYPE } = constants;
-
-const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
 const renderCondensedBillDisplayHeader = headerText => {
   return () => <div className="billing-bills-display-header">{headerText}</div>;
@@ -84,17 +80,30 @@ export default class BillingMainView extends React.Component {
                   <h3>${centsToDollars(totalBalance)}</h3>
                 </div>
                 <hr id="billing-divider" />
+
                 <div className="billing-balance-nums-section">
-                  <div className="billing-balance-nums-line">
-                    <p className="line-item">Outstanding Balance</p>
-                    <p className="line-item line-item-value">
-                      ${centsToDollars(totalBalance)}
-                    </p>
-                  </div>
-                  <div className="billing-balance-nums-line">
-                    <p className="line-item">Latest Power Bill</p>
-                    <p className="line-item line-item-value">$0.00</p>
-                  </div>
+                  {totalBalance === 0 ? (
+                    <div>
+                      <div className="billing-balance-nums-line">
+                        <p className="line-item">
+                          Hooray! No charges currently due.
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="billing-balance-nums-line">
+                        <p className="line-item">Outstanding Balance</p>
+                        <p className="line-item line-item-value">
+                          ${centsToDollars(totalBalance)}
+                        </p>
+                      </div>
+                      <div className="billing-balance-nums-line">
+                        <p className="line-item">Latest Power Bill</p>
+                        <p className="line-item line-item-value">$0.00</p>
+                      </div>
+                    </div>
+                  )}
                   <div className="billing-balance-divider-container">
                     <div className="billing-full-width-container" />
                     <hr id="balance-billing-divider" />
@@ -105,7 +114,7 @@ export default class BillingMainView extends React.Component {
                       <strong>Total</strong>
                     </p>
                     <p className="line-item-total line-item-value">
-                      <strong>${centsToDollars(totalBalance)}</strong>
+                      <strong>${totalBalance}</strong>
                     </p>
                   </div>
                   <div className="billing-payment-button-container">
