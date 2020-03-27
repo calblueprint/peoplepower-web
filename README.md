@@ -1,6 +1,5 @@
 # People Power Web App
 
-
 _Last updated: Mar 3, 2020 (by Fang)_
 
 - live app (master): https://peoplepower.netlify.com

@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import '../styles/Modal.css';
+import '../styles/PPModal.css';
 
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);

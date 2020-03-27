@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactTable from 'react-table-v6';
 import { PayPalButton } from 'react-paypal-button-v2';
+import RightArrow from '../../../assets/right_arrow.png';
+
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import { centsToDollars, formatStatus } from '../../../lib/subscriberUtils';
@@ -130,7 +132,11 @@ export default class BillingMainView extends React.Component {
                 type="button"
                 onClick={callback}
               >
-                →
+                <img
+                  className="button right-arrow-button"
+                  src={RightArrow}
+                  alt="right arrow"
+                />
               </button>
             </div>
             <div className="col-card">
