@@ -42,8 +42,8 @@
       { "type": "rollup", "name": "Latest Bill Number" },
       { "type": "text", "name": "Meter ID" },
       { "type": "checkbox", "name": "Is Super Admin?" },
-      { "type": "checkbox", "name": "Invited?" },
-      { "type": "foreignKey", "name": "Pledge Invite" }
+      { "type": "foreignKey", "name": "Pledge Invite" },
+      { "type": "number", "name": "Subscriber Account Number" }
     ]
   },
   "Project Group": {
