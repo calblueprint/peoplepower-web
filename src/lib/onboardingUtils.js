@@ -115,7 +115,7 @@ const getAvailableProjectGroups = async () => {
 const updateOwnerFields = async (owner, fields) => {
   const ownerUpdate = fields.reduce(
     (value, field) => ({ ...value, [field]: owner[field] }),
-    { onboardingStep: owner.onboardingStep, testst: 24 } // 1 field constant throughout all
+    { onboardingStep: owner.onboardingStep } // 1 field constant throughout all
   );
   if (owner.id) {
     await updateOwner(owner.id, ownerUpdate);
