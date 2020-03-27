@@ -1859,10 +1859,10 @@ aggregate-error@^3.0.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
-airtable-schema-generator@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/airtable-schema-generator/-/airtable-schema-generator-1.3.2.tgz#0000d85065eb493b8a2c8be8d7a4e2c7111656a8"
-  integrity sha512-PHHbEuG5ZKmE2YqndNbEpIOC7B44+sO1Gc6savP84Ky+1+njfPGgUWTDv+CFVcrnsRCLP8sMP/U6gIuB9Potww==
+airtable-schema-generator@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/airtable-schema-generator/-/airtable-schema-generator-1.3.3.tgz#a7055d9dd5bff83fad93520ce26b73bde7cf95f4"
+  integrity sha512-qSYMBz2iCm6J3INOa41aWkUyfoJI2nEUCK7q328xzM7uZnWnRRWWW7ofcug80Ap1i81DNNSlqPYVjaMttHdvqQ==
   dependencies:
     dotenv "^8.2.0"
     puppeteer "^2.1.1"
