@@ -31,11 +31,11 @@ class UserProfile extends React.Component {
   componentDidUpdate(prevProps) {
     const { owner } = this.props;
     if (owner !== prevProps.owner) {
-      this.pullPropsIntoState();
+      this.pullPropsIntoState('both');
     }
   }
 
-  pullPropsIntoState = () => {
+  pullPropsIntoState = type => {
     const { owner, isLoadingUserData } = this.props;
 
     // If data isn't in redux yet, don't do anything.
@@ -43,16 +43,27 @@ class UserProfile extends React.Component {
       return;
     }
 
-    this.setState({
-      updateFirstName: owner.firstName,
-      updateLastName: owner.lastName,
-      updatePhoneNumber: owner.phoneNumber,
-      updatePermanentStreet1: owner.permanentStreet1,
-      updatePermanentStreet2: owner.permanentStreet2,
-      updatePermanentCity: owner.permanentCity,
-      updatePermanentState: owner.permanentState,
-      updatePermanentZipcode: owner.permanentZipcode
-    });
+    if (type === 'contact' || type === 'both') {
+      this.setState({
+        updatePhoneNumber: owner.phoneNumber,
+        updatePermanentStreet1: owner.permanentStreet1,
+        updatePermanentStreet2: owner.permanentStreet2,
+        updatePermanentCity: owner.permanentCity,
+        updatePermanentState: owner.permanentState,
+        updatePermanentZipcode: owner.permanentZipcode
+      });
+    }
+    if (type === 'general' || type === 'both') {
+      this.setState({
+        updateFirstName: owner.firstName,
+        updateLastName: owner.lastName
+      });
+    }
+  };
+
+  handleCancel = type => {
+    this.setState({ [`${type}EditMode`]: false });
+    this.pullPropsIntoState(type);
   };
 
   handleChange = event => {
@@ -195,15 +206,24 @@ class UserProfile extends React.Component {
               <h4>General Owner</h4>
             </div>
             <div
-              className={`general-form settings-edit-${
+              className={`user-profile-general-form settings-edit-${
                 generalEditMode ? 'enabled' : 'disabled'
               }`}
             >
-              <div className="general-form-header">
+              <div className="user-profile-general-form-header">
                 <h2>General</h2>
-                <button type="button" onClick={this.onGeneralButtonPressed}>
-                  {generalEditMode ? 'Save' : 'Edit'}
-                </button>
+                <div className="user-profile-general-form-header-buttons">
+                  <button type="button" onClick={this.onGeneralButtonPressed}>
+                    {generalEditMode ? 'Save' : 'Edit'}
+                  </button>
+                  <button
+                    style={{ display: generalEditMode ? '' : 'none' }}
+                    type="button"
+                    onClick={() => this.handleCancel('general')}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
               <form>
                 <div>
@@ -253,11 +273,20 @@ class UserProfile extends React.Component {
                 contactEditMode ? 'enabled' : 'disabled'
               }`}
             >
-              <div className="contact-form-header">
+              <div className="user-profile-contact-form-header">
                 <h2>Contact Information</h2>
-                <button type="button" onClick={this.onContactButtonPressed}>
-                  {contactEditMode ? 'Save' : 'Edit'}
-                </button>
+                <div className="user-profile-contact-form-header-buttons">
+                  <button type="button" onClick={this.onContactButtonPressed}>
+                    {contactEditMode ? 'Save' : 'Edit'}
+                  </button>
+                  <button
+                    style={{ display: contactEditMode ? '' : 'none' }}
+                    type="button"
+                    onClick={() => this.handleCancel('contact')}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
               <form>
                 <div>

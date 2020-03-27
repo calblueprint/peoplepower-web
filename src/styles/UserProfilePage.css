@@ -38,7 +38,7 @@
   border-radius: 5px;
 }
 
-.general-form {
+.user-profile-general-form {
   background: white;
   width: 500px;
   float: right;
@@ -48,19 +48,37 @@
   padding: 32px;
 }
 
-.general-form-header {
+.user-profile-general-form-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.general-form-header h2 {
+.user-profile-general-form-header-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.user-profile-general-form-header-buttons button {
+  margin: 8px;
+}
+
+.user-profile-contact-form-header-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.user-profile-contact-form-header-buttons button {
+  margin: 8px;
+}
+
+.user-profile-general-form-header h2 {
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.general-form-header button {
+.user-profile-general-form-header button {
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -75,7 +93,7 @@
   margin-bottom: 30px;
 }
 
-.contact-form-header {
+.user-profile-contact-form-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -83,12 +101,12 @@
   margin-bottom: 20px;
 }
 
-.contact-form-header h2 {
+.user-profile-contact-form-header h2 {
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.contact-form-header button {
+.user-profile-contact-form-header button {
   padding-left: 20px;
   padding-right: 20px;
 }
