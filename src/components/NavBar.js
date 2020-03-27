@@ -9,8 +9,8 @@ import {
   isOnboarding
 } from '../lib/credentials';
 import Logo from '../assets/PPSC-logo.png';
-import Gear from '../assets/settings.png';
 import '../styles/NavBar.css';
+import SettingsDropdown from './SettingsDropdown';
 
 class NavBar extends React.PureComponent {
   render() {
@@ -71,9 +71,7 @@ class NavBar extends React.PureComponent {
                 </li>
               )}
               <li className="nav-item">
-                <Link to="/profile">
-                  <img className="nav-item-gear" src={Gear} alt="Settings" />
-                </Link>
+                <SettingsDropdown />
               </li>
             </ul>
           )}
