@@ -69,23 +69,33 @@ export const getOwnerById = async id => {
   return getRecordById(Tables.Owner, id);
 };
 
-export const getAllOwners = async () => {
-  return getAllRecords(Tables.Owner);
+export const getOwnersByIds = async ids => {
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
+  return getAllRecords(Tables.Owner, formula);
 };
 
-export const getOwnersByEmail = async value => {
+export const getAllOwners = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.Owner, filterByFormula, sort);
+};
+
+export const getOwnersByEmail = async (value, sort = []) => {
   return getRecordsByAttribute(
     Tables.Owner,
-    Columns[Tables.Owner].email,
-    value
+    Columns[Tables.Owner].email.name,
+    value,
+    sort
   );
 };
 
-export const getOwnersByProjectGroupId = async value => {
+export const getOwnersByProjectGroupId = async (value, sort = []) => {
   return getRecordsByAttribute(
     Tables.Owner,
-    Columns[Tables.Owner].projectGroupId,
-    value
+    Columns[Tables.Owner].projectGroupId.name,
+    value,
+    sort
   );
 };
 
@@ -93,23 +103,40 @@ export const getProjectGroupById = async id => {
   return getRecordById(Tables.ProjectGroup, id);
 };
 
-export const getAllProjectGroups = async () => {
-  return getAllRecords(Tables.ProjectGroup);
+export const getProjectGroupsByIds = async ids => {
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
+  return getAllRecords(Tables.ProjectGroup, formula);
+};
+
+export const getAllProjectGroups = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.ProjectGroup, filterByFormula, sort);
 };
 
 export const getAnnouncementById = async id => {
   return getRecordById(Tables.Announcement, id);
 };
 
-export const getAllAnnouncements = async () => {
-  return getAllRecords(Tables.Announcement);
+export const getAnnouncementsByIds = async ids => {
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
+  return getAllRecords(Tables.Announcement, formula);
 };
 
-export const getAnnouncementsByProjectGroupId = async value => {
+export const getAllAnnouncements = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.Announcement, filterByFormula, sort);
+};
+
+export const getAnnouncementsByProjectGroupId = async (value, sort = []) => {
   return getRecordsByAttribute(
     Tables.Announcement,
-    Columns[Tables.Announcement].projectGroupId,
-    value
+    Columns[Tables.Announcement].projectGroupId.name,
+    value,
+    sort
   );
 };
 
@@ -117,48 +144,102 @@ export const getSolarProjectById = async id => {
   return getRecordById(Tables.SolarProject, id);
 };
 
-export const getAllSolarProjects = async () => {
-  return getAllRecords(Tables.SolarProject);
+export const getSolarProjectsByIds = async ids => {
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
+  return getAllRecords(Tables.SolarProject, formula);
+};
+
+export const getAllSolarProjects = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.SolarProject, filterByFormula, sort);
 };
 
 export const getSubscriberBillById = async id => {
   return getRecordById(Tables.SubscriberBill, id);
 };
 
-export const getAllSubscriberBills = async () => {
-  return getAllRecords(Tables.SubscriberBill);
+export const getSubscriberBillsByIds = async ids => {
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
+  return getAllRecords(Tables.SubscriberBill, formula);
+};
+
+export const getAllSubscriberBills = async (
+  filterByFormula = '',
+  sort = []
+) => {
+  return getAllRecords(Tables.SubscriberBill, filterByFormula, sort);
 };
 
 export const getRateScheduleById = async id => {
   return getRecordById(Tables.RateSchedule, id);
 };
 
-export const getAllRateSchedules = async () => {
-  return getAllRecords(Tables.RateSchedule);
+export const getRateSchedulesByIds = async ids => {
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
+  return getAllRecords(Tables.RateSchedule, formula);
+};
+
+export const getAllRateSchedules = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.RateSchedule, filterByFormula, sort);
 };
 
 export const getPledgeInviteById = async id => {
   return getRecordById(Tables.PledgeInvite, id);
 };
 
-export const getAllPledgeInvites = async () => {
-  return getAllRecords(Tables.PledgeInvite);
+export const getPledgeInvitesByIds = async ids => {
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
+  return getAllRecords(Tables.PledgeInvite, formula);
+};
+
+export const getAllPledgeInvites = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.PledgeInvite, filterByFormula, sort);
 };
 
 export const getPaymentById = async id => {
   return getRecordById(Tables.Payment, id);
 };
 
-export const getAllPayments = async () => {
-  return getAllRecords(Tables.Payment);
+export const getPaymentsByIds = async ids => {
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
+  return getAllRecords(Tables.Payment, formula);
+};
+
+export const getAllPayments = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.Payment, filterByFormula, sort);
 };
 
 export const getTestDevelopmentById = async id => {
   return getRecordById(Tables.TestDevelopment, id);
 };
 
-export const getAllTestDevelopments = async () => {
-  return getAllRecords(Tables.TestDevelopment);
+export const getTestDevelopmentsByIds = async ids => {
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
+  return getAllRecords(Tables.TestDevelopment, formula);
+};
+
+export const getAllTestDevelopments = async (
+  filterByFormula = '',
+  sort = []
+) => {
+  return getAllRecords(Tables.TestDevelopment, filterByFormula, sort);
 };
 
 /*
