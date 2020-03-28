@@ -119,8 +119,8 @@
 .green-check {
   display: flex;
   align-self: flex-start;
-  max-width: 10%;
-  max-height: 30%;
+  max-width: 20px;
+  max-height: 20px;
   margin-right: 5px;
 }
 
