@@ -5,15 +5,15 @@ export default class SharesProgressBar extends React.PureComponent {
   render() {
     const { numberOfShares } = this.props;
     const percentage = numberOfShares * 10;
-    const progressbarPink = '#cd6795';
-    const progressbarGray = '#F4F1F24';
-    const progressbarText = '30px';
+    const PROGRESS_BAR_PINK = '#cd6795';
+    const PROGRESS_BAR_GRAY = '#F4F1F24';
+    const PROGRESS_BAR_TEXT = '30px';
 
     const circularProgressBarStyles = {
-      pathColor: progressbarPink,
-      textSize: progressbarText,
-      textColor: progressbarPink,
-      trailColor: progressbarGray
+      pathColor: PROGRESS_BAR_PINK,
+      textSize: PROGRESS_BAR_TEXT,
+      textColor: PROGRESS_BAR_PINK,
+      trailColor: PROGRESS_BAR_GRAY
     };
 
     return (
