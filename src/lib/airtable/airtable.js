@@ -126,6 +126,7 @@ function getAllRecords(table, filterByFormula = '', sort = []) {
       throw err;
     });
 }
+
 // Given a table and record ID, return the associated record object using a Promise.
 function getRecordById(table, id) {
   return base(table)
@@ -137,6 +138,7 @@ function getRecordById(table, id) {
       throw err;
     });
 }
+
 /*
   Given the desired table, field type (column), and field ('nick wong' or 'aivant@pppower.io'),
   return the associated record object.
@@ -161,6 +163,7 @@ function getRecordsByAttribute(table, fieldType, field, sort = []) {
       throw err;
     });
 }
+
 // Given a table and a record object, update a record on Airtable.
 function updateRecord(table, id, updatedRecord) {
   const transformedRecord = toAirtableFormat(updatedRecord, table);
@@ -178,6 +181,7 @@ function updateRecord(table, id, updatedRecord) {
       throw err;
     });
 }
+
 function deleteRecord(table, id) {
   return base(table)
     .destroy([id])

@@ -54,7 +54,7 @@ class Onboarding extends React.Component {
       // Otherwise, check for invite in query string
       const inviteToken = qs.parse(location.search, {
         ignoreQueryPrefix: true
-      }).token;
+      }).invite;
 
       if (inviteToken) {
         // Download pledge invite and update state
