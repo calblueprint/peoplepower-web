@@ -64,13 +64,6 @@ class Billing extends React.Component {
         seeAllTransactionsView={this.seeAllTransactionsView}
         transactions={transactions}
         activeBill={activeBill}
-
-        // sends the props:
-        //   {
-        //   seeAllTransactionsView: this.seeAllTransactionsView
-        //   transactions: transactions
-        //   activeBill: activeBill
-        //   }
       />
     ) : (
       <BillingAllBillsView
