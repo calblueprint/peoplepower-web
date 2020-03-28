@@ -22,6 +22,15 @@ const validateExistence = (
   return value ? '' : error;
 };
 
+const toggleValidColor = (input, type) => {
+  if (!type) {
+    return input !== '' && typeof input !== 'undefined'
+      ? 'b-is-not-valid'
+      : 'b-is-valid';
+  }
+  return !input ? '\u00A0' : input;
+};
+
 const validateCertifyPermanentAddress = value => {
   return value ? (
     ''
@@ -162,5 +171,6 @@ export {
   validateField,
   getAvailableProjectGroups,
   updateOwnerFields,
-  returnToHomepage
+  returnToHomepage,
+  toggleValidColor
 };

@@ -12,7 +12,7 @@ class BasicInfoStep extends React.PureComponent {
       errors,
       onSubmit,
       handleChange,
-      checkValidCSSClass
+      toggleValidColor
     } = this.props;
     return (
       <form className="center card flex onboarding-col">
@@ -31,10 +31,7 @@ class BasicInfoStep extends React.PureComponent {
               placeholder="First name"
               onChange={handleChange}
               defaultValue={owner.firstName}
-              className={` input-gray ${checkValidCSSClass(
-                errors.firstName,
-                0
-              )}`}
+              className={` input-gray ${toggleValidColor(errors.firstName, 0)}`}
             />
           </div>
           <div className="w-50">
@@ -44,19 +41,16 @@ class BasicInfoStep extends React.PureComponent {
               placeholder="Last name"
               onChange={handleChange}
               defaultValue={owner.lastName}
-              className={` input-gray ${checkValidCSSClass(
-                errors.lastName,
-                0
-              )}`}
+              className={` input-gray ${toggleValidColor(errors.lastName, 0)}`}
             />
           </div>
         </div>
         <div className="flex onboarding-row">
           <div className="w-50 pr-1 validation">
-            {checkValidCSSClass(errors.firstName, 1)}
+            {toggleValidColor(errors.firstName, 1)}
           </div>
           <div className="w-50 validation">
-            {checkValidCSSClass(errors.lastName, 1)}
+            {toggleValidColor(errors.lastName, 1)}
           </div>
         </div>
         <div className="w-100">
@@ -68,11 +62,9 @@ class BasicInfoStep extends React.PureComponent {
             placeholder="Enter your primary email address"
             onChange={handleChange}
             defaultValue={owner.email}
-            className={`input-gray ${checkValidCSSClass(errors.email, 0)}`}
+            className={`input-gray ${toggleValidColor(errors.email, 0)}`}
           />
-          <div className=" validation">
-            {checkValidCSSClass(errors.email, 1)}
-          </div>
+          <div className=" validation">{toggleValidColor(errors.email, 1)}</div>
         </div>
         <div className="w-100">
           <label className="onboarding-label left pr-half" htmlFor="altEmail">
@@ -88,13 +80,13 @@ class BasicInfoStep extends React.PureComponent {
             placeholder="Enter an alternate email address"
             onChange={handleChange}
             defaultValue={owner.alternateEmail}
-            className={`input-gray ${checkValidCSSClass(
+            className={`input-gray ${toggleValidColor(
               errors.alternateEmail,
               0
             )}`}
           />
           <div className=" validation">
-            {checkValidCSSClass(errors.alternateEmail, 1)}
+            {toggleValidColor(errors.alternateEmail, 1)}
           </div>
         </div>
         <div className="w-100">
@@ -107,10 +99,10 @@ class BasicInfoStep extends React.PureComponent {
             placeholder="Create a password"
             onChange={handleChange}
             defaultValue={owner.password}
-            className={`input-gray ${checkValidCSSClass(errors.password, 0)}`}
+            className={`input-gray ${toggleValidColor(errors.password, 0)}`}
           />
           <div className=" validation">
-            {checkValidCSSClass(errors.password, 1)}
+            {toggleValidColor(errors.password, 1)}
           </div>
         </div>
         <div className="v-center">

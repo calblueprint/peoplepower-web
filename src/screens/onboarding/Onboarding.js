@@ -2,7 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import qs from 'qs';
 import OnboardingData from '../../lib/onboardingData';
-import { validateField, updateOwnerFields } from '../../lib/onboardingUtils';
+import {
+  validateField,
+  updateOwnerFields,
+  toggleValidColor
+} from '../../lib/onboardingUtils';
 import ProgressBar from './components/ProgressBar';
 import Constants from '../../constants';
 import {
@@ -39,15 +43,6 @@ class Onboarding extends React.Component {
       this.refreshState();
     }
   }
-
-  checkValidCSSClass = (input, type) => {
-    if (!type) {
-      return input !== '' && typeof input !== 'undefined'
-        ? 'b-is-not-valid'
-        : 'b-is-valid';
-    }
-    return !input ? '\u00A0' : input;
-  };
 
   refreshState = async () => {
     const { owner, location } = this.props;
@@ -227,7 +222,7 @@ class Onboarding extends React.Component {
           onBack={this.prevStep}
           onFinish={this.onFinish}
           handleChange={this.handleChange}
-          checkValidCSSClass={this.checkValidCSSClass}
+          toggleValidColor={toggleValidColor}
         />
       </div>
     );

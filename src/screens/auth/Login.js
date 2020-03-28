@@ -46,7 +46,7 @@ class Login extends React.Component {
     }
   };
 
-  checkValidCSSClass() {
+  toggleValidColor() {
     const { showLoginError } = this.state;
     return showLoginError ? 'b-is-valid' : 'b-is-not-valid';
   }
@@ -74,9 +74,7 @@ class Login extends React.Component {
               placeholder="Email address"
               onChange={this.handleEmailChange}
               defaultValue={email}
-              className={` input-gray ${this.checkValidCSSClass(
-                showLoginError
-              )}`}
+              className={` input-gray ${this.toggleValidColor(showLoginError)}`}
             />
           </div>
           <div className="w-100 ">
@@ -89,9 +87,7 @@ class Login extends React.Component {
               placeholder="Password"
               onChange={this.handlePasswordChange}
               defaultValue={passwordHash}
-              className={` input-gray ${this.checkValidCSSClass(
-                showLoginError
-              )}`}
+              className={` input-gray ${this.toggleValidColor(showLoginError)}`}
             />
           </div>
           <div className=" t-center">
