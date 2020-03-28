@@ -51,7 +51,7 @@
     ]
   },
   "devDependencies": {
-    "airtable-schema-generator": "^1.2.9",
+    "airtable-schema-generator": "^1.3.3",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
@@ -80,7 +80,20 @@
     "output": "src/lib/airtable",
     "input": "src/lib/airtable",
     "defaultView": "Grid view",
-    "baseId": "appFaOwKhMXrRIQIp"
+    "mode": "auto-headless",
+    "schemaMeta": {
+      "Announcement": {
+        "lookupFields": [
+          "Project Group ID"
+        ]
+      },
+      "Owner": {
+        "lookupFields": [
+          "Email",
+          "Project Group ID"
+        ]
+      }
+    }
   },
   "babel": {
     "plugins": [
