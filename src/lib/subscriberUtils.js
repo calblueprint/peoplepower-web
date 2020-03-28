@@ -4,31 +4,34 @@ import constants from '../constants';
 
 const { BILL_ACTIVE_STATUS } = constants;
 
+const formatAmount = (amountInDollars, places = 2) =>
+  `$${amountInDollars.toFixed(places)}`;
+
 const createTransactionFromPayment = payment => ({
   balance: '$0.00',
   date: moment(payment.dateCreated),
   description: 'Online Payment',
-  payment: `$${payment.amount}`,
+  payment: formatAmount(payment.amount),
   charge: ''
 });
 
 const createTransactionFromBill = bill => ({
-  balance: `$${bill.balance}`,
+  balance: formatAmount(bill.balance),
   date: moment(bill.statementDate),
   description: `${moment(bill.startDate).format('MMMM')} Power Bill`,
-  charge: `$${bill.currentCharges}`,
+  charge: formatAmount(bill.currentCharges),
   payment: ''
 });
 
 const getSubscriberTransactionData = async owner => {
-  const bills = getSubscriberBillsByIds(owner.subscriberBillIds);
-  const payments = getPaymentsByIds(owner.paymentIds);
+  const bills = await getSubscriberBillsByIds(owner.subscriberBillIds || []);
+  const payments = await getPaymentsByIds(owner.paymentIds || []);
 
   // Create Transactions
-  const transactions = (
-    bills.map(createTransactionFromBill) +
-    payments.map(createTransactionFromPayment)
-  ).sort((a, b) => b.date - a.date); // Sort descending
+  const transactions = bills
+    .map(createTransactionFromBill)
+    .concat(payments.map(createTransactionFromPayment))
+    .sort((a, b) => b.date - a.date); // Sort descending
 
   // Find active bill
   const activeBills = bills.filter(b => b.status === BILL_ACTIVE_STATUS);
@@ -42,4 +45,4 @@ const getSubscriberTransactionData = async owner => {
   return { activeBill, transactions };
 };
 
-export default getSubscriberTransactionData;
+export { formatAmount, getSubscriberTransactionData };

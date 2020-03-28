@@ -23,7 +23,8 @@ const constants = {
   PLEDGE_INVITE_USED: 'Used',
 
   // BILL GENERATION
-  BACKEND_URL: 'https://peoplepower-node.herokuapp.com'
+  BACKEND_URL: 'https://peoplepower-node.herokuapp.com',
+  BILL_ACTIVE_STATUS: 'Active'
 };
 
 export default constants;

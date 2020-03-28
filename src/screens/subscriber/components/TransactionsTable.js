@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import ReactTable from 'react-table-v6';
 
@@ -7,7 +8,7 @@ const TransactionTableHeader = ({ title }) => (
   </div>
 );
 
-const TransactionsTable = ({ transactions, numRows }) => {
+const TransactionsTable = ({ transactions, numRows, ...props }) => {
   const fields = ['date', 'description', 'charge', 'payment', 'balance'];
   return (
     <ReactTable
@@ -22,6 +23,7 @@ const TransactionsTable = ({ transactions, numRows }) => {
       })}
       defaultPageSize={numRows || 10}
       className="-striped -highlight rt-custom-pp-style"
+      {...props}
     />
   );
 };

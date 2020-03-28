@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
-import AllTransactionsTable from './SubscriberAllTransactionsTable';
+import TransactionsTable from './TransactionsTable';
 import RightArrow from '../../../assets/right_arrow.png';
 
 export default class BillingAllTransactionsView extends React.PureComponent {
@@ -23,7 +23,7 @@ export default class BillingAllTransactionsView extends React.PureComponent {
           </div>
         </button>
         <p className="all-bills-header">Billing History</p>
-        <AllTransactionsTable transactions={transactions} />
+        <TransactionsTable transactions={transactions} />
       </div>
     );
   }

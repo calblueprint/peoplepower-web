@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 import '../styles/PPModal.css';
 
 const ROOT_ELEMENT = '#root';
@@ -13,7 +14,8 @@ export default class PPModal extends React.PureComponent {
       header,
       actionName,
       action,
-      handleCloseModal
+      handleCloseModal,
+      returnHome
     } = this.props;
     return (
       <Modal
@@ -27,13 +29,26 @@ export default class PPModal extends React.PureComponent {
         <div className="pp-general-modal-body">
           {body || 'Uh oh! Something went wrong.'}
         </div>
-        <button
-          onClick={action || handleCloseModal}
-          type="button"
-          className="pp-general-modal-button"
-        >
-          {actionName || 'Close'}
-        </button>
+        <div>
+          {typeof returnHome !== 'undefined' ? (
+            <button
+              type="button"
+              className="pp-general-modal-button-back"
+              onClick={returnHome}
+            >
+              <Link to="/" className="subscriber-link-text-white">
+                Back to homepage
+              </Link>
+            </button>
+          ) : null}
+          <button
+            onClick={action || handleCloseModal}
+            type="button"
+            className="pp-general-modal-button"
+          >
+            {actionName || 'Close'}
+          </button>
+        </div>
       </Modal>
     );
   }

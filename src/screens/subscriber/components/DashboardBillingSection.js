@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ReactTable from 'react-table-v6';
-import { centsToDollars } from '../../../lib/subscriberUtils';
 import RightArrow from '../../../assets/right_arrow.png';
+import TransactionsTable from './TransactionsTable';
+import { formatAmount } from '../../../lib/subscriberUtils';
 
 export default class DashboardBilling extends React.PureComponent {
   render() {
-    const { totalBalance, data } = this.props;
+    const { activeBill, transactions } = this.props;
+
+    const totalBalance = activeBill ? activeBill.balance : 0;
     return (
       <div>
         <div className="subscriber-section-header">
@@ -25,7 +27,7 @@ export default class DashboardBilling extends React.PureComponent {
               <div className="subscriber-billing-current-container">
                 <div className="subscriber-billing-header">Current Balance</div>
                 <h3 className="subscriber-billing-balance">
-                  ${centsToDollars(totalBalance)}
+                  {formatAmount(totalBalance)}
                 </h3>
                 <div>
                   <button
@@ -60,50 +62,9 @@ export default class DashboardBilling extends React.PureComponent {
                     </button>
                   </div>
                 </div>
-                <ReactTable
-                  data={data}
-                  columns={[
-                    {
-                      id: 'statementDate',
-                      accessor: d => (
-                        <div className="subscriber-billing-recent-row ">
-                          {d.statementDate}
-                        </div>
-                      )
-                      // width: 100
-                    },
-                    {
-                      id: 'description',
-                      accessor: d => (
-                        <div className="subscriber-billing-recent-row ">
-                          <b>{d.description}</b>
-                        </div>
-                      ),
-                      width: 200
-                    },
-                    {
-                      id: 'amtDue',
-                      accessor: d => (
-                        <div className="subscriber-billing-recent-row ">
-                          {d.amtDue ? `+${d.amtDue}` : `-${d.payment}`}
-                        </div>
-                      )
-                      // width: 150
-                    },
-                    {
-                      id: 'status',
-                      accessor: d => (
-                        <div className="subscriber-billing-recent-row ">
-                          {d.status}
-                        </div>
-                      )
-                      // width: 100
-                    }
-                  ]}
-                  getTdProps={() => ({
-                    style: { border: 'none' }
-                  })}
-                  defaultPageSize={2}
+                <TransactionsTable
+                  transactions={transactions}
+                  numRows={2}
                   className="subscriber-billing-recent-table"
                   showPagination={false}
                   getTrGroupProps={() => {

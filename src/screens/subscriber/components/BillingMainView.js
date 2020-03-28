@@ -1,30 +1,20 @@
 import React from 'react';
-import ReactTable from 'react-table-v6';
 import RightArrow from '../../../assets/right_arrow.png';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
-import { dateToFullMonth, formatDate } from '../../../lib/dateUtils';
-import {
-  getTotalBalanceFromBills,
-  recordPendingBillsPaymentSuccess
-} from '../../../lib/paypalUtils';
+import TransactionsTable from './TransactionsTable';
+import { formatAmount } from '../../../lib/subscriberUtils';
 
-export default class BillingMainView extends React.Component {
-  onPaypalPaymentSuccess = async (details, data) => {
-    try {
-      const { pendingBills } = this.props;
-      await recordPendingBillsPaymentSuccess(details, data, pendingBills);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
+export default class BillingMainView extends React.PureComponent {
   render() {
     const { seeAllTransactionsView, activeBill, transactions } = this.props;
-    const { data } = this.state;
 
-    const { pendingBills } = this.props;
-    const totalBalance = getTotalBalanceFromBills(pendingBills);
+    const activeBalance = activeBill ? activeBill.balance : 0;
+    const amountPaid = activeBill
+      ? activeBill.amountDue - activeBill.balance
+      : 0;
+    const estimatedRebate = activeBill ? activeBill.estimatedRebate : 0;
+
     return (
       <div className="billing-dash-outer-container">
         <h1>Billing</h1>
@@ -35,12 +25,12 @@ export default class BillingMainView extends React.Component {
               <div className="class-elems billing-balance-section">
                 <div className="billing-balance-header-section">
                   <p className="">Current Balance</p>
-                  <h3>${centsToDollars(totalBalance)}</h3>
+                  <h3>{formatAmount(activeBalance)}</h3>
                 </div>
                 <hr id="billing-divider" />
 
                 <div className="billing-balance-nums-section">
-                  {totalBalance === 0 ? (
+                  {!activeBalance ? (
                     <div>
                       <div className="billing-balance-nums-line">
                         <p className="line-item">
@@ -53,13 +43,31 @@ export default class BillingMainView extends React.Component {
                       <div className="billing-balance-nums-line">
                         <p className="line-item">Outstanding Balance</p>
                         <p className="line-item line-item-value">
-                          ${centsToDollars(totalBalance)}
+                          {formatAmount(activeBill.balanceOnPreviousBill)}
                         </p>
                       </div>
                       <div className="billing-balance-nums-line">
                         <p className="line-item">Latest Power Bill</p>
-                        <p className="line-item line-item-value">$0.00</p>
+                        <p className="line-item line-item-value">
+                          {formatAmount(activeBill.currentCharges)}
+                        </p>
                       </div>
+                      {!!estimatedRebate && (
+                        <div className="billing-balance-nums-line">
+                          <p className="line-item">Estimated Rebate</p>
+                          <p className="line-item line-item-value">
+                            - {formatAmount(estimatedRebate)}
+                          </p>
+                        </div>
+                      )}
+                      {!!amountPaid && (
+                        <div className="billing-balance-nums-line">
+                          <p className="line-item">Amount Paid</p>
+                          <p className="line-item line-item-value">
+                            - {formatAmount(amountPaid)}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   )}
                   <div className="billing-balance-divider-container">
@@ -72,7 +80,7 @@ export default class BillingMainView extends React.Component {
                       <strong>Total</strong>
                     </p>
                     <p className="line-item-total line-item-value">
-                      <strong>${totalBalance}</strong>
+                      <strong>{formatAmount(activeBalance)}</strong>
                     </p>
                   </div>
                   <div className="billing-payment-button-container">
@@ -90,7 +98,7 @@ export default class BillingMainView extends React.Component {
               <button
                 className="billing-all-billls-button"
                 type="button"
-                onClick={seeAllBills}
+                onClick={seeAllTransactionsView}
               >
                 <img
                   className="button right-arrow-button"
@@ -100,65 +108,9 @@ export default class BillingMainView extends React.Component {
               </button>
             </div>
             <div className="billing-col-card">
-              <ReactTable
-                data={data}
-                columns={[
-                  {
-                    Header: renderCondensedBillDisplayHeader('DATE'),
-                    id: 'statementDate',
-                    accessor: d => (
-                      <div className="billing-bills-display-row">
-                        {d.statementDate}
-                      </div>
-                    )
-                    // width: 100
-                  },
-                  {
-                    Header: renderCondensedBillDisplayHeader('DESCRIPTION'),
-                    id: 'description',
-                    accessor: d => (
-                      <div className="billing-bills-display-row">
-                        <b>{d.description}</b>
-                      </div>
-                    ),
-                    width: 200
-                  },
-                  {
-                    Header: renderCondensedBillDisplayHeader('CHARGE'),
-                    id: 'amtDue',
-                    accessor: d => (
-                      <div className="billing-bills-display-row">
-                        {d.amtDue}
-                      </div>
-                    )
-                    // width: 150
-                  },
-                  {
-                    Header: renderCondensedBillDisplayHeader('PAYMENT'),
-                    id: 'payment',
-                    accessor: d => (
-                      <div className="billing-bills-display-row">
-                        {d.payment}
-                      </div>
-                    )
-                    // width: 150
-                  },
-                  {
-                    Header: renderCondensedBillDisplayHeader('STATUS'),
-                    id: 'status',
-                    accessor: d => (
-                      <div className="billing-bills-display-row">
-                        {d.status}
-                      </div>
-                    )
-                    // width: 100
-                  }
-                ]}
-                getTdProps={() => ({
-                  style: { border: 'none' }
-                })}
-                defaultPageSize={6}
-                className="-highlight rt-custom-pp-style"
+              <TransactionsTable
+                transactions={transactions}
+                numRows={6}
                 showPagination={false}
               />
             </div>
