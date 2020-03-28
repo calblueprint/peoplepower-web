@@ -10,6 +10,10 @@ export default class DividendsPreferencesModal extends React.Component {
       showModal: false,
       newIsReceivingDividends: props.newIsReceivingDividends
     };
+
+    if (props.newIsReceivingDividends === undefined) {
+      this.state.newIsReceivingDividends = false; // Defaults to
+    }
   }
 
   handleOpenModal = () => {

@@ -10,6 +10,34 @@ import GreenCheck from '../../assets/green_check.png';
 import RedX from '../../assets/red_x.png';
 
 class Investment extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isReceivingDividends: true
+    };
+  }
+
+  componentDidMount() {
+    const { isLoadingUserData } = this.props;
+    if (isLoadingUserData) {
+      return; // Data isn't loaded in yet
+    }
+    this.refreshState();
+  }
+
+  // This function gets called whenever the component receives new props or new state
+  componentDidUpdate = prevProps => {
+    const { owner } = this.props;
+    if (prevProps.owner !== owner) {
+      this.refreshState();
+    }
+  };
+
+  refreshState = () => {
+    const { owner } = this.props;
+    this.setState({ isReceivingDividends: owner.isReceivingDividends });
+  };
+
   submitPreference = async newIsReceivingDividends => {
     const { owner } = this.props;
     await updateOwner(owner.id, {
@@ -20,6 +48,7 @@ class Investment extends React.PureComponent {
 
   render() {
     const { owner } = this.props;
+    const { isReceivingDividends } = this.state;
 
     return (
       <div className="dashboard">
@@ -72,7 +101,7 @@ class Investment extends React.PureComponent {
                   </div>
                 </div>
                 <DividendsPreferencesModal
-                  newIsReceivingDividends={owner.newIsReceivingDividends}
+                  newIsReceivingDividends={isReceivingDividends}
                   onClickSavePreferences={this.submitPreference}
                 />
               </div>
@@ -91,7 +120,8 @@ class Investment extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner
+  owner: state.userData.owner,
+  isLoadingUserData: state.userData.isLoading
 });
 
 export default connect(mapStateToProps)(Investment);
