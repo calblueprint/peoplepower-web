@@ -12,7 +12,8 @@ const createTransactionFromPayment = payment => ({
   date: moment(payment.dateCreated).format(TRANSACTION_DATE_FORMAT),
   description: 'Online Payment',
   payment: formatAmount(payment.amount),
-  charge: ''
+  charge: '',
+  amount: formatAmount(payment.amount)
 });
 
 const createTransactionFromBill = bill => ({
@@ -20,7 +21,8 @@ const createTransactionFromBill = bill => ({
   date: moment(bill.statementDate).format(TRANSACTION_DATE_FORMAT),
   description: `${moment(bill.startDate).format('MMMM')} Power Bill`,
   charge: formatAmount(bill.currentCharges),
-  payment: ''
+  payment: '',
+  amount: formatAmount(bill.currentCharges)
 });
 
 const getSubscriberTransactionData = async owner => {
