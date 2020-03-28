@@ -40,8 +40,7 @@ export default class AddAnnouncement extends React.Component {
 
     const { owner } = this.props;
     const newMessage = {
-      authorId: [owner.id],
-      // We don't need to put this value below in the array because it's already an array
+      authorId: owner.id,
       projectGroupId: owner.projectGroupId,
       message
     };
