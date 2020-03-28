@@ -47,15 +47,14 @@ class Onboarding extends React.Component {
     if (owner) {
       this.setState({
         owner: {
-          ...owner,
-          projectGroupId: owner.projectGroupId && owner.projectGroupId[0]
+          ...owner
         }
       });
     } else {
       // Otherwise, check for invite in query string
       const inviteToken = qs.parse(location.search, {
         ignoreQueryPrefix: true
-      }).token;
+      }).invite;
 
       if (inviteToken) {
         // Download pledge invite and update state
@@ -70,8 +69,8 @@ class Onboarding extends React.Component {
               isReceivingDividends: pledgeInvite.wantsDividends,
               phoneNumber: pledgeInvite.phoneNumber,
               email: pledgeInvite.email,
-              projectGroupId: pledgeInvite.projectGroupId[0],
-              pledgeInviteId: [pledgeInvite.id]
+              projectGroupId: pledgeInvite.projectGroupId,
+              pledgeInviteId: pledgeInvite.id
             },
             inviteToken: pledgeInvite.id
           }));
@@ -111,11 +110,6 @@ class Onboarding extends React.Component {
         ...owner,
         onboardingStep: owner.onboardingStep + 1
       };
-
-      // Account for edge case of project group ID needing to be wrapped in an array
-      if (newOwner.projectGroupId) {
-        newOwner.projectGroupId = [newOwner.projectGroupId];
-      }
 
       const fieldsToUpdate = [...OnboardingData[owner.onboardingStep].fields];
 
@@ -185,11 +179,6 @@ class Onboarding extends React.Component {
   onFinish = () => {
     const { owner } = this.state;
     const newOwner = { ...owner, onboardingStep: -1 };
-
-    // Account for edge case of project group ID needing to be wrapped in an array
-    if (newOwner.projectGroupId) {
-      newOwner.projectGroupId = [newOwner.projectGroupId];
-    }
 
     // Should trigger redux refresh navigating user away from onboarding
     updateOwnerFields(newOwner, []);
