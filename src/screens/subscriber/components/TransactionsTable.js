@@ -15,11 +15,14 @@ const TransactionsTable = ({ transactions, numRows, ...props }) => {
       data={transactions}
       columns={fields.map(f => ({
         Header: <TransactionTableHeader title={f} />,
-        id: { f },
+        id: f,
+        width: f === 'description' ? 200 : undefined,
         accessor: d => <div className="subscriber-all-bills-row">{d[f]}</div>
       }))}
       getTdProps={() => ({
-        style: { border: 'none' }
+        style: {
+          border: 'none'
+        }
       })}
       defaultPageSize={numRows || 10}
       className="-striped -highlight rt-custom-pp-style"

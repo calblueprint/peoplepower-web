@@ -6,13 +6,13 @@ import RightArrow from '../../../assets/right_arrow.png';
 
 export default class BillingAllTransactionsView extends React.PureComponent {
   render() {
-    const { seeMain, transactions } = this.props;
+    const { seeMainView, transactions } = this.props;
     return (
       <div className="all-bills-outer-container">
         <button
           className="subscriber-back-button"
           type="button"
-          onClick={seeMain}
+          onClick={seeMainView}
         >
           <div className="subscriber-back-button-container">
             <img
