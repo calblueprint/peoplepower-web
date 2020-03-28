@@ -68,6 +68,7 @@ class GeneralOwnerDashboard extends React.Component {
       isLoadingAnnouncements,
       isLoadingUserData
     } = this.props;
+
     if (isLoadingAnnouncements && isLoadingUserData) {
       return <LoadingComponent />;
     }

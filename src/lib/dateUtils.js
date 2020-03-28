@@ -13,13 +13,6 @@ const dateToWord = {
   12: 'December'
 };
 
-const convertPaypalDateTimeToDate = dateTimeString => {
-  if (dateTimeString) {
-    return dateTimeString.slice(0, 10);
-  }
-  return null;
-};
-
 // expected format of date: YYYY-MM-DD
 function dateToDateString(date) {
   const dateArr = date.split('-');
@@ -38,9 +31,4 @@ function formatDate(date) {
   return `${parseInt(dateArr[1], 10)}/${dateArr[2]}/${dateArr[0]}`;
 }
 
-export {
-  convertPaypalDateTimeToDate,
-  dateToDateString,
-  dateToFullMonth,
-  formatDate
-};
+export { dateToDateString, dateToFullMonth, formatDate };

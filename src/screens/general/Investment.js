@@ -1,8 +1,31 @@
 import React from 'react';
 import '../../styles/Investments.css';
+import { connect } from 'react-redux';
 
 class Investment extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hello: 'world',
+      word: 'potato',
+      anotherKey: {
+        nestedKey: 'value'
+      }
+    };
+
+    const value = this.state['hello']; // world
+    const hello = this.state.hello; // world
+    const { hello } = this.state; // THE SAME THING
+
+    // also equivalent!
+    const hello = this.state.hello;
+    const word = this.state.word;
+
+    const { hello, word } = this.state;
+  }
+
   render() {
+    const { owner } = this.props;
     return (
       <div className="dashboard">
         <div className="mainheader">
@@ -26,4 +49,8 @@ class Investment extends React.PureComponent {
   }
 }
 
-export default Investment;
+const mapStateToProps = state => ({
+  owner: state.userData.owner
+});
+
+export default connect(mapStateToProps)(Investment);

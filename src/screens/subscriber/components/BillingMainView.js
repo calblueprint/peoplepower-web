@@ -3,55 +3,13 @@ import ReactTable from 'react-table-v6';
 import RightArrow from '../../../assets/right_arrow.png';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
-import { centsToDollars, formatStatus } from '../../../lib/subscriberUtils';
 import { dateToFullMonth, formatDate } from '../../../lib/dateUtils';
 import {
   getTotalBalanceFromBills,
   recordPendingBillsPaymentSuccess
 } from '../../../lib/paypalUtils';
 
-import constants from '../../../constants';
-
-const { ONLINE_PAYMENT_TYPE } = constants;
-
-const renderCondensedBillDisplayHeader = headerText => {
-  return () => <div className="billing-bills-display-header">{headerText}</div>;
-};
-
-const createCondensedPaymentTransaction = transaction => {
-  return {
-    startDate: transaction.startDate,
-    statementDate: formatDate(transaction.transactionDate),
-    description: transaction.type,
-    status: formatStatus(transaction.status),
-    payment: `$${centsToDollars(transaction.amount)}`
-  };
-};
-
-const createCondensedBillTransaction = transaction => {
-  return {
-    balance: transaction.balance,
-    startDate: transaction.startDate,
-    statementDate: formatDate(transaction.transactionDate),
-    description: `${dateToFullMonth(transaction.startDate)} Power Bill`,
-    status: transaction.status,
-    amtDue: `$${centsToDollars(transaction.amountDue)}`
-  };
-};
-
 export default class BillingMainView extends React.Component {
-  constructor(props) {
-    super(props);
-    const { bills, payments } = this.props;
-    this.state = {
-      data: transactions.map(t =>
-        t.type === ONLINE_PAYMENT_TYPE
-          ? createCondensedPaymentTransaction(t)
-          : createCondensedBillTransaction(t)
-      )
-    };
-  }
-
   onPaypalPaymentSuccess = async (details, data) => {
     try {
       const { pendingBills } = this.props;
@@ -62,7 +20,7 @@ export default class BillingMainView extends React.Component {
   };
 
   render() {
-    const { seeAllBills, bills, payments } = this.props;
+    const { seeAllTransactionsView, activeBill, transactions } = this.props;
     const { data } = this.state;
 
     const { pendingBills } = this.props;

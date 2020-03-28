@@ -11,11 +11,12 @@ class Billing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bills: [],
-      payments: [],
+      activeBill: null,
+      transactions: [],
       mode: 0 // 0 for main billing view, 1 for all bills view
     };
 
+    // Check URL for default mode param
     const { view } = qs.parse(props.location.search, {
       ignoreQueryPrefix: true
     });
@@ -33,24 +34,26 @@ class Billing extends React.Component {
       return;
     }
 
-    const { bills, payments } = await getSubscriberTransactionData(owner);
-    this.setState({ bills, payments });
+    const { activeBill, transactions } = await getSubscriberTransactionData(
+      owner
+    );
+    this.setState({ activeBill, transactions });
   }
 
-  seeAllBills() {
+  seeAllTransactionsView = () => {
     this.setState({
       mode: 1
     });
-  }
+  };
 
-  seeMain() {
+  seeMainView = () => {
     this.setState({
       mode: 0
     });
-  }
+  };
 
   render() {
-    const { mode, bills, payments } = this.state;
+    const { mode, activeBill, transactions } = this.state;
     const { isLoadingUserData } = this.props;
     if (isLoadingUserData) {
       return <LoadingComponent />;
@@ -58,15 +61,21 @@ class Billing extends React.Component {
 
     return mode === 0 ? (
       <BillingMainView
-        seeAllBills={() => this.seeAllBills()}
-        bills={bills}
-        payments={payments}
+        seeAllTransactionsView={this.seeAllTransactionsView}
+        transactions={transactions}
+        activeBill={activeBill}
+
+        // sends the props:
+        //   {
+        //   seeAllTransactionsView: this.seeAllTransactionsView
+        //   transactions: transactions
+        //   activeBill: activeBill
+        //   }
       />
     ) : (
       <BillingAllBillsView
-        seeMain={() => this.seeMain()}
-        bills={bills}
-        payments={payments}
+        seeMainView={this.seeMainView}
+        transactions={transactions}
       />
     );
   }
