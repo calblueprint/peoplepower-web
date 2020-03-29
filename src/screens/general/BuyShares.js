@@ -17,32 +17,6 @@ class BuyShares extends React.PureComponent {
     };
   }
 
-  minusShares = () => {
-    const { owner, handleChange } = this.props;
-    const event = {
-      target: {
-        name: 'numberOfShares',
-        value: owner.numberOfShares - 1
-      }
-    };
-    if (event.target.value > -1) {
-      handleChange(event);
-    }
-  };
-
-  addShares = () => {
-    const { owner, handleChange } = this.props;
-    const event = {
-      target: {
-        name: 'numberOfShares',
-        value: owner.numberOfShares + 1
-      }
-    };
-    if (event.target.value < 11) {
-      handleChange(event);
-    }
-  };
-
   render() {
     const { owner } = this.props;
     const { sharesBuying } = this.state;
@@ -110,6 +84,18 @@ class BuyShares extends React.PureComponent {
             </div>
             <div className="buy-shares-payment-summary-box">
               <h3>Payment Summary</h3>
+              <div className="shares-price-line">
+                <h5> Shares </h5>
+
+                <h5>${sharesBuying * 100}.00</h5>
+              </div>
+              <h6>QTY: {sharesBuying}</h6>
+              <hr className="buy-shares-summary-hr" />
+              <div className="shares-total-price-line">
+                <h5> Total </h5>
+
+                <h5>${sharesBuying * 100}.00</h5>
+              </div>
             </div>
             <div className="buy-shares-paypal-box">
               <h3>Payment Method</h3>

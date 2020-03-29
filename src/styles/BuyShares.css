@@ -37,10 +37,10 @@
   padding: 35px;
   margin-left: 0px;
   margin-right: 20px;
-  width: 450px;
+  width: 602px;
   height: 80px;
   display: flex;
-  flex-grow: 1.5;
+  flex-grow: 1;
   align-content: flex-start;
   flex-direction: column;
 }
@@ -51,10 +51,9 @@
   padding: 35px;
   margin-left: 0px;
   margin-right: 20px;
-  width: 450px;
+  width: 330px;
   height: 50px;
   display: flex;
-  flex-grow: 1;
   align-content: flex-start;
   margin-bottom: 14px;
 }
@@ -101,9 +100,10 @@
   padding-right: 35px;
   margin-left: 0px;
   margin-right: 20px;
-  width: 450px;
+  width: 335px;
   height: 190px;
   display: flex;
+  flex-grow: 0.8;
   align-content: flex-start;
   margin-bottom: 50px;
   flex-direction: column;
@@ -125,10 +125,11 @@
   padding-right: 35px;
   margin-left: 0px;
   margin-right: 20px;
-  width: 450px;
-  height: 120px;
+  width: 335px;
+  height: 228px;
   display: flex;
   align-content: flex-start;
+  flex-direction: column;
   margin-bottom: 14px;
 }
 
@@ -137,5 +138,31 @@
   font-size: 18px;
   line-height: 25px;
   color: var(--pp-blue);
-  margin-bottom: 10px;
+}
+
+.shares-price-line,
+.shares-total-price-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.shares-price-line h5 {
+  font-weight: 500;
+}
+
+.buy-shares-payment-summary-box h6 {
+  margin-block-start: 0;
+  font-size: 12px;
+  line-height: 22px;
+  color: #999999;
+  font-weight: 400;
+}
+
+.buy-shares-summary-hr {
+  border-bottom: 1px solid var(--pp-white);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 100%;
 }
