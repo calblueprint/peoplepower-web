@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import RightArrow from '../../../assets/right_arrow.png';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import TransactionsTable from './TransactionsTable';
 import { formatAmount } from '../../../lib/subscriberUtils';
 
-export default class BillingMainView extends React.PureComponent {
+export default class BillingMain extends React.PureComponent {
   render() {
     const { seeAllTransactionsView, activeBill, transactions } = this.props;
 
@@ -85,7 +86,12 @@ export default class BillingMainView extends React.PureComponent {
                   </div>
                   <div className="billing-payment-button-container">
                     <button type="button" className="billing-payment-button">
-                      Make Payment
+                      <Link
+                        to="/billPayment"
+                        className="billing-link-text-white "
+                      >
+                        Make Payment
+                      </Link>
                     </button>
                   </div>
                 </div>

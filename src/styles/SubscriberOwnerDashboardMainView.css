@@ -39,8 +39,15 @@
 
 .billing-col-card {
   background-color: white;
-  border-radius: 4px;
-  height: 47vh;
+  border-color: var(--pp-white);
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.billing-link-text-white {
+  text-decoration: none;
+  color: white;
 }
 
 .billing-balance-section {

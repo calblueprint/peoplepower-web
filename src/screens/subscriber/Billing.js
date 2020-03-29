@@ -1,8 +1,8 @@
 import React from 'react';
 import qs from 'qs';
 import { connect } from 'react-redux';
-import BillingAllBillsView from './components/BillingAllTransactionsView';
-import BillingMainView from './components/BillingMainView';
+import BillingAllBills from './components/BillingAllTransactions';
+import BillingMain from './components/BillingMain';
 import LoadingComponent from '../../components/LoadingComponent';
 import { getSubscriberTransactionData } from '../../lib/subscriberUtils';
 import '../../styles/SubscriberOwnerDashboard.css';
@@ -60,13 +60,13 @@ class Billing extends React.Component {
     }
 
     return mode === 0 ? (
-      <BillingMainView
+      <BillingMain
         seeAllTransactionsView={this.seeAllTransactionsView}
         transactions={transactions}
         activeBill={activeBill}
       />
     ) : (
-      <BillingAllBillsView
+      <BillingAllBills
         seeMainView={this.seeMainView}
         transactions={transactions}
       />
