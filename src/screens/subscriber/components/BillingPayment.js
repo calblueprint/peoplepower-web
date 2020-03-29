@@ -1,16 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { PayPalButton } from 'react-paypal-button-v2/lib';
 import {
   getSubscriberTransactionData,
   formatAmount
 } from '../../../lib/subscriberUtils';
-// import Constants from '../../../constants';
+import Constants from '../../../constants';
 import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
 import RightArrow from '../../../assets/right_arrow.png';
 
-// const { SHARE_PRICE } = Constants;
+const { SHARE_PRICE } = Constants;
 
 class BillingPayment extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class BillingPayment extends React.Component {
 
   render() {
     const { activeBill, loading } = this.state;
-    const { isLoadingUserData } = this.props;
+    const { isLoadingUserData, owner } = this.props;
 
     if (isLoadingUserData || loading) {
       return <LoadingComponent />;
@@ -166,6 +167,15 @@ class BillingPayment extends React.Component {
                       </p>
                     </div>
                   </div>
+                  <PayPalButton
+                    amount={owner.numberOfShares * SHARE_PRICE}
+                    onSuccess={a => {
+                      console.log(a);
+                    }}
+                    options={{
+                      clientId
+                    }}
+                  />
                 </div>
               </div>
             </div>

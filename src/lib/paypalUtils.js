@@ -25,15 +25,13 @@ const {
       }
     */
 
-const dollarsToCents = dollars => {
-  return parseFloat(dollars, 10) * 100;
-};
-
-const getTotalBalanceFromBills = pendingBills => {
-  return pendingBills
-    .map(pendingBill => pendingBill.balance)
-    .reduce((a, b) => a + b, 0);
-};
+const transformPaypalToSharePayment = async (
+  details,
+  data,
+  owner,
+  numberOfShares
+) => {};
+const transformPaypalToBillPayment = async (details, data, bill) => {};
 
 const recordShareBuySuccess = async (details, data, ownerId) => {
   const { orderId, payerId } = data;
@@ -212,34 +210,6 @@ const recordBillPaymentSuccess = async (details, data, bill) => {
     balance: newBalance,
     status: newBalance === 0 ? COMPLETED_STATUS : PENDING_STATUS
   });
-};
-
-const recordPendingBillsPaymentSuccess = async (
-  details,
-  data,
-  pendingBills
-) => {
-  const { amount } = details.purchase_units[0]; // assumes purchase_units is only of length 1
-  const amountPaidInCents = dollarsToCents(amount.value);
-  const totalBalance = getTotalBalanceFromBills(pendingBills);
-
-  // TODO: for now, enforces that the amount paid === total balance
-  // to be changed when implementing functionality that allows you to pay
-  // less than the total amount
-  if (amountPaidInCents !== totalBalance) {
-    return new Error(
-      `Amount paid $${amountPaidInCents} not equal to total balance $${totalBalance}`
-    );
-  }
-
-  // will surface errors from recordBillPaymentSuccess
-  await Promise.all(
-    pendingBills.map(pendingBill =>
-      recordBillPaymentSuccess(details, data, pendingBill)
-    )
-  );
-
-  return null;
 };
 
 export {
