@@ -29,7 +29,9 @@ class Investment extends React.PureComponent {
             <div className="investment-and-transactions-content">
               <h2>My Investment</h2>
               <div className="investments-box-shares">
-                <SharesProgressBar numberOfShares={owner.numberOfShares} />
+                <div className="investments-circle-progress-bar">
+                  <SharesProgressBar numberOfShares={owner.numberOfShares} />
+                </div>
                 <div className="box-text">
                   <h5>
                     You currently own {owner.numberOfShares} out of 10 possible
@@ -40,7 +42,7 @@ class Investment extends React.PureComponent {
                 </div>
                 <div className="investments-buttons">
                   <div className="investments-buy-shares-button">
-                    <a className="button" href="/investment">
+                    <a className="button" href="/buyshares">
                       <span>Buy Shares</span>
                     </a>
                   </div>
