@@ -1,6 +1,7 @@
 import React from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import SharesProgressBar from './components/SharesProgressBar';
 import DividendsPreferencesModal from './components/DividendsPreferencesModal';
 import { updateOwner } from '../../lib/airtable/request';
@@ -42,9 +43,7 @@ class Investment extends React.PureComponent {
                 </div>
                 <div className="investments-buttons">
                   <div className="investments-buy-shares-button">
-                    <a className="button" href="/buyshares">
-                      <span>Buy Shares</span>
-                    </a>
+                    <Link to="/buyshares">Buy Shares</Link>
                   </div>
                   <div className="investments-dividend">Divest</div>
                 </div>
