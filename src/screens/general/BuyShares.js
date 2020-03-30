@@ -17,6 +17,25 @@ class BuyShares extends React.PureComponent {
     };
   }
 
+  addShares = () => {
+    const { sharesBuying } = this.state;
+    const { owner } = this.props;
+    if (sharesBuying + owner.numberOfShares === 10) {
+      this.setState({ sharesBuying: 10 - owner.numberOfShares });
+    } else {
+      this.setState({ sharesBuying: sharesBuying + 1 });
+    }
+  };
+
+  minusShares = () => {
+    const { sharesBuying } = this.state;
+    if (sharesBuying === 0) {
+      this.setState({ sharesBuying: 0 });
+    } else {
+      this.setState({ sharesBuying: sharesBuying - 1 });
+    }
+  };
+
   render() {
     const { owner } = this.props;
     const { sharesBuying } = this.state;
@@ -55,7 +74,7 @@ class BuyShares extends React.PureComponent {
                 <input
                   name="numberOfShares"
                   className="payment-shares-input-field"
-                  value={owner.numberOfShares}
+                  value={owner.numberOfShares + sharesBuying}
                 />
                 <button
                   type="button"
@@ -70,16 +89,19 @@ class BuyShares extends React.PureComponent {
           <div className="buy-shares-right-boxes">
             <div className="current-shares-box">
               <div className="buy-shares-progress-bar">
-                <SharesProgressBar numberOfShares={owner.numberOfShares} />
+                <SharesProgressBar
+                  numberOfShares={owner.numberOfShares + sharesBuying}
+                />
               </div>
               <div className="buy-shares-progress-bar-text">
                 <h5>
                   You are purchasing {sharesBuying} additional shares,
                   <br />
-                  owning a total of {owner.numberOfShares} shares.
+                  owning a total of {owner.numberOfShares + sharesBuying}{' '}
+                  shares.
                 </h5>
                 <br />
-                <h4>${owner.numberOfShares * 100}.00</h4>
+                <h4>${owner.numberOfShares * 100 + sharesBuying * 100}.00</h4>
               </div>
             </div>
             <div className="buy-shares-payment-summary-box">
