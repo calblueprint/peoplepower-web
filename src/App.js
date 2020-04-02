@@ -63,7 +63,7 @@ class App extends React.Component {
     return (
       <ConnectedRouter history={history}>
         <div className="app-container">
-          <NavBar />
+          <NavBar history={history} />
           <Switch>
             <Route exact path="/" component={HomeComponent} />
             <AuthenticatedRoute path="/projectnews" component={Community} />

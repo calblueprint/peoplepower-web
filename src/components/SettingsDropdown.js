@@ -13,7 +13,7 @@ class SettingsDropdown extends React.PureComponent {
   render() {
     return (
       <div className="settings-dropdown inline">
-        <img className="nav-item-gear " alt="nav item gear" src={Gear} />
+        <img className="nav-item-gear" alt="nav item gear" src={Gear} />
         <span className="dropdown-content">
           <Link to="/profile" className="dropdown-link">
             Settings
