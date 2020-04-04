@@ -1,0 +1,52 @@
+.error-image {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.error-image-file {
+  width: 45%;
+  margin-bottom: 3vh;
+}
+
+.page-not-found-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.page-not-found-text h3 {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 3vh;
+  line-height: 25px;
+  color: var(--pp-blue);
+}
+
+.page-not-found-text h6 {
+  margin-block-start: 1em;
+  font-style: normal;
+  font-weight: normal;
+  color: var(--pp-black);
+  font-size: 2vh;
+}
+
+.back-to-homepage-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.back-to-homepage-button a {
+  background-color: var(--pp-blue);
+  border-radius: 4vh;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 2.5vh;
+  width: 25vh;
+  height: 4vh;
+}
