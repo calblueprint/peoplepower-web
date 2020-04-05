@@ -71,9 +71,12 @@ class Investment extends React.PureComponent {
                   <h4>${owner.numberOfShares * 100}.00</h4>
                 </div>
                 <div className="investments-buttons">
-                  <div className="investments-buy-shares-button">
-                    <Link to="/buyshares">Buy Shares</Link>
-                  </div>
+                  {owner.numberOfShares !== 10 && (
+                    <div className="investments-buy-shares-button">
+                      <Link to="/buyshares">Buy Shares</Link>
+                    </div>
+                  )}
+
                   <div className="investments-dividend">Divest</div>
                 </div>
               </div>

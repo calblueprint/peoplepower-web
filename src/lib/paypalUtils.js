@@ -1,4 +1,4 @@
-import { createPayment } from './airtable/request';
+import { createPayment, updateOwner } from './airtable/request';
 import constants from '../constants';
 
 const { BILL_PAYMENT_TYPE, BUY_SHARES_TYPE } = constants;
@@ -22,9 +22,10 @@ const constructPaymentRecord = (details, data, ownerId) => {
   };
 };
 
-const recordSharePayment = async (details, data, ownerId) => {
+const recordSharePayment = async (details, data, ownerId, numberOfShares) => {
   const payment = constructPaymentRecord(details, data, ownerId);
   await createPayment({ ...payment, type: BUY_SHARES_TYPE });
+  await updateOwner(ownerId, { numberOfShares });
 };
 
 const recordBillPayment = async (details, data, bill) => {

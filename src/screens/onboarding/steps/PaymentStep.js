@@ -7,9 +7,9 @@ const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 const SHARE_PRICE = 100;
 
 class PaymentStep extends React.Component {
-  onBuyShareWithPaypalSuccess = async (details, data) => {
+  onPaymentSuccess = async (details, data) => {
     const { owner, onSubmit } = this.props;
-    await recordSharePayment(details, data, owner.id);
+    await recordSharePayment(details, data, owner.id, owner.numberOfShares);
     onSubmit();
   };
 
@@ -24,7 +24,7 @@ class PaymentStep extends React.Component {
               <div className="mt-3">
                 <PayPalButton
                   amount={owner.numberOfShares * SHARE_PRICE}
-                  onSuccess={this.onBuyShareWithPaypalSuccess}
+                  onSuccess={this.onPaymentSuccess}
                   options={{
                     clientId
                   }}
