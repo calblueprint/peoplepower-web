@@ -28,7 +28,7 @@ const TransactionsTable = ({
     <ReactTable
       data={transactions}
       columns={fields.map(f => ({
-        Header: headerVisible && <TransactionTableHeader title={f} />,
+        header: headerVisible && <TransactionTableHeader title={f} />,
         id: f,
         width: f === 'description' ? 200 : undefined,
         accessor: d => (

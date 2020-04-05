@@ -10,6 +10,7 @@ export default class BillingMain extends React.PureComponent {
   render() {
     const { seeAllTransactionsView, activeBill, transactions } = this.props;
 
+    // TODO: Need to handle Pending Bill state
     const activeBalance = activeBill ? activeBill.balance : 0;
     const amountPaid = activeBill
       ? activeBill.amountDue - activeBill.balance

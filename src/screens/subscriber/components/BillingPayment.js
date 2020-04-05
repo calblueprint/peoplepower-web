@@ -6,18 +6,19 @@ import {
   getSubscriberTransactionData,
   formatAmount
 } from '../../../lib/subscriberUtils';
-import Constants from '../../../constants';
 import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
 import RightArrow from '../../../assets/right_arrow.png';
+import { recordBillPayment } from '../../../lib/paypalUtils';
 
-const { SHARE_PRICE } = Constants;
+const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
 class BillingPayment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       activeBill: null,
+      paymentAmount: 0,
       loading: true
     };
   }
@@ -32,30 +33,40 @@ class BillingPayment extends React.Component {
     const { activeBill } = await getSubscriberTransactionData(owner);
     this.setState({
       activeBill,
-      loading: false
+      loading: false,
+      paymentAmount: Number(activeBill.balance.toFixed(2))
     });
   };
 
+  onChangePaymentAmount = event => {
+    const { activeBill } = this.state;
+    let newAmount = event.target.value;
+    newAmount = Math.max(0.01, newAmount); // Pay atleast 1 cent
+    newAmount = Math.min(activeBill.balance, newAmount); // Pay no more than balance
+    this.setState({ paymentAmount: newAmount });
+  };
+
   render() {
-    const { activeBill, loading } = this.state;
-    const { isLoadingUserData, owner } = this.props;
+    const { activeBill, paymentAmount, loading } = this.state;
+    const { isLoadingUserData } = this.props;
 
     if (isLoadingUserData || loading) {
       return <LoadingComponent />;
     }
 
-    // No Active Bill
-    // Need to add pending state
-    // TODO: maybe we should display an error message here
     if (activeBill === 0) {
       return <Redirect to="/" />;
     }
 
-    const activeBalance = activeBill ? activeBill.balance : 0;
+    // TODO: Update bill in airtable to only have 2 decimal places
+    const activeBalance = activeBill
+      ? Number(activeBill.balance.toFixed(2))
+      : 0;
     const amountPaid = activeBill
       ? activeBill.amountDue - activeBill.balance
       : 0;
     const estimatedRebate = activeBill ? activeBill.estimatedRebate : 0;
+    const remainingBalance = activeBalance - paymentAmount;
     return (
       <div>
         <div className="billing-dash-outer-container">
@@ -147,11 +158,18 @@ class BillingPayment extends React.Component {
                   <div className="billing-balance-nums-section">
                     <div className="billing-balance-nums-line">
                       <p className="line-item">Payment Amount</p>
-                      <p className="line-item line-item-value">$0.00</p>
+                      <input
+                        className="line-item line-item-value line-item-input"
+                        value={paymentAmount}
+                        type="number"
+                        onChange={this.onChangePaymentAmount}
+                      />
                     </div>
                     <div className="billing-balance-nums-line">
                       <p className="line-item">Remaining Balance</p>
-                      <p className="line-item line-item-value">$0.00</p>
+                      <p className="line-item line-item-value">
+                        {formatAmount(remainingBalance)}
+                      </p>
                     </div>
                     <div className="billing-balance-divider-container">
                       <div className="billing-full-width-container" />
@@ -168,9 +186,9 @@ class BillingPayment extends React.Component {
                     </div>
                   </div>
                   <PayPalButton
-                    amount={owner.numberOfShares * SHARE_PRICE}
-                    onSuccess={a => {
-                      console.log(a);
+                    amount={paymentAmount}
+                    onSuccess={(details, data) => {
+                      recordBillPayment(details, data, activeBill);
                     }}
                     options={{
                       clientId
