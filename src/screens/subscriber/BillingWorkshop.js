@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PDFDownloadLink, PDFViewer, StyleSheet } from '@react-pdf/renderer';
-import BillingTemplate from '../subscriber/BillingTemplate';
+import BillingTemplate from './components/BillingTemplate';
 
 const styles = StyleSheet.create({
   open: {
@@ -50,7 +50,6 @@ export default class BillingBuilder extends Component {
   };
 
   render() {
-    const { viewerVisible } = this.state;
     return (
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <h1>Bill Statement</h1>
