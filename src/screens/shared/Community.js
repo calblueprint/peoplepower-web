@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { isAdmin } from '../../lib/credentials';
 import AnnouncementList from './components/AnnouncementList';
 import AddAnnouncement from './components/AddAnnouncement';
-import LoadingComponent from '../../components/LoadingComponent';
 import '../../styles/Community.css';
 import NoProjects from './components/NoProjects';
 
@@ -19,17 +18,12 @@ class Community extends React.Component {
   render() {
     const {
       announcements,
-      isLoadingAnnouncements,
-      isLoadingUserData,
+
       owner,
       credentials
     } = this.props;
 
-    const isLoading = isLoadingAnnouncements || isLoadingUserData;
     let body;
-    if (isLoading) {
-      body = <LoadingComponent />;
-    }
     if (announcements.length === 0) {
       body = <NoProjects />;
     } else {
@@ -60,8 +54,6 @@ class Community extends React.Component {
 const mapStateToProps = state => ({
   owner: state.userData.owner,
   credentials: state.userData.credentials,
-  announcements: state.community.announcements,
-  isLoadingUserData: state.userData.isLoading,
-  isLoadingAnnouncements: state.community.isLoading
+  announcements: state.community.announcements
 });
 export default connect(mapStateToProps)(Community);
