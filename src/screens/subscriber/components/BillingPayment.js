@@ -26,11 +26,7 @@ class BillingPayment extends React.Component {
   }
 
   componentDidMount = async () => {
-    const { owner, isLoadingUserData } = this.props;
-
-    if (isLoadingUserData) {
-      return;
-    }
+    const { owner } = this.props;
 
     const { activeBill } = await getSubscriberTransactionData(owner);
     this.setState({
@@ -51,7 +47,7 @@ class BillingPayment extends React.Component {
   onPaymentSuccess = async (details, data) => {
     const { activeBill } = this.state;
     const { history, owner } = this.props;
-    this.setState({ loading: true });
+    this.setState({ loadingPayment: false, loading: true });
     await recordBillPayment(details, data, activeBill);
     await refreshUserData(owner.id);
     history.push(Constants.HOME_ROUTE);
@@ -59,9 +55,8 @@ class BillingPayment extends React.Component {
 
   render() {
     const { activeBill, paymentAmount, loading } = this.state;
-    const { isLoadingUserData } = this.props;
 
-    if (isLoadingUserData || loading) {
+    if (loading) {
       return <LoadingComponent />;
     }
 
@@ -196,6 +191,10 @@ class BillingPayment extends React.Component {
                   </div>
                   <PayPalButton
                     amount={paymentAmount}
+                    onApprove={this.onApprovePayment}
+                    onError={this.onPaymentCancel}
+                    onCancel={this.onPaymentCancel}
+                    createOrder={this.onInitiatePayment}
                     onSuccess={this.onPaymentSuccess}
                     options={{
                       clientId
@@ -212,7 +211,6 @@ class BillingPayment extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  isLoadingUserData: state.userData.isLoading
+  owner: state.userData.owner
 });
 export default connect(mapStateToProps)(BillingPayment);

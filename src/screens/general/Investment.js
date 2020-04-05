@@ -19,10 +19,6 @@ class Investment extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { isLoadingUserData } = this.props;
-    if (isLoadingUserData) {
-      return; // Data isn't loaded in yet
-    }
     this.refreshState();
   }
 
@@ -121,8 +117,7 @@ class Investment extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  isLoadingUserData: state.userData.isLoading
+  owner: state.userData.owner
 });
 
 export default connect(mapStateToProps)(Investment);
