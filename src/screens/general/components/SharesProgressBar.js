@@ -17,14 +17,12 @@ export default class SharesProgressBar extends React.PureComponent {
     };
 
     return (
-      <div className="circle-progress-bar">
-        <CircularProgressbar
-          viewBox="0 0 0 0"
-          value={percentage}
-          text={numberOfShares}
-          styles={buildStyles(circularProgressBarStyles)}
-        />
-      </div>
+      <CircularProgressbar
+        viewBox="0 0 0 0"
+        value={percentage}
+        text={numberOfShares}
+        styles={buildStyles(circularProgressBarStyles)}
+      />
     );
   }
 }

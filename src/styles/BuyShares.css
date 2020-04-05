@@ -1,0 +1,168 @@
+.back-to-investments {
+  margin-left: 166px;
+  margin-top: 48px;
+  margin-bottom: 43px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.back-to-investments h6 {
+  margin-left: 13px;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--pp-gray);
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+
+.buy-shares-main-header h1 {
+  margin-left: 209px;
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 49px;
+  color: var(--pp-blue);
+}
+
+.buy-shares-boxes-content {
+  margin-left: 206px;
+  margin-right: 206px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.number-of-shares-box {
+  background: white;
+  border-radius: 5px;
+  padding: 35px;
+  margin-left: 0px;
+  margin-right: 20px;
+  width: 602px;
+  height: 80px;
+  display: flex;
+  flex-grow: 1;
+  align-content: flex-start;
+  flex-direction: column;
+}
+
+.current-shares-box {
+  background: white;
+  border-radius: 5px;
+  padding: 35px;
+  margin-left: 0px;
+  margin-right: 20px;
+  width: 330px;
+  height: 50px;
+  display: flex;
+  align-content: flex-start;
+  margin-bottom: 14px;
+}
+
+.amount-of-shares-header {
+  font-size: 16px;
+  color: var(--pp-black);
+  margin-bottom: 1rem;
+}
+
+.buy-shares-progress-bar {
+  display: flex;
+  margin-left: -130px;
+  margin-right: -95px;
+  justify-content: flex-start;
+}
+
+.buy-shares-progress-bar-text h4 {
+  font-size: 18px;
+  font-weight: bolder;
+  font-weight: normal;
+  line-height: 22px;
+}
+
+.buy-shares-progress-bar-text h5 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  color: var(--pp-black);
+  font-weight: normal;
+  margin-bottom: -30px;
+  margin-top: -10px;
+}
+
+.buy-shares-right-boxes {
+  display: flex;
+  flex-direction: column;
+}
+
+.buy-shares-paypal-box {
+  background: white;
+  border-radius: 5px;
+  padding-top: 28px;
+  padding-left: 30px;
+  padding-right: 35px;
+  margin-left: 0px;
+  margin-right: 20px;
+  width: 335px;
+  height: 190px;
+  display: flex;
+  flex-grow: 0.8;
+  align-content: flex-start;
+  margin-bottom: 50px;
+  flex-direction: column;
+}
+
+.buy-shares-paypal-box h3 {
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+  color: var(--pp-blue);
+  margin-bottom: 10px;
+}
+
+.buy-shares-payment-summary-box {
+  background: white;
+  border-radius: 5px;
+  padding-top: 28px;
+  padding-left: 30px;
+  padding-right: 35px;
+  margin-left: 0px;
+  margin-right: 20px;
+  width: 335px;
+  height: 228px;
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+.buy-shares-payment-summary-box h3 {
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+  color: var(--pp-blue);
+}
+
+.shares-price-line,
+.shares-total-price-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.shares-price-line h5 {
+  font-weight: 500;
+}
+
+.buy-shares-payment-summary-box h6 {
+  margin-block-start: 0;
+  font-size: 12px;
+  line-height: 22px;
+  color: #999999;
+  font-weight: 400;
+}
+
+.buy-shares-summary-hr {
+  border-bottom: 1px solid var(--pp-white);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 100%;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import SharesProgressBar from './components/SharesProgressBar';
 import DividendsPreferencesModal from './components/DividendsPreferencesModal';
 import { updateOwner } from '../../lib/airtable/request';
@@ -58,7 +59,9 @@ class Investment extends React.PureComponent {
             <div className="investment-and-transactions-content">
               <h2>My Investment</h2>
               <div className="investments-box-shares">
-                <SharesProgressBar numberOfShares={owner.numberOfShares} />
+                <div className="investments-circle-progress-bar">
+                  <SharesProgressBar numberOfShares={owner.numberOfShares} />
+                </div>
                 <div className="box-text">
                   <h5>
                     You currently own {owner.numberOfShares} out of 10 possible
@@ -69,9 +72,7 @@ class Investment extends React.PureComponent {
                 </div>
                 <div className="investments-buttons">
                   <div className="investments-buy-shares-button">
-                    <a className="button" href="/investment">
-                      <span>Buy Shares</span>
-                    </a>
+                    <Link to="/buyshares">Buy Shares</Link>
                   </div>
                   <div className="investments-dividend">Divest</div>
                 </div>
