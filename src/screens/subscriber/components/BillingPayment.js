@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2/lib';
+import { refreshUserData } from '../../../lib/userDataUtils';
 import {
   getSubscriberTransactionData,
   formatAmount
@@ -10,6 +11,7 @@ import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
 import RightArrow from '../../../assets/right_arrow.png';
 import { recordBillPayment } from '../../../lib/paypalUtils';
+import Constants from '../../../constants';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
@@ -34,7 +36,7 @@ class BillingPayment extends React.Component {
     this.setState({
       activeBill,
       loading: false,
-      paymentAmount: Number(activeBill.balance.toFixed(2))
+      paymentAmount: activeBill.balance
     });
   };
 
@@ -46,6 +48,15 @@ class BillingPayment extends React.Component {
     this.setState({ paymentAmount: newAmount });
   };
 
+  onPaymentSuccess = async (details, data) => {
+    const { activeBill } = this.state;
+    const { history, owner } = this.props;
+    this.setState({ loading: true });
+    await recordBillPayment(details, data, activeBill);
+    await refreshUserData(owner.id);
+    history.push(Constants.HOME_ROUTE);
+  };
+
   render() {
     const { activeBill, paymentAmount, loading } = this.state;
     const { isLoadingUserData } = this.props;
@@ -54,19 +65,17 @@ class BillingPayment extends React.Component {
       return <LoadingComponent />;
     }
 
-    if (activeBill === 0) {
-      return <Redirect to="/" />;
-    }
-
     // TODO: Update bill in airtable to only have 2 decimal places
-    const activeBalance = activeBill
-      ? Number(activeBill.balance.toFixed(2))
-      : 0;
+    const activeBalance = activeBill ? activeBill.balance : 0;
     const amountPaid = activeBill
       ? activeBill.amountDue - activeBill.balance
       : 0;
     const estimatedRebate = activeBill ? activeBill.estimatedRebate : 0;
     const remainingBalance = activeBalance - paymentAmount;
+
+    if (activeBill === 0 || activeBalance === 0) {
+      return <Redirect to="/" />;
+    }
     return (
       <div>
         <div className="billing-dash-outer-container">
@@ -187,9 +196,7 @@ class BillingPayment extends React.Component {
                   </div>
                   <PayPalButton
                     amount={paymentAmount}
-                    onSuccess={(details, data) => {
-                      recordBillPayment(details, data, activeBill);
-                    }}
+                    onSuccess={this.onPaymentSuccess}
                     options={{
                       clientId
                     }}

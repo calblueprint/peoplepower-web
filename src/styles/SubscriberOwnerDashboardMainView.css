@@ -150,6 +150,11 @@
   font-size: 16px;
   line-height: 22px;
 }
+
+.billing-payment-button.disabled {
+  background-color: var(--pp-disabled);
+}
+
 #billing-divider {
   border: 1px solid var(--pp-light-gray);
   margin: 0 auto 1.5vw auto;

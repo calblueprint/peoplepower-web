@@ -4,7 +4,6 @@ import constants from '../constants';
 const { BILL_PAYMENT_TYPE, BUY_SHARES_TYPE } = constants;
 
 const constructPaymentRecord = (details, data, ownerId) => {
-  const { orderId, payerId } = data;
   const { payer } = details;
   const { amount, shipping } = details.purchase_units[0]; // assumes purchase_units is only of length 1
   const { address, name } = shipping;
@@ -13,9 +12,9 @@ const constructPaymentRecord = (details, data, ownerId) => {
 
   return {
     ownerId,
-    paypalOrderId: orderId,
-    paypalPayerId: payerId,
-    amount: amount.value,
+    paypalOrderId: data.orderID,
+    paypalPayerId: data.payerID,
+    amount: Number(amount.value),
     currencyCode: amount.currency_code,
     payerAddress,
     payerFullName,
@@ -29,7 +28,8 @@ const recordSharePayment = async (details, data, ownerId) => {
 };
 
 const recordBillPayment = async (details, data, bill) => {
-  const payment = constructPaymentRecord(details, data, bill.subscriber);
+  const payment = constructPaymentRecord(details, data, bill.subscriberId);
+  console.log(payment);
   await createPayment({
     ...payment,
     type: BILL_PAYMENT_TYPE,

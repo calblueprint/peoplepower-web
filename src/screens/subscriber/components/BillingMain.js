@@ -86,9 +86,15 @@ export default class BillingMain extends React.PureComponent {
                     </p>
                   </div>
                   <div className="billing-payment-button-container">
-                    <button type="button" className="billing-payment-button">
+                    <button
+                      type="button"
+                      className={`billing-payment-button ${
+                        !activeBalance ? 'disabled' : ''
+                      }`}
+                      disabled={!activeBalance}
+                    >
                       <Link
-                        to="/billPayment"
+                        to={!activeBalance ? undefined : '/billPayment'}
                         className="billing-link-text-white "
                       >
                         Make Payment
