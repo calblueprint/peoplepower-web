@@ -107,9 +107,13 @@ class App extends React.Component {
               path="/buyshares"
               component={BuyShares}
             />
-            <PPRoute>
-              <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>
-            </PPRoute>
+            <PPRoute
+              render={() => (
+                <p style={{ color: 'white', margin: '30px' }}>
+                  Not Found - 404
+                </p>
+              )}
+            />
           </Switch>
         </div>
       </ConnectedRouter>

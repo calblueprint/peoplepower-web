@@ -90,7 +90,7 @@ class GeneralOwnerDashboard extends React.Component {
           <div className="dash-solar-details-cont">
             <h3>Solar Projects</h3>
             {/* TODO: to be eventually replaced with solar project */}
-            this.renderUserDetails()
+            {this.renderUserDetails()}
           </div>
 
           <div className="dash-investment-cont">
