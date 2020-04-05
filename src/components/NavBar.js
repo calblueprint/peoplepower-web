@@ -13,28 +13,14 @@ import Gear from '../assets/settings.png';
 import '../styles/NavBar.css';
 
 class NavBar extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentPathname: props.pathname
-    };
-  }
-
-  componentDidMount() {
-    this.refreshState();
-  }
-
-  refreshState() {
-    const { pathname } = this.props;
-    this.setState({
-      currentPathname: pathname
-    });
-  }
-
   render() {
     const { credentials } = this.props;
     const displayNavbar = isSignedIn(credentials) && !isOnboarding(credentials);
-    const { currentPathname } = this.state;
+    const {
+      history: {
+        location: { pathname }
+      }
+    } = this.props;
 
     return (
       <div className="nav-bar">
@@ -49,16 +35,14 @@ class NavBar extends React.PureComponent {
           {displayNavbar && (
             <ul>
               <li
-                className={
-                  currentPathname === '/' ? 'nav-item-selected' : 'nav-item'
-                }
+                className={pathname === '/' ? 'nav-item-selected' : 'nav-item'}
               >
                 <Link to="/">Dashboard</Link>
               </li>
               {isGeneralOwner(credentials) && (
                 <li
                   className={
-                    currentPathname === '/investment'
+                    pathname === '/investment'
                       ? 'nav-item-selected'
                       : 'nav-item'
                   }
@@ -69,9 +53,7 @@ class NavBar extends React.PureComponent {
               {isSubscriberOwner(credentials) && (
                 <li
                   className={
-                    currentPathname === '/billing'
-                      ? 'nav-item-selected'
-                      : 'nav-item'
+                    pathname === '/billing' ? 'nav-item-selected' : 'nav-item'
                   }
                 >
                   <Link to="/billing">Billing</Link>
@@ -79,9 +61,7 @@ class NavBar extends React.PureComponent {
               )}
               <li
                 className={
-                  currentPathname === '/projectnews'
-                    ? 'nav-item-selected'
-                    : 'nav-item'
+                  pathname === '/projectnews' ? 'nav-item-selected' : 'nav-item'
                 }
               >
                 <Link to="/projectnews">Project News</Link>
@@ -89,9 +69,7 @@ class NavBar extends React.PureComponent {
               {isAdmin(credentials) && (
                 <li
                   className={
-                    currentPathname === '/admin'
-                      ? 'nav-item-selected'
-                      : 'nav-item'
+                    pathname === '/admin' ? 'nav-item-selected' : 'nav-item'
                   }
                 >
                   <Link to="/admin">Admin</Link>
