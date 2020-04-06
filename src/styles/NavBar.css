@@ -95,7 +95,7 @@ span {
   /* Position the dropdown content */
   position: absolute;
   z-index: 1;
-  right: -px;
+  right: -25px;
 
   /* Fade in dropdown */
   opacity: 0;
