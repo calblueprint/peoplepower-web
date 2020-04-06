@@ -34,19 +34,23 @@
 }
 
 .back-to-homepage-button {
+  padding: 0;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .back-to-homepage-button a {
+  padding-top: 0.5vh;
+  padding-bottom: 1vh;
+  padding-right: 3vh;
+  padding-left: 3vh;
   background-color: var(--pp-blue);
-  border-radius: 4vh;
+  border-radius: 100vh;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 2.5vh;
-  width: 25vh;
-  height: 4vh;
+  font-weight: 700;
 }
