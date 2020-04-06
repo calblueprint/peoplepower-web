@@ -30,54 +30,49 @@ class NavBar extends React.PureComponent {
           {displayNavbar && (
             <ul>
               <li
-                className={
-                  `${pathname === '/' ? 'nav-item-selected' : 'nav-item' 
-                  } nav-item-styling`
-                }
+                className={`${
+                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
+                } nav-item-styling`}
               >
                 <Link to="/">Dashboard</Link>
               </li>
               {isGeneralOwner(credentials) && (
                 <li
-                  className={
-                    `${pathname === '/investment'
+                  className={`${
+                    pathname === '/investment'
                       ? 'nav-item-selected'
-                      : 'nav-item'  } nav-item-styling`
-                  }
+                      : 'nav-item'
+                  } nav-item-styling`}
                 >
                   <Link to="/investment">My Investment</Link>
                 </li>
               )}
               {isSubscriberOwner(credentials) && (
                 <li
-                  className={
-                    `${pathname === '/billing'
-                      ? 'nav-item-selected'
-                      : 'nav-item'  } nav-item-styling`
-                  }
+                  className={`${
+                    pathname === '/billing' ? 'nav-item-selected' : 'nav-item'
+                  } nav-item-styling`}
                 >
                   <Link to="/billing">Billing</Link>
                 </li>
               )}
               <li
-                className={
-                  `${pathname === '/projectnews'
-                    ? 'nav-item-selected'
-                    : 'nav-item'  } nav-item-styling`
-                }
+                className={`${
+                  pathname === '/projectnews' ? 'nav-item-selected' : 'nav-item'
+                } nav-item-styling`}
               >
                 <Link to="/projectnews">Project News</Link>
               </li>
               {isAdmin(credentials) && (
                 <li
-                  className={
-                    `${pathname === '/admin' ? 'nav-item-selected' : 'nav-item' 
-                    } nav-item-styling`
-                  }
+                  className={`${
+                    pathname === '/admin' ? 'nav-item-selected' : 'nav-item'
+                  } nav-item-styling`}
                 >
                   <Link to="/admin">Admin</Link>
                 </li>
               )}
+              <div className="dropdown-safety-box" />
               <li className="nav-item dropdown-container">
                 <SettingsDropdown history={history} />
               </li>

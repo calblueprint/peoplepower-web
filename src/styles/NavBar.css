@@ -78,7 +78,7 @@ span {
   position: relative;
 }
 
-.settings-dropdown .dropdown-content {
+.dropdown-container .settings-dropdown .dropdown-content {
   visibility: hidden;
   background-color: white;
   padding: 0.7rem 0.7rem;
@@ -95,8 +95,7 @@ span {
   /* Position the dropdown content */
   position: absolute;
   z-index: 1;
-  bottom: -475%;
-  left: -250%;
+  left: -100%;
 
   /* Fade in dropdown */
   opacity: 0;
@@ -134,4 +133,17 @@ span {
 .dropdown-container:hover .dropdown-content {
   visibility: visible;
   opacity: 1;
+}
+
+/* Show the dropdown content when you mouse over the dropdown safefy box */
+.dropdown-safety-box:hover + .dropdown-container .dropdown-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.dropdown-safety-box {
+  height: 150px;
+  width: 125px;
+  right: 0;
+  position: absolute;
 }
