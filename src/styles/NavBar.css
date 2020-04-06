@@ -82,7 +82,7 @@ span {
   visibility: hidden;
   background-color: white;
   padding: 0.7rem 0.7rem;
-  color: #4f4f4f;
+  color: var(--pp-dark-gray);
   text-align: left;
   font-size: 12px;
   font-weight: normal;
@@ -95,7 +95,7 @@ span {
   /* Position the dropdown content */
   position: absolute;
   z-index: 1;
-  left: -100%;
+  right: -px;
 
   /* Fade in dropdown */
   opacity: 0;
