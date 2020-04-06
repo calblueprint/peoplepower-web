@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { PDFDownloadLink, PDFViewer, StyleSheet } from '@react-pdf/renderer';
+import { PDFViewer, StyleSheet } from '@react-pdf/renderer';
 import BillingTemplate from '../subscriber/BillingTemplate';
+import BillingChart from '../subscriber/BillingChart';
+
+const data = require('./data.js');
 
 const styles = StyleSheet.create({
   open: {
@@ -57,19 +60,12 @@ export default class BillingBuilder extends Component {
         <button onClick={this.toggleViewer} type="button" style={styles.button}>
           View PDF
         </button>
-        {/* {viewerVisible ? ( */}
-        <PDFViewer style={[styles.opens, styles.viewer]}>
-          <BillingTemplate />
-        </PDFViewer>
-        {/* ) : null} */}
-
-        <PDFDownloadLink
-          document={<BillingTemplate />}
-          fileName="bill.pdf"
-          style={styles.button}
-        >
-          {({ loading }) => (loading ? 'Loading document...' : 'Download Pdf')}
-        </PDFDownloadLink>
+        {viewerVisible ? (
+          <PDFViewer style={[styles.opens, styles.viewer]}>
+            <BillingTemplate {...data} />
+          </PDFViewer>
+        ) : null}
+        <BillingChart />
       </div>
     );
   }
