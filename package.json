@@ -15,6 +15,7 @@
     "history": "^4.10.1",
     "qs": "^6.9.1",
     "react": "^16.10.1",
+    "react-circular-progressbar": "^2.0.3",
     "react-dom": "^16.10.1",
     "react-modal": "^3.11.2",
     "react-paypal-button-v2": "^2.4.1",

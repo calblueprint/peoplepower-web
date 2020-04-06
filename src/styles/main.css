@@ -14,6 +14,7 @@
   --pp-tag-gray: #d8d8d8;
   --pp-link-gray: #8f8f8f;
   --pp-disabled: #9caabb; /* --pp-blue with opacity ??? */
+  --pp-invalid: #cb4747;
 
   --pp-loading-spinner-speed: 2.5s;
 }
@@ -71,4 +72,8 @@
   background: var(--pp-tag-gray);
   border-radius: 20px;
   margin: 0px 5px;
+}
+
+.asterisk {
+  color: var(--pp-invalid);
 }

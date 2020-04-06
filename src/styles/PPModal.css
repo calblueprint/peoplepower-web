@@ -50,17 +50,26 @@
   font-size: 16px;
   line-height: 22px;
   margin-bottom: 2rem;
-  word-break: break-all;
   padding: 0 2rem;
 }
 
 .pp-general-modal-button {
-  background: var(--pp-pink);
-  border-radius: 40px;
+  background: var(--pp-blue);
+  border-radius: 2.5px;
   color: white;
-  padding: 0.25rem 5rem;
+  padding: 0.25rem 1rem;
   font-size: 16px;
-  font-weight: 800;
+  font-weight: bold;
+}
+
+.pp-general-modal-button-back {
+  background: var(--pp-selected-gray);
+  border-radius: 2.5px;
+  color: white;
+  padding: 0.25rem 1rem;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 0.5rem;
 }
 
 .pp-general-close {

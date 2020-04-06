@@ -6,6 +6,7 @@ import AnnouncementList from './components/AnnouncementList';
 import AddAnnouncement from './components/AddAnnouncement';
 import LoadingComponent from '../../components/LoadingComponent';
 import '../../styles/Community.css';
+import NoProjects from './components/NoProjects';
 
 class Community extends React.Component {
   constructor(props) {
@@ -25,17 +26,31 @@ class Community extends React.Component {
     } = this.props;
 
     const isLoading = isLoadingAnnouncements || isLoadingUserData;
-    return isLoading ? (
-      <LoadingComponent />
-    ) : (
-      <div className="dashboard community">
-        <div className="cont">
-          <h1>Project News</h1>
-          {isAdmin(credentials) ? <AddAnnouncement owner={owner} /> : null}
-          <AnnouncementList
-            announcements={[...announcements].reverse()}
-            css={isAdmin(credentials) ? '' : 'non-admin-height'}
-          />
+    let body;
+    if (isLoading) {
+      body = <LoadingComponent />;
+    }
+    if (announcements.length === 0) {
+      body = <NoProjects />;
+    } else {
+      return (
+        <div className="dashboard community">
+          <div className="cont">
+            <h1>Project News</h1>
+            {isAdmin(credentials) ? <AddAnnouncement owner={owner} /> : null}
+            <AnnouncementList
+              announcements={[...announcements].reverse()}
+              css={isAdmin(credentials) ? '' : 'non-admin-height'}
+            />
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="cont">
+        <div className="ppsc-coomunity-center">
+          <h1 className="project-news-header">Project News</h1>
+          {body}
         </div>
       </div>
     );

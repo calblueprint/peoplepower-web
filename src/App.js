@@ -25,6 +25,7 @@ import {
 } from './lib/credentials';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Investment from './screens/general/Investment';
+import BuyShares from './screens/general/BuyShares';
 import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
 
 class App extends React.Component {
@@ -93,6 +94,11 @@ class App extends React.Component {
               credential={Credentials.SUBSCRIBER} // Subscribers only
               path="/billing"
               component={Billing}
+            />
+            <AuthenticatedRoute
+              credential={Credentials.GENERAL} // General only
+              path="/buyshares"
+              component={BuyShares}
             />
             <Route>
               <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>
