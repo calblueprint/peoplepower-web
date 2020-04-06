@@ -14,8 +14,13 @@ import '../styles/NavBar.css';
 
 class NavBar extends React.PureComponent {
   render() {
-    const { credentials, pathname } = this.props;
+    const { credentials } = this.props;
     const displayNavbar = isSignedIn(credentials) && !isOnboarding(credentials);
+    const {
+      history: {
+        location: { pathname }
+      }
+    } = this.props;
 
     return (
       <div className="nav-bar">
