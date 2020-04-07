@@ -9,7 +9,7 @@ Font.register({
   src: '../../assets/fonts/OpenSans-Bold.ttf'
 });
 
-export default StyleSheet.create({
+const styles = StyleSheet.create({
   justifySpaceBetween: {
     justifyContent: 'space-between'
   },
@@ -125,3 +125,5 @@ export default StyleSheet.create({
     borderBottom: '.01 solid #eee'
   }
 });
+
+export default styles;
