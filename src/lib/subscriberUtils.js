@@ -52,14 +52,15 @@ const getSubscriberTransactionData = async owner => {
     activeBill = 0;
   } else {
     [activeBill] = activeBills;
+    activeBill = {
+      ...activeBill,
+      balance: Number(activeBill.balance.toFixed(2))
+    };
   }
 
   // TODO: remove the number 2 on the server side
   return {
-    activeBill: {
-      ...activeBill,
-      balance: Number(activeBill.balance.toFixed(2))
-    },
+    activeBill,
     transactions
   };
 };
