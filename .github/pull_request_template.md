@@ -4,10 +4,6 @@
 
 [//]: # '#####################################'
 [//]: # '####### YOUR ANSWER BELOW ###########'
-
-
-
-
 [//]: # '############## END ##################'
 
 ### How to Review
@@ -16,10 +12,6 @@
 what to expect when testing locally'
 [//]: # '#####################################'
 [//]: # '####### YOUR ANSWER BELOW ###########'
-
-
-
-
 [//]: # '############## END ##################'
 
 ### Related PRs
@@ -28,10 +20,6 @@ what to expect when testing locally'
 / PRs that will conflict, etc"
 [//]: # '#####################################'
 [//]: # '####### YOUR ANSWER BELOW ###########'
-
-
-
-
 [//]: # '############## END ##################'
 
 ### Next steps
@@ -40,32 +28,20 @@ what to expect when testing locally'
 PR/has to be done "
 [//]: # '#####################################'
 [//]: # '####### YOUR ANSWER BELOW ###########'
-
-
-
-
 [//]: # '############## END ##################'
 
 ### Screenshots
 
 [//]: # '#####################################'
 [//]: # '#### YOUR SCREENSHOTS BELOW ########'
-
-
-
-
 [//]: # '############## END ##################'
 
 ### Design Status
 
-[//]: # "If this is a frontend PR, what is the expected 
-status of the UI in this PR (lo, mid, high- fi?"
+[//]: # 'If this is a frontend PR, what is the expected 
+status of the UI in this PR (lo, mid, high- fi?'
 [//]: # '#####################################'
 [//]: # '####### LOFI/MIDFI/HIFI ###########'
-
-
-
-
 [//]: # '############## END ##################'
 
 CC: @dfangshuo

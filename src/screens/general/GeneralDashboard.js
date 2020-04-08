@@ -53,6 +53,7 @@ class GeneralOwnerDashboard extends React.Component {
       isLoadingAnnouncements,
       isLoadingUserData
     } = this.props;
+
     if (isLoadingAnnouncements && isLoadingUserData) {
       return <LoadingComponent />;
     }
@@ -76,7 +77,10 @@ class GeneralOwnerDashboard extends React.Component {
           {isLoadingAnnouncements ? (
             <div className="is-loading-div card" />
           ) : (
-            <AnnouncementList announcements={announcements} css="" />
+            <AnnouncementList
+              announcements={announcements}
+              css="non-admin-height"
+            />
           )}
         </div>
         <div>

@@ -4,7 +4,7 @@ import '../../../styles/Community.css';
 const AnnouncementList = props => {
   const { announcements, css } = props;
   const list = announcements.map(announcement => {
-    const { title, message, attachments } = announcement;
+    const { id, title, message, attachments } = announcement;
 
     let url = '';
     let filename = '';
@@ -14,7 +14,7 @@ const AnnouncementList = props => {
     }
 
     return (
-      <div key={title} className="announcement-card">
+      <div key={id} className="announcement-card">
         <div className="cardHeading">
           <h2>{title}</h2>
           {url ? <img src={url} alt={filename} /> : null}
@@ -26,7 +26,10 @@ const AnnouncementList = props => {
   });
 
   return (
-    <div className={css.concat(' ', 'cardsCont')} style={{ overflow: 'auto' }}>
+    <div
+      className={(css || '').concat(' ', 'cardsCont')}
+      style={{ overflow: 'auto' }}
+    >
       {list}
     </div>
   );

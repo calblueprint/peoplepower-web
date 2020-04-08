@@ -1,24 +1,23 @@
 import React from 'react';
 import qs from 'qs';
 import { connect } from 'react-redux';
-import BillingAllBillsView from './components/BillingAllBillsView';
+import BillingAllBillsView from './components/BillingAllTransactionsView';
 import BillingMainView from './components/BillingMainView';
 import LoadingComponent from '../../components/LoadingComponent';
-import { areDiffBills, getSubscriberBills } from '../../lib/subscriberUtils';
+import { getSubscriberTransactionData } from '../../lib/subscriberUtils';
 import '../../styles/SubscriberOwnerDashboard.css';
 
 class Billing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeBill: null,
       transactions: [],
-      pendingBills: [],
-      mode: 0,
-      isReady: false
+      mode: 0 // 0 for main billing view, 1 for all bills view
     };
-    const { location } = this.props;
-    const { search } = location;
-    const {view} = qs.parse(search, {
+
+    // Check URL for default mode param
+    const { view } = qs.parse(props.location.search, {
       ignoreQueryPrefix: true
     });
 
@@ -35,60 +34,43 @@ class Billing extends React.Component {
       return;
     }
 
-    const { transactions, pendingBills } = await getSubscriberBills(owner);
-
-    if (transactions) {
-      this.setState(prevState => {
-        if (areDiffBills(prevState.transactions, transactions)) {
-          return {
-            transactions,
-            pendingBills,
-            isReady: true
-          };
-        }
-        return { isReady: true };
-      });
-    }
+    const { activeBill, transactions } = await getSubscriberTransactionData(
+      owner
+    );
+    this.setState({ activeBill, transactions });
   }
 
-  seeAllBills() {
+  seeAllTransactionsView = () => {
     this.setState({
       mode: 1
     });
-  }
+  };
 
-  seeMain() {
+  seeMainView = () => {
     this.setState({
       mode: 0
     });
-  }
+  };
 
   render() {
-    const { mode, transactions, isReady, pendingBills } = this.state;
+    const { mode, activeBill, transactions } = this.state;
     const { isLoadingUserData } = this.props;
-    const isLoading = !isReady || isLoadingUserData;
-    if (isLoading) {
+    if (isLoadingUserData) {
       return <LoadingComponent />;
     }
-    if (mode === 0) {
-      return (
-        <BillingMainView
-          callback={() => this.seeAllBills()}
-          transactions={transactions}
-          pendingBills={pendingBills}
-        />
-      );
-    }
-    if (mode === 1) {
-      return (
-        <BillingAllBillsView
-          callback={() => this.seeMain()}
-          transactions={transactions}
-        />
-      );
-    }
 
-    return <div>404: invalid state. Call your dev</div>;
+    return mode === 0 ? (
+      <BillingMainView
+        seeAllTransactionsView={this.seeAllTransactionsView}
+        transactions={transactions}
+        activeBill={activeBill}
+      />
+    ) : (
+      <BillingAllBillsView
+        seeMainView={this.seeMainView}
+        transactions={transactions}
+      />
+    );
   }
 }
 
