@@ -51,7 +51,6 @@
   border-radius: 5px;
   padding: 35px;
   margin-left: 0px;
-  margin-left: 0px;
   margin-top: 10px;
   margin-bottom: 10px;
   width: 450px;
@@ -168,7 +167,7 @@
   font-weight: normal;
 }
 
-.circle-progress-bar {
+.investments-circle-progress-bar {
   display: flex;
   align-content: flex-start;
   margin-left: -75px;

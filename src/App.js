@@ -13,6 +13,7 @@ import Community from './screens/shared/Community';
 import GeneralDashboard from './screens/general/GeneralDashboard';
 import AdminDashboard from './screens/admin/AdminDashboard';
 import UserProfile from './screens/shared/UserProfile';
+import ErrorPage from './screens/general/ErrorPage';
 import './styles/App.css';
 import { refreshUserData } from './lib/userDataUtils';
 import { history } from './lib/redux/store';
@@ -25,6 +26,7 @@ import {
 } from './lib/credentials';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Investment from './screens/general/Investment';
+import BuyShares from './screens/general/BuyShares';
 import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
 
 class App extends React.Component {
@@ -63,7 +65,7 @@ class App extends React.Component {
     return (
       <ConnectedRouter history={history}>
         <div className="app-container">
-          <NavBar />
+          <NavBar history={history} />
           <Switch>
             <Route exact path="/" component={HomeComponent} />
             <AuthenticatedRoute path="/projectnews" component={Community} />
@@ -94,9 +96,12 @@ class App extends React.Component {
               path="/billing"
               component={Billing}
             />
-            <Route>
-              <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>
-            </Route>
+            <AuthenticatedRoute
+              credential={Credentials.GENERAL} // General only
+              path="/buyshares"
+              component={BuyShares}
+            />
+            <Route path="*" component={ErrorPage} />
           </Switch>
         </div>
       </ConnectedRouter>
