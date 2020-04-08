@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2';
 import SharesProgressBar from './components/SharesProgressBar';
 import LeftArrow from '../../assets/left_arrow.png';
 import '../../styles/BuyShares.css';
+import { recordSharePayment } from '../../lib/paypalUtils';
+import { refreshUserData } from '../../lib/userDataUtils';
 import Constants from '../../constants';
+import LoadingComponent from '../../components/LoadingComponent';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 const { MAX_SHARES, SHARE_PRICE } = Constants;
@@ -14,9 +17,24 @@ class BuyShares extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
       sharesBuying: 0
     };
   }
+
+  onPaymentSuccess = async (details, data) => {
+    const { owner, history } = this.props;
+    const { sharesBuying } = this.state;
+    this.setState({ loading: true });
+    await recordSharePayment(
+      details,
+      data,
+      owner.id,
+      owner.numberOfShares + sharesBuying
+    );
+    await refreshUserData(owner.id);
+    history.push(Constants.HOME_ROUTE);
+  };
 
   addShares = () => {
     const { sharesBuying } = this.state;
@@ -41,8 +59,17 @@ class BuyShares extends React.PureComponent {
 
   render() {
     const { owner } = this.props;
-    const { sharesBuying } = this.state;
+    const { sharesBuying, loading } = this.state;
     const totalShares = owner.numberOfShares + sharesBuying;
+
+    if (loading) {
+      return <LoadingComponent />;
+    }
+    // Page should not be accessible if you can't buy more shares
+    if (owner.numberOfShares === 10) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div>
         <div className="back-to-investments">
@@ -124,7 +151,7 @@ class BuyShares extends React.PureComponent {
               <h3>Payment Method</h3>
               <PayPalButton
                 amount={sharesBuying * SHARE_PRICE}
-                onSuccess={this.onBuyShareWithPaypalSuccess}
+                onSuccess={this.onPaymentSuccess}
                 options={{
                   clientId
                 }}
