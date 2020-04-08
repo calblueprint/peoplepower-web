@@ -124,9 +124,6 @@ class BuyShares extends React.PureComponent {
               <h3>Payment Method</h3>
               <PayPalButton
                 amount={sharesBuying * SHARE_PRICE}
-                onApprove={() => {
-                  console.log('Payment Approved');
-                }}
                 onSuccess={this.onBuyShareWithPaypalSuccess}
                 options={{
                   clientId
