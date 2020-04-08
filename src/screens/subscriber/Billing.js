@@ -5,6 +5,7 @@ import BillingAllBills from './components/BillingAllTransactions';
 import BillingMain from './components/BillingMain';
 import { getSubscriberTransactionData } from '../../lib/subscriberUtils';
 import '../../styles/SubscriberOwnerDashboard.css';
+import LoadingComponent from '../../components/LoadingComponent';
 
 class Billing extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class Billing extends React.Component {
     this.state = {
       activeBill: null,
       transactions: [],
+      loading: true,
       mode: 0 // 0 for main billing view, 1 for all bills view
     };
 
@@ -31,7 +33,7 @@ class Billing extends React.Component {
     const { activeBill, transactions } = await getSubscriberTransactionData(
       owner
     );
-    this.setState({ activeBill, transactions });
+    this.setState({ activeBill, transactions, loading: false });
   }
 
   seeAllTransactionsView = () => {
@@ -47,7 +49,11 @@ class Billing extends React.Component {
   };
 
   render() {
-    const { mode, activeBill, transactions } = this.state;
+    const { mode, activeBill, transactions, loading } = this.state;
+
+    if (loading) {
+      return <LoadingComponent />;
+    }
 
     return mode === 0 ? (
       <BillingMain
