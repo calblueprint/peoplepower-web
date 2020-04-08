@@ -1,18 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logOut } from '../../lib/authUtils';
 import AnnouncementList from '../shared/components/AnnouncementList';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
 
 class GeneralOwnerDashboard extends React.Component {
-  handleLogoutClick = () => {
-    const { history } = this.props;
-    logOut();
-    history.push('/');
-  };
-
   /* dash-solar-details will eventually be its own graph component
      so it'll be easy to write a ternary operator that will render
      it when it's loaded.
@@ -49,14 +42,6 @@ class GeneralOwnerDashboard extends React.Component {
           </p>
           <ul>{solarProjectComponent}</ul>
         </div>
-
-        <button
-          type="button"
-          className="btn btn--square btn--blue btn--size16 primary"
-          onClick={this.handleLogoutClick}
-        >
-          Logout
-        </button>
       </div>
     );
   }

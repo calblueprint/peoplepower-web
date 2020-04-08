@@ -30,16 +30,18 @@ PR/has to be done "
 [//]: # '####### YOUR ANSWER BELOW ###########'
 [//]: # '############## END ##################'
 
-### Tests Performed, Edge Cases
-
-[//]: # '#####################################'
-[//]: # '####### YOUR ANSWER BELOW ###########'
-[//]: # '############## END ##################'
-
 ### Screenshots
 
 [//]: # '#####################################'
 [//]: # '#### YOUR SCREENSHOTS BELOW ########'
+[//]: # '############## END ##################'
+
+### Design Status
+
+[//]: # 'If this is a frontend PR, what is the expected 
+status of the UI in this PR (lo, mid, high- fi?'
+[//]: # '#####################################'
+[//]: # '####### LOFI/MIDFI/HIFI ###########'
 [//]: # '############## END ##################'
 
 CC: @dfangshuo

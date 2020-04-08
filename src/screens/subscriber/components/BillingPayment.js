@@ -191,10 +191,6 @@ class BillingPayment extends React.Component {
                   </div>
                   <PayPalButton
                     amount={paymentAmount}
-                    onApprove={this.onApprovePayment}
-                    onError={this.onPaymentCancel}
-                    onCancel={this.onPaymentCancel}
-                    createOrder={this.onInitiatePayment}
                     onSuccess={this.onPaymentSuccess}
                     options={{
                       clientId

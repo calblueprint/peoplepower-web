@@ -13,6 +13,7 @@ import Community from './screens/shared/Community';
 import GeneralDashboard from './screens/general/GeneralDashboard';
 import AdminDashboard from './screens/admin/AdminDashboard';
 import UserProfile from './screens/shared/UserProfile';
+import ErrorPage from './screens/general/ErrorPage';
 import './styles/App.css';
 import { refreshUserData } from './lib/userDataUtils';
 import { history } from './lib/redux/store';
@@ -66,7 +67,7 @@ class App extends React.Component {
     return (
       <ConnectedRouter history={history}>
         <div className="app-container">
-          <NavBar />
+          <NavBar history={history} />
           <Switch>
             <PPRoute exact path="/" component={HomeComponent} />
             <AuthenticatedRoute path="/projectnews" component={Community} />
@@ -107,13 +108,7 @@ class App extends React.Component {
               path="/buyshares"
               component={BuyShares}
             />
-            <PPRoute
-              render={() => (
-                <p style={{ color: 'white', margin: '30px' }}>
-                  Not Found - 404
-                </p>
-              )}
-            />
+            <PPRoute path="*" component={ErrorPage} />
           </Switch>
         </div>
       </ConnectedRouter>
