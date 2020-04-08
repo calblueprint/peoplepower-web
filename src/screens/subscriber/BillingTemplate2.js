@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Page, Text, View, Image } from '@react-pdf/renderer';
 import Logo from '../../assets/PPSC-logo-no-padding.png';
 import styles from './PDFStyles';
+import data from '../workshop/data';
 
 export default class BillingTemplate extends Component {
   constructor(props) {
@@ -10,6 +11,21 @@ export default class BillingTemplate extends Component {
   }
 
   render() {
+    const startDate = new Date(data.subscriberBill.startDate);
+    const months = {
+      0: 'January',
+      1: 'February',
+      2: 'March',
+      3: 'April',
+      4: 'May',
+      5: 'June',
+      6: 'July',
+      7: 'August',
+      8: 'September',
+      9: 'October',
+      10: 'November',
+      11: 'December'
+    };
     return (
       <Page style={styles.pdfContainer}>
         <View style={styles.pdf}>
@@ -27,18 +43,19 @@ export default class BillingTemplate extends Component {
               if you weren&apos;t with People Power. All costs from
             </Text>
             <Text style={[styles.inline, styles.boldText]}>
-              April 2020 - Present.
+              {months[startDate.getMonth()]} {startDate.getFullYear()} -
+              Present.
             </Text>
           </View>
           <View
             style={[
               styles.textCenter,
               styles.flex,
-              styles.paddingVertical,
+              styles.paddingTop,
               styles.flexSameHeight
             ]}
           >
-            <View style={[styles.width33]}>
+            <View style={[styles.width30]}>
               <Text
                 style={[
                   styles.cardHeader,
@@ -59,7 +76,7 @@ export default class BillingTemplate extends Component {
                 $537.38
               </Text>
             </View>
-            <View style={[styles.width33]}>
+            <View style={[styles.width30]}>
               <Text
                 style={[
                   styles.cardHeader,
@@ -80,7 +97,7 @@ export default class BillingTemplate extends Component {
                 $662.89
               </Text>
             </View>
-            <View style={[styles.width33]}>
+            <View style={[styles.width30]}>
               <Text
                 style={[
                   styles.cardHeader,
@@ -102,10 +119,10 @@ export default class BillingTemplate extends Component {
               </Text>
             </View>
           </View>
-          <Text style={[styles.midTextBlue]}>
+          <Text style={[styles.midTextBlue, styles.paddingTopLarge]}>
             Here&apos;s how we we calculated your $537.38 cost of energy:
           </Text>
-          <View style={[styles.paddingVertical]}>
+          <View style={[styles.paddingTop]}>
             <Text style={[styles.midTextBoldPink, styles.textCenter]}>
               $0.00 + $115.51 + $1,105.35 - $369.31 - $314.17 = $537.38
             </Text>
@@ -114,13 +131,10 @@ export default class BillingTemplate extends Component {
               Credits - People Power Rebates = What you&apos;ve paid for energy
             </Text>
           </View>
-          <View style={[]}>
+          <View style={[styles.paddingTopLarge]}>
             <Text style={[styles.headerThisBlue, styles.textCenter]}>
               Your Costs Over Time
             </Text>
-            <View style={[styles.paddingVertical]}>
-              <Text>Charts</Text>
-            </View>
             <Text style={[[styles.smallText]]}>
               * Your &quot;Would-Be&quot; Charge from PG&amp;E is calculated as
               though you had been paying the current E-1 Residential Rate from

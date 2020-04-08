@@ -1,12 +1,14 @@
 import { StyleSheet, Font } from '@react-pdf/renderer';
+import fontRegular from '../../assets/fonts/OpenSans-Regular.ttf';
+import fontBold from '../../assets/fonts/OpenSans-Bold.ttf';
 
 Font.register({
   family: 'Open Sans',
-  src: '../../assets/fonts/OpenSans-Regular.ttf'
+  src: fontRegular
 });
 Font.register({
   family: 'Open Sans Bold',
-  src: '../../assets/fonts/OpenSans-Bold.ttf'
+  src: fontBold
 });
 
 const styles = StyleSheet.create({
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
     lineHeight: 1.5
   },
   paddingTop: {
-    paddingTop: 16
+    paddingTop: '16px'
   },
   pinkText: {
     color: '#cd6795',
@@ -123,6 +125,87 @@ const styles = StyleSheet.create({
   thinBorder: {
     borderTop: '.001 solid #eee',
     borderBottom: '.01 solid #eee'
+  },
+
+  // new styling
+  inline: {
+    display: 'inline-block'
+  },
+  width30: {
+    width: '30%'
+  },
+  bigTextPink: {
+    fontFamily: 'Open Sans Bold',
+    fontSize: 24,
+    color: '#cd6795'
+  },
+  bigTextGray: {
+    fontFamily: 'Open Sans Bold',
+    fontSize: 24,
+    color: '#747474'
+  },
+  textBoldBlue: {
+    fontSize: 12,
+    lineHeight: 1.5,
+    color: '#395578',
+    fontFamily: 'Open Sans Bold'
+  },
+  midTextBlue: {
+    fontSize: 14,
+    lineHeight: 1.5,
+    color: '#395578',
+    fontFamily: 'Open Sans'
+  },
+  midTextBoldPink: {
+    fontSize: 14,
+    lineHeight: 1.5,
+    color: '#cd6795',
+    fontFamily: 'Open Sans Bold'
+  },
+  smallTextBold: {
+    fontSize: 8,
+    lineHeight: 1.5,
+    color: '#747474',
+    fontFamily: 'Open Sans Bold'
+  },
+  smallText: {
+    fontSize: 8,
+    lineHeight: 1.5,
+    color: '#747474',
+    fontFamily: 'Open Sans'
+  },
+  textCenter: {
+    textAlign: 'center'
+  },
+  flexSameHeight: {
+    gridAutoRows: '1fr'
+  },
+  smallTextBlue: {
+    fontSize: 8,
+    lineHeight: 1.5,
+    color: '#395578',
+    fontFamily: 'Open Sans'
+  },
+  headerThisBlue: {
+    fontFamily: 'Open Sans',
+    fontSize: 24,
+    color: '#395578'
+  },
+  cardHeader: {
+    padding: '15px',
+    minHeight: '65px'
+  },
+  margintTopSmall: {
+    marginTop: '5px'
+  },
+  paddingVerticalLarge: {
+    padding: '15px 0'
+  },
+  marginHorizontal: {
+    margin: '0 5rem 0 0'
+  },
+  paddingTopLarge: {
+    padding: '20px 0 0 0'
   }
 });
 

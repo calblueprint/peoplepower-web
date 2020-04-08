@@ -60,11 +60,11 @@ export default class BillingBuilder extends Component {
         <button onClick={this.toggleViewer} type="button" style={styles.button}>
           View PDF
         </button>
-        {viewerVisible ? (
-          <PDFViewer style={[styles.opens, styles.viewer]}>
-            <BillingTemplate {...data} />
-          </PDFViewer>
-        ) : null}
+        {/* {viewerVisible ? ( */}
+        <PDFViewer style={[styles.opens, styles.viewer]}>
+          <BillingTemplate {...data} />
+        </PDFViewer>
+        {/* ) : null} */}
         <BillingChart />
       </div>
     );
