@@ -1,10 +1,11 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { recordSharePayment } from '../../../lib/paypalUtils';
+import Constants from '../../../constants';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
-const SHARE_PRICE = 100;
+const { SHARE_PRICE } = Constants;
 
 class PaymentStep extends React.Component {
   onBuyShareWithPaypalSuccess = async (details, data) => {
