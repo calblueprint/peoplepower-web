@@ -30,7 +30,6 @@ const recordSharePayment = async (details, data, ownerId, numberOfShares) => {
 
 const recordBillPayment = async (details, data, bill) => {
   const payment = constructPaymentRecord(details, data, bill.subscriberId);
-  console.log(payment);
   await createPayment({
     ...payment,
     type: BILL_PAYMENT_TYPE,
