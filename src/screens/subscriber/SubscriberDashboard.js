@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import DashboardBillingSection from './components/DashboardBillingSection';
-import DashboardChartsSection from './components/DashboardChartsSection';
-import DashboardProjectNewsSection from './components/DashboardProjectNewsSection';
+import DashboardBilling from './components/DashboardBilling';
+import DashboardCharts from './components/DashboardCharts';
+import DashboardProjectNews from './components/DashboardProjectNews';
 import '../../styles/SubscriberDashboard.css';
 import '../../styles/Community.css';
 import { getSubscriberTransactionData } from '../../lib/subscriberUtils';
@@ -46,17 +46,17 @@ class SubscriberDashboard extends React.Component {
       <div className="subscriber-page ">
         <div className="subscriber-main">
           <div className="subscriber-section">
-            <DashboardBillingSection
+            <DashboardBilling
               activeBill={activeBill}
               transactions={transactions}
             />
           </div>
           <div className="subscriber-section">
-            <DashboardChartsSection hasShares={owner.numberOfShares !== 0} />
+            <DashboardCharts hasShares={owner.numberOfShares !== 0} />
           </div>
         </div>
         <div className="subscriber-side">
-          <DashboardProjectNewsSection
+          <DashboardProjectNews
             announcements={announcements}
             isLoadingAnnouncements={isLoadingAnnouncements}
           />

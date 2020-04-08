@@ -5,9 +5,10 @@ import { PayPalButton } from 'react-paypal-button-v2';
 import SharesProgressBar from './components/SharesProgressBar';
 import LeftArrow from '../../assets/left_arrow.png';
 import '../../styles/BuyShares.css';
+import Constants from '../../constants';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
-const SHARE_PRICE = 100;
+const { MAX_SHARES, SHARE_PRICE } = Constants;
 
 class BuyShares extends React.PureComponent {
   constructor(props) {
@@ -20,9 +21,9 @@ class BuyShares extends React.PureComponent {
   addShares = () => {
     const { sharesBuying } = this.state;
     const { owner } = this.props;
-    const maxAllowed = 10 - owner.numberOfShares;
+    const maxAllowed = MAX_SHARES - owner.numberOfShares;
     const totalShares = sharesBuying + owner.numberOfShares;
-    if (totalShares === 10) {
+    if (totalShares === MAX_SHARES) {
       this.setState({ sharesBuying: maxAllowed });
     } else {
       this.setState({ sharesBuying: sharesBuying + 1 });
@@ -62,7 +63,7 @@ class BuyShares extends React.PureComponent {
         <div className="buy-shares-boxes-content">
           <div className="number-of-shares-box">
             <div className="amount-of-shares-header">
-              Number of shares (max 10)
+              Number of shares (max {MAX_SHARES})
             </div>
             <div className="payment-shares-input">
               <label htmlFor="" className="w-100">
@@ -101,7 +102,7 @@ class BuyShares extends React.PureComponent {
                   owning a total of {totalShares} shares.
                 </h5>
                 <br />
-                <h4>${totalShares * 100}.00</h4>
+                <h4>${totalShares * SHARE_PRICE}.00</h4>
               </div>
             </div>
             <div className="buy-shares-payment-summary-box">
@@ -109,14 +110,14 @@ class BuyShares extends React.PureComponent {
               <div className="shares-price-line">
                 <h5> Shares </h5>
 
-                <h5>${sharesBuying * 100}.00</h5>
+                <h5>${sharesBuying * SHARE_PRICE}.00</h5>
               </div>
               <h6>QTY: {sharesBuying}</h6>
               <hr className="buy-shares-summary-hr" />
               <div className="shares-total-price-line">
                 <h5> Total </h5>
 
-                <h5>${sharesBuying * 100}.00</h5>
+                <h5>${sharesBuying * SHARE_PRICE}.00</h5>
               </div>
             </div>
             <div className="buy-shares-paypal-box">

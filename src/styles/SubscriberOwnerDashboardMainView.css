@@ -39,8 +39,15 @@
 
 .billing-col-card {
   background-color: white;
-  border-radius: 4px;
-  height: 47vh;
+  border-color: var(--pp-white);
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.billing-link-text-white {
+  text-decoration: none;
+  color: white;
 }
 
 .billing-balance-section {
@@ -74,6 +81,10 @@
 
 .line-item-value {
   text-align: right;
+}
+
+.line-item-input {
+  width: 50%;
 }
 
 .billing-header {
@@ -139,6 +150,11 @@
   font-size: 16px;
   line-height: 22px;
 }
+
+.billing-payment-button.disabled {
+  background-color: var(--pp-disabled);
+}
+
 #billing-divider {
   border: 1px solid var(--pp-light-gray);
   margin: 0 auto 1.5vw auto;

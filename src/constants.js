@@ -8,6 +8,8 @@ const constants = {
   // PAYPAL PAYMENT TYPES
   BILL_PAYMENT_TYPE: 'Bill Payment',
   BUY_SHARES_TYPE: 'Buy Shares',
+  SHARE_PRICE: 100,
+  MAX_SHARES: 10,
 
   // TRANSACTION TYPES AND STATUS
   BILL_TYPE: 'Bill',

@@ -1,15 +1,16 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { recordShareBuySuccess } from '../../../lib/paypalUtils';
+import { recordSharePayment } from '../../../lib/paypalUtils';
+import Constants from '../../../constants';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
-const SHARE_PRICE = 100;
+const { SHARE_PRICE } = Constants;
 
 class PaymentStep extends React.Component {
-  onBuyShareWithPaypalSuccess = (details, data) => {
+  onBuyShareWithPaypalSuccess = async (details, data) => {
     const { owner, onSubmit } = this.props;
-    recordShareBuySuccess(details, data, owner.id); // TODO(dfangshuo): no await?
+    await recordSharePayment(details, data, owner.id);
     onSubmit();
   };
 
