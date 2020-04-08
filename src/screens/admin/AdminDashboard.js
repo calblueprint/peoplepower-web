@@ -3,7 +3,6 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AdminDashboardCard from './components/AdminDashboardCard';
-import LoadingComponent from '../../components/LoadingComponent';
 import {
   getOwnerRecordsForProjectGroup,
   inviteMember,
@@ -123,7 +122,7 @@ class AdminDashboard extends React.Component {
   }
 
   render() {
-    const { isLoadingUserData, credentials, projectGroup } = this.props;
+    const { credentials, projectGroup } = this.props;
     const {
       showModal,
       owners,
@@ -135,10 +134,6 @@ class AdminDashboard extends React.Component {
       inviteWantsDividends,
       status
     } = this.state;
-
-    if (isLoadingUserData) {
-      return <LoadingComponent />;
-    }
 
     return (
       <div className="dashboard dash-admin">
@@ -336,8 +331,7 @@ const mapStateToProps = state => ({
   owner: state.userData.owner,
   credentials: state.userData.credentials,
   userLogin: state.userData.userLogin,
-  projectGroup: state.userData.projectGroup,
-  isLoadingUserData: state.userData.isLoading
+  projectGroup: state.userData.projectGroup
 });
 
 export default connect(mapStateToProps)(AdminDashboard);

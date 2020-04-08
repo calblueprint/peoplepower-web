@@ -18,12 +18,7 @@ class SubscriberDashboard extends React.Component {
   }
 
   async componentDidMount() {
-    const { owner, isLoadingUserData } = this.props;
-
-    // If data isn't in redux yet, don't do anything.
-    if (isLoadingUserData) {
-      return;
-    }
+    const { owner } = this.props;
 
     const { activeBill, transactions } = await getSubscriberTransactionData(
       owner
@@ -70,9 +65,7 @@ const mapStateToProps = state => ({
   owner: state.userData.owner,
   projectGroup: state.userData.projectGroup,
   solarProjects: state.userData.solarProjects,
-  announcements: state.community.announcements,
-  isLoadingUserData: state.userData.isLoading,
-  isLoadingAnnouncements: state.community.isLoading
+  announcements: state.community.announcements
 });
 
 export default connect(mapStateToProps)(SubscriberDashboard);
