@@ -48,6 +48,7 @@ class Billing extends React.Component {
 
   render() {
     const { mode, activeBill, transactions } = this.state;
+    const { history } = this.props;
 
     return mode === 0 ? (
       <BillingMain
@@ -59,6 +60,7 @@ class Billing extends React.Component {
       <BillingAllBills
         seeMainView={this.seeMainView}
         transactions={transactions}
+        history={history}
       />
     );
   }
