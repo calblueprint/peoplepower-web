@@ -123,7 +123,7 @@ class Investment extends React.PureComponent {
             </div>
             <div className="right-content">
               <h2>Financial Breakdown</h2>
-              <div className="fin-box">adf</div>
+              <div className="fin-box" />
             </div>
           </div>
         </div>
