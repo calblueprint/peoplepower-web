@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2/lib';
 import { refreshUserData } from '../../../lib/userDataUtils';
 import {
   getSubscriberTransactionData,
-  formatAmount
+  formatAmount,
+  processCurrencyInput
 } from '../../../lib/subscriberUtils';
 import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
@@ -38,23 +39,12 @@ class BillingPayment extends React.Component {
 
   onChangePaymentAmount = event => {
     const { activeBill, paymentAmount } = this.state;
-    event.preventDefault();
-    if (event.nativeEvent.key === 'Backspace') {
-      let paymentAmountInCents = paymentAmount * 100;
-      paymentAmountInCents = Math.floor(paymentAmountInCents / 10);
-      let newAmount = paymentAmountInCents / 100;
-
-      newAmount = Math.max(0.0, newAmount); // Pay atleast 1 cent
-      newAmount = Math.min(activeBill.balance, newAmount); // Pay no more than balance
-      this.setState({ paymentAmount: newAmount.toFixed(2) });
-      // newAmount = event.target.value/10;
-    } else if (/^[0123456789]$/.test(event.nativeEvent.key)) {
-      let newAmount =
-        paymentAmount * 10 + parseFloat(event.nativeEvent.key) / 100;
-      newAmount = Math.max(0.0, newAmount); // Pay atleast 1 cent
-      newAmount = Math.min(activeBill.balance, newAmount); // Pay no more than balance
-      this.setState({ paymentAmount: newAmount.toFixed(2) });
-    }
+    const newAmount = processCurrencyInput(
+      event,
+      activeBill.balance,
+      paymentAmount
+    );
+    this.setState({ paymentAmount: newAmount });
   };
 
   onPaymentSuccess = async (details, data) => {
@@ -89,13 +79,13 @@ class BillingPayment extends React.Component {
         <div className="billing-dash-outer-container">
           <button className="subscriber-back-button" type="button">
             <div className="billing-payment-back-button-container">
-              <a href="/billing">
+              <Link to="/billing">
                 <img
                   className="button right-arrow-button-flipped"
                   src={RightArrow}
                   alt="right arrow"
                 />
-              </a>
+              </Link>
               <label>Back</label>
             </div>
           </button>
