@@ -9,7 +9,7 @@ import {
 } from '../../../lib/subscriberUtils';
 import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
-import RightArrow from '../../../assets/right_arrow.png';
+import LeftArrow from '../../../assets/left_arrow.png';
 import { recordBillPayment } from '../../../lib/paypalUtils';
 import Constants from '../../../constants';
 
@@ -77,9 +77,9 @@ class BillingPayment extends React.Component {
           <button className="subscriber-back-button" type="button">
             <div className="billing-payment-back-button-container">
               <img
-                className="button right-arrow-button-flipped"
-                src={RightArrow}
-                alt="right arrow"
+                className="button left-arrow-button"
+                src={LeftArrow}
+                alt="left arrow"
               />
               <label>Back</label>
             </div>
