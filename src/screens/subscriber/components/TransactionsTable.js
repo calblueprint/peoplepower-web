@@ -24,13 +24,25 @@ const TransactionsTable = ({
     'balance'
   ];
   const headerVisible = showHeader === undefined ? true : showHeader;
+
+  const evalWidth = element => {
+    switch (element) {
+      case 'description':
+        return 200;
+      case 'date':
+        return 150;
+      default:
+        return undefined;
+    }
+  };
+
   return (
     <ReactTable
       data={transactions}
       columns={fields.map(f => ({
         Header: headerVisible && <TransactionTableHeader title={f} />,
         id: f,
-        width: f === 'description' ? 200 : undefined,
+        width: evalWidth(f),
         accessor: d => (
           <div
             className={`subscriber-all-bills-row transactions-table-cell transactions-table-${f}`}
