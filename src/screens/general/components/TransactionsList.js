@@ -29,7 +29,7 @@ class TransactionList extends React.PureComponent {
       );
     });
 
-    return <div style={{ overflow: 'auto' }}>{list}</div>;
+    return <div className="investments-displayed-list">{list}</div>;
   }
 }
 

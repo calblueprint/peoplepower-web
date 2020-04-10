@@ -222,13 +222,11 @@
 .investments-transaction-card {
   background: white;
   border-radius: 5px;
-  padding: 35px;
+  padding: 0px 35px;
   margin: 10px 0px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  padding-bottom: 0px;
-  padding-top: 0px;
 }
 
 .investments-transaction-card-heading h4 {
@@ -275,4 +273,8 @@
   font-weight: normal;
   margin-block-start: 0.7em;
   margin-block-end: 1.4em;
+}
+
+.investments-displayed-list {
+  overflow: auto;
 }
