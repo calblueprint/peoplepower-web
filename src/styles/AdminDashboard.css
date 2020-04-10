@@ -42,14 +42,6 @@
   padding: 35px 35px 35px 0px;
 }
 
-.card-holder .admin-card .card-profile-image {
-  width: 77px;
-  height: 77px;
-  margin-right: 34px;
-  background: var(--pp-tag-gray);
-  border-radius: 100%;
-}
-
 .card-holder .admin-card .card-name {
   margin-right: auto;
 }
@@ -65,7 +57,14 @@
 .card-holder .admin-card .card-tags {
   display: flex;
   margin-top: 12px;
-  width: 200px;
+}
+
+.general-tag {
+  background: var(--pp-pink);
+}
+
+.admin-tag {
+  background: var(--pp-green);
 }
 
 .invite-button {

@@ -14,13 +14,12 @@ class AdminDashboardCard extends React.PureComponent {
     }
 
     const ownerTags = ownerTypes.map(type => (
-      <div key={type} className="pp-tag">
-        {type}
+      <div key={type} className={`${type.toLowerCase()}-tag pp-tag`}>
+        {type === 'General' ? 'General Owner' : type}
       </div>
     ));
     return (
       <div className="admin-card">
-        <div className="card-profile-image" />
         <div className="card-name">
           <h3>{owner.name}</h3>
           <div className="card-tags">{ownerTags}</div>
