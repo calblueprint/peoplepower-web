@@ -46,9 +46,23 @@ const getSubscriberTransactionData = async owner => {
       'Found more than 1 active bill. Please contact administrator'
     );
   }
-  const activeBill = activeBills[0];
 
-  return { activeBill, transactions };
+  let activeBill;
+  if (activeBills.length === 0) {
+    activeBill = 0;
+  } else {
+    [activeBill] = activeBills;
+    activeBill = {
+      ...activeBill,
+      balance: Number(activeBill.balance.toFixed(2))
+    };
+  }
+
+  // TODO: remove the number 2 on the server side
+  return {
+    activeBill,
+    transactions
+  };
 };
 
 export { formatAmount, getSubscriberTransactionData };

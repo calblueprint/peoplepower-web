@@ -1,7 +1,7 @@
 /* eslint react/jsx-props-no-spreading: 0 */
 
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import NavBar from './components/NavBar';
@@ -28,6 +28,8 @@ import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Investment from './screens/general/Investment';
 import BuyShares from './screens/general/BuyShares';
 import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
+import BillingPayment from './screens/subscriber/components/BillingPayment';
+import PPRoute from './components/PPRoute';
 
 class App extends React.Component {
   componentDidMount() {
@@ -67,7 +69,7 @@ class App extends React.Component {
         <div className="app-container">
           <NavBar history={history} />
           <Switch>
-            <Route exact path="/" component={HomeComponent} />
+            <PPRoute exact path="/" component={HomeComponent} />
             <AuthenticatedRoute path="/projectnews" component={Community} />
             <AuthenticatedRoute path="/profile" component={UserProfile} />
 
@@ -97,11 +99,16 @@ class App extends React.Component {
               component={Billing}
             />
             <AuthenticatedRoute
+              credential={Credentials.SUBSCRIBER} // Subscribers only
+              path="/billPayment"
+              component={BillingPayment}
+            />
+            <AuthenticatedRoute
               credential={Credentials.GENERAL} // General only
               path="/buyshares"
               component={BuyShares}
             />
-            <Route path="*" component={ErrorPage} />
+            <PPRoute path="*" component={ErrorPage} />
           </Switch>
         </div>
       </ConnectedRouter>

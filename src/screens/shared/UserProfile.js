@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateOwner } from '../../lib/airtable/request';
-import LoadingComponent from '../../components/LoadingComponent';
 import { refreshUserData } from '../../lib/userDataUtils';
 import { validateField } from '../../lib/onboardingUtils';
 import '../../styles/UserProfilePage.css';
@@ -36,12 +35,7 @@ class UserProfile extends React.Component {
   }
 
   pullPropsIntoState = type => {
-    const { owner, isLoadingUserData } = this.props;
-
-    // If data isn't in redux yet, don't do anything.
-    if (isLoadingUserData) {
-      return;
-    }
+    const { owner } = this.props;
 
     if (type === 'contact' || type === 'both') {
       this.setState({
@@ -192,11 +186,9 @@ class UserProfile extends React.Component {
       contactEditMode
     } = this.state;
 
-    const { owner, projectGroup, isLoadingUserData } = this.props;
+    const { owner, projectGroup } = this.props;
 
-    return isLoadingUserData ? (
-      <LoadingComponent />
-    ) : (
+    return (
       <div className="dashboard settings">
         <div className="cont">
           <h2>Settings</h2>
@@ -366,7 +358,6 @@ class UserProfile extends React.Component {
 
 const mapStateToProps = state => ({
   owner: state.userData.owner,
-  projectGroup: state.userData.projectGroup,
-  isLoadingUserData: state.userData.isLoading
+  projectGroup: state.userData.projectGroup
 });
 export default connect(mapStateToProps)(UserProfile);

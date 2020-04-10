@@ -1,14 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import RightArrow from '../../../assets/right_arrow.png';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardMainView.css';
 import TransactionsTable from './TransactionsTable';
 import { formatAmount } from '../../../lib/subscriberUtils';
 
-export default class BillingMainView extends React.PureComponent {
+export default class BillingMain extends React.PureComponent {
   render() {
     const { seeAllTransactionsView, activeBill, transactions } = this.props;
 
+    // TODO: Need to handle Pending Bill state
     const activeBalance = activeBill ? activeBill.balance : 0;
     const amountPaid = activeBill
       ? activeBill.amountDue - activeBill.balance
@@ -84,8 +86,19 @@ export default class BillingMainView extends React.PureComponent {
                     </p>
                   </div>
                   <div className="billing-payment-button-container">
-                    <button type="button" className="billing-payment-button">
-                      Make Payment
+                    <button
+                      type="button"
+                      className={`billing-payment-button ${
+                        !activeBalance ? 'disabled' : ''
+                      }`}
+                      disabled={!activeBalance}
+                    >
+                      <Link
+                        to={!activeBalance ? undefined : '/billPayment'}
+                        className="billing-link-text-white "
+                      >
+                        Make Payment
+                      </Link>
                     </button>
                   </div>
                 </div>

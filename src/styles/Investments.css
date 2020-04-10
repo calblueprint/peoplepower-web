@@ -98,6 +98,10 @@
   width: 150px;
 }
 
+.investments-buy-shares-button.disabled a {
+  background-color: var(--pp-gray);
+}
+
 .investments-box-dividends h4 {
   text-align: left;
   color: var(--pp-blue);

@@ -4,7 +4,7 @@ import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
 import TransactionsTable from './TransactionsTable';
 import RightArrow from '../../../assets/right_arrow.png';
 
-export default class BillingAllTransactionsView extends React.PureComponent {
+export default class BillingAllTransactions extends React.PureComponent {
   render() {
     const { seeMainView, transactions } = this.props;
     return (

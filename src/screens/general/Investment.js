@@ -10,6 +10,9 @@ import '../../styles/Investments.css';
 import GreenCheck from '../../assets/green_check.png';
 import RedX from '../../assets/red_x.png';
 import TransactionList from './components/TransactionsList';
+import Constants from '../../constants';
+
+const { MAX_SHARES, SHARE_PRICE } = Constants;
 
 class Investment extends React.PureComponent {
   constructor(props) {
@@ -74,16 +77,19 @@ class Investment extends React.PureComponent {
                 </div>
                 <div className="box-text">
                   <h5>
-                    You currently own {owner.numberOfShares} out of 10 possible
+                    You currently own {owner.numberOfShares} out of possible
                     shares
                   </h5>
                   <br />
-                  <h4>${owner.numberOfShares * 100}.00</h4>
+                  <h4>${owner.numberOfShares * SHARE_PRICE}.00</h4>
                 </div>
                 <div className="investments-buttons">
-                  <div className="investments-buy-shares-button">
-                    <Link to="/buyshares">Buy Shares</Link>
-                  </div>
+                  {owner.numberOfShares !== MAX_SHARES && (
+                    <div className="investments-buy-shares-button">
+                      <Link to="/buyshares">Buy Shares</Link>
+                    </div>
+                  )}
+
                   <div className="investments-dividend">Divest</div>
                 </div>
               </div>
@@ -133,8 +139,7 @@ class Investment extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  isLoadingUserData: state.userData.isLoading
+  owner: state.userData.owner
 });
 
 export default connect(mapStateToProps)(Investment);

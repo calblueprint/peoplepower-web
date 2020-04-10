@@ -53,7 +53,6 @@ class SuperAdminDashboard extends React.Component {
 const mapStateToProps = state => ({
   owner: state.userData.owner,
   userLogin: state.userData.userLogin,
-  projectGroup: state.userData.projectGroup,
-  isLoadingUserData: state.userData.isLoading
+  projectGroup: state.userData.projectGroup
 });
 export default connect(mapStateToProps)(SuperAdminDashboard);

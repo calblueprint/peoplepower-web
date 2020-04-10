@@ -32,12 +32,15 @@ export default class DashboardBilling extends React.PureComponent {
                 <div>
                   <button
                     type="button"
-                    className={`subscriber-billing-make-payment-button ${
+                    className={`billing-payment-button ${
                       totalBalance === 0 ? 'disabled' : ''
                     }`}
                     disabled={totalBalance === 0}
                   >
-                    <Link to="/billing" className="subscriber-link-text-white">
+                    <Link
+                      to={totalBalance === 0 ? '/' : '/billPayment'}
+                      className="subscriber-link-text-white"
+                    >
                       Make Payment
                     </Link>
                   </button>

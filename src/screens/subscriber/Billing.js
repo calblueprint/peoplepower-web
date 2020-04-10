@@ -1,9 +1,8 @@
 import React from 'react';
 import qs from 'qs';
 import { connect } from 'react-redux';
-import BillingAllBillsView from './components/BillingAllTransactionsView';
-import BillingMainView from './components/BillingMainView';
-import LoadingComponent from '../../components/LoadingComponent';
+import BillingAllBills from './components/BillingAllTransactions';
+import BillingMain from './components/BillingMain';
 import { getSubscriberTransactionData } from '../../lib/subscriberUtils';
 import '../../styles/SubscriberOwnerDashboard.css';
 
@@ -27,12 +26,7 @@ class Billing extends React.Component {
   }
 
   async componentDidMount() {
-    const { owner, isLoadingUserData } = this.props;
-
-    // If data isn't in redux yet, don't do anything.
-    if (isLoadingUserData) {
-      return;
-    }
+    const { owner } = this.props;
 
     const { activeBill, transactions } = await getSubscriberTransactionData(
       owner
@@ -54,19 +48,15 @@ class Billing extends React.Component {
 
   render() {
     const { mode, activeBill, transactions } = this.state;
-    const { isLoadingUserData } = this.props;
-    if (isLoadingUserData) {
-      return <LoadingComponent />;
-    }
 
     return mode === 0 ? (
-      <BillingMainView
+      <BillingMain
         seeAllTransactionsView={this.seeAllTransactionsView}
         transactions={transactions}
         activeBill={activeBill}
       />
     ) : (
-      <BillingAllBillsView
+      <BillingAllBills
         seeMainView={this.seeMainView}
         transactions={transactions}
       />
@@ -75,7 +65,6 @@ class Billing extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  isLoadingUserData: state.userData.isLoading
+  owner: state.userData.owner
 });
 export default connect(mapStateToProps)(Billing);
