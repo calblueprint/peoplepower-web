@@ -57,7 +57,7 @@ const TransactionsTable = ({
         }
       })}
       defaultPageSize={numRows || 10}
-      className="-striped -highlight rt-custom-pp-style"
+      className="-striped -highlight rt-custom-pp-style transactions-table"
       {...props}
     />
   );
