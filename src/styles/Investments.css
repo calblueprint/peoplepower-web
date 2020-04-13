@@ -162,6 +162,7 @@
   font-weight: bolder;
   font-weight: normal;
   line-height: 22px;
+  margin-block-start: 0em;
 }
 
 .box-text h5 {

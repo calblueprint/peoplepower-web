@@ -63,7 +63,7 @@ class Investment extends React.PureComponent {
                 </div>
                 <div className="box-text">
                   <h5>
-                    You currently own {owner.numberOfShares} out of possible
+                    You currently own {owner.numberOfShares} out of 10 possible
                     shares
                   </h5>
                   <br />
