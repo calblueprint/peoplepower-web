@@ -50,6 +50,7 @@ class Billing extends React.Component {
 
   render() {
     const { mode, activeBill, transactions, loading } = this.state;
+    const { history } = this.props;
 
     // If bill data is still loading, display loading component
     if (loading) {
@@ -66,6 +67,7 @@ class Billing extends React.Component {
       <BillingAllBills
         seeMainView={this.seeMainView}
         transactions={transactions}
+        history={history}
       />
     );
   }

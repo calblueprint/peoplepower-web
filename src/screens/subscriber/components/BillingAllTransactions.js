@@ -6,13 +6,13 @@ import LeftArrow from '../../../assets/left_arrow.png';
 
 export default class BillingAllTransactions extends React.PureComponent {
   render() {
-    const { seeMainView, transactions } = this.props;
+    const { transactions, history } = this.props;
     return (
       <div className="all-bills-outer-container">
         <button
           className="subscriber-back-button"
           type="button"
-          onClick={seeMainView}
+          onClick={history.goBack}
         >
           <div className="subscriber-back-button-container">
             <img
