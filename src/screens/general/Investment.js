@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SharesProgressBar from './components/SharesProgressBar';
 import DividendsPreferencesModal from './components/DividendsPreferencesModal';
-import { updateOwner } from '../../lib/airtable/request';
+import { updateOwner, getPaymentsByIds } from '../../lib/airtable/request';
 import { refreshUserData } from '../../lib/userDataUtils';
 import '../../styles/Investments.css';
 import GreenCheck from '../../assets/green_check.png';
 import RedX from '../../assets/red_x.png';
+import TransactionList from './components/TransactionsList';
 import Constants from '../../constants';
 
 const { MAX_SHARES, SHARE_PRICE } = Constants;
@@ -17,11 +18,17 @@ class Investment extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isReceivingDividends: true
+      isReceivingDividends: true,
+      payments: []
     };
   }
 
   componentDidMount() {
+    const { isLoadingUserData } = this.props;
+    if (isLoadingUserData) {
+      return; // Data isn't loaded in yet
+    }
+    this.getPayments();
     this.refreshState();
   }
 
@@ -46,9 +53,16 @@ class Investment extends React.PureComponent {
     await refreshUserData(owner.id);
   };
 
+  getPayments = async () => {
+    const { owner } = this.props;
+    let paymentsList = [];
+    paymentsList = await getPaymentsByIds(owner.paymentIds || []);
+    this.setState({ payments: paymentsList });
+  };
+
   render() {
     const { owner } = this.props;
-    const { isReceivingDividends } = this.state;
+    const { isReceivingDividends, payments } = this.state;
 
     return (
       <div className="dashboard">
@@ -63,7 +77,7 @@ class Investment extends React.PureComponent {
                 </div>
                 <div className="box-text">
                   <h5>
-                    You currently own {owner.numberOfShares} out of possible
+                    You currently own {owner.numberOfShares} out of 10 possible
                     shares
                   </h5>
                   <br />
@@ -109,11 +123,13 @@ class Investment extends React.PureComponent {
                 />
               </div>
               <h2>Transactions</h2>
-              <div className="transactions-box">transactions box test</div>
+              <div className="transactions-box">
+                <TransactionList payments={payments} />
+              </div>
             </div>
             <div className="right-content">
               <h2>Financial Breakdown</h2>
-              <div className="fin-box">fin box test</div>
+              <div className="fin-box" />
             </div>
           </div>
         </div>

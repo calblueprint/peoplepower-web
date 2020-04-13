@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
 import TransactionsTable from './TransactionsTable';
-import RightArrow from '../../../assets/right_arrow.png';
+import LeftArrow from '../../../assets/left_arrow.png';
 
 export default class BillingAllTransactions extends React.PureComponent {
   render() {
@@ -16,9 +16,9 @@ export default class BillingAllTransactions extends React.PureComponent {
         >
           <div className="subscriber-back-button-container">
             <img
-              className="button right-arrow-button-flipped"
-              src={RightArrow}
-              alt="right arrow"
+              className="button left-arrow-button"
+              src={LeftArrow}
+              alt="left arrow"
             />
           </div>
         </button>
