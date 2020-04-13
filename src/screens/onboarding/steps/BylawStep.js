@@ -1,6 +1,6 @@
 import React from 'react';
-import OwnerAgreement1 from '../../../assets/ownerAgreement1.jpg';
-import OwnerAgreement2 from '../../../assets/ownerAgreement2.jpg';
+import OwnerAgreement1 from '../../../assets/ownerAgreement1.png';
+import OwnerAgreement2 from '../../../assets/ownerAgreement2.png';
 import ErrorIcon from '../../../assets/error.svg';
 
 import Carousel from '../components/Carousel';

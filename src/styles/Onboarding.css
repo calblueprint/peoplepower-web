@@ -130,7 +130,6 @@
   height: 3rem;
   margin-left: 1rem;
   margin-top: 0.15rem;
-  filter: brightness(0) invert(1);
   stroke: #7387a2;
 }
 
@@ -139,7 +138,6 @@
   height: 3rem;
   margin-right: 1rem;
   margin-top: 0.15rem;
-  filter: brightness(0) invert(1);
 }
 
 .arrow-circle:hover {
