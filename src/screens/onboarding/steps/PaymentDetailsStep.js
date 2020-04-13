@@ -165,13 +165,23 @@ class PaymentDetailsStep extends React.Component {
                 <div className="left payment-summary-shares">
                   Transaction Fee <Tooltip label="" />
                 </div>
-                <div className="right payment-summary-shares">$3.00</div>
+                <div className="right payment-summary-shares">
+                  $
+                  {(owner.numberOfShares * SHARE_PRICE * 0.029 + 0.3).toFixed(
+                    2
+                  )}
+                </div>
               </div>
               <hr className="payment-summary-hr" />
               <div className="flex justify-space-between">
                 <div className="left payment-summary-total">Total</div>
                 <div className="right payment-summary-total">
-                  ${owner.numberOfShares * SHARE_PRICE + 3}.00
+                  $
+                  {(
+                    owner.numberOfShares * SHARE_PRICE +
+                    owner.numberOfShares * SHARE_PRICE * 0.029 +
+                    0.3
+                  ).toFixed(2)}
                 </div>
               </div>
             </div>
