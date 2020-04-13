@@ -1,0 +1,26 @@
+.payment-success-card {
+  max-width: 442px;
+  background: white;
+  border-radius: 5px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 132px;
+  padding: 41px 48px 48px 48px;
+}
+
+.payment-success-redirect-button {
+  padding: 6px 12px;
+  display: block;
+  text-align: center;
+  margin: 17px auto;
+  width: 206px;
+  border-radius: 2.5px;
+  text-decoration: none;
+}
+
+.payment-success-redirect-button:first-of-type {
+  margin-top: 62px;
+  background: var(--pp-blue);
+  color: white;
+}
