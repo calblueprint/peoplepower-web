@@ -143,6 +143,10 @@
   box-shadow: none !important;
 }
 
+.subscriber-billing-recent-table .rt-table {
+  overflow-x: scroll !important;
+}
+
 .subscriber-billing-recent-row {
   border: none !important;
   box-shadow: none !important;
