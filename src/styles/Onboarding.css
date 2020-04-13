@@ -885,6 +885,7 @@ carousel__arrow--right {
 .payment-summary-shares {
   font-size: 16px;
   line-height: 22px;
+  font-weight: 500;
   color: var(--pp-black);
   margin: 0 1.75rem 0.3rem 1.75rem;
 }
