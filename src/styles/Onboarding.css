@@ -391,6 +391,10 @@ w-pasword {
   width: 0;
 }
 
+.checkbox-error {
+  border: var(--pp-invalid) solid 1px !important;
+}
+
 .checkmark {
   position: absolute;
   border: 1px solid #b4b8bf;
