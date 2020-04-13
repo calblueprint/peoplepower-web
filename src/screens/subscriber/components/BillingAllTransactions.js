@@ -22,7 +22,7 @@ export default class BillingAllTransactions extends React.PureComponent {
             />
           </div>
         </button>
-        <p className="all-bills-header">Billing History</p>
+        <h1 className="all-bills-header">Transaction History</h1>
         <TransactionsTable transactions={transactions} />
       </div>
     );
