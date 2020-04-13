@@ -138,10 +138,7 @@
 }
 
 .arrow-circle {
-  width: 2rem;
-  height: 2rem;
-  background: var(--pp-pink);
-  border-radius: 50%;
+
 }
 .arrow-circle:hover {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
@@ -500,14 +497,14 @@ w-pasword {
 
 .progress-bar {
   position: relative;
-  height: 5px;
+  height: 9px;
   width: 100%;
   border-radius: 50px;
   border: none;
 }
 
 .filler-50 {
-  background: var(--pp-pink);
+  background: var(--pp-blue);
   height: 100%;
   border-radius: 2px 0 0 0;
   transition: width 0.2s ease-in;
@@ -515,7 +512,7 @@ w-pasword {
 }
 
 .filler-100 {
-  background: var(--pp-pink);
+  background: var(--pp-blue);
   height: 100%;
   border-radius: 2px 2px 0 0;
   transition: width 0.2s ease-in;
@@ -853,8 +850,10 @@ carousel__arrow--right {
 
 .bylaws-hyperlink {
   color: var(--pp-pink);
+  background-color: rgba(205, 103, 149, .1);
   font-weight: bold;
   text-decoration: none;
+  padding: 0 .2rem;
 }
 
 .payment-summary-header {
