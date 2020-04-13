@@ -5,9 +5,9 @@ import { PayPalButton } from 'react-paypal-button-v2/lib';
 import { refreshUserData } from '../../../lib/userDataUtils';
 import {
   getSubscriberTransactionData,
-  formatAmount,
-  processCurrencyInput
+  formatAmount
 } from '../../../lib/subscriberUtils';
+import processCurrencyInput from '../../../lib/billingUtils';
 import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
 import RightArrow from '../../../assets/right_arrow.png';
