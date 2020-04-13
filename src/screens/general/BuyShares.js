@@ -90,7 +90,7 @@ class BuyShares extends React.PureComponent {
         <div className="buy-shares-boxes-content">
           <div className="number-of-shares-box">
             <div className="amount-of-shares-header">
-              Number of shares (max {MAX_SHARES})
+              Number of shares (max {MAX_SHARES - owner.numberOfShares})
             </div>
             <div className="payment-shares-input">
               <label htmlFor="" className="w-100">
@@ -104,7 +104,7 @@ class BuyShares extends React.PureComponent {
                 <input
                   name="numberOfShares"
                   className="payment-shares-input-field"
-                  value={totalShares}
+                  value={totalShares - owner.numberOfShares}
                   disabled
                 />
                 <button
@@ -124,9 +124,9 @@ class BuyShares extends React.PureComponent {
               </div>
               <div className="buy-shares-progress-bar-text">
                 <h5>
-                  You are purchasing {sharesBuying} additional shares,
+                  You currently own {owner.numberOfShares} shares,
                   <br />
-                  owning a total of {totalShares} shares.
+                  you can buy up to {10 - owner.numberOfShares} more shares.
                 </h5>
                 <br />
                 <h4>${totalShares * SHARE_PRICE}.00</h4>
