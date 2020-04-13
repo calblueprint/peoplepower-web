@@ -141,9 +141,7 @@ const getAvailableProjectGroups = async () => {
   const projectGroups = await getAllProjectGroups();
 
   // TODO: double check this logic
-  const selectableGroups = projectGroups.filter(
-    group => group.isPublic && !group.isDefault
-  );
+  const selectableGroups = projectGroups.filter(group => group.isPublic);
   const defaultGroup = projectGroups.find(group => group.isDefault);
   return { selectableGroups, defaultGroup };
 };

@@ -770,6 +770,7 @@ carousel__arrow--right {
 .projectgroup-selected-header {
   color: var(--pp-blue);
   font-size: 18px;
+  font-weight: bold;
   padding-bottom: 1.5rem;
 }
 
@@ -803,8 +804,9 @@ carousel__arrow--right {
   background-color: #f7f8fa;
 }
 
-.project-group-list-option-background {
+.project-group-list-option-selected {
   background-color: #f7f8fa;
+  border: var(--pp-black) solid 2px;
 }
 
 .project-group-list-option:focus {
@@ -815,7 +817,7 @@ carousel__arrow--right {
   color: var(--pp-black);
   font-size: 16px;
   font-weight: bold;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.2rem;
 }
 
 .project-group-list-option-body {

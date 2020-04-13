@@ -44,19 +44,23 @@ class ProjectGroupListView extends React.Component {
                   onClick={() => changeDisplayedGroup(group.id)}
                   className={`project-group-list-option justify-space-between left ${
                     group.id === displayedGroupId
-                      ? 'project-group-list-option-background'
+                      ? 'project-group-list-option-selected'
                       : ''
                   }`}
                 >
                   <div className="">
                     <div className="project-group-list-option-header">
-                      {`${group.name} ${
-                        group.id === selectedGroupId ? '(Selected)' : ''
-                      }`}
+                      {`${
+                        group.name === 'Defauilt Project Group'
+                          ? 'No Project Group'
+                          : group.name
+                      } ${group.id === selectedGroupId ? '(Selected)' : ''}`}
                     </div>
-                    <div className="project-group-list-option-body">
-                      {group.city}, {group.state}
-                    </div>
+                    {group.city ? (
+                      <div className="project-group-list-option-body">
+                        {group.city}, {group.state}
+                      </div>
+                    ) : null}
                   </div>
                   <div>{/* distance */}</div>
                 </button>
@@ -69,7 +73,9 @@ class ProjectGroupListView extends React.Component {
           <div className="w-20 template-card projectgroup-selected-card">
             <div className="">
               <div className="projectgroup-selected-header">
-                {displayedGroup.name}
+                {displayedGroup.name === 'Default Project Group'
+                  ? 'No Project Group'
+                  : displayedGroup.name}
               </div>
               <div className="projectgroup-selected-body">
                 {displayedGroup.description}

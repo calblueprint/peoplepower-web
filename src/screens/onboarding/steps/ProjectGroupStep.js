@@ -60,7 +60,7 @@ class ProjectGroupStep extends React.Component {
 
   render() {
     const { owner, errors, onSubmit, onBack } = this.props;
-    const { allProjectGroups, displayGroupId, view, defaultGroup } = this.state;
+    const { allProjectGroups, displayGroupId, view } = this.state;
 
     return (
       <div
@@ -98,16 +98,6 @@ class ProjectGroupStep extends React.Component {
                 />
               )}
               <div style={{ display: 'inline', position: 'relative' }}>
-                <label className="checkbox-container">
-                  I don’t want to join a project group at this time.
-                  <input
-                    type="checkbox"
-                    name="selectNoProjectGroup"
-                    onChange={() => this.changeSelectedGroup(defaultGroup.id)}
-                    checked={owner.projectGroupId === defaultGroup.id}
-                  />
-                  <span className="checkmark" />
-                </label>
                 <div className=" validation">
                   {errors.projectGroupId ? errors.projectGroupId : '\u00A0'}
                 </div>
