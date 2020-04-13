@@ -71,35 +71,37 @@ class ProjectGroupListView extends React.Component {
         </div>
         {groups.length > 0 && (
           <div className="w-20 template-card projectgroup-selected-card">
-            <div className="">
-              <div className="projectgroup-selected-header">
-                {displayedGroup.name === 'Default Project Group'
-                  ? 'No Project Group'
-                  : displayedGroup.name}
+            {displayedGroup ? (
+              <div className="">
+                <div className="projectgroup-selected-header">
+                  {displayedGroup.name === 'Default Project Group'
+                    ? 'No Project Group'
+                    : displayedGroup.name}
+                </div>
+                <div className="projectgroup-selected-body">
+                  {displayedGroup.description}
+                </div>
+                {selectedGroupId === displayedGroupId ? (
+                  <button
+                    type="button"
+                    className="projectgroup-selected"
+                    onClick={() => changeSelectedGroup(displayedGroupId)}
+                    name="projectGroup"
+                  >
+                    Selected
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn btn--square btn--pink btn--size16 btn--weight600 projectgroup-select"
+                    onClick={() => changeSelectedGroup(displayedGroupId)}
+                    name="projectGroup"
+                  >
+                    Select
+                  </button>
+                )}
               </div>
-              <div className="projectgroup-selected-body">
-                {displayedGroup.description}
-              </div>
-              {selectedGroupId === displayedGroupId ? (
-                <button
-                  type="button"
-                  className="projectgroup-selected"
-                  onClick={() => changeSelectedGroup(displayedGroupId)}
-                  name="projectGroup"
-                >
-                  Selected
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="btn btn--square btn--pink btn--size16 btn--weight600 projectgroup-select"
-                  onClick={() => changeSelectedGroup(displayedGroupId)}
-                  name="projectGroup"
-                >
-                  Select
-                </button>
-              )}
-            </div>
+            ) : null}
           </div>
         )}
       </div>

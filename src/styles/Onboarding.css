@@ -315,7 +315,7 @@ w-pasword {
 }
 
 .validation {
-  font-size: 9px;
+  font-size: 12px;
   padding-top: 0.1rem;
   color: var(--pp-invalid);
 }
