@@ -2,7 +2,6 @@
 
 ## What's new in this PR?
 
-[//]: # '#####################################'
 [//]: # '####### YOUR ANSWER BELOW ###########'
 [//]: # '############## END ##################'
 
@@ -10,7 +9,6 @@
 
 [//]: # 'The order in which to review files and 
 what to expect when testing locally'
-[//]: # '#####################################'
 [//]: # '####### YOUR ANSWER BELOW ###########'
 [//]: # '############## END ##################'
 
@@ -18,7 +16,6 @@ what to expect when testing locally'
 
 [//]: # "Optional - related PRs you're waiting on
 / PRs that will conflict, etc"
-[//]: # '#####################################'
 [//]: # '####### YOUR ANSWER BELOW ###########'
 [//]: # '############## END ##################'
 
@@ -26,13 +23,11 @@ what to expect when testing locally'
 
 [//]: # "What doesn't work yet, what's NOT in this 
 PR/has to be done "
-[//]: # '#####################################'
 [//]: # '####### YOUR ANSWER BELOW ###########'
 [//]: # '############## END ##################'
 
 ### Screenshots
 
-[//]: # '#####################################'
 [//]: # '#### YOUR SCREENSHOTS BELOW ########'
 [//]: # '############## END ##################'
 
@@ -40,7 +35,6 @@ PR/has to be done "
 
 [//]: # 'If this is a frontend PR, what is the expected 
 status of the UI in this PR (lo, mid, high- fi?'
-[//]: # '#####################################'
 [//]: # '####### LOFI/MIDFI/HIFI ###########'
 [//]: # '############## END ##################'
 

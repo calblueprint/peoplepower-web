@@ -2,7 +2,11 @@ import moment from 'moment';
 import { getSubscriberBillsByIds, getPaymentsByIds } from './airtable/request';
 import constants from '../constants';
 
-const { BILL_ACTIVE_STATUS, TRANSACTION_DATE_FORMAT } = constants;
+const {
+  BILL_ACTIVE_STATUS,
+  TRANSACTION_DATE_FORMAT,
+  BILL_PAYMENT_TYPE
+} = constants;
 
 const formatAmount = (amountInDollars, places = 2) =>
   `$${amountInDollars.toFixed(places)}`;
@@ -25,6 +29,10 @@ const createTransactionFromBill = bill => ({
   amount: formatAmount(bill.currentCharges)
 });
 
+const isBillPayment = payment => {
+  return payment.type === BILL_PAYMENT_TYPE;
+};
+
 const getSubscriberTransactionData = async owner => {
   const bills = await getSubscriberBillsByIds(owner.subscriberBillIds || []);
   const payments = await getPaymentsByIds(owner.paymentIds || []);
@@ -32,7 +40,7 @@ const getSubscriberTransactionData = async owner => {
   // Create Transactions
   const transactions = bills
     .map(createTransactionFromBill)
-    .concat(payments.map(createTransactionFromPayment))
+    .concat(payments.filter(isBillPayment).map(createTransactionFromPayment))
     .sort(
       (a, b) =>
         moment(b.date, TRANSACTION_DATE_FORMAT).valueOf() -
