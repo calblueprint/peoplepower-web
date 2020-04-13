@@ -2,6 +2,7 @@ import React from 'react';
 import { Page, Text, View, Image } from '@react-pdf/renderer';
 import styles from './PDFStyles';
 import Logo from '../../assets/PPSC-logo-no-padding.png';
+import ExampleBarChart from '../../assets/exampleBarChart.png';
 
 export default class BillingTemplate1 extends React.PureComponent {
   render() {
@@ -183,6 +184,12 @@ export default class BillingTemplate1 extends React.PureComponent {
               </Text>
             </View>
           </View>
+          <Image
+            src={ExampleBarChart}
+            alt="People Power Solar Cooperative Logo"
+            safePath="./assets"
+            style={[styles.firstChart]}
+          />
         </View>
       </Page>
     );

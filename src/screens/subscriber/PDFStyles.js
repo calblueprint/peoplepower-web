@@ -206,6 +206,14 @@ const styles = StyleSheet.create({
   },
   paddingTopLarge: {
     padding: '20px 0 0 0'
+  },
+  firstChart: {
+    maxHeight: '300px',
+    paddingTop: '20px'
+  },
+  secondChart: {
+    maxHeight: '300px',
+    paddingTop: '10px'
   }
 });
 

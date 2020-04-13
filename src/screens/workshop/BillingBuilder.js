@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { PDFViewer, StyleSheet } from '@react-pdf/renderer';
+import Highcharts from 'highcharts';
 import BillingTemplate from '../subscriber/BillingTemplate';
 import BillingChart from '../subscriber/BillingChart';
 
@@ -37,6 +38,8 @@ const styles = StyleSheet.create({
   }
 });
 
+require('highcharts/modules/exporting')(Highcharts);
+
 export default class BillingBuilder extends Component {
   constructor(props) {
     super(props);
@@ -60,11 +63,11 @@ export default class BillingBuilder extends Component {
         <button onClick={this.toggleViewer} type="button" style={styles.button}>
           View PDF
         </button>
-        {/* {viewerVisible ? ( */}
-        <PDFViewer style={[styles.opens, styles.viewer]}>
-          <BillingTemplate {...data} />
-        </PDFViewer>
-        {/* ) : null} */}
+        {viewerVisible ? (
+          <PDFViewer style={[styles.opens, styles.viewer]}>
+            <BillingTemplate {...data} />
+          </PDFViewer>
+        ) : null}
         <BillingChart />
       </div>
     );

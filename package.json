@@ -11,6 +11,7 @@
     "airtable": "^0.7.2",
     "babel-jest": "^24.9.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "canvg": "^3.0.6",
     "connected-react-router": "^6.6.1",
     "google-maps-react": "^2.0.2",
     "highcharts": "^8.0.4",

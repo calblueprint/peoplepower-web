@@ -3,6 +3,7 @@ import { Page, Text, View, Image } from '@react-pdf/renderer';
 import Logo from '../../assets/PPSC-logo-no-padding.png';
 import styles from './PDFStyles';
 import data from '../workshop/data';
+import ExampleChart from '../../assets/exampleChart.png';
 
 export default class BillingTemplate extends Component {
   constructor(props) {
@@ -132,9 +133,15 @@ export default class BillingTemplate extends Component {
             </Text>
           </View>
           <View style={[styles.paddingTopLarge]}>
-            <Text style={[styles.headerThisBlue, styles.textCenter]}>
+            {/* <Text style={[styles.headerThisBlue, styles.textCenter]}>
               Your Costs Over Time
-            </Text>
+            </Text> */}
+            <Image
+              src={ExampleChart}
+              alt="People Power Solar Cooperative Logo"
+              safePath="./assets"
+              style={[styles.secondChart]}
+            />
             <Text style={[[styles.smallText]]}>
               * Your &quot;Would-Be&quot; Charge from PG&amp;E is calculated as
               though you had been paying the current E-1 Residential Rate from
