@@ -7,7 +7,7 @@ import Carousel from '../components/Carousel';
 
 class BylawStep extends React.PureComponent {
   render() {
-    const { owner, errors, onSubmit, onBack, handleChange } = this.props;
+    const { owner, errors, onSubmit, onBack, handleChangeBylaw } = this.props;
 
     const imgs = [OwnerAgreement1, OwnerAgreement2];
     return (
@@ -23,7 +23,7 @@ class BylawStep extends React.PureComponent {
                 <input
                   type="checkbox"
                   name="bylaw1"
-                  onChange={handleChange}
+                  onChange={handleChangeBylaw}
                   defaultChecked={owner.bylaw1}
                 />
                 <span
@@ -50,12 +50,12 @@ class BylawStep extends React.PureComponent {
                 <input
                   type="checkbox"
                   name="bylaw2"
-                  onChange={handleChange}
+                  onChange={handleChangeBylaw}
                   defaultChecked={owner.bylaw2}
                 />
                 <span
                   className={`checkmark ${
-                    errors.bylaw1 ? 'checkbox-error' : null
+                    errors.bylaw2 ? 'checkbox-error' : null
                   }`}
                 />
               </label>
