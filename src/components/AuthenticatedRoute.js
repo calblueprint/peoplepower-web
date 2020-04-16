@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isSignedIn, isOnboarding } from '../lib/credentials';
+import PPRoute from './PPRoute';
 
 class AuthenticatedRoute extends React.PureComponent {
   isAuthorized() {
@@ -33,7 +34,7 @@ class AuthenticatedRoute extends React.PureComponent {
     const authorized = this.isAuthorized();
     const redirectRoute = isOnboarding(userCredentials) ? '/onboarding' : '/';
     return (
-      <Route
+      <PPRoute
         {...rest}
         render={props =>
           authorized ? (

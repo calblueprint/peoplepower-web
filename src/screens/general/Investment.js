@@ -4,17 +4,22 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SharesProgressBar from './components/SharesProgressBar';
 import DividendsPreferencesModal from './components/DividendsPreferencesModal';
-import { updateOwner } from '../../lib/airtable/request';
+import { updateOwner, getPaymentsByIds } from '../../lib/airtable/request';
 import { refreshUserData } from '../../lib/userDataUtils';
 import '../../styles/Investments.css';
 import GreenCheck from '../../assets/green_check.png';
 import RedX from '../../assets/red_x.png';
+import TransactionList from './components/TransactionsList';
+import Constants from '../../constants';
+
+const { MAX_SHARES, SHARE_PRICE } = Constants;
 
 class Investment extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isReceivingDividends: true
+      isReceivingDividends: true,
+      payments: []
     };
   }
 
@@ -23,6 +28,7 @@ class Investment extends React.PureComponent {
     if (isLoadingUserData) {
       return; // Data isn't loaded in yet
     }
+    this.getPayments();
     this.refreshState();
   }
 
@@ -47,9 +53,16 @@ class Investment extends React.PureComponent {
     await refreshUserData(owner.id);
   };
 
+  getPayments = async () => {
+    const { owner } = this.props;
+    let paymentsList = [];
+    paymentsList = await getPaymentsByIds(owner.paymentIds || []);
+    this.setState({ payments: paymentsList });
+  };
+
   render() {
     const { owner } = this.props;
-    const { isReceivingDividends } = this.state;
+    const { isReceivingDividends, payments } = this.state;
 
     return (
       <div className="dashboard">
@@ -68,12 +81,15 @@ class Investment extends React.PureComponent {
                     shares
                   </h5>
                   <br />
-                  <h4>${owner.numberOfShares * 100}.00</h4>
+                  <h4>${owner.numberOfShares * SHARE_PRICE}.00</h4>
                 </div>
                 <div className="investments-buttons">
-                  <div className="investments-buy-shares-button">
-                    <Link to="/buyshares">Buy Shares</Link>
-                  </div>
+                  {owner.numberOfShares !== MAX_SHARES && (
+                    <div className="investments-buy-shares-button">
+                      <Link to="/buyshares">Buy Shares</Link>
+                    </div>
+                  )}
+
                   <div className="investments-dividend">Divest</div>
                 </div>
               </div>
@@ -107,11 +123,13 @@ class Investment extends React.PureComponent {
                 />
               </div>
               <h2>Transactions</h2>
-              <div className="transactions-box">transactions box test</div>
+              <div className="transactions-box">
+                <TransactionList payments={payments} />
+              </div>
             </div>
             <div className="right-content">
               <h2>Financial Breakdown</h2>
-              <div className="fin-box">fin box test</div>
+              <div className="fin-box" />
             </div>
           </div>
         </div>
@@ -121,8 +139,7 @@ class Investment extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  isLoadingUserData: state.userData.isLoading
+  owner: state.userData.owner
 });
 
 export default connect(mapStateToProps)(Investment);

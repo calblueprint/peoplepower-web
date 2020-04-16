@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import LoadingComponent from '../../../components/LoadingComponent';
 import RightArrow from '../../../assets/right_arrow.png';
 import NoProjects from '../../shared/components/NoProjects';
-import AnnouncementLists from '../../shared/components/AnnouncementList';
+import AnnouncementList from '../../shared/components/AnnouncementList';
 
 export default class DashboardProjectNewsSection extends React.PureComponent {
   render() {
@@ -11,12 +11,12 @@ export default class DashboardProjectNewsSection extends React.PureComponent {
     const { isLoadingAnnouncements } = this.props;
     announcements = [...announcements].reverse();
     let renderedComponent = <NoProjects />;
-    if (isLoadingAnnouncements) {
+    if (isLoadingAnnouncements || !announcements) {
       renderedComponent = <LoadingComponent />;
     } else if (announcements.length === 0) {
       renderedComponent = <NoProjects />;
     } else {
-      renderedComponent = <AnnouncementLists />;
+      renderedComponent = <AnnouncementList announcements={announcements} />;
     }
 
     return (

@@ -8,6 +8,8 @@ const constants = {
   // PAYPAL PAYMENT TYPES
   BILL_PAYMENT_TYPE: 'Bill Payment',
   BUY_SHARES_TYPE: 'Buy Shares',
+  SHARE_PRICE: 100,
+  MAX_SHARES: 10,
 
   // TRANSACTION TYPES AND STATUS
   BILL_TYPE: 'Bill',
@@ -23,7 +25,9 @@ const constants = {
   PLEDGE_INVITE_USED: 'Used',
 
   // BILL GENERATION
-  BACKEND_URL: 'https://peoplepower-node.herokuapp.com'
+  BACKEND_URL: 'https://peoplepower-node.herokuapp.com',
+  BILL_ACTIVE_STATUS: 'Active',
+  TRANSACTION_DATE_FORMAT: 'M/DD/YYYY'
 };
 
 export default constants;
