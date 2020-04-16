@@ -97,6 +97,7 @@ class App extends React.Component {
               credential={Credentials.SUBSCRIBER} // Subscribers only
               path="/billing"
               component={Billing}
+              history={history}
             />
             <AuthenticatedRoute
               credential={Credentials.SUBSCRIBER} // Subscribers only
