@@ -26,10 +26,6 @@ class ProjectGroupStep extends React.Component {
     });
   }
 
-  changeDisplayedGroup = groupId => {
-    this.setState({ displayGroupId: groupId });
-  };
-
   changeSelectedGroup = groupId => {
     const { handleChange, owner } = this.props;
     let event;
@@ -40,6 +36,7 @@ class ProjectGroupStep extends React.Component {
           value: ''
         }
       };
+      this.setState({ displayGroupId: '' });
     } else {
       event = {
         target: {
@@ -47,6 +44,7 @@ class ProjectGroupStep extends React.Component {
           value: groupId
         }
       };
+      this.setState({ displayGroupId: groupId });
     }
     handleChange(event);
   };

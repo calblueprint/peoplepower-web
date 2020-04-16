@@ -1,0 +1,37 @@
+.billing-payment-dash {
+  margin: 0.8em auto;
+  padding-top: 4vh;
+  width: 75%;
+}
+
+.billing-payment-left-col {
+  width: 30%;
+  margin-left: 0;
+}
+
+.billing-payment-right-col {
+  width: 30%;
+}
+
+.billing-payment-summary-header {
+  color: var(--pp-blue);
+  margin-bottom: 30px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.billing-payment-back-button-container {
+  display: flex;
+}
+
+.billing-payment-back-button-container label {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 22px;
+  margin-left: 8px;
+  /* or 137% */
+
+  color: var(--pp-gray);
+}

@@ -1,7 +1,7 @@
 /* eslint react/jsx-props-no-spreading: 0 */
 
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import NavBar from './components/NavBar';
@@ -13,6 +13,7 @@ import Community from './screens/shared/Community';
 import GeneralDashboard from './screens/general/GeneralDashboard';
 import AdminDashboard from './screens/admin/AdminDashboard';
 import UserProfile from './screens/shared/UserProfile';
+import ErrorPage from './screens/general/ErrorPage';
 import './styles/App.css';
 import { refreshUserData } from './lib/userDataUtils';
 import { history } from './lib/redux/store';
@@ -27,6 +28,8 @@ import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Investment from './screens/general/Investment';
 import BuyShares from './screens/general/BuyShares';
 import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
+import BillingPayment from './screens/subscriber/components/BillingPayment';
+import PPRoute from './components/PPRoute';
 
 class App extends React.Component {
   componentDidMount() {
@@ -64,9 +67,9 @@ class App extends React.Component {
     return (
       <ConnectedRouter history={history}>
         <div className="app-container">
-          <NavBar />
+          <NavBar history={history} />
           <Switch>
-            <Route exact path="/" component={HomeComponent} />
+            <PPRoute exact path="/" component={HomeComponent} />
             <AuthenticatedRoute path="/projectnews" component={Community} />
             <AuthenticatedRoute path="/profile" component={UserProfile} />
 
@@ -94,15 +97,19 @@ class App extends React.Component {
               credential={Credentials.SUBSCRIBER} // Subscribers only
               path="/billing"
               component={Billing}
+              history={history}
+            />
+            <AuthenticatedRoute
+              credential={Credentials.SUBSCRIBER} // Subscribers only
+              path="/billPayment"
+              component={BillingPayment}
             />
             <AuthenticatedRoute
               credential={Credentials.GENERAL} // General only
               path="/buyshares"
               component={BuyShares}
             />
-            <Route>
-              <p style={{ color: 'white', margin: '30px' }}>Not Found - 404</p>
-            </Route>
+            <PPRoute path="*" component={ErrorPage} />
           </Switch>
         </div>
       </ConnectedRouter>

@@ -1,28 +1,47 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2';
 import SharesProgressBar from './components/SharesProgressBar';
 import LeftArrow from '../../assets/left_arrow.png';
 import '../../styles/BuyShares.css';
+import { recordSharePayment } from '../../lib/paypalUtils';
+import { refreshUserData } from '../../lib/userDataUtils';
+import Constants from '../../constants';
+import LoadingComponent from '../../components/LoadingComponent';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
-const SHARE_PRICE = 100;
+const { MAX_SHARES, SHARE_PRICE } = Constants;
 
 class BuyShares extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
       sharesBuying: 0
     };
   }
 
+  onPaymentSuccess = async (details, data) => {
+    const { owner, history } = this.props;
+    const { sharesBuying } = this.state;
+    this.setState({ loading: true });
+    await recordSharePayment(
+      details,
+      data,
+      owner.id,
+      owner.numberOfShares + sharesBuying
+    );
+    await refreshUserData(owner.id);
+    history.push(Constants.HOME_ROUTE);
+  };
+
   addShares = () => {
     const { sharesBuying } = this.state;
     const { owner } = this.props;
-    const maxAllowed = 10 - owner.numberOfShares;
+    const maxAllowed = MAX_SHARES - owner.numberOfShares;
     const totalShares = sharesBuying + owner.numberOfShares;
-    if (totalShares === 10) {
+    if (totalShares === MAX_SHARES) {
       this.setState({ sharesBuying: maxAllowed });
     } else {
       this.setState({ sharesBuying: sharesBuying + 1 });
@@ -40,17 +59,26 @@ class BuyShares extends React.PureComponent {
 
   render() {
     const { owner } = this.props;
-    const { sharesBuying } = this.state;
+    const { sharesBuying, loading } = this.state;
     const totalShares = owner.numberOfShares + sharesBuying;
+
+    if (loading) {
+      return <LoadingComponent />;
+    }
+    // Page should not be accessible if you can't buy more shares
+    if (owner.numberOfShares === 10) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div>
         <div className="back-to-investments">
           <div className="left-button">
             <Link to="/investment">
               <img
-                className="button right-arrow-button"
+                className="button left-arrow-button"
                 src={LeftArrow}
-                alt="back arrow"
+                alt="left arrow"
               />
             </Link>
           </div>
@@ -62,7 +90,7 @@ class BuyShares extends React.PureComponent {
         <div className="buy-shares-boxes-content">
           <div className="number-of-shares-box">
             <div className="amount-of-shares-header">
-              Number of shares (max 10)
+              Number of shares (max {MAX_SHARES - owner.numberOfShares})
             </div>
             <div className="payment-shares-input">
               <label htmlFor="" className="w-100">
@@ -76,7 +104,7 @@ class BuyShares extends React.PureComponent {
                 <input
                   name="numberOfShares"
                   className="payment-shares-input-field"
-                  value={totalShares}
+                  value={totalShares - owner.numberOfShares}
                   disabled
                 />
                 <button
@@ -96,12 +124,12 @@ class BuyShares extends React.PureComponent {
               </div>
               <div className="buy-shares-progress-bar-text">
                 <h5>
-                  You are purchasing {sharesBuying} additional shares,
+                  You currently own {owner.numberOfShares} shares,
                   <br />
-                  owning a total of {totalShares} shares.
+                  you can buy up to {10 - owner.numberOfShares} more shares.
                 </h5>
                 <br />
-                <h4>${totalShares * 100}.00</h4>
+                <h4>${totalShares * SHARE_PRICE}.00</h4>
               </div>
             </div>
             <div className="buy-shares-payment-summary-box">
@@ -109,21 +137,21 @@ class BuyShares extends React.PureComponent {
               <div className="shares-price-line">
                 <h5> Shares </h5>
 
-                <h5>${sharesBuying * 100}.00</h5>
+                <h5>${sharesBuying * SHARE_PRICE}.00</h5>
               </div>
               <h6>QTY: {sharesBuying}</h6>
               <hr className="buy-shares-summary-hr" />
               <div className="shares-total-price-line">
                 <h5> Total </h5>
 
-                <h5>${sharesBuying * 100}.00</h5>
+                <h5>${sharesBuying * SHARE_PRICE}.00</h5>
               </div>
             </div>
             <div className="buy-shares-paypal-box">
               <h3>Payment Method</h3>
               <PayPalButton
                 amount={sharesBuying * SHARE_PRICE}
-                onSuccess={this.onBuyShareWithPaypalSuccess}
+                onSuccess={this.onPaymentSuccess}
                 options={{
                   clientId
                 }}

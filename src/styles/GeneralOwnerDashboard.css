@@ -92,11 +92,10 @@ button {
   opacity: 0.8;
 }
 
-.right-arrow-button-flipped {
+.left-arrow-button {
   width: 4vh;
-  transform: scaleX(-1);
 }
 
-.right-arrow-button-flipped:hover {
+.left-arrow-button:hover {
   opacity: 0.8;
 }

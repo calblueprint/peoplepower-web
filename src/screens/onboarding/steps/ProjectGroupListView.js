@@ -10,10 +10,8 @@ class ProjectGroupListView extends React.Component {
     const {
       groups,
       displayedGroupId,
-      selectedGroupId,
       view,
       changeSelectedGroup,
-      changeDisplayedGroup,
       handleViewChange
     } = this.props;
 
@@ -41,7 +39,7 @@ class ProjectGroupListView extends React.Component {
               <div key={group.id}>
                 <button
                   type="button"
-                  onClick={() => changeDisplayedGroup(group.id)}
+                  onClick={() => changeSelectedGroup(group.id)}
                   className={`project-group-list-option justify-space-between left ${
                     group.id === displayedGroupId
                       ? 'project-group-list-option-selected'
@@ -51,16 +49,20 @@ class ProjectGroupListView extends React.Component {
                   <div className="">
                     <div className="project-group-list-option-header">
                       {`${
-                        group.name === 'Defauilt Project Group'
+                        group.name === 'Default Project Group'
                           ? 'No Project Group'
                           : group.name
-                      } ${group.id === selectedGroupId ? '(Selected)' : ''}`}
+                      }`}
                     </div>
                     {group.city ? (
                       <div className="project-group-list-option-body">
                         {group.city}, {group.state}
                       </div>
-                    ) : null}
+                    ) : (
+                      <div className="project-group-list-option-body">
+                        &nbsp;
+                      </div>
+                    )}
                   </div>
                   <div>{/* distance */}</div>
                 </button>
@@ -81,25 +83,6 @@ class ProjectGroupListView extends React.Component {
                 <div className="projectgroup-selected-body">
                   {displayedGroup.description}
                 </div>
-                {selectedGroupId === displayedGroupId ? (
-                  <button
-                    type="button"
-                    className="projectgroup-selected"
-                    onClick={() => changeSelectedGroup(displayedGroupId)}
-                    name="projectGroup"
-                  >
-                    Selected
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="btn btn--square btn--pink btn--size16 btn--weight600 projectgroup-select"
-                    onClick={() => changeSelectedGroup(displayedGroupId)}
-                    name="projectGroup"
-                  >
-                    Select
-                  </button>
-                )}
               </div>
             ) : null}
           </div>

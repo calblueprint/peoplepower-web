@@ -735,7 +735,7 @@ carousel__arrow--right {
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
-  padding: 1rem 1.75rem;
+  padding: 1rem 0 1rem 1.75rem;
   margin: 1rem 0;
 }
 
@@ -1207,6 +1207,17 @@ button {
 
 .progressbar-line-active {
   background-color: var(--pp-blue);
+}
+
+.progressbar-line-white {
+  content: '';
+  flex-grow: 0.15;
+  height: 6px;
+  background-color: white;
+  display: block;
+  z-index: 0;
+  transform: scaleX(1) translate(-1rem, 1.85rem);
+  transform-origin: left;
 }
 
 .mb-22px {

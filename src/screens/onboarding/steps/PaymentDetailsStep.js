@@ -1,8 +1,9 @@
 import React from 'react';
 import ErrorIcon from '../../../assets/error.svg';
 import Tooltip from '../components/Tooltip';
+import Constants from '../../../constants';
 
-const SHARE_PRICE = 100;
+const { SHARE_PRICE, MAX_SHARES } = Constants;
 
 class PaymentDetailsStep extends React.Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class PaymentDetailsStep extends React.Component {
         value: owner.numberOfShares + 1
       }
     };
-    if (event.target.value < 11) {
+    if (event.target.value <= MAX_SHARES) {
       handleChange(event);
     }
   };
@@ -72,7 +73,7 @@ class PaymentDetailsStep extends React.Component {
           <div className="w-60">
             <div className="payment-shares-card">
               <div className="payment-shares-header">
-                Number of shares (max 10)
+                Number of shares (max {MAX_SHARES})
               </div>
               <div className="payment-shares-input">
                 <label htmlFor="" className="w-100">
