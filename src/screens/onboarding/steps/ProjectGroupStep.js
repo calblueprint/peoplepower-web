@@ -22,8 +22,7 @@ class ProjectGroupStep extends React.Component {
     } = await getAvailableProjectGroups();
     this.setState({
       allProjectGroups: selectableGroups,
-      defaultGroup,
-      displayGroupId: selectableGroups.length > 0 && selectableGroups[0].id
+      defaultGroup
     });
   }
 

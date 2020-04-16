@@ -1,5 +1,6 @@
 import React from 'react';
 import ErrorIcon from '../../../assets/error.svg';
+import Tooltip from '../components/Tooltip';
 
 const SHARE_PRICE = 100;
 
@@ -160,11 +161,27 @@ class PaymentDetailsStep extends React.Component {
               <div className="payment-summary-qty">
                 QTY: {owner.numberOfShares}
               </div>
+              <div className="flex justify-space-between">
+                <div className="left payment-summary-shares">
+                  Transaction Fee <Tooltip label="" />
+                </div>
+                <div className="right payment-summary-shares">
+                  $
+                  {(owner.numberOfShares * SHARE_PRICE * 0.029 + 0.3).toFixed(
+                    2
+                  )}
+                </div>
+              </div>
               <hr className="payment-summary-hr" />
               <div className="flex justify-space-between">
                 <div className="left payment-summary-total">Total</div>
                 <div className="right payment-summary-total">
-                  ${owner.numberOfShares * SHARE_PRICE}.00
+                  $
+                  {(
+                    owner.numberOfShares * SHARE_PRICE +
+                    owner.numberOfShares * SHARE_PRICE * 0.029 +
+                    0.3
+                  ).toFixed(2)}
                 </div>
               </div>
             </div>
