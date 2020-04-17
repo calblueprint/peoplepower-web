@@ -42,7 +42,7 @@
   width: 250px;
   background: white;
   align-items: center;
-  padding: 0 30px 30px 30px;
+  padding: 30px 30px 30px 30px;
   margin-bottom: 30px;
   border: var(--pp-selected-gray) solid 1px;
   border-radius: 5px;
@@ -97,16 +97,6 @@
 .dash-admin {
   display: flex;
   justify-content: center;
-}
-
-.dash-admin h3 {
-  margin-top: 45px;
-  margin-bottom: 17px;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 18px;
-  line-height: 25px;
-  color: var(--pp-gray);
 }
 
 .admin-modal {
@@ -178,16 +168,20 @@ p {
 }
 
 .admin-project-group {
-  background: var(--pp-light-gray);
   height: 39px;
   display: flex;
-  justify-content: center;
-  padding-left: 14px;
   margin-top: 0px;
   width: 347px;
   border-radius: 2.5px;
   margin-bottom: 30px;
   margin-top: 8px;
+  color: var(--pp-blue-gray);
+  margin-top: 45px;
+  margin-bottom: 17px;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
 }
 
 .admin-invite-form-submit {
@@ -229,6 +223,7 @@ p {
 
 .super-admin-link {
   margin-top: 30px;
+  margin-bottom: 30px;
   background-color: var(--pp-yellow);
   padding: 7px 15px 0 15px;
   color: white;

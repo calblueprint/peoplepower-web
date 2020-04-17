@@ -150,7 +150,7 @@ class AdminDashboard extends React.Component {
       <div className="dashboard dash-admin">
         <div className="container">
           <div className="flex justify-content-space pb-5">
-            <h3>Berkeley Cooperative Power</h3>
+            <h3 className="admin-project-group">Berkeley Cooperative Power</h3>
             {isSuperAdmin(credentials) && (
               <Link to="/superadmin" className="super-admin-link">
                 Super Admin Dashboard{' '}
