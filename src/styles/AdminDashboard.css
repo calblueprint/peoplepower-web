@@ -1,10 +1,14 @@
-.card-holder-cont {
+.container {
+  height: 800px;
+  width: 1050px;
+}
+
+.admin-holder {
   background: white;
   border-radius: 5px;
   overflow: scroll;
-  height: 350px;
-  width: 800px;
-  padding: 0px 40px 40px 40px;
+  padding: 10px 40px 40px 40px;
+  height: 100%;
 }
 
 .card-holder-cont h4 {
@@ -26,35 +30,29 @@
   color: var(--pp-gray);
 }
 
-.card-holder {
-  height: 100%;
+.admin-card-holder {
+  margin-top: 40px;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.card-holder .admin-card {
-  display: flex;
-  justify-content: flex-end;
-  height: 70px;
+.admin-card-holder .admin-card {
   margin: 0px;
+  width: 250px;
   background: white;
   align-items: center;
-  padding: 35px 35px 35px 0px;
+  padding: 0 30px 30px 30px;
+  margin-bottom: 30px;
+  border: var(--pp-selected-gray) solid 1px;
+  border-radius: 5px;
 }
 
-.card-holder .admin-card .card-profile-image {
-  width: 77px;
-  height: 77px;
-  margin-right: 34px;
-  background: var(--pp-tag-gray);
-  border-radius: 100%;
-}
-
-.card-holder .admin-card .card-name {
+.admin-card-holder .admin-card .card-name {
   margin-right: auto;
 }
 
-.card-holder .admin-card .card-name h3 {
+.admin-card-holder .admin-card .card-name h3 {
   font-style: normal;
   font-weight: 800;
   font-size: 16px;
@@ -62,26 +60,33 @@
   color: var(--pp-black);
 }
 
-.card-holder .admin-card .card-tags {
+.admin-card-holder .admin-card .card-tags {
   display: flex;
   margin-top: 12px;
   width: 200px;
+  white-space: nowrap;
 }
 
 .invite-button {
   width: 108px;
-  margin: 35px;
+  margin: 1.33rem 0;
   height: 30px;
 }
 
-.card-holder .admin-card .card-button {
-  background-color: black;
-  color: white;
-  padding: 0.5em 1.2em;
-  border-radius: 4px;
+.admin-card-holder .admin-card .card-button {
+  margin-top: 35px;
+  height: 30px;
+  transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  background-color: var(--pp-black);
   border: none;
-  font-weight: bold;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .card-holder .admin-card h3 {
@@ -115,7 +120,7 @@
   border-radius: 4px;
   outline: none;
   width: 845px;
-  height: 515px;
+  height: 480px;
 }
 
 .admin-modal-overlay {
@@ -196,6 +201,7 @@ p {
   line-height: 22px;
   color: white;
   margin-bottom: 10px;
+  margin-top: 60px;
 }
 
 .admin-invite-form-required-flag {
@@ -219,4 +225,107 @@ p {
 .status-text {
   text-align: center;
   margin: 0px;
+}
+
+.super-admin-link {
+  margin-top: 30px;
+  background-color: var(--pp-yellow);
+  padding: 7px 15px 0 15px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  font-weight: 12px;
+}
+
+.justify-content-space {
+  justify-content: space-between;
+}
+
+.pb-5 {
+  padding-bottom: 10px;
+}
+
+.admin-number {
+  font-size: 18px;
+  color: var(--pp-gray);
+}
+
+.admin-members-text {
+  font-size: 18px;
+  color: var(--pp-blue);
+}
+
+.member-since-text {
+  margin-top: 40px;
+  font-size: 12px;
+  color: var(--pp-black);
+}
+
+.pp-tag-general {
+  background: var(--pp-light-green);
+}
+
+.pp-tag-admin {
+  background: var(--pp-light-pink);
+}
+
+.pp-tag-subscriber {
+  background: var(--pp-light-yellow);
+}
+
+.invite-success-modal {
+  width: 500px;
+  height: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0px;
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+}
+
+.invite-success-container {
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.invite-success-icon {
+  margin: 0 auto;
+}
+
+.invite-success-title {
+  font-size: 28px;
+  line-height: 38px;
+  text-align: center;
+  color: var(--pp-pink);
+}
+
+.invite-success-description {
+  font-size: 16px;
+  line-height: 26px;
+  text-align: center;
+  color: var(--pp-black);
+}
+
+.invite-success-name {
+  font-weight: bold;
+}
+
+.invite-success-button {
+  font-size: 16px;
+  line-height: 22px;
+  background-color: var(--pp-blue);
+  border-radius: 40px;
+  color: var(--pp-white);
+  margin-top: 40px;
+  margin: 40px auto 0 auto;
+  padding: 5px 20px;
+  width: 39px;
+  height: 22px;
 }

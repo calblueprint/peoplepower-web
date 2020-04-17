@@ -11,6 +11,7 @@ import {
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
 import { isSuperAdmin } from '../../lib/credentials';
+import Success from '../../assets/success.png';
 
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);
@@ -21,6 +22,7 @@ class AdminDashboard extends React.Component {
     this.state = {
       owners: [],
       showModal: false,
+      showSuccessModal: false,
       inviteFirstName: '',
       inviteLastName: '',
       invitePhoneNumber: '',
@@ -99,7 +101,8 @@ class AdminDashboard extends React.Component {
     } else {
       this.setState({
         status: emailStatus,
-        showModal: false
+        showModal: false,
+        showSuccessModal: true
       });
     }
   };
@@ -113,49 +116,64 @@ class AdminDashboard extends React.Component {
   }
 
   /* open/close modal logic */
-  handleOpenModal() {
-    this.setState({ showModal: true });
+  handleOpenModal(modal) {
+    if (modal === 'invite') {
+      this.setState({ showModal: true });
+    } else {
+      this.setState({ showSuccessModal: true });
+    }
   }
 
-  handleCloseModal() {
-    this.setState({ showModal: false });
+  handleCloseModal(modal) {
+    if (modal === 'invite') {
+      this.setState({ showModal: false });
+    } else {
+      this.setState({ showSuccessModal: false });
+    }
   }
 
   render() {
     const { credentials, projectGroup } = this.props;
     const {
       showModal,
+      showSuccessModal,
       owners,
       inviteFirstName,
       inviteLastName,
       invitePhoneNumber,
       inviteEmail,
       inviteShareAmount,
-      inviteWantsDividends,
       status
     } = this.state;
 
     return (
       <div className="dashboard dash-admin">
-        <div>
-          <h3>Project Group</h3>
-          <div className="card-holder-cont">
+        <div className="container">
+          <div className="flex justify-content-space pb-5">
+            <h3>Berkeley Cooperative Power</h3>
             {isSuperAdmin(credentials) && (
-              <Link to="/superadmin">Super Admin Dashboard</Link>
+              <Link to="/superadmin" className="super-admin-link">
+                Super Admin Dashboard{' '}
+                <span role="img" aria-label="shh">
+                  🤫
+                </span>
+              </Link>
             )}
+          </div>
+          <div className="admin-holder">
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <h4>
-                Members <span>({owners.length})</span>
+              <h4 className="admin-members-text">
+                Members <span className="admin-number ">({owners.length})</span>
               </h4>
               <button
                 type="button"
                 className="btn btn--square btn--pink btn--size16 btn--weight600 invite-button"
-                onClick={this.handleOpenModal}
+                onClick={() => this.handleOpenModal('invite')}
               >
                 Invite
               </button>
             </div>
-            <div className="card-holder">
+            <div className="admin-card-holder">
               {owners.length >= 1 ? (
                 owners.map(owner => {
                   return <AdminDashboardCard key={owner.id} owner={owner} />;
@@ -171,7 +189,7 @@ class AdminDashboard extends React.Component {
         <Modal
           isOpen={showModal}
           contentLabel="onRequestClose Example"
-          onRequestClose={this.handleCloseModal}
+          onRequestClose={() => this.handleCloseModal('success')}
           className="admin-modal"
           overlayClassName="admin-modal-overlay"
         >
@@ -267,53 +285,23 @@ class AdminDashboard extends React.Component {
                   <p>
                     <label htmlFor="inviteShareAmount">
                       Number of shares
-                      <select
+                      <input
+                        type="text"
                         name="inviteShareAmount"
+                        placeholder="Number between $0 to $1000"
+                        className="admin-invite-form-input"
                         value={inviteShareAmount}
                         onChange={this.handleChange}
-                      >
-                        <option value={0}>0</option>
-                        <option value={1}>1</option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                        <option value={6}>6</option>
-                        <option value={7}>7</option>
-                        <option value={8}>8</option>
-                        <option value={9}>9</option>
-                        <option value={10}>10</option>
-                      </select>
+                      />
                     </label>
                   </p>
-                </div>
-                <div>
-                  <p>
-                    <label htmlFor="inviteWantsDividends">
-                      Wants Dividends
-                      <select
-                        name="inviteWantsDividends"
-                        value={inviteWantsDividends}
-                        onChange={this.handleChange}
-                      >
-                        <option value>Yes</option>
-                        <option value={false}>No</option>
-                      </select>
-                    </label>
-                  </p>
-                </div>
-              </div>
-              <div className="admin-invite-form-row">
-                <div>
-                  <p>Project Group</p>
-                  <p className="admin-project-group">{projectGroup.name}</p>
                 </div>
               </div>
               <div className="admin-invite-form-row admin-invite-form-row-submit">
                 <div>
                   <input
                     type="submit"
-                    value="Submit"
+                    value="Send Invite"
                     className="admin-invite-form-submit"
                   />
                 </div>
@@ -322,6 +310,37 @@ class AdminDashboard extends React.Component {
             </form>
           </div>
         </Modal>
+        {/* {!status ?  */}
+        <Modal
+          isOpen={showSuccessModal}
+          contentLabel="onRequestClose Example"
+          onRequestClose={() => this.handleCloseModal('success')}
+          className="invite-success-modal"
+          overlayClassName="admin-modal-overlay"
+        >
+          <div className="invite-success-container">
+            <img src={Success} alt="success" className="invite-success-icon" />
+            <h2 className="invite-success-title">
+              Your invitation is on it&apos;s away!
+            </h2>
+            <div className="invite-success-description">
+              We’ve sent your invitation to{' '}
+              <span className="invite-success-name">
+                {inviteFirstName} {inviteLastName}
+              </span>
+              . They should be receiving a personal link to create an account in
+              no more than 5 minutes.
+            </div>
+            <buton
+              className="invite-success-button"
+              onClick={() => this.handleCloseModal('success')}
+            >
+              Okay
+            </buton>
+          </div>
+        </Modal>
+        {/* : null */}
+        {/* } */}
       </div>
     );
   }

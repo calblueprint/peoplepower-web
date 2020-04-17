@@ -6,26 +6,52 @@ import { getCredentials, isAdmin } from '../../../lib/credentials';
 class AdminDashboardCard extends React.PureComponent {
   render() {
     const { owner } = this.props;
-    const { ownerTypes } = owner;
+    const { ownerTypes, dateCreated } = owner;
     const credentials = getCredentials(owner);
     const isAdminOwner = isAdmin(credentials);
+
     if (isAdminOwner) {
       ownerTypes.push('Admin');
     }
 
-    const ownerTags = ownerTypes.map(type => (
-      <div key={type} className="pp-tag">
-        {type}
-      </div>
-    ));
+    const ownerTags = ownerTypes.map(function(type) {
+      switch (type) {
+        case 'General':
+          return (
+            <div key={type} className="pp-tag pp-tag-general">
+              General Owner
+            </div>
+          );
+        case 'Admin':
+          return (
+            <div key={type} className="pp-tag pp-tag-admin">
+              {type}
+            </div>
+          );
+        case 'Subscriber':
+          return (
+            <div key={type} className="pp-tag pp-tag-subscriber">
+              {type}
+            </div>
+          );
+        default:
+          return (
+            <div key={type} className="pp-tag">
+              {type}
+            </div>
+          );
+      }
+    });
     return (
       <div className="admin-card">
-        <div className="card-profile-image" />
         <div className="card-name">
           <h3>{owner.name}</h3>
           <div className="card-tags">{ownerTags}</div>
         </div>
-        <div>
+        <div className="flex justify-content-space">
+          <div className="member-since-text">
+            Member since {dateCreated.substring(0, 4)}
+          </div>
           {/* Ensures you can only remove non-admin owners */}
           {!isAdminOwner && (
             <button
