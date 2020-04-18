@@ -7,7 +7,16 @@ class TransactionList extends React.PureComponent {
     const filteredList = payments.filter(
       transaction => transaction.type !== 'Bill Payment'
     );
-    const list = filteredList.map(payment => {
+    if (filteredList.length === 0) {
+      return (
+        <div className="investments-transaction-card">
+          <div className="investments-transaction-card-heading">
+            <h4>No transactions found</h4>
+          </div>
+        </div>
+      );
+    }
+    const list = filteredList.map((payment, index) => {
       const { type, amount, dateCreated, id } = payment;
       const quantity = amount / 100;
       const dateFormatted = moment(dateCreated).format('MMMM D, YYYY');
@@ -23,7 +32,7 @@ class TransactionList extends React.PureComponent {
           <div className="investments-transaction-card-details">
             {type === 'Dividend' ? null : <p>Quantity: {quantity}</p>}
             <h6>{dateFormatted}</h6>
-            <hr />
+            {index === filteredList.length - 1 ? null : <hr />}
           </div>
         </div>
       );
