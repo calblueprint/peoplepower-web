@@ -12,38 +12,7 @@ class GeneralOwnerDashboard extends React.Component {
   */
 
   renderUserDetails() {
-    const { owner, projectGroup, solarProjects } = this.props;
-
-    const solarProjectComponent = solarProjects.map(project => {
-      return <li key={project.name}>{project.name}</li>;
-    });
-
-    return (
-      <div className="dash-solar-details">
-        <p style={{ fontWeight: '800', color: 'var(--pp-black)' }}>
-          Welcome, {owner.name}
-        </p>
-        <p>{'< Placeholder Admin Details >'} </p>
-        <div>
-          <p>
-            <span>Email:</span> {owner.email}
-          </p>
-          <p>
-            <span>Phone Number:</span> {owner.phoneNumber}
-          </p>
-          <p>
-            <span>Address:</span> {owner.permanentAddress}
-          </p>
-          <p>
-            <span>Project Group:</span> {projectGroup.name}
-          </p>
-          <p>
-            <span>Solar Project(s):</span>
-          </p>
-          <ul>{solarProjectComponent}</ul>
-        </div>
-      </div>
-    );
+    return <div className="dash-solar-details" />;
   }
 
   render() {
