@@ -86,12 +86,13 @@ class Investment extends React.PureComponent {
                   <SharesProgressBar numberOfShares={owner.numberOfShares} />
                 </div>
                 <div className="box-text">
-                  <h5>
+                  <h5 className="investments-share-text">
                     You currently own {owner.numberOfShares} out of 10 possible
                     shares
                   </h5>
-                  <br />
-                  <h4>${owner.numberOfShares * SHARE_PRICE}.00</h4>
+                  <h4 className="investments-share-number">
+                    ${owner.numberOfShares * SHARE_PRICE}.00
+                  </h4>
                 </div>
                 <div className="investments-buttons">
                   {owner.numberOfShares !== MAX_SHARES && (

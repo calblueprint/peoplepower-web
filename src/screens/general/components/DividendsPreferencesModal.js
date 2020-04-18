@@ -73,8 +73,9 @@ export default class DividendsPreferencesModal extends React.Component {
                   value="yes"
                   checked={newIsReceivingDividends ? 'checked' : false}
                   onClick={this.handleCheckYes}
+                  className="dividends-radio"
                 />
-                <label htmlFor="yes-dividends">
+                <label htmlFor="yes-dividends" className="dividends-radio">
                   Yes! I&apos;d like dividends, thank you!
                 </label>
               </div>
@@ -86,6 +87,7 @@ export default class DividendsPreferencesModal extends React.Component {
                   value="no"
                   checked={!newIsReceivingDividends ? 'checked' : false}
                   onClick={this.handleCheckNo}
+                  className="dividends-radio"
                 />
                 <label htmlFor="no-dividends">
                   No dividends please! (No pressure to choose this option. We
@@ -94,13 +96,15 @@ export default class DividendsPreferencesModal extends React.Component {
                   helps our cooperative grow its impact.)
                 </label>
               </div>
-              <button
-                type="button"
-                className="save-preferences-button"
-                onClick={this.handleSubmit}
-              >
-                Save Preferences
-              </button>
+              <div className="dividends-button-cont">
+                <button
+                  type="button"
+                  className="save-preferences-button"
+                  onClick={this.handleSubmit}
+                >
+                  Save Preferences
+                </button>
+              </div>
             </form>
           </div>
         </Modal>

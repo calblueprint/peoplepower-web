@@ -78,6 +78,16 @@
   padding: 5px 35px;
 }
 
+.investments-share-text {
+  font-size: 12px;
+  line-height: 19px;
+}
+
+.investments-share-number {
+  margin-top: 10px;
+  font-weight: normal;
+}
+
 .investments-buy-shares-button {
   justify-content: center;
   font-weight: normal;
@@ -86,6 +96,10 @@
 .investments-dividend {
   justify-content: center;
   align-content: center;
+  margin-top: 10px;
+  font-weight: bold;
+  color: var(--pp-link-gray);
+  font-size: 16px;
 }
 
 .investments-buttons {
@@ -103,7 +117,9 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  font-weight: bold;
   width: 150px;
+  padding: 5px 0;
 }
 
 .investments-buy-shares-button.disabled a {
@@ -130,9 +146,9 @@
 .green-check {
   display: flex;
   align-self: flex-start;
-  max-width: 20px;
-  max-height: 20px;
-  margin-right: 5px;
+  max-width: 12.5px;
+  max-height: 12.5px;
+  margin-right: 10px;
 }
 
 .status {
@@ -148,7 +164,7 @@
 
 .dividends-button,
 .change-button {
-  background-color: var(--pp-black);
+  background-color: var(--pp-blue);
   border-radius: 40px;
   color: white;
   text-align: center;
@@ -157,20 +173,12 @@
   width: 100px;
   height: 25px;
   align-content: flex-end;
-  font-weight: normal;
+  font-weight: bold;
   border: 0px;
 }
 
 .box-text {
   margin-right: 10px;
-}
-
-.box-text h4 {
-  font-size: 18px;
-  font-weight: bolder;
-  font-weight: normal;
-  line-height: 22px;
-  margin-block-start: 0em;
 }
 
 .box-text h5 {
@@ -222,10 +230,28 @@
   margin-top: 22.76px;
 }
 
+.dividends-button-cont {
+  display: flex;
+  width: 100%;
+}
+
+.dividends-radio[type='radio']:checked + label:after {
+  background: var(--pp-link-gray);
+}
+
 .save-preferences-button {
   margin-top: 52.19px;
-  display: flex;
-  justify-content: flex-end;
+  margin-right: 124px;
+  position: absolute;
+  right: 0;
+  float: right;
+  background-color: var(--pp-pink);
+  color: var(--pp-white);
+  font-weight: bold;
+  font-size: 16px;
+  padding: 2px 30px;
+  border-radius: 40px;
+  border: none;
 }
 
 .investments-transaction-card {
