@@ -18,6 +18,13 @@
   display: flex;
 }
 
+.investments-h2 {
+  color: var(--pp-blue);
+  font-size: 18px;
+  font-weight: bold;
+  margin: 30px 0;
+}
+
 .investments-box-shares {
   background: white;
   border-radius: 5px;

@@ -18,14 +18,14 @@ export default class InvestmentsPieGraph extends React.PureComponent {
     });
     const labelStyle = {
       fill: '#24364D',
-      fontSize: '20px'
+      fontSize: '12px'
     };
     return (
       <VictoryPie
         data={dataList}
         colorScale={colorList}
-        width={550}
-        height={550}
+        width={200}
+        height={200}
         labelRadius={160}
         labelComponent={
           <VictoryLabel

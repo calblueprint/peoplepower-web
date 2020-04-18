@@ -80,7 +80,7 @@ class Investment extends React.PureComponent {
           <h1>My Investment</h1>
           <div className="columnformat">
             <div className="investment-and-transactions-content">
-              <h2>My Investment</h2>
+              <h2 className="investments-h2">My Investment</h2>
               <div className="investments-box-shares">
                 <div className="investments-circle-progress-bar">
                   <SharesProgressBar numberOfShares={owner.numberOfShares} />
@@ -132,13 +132,13 @@ class Investment extends React.PureComponent {
                   onClickSavePreferences={this.submitPreference}
                 />
               </div>
-              <h2>Transactions</h2>
+              <h2 className="investments-h2">Transactions</h2>
               <div className="transactions-box">
                 <TransactionList payments={payments} />
               </div>
             </div>
             <div className="right-content">
-              <h2>Financial Breakdown</h2>
+              <h2 className="investments-h2">Financial Breakdown</h2>
               <div className="fin-box">
                 <div className="investment-pie-graph">
                   <div className="financial-breakdown-graph-caption">
