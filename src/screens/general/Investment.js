@@ -150,7 +150,6 @@ class Investment extends React.PureComponent {
                   </div>
                   <InvestmentsPieGraph
                     investmentBreakdowns={investmentBreakdowns}
-                    width={80}
                   />
                 </div>
               </div>
