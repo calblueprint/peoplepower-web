@@ -11,8 +11,24 @@ class GeneralOwnerDashboard extends React.Component {
      it when it's loaded.
   */
 
-  renderUserDetails() {
-    return <div className="dash-solar-details" />;
+  renderSolarProjectDetails() {
+    const { solarProjects } = this.props;
+
+    const solarProjectComponent = solarProjects.map(project => {
+      return <li key={project.name}>{project.name}</li>;
+    });
+
+    return (
+      <div className="dash-solar-details">
+        <p>Solar Project Details </p>
+        <div>
+          <p>
+            <span>Solar Project(s):</span>
+          </p>
+          <ul>{solarProjectComponent}</ul>
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -43,8 +59,7 @@ class GeneralOwnerDashboard extends React.Component {
         <div>
           <div className="dash-solar-details-cont">
             <h3>Solar Projects</h3>
-            {/* TODO: to be eventually replaced with solar project */}
-            {this.renderUserDetails()}
+            {this.renderSolarProjectDetails()}
           </div>
 
           <div className="dash-investment-cont">
