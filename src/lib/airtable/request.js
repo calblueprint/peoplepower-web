@@ -62,6 +62,10 @@ export const createTestDevelopment = async record => {
   return createRecord(Tables.TestDevelopment, record);
 };
 
+export const createInvestmentBreakdown = async record => {
+  return createRecord(Tables.InvestmentBreakdown, record);
+};
+
 /*
  ******* READ RECORDS *******
  */
@@ -243,6 +247,25 @@ export const getAllTestDevelopments = async (
   return getAllRecords(Tables.TestDevelopment, filterByFormula, sort);
 };
 
+export const getInvestmentBreakdownById = async id => {
+  return getRecordById(Tables.InvestmentBreakdown, id);
+};
+
+export const getInvestmentBreakdownsByIds = async ids => {
+  const formula = `OR(${ids.reduce(
+    (f, id) => `${f} {ID}='${id}',`,
+    ''
+  )} 1 < 0)`;
+  return getAllRecords(Tables.InvestmentBreakdown, formula);
+};
+
+export const getAllInvestmentBreakdowns = async (
+  filterByFormula = '',
+  sort = []
+) => {
+  return getAllRecords(Tables.InvestmentBreakdown, filterByFormula, sort);
+};
+
 /*
  ******* UPDATE RECORDS *******
  */
@@ -283,6 +306,10 @@ export const updateTestDevelopment = async (id, recordUpdates) => {
   return updateRecord(Tables.TestDevelopment, id, recordUpdates);
 };
 
+export const updateInvestmentBreakdown = async (id, recordUpdates) => {
+  return updateRecord(Tables.InvestmentBreakdown, id, recordUpdates);
+};
+
 /*
  ******* DELETE RECORDS *******
  */
@@ -313,4 +340,7 @@ export const deletePayment = async id => {
 };
 export const deleteTestDevelopment = async id => {
   return deleteRecord(Tables.TestDevelopment, id);
+};
+export const deleteInvestmentBreakdown = async id => {
+  return deleteRecord(Tables.InvestmentBreakdown, id);
 };
