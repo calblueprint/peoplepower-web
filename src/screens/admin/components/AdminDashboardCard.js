@@ -1,11 +1,11 @@
 import React from 'react';
 import '../../../styles/main.css';
-import { removeOwner } from '../../../lib/adminUtils';
+// import { removeOwner } from '../../../lib/adminUtils';
 import { getCredentials, isAdmin } from '../../../lib/credentials';
 
 class AdminDashboardCard extends React.PureComponent {
   render() {
-    const { owner } = this.props;
+    const { owner, handleAdminChange } = this.props;
     const { ownerTypes, dateCreated } = owner;
     const credentials = getCredentials(owner);
     const isAdminOwner = isAdmin(credentials);
@@ -18,19 +18,19 @@ class AdminDashboardCard extends React.PureComponent {
       switch (type) {
         case 'General':
           return (
-            <div key={type} className="pp-tag pp-tag-general">
+            <div key={type} className="admin-pp-tag pp-tag-general">
               General Owner
             </div>
           );
         case 'Admin':
           return (
-            <div key={type} className="pp-tag pp-tag-admin">
+            <div key={type} className="admin-pp-tag pp-tag-admin">
               {type}
             </div>
           );
         case 'Subscriber':
           return (
-            <div key={type} className="pp-tag pp-tag-subscriber">
+            <div key={type} className="admin-pp-tag pp-tag-subscriber">
               {type}
             </div>
           );
@@ -43,7 +43,12 @@ class AdminDashboardCard extends React.PureComponent {
       }
     });
     return (
-      <div className="admin-card">
+      <button
+        className="admin-card"
+        type="button"
+        name="admin"
+        onClick={() => handleAdminChange(owner)}
+      >
         <div className="card-name">
           <h3>{owner.name}</h3>
           <div className="card-tags">{ownerTags}</div>
@@ -53,7 +58,7 @@ class AdminDashboardCard extends React.PureComponent {
             Member since {dateCreated.substring(0, 4)}
           </div>
           {/* Ensures you can only remove non-admin owners */}
-          {!isAdminOwner && (
+          {/* {!isAdminOwner && (
             <button
               type="button"
               onClick={() => removeOwner(owner)}
@@ -61,9 +66,9 @@ class AdminDashboardCard extends React.PureComponent {
             >
               Remove from Group
             </button>
-          )}
+          )} */}
         </div>
-      </div>
+      </button>
     );
   }
 }

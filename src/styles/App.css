@@ -30,6 +30,7 @@ body {
 /* A global css style that sets the styles of the different pages */
 .dashboard {
   width: 100%;
+  height: 100%;
   display: flex;
   height: calc(100% - 104px);
   justify-content: center;

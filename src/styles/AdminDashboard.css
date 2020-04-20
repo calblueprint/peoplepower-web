@@ -34,16 +34,16 @@
   margin-top: 40px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 .admin-card-holder .admin-card {
-  margin: 0px;
-  width: 250px;
+  /* margin: 0px; */
+  width: 295px;
   background: white;
   align-items: center;
   padding: 30px 30px 30px 30px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  margin-left: 20px;
   border: var(--pp-selected-gray) solid 1px;
   border-radius: 5px;
 }
@@ -57,6 +57,7 @@
   font-weight: 800;
   font-size: 16px;
   line-height: 22px;
+  text-align: left;
   color: var(--pp-black);
 }
 
@@ -145,9 +146,9 @@
   padding-right: 13px;
 }
 
-.admin-invite-form label,
-p {
+.admin-invite-form label {
   display: flex;
+  margin: 10px 0;
   flex-direction: column;
   width: 361px;
   font-style: normal;
@@ -254,15 +255,16 @@ p {
 .member-since-text {
   margin-top: 40px;
   font-size: 12px;
+  font-weight: normal;
   color: var(--pp-black);
 }
 
 .pp-tag-general {
-  background: var(--pp-light-green);
+  background: var(--pp-light-pink);
 }
 
 .pp-tag-admin {
-  background: var(--pp-light-pink);
+  background: var(--pp-light-green);
 }
 
 .pp-tag-subscriber {
@@ -323,4 +325,139 @@ p {
   padding: 5px 20px;
   width: 39px;
   height: 22px;
+}
+
+.admin-pp-tag {
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 0 5px 0 0;
+  font-size: 12px;
+  font-weight: normal;
+  color: var(--pp-black);
+}
+
+.admin-contact-modal {
+  width: 420px;
+  height: 420px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0px;
+  /* background: rgb(255, 255, 255); */
+  overflow: auto;
+  border-radius: 15px;
+  outline: none;
+}
+
+.admin-contact-container-top {
+  background-color: var(--pp-green);
+  color: var(--pp-white);
+  text-align: center;
+  border-radius: 15px 15px 0 0;
+  padding: 40px;
+}
+
+.admin-contact-container-bottom {
+  background-color: white;
+  border-radius: 0 0 15px 15px;
+  padding: 40px;
+}
+
+.admin-contact-types {
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.admin-contact-name {
+  margin: 0;
+}
+
+.admin-contact-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.admin-contact-contact-info {
+  color: var(--pp-blue);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.admin-contact-edit-btn {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 22px;
+  text-align: center;
+  color: var(--pp-selected-gray);
+  border-radius: 40px;
+  padding: 0 15px;
+  margin-top: -1px;
+  border: var(--pp-selected-gray) solid 2px;
+}
+
+.admin-contact-cancel-btn {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 22px;
+  text-align: center;
+  color: var(--pp-selected-gray);
+  border-radius: 40px;
+  padding: 0 15px;
+  margin-top: -1px;
+  border: none;
+}
+
+.admin-contact-save-btn {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 22px;
+  text-align: center;
+  color: white;
+  border-radius: 40px;
+  padding: 0 15px;
+  margin-top: -1px;
+  background-color: var(--pp-blue);
+  border: var(--pp-blue) solid 2px;
+}
+
+.admin-contact-bottom-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.admin-contact-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 50px;
+}
+
+.admin-contact-field-name {
+  padding-bottom: 20px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.admin-contact-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.admin-contact-info-input {
+  border: 1px solid #b4b8bf;
+  border-radius: 2.5px;
+  padding: 5px 15px;
+  width: 85%;
+  font-size: 16px;
+  color: var(--pp-blue);
+  line-height: 21px;
+  margin-bottom: 20px;
 }

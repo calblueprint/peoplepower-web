@@ -20,20 +20,60 @@ class AdminDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      adminEditMode: true,
       owners: [],
       showModal: false,
       showSuccessModal: false,
+      showAdminModal: false,
       inviteFirstName: '',
       inviteLastName: '',
       invitePhoneNumber: '',
       inviteEmail: '',
       inviteShareAmount: 0,
       inviteWantsDividends: true,
-      status: ''
+      status: '',
+      displayAdminInfo: {
+        projectGroupId: 'recYjX74bkem102B7',
+        ownerTypes: ['General', 'Admin'],
+        adminOfId: 'recYjX74bkem102B7',
+        numberOfShares: 10,
+        isReceivingDividends: true,
+        firstName: 'Grayson',
+        lastName: 'Flood',
+        email: 'grayson@gmail.com',
+        permanentStreet1: '12345 Easy St.',
+        permanentCity: 'Oakland',
+        permanentState: 'CA',
+        permanentZipcode: '12345',
+        mailingStreet1: '12345 Easy St.',
+        mailingCity: 'Oakland',
+        mailingState: 'CA',
+        mailingZipcode: '12345',
+        phoneNumber: '(123) 456-7890',
+        onboardingStep: -1,
+        password: 'password',
+        announcementIds: ['recLWbCW4kiNDsMGk'],
+        mailingAddressSame: true,
+        bylaw1: true,
+        bylaw2: true,
+        certifyPermanentAddress: true,
+        isSuperAdmin: true,
+        primaryKey: 'Grayson Flood',
+        dateCreated: '2020-03-04T01:26:54.000Z',
+        dateUpdated: '2020-04-17T08:20:11.000Z',
+        id: 'reccQyo8gOMkbDRta',
+        name: 'Grayson Flood',
+        permanentAddress: '12345 Easy St., Oakland, CA, 12345',
+        mailingAddress: '12345 Easy St., Oakland, CA, 12345',
+        latestBillNumber: 0
+      }
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleAdminChange = this.handleAdminChange.bind(this);
+    this.handleContactEdit = this.handleContactEdit.bind(this);
   }
 
   componentDidMount() {
@@ -47,12 +87,20 @@ class AdminDashboard extends React.Component {
     }
   }
 
-  /* form logic */
   handleChange = event => {
     const target = event.target.name;
 
     this.setState({
       [target]: event.target.value
+    });
+  };
+
+  handleAdminChange = owner => {
+    const { displayAdmin } = this.state;
+
+    this.setState({
+      displayAdminInfo: owner,
+      showAdminModal: !displayAdmin
     });
   };
 
@@ -117,18 +165,50 @@ class AdminDashboard extends React.Component {
 
   /* open/close modal logic */
   handleOpenModal(modal) {
-    if (modal === 'invite') {
-      this.setState({ showModal: true });
-    } else {
-      this.setState({ showSuccessModal: true });
+    switch (modal) {
+      case 'invite':
+        this.setState({ showModal: true });
+        break;
+      case 'success':
+        this.setState({ showSuccessModal: true });
+        break;
+      case 'admin':
+        this.setState({ showAdminModal: true });
+        break;
+      default:
+        break;
     }
   }
 
   handleCloseModal(modal) {
-    if (modal === 'invite') {
-      this.setState({ showModal: false });
-    } else {
-      this.setState({ showSuccessModal: false });
+    switch (modal) {
+      case 'invite':
+        this.setState({ showModal: false });
+        break;
+      case 'success':
+        this.setState({ showSuccessModal: false });
+        break;
+      case 'admin':
+        this.setState({ showAdminModal: false });
+        break;
+      default:
+        break;
+    }
+  }
+
+  handleContactEdit(type) {
+    switch (type) {
+      case 'edit':
+        this.setState({ adminEditMode: true });
+        break;
+      case 'cancel':
+        this.setState({ adminEditMode: false });
+        break;
+      case 'submit':
+        this.setState({ adminEditMode: false });
+        break;
+      default:
+        break;
     }
   }
 
@@ -137,13 +217,15 @@ class AdminDashboard extends React.Component {
     const {
       showModal,
       showSuccessModal,
+      showAdminModal,
+      displayAdminInfo,
       owners,
       inviteFirstName,
       inviteLastName,
       invitePhoneNumber,
       inviteEmail,
       inviteShareAmount,
-      status
+      adminEditMode
     } = this.state;
 
     return (
@@ -176,7 +258,13 @@ class AdminDashboard extends React.Component {
             <div className="admin-card-holder">
               {owners.length >= 1 ? (
                 owners.map(owner => {
-                  return <AdminDashboardCard key={owner.id} owner={owner} />;
+                  return (
+                    <AdminDashboardCard
+                      key={owner.id}
+                      owner={owner}
+                      handleAdminChange={this.handleAdminChange}
+                    />
+                  );
                 })
               ) : (
                 <div className="white-text">
@@ -186,6 +274,7 @@ class AdminDashboard extends React.Component {
             </div>
           </div>
         </div>
+        {/* Modal for Inviting a memeber */}
         <Modal
           isOpen={showModal}
           contentLabel="onRequestClose Example"
@@ -197,7 +286,7 @@ class AdminDashboard extends React.Component {
           <div className="admin-invite-form">
             <form onSubmit={this.handleSubmit}>
               <div className="admin-invite-form-row">
-                <div>
+                <div className="">
                   <p>
                     <label htmlFor="inviteFirstName">
                       <p className="admin-invite-form-label-wrapper">
@@ -217,7 +306,7 @@ class AdminDashboard extends React.Component {
                     </label>
                   </p>
                 </div>
-                <div>
+                <div className="">
                   <p>
                     <label htmlFor="inviteLastName">
                       <p className="admin-invite-form-label-wrapper">
@@ -239,7 +328,7 @@ class AdminDashboard extends React.Component {
                 </div>
               </div>
               <div className="admin-invite-form-row">
-                <div>
+                <div className="">
                   <p>
                     <label htmlFor="invitePhoneNumber">
                       <p className="admin-invite-form-label-wrapper">
@@ -259,7 +348,7 @@ class AdminDashboard extends React.Component {
                     </label>
                   </p>
                 </div>
-                <div>
+                <div className="">
                   <p>
                     <label htmlFor="inviteEmail">
                       <p className="admin-invite-form-label-wrapper">
@@ -281,7 +370,7 @@ class AdminDashboard extends React.Component {
                 </div>
               </div>
               <div className="admin-invite-form-row">
-                <div>
+                <div className="">
                   <p>
                     <label htmlFor="inviteShareAmount">
                       Number of shares
@@ -298,22 +387,19 @@ class AdminDashboard extends React.Component {
                 </div>
               </div>
               <div className="admin-invite-form-row admin-invite-form-row-submit">
-                <div>
+                <div className="">
                   <input
                     type="submit"
                     value="Send Invite"
                     className="admin-invite-form-submit"
                   />
                 </div>
-                <h4 className="status-text">{status}</h4>
               </div>
             </form>
           </div>
         </Modal>
-        {/* {!status ?  */}
         <Modal
           isOpen={showSuccessModal}
-          contentLabel="onRequestClose Example"
           onRequestClose={() => this.handleCloseModal('success')}
           className="invite-success-modal"
           overlayClassName="admin-modal-overlay"
@@ -339,8 +425,117 @@ class AdminDashboard extends React.Component {
             </buton>
           </div>
         </Modal>
-        {/* : null */}
-        {/* } */}
+        <Modal
+          isOpen={showAdminModal}
+          onRequestClose={() => this.handleCloseModal('admin')}
+          className="admin-contact-modal"
+          overlayClassName="admin-modal-overlay"
+        >
+          <div className="">
+            <div className="admin-contact-container-top">
+              <h2 className="admin-contact-name">{displayAdminInfo.name}</h2>
+              <div className="admin-contact-types">
+                {displayAdminInfo.ownerTypes.map((type, index) => (
+                  <div className="">
+                    {type === 'General' ? 'General Owner' : type}
+                    {index === displayAdminInfo.ownerTypes.length - 1
+                      ? null
+                      : ',\xa0'}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="admin-contact-container-bottom">
+              <div className="admin-contact-header">
+                <div className="admin-contact-contact-info">
+                  Contact Information
+                </div>
+                {!adminEditMode ? (
+                  <button
+                    type="button"
+                    className="admin-contact-edit-btn"
+                    onClick={() => this.handleContactEdit('edit')}
+                  >
+                    Edit
+                  </button>
+                ) : (
+                  <div>
+                    <button
+                      type="button"
+                      className="admin-contact-cancel-btn"
+                      onClick={() => this.handleContactEdit('cancel')}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="admin-contact-save-btn"
+                      onClick={() => this.handleContactEdit('save')}
+                    >
+                      Save
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="admin-contact-bottom-container">
+                <div className="admin-contact-field">
+                  <div className="admin-contact-field-name">Email</div>
+                  <div className="admin-contact-field-name">Phone</div>
+                  <div className="admin-contact-field-name">Address</div>
+                </div>
+                {!adminEditMode ? (
+                  <div className="admin-contact-info">
+                    <div className="">{displayAdminInfo.email}</div>
+                    <div className="">{displayAdminInfo.phoneNumber}</div>
+                    <div className="">
+                      {displayAdminInfo.permanentAddress.substring(
+                        0,
+                        displayAdminInfo.permanentAddress.indexOf(',')
+                      )}
+                      <br />
+                      {displayAdminInfo.permanentAddress.substring(
+                        displayAdminInfo.permanentAddress.indexOf(',') + 1
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <form onSubmit={this.handleSubmit}>
+                    <label>
+                      <input
+                        type="text"
+                        name="email"
+                        placeholder={displayAdminInfo.email}
+                        className="admin-contact-info-input"
+                        value={displayAdminInfo.email}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                    <label>
+                      <input
+                        type="text"
+                        name="phoneNumber"
+                        placeholder={displayAdminInfo.phoneNumber}
+                        className="admin-contact-info-input"
+                        value={displayAdminInfo.phoneNumber}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                    <label>
+                      <input
+                        type="text"
+                        name="permanentAddresss"
+                        placeholder={displayAdminInfo.permanentAddress}
+                        className="admin-contact-info-input"
+                        value={displayAdminInfo.permanentAddress}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                  </form>
+                )}
+              </div>
+            </div>
+          </div>
+        </Modal>
       </div>
     );
   }
