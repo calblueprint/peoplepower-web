@@ -156,7 +156,8 @@ export const Columns = {
     status: { name: `Status`, type: `select` },
     solarProjectId: { name: `Solar Project`, type: `foreignKey-one` },
     billPdf: { name: `Bill PDF`, type: `multipleAttachment` },
-    dueDate: { name: `Due Date`, type: `date` }
+    dueDate: { name: `Due Date`, type: `date` },
+    chartGenerationData: { name: `Chart Generation Data`, type: `text` }
   },
   'Rate Schedule': {
     primaryKey: { name: `Primary Key`, type: `formula` },
