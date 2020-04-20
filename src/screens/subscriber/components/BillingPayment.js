@@ -12,7 +12,7 @@ import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
 import LeftArrow from '../../../assets/left_arrow.png';
 import { recordBillPayment } from '../../../lib/paypalUtils';
-import Constants from '../../../constants';
+import PaymentSuccessModal from '../../shared/components/PaymentSuccessModal';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
@@ -22,7 +22,9 @@ class BillingPayment extends React.Component {
     this.state = {
       activeBill: null,
       paymentAmount: 0,
-      loading: true
+      loading: true,
+      transactionAmount: 0,
+      successScreen: false
     };
   }
 
@@ -49,15 +51,24 @@ class BillingPayment extends React.Component {
 
   onPaymentSuccess = async (details, data) => {
     const { activeBill } = this.state;
-    const { history, owner } = this.props;
-    this.setState({ loadingPayment: false, loading: true });
+    const { owner } = this.props;
+    this.setState({
+      loadingPayment: false,
+      transactionAmount: details.purchase_units[0].amount.value,
+      successScreen: true
+    });
     await recordBillPayment(details, data, activeBill);
-    await refreshUserData(owner.id);
-    history.push(Constants.HOME_ROUTE);
+    await refreshUserData(owner.id, true);
   };
 
   render() {
-    const { activeBill, paymentAmount, loading } = this.state;
+    const {
+      activeBill,
+      paymentAmount,
+      loading,
+      successScreen,
+      transactionAmount
+    } = this.state;
 
     if (loading) {
       return <LoadingComponent />;
@@ -74,6 +85,16 @@ class BillingPayment extends React.Component {
     if (activeBill === 0 || activeBalance === 0) {
       return <Redirect to="/" />;
     }
+
+    if (successScreen) {
+      return (
+        <PaymentSuccessModal
+          transactionAmount={transactionAmount}
+          showShares={false}
+        />
+      );
+    }
+
     return (
       <div>
         <div className="billing-dash-outer-container">

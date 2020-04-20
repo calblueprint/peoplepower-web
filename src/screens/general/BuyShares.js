@@ -5,11 +5,11 @@ import { PayPalButton } from 'react-paypal-button-v2';
 import SharesProgressBar from './components/SharesProgressBar';
 import LeftArrow from '../../assets/left_arrow.png';
 import '../../styles/BuyShares.css';
-import '../../styles/PaymentSuccessCard.css';
 import { recordSharePayment } from '../../lib/paypalUtils';
-// import { refreshUserData } from '../../lib/userDataUtils';
+import { refreshUserData } from '../../lib/userDataUtils';
 import Constants from '../../constants';
 import LoadingComponent from '../../components/LoadingComponent';
+import PaymentSuccessModal from '../shared/components/PaymentSuccessModal';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 const { MAX_SHARES, SHARE_PRICE } = Constants;
@@ -28,18 +28,20 @@ class BuyShares extends React.PureComponent {
   onPaymentSuccess = async (details, data) => {
     const { owner } = this.props;
     const { sharesBuying } = this.state;
+
     this.setState({
-      transactionAmount: details.purchase_units[0].amount.value
+      transactionAmount: details.purchase_units[0].amount.value,
+      successScreen: true
     });
+
     await recordSharePayment(
       details,
       data,
       owner.id,
       owner.numberOfShares + sharesBuying
     );
-    this.setState({ successScreen: true });
-    // await refreshUserData(owner.id)
-    // history.push(Constants.HOME_ROUTE);
+
+    await refreshUserData(owner.id, true);
   };
 
   addShares = () => {
@@ -72,7 +74,6 @@ class BuyShares extends React.PureComponent {
       transactionAmount
     } = this.state;
     const totalShares = owner.numberOfShares + sharesBuying;
-    const PAYMENT_METHOD = 'Paypal Debit';
 
     if (loading) {
       return <LoadingComponent />;
@@ -82,28 +83,13 @@ class BuyShares extends React.PureComponent {
       return <Redirect to="/" />;
     }
 
-    // TODO: LINKS DON'T REFRESH STATE WHEN USER CLICKS "BACK TO MY INVESTMENT"
     if (successScreen) {
       return (
-        <div className="payment-success-card">
-          <h1>Payment Successful</h1>
-          <p>{`Shares Purchased: ${sharesBuying}`}</p>
-          <p>{`Amount Paid: ${transactionAmount}`}</p>
-          <p>{`Payment Method: ${PAYMENT_METHOD}`}</p>
-
-          <Link
-            to="/investment"
-            className="dropdown-link payment-success-redirect-button"
-          >
-            Back to My Investment
-          </Link>
-          <Link
-            to="/"
-            className="dropdown-link payment-success-redirect-button"
-          >
-            Return to Dashboard
-          </Link>
-        </div>
+        <PaymentSuccessModal
+          sharesBuying={sharesBuying}
+          transactionAmount={transactionAmount}
+          showShares
+        />
       );
     }
     return (
