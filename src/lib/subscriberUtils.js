@@ -17,7 +17,8 @@ const createTransactionFromPayment = payment => ({
   description: 'Online Payment',
   payment: formatAmount(payment.amount),
   charge: '',
-  amount: formatAmount(payment.amount)
+  amount: formatAmount(payment.amount),
+  type: 'Payment'
 });
 
 const createTransactionFromBill = bill => ({
@@ -26,7 +27,8 @@ const createTransactionFromBill = bill => ({
   description: `${moment(bill.startDate).format('MMMM')} Power Bill`,
   charge: formatAmount(bill.currentCharges),
   payment: '',
-  amount: formatAmount(bill.currentCharges)
+  amount: formatAmount(bill.currentCharges),
+  type: 'Charge'
 });
 
 const isBillPayment = payment => {

@@ -19,6 +19,7 @@ const TransactionsTable = ({
   const fields = fieldsToShow || [
     'date',
     'description',
+    'type',
     'charge',
     'payment',
     'balance'
@@ -31,13 +32,27 @@ const TransactionsTable = ({
         Header: headerVisible && <TransactionTableHeader title={f} />,
         id: f,
         width: f === 'description' ? 200 : undefined,
-        accessor: d => (
-          <div
-            className={`subscriber-all-bills-row transactions-table-cell transactions-table-${f}`}
-          >
-            {d[f]}
-          </div>
-        )
+        accessor: transaction => {
+          if (transaction[f] === 'Charge' || transaction[f] === 'Payment') {
+            return (
+              <div
+                className={`subscriber-all-bills-row transactions-table-cell transactions-table-${f} transactions-table-${transaction[
+                  f
+                ].toLowerCase()}`}
+              >
+                {transaction[f]}
+              </div>
+            );
+          } 
+            return (
+              <div
+                className={`subscriber-all-bills-row transactions-table-cell transactions-table-${f}`}
+              >
+                {transaction[f]}
+              </div>
+            );
+          
+        }
       }))}
       getTdProps={() => ({
         style: {
