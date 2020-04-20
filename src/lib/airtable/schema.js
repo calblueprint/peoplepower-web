@@ -135,10 +135,6 @@ export const Columns = {
     endDate: { name: `End Date`, type: `date` },
     rateScheduleId: { name: `Rate Schedule`, type: `foreignKey-one` },
     estimatedRebate: { name: `Estimated Rebate`, type: `formula` },
-    previousTotalEstimatedRebate: {
-      name: `Previous Total Estimated Rebate`,
-      type: `number`
-    },
     balanceOnPreviousBill: { name: `Balance on Previous Bill`, type: `number` },
     paymentIds: { name: `Payments`, type: `foreignKey-many` },
     amountDue: { name: `Amount Due`, type: `formula` },
@@ -152,11 +148,14 @@ export const Columns = {
     currentCharges: { name: `Current Charges`, type: `formula` },
     balance: { name: `Balance`, type: `formula` },
     amountReceived: { name: `Amount Received`, type: `rollup` },
-    totalEstimatedRebate: { name: `Total Estimated Rebate`, type: `formula` },
     status: { name: `Status`, type: `select` },
     solarProjectId: { name: `Solar Project`, type: `foreignKey-one` },
     billPdf: { name: `Bill PDF`, type: `multipleAttachment` },
-    dueDate: { name: `Due Date`, type: `date` }
+    dueDate: { name: `Due Date`, type: `date` },
+    chartGenerationData: { name: `Chart Generation Data`, type: `text` },
+    wouldBeCosts: { name: `Would Be Costs`, type: `number` },
+    pgeCharges: { name: `PGE Charges`, type: `number` },
+    ebceCharges: { name: `EBCE Charges`, type: `number` }
   },
   'Rate Schedule': {
     primaryKey: { name: `Primary Key`, type: `formula` },
