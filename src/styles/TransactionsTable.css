@@ -15,3 +15,11 @@
 .transactions-table-description {
   font-weight: 800;
 }
+
+.transactions-table-charge {
+  color: var(--pp-invalid);
+}
+
+.transactions-table-payment {
+  color: var(--pp-green);
+}
