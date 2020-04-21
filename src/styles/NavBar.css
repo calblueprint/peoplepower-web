@@ -103,10 +103,15 @@ span {
 }
 
 .dropdown-link {
-  font-size: 12px;
+  font-size: 16px;
   border: 0px;
   font-weight: 600;
   color: var(--pp-blue);
+  padding: 7.5px;
+}
+
+.settings-dropdown-logout {
+  padding-top: 0px;
 }
 
 .dropdown-link:hover {
@@ -115,6 +120,7 @@ span {
 
 .dropdown-logout {
   padding: 0px;
+  background-color: white;
 }
 
 /* dropdown arrow */
