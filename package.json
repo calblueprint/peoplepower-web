@@ -54,7 +54,7 @@
     ]
   },
   "devDependencies": {
-    "airtable-schema-generator": "^1.3.3",
+    "airtable-schema-generator": "^1.3.4",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
