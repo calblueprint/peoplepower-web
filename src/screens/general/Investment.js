@@ -95,12 +95,11 @@ class Investment extends React.PureComponent {
                   </h4>
                 </div>
                 <div className="investments-buttons">
-                  {owner.numberOfShares !== MAX_SHARES && (
-                    <div className="investments-buy-shares-button">
+                  <div className="investments-buy-shares-button">
+                    {owner.numberOfShares !== MAX_SHARES && (
                       <Link to="/buyshares">Buy Shares</Link>
-                    </div>
-                  )}
-
+                    )}
+                  </div>
                   <div className="investments-dividend">Divest</div>
                 </div>
               </div>

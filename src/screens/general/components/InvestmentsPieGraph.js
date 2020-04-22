@@ -19,9 +19,9 @@ export default class InvestmentsPieGraph extends React.PureComponent {
     });
     return (
       <VictoryPie
-        height={400}
+        height={300}
         width={400}
-        radius={105}
+        radius={100}
         colorScale={colorList}
         // animate={{ duration: 300 }}
         data={dataList}
@@ -29,8 +29,8 @@ export default class InvestmentsPieGraph extends React.PureComponent {
         y="y"
         style={{
           data: {
-            fillOpacity: 0.9,
-            stroke: '#fff',
+            fillOpacity: 1,
+            stroke: 'white',
             strokeWidth: 3
           }
         }}
@@ -41,7 +41,7 @@ export default class InvestmentsPieGraph extends React.PureComponent {
             nameKey="x"
             valueKey="y"
             cx={200}
-            cy={200}
+            cy={150}
           />
         }
       />
