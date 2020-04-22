@@ -65,7 +65,7 @@ class Investment extends React.PureComponent {
     const { isReceivingDividends, payments } = this.state;
 
     return (
-      <div className="dashboard">
+      <div className="investment-page-indent">
         <div className="mainheader">
           <h1>My Investment</h1>
           <div className="columnformat">
