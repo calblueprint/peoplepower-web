@@ -1,5 +1,5 @@
 .container {
-  height: 800px;
+  height: 600px;
   width: 1050px;
 }
 
@@ -111,7 +111,7 @@
   border-radius: 4px;
   outline: none;
   width: 845px;
-  height: 480px;
+  height: 530px;
 }
 
 .admin-modal-overlay {
@@ -215,6 +215,7 @@
   flex-direction: column;
   align-items: center;
   padding: 0px;
+  /* margin-bottom: 20px;r */
 }
 
 .status-text {

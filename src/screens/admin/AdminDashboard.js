@@ -12,6 +12,9 @@ import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
 import { isSuperAdmin } from '../../lib/credentials';
 import Success from '../../assets/success.png';
+// import { validateField } from '../../lib/onboardingUtils';
+import { updateOwner } from '../../lib/airtable/request';
+// import { refreshUserData } from '../../lib/userDataUtils';
 
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);
@@ -20,7 +23,7 @@ class AdminDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      adminEditMode: true,
+      adminEditMode: false,
       owners: [],
       showModal: false,
       showSuccessModal: false,
@@ -32,41 +35,10 @@ class AdminDashboard extends React.Component {
       inviteShareAmount: 0,
       inviteWantsDividends: true,
       status: '',
-      displayAdminInfo: {
-        projectGroupId: 'recYjX74bkem102B7',
-        ownerTypes: ['General', 'Admin'],
-        adminOfId: 'recYjX74bkem102B7',
-        numberOfShares: 10,
-        isReceivingDividends: true,
-        firstName: 'Grayson',
-        lastName: 'Flood',
-        email: 'grayson@gmail.com',
-        permanentStreet1: '12345 Easy St.',
-        permanentCity: 'Oakland',
-        permanentState: 'CA',
-        permanentZipcode: '12345',
-        mailingStreet1: '12345 Easy St.',
-        mailingCity: 'Oakland',
-        mailingState: 'CA',
-        mailingZipcode: '12345',
-        phoneNumber: '(123) 456-7890',
-        onboardingStep: -1,
-        password: 'password',
-        announcementIds: ['recLWbCW4kiNDsMGk'],
-        mailingAddressSame: true,
-        bylaw1: true,
-        bylaw2: true,
-        certifyPermanentAddress: true,
-        isSuperAdmin: true,
-        primaryKey: 'Grayson Flood',
-        dateCreated: '2020-03-04T01:26:54.000Z',
-        dateUpdated: '2020-04-17T08:20:11.000Z',
-        id: 'reccQyo8gOMkbDRta',
-        name: 'Grayson Flood',
-        permanentAddress: '12345 Easy St., Oakland, CA, 12345',
-        mailingAddress: '12345 Easy St., Oakland, CA, 12345',
-        latestBillNumber: 0
-      }
+      displayAdminInfo: '',
+      updatedPhoneNumber: '',
+      updatedEmail: '',
+      updatedAddress: ''
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -100,6 +72,9 @@ class AdminDashboard extends React.Component {
 
     this.setState({
       displayAdminInfo: owner,
+      updatedEmail: owner.email,
+      updatedPhoneNumber: owner.phoneNumber,
+      updatedAddress: owner.permanentAddress,
       showAdminModal: !displayAdmin
     });
   };
@@ -155,6 +130,45 @@ class AdminDashboard extends React.Component {
     }
   };
 
+  validateAndSubmitData = async () => {
+    const {
+      updatedEmail,
+      // updatedAddress,
+      updatedPhoneNumber,
+      displayAdminInfo
+    } = this.state;
+    const newOwner = {
+      phoneNumber: updatedPhoneNumber,
+      email: updatedEmail
+    };
+    // const errors = {};
+    // let foundErrors = false;
+    // const fields = ['updatedEmail', 'updatedAddress', 'updatedPhoneNumber'];
+
+    // const errorMessages = await Promise.all(
+    //   fields.map(field => validateField(field, newOwner[field]))
+    // );
+    // errorMessages.forEach((errorMessage, i) => {
+    //   const fieldName = `update${fields[i].charAt(0).toUpperCase() +
+    //     fields[i].slice(1)}`;
+    //   errors[fieldName] = errorMessage;
+    //   if (errorMessage !== '') {
+    //     foundErrors = true;
+    //   }
+    // });
+
+    // this.setState({
+    //   errors
+    // });
+
+    // if (!foundErrors) {
+    // Update owner and refresh local cache
+    await updateOwner(displayAdminInfo.id, newOwner);
+    // await refreshUserData(displayAdminInfo.id);
+
+    // }
+  };
+
   async fetchOwnerRecords() {
     const { projectGroup } = this.props;
     const ownerRecords = await getOwnerRecordsForProjectGroup(projectGroup);
@@ -204,7 +218,8 @@ class AdminDashboard extends React.Component {
       case 'cancel':
         this.setState({ adminEditMode: false });
         break;
-      case 'submit':
+      case 'save':
+        this.validateAndSubmitData();
         this.setState({ adminEditMode: false });
         break;
       default:
@@ -225,14 +240,17 @@ class AdminDashboard extends React.Component {
       invitePhoneNumber,
       inviteEmail,
       inviteShareAmount,
-      adminEditMode
+      adminEditMode,
+      updatedEmail,
+      updatedPhoneNumber,
+      updatedAddress
     } = this.state;
 
     return (
       <div className="dashboard dash-admin">
         <div className="container">
           <div className="flex justify-content-space pb-5">
-            <h3 className="admin-project-group">Berkeley Cooperative Power</h3>
+            <h3 className="admin-project-group">{projectGroup.name}</h3>
             {isSuperAdmin(credentials) && (
               <Link to="/superadmin" className="super-admin-link">
                 Super Admin Dashboard{' '}
@@ -425,117 +443,119 @@ class AdminDashboard extends React.Component {
             </buton>
           </div>
         </Modal>
-        <Modal
-          isOpen={showAdminModal}
-          onRequestClose={() => this.handleCloseModal('admin')}
-          className="admin-contact-modal"
-          overlayClassName="admin-modal-overlay"
-        >
-          <div className="">
-            <div className="admin-contact-container-top">
-              <h2 className="admin-contact-name">{displayAdminInfo.name}</h2>
-              <div className="admin-contact-types">
-                {displayAdminInfo.ownerTypes.map((type, index) => (
-                  <div className="">
-                    {type === 'General' ? 'General Owner' : type}
-                    {index === displayAdminInfo.ownerTypes.length - 1
-                      ? null
-                      : ',\xa0'}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="admin-contact-container-bottom">
-              <div className="admin-contact-header">
-                <div className="admin-contact-contact-info">
-                  Contact Information
-                </div>
-                {!adminEditMode ? (
-                  <button
-                    type="button"
-                    className="admin-contact-edit-btn"
-                    onClick={() => this.handleContactEdit('edit')}
-                  >
-                    Edit
-                  </button>
-                ) : (
-                  <div>
-                    <button
-                      type="button"
-                      className="admin-contact-cancel-btn"
-                      onClick={() => this.handleContactEdit('cancel')}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="button"
-                      className="admin-contact-save-btn"
-                      onClick={() => this.handleContactEdit('save')}
-                    >
-                      Save
-                    </button>
-                  </div>
-                )}
-              </div>
-              <div className="admin-contact-bottom-container">
-                <div className="admin-contact-field">
-                  <div className="admin-contact-field-name">Email</div>
-                  <div className="admin-contact-field-name">Phone</div>
-                  <div className="admin-contact-field-name">Address</div>
-                </div>
-                {!adminEditMode ? (
-                  <div className="admin-contact-info">
-                    <div className="">{displayAdminInfo.email}</div>
-                    <div className="">{displayAdminInfo.phoneNumber}</div>
+        {displayAdminInfo ? (
+          <Modal
+            isOpen={showAdminModal}
+            onRequestClose={() => this.handleCloseModal('admin')}
+            className="admin-contact-modal"
+            overlayClassName="admin-modal-overlay"
+          >
+            <div className="">
+              <div className="admin-contact-container-top">
+                <h2 className="admin-contact-name">{displayAdminInfo.name}</h2>
+                <div className="admin-contact-types">
+                  {displayAdminInfo.ownerTypes.map((type, index) => (
                     <div className="">
-                      {displayAdminInfo.permanentAddress.substring(
-                        0,
-                        displayAdminInfo.permanentAddress.indexOf(',')
-                      )}
-                      <br />
-                      {displayAdminInfo.permanentAddress.substring(
-                        displayAdminInfo.permanentAddress.indexOf(',') + 1
-                      )}
+                      {type === 'General' ? 'General Owner' : type}
+                      {index === displayAdminInfo.ownerTypes.length - 1
+                        ? null
+                        : ',\xa0'}
                     </div>
+                  ))}
+                </div>
+              </div>
+              <div className="admin-contact-container-bottom">
+                <div className="admin-contact-header">
+                  <div className="admin-contact-contact-info">
+                    Contact Information
                   </div>
-                ) : (
-                  <form onSubmit={this.handleSubmit}>
-                    <label>
-                      <input
-                        type="text"
-                        name="email"
-                        placeholder={displayAdminInfo.email}
-                        className="admin-contact-info-input"
-                        value={displayAdminInfo.email}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                    <label>
-                      <input
-                        type="text"
-                        name="phoneNumber"
-                        placeholder={displayAdminInfo.phoneNumber}
-                        className="admin-contact-info-input"
-                        value={displayAdminInfo.phoneNumber}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                    <label>
-                      <input
-                        type="text"
-                        name="permanentAddresss"
-                        placeholder={displayAdminInfo.permanentAddress}
-                        className="admin-contact-info-input"
-                        value={displayAdminInfo.permanentAddress}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                  </form>
-                )}
+                  {!adminEditMode ? (
+                    <button
+                      type="button"
+                      className="admin-contact-edit-btn"
+                      onClick={() => this.handleContactEdit('edit')}
+                    >
+                      Edit
+                    </button>
+                  ) : (
+                    <div>
+                      <button
+                        type="button"
+                        className="admin-contact-cancel-btn"
+                        onClick={() => this.handleContactEdit('cancel')}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        className="admin-contact-save-btn"
+                        onClick={() => this.handleContactEdit('save')}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div className="admin-contact-bottom-container">
+                  <div className="admin-contact-field">
+                    <div className="admin-contact-field-name">Email</div>
+                    <div className="admin-contact-field-name">Phone</div>
+                    <div className="admin-contact-field-name">Address</div>
+                  </div>
+                  {!adminEditMode ? (
+                    <div className="admin-contact-info">
+                      <div className="">{displayAdminInfo.email}</div>
+                      <div className="">{displayAdminInfo.phoneNumber}</div>
+                      <div className="">
+                        {displayAdminInfo.permanentAddress.substring(
+                          0,
+                          displayAdminInfo.permanentAddress.indexOf(',')
+                        )}
+                        <br />
+                        {displayAdminInfo.permanentAddress.substring(
+                          displayAdminInfo.permanentAddress.indexOf(',') + 1
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <form onSubmit={this.handleSubmit}>
+                      <label>
+                        <input
+                          type="text"
+                          name="updatedEmail"
+                          placeholder={updatedEmail}
+                          className="admin-contact-info-input"
+                          value={updatedEmail}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                      <label>
+                        <input
+                          type="text"
+                          name="updatedPhoneNumber"
+                          placeholder={updatedPhoneNumber}
+                          className="admin-contact-info-input"
+                          value={updatedPhoneNumber}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                      <label>
+                        <input
+                          type="text"
+                          name="updatedAddress"
+                          placeholder={updatedAddress}
+                          className="admin-contact-info-input"
+                          value={updatedAddress}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                    </form>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </Modal>
+          </Modal>
+        ) : null}
       </div>
     );
   }
