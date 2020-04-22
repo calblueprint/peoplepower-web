@@ -191,7 +191,9 @@ class UserProfile extends React.Component {
     return (
       <div className="dashboard settings">
         <div className="cont">
-          <h2>Settings</h2>
+          <div className="user-profile-settings-header">
+            <h2>Settings</h2>
+          </div>
           <div className="row">
             <div className="user-icon">
               <h3>{`${updateFirstName} ${updateLastName}`}</h3>
