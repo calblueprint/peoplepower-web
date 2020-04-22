@@ -29,10 +29,16 @@ class BuyShares extends React.PureComponent {
     const { owner } = this.props;
     const { sharesBuying } = this.state;
 
-    this.setState({
-      transactionAmount: details.purchase_units[0].amount.value,
-      successScreen: true
-    });
+    const purchase = details.purchase_units;
+
+    if (purchase !== null && purchase.length >= 1) {
+      this.setState({
+        transactionAmount: details.purchase_units[0].amount.value,
+        successScreen: true
+      });
+    } else {
+      console.warn('A purchase of zero shares cannot be performed.');
+    }
 
     await recordSharePayment(
       details,
