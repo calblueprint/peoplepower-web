@@ -146,9 +146,10 @@ class BuyShares extends React.PureComponent {
               </div>
               <div className="buy-shares-progress-bar-text">
                 <h5>
-                  You currently own {owner.numberOfShares} shares,
+                  You are purchasing {totalShares - owner.numberOfShares}{' '}
+                  additional shares,
                   <br />
-                  you can buy up to {10 - owner.numberOfShares} more shares.
+                  owning a total of {totalShares} shares.
                 </h5>
                 <br />
                 <h4>${totalShares * SHARE_PRICE}.00</h4>
