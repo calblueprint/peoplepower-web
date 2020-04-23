@@ -35,7 +35,6 @@ class Onboarding extends React.Component {
 
   componentDidMount() {
     this.refreshState();
-    window.scrollTo(0, 0);
   }
 
   componentDidUpdate(prevProps) {
