@@ -1,10 +1,12 @@
 import {
   updateProjectGroup,
   getProjectGroupById,
-  getOwnerById
+  createPledgeInvite,
+  getOwnersByIds
 } from './airtable/request';
 import { refreshUserData } from './userDataUtils';
 import { store } from './redux/store';
+import constants from '../constants';
 
 export async function removeOwner(owner) {
   const projectGroup = await getProjectGroupById(owner.projectGroupId);
@@ -21,9 +23,33 @@ export async function removeOwner(owner) {
 }
 
 export async function getOwnerRecordsForProjectGroup(projectGroup) {
-  const ownerPromises = projectGroup.ownerIds.map(getOwnerById);
-  const allOwners = await Promise.all(ownerPromises);
+  const allOwners = await getOwnersByIds(projectGroup.ownerIds);
 
   // Ensure onboarding users aren't considered
   return allOwners.filter(o => o.onboardingStep === -1);
+}
+
+export async function inviteMember(pledgeInvite) {
+  return createPledgeInvite(pledgeInvite);
+}
+
+export async function triggerEmail(pledgeInviteId) {
+  try {
+    const emailInvite = await fetch(`${constants.BACKEND_URL}/invite`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        pledgeInviteId
+      })
+    });
+
+    const emailResponse = await emailInvite.json();
+    const { status } = emailResponse;
+    return status;
+  } catch (err) {
+    return 'error';
+  }
 }

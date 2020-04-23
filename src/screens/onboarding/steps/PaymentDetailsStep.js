@@ -1,8 +1,32 @@
 import React from 'react';
+import ErrorIcon from '../../../assets/error.svg';
+import Constants from '../../../constants';
 
-const SHARE_PRICE = 100;
+const { SHARE_PRICE, MAX_SHARES } = Constants;
 
 class PaymentDetailsStep extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dividendsMarked: false,
+      displayUnmarkedDividend: false
+    };
+    this.onSubmit = this.onSubmit.bind(this);
+    this.handleChangeDividends = this.handleChangeDividends.bind(this);
+  }
+
+  onSubmit() {
+    const { onSubmit } = this.props;
+    const { dividendsMarked } = this.state;
+    if (!dividendsMarked) {
+      this.setState({
+        displayUnmarkedDividend: true
+      });
+    } else {
+      onSubmit();
+    }
+  }
+
   minusShares = () => {
     const { owner, handleChange } = this.props;
     const event = {
@@ -25,20 +49,30 @@ class PaymentDetailsStep extends React.Component {
         value: owner.numberOfShares + 1
       }
     };
-    if (event.target.value < 11) {
+    if (event.target.value <= MAX_SHARES) {
       handleChange(event);
     }
   };
 
+  handleChangeDividends = e => {
+    const { handleChange } = this.props;
+    handleChange(e);
+    this.setState({
+      dividendsMarked: true,
+      displayUnmarkedDividend: false
+    });
+  };
+
   render() {
-    const { owner, errors, onBack, onSubmit, handleChange } = this.props;
+    const { owner, errors, onBack, handleChange } = this.props;
+    const { displayUnmarkedDividend } = this.state;
     return (
       <div className="w-100">
         <div className="flex w-100 justify-space-between onboarding-row ">
           <div className="w-60">
             <div className="payment-shares-card">
               <div className="payment-shares-header">
-                Number of shares (max 10)
+                Number of shares (max {MAX_SHARES})
               </div>
               <div className="payment-shares-input">
                 <label htmlFor="" className="w-100">
@@ -78,8 +112,7 @@ class PaymentDetailsStep extends React.Component {
                     name="isReceivingDividends"
                     className="payment-dividends-radio"
                     value
-                    defaultChecked={owner.isReceivingDividends}
-                    onChange={handleChange}
+                    onChange={this.handleChangeDividends}
                   />
                   <label htmlFor="" className="payment-dividends-choice">
                     Yes, I’d like dividends, thank you!
@@ -91,8 +124,7 @@ class PaymentDetailsStep extends React.Component {
                     name="isReceivingDividends"
                     className="payment-dividends-radio"
                     value={false}
-                    defaultChecked={!owner.isReceivingDividends}
-                    onChange={handleChange}
+                    onChange={this.handleChangeDividends}
                   />
                   <label htmlFor="" className="payment-dividends-choice">
                     No dividends please. (No pressure to choose this option. We
@@ -106,6 +138,14 @@ class PaymentDetailsStep extends React.Component {
                     ? errors.isReceivingDividends
                     : '\u00A0'}
                 </div>
+                {displayUnmarkedDividend ? (
+                  <div className="error-container">
+                    <img src={ErrorIcon} alt="error" className="mr-1" />
+                    <div className="error-text">
+                      Please certify the above address in order to proceed.
+                    </div>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
@@ -141,7 +181,7 @@ class PaymentDetailsStep extends React.Component {
             <button
               type="button"
               className="btn btn--rounded btn--blue btn--size16 continue-button"
-              onClick={onSubmit}
+              onClick={this.onSubmit}
             >
               Continue
             </button>

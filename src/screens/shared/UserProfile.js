@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateOwner } from '../../lib/airtable/request';
-import LoadingComponent from '../../components/LoadingComponent';
 import { refreshUserData } from '../../lib/userDataUtils';
+import { validateField } from '../../lib/onboardingUtils';
 import '../../styles/UserProfilePage.css';
 
 class UserProfile extends React.Component {
@@ -12,13 +12,14 @@ class UserProfile extends React.Component {
       updateFirstName: '',
       updateLastName: '',
       updatePhoneNumber: '',
-      updateStreet1: '',
-      updateStreet2: '',
-      updateCity: '',
-      updateState: '',
-      updateZipcode: '',
+      updatePermanentStreet1: '',
+      updatePermanentStreet2: '',
+      updatePermanentCity: '',
+      updatePermanentState: '',
+      updatePermanentZipcode: '',
       generalEditMode: false,
-      contactEditMode: false
+      contactEditMode: false,
+      errors: {}
     };
   }
 
@@ -29,28 +30,34 @@ class UserProfile extends React.Component {
   componentDidUpdate(prevProps) {
     const { owner } = this.props;
     if (owner !== prevProps.owner) {
-      this.pullPropsIntoState();
+      this.pullPropsIntoState('both');
     }
   }
 
-  pullPropsIntoState = () => {
-    const { owner, isLoadingUserData } = this.props;
+  pullPropsIntoState = type => {
+    const { owner } = this.props;
 
-    // If data isn't in redux yet, don't do anything.
-    if (isLoadingUserData) {
-      return;
+    if (type === 'contact' || type === 'both') {
+      this.setState({
+        updatePhoneNumber: owner.phoneNumber,
+        updatePermanentStreet1: owner.permanentStreet1,
+        updatePermanentStreet2: owner.permanentStreet2,
+        updatePermanentCity: owner.permanentCity,
+        updatePermanentState: owner.permanentState,
+        updatePermanentZipcode: owner.permanentZipcode
+      });
     }
+    if (type === 'general' || type === 'both') {
+      this.setState({
+        updateFirstName: owner.firstName,
+        updateLastName: owner.lastName
+      });
+    }
+  };
 
-    this.setState({
-      updateFirstName: owner.firstName,
-      updateLastName: owner.lastName,
-      updatePhoneNumber: owner.phoneNumber,
-      updateStreet1: owner.permanentStreet1,
-      updateStreet2: owner.permanentStreet2,
-      updateCity: owner.permanentCity,
-      updateState: owner.permanentState,
-      updateZipcode: owner.permanentZipcode
-    });
+  handleCancel = type => {
+    this.setState({ [`${type}EditMode`]: false });
+    this.pullPropsIntoState(type);
   };
 
   handleChange = event => {
@@ -61,52 +68,91 @@ class UserProfile extends React.Component {
     });
   };
 
+  validateAndSubmitData = async (newOwner, type) => {
+    const { owner } = this.props;
+    const errors = {};
+    let foundErrors = false;
+    const fields = Object.keys(newOwner);
+
+    const errorMessages = await Promise.all(
+      fields.map(field => validateField(field, newOwner[field]))
+    );
+    errorMessages.forEach((errorMessage, i) => {
+      const fieldName = `update${fields[i].charAt(0).toUpperCase() +
+        fields[i].slice(1)}`;
+      errors[fieldName] = errorMessage;
+      if (errorMessage !== '') {
+        foundErrors = true;
+      }
+    });
+
+    this.setState({
+      errors
+    });
+
+    if (!foundErrors) {
+      // Update owner and refresh local cache
+      await updateOwner(owner.id, newOwner);
+      await refreshUserData(owner.id);
+
+      // Update Visual state
+      const { generalEditMode, contactEditMode } = this.state;
+      if (type === 'general') {
+        this.setState({ generalEditMode: !generalEditMode });
+      } else if (type === 'contact') {
+        this.setState({ contactEditMode: !contactEditMode });
+      }
+    }
+  };
+
   onContactButtonPressed = async () => {
     const {
       contactEditMode,
       updatePhoneNumber,
-      updateStreet1,
-      updateStreet2,
-      updateCity,
-      updateState,
-      updateZipcode
+      updatePermanentStreet1,
+      updatePermanentStreet2,
+      updatePermanentCity,
+      updatePermanentState,
+      updatePermanentZipcode
     } = this.state;
-    const { owner } = this.props;
 
     if (contactEditMode) {
-      // Save data and update owner.
-      await updateOwner(owner.id, {
-        phoneNumber: updatePhoneNumber,
-        permanentStreet1: updateStreet1,
-        permanentStreet2: updateStreet2,
-        permanentCity: updateCity,
-        permanentState: updateState.toUpperCase(),
-        permanentZipcode: updateZipcode
+      // Validate data
+      this.validateAndSubmitData(
+        {
+          phoneNumber: updatePhoneNumber,
+          permanentStreet1: updatePermanentStreet1,
+          permanentStreet2: updatePermanentStreet2,
+          permanentCity: updatePermanentCity,
+          permanentState: updatePermanentState.toUpperCase(),
+          permanentZipcode: updatePermanentZipcode
+        },
+        'contact'
+      );
+    } else {
+      // Change visual state
+      this.setState({
+        contactEditMode: true
       });
-
-      // Refresh local cache with latest user data
-      await refreshUserData(owner.id);
     }
-
-    // Change visual state
-    this.setState({
-      contactEditMode: !contactEditMode
-    });
   };
 
   onGeneralButtonPressed = async () => {
     const { generalEditMode, updateFirstName, updateLastName } = this.state;
-    const { owner } = this.props;
-
     if (generalEditMode) {
-      // Save data and update owner.
-      await updateOwner(owner.id, {
-        lastName: updateLastName,
-        firstName: updateFirstName
+      // Validate data
+      this.validateAndSubmitData(
+        {
+          firstName: updateFirstName,
+          lastName: updateLastName
+        },
+        'general'
+      );
+    } else {
+      // Change visual state
+      this.setState({
+        generalEditMode: true
       });
-
-      // Refresh local cache with latest user data
-      await refreshUserData(owner.id);
     }
 
     // Change visual state
@@ -116,19 +162,25 @@ class UserProfile extends React.Component {
   };
 
   renderInputLabel(name, editable) {
-    const { [name]: value } = this.state;
-    if (editable) {
-      return (
-        <input
-          type="text"
-          name={name}
-          placeholder={value}
-          value={value}
-          onChange={this.handleChange}
-        />
-      );
-    }
-    return <label className="settings-label">{value}</label>;
+    const { [name]: value, errors } = this.state;
+    return (
+      <div>
+        {editable ? (
+          <input
+            type="text"
+            name={name}
+            placeholder={value}
+            value={value}
+            onChange={this.handleChange}
+          />
+        ) : (
+          <label className="settings-label">{value}</label>
+        )}
+        {errors[name] && (
+          <label style={{ color: 'red' }}>Error: {errors[name]}</label>
+        )}
+      </div>
+    );
   }
 
   render() {
@@ -139,11 +191,9 @@ class UserProfile extends React.Component {
       contactEditMode
     } = this.state;
 
-    const { owner, projectGroup, isLoadingUserData } = this.props;
+    const { owner, projectGroup } = this.props;
 
-    return isLoadingUserData ? (
-      <LoadingComponent />
-    ) : (
+    return (
       <div className="dashboard settings">
         <div className="cont">
           <h2>Settings</h2>
@@ -153,15 +203,24 @@ class UserProfile extends React.Component {
               <h4>General Owner</h4>
             </div>
             <div
-              className={`general-form settings-edit-${
+              className={`user-profile-general-form settings-edit-${
                 generalEditMode ? 'enabled' : 'disabled'
               }`}
             >
-              <div className="general-form-header">
+              <div className="user-profile-general-form-header">
                 <h2>General</h2>
-                <button type="button" onClick={this.onGeneralButtonPressed}>
-                  {generalEditMode ? 'Save' : 'Edit'}
-                </button>
+                <div className="user-profile-general-form-header-buttons">
+                  <button type="button" onClick={this.onGeneralButtonPressed}>
+                    {generalEditMode ? 'Save' : 'Edit'}
+                  </button>
+                  <button
+                    style={{ display: generalEditMode ? '' : 'none' }}
+                    type="button"
+                    onClick={() => this.handleCancel('general')}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
               <form>
                 <div>
@@ -211,11 +270,20 @@ class UserProfile extends React.Component {
                 contactEditMode ? 'enabled' : 'disabled'
               }`}
             >
-              <div className="contact-form-header">
+              <div className="user-profile-contact-form-header">
                 <h2>Contact Information</h2>
-                <button type="button" onClick={this.onContactButtonPressed}>
-                  {contactEditMode ? 'Save' : 'Edit'}
-                </button>
+                <div className="user-profile-contact-form-header-buttons">
+                  <button type="button" onClick={this.onContactButtonPressed}>
+                    {contactEditMode ? 'Save' : 'Edit'}
+                  </button>
+                  <button
+                    style={{ display: contactEditMode ? '' : 'none' }}
+                    type="button"
+                    onClick={() => this.handleCancel('contact')}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
               <form>
                 <div>
@@ -231,41 +299,56 @@ class UserProfile extends React.Component {
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="updateStreet1">
+                    <label htmlFor="updatePermanentStreet1">
                       Street 1:
-                      {this.renderInputLabel('updateStreet1', contactEditMode)}
+                      {this.renderInputLabel(
+                        'updatePermanentStreet1',
+                        contactEditMode
+                      )}
                     </label>
                   </p>
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="updateStreet2">
+                    <label htmlFor="updatePermanentStreet2">
                       Street 2:
-                      {this.renderInputLabel('updateStreet2', contactEditMode)}
+                      {this.renderInputLabel(
+                        'updatePermanentStreet2',
+                        contactEditMode
+                      )}
                     </label>
                   </p>
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="updateCity">
+                    <label htmlFor="updatePermanentCity">
                       City:
-                      {this.renderInputLabel('updateCity', contactEditMode)}
+                      {this.renderInputLabel(
+                        'updatePermanentCity',
+                        contactEditMode
+                      )}
                     </label>
                   </p>
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="updateState">
+                    <label htmlFor="updatePermanentState">
                       State:
-                      {this.renderInputLabel('updateState', contactEditMode)}
+                      {this.renderInputLabel(
+                        'updatePermanentState',
+                        contactEditMode
+                      )}
                     </label>
                   </p>
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="updateZipcode">
+                    <label htmlFor="updatePermanentZipcode">
                       Zip Code:
-                      {this.renderInputLabel('updateZipcode', contactEditMode)}
+                      {this.renderInputLabel(
+                        'updatePermanentZipcode',
+                        contactEditMode
+                      )}
                     </label>
                   </p>
                 </div>
@@ -280,7 +363,6 @@ class UserProfile extends React.Component {
 
 const mapStateToProps = state => ({
   owner: state.userData.owner,
-  projectGroup: state.userData.projectGroup,
-  isLoadingUserData: state.userData.isLoading
+  projectGroup: state.userData.projectGroup
 });
 export default connect(mapStateToProps)(UserProfile);

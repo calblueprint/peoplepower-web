@@ -18,11 +18,13 @@ body {
 .app-container {
   width: 100%;
   min-height: 100vh;
+  background-color: var(--pp-bg-blue);
 }
 
 /* A global css style that sets the margin of the left gutter. */
 .cont {
   margin-left: 170px;
+  margin-right: 170px;
 }
 
 /* A global css style that sets the styles of the different pages */

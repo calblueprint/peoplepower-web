@@ -1,19 +1,47 @@
 /* eslint-disable no-await-in-loop */
-import States from '../assets/states.json';
+import React from 'react';
+import USStates from '../assets/states.json';
 import {
   getOwnersByEmail,
   getAllProjectGroups,
   updateOwner,
-  createOwner
+  createOwner,
+  deleteOwner
 } from './airtable/request';
-import { refreshUserData } from './userDataUtils';
+import { refreshUserData, clearUserData } from './userDataUtils';
+import ErrorIcon from '../assets/error.svg';
 
 // Helper functions to validate owner record fields
 
 // Ensure value exists
 // Allows custom error message
-const validateExistence = (value, error = 'Required') => {
+const validateExistence = (
+  value,
+  error = 'Please enter this required field.'
+) => {
   return value ? '' : error;
+};
+
+const toggleValidColor = (input, type) => {
+  if (!type) {
+    return input !== '' && typeof input !== 'undefined'
+      ? 'b-is-not-valid'
+      : 'b-is-valid';
+  }
+  return !input ? '\u00A0' : input;
+};
+
+const validateCertifyPermanentAddress = value => {
+  return value ? (
+    ''
+  ) : (
+    <div className="error-container">
+      <img src={ErrorIcon} alt="error" className="mr-1" />
+      <div className="error-text">
+        Please certify the above address in order to proceed.
+      </div>
+    </div>
+  );
 };
 
 // Ensure valid and unique email
@@ -21,12 +49,14 @@ const validateEmail = value => {
   // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
   // eslint-disable-next-line no-useless-escape
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(value) ? '' : 'Invalid Email';
+  return re.test(value) ? '' : 'Please enter a valid email address.';
 };
 
 const validateUniqueEmail = async value => {
   const owners = await getOwnersByEmail(value);
-  return owners.length === 0 ? '' : 'Email is already taken';
+  return owners.length === 0
+    ? ''
+    : 'It looks like an account with this email already exists.';
 };
 
 // TODO: Add Better Password Rules
@@ -52,10 +82,15 @@ const validateShares = value => {
 };
 
 // Ensure State is a real state (either abbreivation or full name)
-const validateState = value => {
-  return States.map(s => s.toUpperCase()).indexOf(value.toUpperCase()) !== -1
-    ? ''
-    : 'Invalid State';
+const ValidateUSState = value => {
+  const upperCaseValue = value.toUpperCase();
+  if (USStates.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
+    if (upperCaseValue !== 'CA') {
+      return 'Not California';
+    }
+    return '';
+  }
+  return 'Invalid State';
 };
 
 // Ensure Zipcode is of valid length
@@ -68,8 +103,8 @@ const validateZipcode = value => {
 const ValidatorData = {
   email: [validateExistence, validateEmail, validateUniqueEmail],
   password: [validateExistence, validatePassword],
-  permanentState: [validateExistence, validateState],
-  mailingState: [validateExistence, validateState],
+  permanentState: [validateExistence, ValidateUSState],
+  mailingState: [validateExistence, ValidateUSState],
   permanentZipcode: [validateExistence, validateNumber, validateZipcode],
   mailingZipcode: [validateExistence, validateNumber, validateZipcode],
   numberOfShares: [validateExistence, validateNumber, validateShares],
@@ -77,6 +112,7 @@ const ValidatorData = {
   alternateEmail: [],
   permanentStreet2: [],
   mailingStreet2: [],
+  certifyPermanentAddress: [validateCertifyPermanentAddress],
   isReceivingDividends: [],
   projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
 };
@@ -126,4 +162,15 @@ const updateOwnerFields = async (owner, fields) => {
   }
 };
 
-export { validateField, getAvailableProjectGroups, updateOwnerFields };
+const returnToHomepage = owner => {
+  deleteOwner(owner.id);
+  clearUserData();
+};
+
+export {
+  validateField,
+  getAvailableProjectGroups,
+  updateOwnerFields,
+  returnToHomepage,
+  toggleValidColor
+};

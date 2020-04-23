@@ -1,0 +1,77 @@
+.pp-general-modal-backdrop {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.4); /*needed to apply opacity to just background*/
+}
+
+.pp-general-modal-content {
+  position: absolute;
+  margin: auto;
+  top: 30%;
+  left: 30%;
+  right: 30%;
+  border: 1px solid var(--pp-link-gray);
+  width: 30rem;
+
+  padding: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  border: none;
+}
+
+.pp-general-modal-content:focus {
+  outline: none;
+}
+
+.pp-general-modal-header {
+  color: var(--pp-blue);
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+  margin-bottom: 2rem;
+}
+
+.pp-general-modal-body {
+  color: var(--pp-black);
+  font-weight: heavy;
+  font-size: 18px;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 22px;
+  margin-bottom: 2rem;
+  padding: 0 2rem;
+}
+
+.pp-general-modal-button {
+  background: var(--pp-blue);
+  border-radius: 2.5px;
+  color: white;
+  padding: 0.25rem 1rem;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.pp-general-modal-button-back {
+  background: var(--pp-selected-gray);
+  border-radius: 2.5px;
+  color: white;
+  padding: 0.25rem 1rem;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.pp-general-close {
+  display: none;
+}

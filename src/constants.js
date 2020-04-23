@@ -8,6 +8,8 @@ const constants = {
   // PAYPAL PAYMENT TYPES
   BILL_PAYMENT_TYPE: 'Bill Payment',
   BUY_SHARES_TYPE: 'Buy Shares',
+  SHARE_PRICE: 100,
+  MAX_SHARES: 10,
 
   // TRANSACTION TYPES AND STATUS
   BILL_TYPE: 'Bill',
@@ -19,8 +21,13 @@ const constants = {
   HOME_ROUTE: '/',
   SIGNUP_ROUTE: '/onboarding',
 
+  // INVITE TYPES
+  PLEDGE_INVITE_USED: 'Used',
+
   // BILL GENERATION
-  BILL_GENERATION_URL: 'https://peoplepower-node.herokuapp.com/generate'
+  BACKEND_URL: 'https://peoplepower-node.herokuapp.com',
+  BILL_ACTIVE_STATUS: 'Active',
+  TRANSACTION_DATE_FORMAT: 'M/DD/YYYY'
 };
 
 export default constants;

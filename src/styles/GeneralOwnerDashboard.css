@@ -91,3 +91,11 @@ button {
 .right-arrow-button:hover {
   opacity: 0.8;
 }
+
+.left-arrow-button {
+  width: 4vh;
+}
+
+.left-arrow-button:hover {
+  opacity: 0.8;
+}

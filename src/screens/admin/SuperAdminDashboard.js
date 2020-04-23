@@ -16,7 +16,7 @@ class SuperAdminDashboard extends React.Component {
   };
 
   generateBillsForSolarProject(solarProjectId) {
-    return fetch(Constants.BILL_GENERATION_URL, {
+    return fetch(`${Constants.BACKEND_URL}/generate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -53,7 +53,6 @@ class SuperAdminDashboard extends React.Component {
 const mapStateToProps = state => ({
   owner: state.userData.owner,
   userLogin: state.userData.userLogin,
-  projectGroup: state.userData.projectGroup,
-  isLoadingUserData: state.userData.isLoading
+  projectGroup: state.userData.projectGroup
 });
 export default connect(mapStateToProps)(SuperAdminDashboard);

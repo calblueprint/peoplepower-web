@@ -7,7 +7,13 @@ class BasicInfoStep extends React.PureComponent {
   // validates then moves on if no error messages
 
   render() {
-    const { owner, errors, onSubmit, handleChange } = this.props;
+    const {
+      owner,
+      errors,
+      onSubmit,
+      handleChange,
+      toggleValidColor
+    } = this.props;
     return (
       <form className="center card flex onboarding-col">
         <div className=" ">
@@ -25,30 +31,26 @@ class BasicInfoStep extends React.PureComponent {
               placeholder="First name"
               onChange={handleChange}
               defaultValue={owner.firstName}
-              className={` input-gray ${
-                errors.firstName !== '' ? 'b-is-not-valid' : 'b-is-invalid'
-              }`}
+              className={` input-gray ${toggleValidColor(errors.firstName, 0)}`}
             />
           </div>
           <div className="w-50">
-            <div style={{ marginBottom: '20px' }} />
+            <div className="mb-22px" />
             <input
               name="lastName"
               placeholder="Last name"
               onChange={handleChange}
               defaultValue={owner.lastName}
-              className={` input-gray ${
-                errors.lastName !== '' ? 'b-is-not-valid' : 'b-is-invalid'
-              }`}
+              className={` input-gray ${toggleValidColor(errors.lastName, 0)}`}
             />
           </div>
         </div>
         <div className="flex onboarding-row">
           <div className="w-50 pr-1 validation">
-            {errors.firstName ? errors.firstName : '\u00A0'}
+            {toggleValidColor(errors.firstName, 1)}
           </div>
           <div className="w-50 validation">
-            {errors.lastName ? errors.lastName : '\u00A0'}
+            {toggleValidColor(errors.lastName, 1)}
           </div>
         </div>
         <div className="w-100">
@@ -60,13 +62,9 @@ class BasicInfoStep extends React.PureComponent {
             placeholder="Enter your primary email address"
             onChange={handleChange}
             defaultValue={owner.email}
-            className={`input-gray ${
-              errors.email !== '' ? 'b-is-not-valid' : 'b-is-invalid'
-            }`}
+            className={`input-gray ${toggleValidColor(errors.email, 0)}`}
           />
-          <div className=" validation">
-            {errors.email ? errors.email : '\u00A0'}
-          </div>
+          <div className=" validation">{toggleValidColor(errors.email, 1)}</div>
         </div>
         <div className="w-100">
           <label className="onboarding-label left pr-half" htmlFor="altEmail">
@@ -82,12 +80,13 @@ class BasicInfoStep extends React.PureComponent {
             placeholder="Enter an alternate email address"
             onChange={handleChange}
             defaultValue={owner.alternateEmail}
-            className={`input-gray ${
-              errors.alternateEmail !== '' ? 'b-is-not-valid' : 'b-is-invalid'
-            }`}
+            className={`input-gray ${toggleValidColor(
+              errors.alternateEmail,
+              0
+            )}`}
           />
           <div className=" validation">
-            {errors.alternateEmail ? errors.alternateEmail : '\u00A0'}
+            {toggleValidColor(errors.alternateEmail, 1)}
           </div>
         </div>
         <div className="w-100">
@@ -100,12 +99,10 @@ class BasicInfoStep extends React.PureComponent {
             placeholder="Create a password"
             onChange={handleChange}
             defaultValue={owner.password}
-            className={`input-gray ${
-              errors.password !== '' ? 'b-is-not-valid' : 'b-is-invalid'
-            }`}
+            className={`input-gray ${toggleValidColor(errors.password, 0)}`}
           />
           <div className=" validation">
-            {errors.password ? errors.password : '\u00A0'}
+            {toggleValidColor(errors.password, 1)}
           </div>
         </div>
         <div className="v-center">
@@ -116,11 +113,6 @@ class BasicInfoStep extends React.PureComponent {
           >
             Get Started
           </button>
-          <div className="already-have-account">
-            <h6>
-              Already have an account? <a href="/">Sign in</a>
-            </h6>
-          </div>
         </div>
       </form>
     );

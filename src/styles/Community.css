@@ -99,3 +99,46 @@ h3 {
   margin-bottom: 0px;
   color: var(--pp-white);
 }
+
+.project-news-header {
+  color: var(--pp-blue);
+}
+
+.no-announcements {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40rem;
+  display: block;
+  margin-bottom: 3rem;
+}
+
+.subscriber-side-section-body .no-announcements {
+  width: 20rem;
+}
+
+.ppsc-coomunity-center {
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+.ppsc-community-h3 {
+  color: var(--pp-black);
+  font-size: 18px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+
+.ppsc-community-body {
+  color: var(--pp-selected-gray);
+  width: 25rem;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.subscriber-side-section-body .ppsc-community-body {
+  width: 15rem;
+}
