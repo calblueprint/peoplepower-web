@@ -15,6 +15,10 @@ class PaymentDetailsStep extends React.Component {
     this.handleChangeDividends = this.handleChangeDividends.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onSubmit() {
     const { onSubmit } = this.props;
     const { dividendsMarked } = this.state;

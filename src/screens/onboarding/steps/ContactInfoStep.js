@@ -14,6 +14,7 @@ class ContactInfoStep extends React.PureComponent {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     const { errors } = this.props;
     if (errors.permanentState === 'Not California') {
       this.setState({ showModal: true });

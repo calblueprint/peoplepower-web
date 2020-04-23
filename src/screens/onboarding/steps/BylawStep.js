@@ -4,6 +4,10 @@ import OwnerAgreement2 from '../../../assets/ownerAgreement2.jpg';
 import Carousel from '../components/Carousel';
 
 class BylawStep extends React.PureComponent {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     const { owner, errors, onSubmit, onBack, handleChange } = this.props;
 

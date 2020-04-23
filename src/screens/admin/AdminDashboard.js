@@ -138,7 +138,7 @@ class AdminDashboard extends React.Component {
     return (
       <div className="dashboard dash-admin">
         <div>
-          <h3>Project Group</h3>
+          <h3>{projectGroup.name}</h3>
           <div className="card-holder-cont">
             {isSuperAdmin(credentials) && (
               <Link to="/superadmin">Super Admin Dashboard</Link>

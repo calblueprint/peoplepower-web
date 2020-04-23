@@ -35,6 +35,7 @@ class Onboarding extends React.Component {
 
   componentDidMount() {
     this.refreshState();
+    window.scrollTo(0, 0);
   }
 
   componentDidUpdate(prevProps) {
@@ -189,6 +190,7 @@ class Onboarding extends React.Component {
   };
 
   render() {
+    console.log(9);
     const { owner, errors } = this.state;
     const stepData = OnboardingData[owner.onboardingStep];
     const StepComponent = stepData.component;
