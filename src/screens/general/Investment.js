@@ -137,11 +137,11 @@ class Investment extends React.PureComponent {
                 <TransactionList payments={payments} />
               </div>
             </div>
-            <div className="right-content">
+            <div className="investment-right-content">
               <h2>Financial Breakdown</h2>
               <div className="fin-box">
                 <div className="investment-pie-graph">
-                  <div className="financial-breakdown-graph-caption">
+                  <div className="investment-financial-breakdown-graph-caption">
                     <p>
                       Here&apos;s how your money and others&apos; is going
                       towards helping the project group and cooperative:

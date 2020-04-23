@@ -289,7 +289,7 @@
   width: 80%;
 }
 
-.financial-breakdown-graph-caption p {
+.investment-financial-breakdown-graph-caption p {
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -301,12 +301,12 @@
   width: 400px;
 }
 
-.financial-breakdown-graph-caption {
+.investment-financial-breakdown-graph-caption {
   display: flex;
   align-content: space-between;
 }
 
-.pie-graph-label-text {
+.investment-pie-graph-label-text {
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
