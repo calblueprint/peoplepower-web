@@ -66,7 +66,7 @@ class Investment extends React.PureComponent {
 
     return (
       <div className="dashboard">
-        <div className="mainheader">
+        <div className="investments-container">
           <h1>My Investment</h1>
           <div className="columnformat">
             <div className="investment-and-transactions-content">

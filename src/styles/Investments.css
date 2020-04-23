@@ -1,8 +1,8 @@
-.mainheader {
+.investments-container {
   flex-direction: column;
 }
 
-.mainheader h1 {
+.investments-container h1 {
   margin-top: 54px;
   font-style: normal;
   font-weight: 900;
@@ -11,7 +11,7 @@
   color: var(--pp-gray);
 }
 
-.mainheader h2 {
+.investments-container h2 {
   color: var(--pp-gray);
   font-size: 18px;
   font-weight: 800;
@@ -78,7 +78,7 @@
 
 .investments-buy-shares-button {
   justify-content: center;
-  font-weight: normal; 
+  font-weight: normal;
 }
 
 .investments-buy-shares-button a {
