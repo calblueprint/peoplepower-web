@@ -48,6 +48,10 @@
   border-radius: 5px;
 }
 
+.admin-card:hover {
+  cursor: pointer; 
+}
+
 .admin-card-holder .admin-card .card-name {
   margin-right: auto;
 }
