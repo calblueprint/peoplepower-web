@@ -85,22 +85,24 @@ class Investment extends React.PureComponent {
                 <div className="investments-circle-progress-bar">
                   <SharesProgressBar numberOfShares={owner.numberOfShares} />
                 </div>
-                <div className="box-text">
-                  <h5 className="investments-share-text">
-                    You currently own {owner.numberOfShares} out of 10 possible
-                    shares
-                  </h5>
-                  <h4 className="investments-share-number">
-                    ${owner.numberOfShares * SHARE_PRICE}.00
-                  </h4>
-                </div>
-                <div className="investments-buttons">
-                  <div className="investments-buy-shares-button">
-                    {owner.numberOfShares !== MAX_SHARES && (
-                      <Link to="/buyshares">Buy Shares</Link>
-                    )}
+                <div className="flex space-between w-100">
+                  <div className="box-text">
+                    <h5 className="investments-share-text">
+                      You currently own {owner.numberOfShares} out of 10
+                      possible shares
+                    </h5>
+                    <h4 className="investments-share-number">
+                      ${owner.numberOfShares * SHARE_PRICE}.00
+                    </h4>
                   </div>
-                  <div className="investments-dividend">Divest</div>
+                  <div className="investments-buttons">
+                    {owner.numberOfShares !== MAX_SHARES && (
+                      <div className="investments-buy-shares-button">
+                        <Link to="/buyshares">Buy Shares</Link>
+                      </div>
+                    )}
+                    <div className="investments-dividend">Divest</div>
+                  </div>
                 </div>
               </div>
               <div className="investments-box-dividends">

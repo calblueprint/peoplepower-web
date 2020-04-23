@@ -22,11 +22,24 @@ const Label = props => {
   const y = cy + getYOffset(labelOffset, midAngle);
   const textAnchor = cx < x ? 'start' : 'end';
 
-  const name = datum[nameKey];
+  let name = datum[nameKey];
+  switch (name) {
+    case 'System Maintenance':
+      name = 'System \nMaintenance';
+      break;
+    case 'Community Dividends':
+      name = 'Community \nDividends';
+      break;
+    case 'Operation & Growing Co-op':
+      name = 'Operation & \nGrowing Co-op';
+      break;
+    default:
+      break;
+  }
 
   return (
     <g>
-      {name.split('\\n').map((sub, index) => (
+      {name.split('\n').map((sub, index) => (
         <text
           x={x}
           y={y + index * 18}

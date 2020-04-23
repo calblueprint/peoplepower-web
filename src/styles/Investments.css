@@ -81,6 +81,7 @@
 .investments-share-text {
   font-size: 12px;
   line-height: 19px;
+  width: 150px;
 }
 
 .investments-share-number {
@@ -91,12 +92,12 @@
 .investments-buy-shares-button {
   justify-content: center;
   font-weight: normal;
+  margin-bottom: 10px;
 }
 
 .investments-dividend {
   justify-content: center;
   align-content: center;
-  margin-top: 10px;
   font-weight: bold;
   color: var(--pp-link-gray);
   font-size: 16px;
@@ -107,6 +108,7 @@
   flex-direction: column;
   text-align: center;
   margin-right: -10px;
+  width: 150px;
 }
 
 .investments-buy-shares-button a {
@@ -191,8 +193,8 @@
 .investments-circle-progress-bar {
   display: flex;
   align-content: flex-start;
-  margin-left: -75px;
-  margin-right: -45px;
+  margin-left: -70px;
+  margin-right: -35px;
   justify-content: flex-start;
   transform: scale(0.9);
 }
@@ -349,4 +351,8 @@
   border: none;
   border-top: 1.5px solid #efefef;
   outline: none;
+}
+
+.space-between {
+  justify-content: space-between;
 }
