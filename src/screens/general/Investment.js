@@ -1,8 +1,6 @@
 import React from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import SharesProgressBar from './components/SharesProgressBar';
 import InvestmentsPieGraph from './components/InvestmentsPieGraph';
 import DividendsPreferencesModal from './components/DividendsPreferencesModal';
 import {
@@ -15,9 +13,7 @@ import '../../styles/Investments.css';
 import GreenCheck from '../../assets/green_check.png';
 import RedX from '../../assets/red_x.png';
 import TransactionList from './components/TransactionsList';
-import Constants from '../../constants';
-
-const { MAX_SHARES, SHARE_PRICE } = Constants;
+import InvestmentCard from '../shared/components/InvestmentCard';
 
 class Investment extends React.PureComponent {
   constructor(props) {
@@ -81,28 +77,7 @@ class Investment extends React.PureComponent {
           <div className="columnformat">
             <div className="investment-and-transactions-content">
               <h2>My Investment</h2>
-              <div className="investments-box-shares">
-                <div className="investments-circle-progress-bar">
-                  <SharesProgressBar numberOfShares={owner.numberOfShares} />
-                </div>
-                <div className="box-text">
-                  <h5>
-                    You currently own {owner.numberOfShares} out of 10 possible
-                    shares
-                  </h5>
-                  <br />
-                  <h4>${owner.numberOfShares * SHARE_PRICE}.00</h4>
-                </div>
-                <div className="investments-buttons">
-                  {owner.numberOfShares !== MAX_SHARES && (
-                    <div className="investments-buy-shares-button">
-                      <Link to="/buyshares">Buy Shares</Link>
-                    </div>
-                  )}
-
-                  <div className="investments-dividend">Divest</div>
-                </div>
-              </div>
+              <InvestmentCard numberOfShares={owner.numberOfShares} />
               <div className="investments-box-dividends">
                 <div className="dividends-preferences-box">
                   <h4>Dividend Preferences</h4>
