@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 import AnnouncementList from '../shared/components/AnnouncementList';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
+import createProductionChart from '../../lib/charts/productionChart';
 
 class GeneralOwnerDashboard extends React.Component {
   /* dash-solar-details will eventually be its own graph component
@@ -12,21 +15,17 @@ class GeneralOwnerDashboard extends React.Component {
   */
 
   renderSolarProjectDetails() {
-    const { solarProjects } = this.props;
-
-    const solarProjectComponent = solarProjects.map(project => {
-      return <li key={project.name}>{project.name}</li>;
-    });
-
     return (
       <div className="dash-solar-details">
-        <p>Solar Project Details </p>
-        <div>
-          <p>
-            <span>Solar Project(s):</span>
-          </p>
-          <ul>{solarProjectComponent}</ul>
-        </div>
+        <h3 className="production-chart-header">Production</h3>
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={createProductionChart([
+            { month: 'Jan', production: 23 },
+            { month: 'Feb', production: 47 },
+            { month: 'Mar', production: 85 }
+          ])}
+        />
       </div>
     );
   }
