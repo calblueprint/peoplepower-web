@@ -65,9 +65,10 @@
   margin-left: 0px;
   margin-left: 0px;
   margin-top: 10px;
-  width: 380px;
-  height: 250px;
+  width: 450px;
+  height: 550px;
   display: flex;
+  padding: 5px 35px;
 }
 
 .investments-buy-shares-button {
@@ -322,6 +323,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 .investment-page-indent {
