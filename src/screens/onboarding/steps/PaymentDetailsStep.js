@@ -164,7 +164,8 @@ class PaymentDetailsStep extends React.Component {
               </div>
               <div className="flex justify-space-between">
                 <div className="left payment-summary-shares">
-                  Transaction Fee <Tooltip label="" />
+                  Transaction Fee{' '}
+                  <Tooltip label="PayPal charges a service fee of 2.9% + $0.30." />
                 </div>
                 <div className="right payment-summary-shares">
                   $
