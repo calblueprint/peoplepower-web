@@ -1,6 +1,8 @@
 import React from 'react';
-import OwnerAgreement1 from '../../../assets/ownerAgreement1.jpg';
-import OwnerAgreement2 from '../../../assets/ownerAgreement2.jpg';
+import OwnerAgreement1 from '../../../assets/ownerAgreement1.png';
+import OwnerAgreement2 from '../../../assets/ownerAgreement2.png';
+import ErrorIcon from '../../../assets/error.svg';
+
 import Carousel from '../components/Carousel';
 
 class BylawStep extends React.PureComponent {
@@ -9,7 +11,7 @@ class BylawStep extends React.PureComponent {
   }
 
   render() {
-    const { owner, errors, onSubmit, onBack, handleChange } = this.props;
+    const { owner, errors, onSubmit, onBack, handleChangeBylaw } = this.props;
 
     const imgs = [OwnerAgreement1, OwnerAgreement2];
     return (
@@ -25,14 +27,15 @@ class BylawStep extends React.PureComponent {
                 <input
                   type="checkbox"
                   name="bylaw1"
-                  onChange={handleChange}
+                  onChange={handleChangeBylaw}
                   defaultChecked={owner.bylaw1}
                 />
-                <span className="checkmark" />
+                <span
+                  className={`checkmark ${
+                    errors.bylaw1 ? 'checkbox-error' : null
+                  }`}
+                />
               </label>
-            </div>
-            <div className=" validation">
-              {errors.bylaw1 ? errors.bylaw1 : '\u00A0'}
             </div>
             <div style={{ display: 'inline', position: 'relative' }}>
               <label className="checkbox-container">
@@ -51,14 +54,27 @@ class BylawStep extends React.PureComponent {
                 <input
                   type="checkbox"
                   name="bylaw2"
-                  onChange={handleChange}
+                  onChange={handleChangeBylaw}
                   defaultChecked={owner.bylaw2}
                 />
-                <span className="checkmark" />
+                <span
+                  className={`checkmark ${
+                    errors.bylaw2 ? 'checkbox-error' : null
+                  }`}
+                />
               </label>
             </div>
             <div className=" validation">
-              {errors.bylaw2 ? errors.bylaw2 : '\u00A0'}
+              {errors.bylaw2 || errors.bylaw1 ? (
+                <div className="error-container">
+                  <img src={ErrorIcon} alt="error" className="mr-1" />
+                  <div className="error-text">
+                    Please agree to the above terms in order to proceed.
+                  </div>
+                </div>
+              ) : (
+                '\u00A0'
+              )}
             </div>
           </div>
         </div>

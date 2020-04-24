@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SharesProgressBar from './components/SharesProgressBar';
 import DividendsPreferencesModal from './components/DividendsPreferencesModal';
-import { updateOwner, getPaymentsByIds } from '../../lib/airtable/request';
+import {
+  updateOwner,
+  getPaymentsByIds,
+  getAllInvestmentBreakdowns
+} from '../../lib/airtable/request';
 import { refreshUserData } from '../../lib/userDataUtils';
 import '../../styles/Investments.css';
 import GreenCheck from '../../assets/green_check.png';
@@ -19,7 +23,8 @@ class Investment extends React.PureComponent {
     super(props);
     this.state = {
       isReceivingDividends: true,
-      payments: []
+      payments: [],
+      investmentBreakdowns: []
     };
   }
 
@@ -28,7 +33,6 @@ class Investment extends React.PureComponent {
     if (isLoadingUserData) {
       return; // Data isn't loaded in yet
     }
-    this.getPayments();
     this.refreshState();
   }
 
@@ -40,9 +44,14 @@ class Investment extends React.PureComponent {
     }
   };
 
-  refreshState = () => {
+  refreshState = async () => {
     const { owner } = this.props;
-    this.setState({ isReceivingDividends: owner.isReceivingDividends });
+    const investmentBreakdowns = await getAllInvestmentBreakdowns();
+    this.setState({
+      isReceivingDividends: owner.isReceivingDividends,
+      investmentBreakdowns
+    });
+    this.getPayments();
   };
 
   submitPreference = async newIsReceivingDividends => {
