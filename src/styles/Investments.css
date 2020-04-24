@@ -93,6 +93,9 @@
 .investments-share-number {
   margin-top: 10px;
   font-weight: normal;
+  height: 550px;
+  display: flex;
+  padding: 5px 35px;
 }
 
 .investments-buy-shares-button {
@@ -351,7 +354,7 @@
   width: 80%;
 }
 
-.financial-breakdown-graph-caption p {
+.investment-financial-breakdown-graph-caption p {
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -363,12 +366,12 @@
   width: 400px;
 }
 
-.financial-breakdown-graph-caption {
+.investment-financial-breakdown-graph-caption {
   display: flex;
   align-content: space-between;
 }
 
-.pie-graph-label-text {
+.investment-pie-graph-label-text {
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
@@ -390,4 +393,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.investment-page-indent {
+  margin-left: 194px;
+  margin-right: 194px;
 }

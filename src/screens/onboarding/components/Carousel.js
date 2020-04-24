@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Arrow from '../../../assets/Arrow.png';
+import Arrow from '../../../assets/arrow.png';
 
 class Carousel extends Component {
   constructor(props) {
@@ -68,22 +68,36 @@ class Carousel extends Component {
         </div>
         <div className="slides">
           <div className="flex justify-space-between  slides-buttons">
-            <button
-              type="button"
-              className="arrow-circle left"
-              alt="prev button"
-              onClick={this.goToPrevSlide}
-            >
-              <img src={Arrow} className="left-arrow" alt="next button" />
-            </button>
-            <button
-              type="button"
-              className="arrow-circle right"
-              alt="next button"
-              onClick={this.goToNextSlide}
-            >
-              <img src={Arrow} className="right-arrow" alt="next button" />
-            </button>
+            {activeIndex > 0 ? (
+              <button
+                type="button"
+                className="arrow-circle left"
+                alt="prev button"
+                onClick={this.goToPrevSlide}
+              >
+                <img
+                  src={Arrow}
+                  className="left-arrow"
+                  alt="next button"
+                  width=""
+                  height=""
+                />
+              </button>
+            ) : (
+              <div className="left" />
+            )}
+            {activeIndex < slides.length - 1 ? (
+              <button
+                type="button"
+                className="arrow-circle right"
+                alt="next button"
+                onClick={this.goToNextSlide}
+              >
+                <img src={Arrow} className="right-arrow" alt="next button" />
+              </button>
+            ) : (
+              <div className="right" />
+            )}
           </div>
           <div className="w-100 flex justify-space-between ">
             {slides.map((slide, index) => (

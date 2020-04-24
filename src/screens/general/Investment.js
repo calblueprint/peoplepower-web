@@ -75,8 +75,8 @@ class Investment extends React.PureComponent {
     const { isReceivingDividends, payments, investmentBreakdowns } = this.state;
 
     return (
-      <div className="dashboard">
-        <div className="investments-container">
+      <div className="investment-page-indent">
+        <div className="mainheader">
           <h1>My Investment</h1>
           <div className="columnformat">
             <div className="investment-and-transactions-content">
@@ -108,7 +108,7 @@ class Investment extends React.PureComponent {
               <div className="investments-box-dividends">
                 <div className="dividends-preferences-box">
                   <h4>Dividend Preferences</h4>
-                  <div className="investment-">
+                  <div className="investment-status">
                     <img
                       className="investment-green-check"
                       src={
@@ -139,11 +139,11 @@ class Investment extends React.PureComponent {
                 <TransactionList payments={payments} />
               </div>
             </div>
-            <div className="right-content">
-              <h2 className="investments-h2">Financial Breakdown</h2>
+            <div className="investment-right-content">
+              <h2>Financial Breakdown</h2>
               <div className="fin-box">
                 <div className="investment-pie-graph">
-                  <div className="financial-breakdown-graph-caption">
+                  <div className="investment-financial-breakdown-graph-caption">
                     <p>
                       Here&apos;s how your money and others&apos; is going
                       towards helping the project group and cooperative:
