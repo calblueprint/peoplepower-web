@@ -78,9 +78,7 @@ class GeneralOwnerDashboard extends React.Component {
                 </Link>
               </div>
             </div>
-            <div className="dash-investment-details-cont">
-              <InvestmentCard numberOfShares={owner.numberOfShares} />
-            </div>
+            <InvestmentCard numberOfShares={owner.numberOfShares} />
           </div>
         </div>
       </div>

@@ -74,10 +74,12 @@ class Investment extends React.PureComponent {
       <div className="investment-page-indent">
         <div className="mainheader">
           <h1>My Investment</h1>
-          <div className="columnformat">
-            <div className="investment-and-transactions-content">
+          <div className="investment-column-format">
+            <div>
               <h2>My Investment</h2>
-              <InvestmentCard numberOfShares={owner.numberOfShares} />
+              <div className="investments-shares-box-container">
+                <InvestmentCard numberOfShares={owner.numberOfShares} />
+              </div>
               <div className="investments-box-dividends">
                 <div className="dividends-preferences-box">
                   <h4>Dividend Preferences</h4>
@@ -108,7 +110,7 @@ class Investment extends React.PureComponent {
                 />
               </div>
               <h2>Transactions</h2>
-              <div className="transactions-box">
+              <div className="investments-transactions-box">
                 <TransactionList payments={payments} />
               </div>
             </div>
