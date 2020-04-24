@@ -49,7 +49,7 @@
 }
 
 .admin-card:hover {
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .admin-card-holder .admin-card .card-name {
@@ -448,6 +448,11 @@
   padding-bottom: 20px;
   font-weight: bold;
   font-size: 16px;
+  color: var(--pp-black);
+}
+
+.admin-contact-field-info {
+  color: var(--pp-black);
 }
 
 .admin-contact-info {
@@ -462,7 +467,7 @@
   padding: 5px 15px;
   width: 85%;
   font-size: 16px;
-  color: var(--pp-blue);
+  color: var(--pp-black);
   line-height: 21px;
   margin-bottom: 20px;
 }

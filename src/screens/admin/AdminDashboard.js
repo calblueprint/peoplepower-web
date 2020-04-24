@@ -416,6 +416,7 @@ class AdminDashboard extends React.Component {
             </form>
           </div>
         </Modal>
+        {/* Success modal for invite  */}
         <Modal
           isOpen={showSuccessModal}
           onRequestClose={() => this.handleCloseModal('success')}
@@ -443,6 +444,7 @@ class AdminDashboard extends React.Component {
             </buton>
           </div>
         </Modal>
+        {/* Modal for admin card */}
         {displayAdminInfo ? (
           <Modal
             isOpen={showAdminModal}
@@ -504,9 +506,13 @@ class AdminDashboard extends React.Component {
                   </div>
                   {!adminEditMode ? (
                     <div className="admin-contact-info">
-                      <div className="">{displayAdminInfo.email}</div>
-                      <div className="">{displayAdminInfo.phoneNumber}</div>
-                      <div className="">
+                      <div className="admin-contact-field-info">
+                        {displayAdminInfo.email}
+                      </div>
+                      <div className="admin-contact-field-info">
+                        {displayAdminInfo.phoneNumber}
+                      </div>
+                      <div className="admin-contact-field-info">
                         {displayAdminInfo.permanentAddress.substring(
                           0,
                           displayAdminInfo.permanentAddress.indexOf(',')
