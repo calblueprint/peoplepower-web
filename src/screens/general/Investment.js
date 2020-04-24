@@ -145,7 +145,20 @@ class Investment extends React.PureComponent {
                 </div>
                 <div className="right-content">
                   <h2>Financial Breakdown</h2>
-                  <div className="fin-box" />
+                  <div className="fin-box">
+                    <div className="investment-pie-graph">
+                      <div className="investment-financial-breakdown-graph-caption">
+                        <p>
+                          Here&apos;s how your money and others&apos; is going
+                          towards helping the project group and cooperative:
+                        </p>
+                      </div>
+                      <InvestmentsPieGraph
+                        investmentBreakdowns={investmentBreakdowns}
+                        width={80}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

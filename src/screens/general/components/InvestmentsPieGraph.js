@@ -1,39 +1,20 @@
 import React from 'react';
-import { VictoryPie, VictoryLabel } from 'victory';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
+import createInvestmentBreakdownChart from '../../../lib/charts/investmentBreakdownChart';
 
 export default class InvestmentsPieGraph extends React.PureComponent {
   render() {
     const { investmentBreakdowns } = this.props;
-    const labelStyle = {
-      fill: '#24364D',
-      fontSize: '20px'
-    };
-    const dataList = investmentBreakdowns.map(data => {
-      const list = {
-        x: data.categoryName,
-        y: data.percentage,
-        label: data.categoryName
-      };
-
-      return list;
-    });
-    const colorList = investmentBreakdowns.map(data => {
-      return data.color;
-    });
+    const data = investmentBreakdowns.map(d => ({
+      name: d.categoryName,
+      value: d.percentage,
+      color: d.color
+    }));
     return (
-      <VictoryPie
-        data={dataList}
-        colorScale={colorList}
-        width={550}
-        height={550}
-        labelRadius={160}
-        labelComponent={
-          <VictoryLabel
-            className="investment-pie-graph-label-text"
-            style={labelStyle}
-            textAnchor="middle"
-          />
-        }
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={createInvestmentBreakdownChart(data)}
       />
     );
   }

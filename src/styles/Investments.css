@@ -71,6 +71,27 @@
   padding: 5px 35px;
 }
 
+.investment-pie-graph {
+  width: 500px;
+}
+
+.investment-financial-breakdown-graph-caption p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--pp-black);
+  padding: 0;
+  margin: 0;
+  margin-top: 25px;
+  width: 400px;
+}
+
+.investment-financial-breakdown-graph-caption {
+  display: flex;
+  align-content: space-between;
+}
+
 .investments-buy-shares-button {
   justify-content: center;
   font-weight: normal;
