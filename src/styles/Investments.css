@@ -335,14 +335,14 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  
+}
+
 .no-transactions-text {
   width: 450px;
   height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 .investment-page-indent {
