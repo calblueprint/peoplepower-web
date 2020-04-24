@@ -112,6 +112,7 @@ export default class ProgressBarHeader extends React.PureComponent {
             </svg>
             <div className="progressbar-step-text">Payment</div>
           </div>
+          <div className="progressbar-line progressbar-line-white" />
         </div>
       </div>
     );

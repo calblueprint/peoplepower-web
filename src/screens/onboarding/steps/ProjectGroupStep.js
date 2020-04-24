@@ -23,14 +23,9 @@ class ProjectGroupStep extends React.Component {
     } = await getAvailableProjectGroups();
     this.setState({
       allProjectGroups: selectableGroups,
-      defaultGroup,
-      displayGroupId: selectableGroups.length > 0 && selectableGroups[0].id
+      defaultGroup
     });
   }
-
-  changeDisplayedGroup = groupId => {
-    this.setState({ displayGroupId: groupId });
-  };
 
   changeSelectedGroup = groupId => {
     const { handleChange, owner } = this.props;
@@ -42,6 +37,7 @@ class ProjectGroupStep extends React.Component {
           value: ''
         }
       };
+      this.setState({ displayGroupId: '' });
     } else {
       event = {
         target: {
@@ -49,6 +45,7 @@ class ProjectGroupStep extends React.Component {
           value: groupId
         }
       };
+      this.setState({ displayGroupId: groupId });
     }
     handleChange(event);
   };
@@ -61,7 +58,7 @@ class ProjectGroupStep extends React.Component {
 
   render() {
     const { owner, errors, onSubmit, onBack } = this.props;
-    const { allProjectGroups, displayGroupId, view, defaultGroup } = this.state;
+    const { allProjectGroups, displayGroupId, view } = this.state;
 
     return (
       <div
@@ -99,16 +96,6 @@ class ProjectGroupStep extends React.Component {
                 />
               )}
               <div style={{ display: 'inline', position: 'relative' }}>
-                <label className="checkbox-container">
-                  I don’t want to join a project group at this time.
-                  <input
-                    type="checkbox"
-                    name="selectNoProjectGroup"
-                    onChange={() => this.changeSelectedGroup(defaultGroup.id)}
-                    checked={owner.projectGroupId === defaultGroup.id}
-                  />
-                  <span className="checkmark" />
-                </label>
                 <div className=" validation">
                   {errors.projectGroupId ? errors.projectGroupId : '\u00A0'}
                 </div>

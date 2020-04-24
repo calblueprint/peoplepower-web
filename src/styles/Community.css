@@ -1,5 +1,6 @@
 .community .cont {
-  margin: 0px;
+  margin-left: 194px;
+  margin-top: 55px;
 }
 
 .community h1 {
@@ -8,6 +9,7 @@
   font-size: 36px;
   line-height: 49px;
   color: var(--pp-blue);
+  margin-top: 0px;
 }
 
 .community p {
