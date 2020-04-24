@@ -1,5 +1,6 @@
 .all-bills-outer-container {
   margin: 0.8em auto;
+  margin-left: 190px;
   width: 75%;
 }
 
@@ -11,6 +12,7 @@
   font-size: 36px;
   line-height: 49px;
   color: var(--pp-blue);
+  margin-top: 0px;
 }
 
 .subscriber-back-button {
