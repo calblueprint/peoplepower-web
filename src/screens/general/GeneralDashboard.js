@@ -45,9 +45,12 @@ class GeneralOwnerDashboard extends React.PureComponent {
                 <div className="dash-solar-details">
                   <ProductionChart
                     data={[
-                      { month: 'Jan', production: 23 },
-                      { month: 'Feb', production: 47 },
-                      { month: 'Mar', production: 85 }
+                      { month: 'Jan', production: 270 },
+                      { month: 'Feb', production: 326 },
+                      { month: 'Mar', production: 500 },
+                      { month: 'Apr', production: 590 },
+                      { month: 'May', production: 580 },
+                      { month: 'Jun', production: 620 }
                     ]}
                   />
                 </div>

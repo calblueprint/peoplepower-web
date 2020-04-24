@@ -66,12 +66,18 @@ export default class DashboardChartsSection extends React.PureComponent {
               <HighchartsReact
                 highcharts={Highcharts}
                 options={createCostSavingsChart([
-                  { month: 'Jan', cost: 23, wouldBeCost: 100 },
-                  { month: 'Feb', cost: 47, wouldBeCost: 112 },
-                  { month: 'Mar', cost: 85, wouldBeCost: 130 },
-                  { month: 'Apr', cost: 23, wouldBeCost: 123 },
-                  { month: 'May', cost: 47, wouldBeCost: 147 },
-                  { month: 'Jun', cost: 85, wouldBeCost: 185 }
+                  { month: 'Jan', cost: 54, wouldBeCost: 100 },
+                  { month: 'Feb', cost: 49, wouldBeCost: 95 },
+                  { month: 'Mar', cost: 88, wouldBeCost: 155 },
+                  { month: 'Apr', cost: 75, wouldBeCost: 120 },
+                  { month: 'May', cost: 95, wouldBeCost: 180 },
+                  { month: 'Jun', cost: 60, wouldBeCost: 102 },
+                  { month: 'Jul', cost: 51, wouldBeCost: 91 },
+                  { month: 'Aug', cost: 88, wouldBeCost: 146 },
+                  { month: 'Sep', cost: 102, wouldBeCost: 190 },
+                  { month: 'Oct', cost: 80, wouldBeCost: 140 },
+                  { month: 'Nov', cost: 60, wouldBeCost: 105 },
+                  { month: 'Dec', cost: 51, wouldBeCost: 98 }
                 ])}
                 style={{ width: '100%' }}
               />
@@ -82,12 +88,12 @@ export default class DashboardChartsSection extends React.PureComponent {
             <div className="subscriber-billing-chart-container">
               <ProductionChartSubscriber
                 data={[
-                  { month: 'Jan', production: 23 },
-                  { month: 'Feb', production: 47 },
-                  { month: 'Mar', production: 85 },
-                  { month: 'Apr', production: 23 },
-                  { month: 'May', production: 47 },
-                  { month: 'Jun', production: 85 }
+                  { month: 'Jan', production: 270 },
+                  { month: 'Feb', production: 326 },
+                  { month: 'Mar', production: 500 },
+                  { month: 'Apr', production: 590 },
+                  { month: 'May', production: 580 },
+                  { month: 'Jun', production: 620 }
                 ]}
               />
             </div>
