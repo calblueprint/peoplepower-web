@@ -29,9 +29,7 @@ export default class InvestmentsPieGraph extends React.PureComponent {
         y="y"
         style={{
           data: {
-            fillOpacity: 1,
-            stroke: 'white',
-            strokeWidth: 3
+            fillOpacity: 1
           }
         }}
         labelComponent={
