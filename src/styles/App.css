@@ -34,3 +34,24 @@ body {
   height: calc(100% - 104px);
   justify-content: center;
 }
+
+.feedback-button-fixed {
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 4vh;
+  font-weight: normal;
+  color: var(--pp-medium-gray);
+  height: 7vh;
+  width: 7vh;
+  cursor: pointer;
+  margin-right: 3vh;
+  margin-bottom: 3vh;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+
+  -webkit-box-shadow: 0.1vh 0.1vh 1vh 0.1vh var(--pp-tag-gray); /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow: 0.1vh 0.1vh 1vh 0.1vh var(--pp-tag-gray); /* Firefox 3.5 - 3.6 */
+  box-shadow: 0.1vh 0.1vh 1vh 0.1vh var(--pp-tag-gray);
+}
