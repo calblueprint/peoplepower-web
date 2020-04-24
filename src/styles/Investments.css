@@ -222,6 +222,7 @@
 }
 
 .save-preferences-button {
+  font-family: Sofia Pro;
   border-radius: 40px;
   border: 0px;
   background-color: var(--pp-pink);
