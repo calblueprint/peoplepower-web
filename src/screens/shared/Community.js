@@ -28,7 +28,7 @@ class Community extends React.Component {
       body = <NoProjects />;
     } else {
       return (
-        <div className="dashboard community">
+        <div className="community">
           <div className="cont">
             <h1>Project News</h1>
             {isAdmin(credentials) ? <AddAnnouncement owner={owner} /> : null}
