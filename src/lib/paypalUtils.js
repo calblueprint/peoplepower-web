@@ -1,7 +1,20 @@
 import { createPayment, updateOwner } from './airtable/request';
 import constants from '../constants';
 
-const { BILL_PAYMENT_TYPE, BUY_SHARES_TYPE } = constants;
+const {
+  BILL_PAYMENT_TYPE,
+  BUY_SHARES_TYPE,
+  PAYPAL_TRANSACTION_FLAT_FEE_IN_DOLLARS,
+  PAYPAL_TRANSACTION_FEE_FRACTION
+} = constants;
+
+const calculatePaypalTransactionFee = transactionAmount => {
+  return (
+    (transactionAmount + PAYPAL_TRANSACTION_FLAT_FEE_IN_DOLLARS) /
+      (1 - PAYPAL_TRANSACTION_FEE_FRACTION) -
+    transactionAmount
+  );
+};
 
 const constructPaymentRecord = (details, data, ownerId) => {
   const { payer } = details;
@@ -37,4 +50,4 @@ const recordBillPayment = async (details, data, bill) => {
   });
 };
 
-export { recordBillPayment, recordSharePayment };
+export { calculatePaypalTransactionFee, recordBillPayment, recordSharePayment };
