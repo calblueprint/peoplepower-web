@@ -1,8 +1,8 @@
 import React from 'react';
 import ErrorIcon from '../../../assets/error.svg';
 import Constants from '../../../constants';
+import { calculatePaypalTransactionFee } from '../../../lib/paypalUtils';
 import Tooltip from '../components/Tooltip';
-import { getTransactionFee } from '../../../lib/paypalUtils';
 
 const { SHARE_PRICE, MAX_SHARES } = Constants;
 
@@ -68,7 +68,14 @@ class PaymentDetailsStep extends React.Component {
   render() {
     const { owner, errors, onBack, handleChange } = this.props;
     const { displayUnmarkedDividend } = this.state;
-    const transactionFee = getTransactionFee(owner.numberOfShares, SHARE_PRICE);
+    const transactionFee = calculatePaypalTransactionFee(
+      owner.numberOfShares * SHARE_PRICE
+    );
+    const totalAmountToPay = (
+      owner.numberOfShares * SHARE_PRICE +
+      parseFloat(transactionFee)
+    ).toFixed(2);
+
     return (
       <div className="w-100">
         <div className="flex w-100 justify-space-between onboarding-row ">
@@ -170,18 +177,14 @@ class PaymentDetailsStep extends React.Component {
                   <Tooltip label="PayPal charges a service fee of 2.9% + $0.30." />
                 </div>
                 <div className="right payment-summary-shares">
-                  ${transactionFee.toFixed(2)}
+                  ${transactionFee}
                 </div>
               </div>
               <hr className="payment-summary-hr" />
               <div className="flex justify-space-between">
                 <div className="left payment-summary-total">Total</div>
                 <div className="right payment-summary-total">
-                  $
-                  {(
-                    owner.numberOfShares * SHARE_PRICE +
-                    transactionFee
-                  ).toFixed(2)}
+                  ${totalAmountToPay}
                 </div>
               </div>
             </div>
