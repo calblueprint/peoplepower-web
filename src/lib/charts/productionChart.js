@@ -1,7 +1,10 @@
 const getColor = (opacity = 1) => `rgba(205, 103, 149, ${opacity})`; // Pink
 
 // Expects Data formatted as so: [{month: 'Jan', production: 1234}, {month: 'Feb', production: 2345}, ...]
-export default data => ({
+export default (data, height = 250) => ({
+  chart: {
+    height
+  },
   title: {
     text: ''
   },
@@ -35,7 +38,7 @@ export default data => ({
       lineColor: getColor(),
       fillColor: {
         linearGradient: [0, 0, 0, 300],
-        stops: [[0, getColor(0.4)], [1, getColor(0.01)]]
+        stops: [[0, getColor(0.4)], [1, getColor(0.05)]]
       },
       marker: {
         fillColor: getColor(),

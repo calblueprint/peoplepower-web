@@ -21,6 +21,7 @@
   background: white;
   padding: 20px 20px;
   border-radius: 5px;
+  width: 400px;
 }
 
 .dash-solar-details-cont h3,
@@ -31,6 +32,10 @@
   font-size: 18px;
   font-weight: 800;
   line-height: 25px;
+}
+
+.dash-solar-details h3 {
+  color: var(--pp-blue);
 }
 
 .header-button {

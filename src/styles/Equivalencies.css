@@ -1,0 +1,89 @@
+.prod-equivalencies-container {
+  background: var(--pp-bg-blue);
+  padding: 20px;
+  display: flex;
+}
+
+.prod-equivalencies-container p {
+  background: var(--pp-bg-blue);
+  margin: 0;
+  display: flex;
+}
+
+.prod-equivalencies-left {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 22px;
+  margin-right: 10px;
+}
+.prod-equivalencies-right {
+  font-size: 12px;
+  padding: 6px 8px;
+  color: white;
+  font-weight: 400;
+  width: 190px;
+  transition: background-color 0.6s ease-in-out;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-enter-active {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-exit-active {
+  transition: opacity 500ms;
+}
+
+.prod-equivalencies-right-inner {
+  display: flex;
+  align-items: center;
+}
+
+.prod-equivalencies-pink {
+  background-color: var(--pp-pink);
+}
+
+.prod-equivalencies-green {
+  background-color: var(--pp-green);
+}
+
+.prod-equivalencies-yellow {
+  background-color: var(--pp-yellow);
+}
+
+.prod-equivalencies-amt-energy {
+  background-color: var(--pp-blue);
+  margin-top: 6px;
+  margin-bottom: 6px;
+  border-radius: 2px;
+  padding: 4px;
+  padding-bottom: 2px;
+  display: inline-flex;
+  color: white;
+}
+
+.prod-equivalencies-amt-energy-num {
+  font-weight: 600;
+  margin-right: 3px;
+}
+
+.prod-equivalencies-amt {
+  font-size: 18px;
+  font-weight: 600;
+}
+.prod-equivalencies-icon {
+  width: 60px;
+  height: 60px;
+}
+.prod-equivalencies-text {
+  width: 134px;
+}

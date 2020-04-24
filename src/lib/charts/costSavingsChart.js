@@ -3,6 +3,9 @@ const getColor2 = (opacity = 1) => `rgba(224, 182, 76, ${opacity})`; // Yellow
 
 // Expects Data formatted as so: [{month: 'Jan', cost: 1234, wouldBeCost: 12451}, ...]
 export default data => ({
+  chart: {
+    height: 250
+  },
   title: {
     text: ''
   },
@@ -33,6 +36,8 @@ export default data => ({
   series: [
     {
       type: 'areaspline',
+      name: 'Cost of People Power',
+      showInLegend: false,
       data: data.map(d => d.cost),
       pointPlacement: 'on',
       color: getColor1(),
@@ -53,7 +58,25 @@ export default data => ({
       }
     },
     {
+      // Dummy Series for Legend
       type: 'spline',
+      name: 'Cost of People Power',
+      pointPlacement: 'on',
+      data: [],
+      color: getColor1(),
+      marker: {
+        enabled: false,
+        symbol: 'circle',
+        states: {
+          hover: {
+            enabled: true
+          }
+        }
+      }
+    },
+    {
+      type: 'spline',
+      name: 'Cost of PG&E',
       data: data.map(d => d.wouldBeCost),
       color: getColor2(),
       pointPlacement: 'on',

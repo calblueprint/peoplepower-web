@@ -28,6 +28,7 @@
     "react-router-dom": "^5.1.1",
     "react-scripts": "3.1.2",
     "react-table-v6": "^6.8.6",
+    "react-transition-group": "^4.3.0",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "semantic-ui-react": "^0.88.1",
