@@ -1,6 +1,9 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { recordSharePayment } from '../../../lib/paypalUtils';
+import {
+  recordSharePayment,
+  getTransactionFee
+} from '../../../lib/paypalUtils';
 import Constants from '../../../constants';
 import Tooltip from '../components/Tooltip';
 
@@ -17,9 +20,7 @@ class PaymentStep extends React.Component {
 
   render() {
     const { owner, onBack } = this.props;
-    const transactionFee =
-      (owner.numberOfShares * SHARE_PRICE + 0.3) / (1 - 0.029) -
-      owner.numberOfShares * SHARE_PRICE;
+    const transactionFee = getTransactionFee(owner.numberOfShares, SHARE_PRICE);
     return (
       <div className="w-100">
         <div className="flex w-100 justify-space-between onboarding-row ">

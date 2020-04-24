@@ -37,4 +37,11 @@ const recordBillPayment = async (details, data, bill) => {
   });
 };
 
-export { recordBillPayment, recordSharePayment };
+const getTransactionFee = (numberOfShares, sharePrice) => {
+  return (
+    (numberOfShares * sharePrice + 0.3) / (1 - 0.029) -
+    numberOfShares * sharePrice
+  );
+};
+
+export { recordBillPayment, recordSharePayment, getTransactionFee };
