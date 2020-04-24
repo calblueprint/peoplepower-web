@@ -1,6 +1,7 @@
 import React from 'react';
 import ErrorIcon from '../../../assets/error.svg';
 import Constants from '../../../constants';
+import Tooltip from '../components/Tooltip';
 
 const { SHARE_PRICE, MAX_SHARES } = Constants;
 
@@ -66,6 +67,9 @@ class PaymentDetailsStep extends React.Component {
   render() {
     const { owner, errors, onBack, handleChange } = this.props;
     const { displayUnmarkedDividend } = this.state;
+    const transactionFee =
+      (owner.numberOfShares * SHARE_PRICE + 0.3) / (1 - 0.029) -
+      owner.numberOfShares * SHARE_PRICE;
     return (
       <div className="w-100">
         <div className="flex w-100 justify-space-between onboarding-row ">
@@ -161,11 +165,24 @@ class PaymentDetailsStep extends React.Component {
               <div className="payment-summary-qty">
                 QTY: {owner.numberOfShares}
               </div>
+              <div className="flex justify-space-between">
+                <div className="left payment-summary-shares">
+                  Transaction Fee{' '}
+                  <Tooltip label="PayPal charges a service fee of 2.9% + $0.30." />
+                </div>
+                <div className="right payment-summary-shares">
+                  ${transactionFee.toFixed(2)}
+                </div>
+              </div>
               <hr className="payment-summary-hr" />
               <div className="flex justify-space-between">
                 <div className="left payment-summary-total">Total</div>
                 <div className="right payment-summary-total">
-                  ${owner.numberOfShares * SHARE_PRICE}.00
+                  $
+                  {(
+                    owner.numberOfShares * SHARE_PRICE +
+                    transactionFee
+                  ).toFixed(2)}
                 </div>
               </div>
             </div>
