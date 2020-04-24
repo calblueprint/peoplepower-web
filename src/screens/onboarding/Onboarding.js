@@ -5,7 +5,8 @@ import OnboardingData from '../../lib/onboardingData';
 import {
   validateField,
   updateOwnerFields,
-  toggleValidColor
+  toggleValidColor,
+  validateFieldSync
 } from '../../lib/onboardingUtils';
 import ProgressBar from './components/ProgressBar';
 import Constants from '../../constants';
@@ -180,6 +181,24 @@ class Onboarding extends React.Component {
     this.setState({ owner: newOwner });
   };
 
+  handleChangeBylaw = async event => {
+    const { name } = event.target;
+    const { owner, errors } = this.state;
+    const newOwner = { ...owner };
+    newOwner[name] = event.target.checked;
+    this.setState({ owner: newOwner });
+    const fieldsToValidate = ['bylaw1', 'bylaw2'];
+    const allErrorMessages = fieldsToValidate.map(f =>
+      validateFieldSync(f, owner[f])
+    );
+    const newErrors = {};
+    allErrorMessages.forEach((errorMessage, i) => {
+      const field = fieldsToValidate[i];
+      newErrors[field] = errorMessage;
+    });
+    this.setState({ errors: { ...errors, [name]: newErrors[newOwner[name]] } });
+  };
+
   onFinish = () => {
     const { owner } = this.state;
     const newOwner = { ...owner, onboardingStep: -1 };
@@ -211,6 +230,7 @@ class Onboarding extends React.Component {
           onBack={this.prevStep}
           onFinish={this.onFinish}
           handleChange={this.handleChange}
+          handleChangeBylaw={this.handleChangeBylaw}
           toggleValidColor={toggleValidColor}
         />
       </div>
