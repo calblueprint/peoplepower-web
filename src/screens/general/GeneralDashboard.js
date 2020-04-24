@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AnnouncementList from '../shared/components/AnnouncementList';
+import InvestmentCard from '../shared/components/InvestmentCard';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
 
@@ -32,7 +33,7 @@ class GeneralOwnerDashboard extends React.Component {
   }
 
   render() {
-    const { announcements } = this.props;
+    const { announcements, owner } = this.props;
     return (
       <div className="dashboard">
         <div className="cont dash-announcements-cont">
@@ -78,7 +79,7 @@ class GeneralOwnerDashboard extends React.Component {
               </div>
             </div>
             <div className="dash-investment-details-cont">
-              {'< Investment Information here >'}
+              <InvestmentCard numberOfShares={owner.numberOfShares} />
             </div>
           </div>
         </div>
