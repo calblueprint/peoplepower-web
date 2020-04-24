@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { getXOffset, getYOffset } from './utils/math';
+import { getXOffset, getYOffset } from './utils/chartUtils';
 
-const LabelLine = props => {
+const InvestmentLabelLine = props => {
   const { cx, cy, midAngle, middleRadius, radius } = props;
   const xStart = cx + getXOffset(middleRadius, midAngle);
   const yStart = cy + getYOffset(middleRadius, midAngle);
@@ -24,4 +24,4 @@ const LabelLine = props => {
   );
 };
 
-export default LabelLine;
+export default InvestmentLabelLine;

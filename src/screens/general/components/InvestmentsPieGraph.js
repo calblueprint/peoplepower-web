@@ -1,6 +1,6 @@
 import React from 'react';
 import { VictoryPie } from 'victory';
-import Label from './Label';
+import Label from './InvestmentLabel';
 
 export default class InvestmentsPieGraph extends React.PureComponent {
   render() {

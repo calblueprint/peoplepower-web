@@ -1,9 +1,9 @@
 import React from 'react';
 
-import LabelLine from './LabelLine';
-import { getXOffset, getYOffset, getAverage } from './utils/math';
+import InvestmentLabelLine from './InvestmentLabelLine';
+import { getXOffset, getYOffset, getAverage } from './utils/chartUtils';
 
-const Label = props => {
+const InvestmentLabel = props => {
   const {
     datum,
     innerRadius,
@@ -44,13 +44,13 @@ const Label = props => {
           x={x}
           y={y + index * 18}
           textAnchor={textAnchor}
-          fill="#395578"
+          fill="var(--pp-blue)"
           style={{ fontSize: '12px', width: '25px', wordBreak: 'break-word' }}
         >
           {sub}
         </text>
       ))}
-      <LabelLine
+      <InvestmentLabelLine
         cx={cx}
         cy={cy}
         middleRadius={middleRadius}
@@ -61,4 +61,4 @@ const Label = props => {
   );
 };
 
-export default Label;
+export default InvestmentLabel;

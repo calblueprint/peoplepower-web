@@ -145,7 +145,7 @@
   margin-bottom: 8px;
 }
 
-.green-check {
+.investment-green-check {
   display: flex;
   align-self: flex-start;
   max-width: 12.5px;
@@ -153,12 +153,12 @@
   margin-right: 10px;
 }
 
-.status {
+.investment-status {
   display: flex;
   justify-content: speace-between;
 }
 
-.status h6 {
+.investment-status h6 {
   margin-block-start: 0;
   margin-block-end: 0;
   color: var(--pp-gray);

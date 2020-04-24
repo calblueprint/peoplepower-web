@@ -108,9 +108,9 @@ class Investment extends React.PureComponent {
               <div className="investments-box-dividends">
                 <div className="dividends-preferences-box">
                   <h4>Dividend Preferences</h4>
-                  <div className="status">
+                  <div className="investment-">
                     <img
-                      className="green-check"
+                      className="investment-green-check"
                       src={
                         owner.isReceivingDividends === true ? GreenCheck : RedX
                       }
