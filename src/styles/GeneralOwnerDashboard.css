@@ -15,19 +15,6 @@
   margin-top: 45px;
 }
 
-.dash-solar-details-cont {
-  margin: 0px 35px;
-}
-
-.dash-solar-details-cont p,
-ul,
-button {
-  color: var(--pp-gray);
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 25px;
-}
-
 .dash-solar-details {
   background: white;
   padding: 20px 20px;
@@ -98,4 +85,11 @@ button {
 
 .left-arrow-button:hover {
   opacity: 0.8;
+}
+
+.dash-solar-details h3 {
+  color: var(--pp-blue);
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
 }
