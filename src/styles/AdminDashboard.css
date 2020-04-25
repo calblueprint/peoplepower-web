@@ -266,14 +266,17 @@
 
 .pp-tag-general {
   background: var(--pp-light-pink);
+  order: 3;
 }
 
 .pp-tag-admin {
   background: var(--pp-light-green);
+  order: 1;
 }
 
 .pp-tag-subscriber {
   background: var(--pp-light-yellow);
+  order: 2;
 }
 
 .invite-success-modal {
@@ -470,4 +473,17 @@
   color: var(--pp-black);
   line-height: 21px;
   margin-bottom: 20px;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.b-is-valid {
+  border: none;
+}
+
+.b-is-not-valid {
+  border: 1px solid var(--pp-invalid);
 }

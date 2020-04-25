@@ -6,15 +6,15 @@ import AdminDashboardCard from './components/AdminDashboardCard';
 import {
   getOwnerRecordsForProjectGroup,
   inviteMember,
-  triggerEmail
+  triggerEmail,
+  toggleValidColor,
+  validateField
 } from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
 import { isSuperAdmin } from '../../lib/credentials';
 import Success from '../../assets/success.png';
-// import { validateField } from '../../lib/onboardingUtils';
 import { updateOwner } from '../../lib/airtable/request';
-// import { refreshUserData } from '../../lib/userDataUtils';
 
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);
@@ -32,13 +32,14 @@ class AdminDashboard extends React.Component {
       inviteLastName: '',
       invitePhoneNumber: '',
       inviteEmail: '',
-      inviteShareAmount: 0,
+      inviteShareAmount: '',
       inviteWantsDividends: true,
       status: '',
       displayAdminInfo: '',
       updatedPhoneNumber: '',
       updatedEmail: '',
-      updatedAddress: ''
+      updatedAddress: '',
+      errors: {}
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -91,8 +92,7 @@ class AdminDashboard extends React.Component {
       inviteLastName,
       invitePhoneNumber,
       inviteEmail,
-      inviteShareAmount,
-      inviteWantsDividends
+      inviteShareAmount
     } = this.state;
 
     const { projectGroup } = this.props;
@@ -103,34 +103,59 @@ class AdminDashboard extends React.Component {
       phoneNumber: invitePhoneNumber,
       email: inviteEmail,
       shareAmount: parseInt(inviteShareAmount, 10),
-      wantsDividends: JSON.parse(inviteWantsDividends),
       projectGroupId: projectGroup.id
     };
 
-    const pledgeInviteId = await inviteMember(newPledgeInvite);
+    const errors = {};
+    let foundErrors = false;
+    const fields = [
+      'inviteFirstName',
+      'inviteLastName',
+      'invitePhoneNumber',
+      'inviteEmail',
+      'inviteShareAmount'
+    ];
 
-    if (pledgeInviteId === '') {
-      this.setState({
-        status: 'An error occurent when sending the invitation.'
-      });
-    }
+    const errorMessages = await Promise.all(
+      fields.map(field => validateField(field, this.state[field]))
+    );
+    errorMessages.forEach((errorMessage, i) => {
+      errors[fields[i]] = errorMessage;
+      if (errorMessage !== '') {
+        foundErrors = true;
+      }
+    });
 
-    const emailStatus = await triggerEmail(pledgeInviteId);
+    this.setState({
+      errors
+    });
 
-    if (emailStatus === 'error') {
-      this.setState({
-        status: 'An error occurent when sending the invitation.'
-      });
-    } else {
-      this.setState({
-        status: emailStatus,
-        showModal: false,
-        showSuccessModal: true
-      });
+    if (!foundErrors) {
+      const pledgeInviteId = await inviteMember(newPledgeInvite);
+
+      if (pledgeInviteId === '') {
+        this.setState({
+          status: 'An error occurent when sending the invitation.'
+        });
+      }
+
+      const emailStatus = await triggerEmail(pledgeInviteId);
+
+      if (emailStatus === 'error') {
+        this.setState({
+          status: 'An error occurent when sending the invitation.'
+        });
+      } else {
+        this.setState({
+          status: emailStatus,
+          showModal: false,
+          showSuccessModal: true
+        });
+      }
     }
   };
 
-  validateAndSubmitData = async () => {
+  validateContactAndSubmitData = async () => {
     const {
       updatedEmail,
       // updatedAddress,
@@ -162,10 +187,7 @@ class AdminDashboard extends React.Component {
     // });
 
     // if (!foundErrors) {
-    // Update owner and refresh local cache
     await updateOwner(displayAdminInfo.id, newOwner);
-    // await refreshUserData(displayAdminInfo.id);
-
     // }
   };
 
@@ -243,7 +265,8 @@ class AdminDashboard extends React.Component {
       adminEditMode,
       updatedEmail,
       updatedPhoneNumber,
-      updatedAddress
+      updatedAddress,
+      errors
     } = this.state;
 
     return (
@@ -296,7 +319,7 @@ class AdminDashboard extends React.Component {
         <Modal
           isOpen={showModal}
           contentLabel="onRequestClose Example"
-          onRequestClose={() => this.handleCloseModal('success')}
+          onRequestClose={() => this.handleCloseModal('invite')}
           className="admin-modal"
           overlayClassName="admin-modal-overlay"
         >
@@ -305,103 +328,135 @@ class AdminDashboard extends React.Component {
             <form onSubmit={this.handleSubmit}>
               <div className="admin-invite-form-row">
                 <div className="">
-                  <p>
+                  <div className="flex-col">
                     <label htmlFor="inviteFirstName">
-                      <p className="admin-invite-form-label-wrapper">
+                      <div className="admin-invite-form-label-wrapper">
                         First name{' '}
                         <span className="admin-invite-form-required-flag">
                           *
                         </span>
-                      </p>
+                      </div>
                       <input
                         type="text"
                         name="inviteFirstName"
                         placeholder="Aivant"
-                        className="admin-invite-form-input"
+                        className={`${toggleValidColor(
+                          errors.inviteFirstName,
+                          0
+                        )}
+                        admin-invite-form-input`}
                         value={inviteFirstName}
                         onChange={this.handleChange}
                       />
                     </label>
-                  </p>
+                    <div className="w-50 pr-1 validation">
+                      {toggleValidColor(errors.inviteFirstName, 1)}
+                    </div>
+                  </div>
                 </div>
                 <div className="">
-                  <p>
+                  <div className="flex-col">
                     <label htmlFor="inviteLastName">
-                      <p className="admin-invite-form-label-wrapper">
+                      <div className="admin-invite-form-label-wrapper">
                         Last name{' '}
                         <span className="admin-invite-form-required-flag">
                           *
                         </span>
-                      </p>
+                      </div>
                       <input
                         type="text"
                         name="inviteLastName"
                         placeholder="Goyal"
-                        className="admin-invite-form-input"
+                        className={`${toggleValidColor(
+                          errors.inviteLastName,
+                          0
+                        )}
+                        admin-invite-form-input`}
                         value={inviteLastName}
                         onChange={this.handleChange}
                       />
                     </label>
-                  </p>
+                    <div className="w-50 pr-1 validation">
+                      {toggleValidColor(errors.inviteLastName, 1)}
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="admin-invite-form-row">
                 <div className="">
-                  <p>
+                  <div className="flex-col">
                     <label htmlFor="invitePhoneNumber">
-                      <p className="admin-invite-form-label-wrapper">
+                      <div className="admin-invite-form-label-wrapper">
                         Phone number{' '}
                         <span className="admin-invite-form-required-flag">
                           *
                         </span>
-                      </p>
+                      </div>
                       <input
                         type="text"
                         name="invitePhoneNumber"
                         placeholder="123-456-7890"
-                        className="admin-invite-form-input"
+                        className={`${toggleValidColor(
+                          errors.invitePhoneNumber,
+                          0
+                        )}
+                        admin-invite-form-input`}
                         value={invitePhoneNumber}
                         onChange={this.handleChange}
                       />
                     </label>
-                  </p>
+                    <div className="w-50 pr-1 validation">
+                      {toggleValidColor(errors.invitePhoneNumber, 1)}
+                    </div>
+                  </div>
                 </div>
                 <div className="">
-                  <p>
+                  <div className="flex-col">
                     <label htmlFor="inviteEmail">
-                      <p className="admin-invite-form-label-wrapper">
+                      <div className="admin-invite-form-label-wrapper">
                         Email{' '}
                         <span className="admin-invite-form-required-flag">
                           *
                         </span>
-                      </p>
+                      </div>
                       <input
                         type="text"
                         name="inviteEmail"
                         placeholder="invitees_email@gmail.com"
-                        className="admin-invite-form-input"
+                        className={`${toggleValidColor(errors.inviteEmail, 0)}
+                        admin-invite-form-input`}
                         value={inviteEmail}
                         onChange={this.handleChange}
                       />
                     </label>
-                  </p>
+                    <div className="w-50 pr-1 validation">
+                      {toggleValidColor(errors.inviteEmail, 1)}
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="admin-invite-form-row">
                 <div className="">
-                  <p>
+                  <div className="flex-col">
                     <label htmlFor="inviteShareAmount">
                       Number of shares
                       <input
                         type="text"
                         name="inviteShareAmount"
-                        placeholder="Number between $0 to $1000"
-                        className="admin-invite-form-input"
+                        placeholder="Number between 1 to 10"
+                        className={`${toggleValidColor(
+                          errors.inviteShareAmount,
+                          0
+                        )}
+                        admin-invite-form-input`}
                         value={inviteShareAmount}
                         onChange={this.handleChange}
                       />
                     </label>
-                  </p>
+                    <div className="w-50 pr-1 validation">
+                      {toggleValidColor(errors.inviteShareAmount, 1)}
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="admin-invite-form-row admin-invite-form-row-submit">
