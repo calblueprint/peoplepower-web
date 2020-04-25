@@ -3,7 +3,6 @@ import 'react-circular-progressbar/dist/styles.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SharesProgressBar from './components/SharesProgressBar';
-import InvestmentsPieGraph from './components/InvestmentsPieGraph';
 import DividendsPreferencesModal from './components/DividendsPreferencesModal';
 import {
   updateOwner,
@@ -72,7 +71,7 @@ class Investment extends React.PureComponent {
 
   render() {
     const { owner } = this.props;
-    const { isReceivingDividends, payments, investmentBreakdowns } = this.state;
+    const { isReceivingDividends, payments } = this.state;
 
     return (
       <div className="dashboard">
@@ -146,23 +145,6 @@ class Investment extends React.PureComponent {
                 <div className="right-content">
                   <h2>Financial Breakdown</h2>
                   <div className="fin-box" />
-                </div>
-              </div>
-            </div>
-            <div className="investment-right-content">
-              <h2>Financial Breakdown</h2>
-              <div className="fin-box">
-                <div className="investment-pie-graph">
-                  <div className="investment-financial-breakdown-graph-caption">
-                    <p>
-                      Here&apos;s how your money and others&apos; is going
-                      towards helping the project group and cooperative:
-                    </p>
-                  </div>
-                  <InvestmentsPieGraph
-                    investmentBreakdowns={investmentBreakdowns}
-                    width={80}
-                  />
                 </div>
               </div>
             </div>
