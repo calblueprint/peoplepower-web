@@ -5,6 +5,9 @@ export default (data, height = 250) => ({
   chart: {
     height
   },
+  credits: {
+    enabled: false
+  },
   title: {
     text: ''
   },
