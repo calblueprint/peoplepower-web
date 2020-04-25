@@ -8,6 +8,9 @@ const {
   BILL_PAYMENT_TYPE
 } = constants;
 
+const PAYMENT_TYPE = 'Payment';
+const CHARGE_TYPE = 'Charge';
+
 const formatAmount = (amountInDollars, places = 2) =>
   `$${amountInDollars.toFixed(places)}`;
 
@@ -18,7 +21,7 @@ const createTransactionFromPayment = payment => ({
   payment: formatAmount(payment.amount),
   charge: '',
   amount: formatAmount(payment.amount),
-  type: 'Payment'
+  type: PAYMENT_TYPE
 });
 
 const createTransactionFromBill = bill => ({
@@ -28,7 +31,7 @@ const createTransactionFromBill = bill => ({
   charge: formatAmount(bill.currentCharges),
   payment: '',
   amount: formatAmount(bill.currentCharges),
-  type: 'Charge'
+  type: CHARGE_TYPE
 });
 
 const isBillPayment = payment => {
