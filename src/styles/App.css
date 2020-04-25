@@ -54,9 +54,15 @@ body {
   -webkit-box-shadow: 0.1vh 0.1vh 1vh 0.1vh var(--pp-tag-gray); /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
   -moz-box-shadow: 0.1vh 0.1vh 1vh 0.1vh var(--pp-tag-gray); /* Firefox 3.5 - 3.6 */
   box-shadow: 0.1vh 0.1vh 1vh 0.1vh var(--pp-tag-gray);
+
+  transition: width 0.2s ease-out;
 }
 
 .feedback-button-fixed:hover {
   background-color: var(--pp-bg-blue);
-  color: var(--pp-link-gray);
+  width: 19vh;
+  border-radius: 22.5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--pp-black);
 }
