@@ -137,13 +137,30 @@ const validateField = async (name, value) => {
   return '';
 };
 
+const validateFieldSync = (name, value) => {
+  let validators = ValidatorData[name];
+
+  // Set Default Validator
+  if (!validators) {
+    validators = [validateExistence];
+  }
+
+  for (let i = 0; i < validators.length; i += 1) {
+    const validateFunc = validators[i];
+    const error = validateFunc(value);
+    if (error !== '') {
+      return error;
+    }
+  }
+
+  return '';
+};
+
 const getAvailableProjectGroups = async () => {
   const projectGroups = await getAllProjectGroups();
 
   // TODO: double check this logic
-  const selectableGroups = projectGroups.filter(
-    group => group.isPublic && !group.isDefault
-  );
+  const selectableGroups = projectGroups.filter(group => group.isPublic);
   const defaultGroup = projectGroups.find(group => group.isDefault);
   return { selectableGroups, defaultGroup };
 };
@@ -169,6 +186,7 @@ const returnToHomepage = owner => {
 
 export {
   validateField,
+  validateFieldSync,
   getAvailableProjectGroups,
   updateOwnerFields,
   returnToHomepage,

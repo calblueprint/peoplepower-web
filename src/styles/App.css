@@ -1,3 +1,28 @@
+@font-face {
+  font-family: 'Sofia Pro';
+  src: local('Sofia-Pro-Regular'),
+    url('../assets/fonts/Sofia-Pro-Regular.otf') format('opentype');
+}
+
+/* UNCOMMENT below for other styles of Sofia Pro */
+/* @font-face {
+  font-family: 'Sofia Pro';
+  font-weight: bold;
+  src: local('Sofia-Pro-Medium'), url('../assets/fonts/Sofia-Pro-Medium.otf') format('opentype');
+} */
+
+/* @font-face {
+  font-family: 'Sofia Pro';
+  font-weight: bold;
+  src: local('Sofia-Pro-Bold'), url('../assets/fonts/Sofia-Pro-Bold.otf') format('opentype');
+} */
+
+/* @font-face {
+  font-family: 'Sofia Pro';
+  font-weight: bolder;
+  src: local('Sofia-Pro-Black'), url('../assets/fonts/Sofia-Pro-Black.otf') format('opentype');
+} */
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -7,9 +32,8 @@ body {
   height: 100%;
   background-color: var(--pp-bg-white);
   margin: 0;
-  font-family: 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Avenir', 'Sofia Pro', -apple-system, BlinkMacSystemFont,
+    'Ubuntu', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
