@@ -3,6 +3,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SharesProgressBar from './components/SharesProgressBar';
+import InvestmentsPieGraph from './components/InvestmentsPieGraph';
 import DividendsPreferencesModal from './components/DividendsPreferencesModal';
 import {
   updateOwner,
@@ -71,7 +72,7 @@ class Investment extends React.PureComponent {
 
   render() {
     const { owner } = this.props;
-    const { isReceivingDividends, payments } = this.state;
+    const { isReceivingDividends, payments, investmentBreakdowns } = this.state;
 
     return (
       <div className="dashboard">
@@ -79,7 +80,7 @@ class Investment extends React.PureComponent {
           <div className="my-investment-dashboard">
             <div className="investment-mainheader">
               <h1>My Investment</h1>
-              <div className="columnformat">
+              <div className="investments-column-format">
                 <div className="investment-and-transactions-content">
                   <h2>My Investment</h2>
                   <div className="investments-box-shares">
@@ -88,7 +89,7 @@ class Investment extends React.PureComponent {
                         numberOfShares={owner.numberOfShares}
                       />
                     </div>
-                    <div className="box-text">
+                    <div className="investments-box-text">
                       <h5>
                         You currently own {owner.numberOfShares} out of 10
                         possible shares
@@ -107,11 +108,11 @@ class Investment extends React.PureComponent {
                     </div>
                   </div>
                   <div className="investments-box-dividends">
-                    <div className="dividends-preferences-box">
+                    <div className="investments-dividends-preferences-box">
                       <h4>Dividend Preferences</h4>
-                      <div className="status">
+                      <div className="investments-status">
                         <img
-                          className="green-check"
+                          className="investments-green-check"
                           src={
                             owner.isReceivingDividends === true
                               ? GreenCheck
@@ -138,13 +139,25 @@ class Investment extends React.PureComponent {
                     />
                   </div>
                   <h2>Transactions</h2>
-                  <div className="transactions-box">
+                  <div className="investments-transactions-box">
                     <TransactionList payments={payments} />
                   </div>
                 </div>
-                <div className="right-content">
+                <div className="investment-right-content">
                   <h2>Financial Breakdown</h2>
-                  <div className="fin-box" />
+                  <div className="investments-fin-box">
+                    <div className="investment-pie-graph">
+                      <div className="investment-financial-breakdown-graph-caption">
+                        <p>
+                          Here&apos;s how your money and others&apos; is going
+                          towards helping the project group and cooperative:
+                        </p>
+                      </div>
+                      <InvestmentsPieGraph
+                        investmentBreakdowns={investmentBreakdowns}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

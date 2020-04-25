@@ -25,7 +25,7 @@ class FeedbackButton extends React.PureComponent {
       if (showText) {
         this.setState({ buttonText: 'Report an Issue' });
       }
-    }, 100);
+    }, 150);
     // if (showText) {
     //   this.setState({ buttonText: 'Report an Issue' });
     // }
