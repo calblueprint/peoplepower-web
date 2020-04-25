@@ -86,17 +86,7 @@ export default class DashboardChartsSection extends React.PureComponent {
         ) : (
           <div className="subscriber-section-body">
             <div className="subscriber-billing-chart-container">
-              <ProductionChart
-                type={1}
-                data={[
-                  { month: 'Jan', production: 270 },
-                  { month: 'Feb', production: 326 },
-                  { month: 'Mar', production: 500 },
-                  { month: 'Apr', production: 590 },
-                  { month: 'May', production: 580 },
-                  { month: 'Jun', production: 620 }
-                ]}
-              />
+              <ProductionChart subscriberVersion />
             </div>
           </div>
         )}

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -6,6 +7,8 @@ import {
   SwitchTransition,
   TransitionGroup
 } from 'react-transition-group';
+import { connect } from 'react-redux';
+import moment from 'moment';
 import '../styles/Equivalencies.css';
 import createProductionChart from '../lib/charts/productionChart';
 import Car from '../assets/car.png';
@@ -20,7 +23,8 @@ class ProductionChart extends React.Component {
     this.state = {
       equivalencyIndex: 0
     };
-    this.style = props.type === 0 ? '' : '-sub';
+    this.style = !props.subscriberVersion ? '' : '-sub';
+    this.data = this.calculateSolarProjectProduction(props.solarProjects);
   }
 
   componentDidMount() {
@@ -35,6 +39,37 @@ class ProductionChart extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
+  }
+
+  calculateSolarProjectProduction(solarProjects) {
+    // Combine Solar Project Production Data
+    const productionDataObject = solarProjects.reduce((d, project) => {
+      let { monthlyProductionData } = project;
+      if (!monthlyProductionData) {
+        return { ...d };
+      }
+      monthlyProductionData = JSON.parse(monthlyProductionData);
+      return Object.keys(monthlyProductionData).reduce(
+        (prev, date) => {
+          return {
+            ...prev,
+            [date]: (prev[date] || 0) + monthlyProductionData[date]
+          };
+        },
+        { ...d }
+      );
+    }, {});
+    // Sort Production Data by month and convert to data format for chart
+    return Object.keys(productionDataObject)
+      .map(date => [moment(date, 'MM/YYY'), productionDataObject[date]])
+      .sort((a, b) => a[0] - b[0])
+      .reduce(
+        (dataSoFar, date) => [
+          ...dataSoFar,
+          { month: date[0].format('MMM'), production: date[1] }
+        ],
+        []
+      );
   }
 
   renderEquivalencyOne = () => (
@@ -96,8 +131,9 @@ class ProductionChart extends React.Component {
   }
 
   render() {
-    const { data, type } = this.props;
+    const { subscriberVersion } = this.props;
     const equivalency = this.renderEquivalency();
+
     return (
       <div className="prod-chart-container">
         <h3>Production</h3>
@@ -105,7 +141,10 @@ class ProductionChart extends React.Component {
           <div style={{ width: '100%' }}>
             <HighchartsReact
               highcharts={Highcharts}
-              options={createProductionChart(data, type === 0 ? 250 : 300)}
+              options={createProductionChart(
+                this.data,
+                !subscriberVersion ? 250 : 300
+              )}
             />
           </div>
           <div className={`prod-equivalencies-container${this.style}`}>
@@ -133,4 +172,8 @@ class ProductionChart extends React.Component {
   }
 }
 
-export default ProductionChart;
+const mapStateToProps = state => ({
+  solarProjects: state.userData.solarProjects
+});
+
+export default connect(mapStateToProps)(ProductionChart);
