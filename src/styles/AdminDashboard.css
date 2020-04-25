@@ -1,11 +1,14 @@
-.card-holder-cont {
+.container {
+  height: 600px;
+  width: 1050px;
+}
+
+.admin-holder {
   background: white;
   border-radius: 5px;
   overflow: scroll;
-  height: 350px;
-  width: 800px;
-  padding: 0px 40px 40px 40px;
-  overflow-x: hidden;
+  padding: 10px 40px 40px 40px;
+  height: 100%;
 }
 
 .card-holder-cont h4 {
@@ -27,62 +30,68 @@
   color: var(--pp-gray);
 }
 
-.card-holder {
-  height: 100%;
+.admin-card-holder {
+  margin-top: 40px;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
 }
 
-.card-holder .admin-card {
-  display: flex;
-  justify-content: flex-end;
-  height: 70px;
-  margin: 0px;
+.admin-card-holder .admin-card {
+  /* margin: 0px; */
+  width: 295px;
   background: white;
   align-items: center;
-  padding: 35px 35px 35px 0px;
+  padding: 30px 30px 30px 30px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  border: var(--pp-selected-gray) solid 1px;
+  border-radius: 5px;
 }
 
-.card-holder .admin-card .card-profile-image {
-  width: 77px;
-  height: 77px;
-  margin-right: 34px;
-  background: var(--pp-tag-gray);
-  border-radius: 100%;
+.admin-card:hover {
+  cursor: pointer;
 }
 
-.card-holder .admin-card .card-name {
+.admin-card-holder .admin-card .card-name {
   margin-right: auto;
 }
 
-.card-holder .admin-card .card-name h3 {
+.admin-card-holder .admin-card .card-name h3 {
   font-style: normal;
   font-weight: 800;
   font-size: 16px;
   line-height: 22px;
+  text-align: left;
   color: var(--pp-black);
 }
 
-.card-holder .admin-card .card-tags {
+.admin-card-holder .admin-card .card-tags {
   display: flex;
   margin-top: 12px;
   width: 200px;
+  white-space: nowrap;
 }
 
 .invite-button {
   width: 108px;
-  margin: 35px;
+  margin: 1.33rem 0;
   height: 30px;
 }
 
-.card-holder .admin-card .card-button {
-  background-color: black;
-  color: white;
-  padding: 0.5em 1.2em;
-  border-radius: 4px;
+.admin-card-holder .admin-card .card-button {
+  margin-top: 35px;
+  height: 30px;
+  transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  background-color: var(--pp-black);
   border: none;
-  font-weight: bold;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .card-holder .admin-card h3 {
@@ -93,16 +102,6 @@
 .dash-admin {
   display: flex;
   justify-content: center;
-}
-
-.dash-admin h3 {
-  margin-top: 45px;
-  margin-bottom: 17px;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 18px;
-  line-height: 25px;
-  color: var(--pp-gray);
 }
 
 .admin-modal {
@@ -116,7 +115,7 @@
   border-radius: 4px;
   outline: none;
   width: 845px;
-  height: 515px;
+  height: 530px;
 }
 
 .admin-modal-overlay {
@@ -151,9 +150,9 @@
   padding-right: 13px;
 }
 
-.admin-invite-form label,
-p {
+.admin-invite-form label {
   display: flex;
+  margin: 10px 0;
   flex-direction: column;
   width: 361px;
   font-style: normal;
@@ -174,16 +173,20 @@ p {
 }
 
 .admin-project-group {
-  background: var(--pp-light-gray);
   height: 39px;
   display: flex;
-  justify-content: center;
-  padding-left: 14px;
   margin-top: 0px;
   width: 347px;
   border-radius: 2.5px;
   margin-bottom: 30px;
   margin-top: 8px;
+  color: var(--pp-blue-gray);
+  margin-top: 45px;
+  margin-bottom: 17px;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
 }
 
 .admin-invite-form-submit {
@@ -197,6 +200,7 @@ p {
   line-height: 22px;
   color: white;
   margin-bottom: 10px;
+  margin-top: 60px;
 }
 
 .admin-invite-form-required-flag {
@@ -215,9 +219,292 @@ p {
   flex-direction: column;
   align-items: center;
   padding: 0px;
+  /* margin-bottom: 20px;r */
 }
 
 .status-text {
   text-align: center;
   margin: 0px;
+}
+
+.super-admin-link {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: var(--pp-yellow);
+  padding: 7px 15px 0 15px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  font-weight: 12px;
+}
+
+.justify-content-space {
+  justify-content: space-between;
+}
+
+.pb-5 {
+  padding-bottom: 10px;
+}
+
+.admin-number {
+  font-size: 18px;
+  color: var(--pp-gray);
+}
+
+.admin-members-text {
+  font-size: 18px;
+  color: var(--pp-blue);
+}
+
+.member-since-text {
+  margin-top: 40px;
+  font-size: 12px;
+  font-weight: normal;
+  color: var(--pp-black);
+}
+
+.pp-tag-general {
+  background: var(--pp-light-pink);
+  order: 3;
+}
+
+.pp-tag-admin {
+  background: var(--pp-light-green);
+  order: 1;
+}
+
+.pp-tag-subscriber {
+  background: var(--pp-light-yellow);
+  order: 2;
+}
+
+.invite-success-modal {
+  width: 500px;
+  height: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0px;
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+}
+
+.invite-success-container {
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.invite-success-icon {
+  margin: 0 auto;
+}
+
+.invite-success-title {
+  font-size: 28px;
+  line-height: 38px;
+  text-align: center;
+  color: var(--pp-pink);
+}
+
+.invite-success-description {
+  font-size: 16px;
+  line-height: 26px;
+  text-align: center;
+  color: var(--pp-black);
+}
+
+.invite-success-name {
+  font-weight: bold;
+}
+
+.invite-success-button {
+  font-size: 16px;
+  line-height: 22px;
+  background-color: var(--pp-blue);
+  border-radius: 40px;
+  color: var(--pp-white);
+  margin-top: 40px;
+  margin: 40px auto 0 auto;
+  padding: 5px 20px;
+  width: 39px;
+  height: 22px;
+}
+
+.admin-pp-tag {
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 0 5px 0 0;
+  font-size: 12px;
+  font-weight: normal;
+  color: var(--pp-black);
+}
+
+.admin-contact-modal {
+  width: 420px;
+  height: 420px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0px;
+  /* background: rgb(255, 255, 255); */
+  overflow: auto;
+  border-radius: 15px;
+  outline: none;
+}
+
+.admin-contact-container-top {
+  background-color: var(--pp-green);
+  color: var(--pp-white);
+  text-align: center;
+  border-radius: 15px 15px 0 0;
+  padding: 40px;
+}
+
+.admin-contact-container-bottom {
+  background-color: white;
+  border-radius: 0 0 15px 15px;
+  padding: 40px;
+}
+
+.admin-contact-types {
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.admin-contact-name {
+  margin: 0;
+}
+
+.admin-contact-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.admin-contact-contact-info {
+  color: var(--pp-blue);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.admin-contact-edit-btn {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 22px;
+  text-align: center;
+  color: var(--pp-selected-gray);
+  border-radius: 40px;
+  padding: 0 15px;
+  margin-top: -1px;
+  border: var(--pp-selected-gray) solid 2px;
+}
+
+.admin-contact-cancel-btn {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 22px;
+  text-align: center;
+  color: var(--pp-selected-gray);
+  border-radius: 40px;
+  padding: 0 15px;
+  margin-top: -1px;
+  border: none;
+}
+
+.admin-contact-save-btn {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 22px;
+  text-align: center;
+  color: white;
+  border-radius: 40px;
+  padding: 0 15px;
+  margin-top: -1px;
+  background-color: var(--pp-blue);
+  border: var(--pp-blue) solid 2px;
+}
+
+.admin-contact-bottom-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.admin-contact-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-right: 50px;
+}
+
+.admin-contact-field-name {
+  padding-bottom: 20px;
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--pp-black);
+  justify-content: flex-start;
+}
+
+.admin-contact-field-info {
+  color: var(--pp-black);
+}
+
+.admin-contact-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.admin-contact-info-input {
+  border: 1px solid #b4b8bf;
+  border-radius: 2.5px;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: var(--pp-black);
+  line-height: 21px;
+  width: 85%;
+}
+
+.admin-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.b-is-valid {
+  border: none;
+}
+
+.b-is-not-valid {
+  border: 1.5px solid var(--pp-invalid);
+}
+
+.admin-card-address-input {
+  flex-direction: row;
+  width: 85%;
+}
+
+.paddingtop-1 {
+  padding-top: 8px;
+}
+
+.mr-1 {
+  margin-right: 5px;
+}
+
+.marginbottom-1 {
+  margin-bottom: 20px;
+}
+
+.width-1 {
+  width: 100%;
 }

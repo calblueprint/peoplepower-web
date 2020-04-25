@@ -190,5 +190,10 @@ export {
   getAvailableProjectGroups,
   updateOwnerFields,
   returnToHomepage,
-  toggleValidColor
+  toggleValidColor,
+  validateEmail,
+  validateUniqueEmail,
+  validateNumber,
+  validateExistence,
+  validateZipcode
 };
