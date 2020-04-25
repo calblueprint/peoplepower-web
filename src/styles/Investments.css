@@ -2,8 +2,7 @@
   flex-direction: column;
 }
 
-.investments-container h1,
-.investment-mainheader h1 {
+.investments-container h1 {
   margin-top: 54px;
   font-style: normal;
   font-weight: 900;
@@ -328,7 +327,7 @@
   line-height: 25px;
   color: var(--pp-gray);
 }
-
+  
 .investment-pie-graph {
   width: 500px;
 }
