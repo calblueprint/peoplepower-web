@@ -94,6 +94,8 @@ export default class DividendsPreferencesModal extends React.Component {
                   helps our cooperative grow its impact.)
                 </label>
               </div>
+            </form>
+            <div className="modal-save-preferences-button">
               <button
                 type="button"
                 className="save-preferences-button"
@@ -101,7 +103,7 @@ export default class DividendsPreferencesModal extends React.Component {
               >
                 Save Preferences
               </button>
-            </form>
+            </div>
           </div>
         </Modal>
       </div>

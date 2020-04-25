@@ -22,7 +22,7 @@
 .onboarding-label {
   color: var(--pp-gray);
   font-weight: normal;
-  font-size: 10px;
+  font-size: 12px;
   margin-bottom: 0px;
 }
 
@@ -153,7 +153,7 @@
 
 .input-gray {
   background-color: #f6f7f9;
-  color: #9ba3ad;
+  color: var(--pp-black);
   border-radius: 2.5px;
   box-shadow: none;
   margin: 0.1rem 0.1rem;
@@ -342,7 +342,7 @@ w-pasword {
 }
 
 .contact-header {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   padding-bottom: 0.5rem;
   color: var(--pp-blue);
@@ -750,8 +750,9 @@ carousel__arrow--right {
 
 .template-body {
   color: var(--pp-blue);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: bold;
+  width: 900px;
 }
 
 .template-center {
