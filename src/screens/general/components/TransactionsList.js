@@ -29,7 +29,13 @@ class TransactionList extends React.PureComponent {
       );
     });
 
-    return <div className="investments-displayed-list">{list}</div>;
+    return payments.length !== 0 ? (
+      <div className="investments-displayed-list">{list}</div>
+    ) : (
+      <div className="no-transactions-text">
+        <h4>No transactions yet!</h4>
+      </div>
+    );
   }
 }
 
