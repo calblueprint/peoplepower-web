@@ -2,8 +2,8 @@ import React from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import SharesProgressBar from './components/SharesProgressBar';
 import InvestmentsPieGraph from './components/InvestmentsPieGraph';
+import SharesProgressBar from '../shared/components/SharesProgressBar';
 import DividendsPreferencesModal from './components/DividendsPreferencesModal';
 import {
   updateOwner,
