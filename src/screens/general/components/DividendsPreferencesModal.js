@@ -43,10 +43,10 @@ export default class DividendsPreferencesModal extends React.Component {
     const { showModal, newIsReceivingDividends } = this.state;
 
     return (
-      <div className="dividends-button">
+      <div className="investments-dividends-button">
         <button
           type="button"
-          className="change-button"
+          className="investments-change-button"
           onClick={this.handleOpenModal}
         >
           Change
@@ -96,16 +96,16 @@ export default class DividendsPreferencesModal extends React.Component {
                   helps our cooperative grow its impact.)
                 </label>
               </div>
-              <div className="dividends-button-cont">
-                <button
-                  type="button"
-                  className="save-preferences-button"
-                  onClick={this.handleSubmit}
-                >
-                  Save Preferences
-                </button>
-              </div>
             </form>
+            <div className="modal-save-preferences-button">
+              <button
+                type="button"
+                className="save-preferences-button"
+                onClick={this.handleSubmit}
+              >
+                Save Preferences
+              </button>
+            </div>
           </div>
         </Modal>
       </div>

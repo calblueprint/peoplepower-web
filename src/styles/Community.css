@@ -21,7 +21,7 @@
   border-radius: 5px;
   padding: 35px;
   margin: 10px 0px;
-  width: 652px;
+  width: 560px;
   display: flex;
   justify-content: space-between;
 }
@@ -29,9 +29,10 @@
 .announcement-card p {
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 19px;
   letter-spacing: 0.01em;
+  width: 652px;
   color: var(--pp-black);
 }
 

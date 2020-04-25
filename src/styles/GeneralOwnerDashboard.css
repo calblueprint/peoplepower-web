@@ -12,7 +12,9 @@
 
 .dashboard .dash-solar-details-cont,
 .dash-announcements-cont {
-  margin-top: 45px;
+  margin-top: 55px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .dash-solar-details-cont {
@@ -48,20 +50,24 @@ button {
   display: flex;
 }
 
-.header-only {
+.header-only,
+.dashboard-investment-header {
   display: flex;
   width: 50%;
   justify-content: flex-start;
+  flex-direction: row;
+  align-self: center;
 }
 
-.header-button h3 {
-  display: flex;
-  justify-content: flex-start;
+.dashboard-investment-header {
+  margin-top: 23px;
 }
 
 .right-button {
   display: flex;
   justify-content: flex-end;
+  flex-direction: row;
+  align-self: center;
   width: 50%;
 }
 
@@ -74,7 +80,8 @@ button {
 }
 
 .dash-investment-cont {
-  margin: 32px 35px auto 35px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .dash-investment-details-cont {
@@ -98,4 +105,14 @@ button {
 
 .left-arrow-button:hover {
   opacity: 0.8;
+}
+
+.general-dashboard-right-content {
+  margin-left: 30px;
+}
+
+.dashboard-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

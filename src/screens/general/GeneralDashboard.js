@@ -35,40 +35,14 @@ class GeneralOwnerDashboard extends React.Component {
     const { announcements } = this.props;
     return (
       <div className="dashboard">
-        <div className="cont dash-announcements-cont">
-          <div className="header-button">
-            <div className="header-only">
-              <h3>Project News</h3>
-            </div>
-            <div className="right-button">
-              <Link to="/projectnews">
-                <img
-                  className="button right-arrow-button"
-                  src={RightArrow}
-                  alt="right arrow"
-                />
-              </Link>
-            </div>
-          </div>
-
-          <AnnouncementList
-            announcements={announcements}
-            css="non-admin-height"
-          />
-        </div>
-        <div>
-          <div className="dash-solar-details-cont">
-            <h3>Solar Projects</h3>
-            {this.renderSolarProjectDetails()}
-          </div>
-
-          <div className="dash-investment-cont">
+        <div className="dashboard-content">
+          <div className="dash-announcements-cont">
             <div className="header-button">
               <div className="header-only">
-                <h3>My Investment</h3>
+                <h3>Project News</h3>
               </div>
               <div className="right-button">
-                <Link to="/investment">
+                <Link to="/projectnews">
                   <img
                     className="button right-arrow-button"
                     src={RightArrow}
@@ -77,8 +51,38 @@ class GeneralOwnerDashboard extends React.Component {
                 </Link>
               </div>
             </div>
-            <div className="dash-investment-details-cont">
-              {'< Investment Information here >'}
+
+            <AnnouncementList
+              announcements={announcements}
+              css="non-admin-height"
+            />
+          </div>
+          <div>
+            <div className="general-dashboard-right-content">
+              <div className="dash-solar-details-cont">
+                <h3>Solar Projects</h3>
+                {this.renderSolarProjectDetails()}
+              </div>
+
+              <div className="dash-investment-cont">
+                <div className="header-button">
+                  <div className="dashboard-investment-header">
+                    <h3>My Investment</h3>
+                  </div>
+                  <div className="right-button">
+                    <Link to="/investment">
+                      <img
+                        className="button right-arrow-button"
+                        src={RightArrow}
+                        alt="right arrow"
+                      />
+                    </Link>
+                  </div>
+                </div>
+                <div className="dash-investment-details-cont">
+                  {'< Investment Information here >'}
+                </div>
+              </div>
             </div>
           </div>
         </div>

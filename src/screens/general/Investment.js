@@ -75,83 +75,89 @@ class Investment extends React.PureComponent {
     const { isReceivingDividends, payments, investmentBreakdowns } = this.state;
 
     return (
-      <div className="investment-page-indent">
-        <div className="mainheader">
-          <h1>My Investment</h1>
-          <div className="columnformat">
-            <div className="investment-and-transactions-content">
-              <h2 className="investments-h2">My Investment</h2>
-              <div className="investments-box-shares">
-                <div className="investments-circle-progress-bar">
-                  <SharesProgressBar numberOfShares={owner.numberOfShares} />
-                </div>
-                <div className="flex space-between w-100">
-                  <div className="box-text">
-                    <h5 className="investments-share-text">
-                      You currently own {owner.numberOfShares} out of 10
-                      possible shares
-                    </h5>
-                    <h4 className="investments-share-number">
-                      ${owner.numberOfShares * SHARE_PRICE}.00
-                    </h4>
-                  </div>
-                  <div className="investments-buttons">
-                    {owner.numberOfShares !== MAX_SHARES && (
-                      <div className="investments-buy-shares-button">
-                        <Link to="/buyshares">Buy Shares</Link>
-                      </div>
-                    )}
-                    <div className="investments-dividend">Divest</div>
-                  </div>
-                </div>
-              </div>
-              <div className="investments-box-dividends">
-                <div className="dividends-preferences-box">
-                  <h4>Dividend Preferences</h4>
-                  <div className="investment-status">
-                    <img
-                      className="investment-green-check"
-                      src={
-                        owner.isReceivingDividends === true ? GreenCheck : RedX
-                      }
-                      alt={
-                        owner.isReceivingDividends === true
-                          ? 'Green Check'
-                          : 'Red X'
-                      }
-                    />
-                    <span>
-                      {owner.isReceivingDividends === true ? (
-                        <h6>Currently receiving dividends</h6>
-                      ) : (
-                        <h6>Not receiving dividends</h6>
+      <div className="dashboard">
+        <div className="investment-margin">
+          <div className="my-investment-dashboard">
+            <div className="investment-mainheader">
+              <h1>My Investment</h1>
+              <div className="investments-column-format">
+                <div className="investment-and-transactions-content">
+                  <h2>My Investment</h2>
+                  <div className="investments-box-shares">
+                    <div className="investments-circle-progress-bar">
+                      <SharesProgressBar
+                        numberOfShares={owner.numberOfShares}
+                      />
+                    </div>
+                    <div className="investments-box-text">
+                      <h5>
+                        You currently own {owner.numberOfShares} out of 10
+                        possible shares
+                      </h5>
+                      <br />
+                      <h4>${owner.numberOfShares * SHARE_PRICE}.00</h4>
+                    </div>
+                    <div className="investments-buttons">
+                      {owner.numberOfShares !== MAX_SHARES && (
+                        <div className="investments-buy-shares-button">
+                          <Link to="/buyshares">Buy Shares</Link>
+                        </div>
                       )}
-                    </span>
+
+                      <div className="investments-dividend">Divest</div>
+                    </div>
+                  </div>
+                  <div className="investments-box-dividends">
+                    <div className="investments-dividends-preferences-box">
+                      <h4>Dividend Preferences</h4>
+                      <div className="investments-status">
+                        <img
+                          className="investments-green-check"
+                          src={
+                            owner.isReceivingDividends === true
+                              ? GreenCheck
+                              : RedX
+                          }
+                          alt={
+                            owner.isReceivingDividends === true
+                              ? 'Green Check'
+                              : 'Red X'
+                          }
+                        />
+                        <span>
+                          {owner.isReceivingDividends === true ? (
+                            <h6>Currently receiving dividends</h6>
+                          ) : (
+                            <h6>Not receiving dividends</h6>
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                    <DividendsPreferencesModal
+                      newIsReceivingDividends={isReceivingDividends}
+                      onClickSavePreferences={this.submitPreference}
+                    />
+                  </div>
+                  <h2>Transactions</h2>
+                  <div className="investments-transactions-box">
+                    <TransactionList payments={payments} />
                   </div>
                 </div>
-                <DividendsPreferencesModal
-                  newIsReceivingDividends={isReceivingDividends}
-                  onClickSavePreferences={this.submitPreference}
-                />
-              </div>
-              <h2 className="investments-h2">Transactions</h2>
-              <div className="transactions-box">
-                <TransactionList payments={payments} />
-              </div>
-            </div>
-            <div className="investment-right-content">
-              <h2>Financial Breakdown</h2>
-              <div className="fin-box">
-                <div className="investment-pie-graph">
-                  <div className="investment-financial-breakdown-graph-caption">
-                    <p>
-                      Here&apos;s how your money and others&apos; is going
-                      towards helping the project group and cooperative:
-                    </p>
+                <div className="investment-right-content">
+                  <h2>Financial Breakdown</h2>
+                  <div className="investments-fin-box">
+                    <div className="investment-pie-graph">
+                      <div className="investment-financial-breakdown-graph-caption">
+                        <p>
+                          Here&apos;s how your money and others&apos; is going
+                          towards helping the project group and cooperative:
+                        </p>
+                      </div>
+                      <InvestmentsPieGraph
+                        investmentBreakdowns={investmentBreakdowns}
+                      />
+                    </div>
                   </div>
-                  <InvestmentsPieGraph
-                    investmentBreakdowns={investmentBreakdowns}
-                  />
                 </div>
               </div>
             </div>

@@ -2,6 +2,10 @@
   flex-direction: column;
 }
 
+.investment-mainheader h1 {
+  color: var(--pp-blue);
+}
+
 .investments-container h1 {
   margin-top: 54px;
   font-style: normal;
@@ -11,24 +15,21 @@
   color: var(--pp-gray);
 }
 
+.investment-mainheader {
+  flex-direction: column;
+}
+
 .investments-container h2 {
   color: var(--pp-gray);
   font-size: 18px;
   font-weight: 800;
 }
 
-.columnformat {
+.investments-column-format {
   height: 70%;
   width: 70%;
   text-align: left;
   display: flex;
-}
-
-.investments-h2 {
-  color: var(--pp-blue);
-  font-size: 18px;
-  font-weight: bold;
-  margin: 30px 0;
 }
 
 .investments-box-shares {
@@ -59,10 +60,10 @@
   display: flex;
 }
 
-.transactions-box {
+.investments-transactions-box {
   background: white;
   border-radius: 5px;
-  padding: 15px;
+  padding: 15px 35px;
   margin-left: 0px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -71,7 +72,7 @@
   display: flex;
 }
 
-.fin-box {
+.investments-fin-box {
   background: white;
   border-radius: 5px;
   padding: 35px;
@@ -79,21 +80,6 @@
   margin-left: 0px;
   margin-top: 10px;
   width: 450px;
-  height: 400px;
-  display: flex;
-  padding: 5px 35px;
-}
-
-.investments-share-text {
-  font-size: 12px;
-  line-height: 19px;
-  width: 150px;
-}
-
-.investments-share-number {
-  margin-top: 10px;
-  font-weight: normal;
-  height: 550px;
   display: flex;
   padding: 5px 35px;
 }
@@ -101,7 +87,6 @@
 .investments-buy-shares-button {
   justify-content: center;
   font-weight: normal;
-  margin-bottom: 10px;
 }
 
 .investments-buy-shares-button a {
@@ -113,9 +98,6 @@
   margin-top: 15px;
   justify-content: center;
   align-content: center;
-  font-weight: bold;
-  color: var(--pp-link-gray);
-  font-size: 16px;
 }
 
 .investments-buttons {
@@ -123,7 +105,6 @@
   flex-direction: column;
   text-align: center;
   margin-right: -10px;
-  width: 150px;
 }
 
 .investments-buy-shares-button a {
@@ -134,9 +115,7 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  font-weight: bold;
   width: 150px;
-  padding: 5px 0;
 }
 
 .investments-buy-shares-button.disabled a {
@@ -148,40 +127,41 @@
   color: var(--pp-blue);
 }
 
-.dividends-preferences-box {
+.investments-dividends-preferences-box {
   display: flex;
   flex-direction: column;
 }
 
-.dividends-preferences-box h4 {
+.investments-dividends-preferences-box h4 {
   color: var(--pp-black);
   margin-block-start: 0;
   margin-block-end: 0;
   margin-bottom: 8px;
 }
 
-.investment-green-check {
+.investments-green-check {
   display: flex;
   align-self: flex-start;
-  max-width: 12.5px;
-  max-height: 12.5px;
-  margin-right: 10px;
+  max-width: 20px;
+  max-height: 20px;
+  margin-right: 5px;
 }
 
-.investment-status {
+.investments-status {
   display: flex;
   justify-content: speace-between;
 }
 
-.investment-status h6 {
+.investments-status h6 {
   margin-block-start: 0;
   margin-block-end: 0;
+  font-size: 12px;
   color: var(--pp-gray);
 }
 
-.dividends-button,
-.change-button {
-  background-color: var(--pp-blue);
+.investments-dividends-button,
+.investments-change-button {
+  background-color: var(--pp-black);
   border-radius: 40px;
   color: white;
   text-align: center;
@@ -189,8 +169,7 @@
   font-size: 16px;
   width: 100px;
   height: 25px;
-  align-content: flex-end;
-  font-weight: bold;
+  font-weight: normal;
   border: 0px;
   padding: 2px 5px;
   font-weight: 600;
@@ -200,11 +179,19 @@
   align-items: center;
 }
 
-.box-text {
+.investments-box-text {
   margin-right: 10px;
 }
 
-.box-text h5 {
+.investments-box-text h4 {
+  font-size: 18px;
+  font-weight: bolder;
+  font-weight: normal;
+  line-height: 22px;
+  margin-block-start: 0em;
+}
+
+.investments-box-text h5 {
   margin-block-start: 0;
   margin-block-end: 0;
   color: var(--pp-black);
@@ -214,8 +201,8 @@
 .investments-circle-progress-bar {
   display: flex;
   align-content: flex-start;
-  margin-left: -70px;
-  margin-right: -35px;
+  margin-left: -75px;
+  margin-right: -45px;
   justify-content: flex-start;
   transform: scale(0.9);
 }
@@ -253,28 +240,20 @@
   margin-top: 22.76px;
 }
 
-.dividends-button-cont {
+.modal-save-preferences-button {
+  margin-top: 52.19px;
   display: flex;
-  width: 100%;
-}
-
-.dividends-radio[type='radio']:checked + label:after {
-  background: var(--pp-link-gray);
+  justify-content: flex-end;
 }
 
 .save-preferences-button {
-  margin-top: 52.19px;
-  margin-right: 124px;
-  position: absolute;
-  right: 0;
-  float: right;
-  background-color: var(--pp-pink);
-  color: var(--pp-white);
-  font-weight: bold;
-  font-size: 16px;
-  padding: 2px 30px;
   border-radius: 40px;
-  border: none;
+  border: 0px;
+  background-color: var(--pp-pink);
+  color: white;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 5px 32px;
 }
 
 .investments-transaction-card {
@@ -300,7 +279,6 @@
   font-size: 12px;
   margin-block-start: 0em;
   margin-block-end: 0em;
-  font-size: 12px;
 }
 
 .investments-transaction-card:first-of-type {
@@ -346,6 +324,12 @@
   overflow: auto;
 }
 
+.my-investment-dashboard h2 {
+  font-size: 18px;
+  line-height: 25px;
+  color: var(--pp-gray);
+}
+
 .investment-pie-graph {
   width: 500px;
 }
@@ -375,16 +359,6 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-}
-
-.investments-transaction-card-details hr {
-  border: none;
-  border-top: 1.5px solid #efefef;
-  outline: none;
-}
-
-.space-between {
-  justify-content: space-between;
 }
 
 .no-transactions-text {
