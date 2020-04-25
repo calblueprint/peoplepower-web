@@ -52,7 +52,7 @@
 .subscriber-side-section-body {
   margin-top: 1rem;
   position: relative;
-  overflow-y: scroll;
+  overflow-x: auto;
   height: 38.5rem;
   top: 0;
   bottom: 0;

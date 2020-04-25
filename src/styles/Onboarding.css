@@ -22,7 +22,7 @@
 .onboarding-label {
   color: var(--pp-gray);
   font-weight: normal;
-  font-size: 10px;
+  font-size: 12px;
   margin-bottom: 0px;
 }
 
@@ -108,6 +108,10 @@
   right: 20%;
 }
 
+#arrow-color {
+  fill: #7387a2;
+}
+
 .getstarted-button {
   padding: 0.3rem 2rem;
   margin-top: 2rem;
@@ -123,26 +127,19 @@
 
 .left-arrow {
   transform: scaleX(-1);
-  height: 1.05rem;
-  margin-left: 0.15rem;
+  height: 3rem;
+  margin-left: 1rem;
   margin-top: 0.15rem;
-  filter: brightness(0) invert(1);
+  stroke: #7387a2;
 }
 
 .right-arrow {
   transform: scaleX(1);
-  height: 1.05rem;
-  margin-right: 0.15rem;
+  height: 3rem;
+  margin-right: 1rem;
   margin-top: 0.15rem;
-  filter: brightness(0) invert(1);
 }
 
-.arrow-circle {
-  width: 2rem;
-  height: 2rem;
-  background: var(--pp-pink);
-  border-radius: 50%;
-}
 .arrow-circle:hover {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
 }
@@ -156,12 +153,11 @@
 
 .input-gray {
   background-color: #f6f7f9;
-  color: #9ba3ad;
+  color: var(--pp-black);
   border-radius: 2.5px;
   box-shadow: none;
   margin: 0.1rem 0.1rem;
   padding: 0.4rem 0.5rem;
-  font-family: 'Nunito Sans', sans-serif;
   width: 100%;
   box-sizing: border-box;
 }
@@ -184,7 +180,6 @@
   border-radius: 2.5px;
   box-shadow: none;
   padding: 0.2rem 0.3rem;
-  font-family: 'Nunito Sans', sans-serif;
   width: 100%;
   box-sizing: border-box;
   border-color: #b4b8bf;
@@ -214,7 +209,6 @@
 
 .header {
   font-size: 18px;
-  font-family: 'Nunito Sans', sans-serif;
   color: var(--pp-blue);
   font-weight: bolder;
   width: 70%;
@@ -315,7 +309,7 @@ w-pasword {
 }
 
 .validation {
-  font-size: 9px;
+  font-size: 12px;
   padding-top: 0.1rem;
   color: var(--pp-invalid);
 }
@@ -348,9 +342,8 @@ w-pasword {
 }
 
 .contact-header {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
-  font-family: 'Nunito Sans', sans-serif;
   padding-bottom: 0.5rem;
   color: var(--pp-blue);
 }
@@ -390,6 +383,10 @@ w-pasword {
   cursor: pointer;
   height: 0;
   width: 0;
+}
+
+.checkbox-error {
+  border: var(--pp-invalid) solid 1px !important;
 }
 
 .checkmark {
@@ -450,20 +447,27 @@ w-pasword {
 .confirmation-card > .header {
   font-weight: bold;
   font-size: 18px;
-  font-family: 'Nunito Sans', sans-serif;
 }
 
 .confirmation-card > .body {
   font-size: 16px;
-  font-family: 'Nunito Sans', sans-serif;
 }
 
 .slides-buttons {
   position: absolute;
-  width: 90%;
+  width: 98%;
   margin-left: auto;
   margin-right: auto;
-  left: 5%;
+  left: 1%;
+  height: 96%;
+}
+
+.arrow-circle {
+  height: 100%;
+  width: 8%;
+  border: none;
+  background-color: #edf1f5;
+  border-radius: 5px;
 }
 
 .mt-25 {
@@ -477,9 +481,11 @@ w-pasword {
   border-width: 2px;
   border-radius: 5px;
   display: flex;
+  height: 100%;
 }
 
 .slides {
+  height: 100%;
   display: flex;
   align-items: center;
   vertical-align: middle;
@@ -500,14 +506,14 @@ w-pasword {
 
 .progress-bar {
   position: relative;
-  height: 5px;
+  height: 9px;
   width: 100%;
   border-radius: 50px;
   border: none;
 }
 
 .filler-50 {
-  background: var(--pp-pink);
+  background: var(--pp-blue);
   height: 100%;
   border-radius: 2px 0 0 0;
   transition: width 0.2s ease-in;
@@ -515,7 +521,7 @@ w-pasword {
 }
 
 .filler-100 {
-  background: var(--pp-pink);
+  background: var(--pp-blue);
   height: 100%;
   border-radius: 2px 2px 0 0;
   transition: width 0.2s ease-in;
@@ -682,7 +688,7 @@ carousel__arrow--right {
   padding: 0.5rem 0.5rem;
   color: #4f4f4f;
   text-align: left;
-  font-size: 9px;
+  font-size: 16px;
   font-weight: normal;
   border-radius: 6px;
   box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2);
@@ -723,7 +729,7 @@ carousel__arrow--right {
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
-  padding: 1rem 1.75rem;
+  padding: 1rem 0 1rem 1.75rem;
   margin: 1rem 0;
 }
 
@@ -744,8 +750,9 @@ carousel__arrow--right {
 
 .template-body {
   color: var(--pp-blue);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: bold;
+  width: 900px;
 }
 
 .template-center {
@@ -770,6 +777,7 @@ carousel__arrow--right {
 .projectgroup-selected-header {
   color: var(--pp-blue);
   font-size: 18px;
+  font-weight: bold;
   padding-bottom: 1.5rem;
 }
 
@@ -803,8 +811,9 @@ carousel__arrow--right {
   background-color: #f7f8fa;
 }
 
-.project-group-list-option-background {
+.project-group-list-option-selected {
   background-color: #f7f8fa;
+  border: var(--pp-black) solid 2px;
 }
 
 .project-group-list-option:focus {
@@ -815,7 +824,7 @@ carousel__arrow--right {
   color: var(--pp-black);
   font-size: 16px;
   font-weight: bold;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.2rem;
 }
 
 .project-group-list-option-body {
@@ -851,8 +860,10 @@ carousel__arrow--right {
 
 .bylaws-hyperlink {
   color: var(--pp-pink);
+  background-color: rgba(205, 103, 149, 0.1);
   font-weight: bold;
   text-decoration: none;
+  padding: 0 0.2rem;
 }
 
 .payment-summary-header {
@@ -867,6 +878,7 @@ carousel__arrow--right {
 .payment-summary-shares {
   font-size: 16px;
   line-height: 22px;
+  font-weight: 500;
   color: var(--pp-black);
   margin: 0 1.75rem 0.3rem 1.75rem;
 }
@@ -1190,6 +1202,17 @@ button {
 
 .progressbar-line-active {
   background-color: var(--pp-blue);
+}
+
+.progressbar-line-white {
+  content: '';
+  flex-grow: 0.18;
+  height: 6px;
+  background-color: white;
+  display: block;
+  z-index: 0;
+  transform: scaleX(1) translate(-1rem, 1.85rem);
+  transform-origin: left;
 }
 
 .mb-22px {

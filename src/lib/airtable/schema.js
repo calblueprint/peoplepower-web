@@ -12,7 +12,8 @@ export const Tables = {
   RateSchedule: 'Rate Schedule',
   PledgeInvite: 'Pledge Invite',
   Payment: 'Payment',
-  TestDevelopment: 'Test (Development)'
+  TestDevelopment: 'Test (Development)',
+  InvestmentBreakdown: 'Investment Breakdown'
 };
 
 export const Columns = {
@@ -57,7 +58,7 @@ export const Columns = {
       name: `Certify Permanent Address`,
       type: `checkbox`
     },
-    rateSchedulIds: { name: `Rate Schedule`, type: `foreignKey-many` },
+    rateScheduleId: { name: `Rate Schedule`, type: `foreignKey-one` },
     latestBillNumber: { name: `Latest Bill Number`, type: `rollup` },
     meterId: { name: `Meter ID`, type: `text` },
     isSuperAdmin: { name: `Is Super Admin?`, type: `checkbox` },
@@ -123,7 +124,8 @@ export const Columns = {
     subscriberIds: { name: `Subscribers`, type: `foreignKey-many` },
     enphaseSystemId: { name: `Enphase System ID`, type: `text` },
     enphaseUserId: { name: `Enphase User ID`, type: `text` },
-    subscriberBilIds: { name: `Subscriber Bill`, type: `foreignKey-many` }
+    subscriberBilIds: { name: `Subscriber Bill`, type: `foreignKey-many` },
+    monthlyProductionData: { name: `Monthly Production Data`, type: `text` }
   },
   'Subscriber Bill': {
     primaryKey: { name: `Primary Key`, type: `formula` },
@@ -202,5 +204,10 @@ export const Columns = {
     name: { name: `Name`, type: `text` },
     tag: { name: `Tag`, type: `text` },
     id: { name: `ID`, type: `formula` }
+  },
+  'Investment Breakdown': {
+    categoryName: { name: `Category Name`, type: `text` },
+    percentage: { name: `Percentage`, type: `number` },
+    color: { name: `Color`, type: `text` }
   }
 };

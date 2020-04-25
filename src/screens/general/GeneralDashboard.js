@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AnnouncementList from '../shared/components/AnnouncementList';
+import InvestmentCard from '../shared/components/InvestmentCard';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
 
@@ -11,8 +12,8 @@ class GeneralOwnerDashboard extends React.Component {
      it when it's loaded.
   */
 
-  renderUserDetails() {
-    const { owner, projectGroup, solarProjects } = this.props;
+  renderSolarProjectDetails() {
+    const { solarProjects } = this.props;
 
     const solarProjectComponent = solarProjects.map(project => {
       return <li key={project.name}>{project.name}</li>;
@@ -20,23 +21,8 @@ class GeneralOwnerDashboard extends React.Component {
 
     return (
       <div className="dash-solar-details">
-        <p style={{ fontWeight: '800', color: 'var(--pp-black)' }}>
-          Welcome, {owner.name}
-        </p>
-        <p>{'< Placeholder Admin Details >'} </p>
+        <p>Solar Project Details </p>
         <div>
-          <p>
-            <span>Email:</span> {owner.email}
-          </p>
-          <p>
-            <span>Phone Number:</span> {owner.phoneNumber}
-          </p>
-          <p>
-            <span>Address:</span> {owner.permanentAddress}
-          </p>
-          <p>
-            <span>Project Group:</span> {projectGroup.name}
-          </p>
           <p>
             <span>Solar Project(s):</span>
           </p>
@@ -47,44 +33,17 @@ class GeneralOwnerDashboard extends React.Component {
   }
 
   render() {
-    const { announcements } = this.props;
+    const { announcements, owner } = this.props;
     return (
       <div className="dashboard">
-        <div className="cont dash-announcements-cont">
-          <div className="header-button">
-            <div className="header-only">
-              <h3>Project News</h3>
-            </div>
-            <div className="right-button">
-              <Link to="/projectnews">
-                <img
-                  className="button right-arrow-button"
-                  src={RightArrow}
-                  alt="right arrow"
-                />
-              </Link>
-            </div>
-          </div>
-
-          <AnnouncementList
-            announcements={announcements}
-            css="non-admin-height"
-          />
-        </div>
-        <div>
-          <div className="dash-solar-details-cont">
-            <h3>Solar Projects</h3>
-            {/* TODO: to be eventually replaced with solar project */}
-            {this.renderUserDetails()}
-          </div>
-
-          <div className="dash-investment-cont">
+        <div className="dashboard-content">
+          <div className="dash-announcements-cont">
             <div className="header-button">
               <div className="header-only">
-                <h3>My Investment</h3>
+                <h3>Project News</h3>
               </div>
               <div className="right-button">
-                <Link to="/investment">
+                <Link to="/projectnews">
                   <img
                     className="button right-arrow-button"
                     src={RightArrow}
@@ -93,8 +52,36 @@ class GeneralOwnerDashboard extends React.Component {
                 </Link>
               </div>
             </div>
-            <div className="dash-investment-details-cont">
-              {'< Investment Information here >'}
+
+            <AnnouncementList
+              announcements={announcements}
+              css="non-admin-height"
+            />
+          </div>
+          <div>
+            <div className="general-dashboard-right-content">
+              <div className="dash-solar-details-cont">
+                <h3>Solar Projects</h3>
+                {this.renderSolarProjectDetails()}
+              </div>
+
+              <div className="dash-investment-cont">
+                <div className="header-button">
+                  <div className="dashboard-investment-header">
+                    <h3>My Investment</h3>
+                  </div>
+                  <div className="right-button">
+                    <Link to="/investment">
+                      <img
+                        className="button right-arrow-button"
+                        src={RightArrow}
+                        alt="right arrow"
+                      />
+                    </Link>
+                  </div>
+                </div>
+                <InvestmentCard numberOfShares={owner.numberOfShares} />
+              </div>
             </div>
           </div>
         </div>

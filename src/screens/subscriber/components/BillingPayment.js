@@ -1,15 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2/lib';
 import { refreshUserData } from '../../../lib/userDataUtils';
 import {
   getSubscriberTransactionData,
   formatAmount
 } from '../../../lib/subscriberUtils';
+import processCurrencyInput from '../../../lib/billingUtils';
 import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
-import RightArrow from '../../../assets/right_arrow.png';
+import LeftArrow from '../../../assets/left_arrow.png';
 import { recordBillPayment } from '../../../lib/paypalUtils';
 import Constants from '../../../constants';
 
@@ -37,10 +38,12 @@ class BillingPayment extends React.Component {
   };
 
   onChangePaymentAmount = event => {
-    const { activeBill } = this.state;
-    let newAmount = event.target.value;
-    newAmount = Math.max(0.01, newAmount); // Pay atleast 1 cent
-    newAmount = Math.min(activeBill.balance, newAmount); // Pay no more than balance
+    const { activeBill, paymentAmount } = this.state;
+    const newAmount = processCurrencyInput(
+      event,
+      activeBill.balance,
+      paymentAmount
+    );
     this.setState({ paymentAmount: newAmount });
   };
 
@@ -76,11 +79,13 @@ class BillingPayment extends React.Component {
         <div className="billing-dash-outer-container">
           <button className="subscriber-back-button" type="button">
             <div className="billing-payment-back-button-container">
-              <img
-                className="button right-arrow-button-flipped"
-                src={RightArrow}
-                alt="right arrow"
-              />
+              <Link to="/billing">
+                <img
+                  className="button left-arrow-button"
+                  src={LeftArrow}
+                  alt="left arrow"
+                />
+              </Link>
               <label>Back</label>
             </div>
           </button>
@@ -166,7 +171,7 @@ class BillingPayment extends React.Component {
                         className="line-item line-item-value line-item-input"
                         value={paymentAmount}
                         type="number"
-                        onChange={this.onChangePaymentAmount}
+                        onKeyDown={this.onChangePaymentAmount}
                       />
                     </div>
                     <div className="billing-balance-nums-line">
@@ -185,7 +190,7 @@ class BillingPayment extends React.Component {
                         <strong>Payment Total</strong>
                       </p>
                       <p className="line-item-total line-item-value">
-                        <strong>{formatAmount(activeBalance)}</strong>
+                        <strong>{paymentAmount}</strong>
                       </p>
                     </div>
                   </div>

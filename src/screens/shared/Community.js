@@ -28,7 +28,7 @@ class Community extends React.Component {
       body = <NoProjects />;
     } else {
       return (
-        <div className="dashboard community">
+        <div className="community">
           <div className="cont">
             <h1>Project News</h1>
             {isAdmin(credentials) ? <AddAnnouncement owner={owner} /> : null}
@@ -41,10 +41,12 @@ class Community extends React.Component {
       );
     }
     return (
-      <div className="cont">
-        <div className="ppsc-coomunity-center">
-          <h1 className="project-news-header">Project News</h1>
-          {body}
+      <div className="project-news-dashboard">
+        <div className="cont">
+          <div className="ppsc-coomunity-center">
+            <h1 className="project-news-header">Project News</h1>
+            {body}
+          </div>
         </div>
       </div>
     );

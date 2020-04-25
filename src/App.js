@@ -30,6 +30,7 @@ import BuyShares from './screens/general/BuyShares';
 import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
 import BillingPayment from './screens/subscriber/components/BillingPayment';
 import PPRoute from './components/PPRoute';
+import FeedbackButton from './components/FeedbackButton';
 
 class App extends React.Component {
   componentDidMount() {
@@ -97,6 +98,7 @@ class App extends React.Component {
               credential={Credentials.SUBSCRIBER} // Subscribers only
               path="/billing"
               component={Billing}
+              history={history}
             />
             <AuthenticatedRoute
               credential={Credentials.SUBSCRIBER} // Subscribers only
@@ -110,6 +112,7 @@ class App extends React.Component {
             />
             <PPRoute path="*" component={ErrorPage} />
           </Switch>
+          <FeedbackButton history={history} />
         </div>
       </ConnectedRouter>
     );

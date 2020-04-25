@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2';
-import SharesProgressBar from './components/SharesProgressBar';
+import SharesProgressBar from '../shared/components/SharesProgressBar';
 import LeftArrow from '../../assets/left_arrow.png';
 import '../../styles/BuyShares.css';
 import { recordSharePayment } from '../../lib/paypalUtils';
@@ -76,9 +76,9 @@ class BuyShares extends React.PureComponent {
           <div className="left-button">
             <Link to="/investment">
               <img
-                className="button right-arrow-button"
+                className="button left-arrow-button"
                 src={LeftArrow}
-                alt="back arrow"
+                alt="left arrow"
               />
             </Link>
           </div>
@@ -90,7 +90,7 @@ class BuyShares extends React.PureComponent {
         <div className="buy-shares-boxes-content">
           <div className="number-of-shares-box">
             <div className="amount-of-shares-header">
-              Number of shares (max {MAX_SHARES})
+              Number of shares (max {MAX_SHARES - owner.numberOfShares})
             </div>
             <div className="payment-shares-input">
               <label htmlFor="" className="w-100">
@@ -104,7 +104,7 @@ class BuyShares extends React.PureComponent {
                 <input
                   name="numberOfShares"
                   className="payment-shares-input-field"
-                  value={totalShares}
+                  value={totalShares - owner.numberOfShares}
                   disabled
                 />
                 <button
@@ -124,7 +124,8 @@ class BuyShares extends React.PureComponent {
               </div>
               <div className="buy-shares-progress-bar-text">
                 <h5>
-                  You are purchasing {sharesBuying} additional shares,
+                  You are purchasing {totalShares - owner.numberOfShares}{' '}
+                  additional shares,
                   <br />
                   owning a total of {totalShares} shares.
                 </h5>
