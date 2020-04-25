@@ -68,7 +68,7 @@
   display: flex;
 }
 
-.fin-box {
+.investments-financial-breakdown-box {
   background: white;
   border-radius: 5px;
   padding: 35px;
@@ -136,7 +136,7 @@
   margin-bottom: 8px;
 }
 
-.green-check {
+.investment-dividends-green-check {
   display: flex;
   align-self: flex-start;
   max-width: 20px;
@@ -144,20 +144,20 @@
   margin-right: 5px;
 }
 
-.status {
+.investment-dividends-status {
   display: flex;
   justify-content: speace-between;
 }
 
-.status h6 {
+.investment-dividends-status h6 {
   margin-block-start: 0;
   margin-block-end: 0;
   font-size: 12px;
   color: var(--pp-gray);
 }
 
-.dividends-button,
-.change-button {
+.investment-dividends-button,
+.investment-dividends-change-button {
   background-color: var(--pp-black);
   border-radius: 40px;
   color: white;
@@ -176,11 +176,11 @@
   align-items: center;
 }
 
-.box-text {
+.investment-shares-text {
   margin-right: 10px;
 }
 
-.box-text h4 {
+.investment-shares-text h4 {
   font-size: 18px;
   font-weight: bolder;
   font-weight: normal;
@@ -188,7 +188,7 @@
   margin-block-start: 0em;
 }
 
-.box-text h5 {
+.investment-shares-text h5 {
   margin-block-start: 0;
   margin-block-end: 0;
   color: var(--pp-black);
@@ -327,7 +327,7 @@
   line-height: 25px;
   color: var(--pp-gray);
 }
-  
+
 .investment-pie-graph {
   width: 500px;
 }

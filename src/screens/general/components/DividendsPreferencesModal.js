@@ -43,10 +43,10 @@ export default class DividendsPreferencesModal extends React.Component {
     const { showModal, newIsReceivingDividends } = this.state;
 
     return (
-      <div className="dividends-button">
+      <div className="investment-dividends-button">
         <button
           type="button"
-          className="change-button"
+          className="investment-dividends-change-button"
           onClick={this.handleOpenModal}
         >
           Change

@@ -88,7 +88,7 @@ class Investment extends React.PureComponent {
                         numberOfShares={owner.numberOfShares}
                       />
                     </div>
-                    <div className="box-text">
+                    <div className="investment-shares-text">
                       <h5>
                         You currently own {owner.numberOfShares} out of 10
                         possible shares
@@ -109,9 +109,9 @@ class Investment extends React.PureComponent {
                   <div className="investments-box-dividends">
                     <div className="dividends-preferences-box">
                       <h4>Dividend Preferences</h4>
-                      <div className="status">
+                      <div className="investment-dividends-status">
                         <img
-                          className="green-check"
+                          className="investment-dividends-green-check"
                           src={
                             owner.isReceivingDividends === true
                               ? GreenCheck
@@ -144,7 +144,7 @@ class Investment extends React.PureComponent {
                 </div>
                 <div className="right-content">
                   <h2>Financial Breakdown</h2>
-                  <div className="fin-box" />
+                  <div className="investments-financial-breakdown-box" />
                 </div>
               </div>
             </div>
