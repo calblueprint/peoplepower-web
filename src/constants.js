@@ -5,6 +5,9 @@ const constants = {
   SUBSCRIBER_OWNER: 'Subscriber',
   GENERAL_OWNER: 'General',
 
+  PAYPAL_TRANSACTION_FEE_FRACTION: 0.029,
+  PAYPAL_TRANSACTION_FLAT_FEE_IN_DOLLARS: 0.3,
+
   // PAYPAL PAYMENT TYPES
   BILL_PAYMENT_TYPE: 'Bill Payment',
   BUY_SHARES_TYPE: 'Buy Shares',
@@ -27,7 +30,10 @@ const constants = {
   // BILL GENERATION
   BACKEND_URL: 'https://peoplepower-node.herokuapp.com',
   BILL_ACTIVE_STATUS: 'Active',
-  TRANSACTION_DATE_FORMAT: 'M/DD/YYYY'
+  TRANSACTION_DATE_FORMAT: 'M/DD/YYYY',
+
+  // MISC
+  BUG_REPORT_URL: 'https://airtable.com/shrY9otlnVK9gyfrl'
 };
 
 export default constants;
