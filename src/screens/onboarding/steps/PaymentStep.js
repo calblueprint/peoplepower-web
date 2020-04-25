@@ -20,13 +20,11 @@ class PaymentStep extends React.Component {
 
   render() {
     const { owner, onBack } = this.props;
-    const transactionFee = calculatePaypalTransactionFee(
-      owner.numberOfShares * SHARE_PRICE
+    const baseAmount = owner.numberOfShares * SHARE_PRICE;
+    const transactionFee = calculatePaypalTransactionFee(baseAmount);
+    const totalAmountToPay = (baseAmount + parseFloat(transactionFee)).toFixed(
+      2
     );
-    const totalAmountToPay = (
-      owner.numberOfShares * SHARE_PRICE +
-      parseFloat(transactionFee)
-    ).toFixed(2);
 
     return (
       <div className="w-100">
@@ -51,7 +49,7 @@ class PaymentStep extends React.Component {
               <div className="flex justify-space-between">
                 <div className="left payment-summary-shares">Shares</div>
                 <div className="right payment-summary-shares">
-                  ${owner.numberOfShares * SHARE_PRICE}.00
+                  ${baseAmount}.00
                 </div>
               </div>
               <div className="payment-summary-qty">
