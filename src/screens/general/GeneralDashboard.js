@@ -5,6 +5,7 @@ import AnnouncementList from '../shared/components/AnnouncementList';
 import InvestmentCard from '../shared/components/InvestmentCard';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
+import NoProjects from '../shared/components/NoProjects';
 
 class GeneralOwnerDashboard extends React.Component {
   /* dash-solar-details will eventually be its own graph component
@@ -53,10 +54,14 @@ class GeneralOwnerDashboard extends React.Component {
               </div>
             </div>
 
-            <AnnouncementList
-              announcements={announcements}
-              css="non-admin-height"
-            />
+            {announcements.length > 0 ? (
+              <AnnouncementList
+                announcements={announcements}
+                css="non-admin-height"
+              />
+            ) : (
+              <NoProjects />
+            )}
           </div>
           <div>
             <div className="general-dashboard-right-content">

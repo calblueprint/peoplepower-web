@@ -79,6 +79,7 @@ span {
 }
 
 .dropdown-container .settings-dropdown .dropdown-content {
+  font-family: Sofia Pro;
   visibility: hidden;
   background-color: white;
   padding: 0.7rem 0.7rem;
@@ -103,10 +104,19 @@ span {
 }
 
 .dropdown-link {
-  font-size: 15px;
+  font-size: 16px;
   border: 0px;
   font-weight: 600;
   color: var(--pp-blue);
+  padding: 0px;
+}
+
+.settings-dropdown-logout {
+  padding-top: 0px;
+}
+
+.settings-dropdown-logout {
+  padding-top: 0px;
 }
 
 .settings-dropdown-logout {
@@ -119,6 +129,9 @@ span {
 
 .dropdown-logout {
   padding: 0px;
+  background-color: white;
+  font-family: Sofia Pro;
+  text-align: left;
 }
 
 /* dropdown arrow */
@@ -126,7 +139,7 @@ span {
   content: '';
   position: absolute;
   bottom: 100%;
-  left: 55%;
+  left: 68%;
   margin-left: 0px;
   border-width: 5px;
   border-style: solid;

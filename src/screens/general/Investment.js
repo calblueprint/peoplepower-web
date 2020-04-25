@@ -82,10 +82,10 @@ class Investment extends React.PureComponent {
                   <div className="investments-shares-box-container">
                     <InvestmentCard numberOfShares={owner.numberOfShares} />
                   </div>
-                  <div className="investments-box-dividends">
+                  <div className="investments-box-dividends investments-financial-breakdown-box">
                     <div className="investments-dividends-preferences-box">
                       <h4>Dividend Preferences</h4>
-                      <div className="investments-status">
+                      <div className="investment-dividends-status">
                         <img
                           className="investments-green-check"
                           src={
@@ -120,7 +120,7 @@ class Investment extends React.PureComponent {
                 </div>
                 <div className="investment-right-content">
                   <h2>Financial Breakdown</h2>
-                  <div className="investments-fin-box">
+                  <div className="investments-financial-breakdown-box">
                     <div className="investment-pie-graph">
                       <div className="investment-financial-breakdown-graph-caption">
                         <p>

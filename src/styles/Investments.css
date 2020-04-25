@@ -96,12 +96,12 @@
   margin-right: 5px;
 }
 
-.investments-status {
+.investment-dividends-status {
   display: flex;
   justify-content: speace-between;
 }
 
-.investments-status h6 {
+.investment-dividends-status h6 {
   margin-block-start: 0;
   margin-block-end: 0;
   font-size: 12px;
@@ -243,6 +243,13 @@
 
 .investments-displayed-list {
   overflow: auto;
+  width: 100%;
+}
+
+.my-investment-dashboard h2 {
+  font-size: 18px;
+  line-height: 25px;
+  color: var(--pp-gray);
 }
 
 .my-investment-dashboard h2 {
@@ -257,6 +264,13 @@
 
 .Victory-Container {
   width: 80%;
+}
+
+.investments-financial-breakdown-box {
+  background: white;
+  border-radius: 5px;
+  padding: 35px;
+  margin-bottom: 8px;
 }
 
 .investment-financial-breakdown-graph-caption p {

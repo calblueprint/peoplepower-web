@@ -12,13 +12,8 @@
 
 .dashboard .dash-solar-details-cont,
 .dash-announcements-cont {
-  margin-top: 55px;
+  margin-top: 45px;
   margin-left: 0px;
-  margin-right: 0px;
-}
-
-.dash-solar-details-cont {
-  margin: 0px 35px;
 }
 
 .dash-solar-details-cont p,
