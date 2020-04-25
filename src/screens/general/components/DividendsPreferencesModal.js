@@ -43,10 +43,10 @@ export default class DividendsPreferencesModal extends React.Component {
     const { showModal, newIsReceivingDividends } = this.state;
 
     return (
-      <div className="dividends-button">
+      <div className="investments-dividends-button">
         <button
           type="button"
-          className="change-button"
+          className="investments-change-button"
           onClick={this.handleOpenModal}
         >
           Change
@@ -73,8 +73,9 @@ export default class DividendsPreferencesModal extends React.Component {
                   value="yes"
                   checked={newIsReceivingDividends ? 'checked' : false}
                   onClick={this.handleCheckYes}
+                  className="dividends-radio"
                 />
-                <label htmlFor="yes-dividends">
+                <label htmlFor="yes-dividends" className="dividends-radio">
                   Yes! I&apos;d like dividends, thank you!
                 </label>
               </div>
@@ -86,6 +87,7 @@ export default class DividendsPreferencesModal extends React.Component {
                   value="no"
                   checked={!newIsReceivingDividends ? 'checked' : false}
                   onClick={this.handleCheckNo}
+                  className="dividends-radio"
                 />
                 <label htmlFor="no-dividends">
                   No dividends please! (No pressure to choose this option. We
@@ -94,6 +96,8 @@ export default class DividendsPreferencesModal extends React.Component {
                   helps our cooperative grow its impact.)
                 </label>
               </div>
+            </form>
+            <div className="modal-save-preferences-button">
               <button
                 type="button"
                 className="save-preferences-button"
@@ -101,7 +105,7 @@ export default class DividendsPreferencesModal extends React.Component {
               >
                 Save Preferences
               </button>
-            </form>
+            </div>
           </div>
         </Modal>
       </div>

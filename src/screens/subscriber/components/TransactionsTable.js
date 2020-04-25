@@ -19,25 +19,51 @@ const TransactionsTable = ({
   const fields = fieldsToShow || [
     'date',
     'description',
+    'type',
     'charge',
     'payment',
     'balance'
   ];
   const headerVisible = showHeader === undefined ? true : showHeader;
+
+  const evalWidth = element => {
+    switch (element) {
+      case 'description':
+        return 200;
+      case 'date':
+        return 150;
+      default:
+        return undefined;
+    }
+  };
+
   return (
     <ReactTable
       data={transactions}
       columns={fields.map(f => ({
         Header: headerVisible && <TransactionTableHeader title={f} />,
         id: f,
-        width: f === 'description' ? 200 : undefined,
-        accessor: d => (
-          <div
-            className={`subscriber-all-bills-row transactions-table-cell transactions-table-${f}`}
-          >
-            {d[f]}
-          </div>
-        )
+        width: evalWidth(f),
+        accessor: transaction => {
+          if (transaction[f] === 'Charge' || transaction[f] === 'Payment') {
+            return (
+              <div
+                className={`subscriber-all-bills-row transactions-table-cell transactions-table-${f} transactions-table-${transaction[
+                  f
+                ].toLowerCase()}`}
+              >
+                {transaction[f]}
+              </div>
+            );
+          }
+          return (
+            <div
+              className={`subscriber-all-bills-row transactions-table-cell transactions-table-${f}`}
+            >
+              {transaction[f]}
+            </div>
+          );
+        }
       }))}
       getTdProps={() => ({
         style: {
@@ -45,7 +71,7 @@ const TransactionsTable = ({
         }
       })}
       defaultPageSize={numRows || 10}
-      className="-striped -highlight rt-custom-pp-style"
+      className="-striped -highlight rt-custom-pp-style transactions-table"
       {...props}
     />
   );

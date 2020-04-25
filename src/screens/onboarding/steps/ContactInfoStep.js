@@ -41,7 +41,7 @@ class ContactInfoStep extends React.PureComponent {
           <div className="flex row">
             <div className="w-80 pr-1">
               <label className="onboarding-label" htmlFor="password">
-                Street 1 <span className="asterisk">*</span>
+                Address <span className="asterisk">*</span>
               </label>
               <input
                 name="permanentStreet1"

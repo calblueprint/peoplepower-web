@@ -26,11 +26,14 @@ const AnnouncementList = props => {
   });
 
   return (
-    <div
-      className={(css || '').concat(' ', 'cardsCont')}
-      style={{ overflow: 'auto' }}
-    >
-      {list}
+    <div className={(css || '').concat(' ', 'cardsCont')}>
+      {[
+        list[list.length],
+        list[list.length - 1],
+        list[list.length - 2],
+        list[list.length - 3],
+        list[list.length - 4]
+      ]}
     </div>
   );
 };

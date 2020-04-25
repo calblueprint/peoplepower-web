@@ -1,5 +1,6 @@
 .community .cont {
-  margin: 0px;
+  margin-left: 194px;
+  margin-top: 55px;
 }
 
 .community h1 {
@@ -8,6 +9,7 @@
   font-size: 36px;
   line-height: 49px;
   color: var(--pp-blue);
+  margin-top: 0px;
 }
 
 .community p {
@@ -19,7 +21,7 @@
   border-radius: 5px;
   padding: 35px;
   margin: 10px 0px;
-  width: 652px;
+  width: 560px;
   display: flex;
   justify-content: space-between;
 }
@@ -27,9 +29,10 @@
 .announcement-card p {
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 19px;
   letter-spacing: 0.01em;
+  width: 652px;
   color: var(--pp-black);
 }
 
