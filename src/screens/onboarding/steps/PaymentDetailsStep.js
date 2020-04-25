@@ -2,6 +2,7 @@ import React from 'react';
 import ErrorIcon from '../../../assets/error.svg';
 import Tooltip from '../components/Tooltip';
 import Constants from '../../../constants';
+import { calculatePaypalTransactionFee } from '../../../lib/paypalUtils';
 
 const { SHARE_PRICE, MAX_SHARES } = Constants;
 
@@ -67,6 +68,12 @@ class PaymentDetailsStep extends React.Component {
   render() {
     const { owner, errors, onBack, handleChange } = this.props;
     const { displayUnmarkedDividend } = this.state;
+    const baseAmount = owner.numberOfShares * SHARE_PRICE;
+    const transactionFee = calculatePaypalTransactionFee(baseAmount);
+    const totalAmountToPay = (baseAmount + parseFloat(transactionFee)).toFixed(
+      2
+    );
+
     return (
       <div className="w-100">
         <div className="flex w-100 justify-space-between onboarding-row ">
@@ -156,7 +163,7 @@ class PaymentDetailsStep extends React.Component {
               <div className="flex justify-space-between">
                 <div className="left payment-summary-shares">Shares</div>
                 <div className="right payment-summary-shares">
-                  ${owner.numberOfShares * SHARE_PRICE}.00
+                  ${baseAmount}.00
                 </div>
               </div>
               <div className="payment-summary-qty">
@@ -168,22 +175,14 @@ class PaymentDetailsStep extends React.Component {
                   <Tooltip label="PayPal charges a service fee of 2.9% + $0.30." />
                 </div>
                 <div className="right payment-summary-shares">
-                  $
-                  {(owner.numberOfShares * SHARE_PRICE * 0.029 + 0.3).toFixed(
-                    2
-                  )}
+                  ${transactionFee}
                 </div>
               </div>
               <hr className="payment-summary-hr" />
               <div className="flex justify-space-between">
                 <div className="left payment-summary-total">Total</div>
                 <div className="right payment-summary-total">
-                  $
-                  {(
-                    owner.numberOfShares * SHARE_PRICE +
-                    owner.numberOfShares * SHARE_PRICE * 0.029 +
-                    0.3
-                  ).toFixed(2)}
+                  ${totalAmountToPay}
                 </div>
               </div>
             </div>

@@ -158,7 +158,6 @@
   box-shadow: none;
   margin: 0.1rem 0.1rem;
   padding: 0.4rem 0.5rem;
-  font-family: 'Nunito Sans', sans-serif;
   width: 100%;
   box-sizing: border-box;
 }
@@ -181,7 +180,6 @@
   border-radius: 2.5px;
   box-shadow: none;
   padding: 0.2rem 0.3rem;
-  font-family: 'Nunito Sans', sans-serif;
   width: 100%;
   box-sizing: border-box;
   border-color: #b4b8bf;
@@ -211,7 +209,6 @@
 
 .header {
   font-size: 18px;
-  font-family: 'Nunito Sans', sans-serif;
   color: var(--pp-blue);
   font-weight: bolder;
   width: 70%;
@@ -347,7 +344,6 @@ w-pasword {
 .contact-header {
   font-size: 18px;
   font-weight: bold;
-  font-family: 'Nunito Sans', sans-serif;
   padding-bottom: 0.5rem;
   color: var(--pp-blue);
 }
@@ -451,12 +447,10 @@ w-pasword {
 .confirmation-card > .header {
   font-weight: bold;
   font-size: 18px;
-  font-family: 'Nunito Sans', sans-serif;
 }
 
 .confirmation-card > .body {
   font-size: 16px;
-  font-family: 'Nunito Sans', sans-serif;
 }
 
 .slides-buttons {
