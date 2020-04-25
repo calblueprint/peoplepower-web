@@ -11,9 +11,9 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import '../styles/Equivalencies.css';
 import createProductionChart from '../lib/charts/productionChart';
-import Car from '../assets/car.png';
-import Fruit from '../assets/fruit.png';
-import Windmill from '../assets/windmill.png';
+import Car from '../assets/Car-Icon-Square.png';
+import Trash from '../assets/Trash-Icon-Square.png';
+import Coal from '../assets/Coal-Icon-Square.png';
 
 const colors = ['pink', 'green', 'yellow'];
 
@@ -90,7 +90,7 @@ class ProductionChart extends React.Component {
         <div className="prod-equivalencies-amt">4</div>
         wind turbines running for a year
       </div>
-      <img className="prod-equivalencies-icon" src={Windmill} alt="windmill" />
+      <img className="prod-equivalencies-icon" src={Coal} alt="windmill" />
     </div>
   );
 
@@ -101,7 +101,7 @@ class ProductionChart extends React.Component {
         <div className="prod-equivalencies-amt">38.8</div>
         bags of waste recycled instead of landfilled
       </div>
-      <img className="prod-equivalencies-icon" src={Fruit} alt="fruit" />
+      <img className="prod-equivalencies-icon" src={Trash} alt="fruit" />
     </div>
   );
 
