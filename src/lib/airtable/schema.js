@@ -124,7 +124,8 @@ export const Columns = {
     subscriberIds: { name: `Subscribers`, type: `foreignKey-many` },
     enphaseSystemId: { name: `Enphase System ID`, type: `text` },
     enphaseUserId: { name: `Enphase User ID`, type: `text` },
-    subscriberBilIds: { name: `Subscriber Bill`, type: `foreignKey-many` }
+    subscriberBilIds: { name: `Subscriber Bill`, type: `foreignKey-many` },
+    monthlyProductionData: { name: `Monthly Production Data`, type: `text` }
   },
   'Subscriber Bill': {
     primaryKey: { name: `Primary Key`, type: `formula` },
