@@ -1,3 +1,5 @@
+/* eslint react/destructuring-assignment: 0 */
+
 import React from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
@@ -354,7 +356,7 @@ class AdminDashboard extends React.Component {
             <form onSubmit={this.handleSubmit}>
               <div className="admin-invite-form-row">
                 <div className="">
-                  <div className="flex-col">
+                  <div className="admin-flex-col">
                     <label htmlFor="inviteFirstName">
                       <div className="admin-invite-form-label-wrapper">
                         First name{' '}
@@ -381,7 +383,7 @@ class AdminDashboard extends React.Component {
                   </div>
                 </div>
                 <div className="">
-                  <div className="flex-col">
+                  <div className="admin-flex-col">
                     <label htmlFor="inviteLastName">
                       <div className="admin-invite-form-label-wrapper">
                         Last name{' '}
@@ -410,7 +412,7 @@ class AdminDashboard extends React.Component {
               </div>
               <div className="admin-invite-form-row">
                 <div className="">
-                  <div className="flex-col">
+                  <div className="admin-flex-col">
                     <label htmlFor="invitePhoneNumber">
                       <div className="admin-invite-form-label-wrapper">
                         Phone number{' '}
@@ -437,7 +439,7 @@ class AdminDashboard extends React.Component {
                   </div>
                 </div>
                 <div className="">
-                  <div className="flex-col">
+                  <div className="admin-flex-col">
                     <label htmlFor="inviteEmail">
                       <div className="admin-invite-form-label-wrapper">
                         Email{' '}
@@ -463,7 +465,7 @@ class AdminDashboard extends React.Component {
               </div>
               <div className="admin-invite-form-row">
                 <div className="">
-                  <div className="flex-col">
+                  <div className="admin-flex-col">
                     <label htmlFor="inviteShareAmount">
                       Number of shares
                       <input

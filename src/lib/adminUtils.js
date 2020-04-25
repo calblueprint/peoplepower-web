@@ -2,19 +2,49 @@ import {
   updateProjectGroup,
   getProjectGroupById,
   createPledgeInvite,
-  getOwnersByIds,
-  getOwnersByEmail
+  getOwnersByIds
 } from './airtable/request';
 import { refreshUserData } from './userDataUtils';
+import {
+  validateExistence,
+  validateEmail,
+  validateUniqueEmail,
+  validateNumber,
+  validateZipcode
+} from './onboardingUtils';
 import { store } from './redux/store';
 import constants from '../constants';
 import USStates from '../assets/states.json';
 
-const validateExistence = (
-  value,
-  error = 'Please enter this required field.'
-) => {
-  return value ? '' : error;
+// Ensure shares is a valid number
+const validateShares = value => {
+  if (value > 10) {
+    return 'Max number of shares is 10';
+  }
+  if (value < 1) {
+    return 'Min number of shares is 1';
+  }
+  return '';
+};
+
+// Ensure State is a real state (either abbreivation or full name)
+const ValidateUSState = value => {
+  const upperCaseValue = value.toUpperCase();
+  if (USStates.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
+    return '';
+  }
+  return 'Invalid State';
+};
+
+// Specify special validation functions for fields
+// Default for all fields: [validateExistence]
+const ValidatorData = {
+  inviteEmail: [validateExistence, validateEmail, validateUniqueEmail],
+  inviteShareAmount: [validateExistence, validateNumber, validateShares],
+  updateEmail: [validateExistence, validateEmail, validateUniqueEmail],
+  updateState: [validateExistence, ValidateUSState],
+  updateZipcode: [validateExistence, validateNumber, validateZipcode],
+  updateStreet2: []
 };
 
 export function toggleValidColor(input, type) {
@@ -33,62 +63,6 @@ export function toggleValidColor(input, type) {
       return null;
   }
 }
-
-// Ensure valid and unique email
-const validateEmail = value => {
-  // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
-  // eslint-disable-next-line no-useless-escape
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(value) ? '' : 'Please enter a valid email address.';
-};
-
-const validateUniqueEmail = async value => {
-  const owners = await getOwnersByEmail(value);
-  return owners.length === 0
-    ? ''
-    : 'It looks like an account with this email already exists.';
-};
-
-// Ensure value is a number
-const validateNumber = value => {
-  return !Number.isNaN(value) ? '' : 'Must be a number';
-};
-
-// Ensure shares is a valid number
-const validateShares = value => {
-  if (value > 10) {
-    return 'Max number of shares is 10';
-  }
-  if (value < 0) {
-    return 'Min number of shares is 0';
-  }
-  return '';
-};
-
-// Ensure State is a real state (either abbreivation or full name)
-const ValidateUSState = value => {
-  const upperCaseValue = value.toUpperCase();
-  if (USStates.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
-    return '';
-  }
-  return 'Invalid State';
-};
-
-// Ensure Zipcode is of valid length
-const validateZipcode = value => {
-  return value.length === 5 ? '' : 'Must be 5 digits';
-};
-
-// Specify special validation functions for fields
-// Default for all fields: [validateExistence]
-const ValidatorData = {
-  inviteEmail: [validateExistence, validateEmail, validateUniqueEmail],
-  inviteShareAmount: [validateExistence, validateNumber, validateShares],
-  updateEmail: [validateExistence, validateEmail, validateUniqueEmail],
-  updateState: [validateExistence, ValidateUSState],
-  updateZipcode: [validateExistence, validateNumber, validateZipcode],
-  updateStreet2: []
-};
 
 // Asynchronously validate field
 export async function validateField(name, value) {

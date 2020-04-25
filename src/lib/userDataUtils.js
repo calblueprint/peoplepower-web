@@ -18,10 +18,12 @@ import {
 import { getCredentials } from './credentials';
 
 // Function takes in an ownerId and fetches the latest owner object and all associated user data
-const refreshUserData = async ownerId => {
-  // Save loading status to Redux
-  store.dispatch(setLoadingForUserData());
-  store.dispatch(setLoadingForAnnouncements());
+const refreshUserData = async (ownerId, loadSilently = false) => {
+  if (!loadSilently) {
+    // Save loading status to Redux
+    store.dispatch(setLoadingForUserData());
+    store.dispatch(setLoadingForAnnouncements());
+  }
 
   // Fetch latest version of owner
   const owner = await getOwnerById(ownerId);
