@@ -20,6 +20,7 @@ class ProductionChart extends React.Component {
     this.state = {
       equivalencyIndex: 0
     };
+    this.style = props.type === 0 ? '' : '-sub';
   }
 
   componentDidMount() {
@@ -37,8 +38,8 @@ class ProductionChart extends React.Component {
   }
 
   renderEquivalencyOne = () => (
-    <div className="prod-equivalencies-right-inner">
-      <div className="prod-equivalencies-text">
+    <div className={`prod-equivalencies-right-inner${this.style}`}>
+      <div className={`prod-equivalencies-text${this.style}`}>
         reducing greenhouse gas emissions from
         <div className="prod-equivalencies-amt">2,172</div>
         miles driven by an average vehicle
@@ -48,8 +49,8 @@ class ProductionChart extends React.Component {
   );
 
   renderEquivalencyTwo = () => (
-    <div className="prod-equivalencies-right-inner">
-      <div className="prod-equivalencies-text">
+    <div className={`prod-equivalencies-right-inner${this.style}`}>
+      <div className={`prod-equivalencies-text${this.style}`}>
         greenhouse gas emissions avoided by
         <div className="prod-equivalencies-amt">4</div>
         wind turbines running for a year
@@ -59,8 +60,8 @@ class ProductionChart extends React.Component {
   );
 
   renderEquivalencyThree = () => (
-    <div className="prod-equivalencies-right-inner">
-      <div className="prod-equivalencies-text">
+    <div className={`prod-equivalencies-right-inner${this.style}`}>
+      <div className={`prod-equivalencies-text${this.style}`}>
         greenhouse gas emissions avoided by
         <div className="prod-equivalencies-amt">38.8</div>
         bags of waste recycled instead of landfilled
@@ -71,6 +72,7 @@ class ProductionChart extends React.Component {
 
   renderEquivalency() {
     const { equivalencyIndex } = this.state;
+
     const equivalencies = [
       this.renderEquivalencyOne,
       this.renderEquivalencyTwo,
@@ -78,7 +80,7 @@ class ProductionChart extends React.Component {
     ];
     return (
       <div
-        className={`prod-equivalencies-right prod-equivalencies-${colors[equivalencyIndex]}`}
+        className={`prod-equivalencies-right${this.style} prod-equivalencies-${colors[equivalencyIndex]}`}
       >
         <SwitchTransition>
           <CSSTransition
@@ -94,32 +96,37 @@ class ProductionChart extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, type } = this.props;
     const equivalency = this.renderEquivalency();
     return (
-      <div>
+      <div className="prod-chart-container">
         <h3>Production</h3>
-        <HighchartsReact
-          highcharts={Highcharts}
-          options={createProductionChart(data)}
-        />
-        <div className="prod-equivalencies-container">
-          <div className="prod-equivalencies-left">
-            You've helped generate a total of
-            <br />
-            <div className="prod-equivalencies-amt-energy">
-              <div className="prod-equivalencies-amt-energy-num">1,256</div>kWH
-            </div>
-            <br />
-            equivalent to
+        <div className={`prod-chart-container-inner${this.style}`}>
+          <div style={{ width: '100%' }}>
+            <HighchartsReact
+              highcharts={Highcharts}
+              options={createProductionChart(data, type === 0 ? 250 : 300)}
+            />
           </div>
-          <TransitionGroup
-            transitionName="productionAnimation"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}
-          >
-            {equivalency}
-          </TransitionGroup>
+          <div className={`prod-equivalencies-container${this.style}`}>
+            <div className="prod-equivalencies-left">
+              You've helped generate a total of
+              <br />
+              <div className="prod-equivalencies-amt-energy">
+                <div className="prod-equivalencies-amt-energy-num">1,256</div>
+                kWH
+              </div>
+              <br />
+              equivalent to
+            </div>
+            <TransitionGroup
+              transitionName="productionAnimation"
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={300}
+            >
+              {equivalency}
+            </TransitionGroup>
+          </div>
         </div>
       </div>
     );
