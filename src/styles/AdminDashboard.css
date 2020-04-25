@@ -443,7 +443,7 @@
 .admin-contact-field {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-right: 50px;
 }
 
@@ -452,6 +452,7 @@
   font-weight: bold;
   font-size: 16px;
   color: var(--pp-black);
+  justify-content: flex-start;
 }
 
 .admin-contact-field-info {
@@ -467,12 +468,11 @@
 .admin-contact-info-input {
   border: 1px solid #b4b8bf;
   border-radius: 2.5px;
-  padding: 5px 15px;
-  width: 85%;
+  padding: 5px 10px;
   font-size: 16px;
   color: var(--pp-black);
   line-height: 21px;
-  margin-bottom: 20px;
+  width: 85%;
 }
 
 .flex-col {
@@ -485,5 +485,30 @@
 }
 
 .b-is-not-valid {
-  border: 1px solid var(--pp-invalid);
+  border: 1.5px solid var(--pp-invalid);
+}
+
+.admin-card-address-input {
+  flex-direction: row;
+  width: 85%;
+}
+
+.paddingtop-1 {
+  padding-top: 8px;
+}
+
+.mr-1 {
+  margin-right: 5px;
+}
+
+.marginbottom-1 {
+  margin-bottom: 20px;
+}
+
+.width-1 {
+  width: 100%;
+}
+
+.w-45 {
+  width: %;
 }

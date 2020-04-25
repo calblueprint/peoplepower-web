@@ -8,6 +8,7 @@ import {
 import { refreshUserData } from './userDataUtils';
 import { store } from './redux/store';
 import constants from '../constants';
+import USStates from '../assets/states.json';
 
 const validateExistence = (
   value,
@@ -17,12 +18,20 @@ const validateExistence = (
 };
 
 export function toggleValidColor(input, type) {
-  if (!type) {
-    return input !== '' && typeof input !== 'undefined'
-      ? 'b-is-not-valid'
-      : 'b-is-valid';
+  switch (type) {
+    case 0:
+      return input !== '' && typeof input !== 'undefined'
+        ? 'b-is-not-valid'
+        : 'b-is-valid';
+    case 1:
+      return !input ? '\u00A0' : input;
+    case 2:
+      return input !== '' && typeof input !== 'undefined'
+        ? 'b-is-not-valid'
+        : null;
+    default:
+      return null;
   }
-  return !input ? '\u00A0' : input;
 }
 
 // Ensure valid and unique email
@@ -56,11 +65,29 @@ const validateShares = value => {
   return '';
 };
 
+// Ensure State is a real state (either abbreivation or full name)
+const ValidateUSState = value => {
+  const upperCaseValue = value.toUpperCase();
+  if (USStates.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
+    return '';
+  }
+  return 'Invalid State';
+};
+
+// Ensure Zipcode is of valid length
+const validateZipcode = value => {
+  return value.length === 5 ? '' : 'Must be 5 digits';
+};
+
 // Specify special validation functions for fields
 // Default for all fields: [validateExistence]
 const ValidatorData = {
   inviteEmail: [validateExistence, validateEmail, validateUniqueEmail],
-  inviteShareAmount: [validateExistence, validateNumber, validateShares]
+  inviteShareAmount: [validateExistence, validateNumber, validateShares],
+  updateEmail: [validateExistence, validateEmail, validateUniqueEmail],
+  updateState: [validateExistence, ValidateUSState],
+  updateZipcode: [validateExistence, validateNumber, validateZipcode],
+  updateStreet2: []
 };
 
 // Asynchronously validate field

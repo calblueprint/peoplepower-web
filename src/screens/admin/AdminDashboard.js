@@ -38,7 +38,11 @@ class AdminDashboard extends React.Component {
       displayAdminInfo: '',
       updatedPhoneNumber: '',
       updatedEmail: '',
-      updatedAddress: '',
+      updatedStreet1: '',
+      updatedStreet2: '',
+      updatedCity: '',
+      updatedState: '',
+      updatedZipcode: '',
       errors: {}
     };
 
@@ -75,7 +79,11 @@ class AdminDashboard extends React.Component {
       displayAdminInfo: owner,
       updatedEmail: owner.email,
       updatedPhoneNumber: owner.phoneNumber,
-      updatedAddress: owner.permanentAddress,
+      updatedStreet1: owner.permanentStreet1,
+      updatedStreet2: owner.permanentStreet2,
+      updatedCity: owner.permanentCity,
+      updatedState: owner.permanentState,
+      updatedZipcode: owner.permanentZipcode,
       showAdminModal: !displayAdmin
     });
   };
@@ -158,37 +166,52 @@ class AdminDashboard extends React.Component {
   validateContactAndSubmitData = async () => {
     const {
       updatedEmail,
-      // updatedAddress,
       updatedPhoneNumber,
+      updatedStreet1,
+      updatedStreet2,
+      updatedCity,
+      updatedState,
+      updatedZipcode,
       displayAdminInfo
     } = this.state;
     const newOwner = {
       phoneNumber: updatedPhoneNumber,
-      email: updatedEmail
+      email: updatedEmail,
+      permanentStreet1: updatedStreet1,
+      permanentStreet2: updatedStreet2,
+      permanentCity: updatedCity,
+      permanentState: updatedState,
+      permanentZipcode: updatedZipcode
     };
-    // const errors = {};
-    // let foundErrors = false;
-    // const fields = ['updatedEmail', 'updatedAddress', 'updatedPhoneNumber'];
+    const errors = {};
+    let foundErrors = false;
+    const fields = [
+      'updatedEmail',
+      'updatedPhoneNumber',
+      'updatedStreet1',
+      'updatedCity',
+      'updatedState',
+      'updatedZipcode'
+    ];
 
-    // const errorMessages = await Promise.all(
-    //   fields.map(field => validateField(field, newOwner[field]))
-    // );
-    // errorMessages.forEach((errorMessage, i) => {
-    //   const fieldName = `update${fields[i].charAt(0).toUpperCase() +
-    //     fields[i].slice(1)}`;
-    //   errors[fieldName] = errorMessage;
-    //   if (errorMessage !== '') {
-    //     foundErrors = true;
-    //   }
-    // });
+    const errorMessages = await Promise.all(
+      fields.map(field => validateField(field, this.state[field]))
+    );
+    errorMessages.forEach((errorMessage, i) => {
+      errors[fields[i]] = errorMessage;
+      if (errorMessage !== '') {
+        foundErrors = true;
+      }
+    });
 
-    // this.setState({
-    //   errors
-    // });
+    this.setState({
+      errors
+    });
 
-    // if (!foundErrors) {
-    await updateOwner(displayAdminInfo.id, newOwner);
-    // }
+    if (!foundErrors) {
+      await updateOwner(displayAdminInfo.id, newOwner);
+      this.setState({ adminEditMode: false });
+    }
   };
 
   async fetchOwnerRecords() {
@@ -241,8 +264,7 @@ class AdminDashboard extends React.Component {
         this.setState({ adminEditMode: false });
         break;
       case 'save':
-        this.validateAndSubmitData();
-        this.setState({ adminEditMode: false });
+        this.validateContactAndSubmitData();
         break;
       default:
         break;
@@ -265,7 +287,11 @@ class AdminDashboard extends React.Component {
       adminEditMode,
       updatedEmail,
       updatedPhoneNumber,
-      updatedAddress,
+      updatedStreet1,
+      updatedStreet2,
+      updatedCity,
+      updatedState,
+      updatedZipcode,
       errors
     } = this.state;
 
@@ -555,9 +581,24 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div className="admin-contact-bottom-container">
                   <div className="admin-contact-field">
-                    <div className="admin-contact-field-name">Email</div>
-                    <div className="admin-contact-field-name">Phone</div>
-                    <div className="admin-contact-field-name">Address</div>
+                    <div
+                      className={`admin-contact-field-name 
+                    ${adminEditMode ? 'paddingtop-1' : null}`}
+                    >
+                      Email
+                    </div>
+                    <div
+                      className={`admin-contact-field-name 
+                    ${adminEditMode ? 'paddingtop-1' : null}`}
+                    >
+                      Phone
+                    </div>
+                    <div
+                      className={`admin-contact-field-name 
+                    ${adminEditMode ? 'paddingtop-1' : null}`}
+                    >
+                      Address
+                    </div>
                   </div>
                   {!adminEditMode ? (
                     <div className="admin-contact-info">
@@ -585,7 +626,8 @@ class AdminDashboard extends React.Component {
                           type="text"
                           name="updatedEmail"
                           placeholder={updatedEmail}
-                          className="admin-contact-info-input"
+                          className={`admin-contact-info-input marginbottom-1 width-85 
+                          ${toggleValidColor(errors.updatedEmail, 2)}`}
                           value={updatedEmail}
                           onChange={this.handleChange}
                         />
@@ -595,21 +637,96 @@ class AdminDashboard extends React.Component {
                           type="text"
                           name="updatedPhoneNumber"
                           placeholder={updatedPhoneNumber}
-                          className="admin-contact-info-input"
+                          className={`admin-contact-info-input marginbottom-1 width-85 
+                          ${toggleValidColor(errors.updatedPhoneNumber, 2)}`}
                           value={updatedPhoneNumber}
                           onChange={this.handleChange}
                         />
                       </label>
-                      <label>
-                        <input
-                          type="text"
-                          name="updatedAddress"
-                          placeholder={updatedAddress}
-                          className="admin-contact-info-input"
-                          value={updatedAddress}
-                          onChange={this.handleChange}
-                        />
-                      </label>
+                      <div className="flex admin-card-address-input justify-content-space">
+                        <div className="w-80 mr-1">
+                          <input
+                            name="updatedStreet1"
+                            placeholder="Street 1"
+                            onChange={this.handleChange}
+                            defaultValue={updatedStreet1}
+                            className={`admin-contact-info-input ${toggleValidColor(
+                              errors.updatedStreet1,
+                              2
+                            )}`}
+                          />
+                        </div>
+                        <div className="w-20 ">
+                          <input
+                            name="updatedStreet2"
+                            placeholder="Street 2"
+                            onChange={this.handleChange}
+                            defaultValue={updatedStreet2}
+                            className={`admin-contact-info-input ${toggleValidColor(
+                              errors.updatedStreet2,
+                              2
+                            )}`}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex admin-card-address-input justify-content-space">
+                        <div className="w-80 validation">
+                          {toggleValidColor(errors.updatedStreet1, 1)}
+                        </div>
+
+                        <div className="w-20 validation">
+                          {toggleValidColor(errors.updatedStreet1, 1)}
+                        </div>
+                      </div>
+                      <div className="flex admin-card-address-input justify-content-space">
+                        <div className="w-40">
+                          <input
+                            name="updatedCity"
+                            placeholder="City"
+                            onChange={this.handleChange}
+                            defaultValue={updatedCity}
+                            className={`admin-contact-info-input ${toggleValidColor(
+                              errors.updatedCity,
+                              2
+                            )}`}
+                          />
+                        </div>
+                        <div className="w-15 ">
+                          <input
+                            name="updatedState"
+                            placeholder="State"
+                            onChange={this.handleChange}
+                            defaultValue={updatedState}
+                            className={`admin-contact-info-input ${toggleValidColor(
+                              errors.updatedState,
+                              2
+                            )}`}
+                          />
+                        </div>
+                        <div className="w-25">
+                          <input
+                            name="updatedZipcode"
+                            placeholder="Zipcode"
+                            onChange={this.handleChange}
+                            defaultValue={updatedZipcode}
+                            className={`admin-contact-info-input ${toggleValidColor(
+                              errors.updatedZipcode,
+                              2
+                            )}`}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex admin-card-address-input justify-content-space">
+                        <div className="w-40 pr-1 validation">
+                          {toggleValidColor(errors.updatedCity, 1)}
+                        </div>
+                        <div className="w-15 validation">
+                          {toggleValidColor(errors.updatedState, 1)}
+                        </div>
+                        <div className="w-25 validation">
+                          {toggleValidColor(errors.updatedZipcode, 1)}
+                        </div>
+                      </div>
                     </form>
                   )}
                 </div>
