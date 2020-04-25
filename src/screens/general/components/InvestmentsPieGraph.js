@@ -1,13 +1,10 @@
 import React from 'react';
-import { VictoryPie, VictoryLabel } from 'victory';
+import { VictoryPie } from 'victory';
+import Label from './InvestmentLabel';
 
 export default class InvestmentsPieGraph extends React.PureComponent {
   render() {
     const { investmentBreakdowns } = this.props;
-    const labelStyle = {
-      fill: '#24364D',
-      fontSize: '20px'
-    };
     const dataList = investmentBreakdowns.map(data => {
       const list = {
         x: data.categoryName,
@@ -22,16 +19,27 @@ export default class InvestmentsPieGraph extends React.PureComponent {
     });
     return (
       <VictoryPie
-        data={dataList}
+        height={300}
+        width={400}
+        radius={100}
         colorScale={colorList}
-        width={550}
-        height={550}
-        labelRadius={160}
+        // animate={{ duration: 300 }}
+        data={dataList}
+        x="x"
+        y="y"
+        style={{
+          data: {
+            fillOpacity: 1
+          }
+        }}
         labelComponent={
-          <VictoryLabel
-            className="investment-pie-graph-label-text"
-            style={labelStyle}
-            textAnchor="middle"
+          <Label
+            innerRadius={75}
+            radius={100}
+            nameKey="x"
+            valueKey="y"
+            cx={200}
+            cy={150}
           />
         }
       />

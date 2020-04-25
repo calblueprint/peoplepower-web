@@ -69,7 +69,7 @@ export default class DashboardBilling extends React.PureComponent {
                   transactions={transactions}
                   numRows={2}
                   showHeader={false}
-                  fieldsToShow={['date', 'description', 'amount']}
+                  fieldsToShow={['date', 'description', 'type', 'amount']}
                   className="subscriber-billing-recent-table"
                   showPagination={false}
                   getTrGroupProps={() => {

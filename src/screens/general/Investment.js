@@ -1,8 +1,7 @@
 import React from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import SharesProgressBar from './components/SharesProgressBar';
+import InvestmentsPieGraph from './components/InvestmentsPieGraph';
 import DividendsPreferencesModal from './components/DividendsPreferencesModal';
 import {
   updateOwner,
@@ -14,9 +13,7 @@ import '../../styles/Investments.css';
 import GreenCheck from '../../assets/green_check.png';
 import RedX from '../../assets/red_x.png';
 import TransactionList from './components/TransactionsList';
-import Constants from '../../constants';
-
-const { MAX_SHARES, SHARE_PRICE } = Constants;
+import InvestmentCard from '../shared/components/InvestmentCard';
 
 class Investment extends React.PureComponent {
   constructor(props) {
@@ -71,7 +68,7 @@ class Investment extends React.PureComponent {
 
   render() {
     const { owner } = this.props;
-    const { isReceivingDividends, payments } = this.state;
+    const { isReceivingDividends, payments, investmentBreakdowns } = this.state;
 
     return (
       <div className="dashboard">
@@ -79,39 +76,18 @@ class Investment extends React.PureComponent {
           <div className="my-investment-dashboard">
             <div className="investment-mainheader">
               <h1>My Investment</h1>
-              <div className="columnformat">
-                <div className="investment-and-transactions-content">
+              <div className="investments-column-format">
+                <div>
                   <h2>My Investment</h2>
-                  <div className="investments-box-shares">
-                    <div className="investments-circle-progress-bar">
-                      <SharesProgressBar
-                        numberOfShares={owner.numberOfShares}
-                      />
-                    </div>
-                    <div className="investment-shares-text">
-                      <h5>
-                        You currently own {owner.numberOfShares} out of 10
-                        possible shares
-                      </h5>
-                      <br />
-                      <h4>${owner.numberOfShares * SHARE_PRICE}.00</h4>
-                    </div>
-                    <div className="investments-buttons">
-                      {owner.numberOfShares !== MAX_SHARES && (
-                        <div className="investments-buy-shares-button">
-                          <Link to="/buyshares">Buy Shares</Link>
-                        </div>
-                      )}
-
-                      <div className="investments-dividend">Divest</div>
-                    </div>
+                  <div className="investments-shares-box-container">
+                    <InvestmentCard numberOfShares={owner.numberOfShares} />
                   </div>
-                  <div className="investments-box-dividends">
-                    <div className="dividends-preferences-box">
+                  <div className="investments-box-dividends investments-financial-breakdown-box">
+                    <div className="investments-dividends-preferences-box">
                       <h4>Dividend Preferences</h4>
                       <div className="investment-dividends-status">
                         <img
-                          className="investment-dividends-green-check"
+                          className="investments-green-check"
                           src={
                             owner.isReceivingDividends === true
                               ? GreenCheck
@@ -138,13 +114,25 @@ class Investment extends React.PureComponent {
                     />
                   </div>
                   <h2>Transactions</h2>
-                  <div className="transactions-box">
+                  <div className="investments-transactions-box">
                     <TransactionList payments={payments} />
                   </div>
                 </div>
-                <div className="right-content">
+                <div className="investment-right-content">
                   <h2>Financial Breakdown</h2>
-                  <div className="investments-financial-breakdown-box" />
+                  <div className="investments-financial-breakdown-box">
+                    <div className="investment-pie-graph">
+                      <div className="investment-financial-breakdown-graph-caption">
+                        <p>
+                          Here&apos;s how your money and others&apos; is going
+                          towards helping the project group and cooperative:
+                        </p>
+                      </div>
+                      <InvestmentsPieGraph
+                        investmentBreakdowns={investmentBreakdowns}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

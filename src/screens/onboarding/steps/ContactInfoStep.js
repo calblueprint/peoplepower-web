@@ -64,7 +64,7 @@ class ContactInfoStep extends React.PureComponent {
                 placeholder="Street 2"
                 onChange={handleChange}
                 defaultValue={owner.permanentStreet2}
-                className="input-white"
+                className="input-white b-is-valid"
               />
             </div>
           </div>
@@ -211,8 +211,8 @@ class ContactInfoStep extends React.PureComponent {
           </div>
           <div style={{ display: owner.mailingAddressSame ? 'none' : 'block' }}>
             <div className="flex onboarding-row">
-              <div className="w-80 pr-1">
-                <label className="onboarding-label" htmlFor="password">
+              <div className="w-80 c">
+                <label className="onboarding-label">
                   Street 1 <span className="asterisk">*</span>
                 </label>
                 <input
@@ -227,15 +227,13 @@ class ContactInfoStep extends React.PureComponent {
                 />
               </div>
               <div className="w-20 ">
-                <label className="onboarding-label" htmlFor="password">
-                  Street 2
-                </label>
+                <label className="onboarding-label">Street 2</label>
                 <input
                   name="mailingStreet2"
                   placeholder="Street 2"
                   onChange={handleChange}
                   defaultValue={owner.mailingStreet2}
-                  className="input-white"
+                  className="input-white b-is-valid"
                 />
               </div>
             </div>

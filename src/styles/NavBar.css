@@ -115,6 +115,10 @@ span {
   padding-top: 0px;
 }
 
+.settings-dropdown-logout {
+  padding-top: 0px;
+}
+
 .dropdown-link:hover {
   opacity: 0.8;
 }

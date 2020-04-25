@@ -16,10 +16,6 @@
   margin-left: 0px;
 }
 
-.dash-solar-details-cont {
-  margin: 0px 35px;
-}
-
 .dash-solar-details-cont p,
 ul,
 button {
@@ -49,20 +45,24 @@ button {
   display: flex;
 }
 
-.header-only {
+.header-only,
+.dashboard-investment-header {
   display: flex;
   width: 50%;
   justify-content: flex-start;
+  flex-direction: row;
+  align-self: center;
 }
 
-.header-button h3 {
-  display: flex;
-  justify-content: flex-start;
+.dashboard-investment-header {
+  margin-top: 23px;
 }
 
 .right-button {
   display: flex;
   justify-content: flex-end;
+  flex-direction: row;
+  align-self: center;
   width: 50%;
 }
 
@@ -75,14 +75,8 @@ button {
 }
 
 .dash-investment-cont {
-  margin: 32px 35px auto 35px;
-}
-
-.dash-investment-details-cont {
-  background: white;
-  padding: 20px 20px;
-  border-radius: 5px;
-  height: 100px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .right-arrow-button {
@@ -99,4 +93,14 @@ button {
 
 .left-arrow-button:hover {
   opacity: 0.8;
+}
+
+.general-dashboard-right-content {
+  margin-left: 30px;
+}
+
+.dashboard-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
