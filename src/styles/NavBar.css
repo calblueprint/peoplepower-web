@@ -103,11 +103,10 @@ span {
 }
 
 .dropdown-link {
-  font-size: 16px;
+  font-size: 15px;
   border: 0px;
   font-weight: 600;
   color: var(--pp-blue);
-  padding: 7.5px;
 }
 
 .settings-dropdown-logout {
@@ -120,7 +119,6 @@ span {
 
 .dropdown-logout {
   padding: 0px;
-  background-color: white;
 }
 
 /* dropdown arrow */
