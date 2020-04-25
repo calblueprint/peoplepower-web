@@ -1,4 +1,4 @@
-const constants = {
+export default {
   LOGIN_TOKEN_NAME: 'loginToken',
 
   // TYPES
@@ -35,5 +35,3 @@ const constants = {
   // MISC
   BUG_REPORT_URL: 'https://airtable.com/shrY9otlnVK9gyfrl'
 };
-
-export default constants;
