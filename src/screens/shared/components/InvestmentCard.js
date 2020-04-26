@@ -20,13 +20,19 @@ export default function InvestmentCard(props) {
         <h4>${numberOfShares * SHARE_PRICE}.00</h4>
       </div>
       <div className="investments-card-buttons">
-        {numberOfShares !== MAX_SHARES && (
-          <div className="investments-card-buy-shares-button">
+        {numberOfShares !== MAX_SHARES ? (
+          <div className="investments-card-buy-shares-button investments-buy-shares-active">
             <Link to="/buyshares">Buy Shares</Link>
+          </div>
+        ) : (
+          <div className="investments-card-buy-shares-button investments-buy-shares-inactive">
+            <div className="investments-inactive-link">Buy Shares</div>
           </div>
         )}
 
-        <div className="investments-card-dividend">Divest</div>
+        <button type="button" className="investments-card-dividend-button">
+          Divest
+        </button>
       </div>
     </div>
   );
