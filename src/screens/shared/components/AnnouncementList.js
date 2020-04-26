@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../styles/Community.css';
 
 const AnnouncementList = props => {
-  const { announcements, css, isFull } = props;
+  const { announcements, css, limitWidth } = props;
   const list = [...announcements].reverse().map(announcement => {
     const { id, title, message, attachments } = announcement;
 
@@ -17,7 +17,7 @@ const AnnouncementList = props => {
       <div
         key={id}
         className={`announcement-card ${
-          isFull ? 'announcement-full-screen' : ''
+          limitWidth ? 'announcement-limit-width' : ''
         }`}
       >
         <div>
