@@ -7,6 +7,7 @@ export default data => ({
   chart: {
     height: 250,
     style: {
+      // TODO: This doesn't seem to be working. We need to figure out how to do this.
       fontFamily: 'Sofia Pro'
     }
   },
