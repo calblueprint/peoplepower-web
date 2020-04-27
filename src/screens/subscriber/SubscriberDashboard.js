@@ -5,7 +5,10 @@ import DashboardCharts from './components/DashboardCharts';
 import DashboardProjectNews from './components/DashboardProjectNews';
 import '../../styles/SubscriberDashboard.css';
 import '../../styles/Community.css';
-import { getSubscriberTransactionData } from '../../lib/subscriberUtils';
+import {
+  getSubscriberTransactionData,
+  getEffectiveCostData
+} from '../../lib/subscriberUtils';
 
 class SubscriberDashboard extends React.Component {
   constructor(props) {
@@ -13,6 +16,7 @@ class SubscriberDashboard extends React.Component {
     this.state = {
       transactions: [],
       activeBill: null,
+      effectiveCostData: [],
       mode: 0
     };
   }
@@ -24,7 +28,8 @@ class SubscriberDashboard extends React.Component {
       owner
     );
 
-    this.setState({ activeBill, transactions });
+    const effectiveCostData = await getEffectiveCostData(owner);
+    this.setState({ activeBill, transactions, effectiveCostData });
   }
 
   seeAllBills() {
@@ -35,7 +40,7 @@ class SubscriberDashboard extends React.Component {
 
   render() {
     const { owner, announcements, isLoadingAnnouncements } = this.props;
-    const { activeBill, transactions } = this.state;
+    const { activeBill, transactions, effectiveCostData } = this.state;
 
     return (
       <div className="subscriber-page ">
@@ -47,7 +52,10 @@ class SubscriberDashboard extends React.Component {
             />
           </div>
           <div className="subscriber-section">
-            <DashboardCharts hasShares={owner.numberOfShares !== 0} />
+            <DashboardCharts
+              hasShares={owner.numberOfShares !== 0}
+              effectiveCostData={effectiveCostData}
+            />
           </div>
         </div>
         <div className="subscriber-side">

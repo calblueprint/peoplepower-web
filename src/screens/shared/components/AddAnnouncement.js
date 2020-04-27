@@ -92,7 +92,7 @@ export default class AddAnnouncement extends React.Component {
     }
 
     return (
-      <div className="announcement-card add-announcement">
+      <div className="announcement-card add-announcement announcement-limit-width">
         <form onSubmit={this.handleSubmit}>
           <textarea
             type="text"

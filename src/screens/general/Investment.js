@@ -13,7 +13,7 @@ import '../../styles/Investments.css';
 import GreenCheck from '../../assets/green_check.png';
 import RedX from '../../assets/red_x.png';
 import TransactionList from './components/TransactionsList';
-import InvestmentCard from '../shared/components/InvestmentCard';
+import InvestmentWidget from '../shared/components/InvestmentWidget';
 
 class Investment extends React.PureComponent {
   constructor(props) {
@@ -80,7 +80,7 @@ class Investment extends React.PureComponent {
                 <div>
                   <h2>My Investment</h2>
                   <div className="investments-shares-box-container">
-                    <InvestmentCard numberOfShares={owner.numberOfShares} />
+                    <InvestmentWidget numberOfShares={owner.numberOfShares} />
                   </div>
                   <div className="investments-box-dividends investments-financial-breakdown-box">
                     <div className="investments-dividends-preferences-box">
