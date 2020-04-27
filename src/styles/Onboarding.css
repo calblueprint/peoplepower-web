@@ -1074,6 +1074,14 @@ carousel__arrow--right {
   margin-top: 0.5rem;
 }
 
+input {
+  outline: transparent;
+}
+
+button {
+  outline: transparent;
+}
+
 .progress-bar-container ul {
   line-height: 12px;
   margin-block-start: 2rem;
