@@ -43,6 +43,7 @@ body {
   width: 100%;
   min-height: 100vh;
   background-color: var(--pp-bg-blue);
+  overflow-y: auto;
 }
 
 /* A global css style that sets the margin of the left gutter. */
