@@ -24,9 +24,7 @@ const validateExistence = (
 
 const toggleValidColor = (input, type) => {
   if (!type) {
-    return input !== '' && typeof input !== 'undefined'
-      ? 'b-is-not-valid'
-      : 'b-is-valid';
+    return input !== '' && typeof input !== 'undefined' ? 'b-is-not-valid' : '';
   }
   return !input ? '\u00A0' : input;
 };

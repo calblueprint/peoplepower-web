@@ -64,7 +64,7 @@ class ContactInfoStep extends React.PureComponent {
                 placeholder="Street 2"
                 onChange={handleChange}
                 defaultValue={owner.permanentStreet2}
-                className="input-white b-is-valid"
+                className="input-white"
               />
             </div>
           </div>
@@ -233,7 +233,7 @@ class ContactInfoStep extends React.PureComponent {
                   placeholder="Street 2"
                   onChange={handleChange}
                   defaultValue={owner.mailingStreet2}
-                  className="input-white b-is-valid"
+                  className="input-white"
                 />
               </div>
             </div>

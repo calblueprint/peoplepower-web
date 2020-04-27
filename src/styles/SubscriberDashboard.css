@@ -169,6 +169,7 @@
   padding: 35px;
   margin: 0 0 10px 0;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
