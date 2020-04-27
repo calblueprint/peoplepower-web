@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Tooltip from '../components/Tooltip';
 import '../../../styles/main.css';
 import '../../../styles/Onboarding.css';
@@ -113,6 +114,13 @@ class BasicInfoStep extends React.PureComponent {
           >
             Get Started
           </button>
+        </div>
+        <div className="onboarding-already-have-account">
+          <h6>Already have an account? </h6>
+          <Link to="/" className="onboarding-already-have-account-link">
+            {' '}
+            Sign in!
+          </Link>
         </div>
       </form>
     );

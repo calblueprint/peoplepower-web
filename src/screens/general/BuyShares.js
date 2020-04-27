@@ -178,13 +178,16 @@ class BuyShares extends React.PureComponent {
             </div>
             <div className="buy-shares-paypal-box">
               <h3>Payment Method</h3>
-              <PayPalButton
-                amount={sharesBuying * SHARE_PRICE}
-                onSuccess={this.onPaymentSuccess}
-                options={{
-                  clientId
-                }}
-              />
+              {sharesBuying ? (
+                <PayPalButton
+                  amount={sharesBuying * SHARE_PRICE}
+                  className="buy-shares-paypalbutton"
+                  onSuccess={this.onPaymentSuccess}
+                  options={{
+                    clientId
+                  }}
+                />
+              ) : null}
             </div>
           </div>
         </div>

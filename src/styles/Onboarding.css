@@ -1222,3 +1222,35 @@ button {
 .mb-22px {
   margin-bottom: 22px;
 }
+
+.onboarding-already-have-account-link {
+  color: var(--pp-gray);
+  font-size: 13px;
+  line-height: 22px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.onboarding-already-have-account {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.onboarding-already-have-account h6 {
+  font-family: Sofia Pro;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 22px;
+  margin-top: 0px;
+  color: var(--pp-gray);
+  margin-right: 4px;
+}
+
+.onboarding-logout-button {
+  background-color: #f7f8fa;
+  border: none;
+  color: var(--pp-gray);
+  font-size: 16px;
+}

@@ -208,6 +208,7 @@ class Onboarding extends React.Component {
   };
 
   render() {
+    const { history } = this.props;
     const { owner, errors } = this.state;
     const stepData = OnboardingData[owner.onboardingStep];
     const StepComponent = stepData.component;
@@ -232,6 +233,7 @@ class Onboarding extends React.Component {
           handleChange={this.handleChange}
           handleChangeBylaw={this.handleChangeBylaw}
           toggleValidColor={toggleValidColor}
+          history={history}
         />
       </div>
     );
