@@ -817,10 +817,6 @@ carousel__arrow--right {
   border: var(--pp-black) solid 2px;
 }
 
-.project-group-list-option:focus {
-  outline: none;
-}
-
 .project-group-list-option-header {
   color: var(--pp-black);
   font-size: 16px;
@@ -1076,14 +1072,6 @@ carousel__arrow--right {
   width: 100%;
   padding: 0.5rem 0.5rem;
   margin-top: 0.5rem;
-}
-
-input {
-  outline: none;
-}
-
-button {
-  outline: none;
 }
 
 .progress-bar-container ul {

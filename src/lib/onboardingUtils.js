@@ -96,10 +96,16 @@ const validateZipcode = value => {
   return value.length === 5 ? '' : 'Must be 5 digits';
 };
 
+const validatePhoneNumber = value => {
+  const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+  return re.test(value) ? '' : 'Please enter a valid phone number.';
+};
+
 // Specify special validation functions for fields
 // Default for all fields: [validateExistence]
 const ValidatorData = {
   email: [validateExistence, validateEmail, validateUniqueEmail],
+  phoneNumber: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
   permanentState: [validateExistence, ValidateUSState],
   mailingState: [validateExistence, ValidateUSState],

@@ -139,8 +139,10 @@ class ContactInfoStep extends React.PureComponent {
                   returnHome={returnToHomepage}
                   handleCloseModal={this.handleCloseModal}
                 />
-              ) : (
+              ) : errors.permanentState === '' ? (
                 '\u00A0'
+              ) : (
+                toggleValidColor(errors.permanentState, 1)
               )}
             </div>
 
