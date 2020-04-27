@@ -1,6 +1,10 @@
 import React from 'react';
 
 class CompleteStep extends React.PureComponent {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     const { onFinish } = this.props;
     return (

@@ -8,6 +8,9 @@ const {
   BILL_PAYMENT_TYPE
 } = constants;
 
+const PAYMENT_TYPE = 'Payment';
+const CHARGE_TYPE = 'Charge';
+
 const formatAmount = (amountInDollars, places = 2) =>
   `$${amountInDollars.toFixed(places)}`;
 
@@ -17,7 +20,8 @@ const createTransactionFromPayment = payment => ({
   description: 'Online Payment',
   payment: formatAmount(payment.amount),
   charge: '',
-  amount: formatAmount(payment.amount)
+  amount: formatAmount(payment.amount),
+  type: PAYMENT_TYPE
 });
 
 const createTransactionFromBill = bill => ({
@@ -26,7 +30,8 @@ const createTransactionFromBill = bill => ({
   description: `${moment(bill.startDate).format('MMMM')} Power Bill`,
   charge: formatAmount(bill.currentCharges),
   payment: '',
-  amount: formatAmount(bill.currentCharges)
+  amount: formatAmount(bill.currentCharges),
+  type: CHARGE_TYPE
 });
 
 const isBillPayment = payment => {

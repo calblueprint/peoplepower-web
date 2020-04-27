@@ -5,8 +5,84 @@ import {
   getOwnersByIds
 } from './airtable/request';
 import { refreshUserData } from './userDataUtils';
+import {
+  validateExistence,
+  validateEmail,
+  validateUniqueEmail,
+  validateNumber,
+  validateZipcode
+} from './onboardingUtils';
 import { store } from './redux/store';
 import constants from '../constants';
+import USStates from '../assets/states.json';
+
+// Ensure shares is a valid number
+const validateShares = value => {
+  if (value > 10) {
+    return 'Max number of shares is 10';
+  }
+  if (value < 1) {
+    return 'Min number of shares is 1';
+  }
+  return '';
+};
+
+// Ensure State is a real state (either abbreivation or full name)
+const ValidateUSState = value => {
+  const upperCaseValue = value.toUpperCase();
+  if (USStates.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
+    return '';
+  }
+  return 'Invalid State';
+};
+
+// Specify special validation functions for fields
+// Default for all fields: [validateExistence]
+const ValidatorData = {
+  inviteEmail: [validateExistence, validateEmail, validateUniqueEmail],
+  inviteShareAmount: [validateExistence, validateNumber, validateShares],
+  updateEmail: [validateExistence, validateEmail, validateUniqueEmail],
+  updateState: [validateExistence, ValidateUSState],
+  updateZipcode: [validateExistence, validateNumber, validateZipcode],
+  updateStreet2: []
+};
+
+export function toggleValidColor(input, type) {
+  switch (type) {
+    case 0:
+      return input !== '' && typeof input !== 'undefined'
+        ? 'b-is-not-valid'
+        : 'b-is-valid';
+    case 1:
+      return !input ? '\u00A0' : input;
+    case 2:
+      return input !== '' && typeof input !== 'undefined'
+        ? 'b-is-not-valid'
+        : null;
+    default:
+      return null;
+  }
+}
+
+// Asynchronously validate field
+export async function validateField(name, value) {
+  let validators = ValidatorData[name];
+
+  // Set Default Validator
+  if (!validators) {
+    validators = [validateExistence];
+  }
+
+  for (let i = 0; i < validators.length; i += 1) {
+    const validateFunc = validators[i];
+    const error = validateFunc(value);
+    if (error !== '') {
+      return error;
+    }
+  }
+
+  return '';
+}
 
 export async function removeOwner(owner) {
   const projectGroup = await getProjectGroupById(owner.projectGroupId);

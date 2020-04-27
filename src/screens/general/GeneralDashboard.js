@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import AnnouncementList from '../shared/components/AnnouncementList';
+import InvestmentCard from '../shared/components/InvestmentCard';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
 import ProductionEquivalenciesChart from '../../components/ProductionEquivalenciesChart';
+import NoProjects from '../shared/components/NoProjects';
 
 class GeneralOwnerDashboard extends React.PureComponent {
   /* dash-solar-details will eventually be its own graph component
@@ -13,7 +15,7 @@ class GeneralOwnerDashboard extends React.PureComponent {
      it when it's loaded.
   */
   render() {
-    const { announcements } = this.props;
+    const { announcements, owner } = this.props;
     return (
       <div className="dashboard">
         <div className="dashboard-content">
@@ -33,10 +35,14 @@ class GeneralOwnerDashboard extends React.PureComponent {
               </div>
             </div>
 
-            <AnnouncementList
-              announcements={announcements}
-              css="non-admin-height"
-            />
+            {announcements.length > 0 ? (
+              <AnnouncementList
+                announcements={announcements}
+                css="non-admin-height"
+              />
+            ) : (
+              <NoProjects />
+            )}
           </div>
           <div>
             <div className="general-dashboard-right-content">
@@ -62,9 +68,7 @@ class GeneralOwnerDashboard extends React.PureComponent {
                     </Link>
                   </div>
                 </div>
-                <div className="dash-investment-details-cont">
-                  {'< Investment Information here >'}
-                </div>
+                <InvestmentCard numberOfShares={owner.numberOfShares} />
               </div>
             </div>
           </div>

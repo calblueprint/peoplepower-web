@@ -1,9 +1,14 @@
 :root {
   --pp-blue: #395578;
+  --pp-blue-gray: #7387a2;
   --pp-pink: #cd6795;
+  --pp-light-pink: rgba(205, 103, 149, 0.3);
   --pp-gray: #7387a2;
+  --pp-medium-gray: #a1aab4;
   --pp-green: #62b16f;
+  --pp-light-green: rgba(98, 177, 111, 0.3);
   --pp-yellow: #e0b64c;
+  --pp-light-yellow: rgba(224, 182, 76, 0.3);
   --pp-black: #24364d;
   --pp-dark-gray: #3e4a59;
   --pp-white: #edf1f5;
@@ -12,6 +17,7 @@
   --pp-bg-white: #efefef;
   --pp-bg-blue: #f7f8fa;
   --pp-tag-gray: #d8d8d8;
+  --pp-gray: #c4c4c4;
   --pp-link-gray: #8f8f8f;
   --pp-disabled: #9caabb; /* --pp-blue with opacity ??? */
   --pp-invalid: #cb4747;
@@ -72,6 +78,7 @@
   background: var(--pp-tag-gray);
   border-radius: 20px;
   margin: 0px 5px;
+  font-size: 12px;
 }
 
 .asterisk {

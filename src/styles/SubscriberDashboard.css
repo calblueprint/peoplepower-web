@@ -1,5 +1,5 @@
 .subscriber-page {
-  margin: 1rem 7rem;
+  margin: 1rem 7rem 0px 7rem;
   display: flex;
 }
 
@@ -138,9 +138,12 @@
 }
 
 .subscriber-billing-recent-table {
-  width: 70%;
   border: none !important;
   box-shadow: none !important;
+}
+
+.subscriber-billing-recent-table .rt-table {
+  overflow-x: scroll !important;
 }
 
 .subscriber-billing-recent-row {

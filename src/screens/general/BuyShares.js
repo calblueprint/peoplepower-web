@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2';
-import SharesProgressBar from './components/SharesProgressBar';
+import SharesProgressBar from '../shared/components/SharesProgressBar';
 import LeftArrow from '../../assets/left_arrow.png';
 import '../../styles/BuyShares.css';
 import { recordSharePayment } from '../../lib/paypalUtils';
 import { refreshUserData } from '../../lib/userDataUtils';
 import Constants from '../../constants';
 import LoadingComponent from '../../components/LoadingComponent';
+import PaymentSuccessModal from '../shared/components/PaymentSuccessModal';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 const { MAX_SHARES, SHARE_PRICE } = Constants;
@@ -18,22 +19,35 @@ class BuyShares extends React.PureComponent {
     super(props);
     this.state = {
       loading: false,
-      sharesBuying: 0
+      sharesBuying: 0,
+      successScreen: false,
+      transactionAmount: 0
     };
   }
 
   onPaymentSuccess = async (details, data) => {
-    const { owner, history } = this.props;
+    const { owner } = this.props;
     const { sharesBuying } = this.state;
-    this.setState({ loading: true });
+
+    const purchase = details.purchase_units;
+
+    if (purchase !== null && purchase.length >= 1) {
+      this.setState({
+        transactionAmount: details.purchase_units[0].amount.value,
+        successScreen: true
+      });
+    } else {
+      console.warn('A purchase of zero shares cannot be performed.');
+    }
+
     await recordSharePayment(
       details,
       data,
       owner.id,
       owner.numberOfShares + sharesBuying
     );
-    await refreshUserData(owner.id);
-    history.push(Constants.HOME_ROUTE);
+
+    await refreshUserData(owner.id, true);
   };
 
   addShares = () => {
@@ -59,7 +73,12 @@ class BuyShares extends React.PureComponent {
 
   render() {
     const { owner } = this.props;
-    const { sharesBuying, loading } = this.state;
+    const {
+      sharesBuying,
+      loading,
+      successScreen,
+      transactionAmount
+    } = this.state;
     const totalShares = owner.numberOfShares + sharesBuying;
 
     if (loading) {
@@ -70,6 +89,15 @@ class BuyShares extends React.PureComponent {
       return <Redirect to="/" />;
     }
 
+    if (successScreen) {
+      return (
+        <PaymentSuccessModal
+          sharesBuying={sharesBuying}
+          transactionAmount={transactionAmount}
+          showShares
+        />
+      );
+    }
     return (
       <div>
         <div className="back-to-investments">

@@ -7,6 +7,19 @@
   color: var(--pp-black);
 }
 
+.transactions-table-date {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .transactions-table-description {
   font-weight: 800;
+}
+
+.transactions-table-charge {
+  color: var(--pp-invalid);
+}
+
+.transactions-table-payment {
+  color: var(--pp-green);
 }
