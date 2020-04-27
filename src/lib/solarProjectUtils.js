@@ -24,7 +24,7 @@ const calculateSolarProjectProduction = solarProjects => {
   }, {});
 
   // Sort Production Data by month and convert to data format for chart
-  return Object.keys(productionDataObject)
+  const data = Object.keys(productionDataObject)
     .map(date => [moment(date, 'MM/YYY'), productionDataObject[date]])
     .sort((a, b) => a[0] - b[0])
     .reduce(
@@ -34,6 +34,11 @@ const calculateSolarProjectProduction = solarProjects => {
       ],
       []
     );
+  const totalEnergy = Object.keys(productionDataObject).reduce(
+    (total, month) => total + productionDataObject[month],
+    0
+  );
+  return { data, totalEnergy };
 };
 
 export default calculateSolarProjectProduction;

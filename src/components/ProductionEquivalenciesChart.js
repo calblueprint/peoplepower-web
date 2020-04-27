@@ -14,16 +14,25 @@ import CarIcon from '../assets/Car-Icon-Square.png';
 import TrashIcon from '../assets/Trash-Icon-Square.png';
 import CoalIcon from '../assets/Coal-Icon-Square.png';
 import calculateSolarProjectProduction from '../lib/solarProjectUtils';
+import Constants from '../constants';
+
+const { KWH_TO_COAL, KWH_TO_VEHICLE_MILES, KWH_TO_TRASH_BAGS } = Constants;
 
 const colors = ['pink', 'green', 'yellow'];
+const formatEnergy = value => Number(Math.floor(value)).toLocaleString();
 
 class ProductionEquivalenciesChart extends React.Component {
   constructor(props) {
     super(props);
+    const { data, totalEnergy } = calculateSolarProjectProduction(
+      props.solarProjects
+    );
+
     this.state = {
       equivalencyIndex: 0,
       style: !props.subscriberVersion ? '' : '-sub',
-      data: calculateSolarProjectProduction(props.solarProjects)
+      data,
+      totalEnergy
     };
   }
 
@@ -42,12 +51,14 @@ class ProductionEquivalenciesChart extends React.Component {
   }
 
   renderEquivalencyOne = () => {
-    const { style } = this.state;
+    const { style, totalEnergy } = this.state;
     return (
       <div className={`prod-equivalencies-right-inner${style}`}>
         <div className={`prod-equivalencies-text${style}`}>
           reducing greenhouse gas emissions from
-          <div className="prod-equivalencies-amt">2,172</div>
+          <div className="prod-equivalencies-amt">
+            {formatEnergy(KWH_TO_VEHICLE_MILES(totalEnergy))}
+          </div>
           miles driven by an average vehicle
         </div>
         <img className="prod-equivalencies-icon" src={CarIcon} alt="car" />
@@ -56,33 +67,33 @@ class ProductionEquivalenciesChart extends React.Component {
   };
 
   renderEquivalencyTwo = () => {
-    const { style } = this.state;
+    const { style, totalEnergy } = this.state;
     return (
       <div className={`prod-equivalencies-right-inner${style}`}>
         <div className={`prod-equivalencies-text${style}`}>
           greenhouse gas emissions avoided by
-          <div className="prod-equivalencies-amt">4</div>
-          wind turbines running for a year
+          <div className="prod-equivalencies-amt">
+            {formatEnergy(KWH_TO_COAL(totalEnergy))}
+          </div>
+          pounds of coal burned
         </div>
-        <img
-          className="prod-equivalencies-icon"
-          src={CoalIcon}
-          alt="windmill"
-        />
+        <img className="prod-equivalencies-icon" src={CoalIcon} alt="coal" />
       </div>
     );
   };
 
   renderEquivalencyThree = () => {
-    const { style } = this.state;
+    const { style, totalEnergy } = this.state;
     return (
       <div className={`prod-equivalencies-right-inner${style}`}>
         <div className={`prod-equivalencies-text${style}`}>
           greenhouse gas emissions avoided by
-          <div className="prod-equivalencies-amt">38.8</div>
+          <div className="prod-equivalencies-amt">
+            {formatEnergy(KWH_TO_TRASH_BAGS(totalEnergy))}
+          </div>
           bags of waste recycled instead of landfilled
         </div>
-        <img className="prod-equivalencies-icon" src={TrashIcon} alt="fruit" />
+        <img className="prod-equivalencies-icon" src={TrashIcon} alt="trash" />
       </div>
     );
   };
@@ -114,7 +125,7 @@ class ProductionEquivalenciesChart extends React.Component {
 
   render() {
     const { subscriberVersion } = this.props;
-    const { data, style } = this.state;
+    const { data, style, totalEnergy } = this.state;
     const equivalency = this.renderEquivalency();
 
     return (
@@ -135,7 +146,9 @@ class ProductionEquivalenciesChart extends React.Component {
               You've helped generate a total of
               <br />
               <div className="prod-equivalencies-amt-energy">
-                <div className="prod-equivalencies-amt-energy-num">1,256</div>
+                <div className="prod-equivalencies-amt-energy-num">
+                  {formatEnergy(totalEnergy)}
+                </div>
                 kWH
               </div>
               <br />

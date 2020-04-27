@@ -35,10 +35,13 @@
 }
 .prod-equivalencies-right {
   font-size: 12px;
+  display: flex;
+  align-items: center;
   padding: 6px 8px;
   color: white;
   font-weight: 400;
   width: 190px;
+  height: 100%;
   transition: background-color 0.6s ease-in-out;
 }
 

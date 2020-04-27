@@ -1,3 +1,7 @@
+import Colors from '../../colors';
+
+const { PP_PIE_CHART_TEXT_COLOR } = Colors;
+
 // Expects Data formatted as so: [{name: 'Section 1', value: 12.3, color: #123124}, ...]
 export default data => ({
   title: {
@@ -16,7 +20,7 @@ export default data => ({
         enabled: true,
         format: '{point.name}',
         connectorColor: '#000000',
-        color: '#24364D',
+        color: PP_PIE_CHART_TEXT_COLOR,
         style: {
           fontWeight: 'light'
         }

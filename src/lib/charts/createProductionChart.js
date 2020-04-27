@@ -1,4 +1,7 @@
-const getColor = (opacity = 1) => `rgba(205, 103, 149, ${opacity})`; // Pink
+// Pink
+import Colors from '../../colors';
+
+const { PP_CHART_PINK } = Colors;
 
 // Expects Data formatted as so: [{month: 'Jan', production: 1234}, {month: 'Feb', production: 2345}, ...]
 export default (data, height = 250) => ({
@@ -27,7 +30,7 @@ export default (data, height = 250) => ({
       return `${this.y} kWh`;
     },
     shared: true,
-    backgroundColor: getColor(),
+    backgroundColor: PP_CHART_PINK(),
     style: {
       color: '#FFFFFF'
     }
@@ -38,15 +41,15 @@ export default (data, height = 250) => ({
       type: 'areaspline',
       pointPlacement: 'on',
       showInLegend: false,
-      color: getColor(),
-      lineColor: getColor(),
+      color: PP_CHART_PINK(),
+      lineColor: PP_CHART_PINK(),
       shadow: false,
       fillColor: {
         linearGradient: [0, 0, 0, 300],
-        stops: [[0, getColor(0.4)], [1, getColor(0.05)]]
+        stops: [[0, PP_CHART_PINK(0.4)], [1, PP_CHART_PINK(0.05)]]
       },
       marker: {
-        fillColor: getColor(),
+        fillColor: PP_CHART_PINK(),
         enabled: false,
         states: {
           hover: {

@@ -1,5 +1,6 @@
-const getColor1 = (opacity = 1) => `rgba(98, 177, 111, ${opacity})`; // Green
-const getColor2 = (opacity = 1) => `rgba(224, 182, 76, ${opacity})`; // Yellow
+import Colors from '../../colors';
+
+const { PP_CHART_YELLOW, PP_CHART_GREEN, PP_CHART_TOOLTIP_BG } = Colors;
 
 // Expects Data formatted as so: [{month: 'Jan', cost: 1234, wouldBeCost: 12451}, ...]
 export default data => ({
@@ -34,7 +35,7 @@ export default data => ({
         this.points[0].y} saved`;
     },
     shared: true,
-    backgroundColor: '#24364D',
+    backgroundColor: PP_CHART_TOOLTIP_BG,
     style: {
       color: '#FFFFFF'
     }
@@ -46,14 +47,14 @@ export default data => ({
       showInLegend: false,
       data: data.map(d => d.cost),
       pointPlacement: 'on',
-      color: getColor1(),
-      lineColor: getColor1(),
+      color: PP_CHART_GREEN(),
+      lineColor: PP_CHART_GREEN(),
       fillColor: {
         linearGradient: [0, 0, 0, 300],
-        stops: [[0, getColor1(0.4)], [1, getColor1(0.01)]]
+        stops: [[0, PP_CHART_GREEN(0.4)], [1, PP_CHART_GREEN(0.01)]]
       },
       marker: {
-        fillColor: getColor1(),
+        fillColor: PP_CHART_GREEN(),
         enabled: false,
         symbol: 'circle',
         states: {
@@ -69,7 +70,7 @@ export default data => ({
       name: 'Cost of People Power',
       pointPlacement: 'on',
       data: [],
-      color: getColor1(),
+      color: PP_CHART_GREEN(),
       marker: {
         enabled: false,
         symbol: 'circle',
@@ -84,11 +85,11 @@ export default data => ({
       type: 'spline',
       name: 'Cost of PG&E',
       data: data.map(d => d.wouldBeCost),
-      color: getColor2(),
+      color: PP_CHART_YELLOW(),
       pointPlacement: 'on',
-      lineColor: getColor2(),
+      lineColor: PP_CHART_YELLOW(),
       marker: {
-        fillColor: getColor2(),
+        fillColor: PP_CHART_YELLOW(),
         enabled: false,
         symbol: 'circle',
         states: {
