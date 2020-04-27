@@ -3,7 +3,7 @@ import '../../../styles/Community.css';
 
 const AnnouncementList = props => {
   const { announcements, css, limitWidth } = props;
-  const list = [...announcements].reverse().map(announcement => {
+  const list = announcements.map(announcement => {
     const { id, title, message, attachments } = announcement;
 
     let url = '';
