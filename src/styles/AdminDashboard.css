@@ -324,15 +324,13 @@
 
 .invite-success-button {
   font-size: 16px;
+  font-weight: bold;
   line-height: 22px;
   background-color: var(--pp-blue);
   border-radius: 40px;
   color: var(--pp-white);
-  margin-top: 40px;
   margin: 40px auto 0 auto;
   padding: 5px 20px;
-  width: 39px;
-  height: 22px;
 }
 
 .admin-pp-tag {
