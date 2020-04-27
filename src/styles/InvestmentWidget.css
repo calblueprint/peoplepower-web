@@ -1,14 +1,21 @@
-.investments-card-box-shares {
+.investments-widget-box-shares {
   background: white;
   border-radius: 5px;
   padding: 35px;
-  width: 450px;
   height: 80px;
   display: flex;
   align-content: flex-start;
 }
 
-.investments-card-circle-progress-bar {
+.investments-widget-normal {
+  width: 450px;
+}
+
+.investments-widget-smaller {
+  width: 400px;
+}
+
+.investments-widget-circle-progress-bar {
   display: flex;
   align-content: flex-start;
   margin-left: -75px;
@@ -17,11 +24,11 @@
   transform: scale(0.9);
 }
 
-.investments-card-box-text {
+.investments-widget-box-text {
   margin-right: 10px;
 }
 
-.investments-card-box-text h4 {
+.investments-widget-box-text h4 {
   font-size: 18px;
   font-weight: bolder;
   font-weight: normal;
@@ -29,14 +36,14 @@
   margin-block-start: 0em;
 }
 
-.investments-card-box-text h5 {
+.investments-widget-box-text h5 {
   margin-block-start: 0;
   margin-block-end: 0;
   color: var(--pp-black);
   font-weight: normal;
 }
 
-.investments-card-dividend-button {
+.investments-widget-dividend-button {
   margin-top: 16px;
   justify-content: center;
   align-content: center;
@@ -46,19 +53,19 @@
   color: var(--pp-medium-gray);
 }
 
-.investments-card-buttons {
+.investments-widget-buttons {
   display: flex;
   flex-direction: column;
   text-align: center;
   margin-right: -10px;
 }
 
-.investments-card-buy-shares-button {
+.investments-widget-buy-shares-button {
   justify-content: center;
   font-weight: normal;
 }
 
-.investments-card-buy-shares-button a {
+.investments-widget-buy-shares-button a {
   padding: 5px 0px;
   font-weight: 800;
   border-radius: 2.5px;
@@ -90,6 +97,6 @@
   background-color: var(--pp-disabled);
 }
 
-.investments-card-buy-shares-button.disabled a {
+.investments-widget-buy-shares-button.disabled a {
   background-color: var(--pp-gray);
 }
