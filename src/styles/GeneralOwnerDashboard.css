@@ -19,7 +19,7 @@
 .dash-solar-details-cont p,
 ul,
 button {
-  color: var(--pp-gray);
+  color: var(--pp-blue-gray);
   font-size: 18px;
   font-weight: 800;
   line-height: 25px;
@@ -35,7 +35,7 @@ button {
 .dash-announcements-cont h3 {
   margin-bottom: 23px;
   margin-top: 0px;
-  color: var(--pp-gray);
+  color: var(--pp-blue-gray);
   font-size: 18px;
   font-weight: 800;
   line-height: 25px;
@@ -68,7 +68,7 @@ button {
 
 .dash-investment-cont h3 {
   margin-bottom: 23px;
-  color: var(--pp-gray);
+  color: var(--pp-blue-gray);
   font-size: 18px;
   font-weight: 800;
   line-height: 25px;

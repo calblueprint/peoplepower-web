@@ -32,7 +32,8 @@ const AnnouncementList = props => {
         list[list.length - 1],
         list[list.length - 2],
         list[list.length - 3],
-        list[list.length - 4]
+        list[list.length - 4],
+        list[list.length - 5]
       ]}
     </div>
   );
