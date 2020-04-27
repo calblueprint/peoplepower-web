@@ -67,13 +67,13 @@ export default class DividendsPreferencesModal extends React.Component {
             <form>
               <div>
                 <input
+                  checked={!!newIsReceivingDividends}
                   type="radio"
                   id="yes-dividends"
                   name="dividends-choice"
                   value="yes"
                   onClick={this.handleCheckYes}
                   className="dividends-radio"
-                  checked={!!newIsReceivingDividends}
                 />
                 <label htmlFor="yes-dividends" className="dividends-radio">
                   Yes! I&apos;d like dividends, thank you!
@@ -81,11 +81,11 @@ export default class DividendsPreferencesModal extends React.Component {
               </div>
               <div className="other-options">
                 <input
+                  checked={!!newIsReceivingDividends}
                   type="radio"
                   id="no-dividends"
                   name="dividends-choice"
                   value="no"
-                  checked={!newIsReceivingDividends}
                   onClick={this.handleCheckNo}
                   className="dividends-radio"
                 />
