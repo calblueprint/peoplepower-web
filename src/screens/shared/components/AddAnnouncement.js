@@ -2,6 +2,9 @@ import React from 'react';
 import '../../../styles/Community.css';
 import { createAnnouncement } from '../../../lib/airtable/request';
 import { refreshUserData } from '../../../lib/userDataUtils';
+import Colors from '../../../colors';
+
+const { PP_BLUE } = Colors;
 
 const STATUS_ERR = -1;
 const STATUS_IN_PROGRESS = 0;
@@ -102,7 +105,7 @@ export default class AddAnnouncement extends React.Component {
             type="submit"
             value={btnText}
             className={btnStatus}
-            style={{ background: '#395578', color: '#fff' }}
+            style={{ background: PP_BLUE, color: 'white' }}
           />
         </form>
         <p>{status}</p>

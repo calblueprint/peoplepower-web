@@ -1,4 +1,4 @@
-const constants = {
+export default {
   LOGIN_TOKEN_NAME: 'loginToken',
 
   // TYPES
@@ -30,7 +30,8 @@ const constants = {
   // BILL GENERATION
   BACKEND_URL: 'https://peoplepower-node.herokuapp.com',
   BILL_ACTIVE_STATUS: 'Active',
-  TRANSACTION_DATE_FORMAT: 'M/DD/YYYY'
-};
+  TRANSACTION_DATE_FORMAT: 'M/DD/YYYY',
 
-export default constants;
+  // MISC
+  BUG_REPORT_URL: 'https://airtable.com/shrY9otlnVK9gyfrl'
+};

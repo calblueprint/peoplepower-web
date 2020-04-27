@@ -76,6 +76,10 @@
 .user-profile-general-form-header h2 {
   margin-top: 0px;
   margin-bottom: 0px;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--pp-blue);
+  line-height: 25px;
 }
 
 .user-profile-general-form-header button {
@@ -104,6 +108,10 @@
 .user-profile-contact-form-header h2 {
   margin-top: 0px;
   margin-bottom: 0px;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+  color: var(--pp-blue);
 }
 
 .user-profile-contact-form-header button {
@@ -121,4 +129,11 @@
   background: var(--pp-pink);
   border: 0px !important;
   color: white;
+}
+
+.user-profile-settings-header h2 {
+  color: var(--pp-blue);
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 49px;
 }
