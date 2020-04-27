@@ -39,6 +39,7 @@ class GeneralOwnerDashboard extends React.PureComponent {
               <AnnouncementList
                 announcements={announcements}
                 css="non-admin-height"
+                limitWidth
               />
             ) : (
               <NoProjects />

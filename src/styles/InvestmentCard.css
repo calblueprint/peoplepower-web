@@ -36,10 +36,14 @@
   font-weight: normal;
 }
 
-.investments-card-dividend {
-  margin-top: 15px;
+.investments-card-dividend-button {
+  margin-top: 16px;
   justify-content: center;
   align-content: center;
+  border: none;
+  background-color: Transparent;
+  cursor: pointer;
+  color: var(--pp-medium-gray);
 }
 
 .investments-card-buttons {
@@ -57,10 +61,6 @@
 .investments-card-buy-shares-button a {
   padding: 5px 0px;
   font-weight: 800;
-}
-
-.investments-card-buy-shares-button a {
-  background-color: var(--pp-pink);
   border-radius: 2.5px;
   color: white;
   text-align: center;
@@ -68,6 +68,26 @@
   display: inline-block;
   font-size: 16px;
   width: 150px;
+}
+
+.investments-inactive-link {
+  border-radius: 2.5px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 150px;
+  padding: 5px 0px;
+  font-weight: 800;
+}
+
+.investments-buy-shares-active {
+  background-color: var(--pp-pink);
+}
+
+.investments-buy-shares-inactive {
+  background-color: var(--pp-disabled);
 }
 
 .investments-card-buy-shares-button.disabled a {
