@@ -18,7 +18,7 @@ import Constants from '../constants';
 
 const { KWH_TO_COAL, KWH_TO_VEHICLE_MILES, KWH_TO_TRASH_BAGS } = Constants;
 
-const colors = ['pink', 'green', 'yellow'];
+const COLORS = ['pink', 'green', 'yellow'];
 const formatEnergy = value => Number(Math.floor(value)).toLocaleString();
 
 class ProductionEquivalenciesChart extends React.Component {
@@ -108,7 +108,7 @@ class ProductionEquivalenciesChart extends React.Component {
     ];
     return (
       <div
-        className={`prod-equivalencies-right${style} prod-equivalencies-${colors[equivalencyIndex]}`}
+        className={`prod-equivalencies-right${style} prod-equivalencies-${COLORS[equivalencyIndex]}`}
       >
         <SwitchTransition>
           <CSSTransition
