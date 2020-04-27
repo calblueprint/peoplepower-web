@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import AnnouncementList from '../shared/components/AnnouncementList';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
-import ProductionChart from '../../components/ProductionChart';
+import ProductionEquivalenciesChart from '../../components/ProductionEquivalenciesChart';
 
 class GeneralOwnerDashboard extends React.PureComponent {
   /* dash-solar-details will eventually be its own graph component
@@ -43,7 +43,7 @@ class GeneralOwnerDashboard extends React.PureComponent {
               <div className="dash-solar-details-cont">
                 <h3>Solar Projects</h3>
                 <div className="dash-solar-details">
-                  <ProductionChart />
+                  <ProductionEquivalenciesChart />
                 </div>
               </div>
 

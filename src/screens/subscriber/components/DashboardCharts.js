@@ -1,8 +1,8 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import createCostSavingsChart from '../../../lib/charts/costSavingsChart';
-import ProductionChart from '../../../components/ProductionChart';
+import createCostSavingsChart from '../../../lib/charts/createCostSavingsChart';
+import ProductionEquivalenciesChart from '../../../components/ProductionEquivalenciesChart';
 
 export default class DashboardChartsSection extends React.PureComponent {
   constructor(props) {
@@ -73,7 +73,7 @@ export default class DashboardChartsSection extends React.PureComponent {
         ) : (
           <div className="subscriber-section-body">
             <div className="subscriber-billing-chart-container">
-              <ProductionChart subscriberVersion />
+              <ProductionEquivalenciesChart subscriberVersion />
             </div>
           </div>
         )}

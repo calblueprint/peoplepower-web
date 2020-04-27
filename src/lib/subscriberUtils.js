@@ -33,11 +33,12 @@ const isBillPayment = payment => {
   return payment.type === BILL_PAYMENT_TYPE;
 };
 
+const round = (x, y = 2) => Number(parseFloat(x).toFixed(y));
+
 const getEffectiveCostData = async owner => {
   const bills = (await getSubscriberBillsByIds(
     owner.subscriberBillIds || []
   )).filter(bill => bill.status !== 'Pending');
-  const round = (x, y = 2) => Number(parseFloat(x).toFixed(y));
 
   const effectiveCostDataMoment = bills.map(bill => ({
     month: moment(bill.startDate, 'YYYY-MM-DD'),
