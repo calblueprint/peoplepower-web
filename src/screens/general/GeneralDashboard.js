@@ -6,7 +6,7 @@ import AnnouncementList from '../shared/components/AnnouncementList';
 import InvestmentCard from '../shared/components/InvestmentCard';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
-import ProductionChart from '../../components/ProductionChartGeneral';
+import ProductionEquivalenciesChart from '../../components/ProductionEquivalenciesChart';
 import NoProjects from '../shared/components/NoProjects';
 
 class GeneralOwnerDashboard extends React.PureComponent {
@@ -49,16 +49,7 @@ class GeneralOwnerDashboard extends React.PureComponent {
               <div className="dash-solar-details-cont">
                 <h3>Solar Projects</h3>
                 <div className="dash-solar-details">
-                  <ProductionChart
-                    data={[
-                      { month: 'Jan', production: 270 },
-                      { month: 'Feb', production: 326 },
-                      { month: 'Mar', production: 500 },
-                      { month: 'Apr', production: 590 },
-                      { month: 'May', production: 580 },
-                      { month: 'Jun', production: 620 }
-                    ]}
-                  />
+                  <ProductionEquivalenciesChart />
                 </div>
               </div>
 

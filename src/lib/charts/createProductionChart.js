@@ -38,7 +38,9 @@ export default (data, height = 250) => ({
       type: 'areaspline',
       pointPlacement: 'on',
       showInLegend: false,
+      color: getColor(),
       lineColor: getColor(),
+      shadow: false,
       fillColor: {
         linearGradient: [0, 0, 0, 300],
         stops: [[0, getColor(0.4)], [1, getColor(0.05)]]

@@ -1,7 +1,7 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import createInvestmentBreakdownChart from '../../../lib/charts/investmentBreakdownChart';
+import createInvestmentBreakdownChart from '../../../lib/charts/createInvestmentBreakdownChart';
 
 export default class InvestmentsPieGraph extends React.PureComponent {
   render() {

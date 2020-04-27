@@ -1,8 +1,8 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import createCostSavingsChart from '../../../lib/charts/costSavingsChart';
-import ProductionChartSubscriber from '../../../components/ProductionChartSubscriber';
+import createCostSavingsChart from '../../../lib/charts/createCostSavingsChart';
+import ProductionEquivalenciesChart from '../../../components/ProductionEquivalenciesChart';
 
 export default class DashboardChartsSection extends React.PureComponent {
   constructor(props) {
@@ -10,7 +10,6 @@ export default class DashboardChartsSection extends React.PureComponent {
     this.state = {
       activeTab: 0
     };
-    this.switchChartView = this.switchChartView.bind(this);
   }
 
   // need to make sure the value doesnt switch if its the same button
@@ -31,8 +30,9 @@ export default class DashboardChartsSection extends React.PureComponent {
   };
 
   render() {
-    const { hasShares } = this.props;
+    const { hasShares, effectiveCostData } = this.props;
     const { activeTab } = this.state;
+
     return (
       <div>
         <div className="subscriber-section-tabs">
@@ -65,20 +65,7 @@ export default class DashboardChartsSection extends React.PureComponent {
               <h3>Effective Cost</h3>
               <HighchartsReact
                 highcharts={Highcharts}
-                options={createCostSavingsChart([
-                  { month: 'Jan', cost: 54, wouldBeCost: 100 },
-                  { month: 'Feb', cost: 49, wouldBeCost: 95 },
-                  { month: 'Mar', cost: 88, wouldBeCost: 155 },
-                  { month: 'Apr', cost: 75, wouldBeCost: 120 },
-                  { month: 'May', cost: 95, wouldBeCost: 180 },
-                  { month: 'Jun', cost: 60, wouldBeCost: 102 },
-                  { month: 'Jul', cost: 51, wouldBeCost: 91 },
-                  { month: 'Aug', cost: 88, wouldBeCost: 146 },
-                  { month: 'Sep', cost: 102, wouldBeCost: 190 },
-                  { month: 'Oct', cost: 80, wouldBeCost: 140 },
-                  { month: 'Nov', cost: 60, wouldBeCost: 105 },
-                  { month: 'Dec', cost: 51, wouldBeCost: 98 }
-                ])}
+                options={createCostSavingsChart(effectiveCostData)}
                 style={{ width: '100%' }}
               />
             </div>
@@ -86,16 +73,7 @@ export default class DashboardChartsSection extends React.PureComponent {
         ) : (
           <div className="subscriber-section-body">
             <div className="subscriber-billing-chart-container">
-              <ProductionChartSubscriber
-                data={[
-                  { month: 'Jan', production: 270 },
-                  { month: 'Feb', production: 326 },
-                  { month: 'Mar', production: 500 },
-                  { month: 'Apr', production: 590 },
-                  { month: 'May', production: 580 },
-                  { month: 'Jun', production: 620 }
-                ]}
-              />
+              <ProductionEquivalenciesChart subscriberVersion />
             </div>
           </div>
         )}
