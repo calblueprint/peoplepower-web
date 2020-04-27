@@ -38,12 +38,36 @@ const isBillPayment = payment => {
   return payment.type === BILL_PAYMENT_TYPE;
 };
 
+const round = (x, y = 2) => Number(parseFloat(x).toFixed(y));
+
+const getEffectiveCostData = async owner => {
+  const bills = (await getSubscriberBillsByIds(
+    owner.subscriberBillIds || []
+  )).filter(bill => bill.status !== 'Pending');
+
+  const effectiveCostDataMoment = bills.map(bill => ({
+    month: moment(bill.startDate, 'YYYY-MM-DD'),
+    cost: round(
+      bill.ebceCharges +
+        bill.pgeCharges +
+        bill.currentCharges -
+        bill.ebceRebate -
+        bill.estimatedRebate
+    ),
+    wouldBeCost: round(bill.wouldBeCosts)
+  }));
+  return effectiveCostDataMoment
+    .sort((a, b) => a.month - b.month)
+    .map(point => ({ ...point, month: point.month.format('MMM') }));
+};
+
 const getSubscriberTransactionData = async owner => {
   const bills = await getSubscriberBillsByIds(owner.subscriberBillIds || []);
   const payments = await getPaymentsByIds(owner.paymentIds || []);
 
   // Create Transactions
   const transactions = bills
+    .filter(bill => bill.status !== 'Pending')
     .map(createTransactionFromBill)
     .concat(payments.filter(isBillPayment).map(createTransactionFromPayment))
     .sort(
@@ -78,4 +102,4 @@ const getSubscriberTransactionData = async owner => {
   };
 };
 
-export { formatAmount, getSubscriberTransactionData };
+export { formatAmount, getSubscriberTransactionData, getEffectiveCostData };
