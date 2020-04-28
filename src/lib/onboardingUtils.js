@@ -97,7 +97,15 @@ const validateZipcode = value => {
 };
 
 const validatePhoneNumber = value => {
-  const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+  // validated phone numbers in this form:
+  // (123) 456-7890
+  // (123)456-7890
+  // 123-456-7890
+  // 123.456.7890
+  // 1234567890
+  // +31636363634
+  // 075-63546725
+  const re = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
   return re.test(value) ? '' : 'Please enter a valid phone number.';
 };
 

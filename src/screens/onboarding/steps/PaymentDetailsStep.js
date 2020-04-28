@@ -124,7 +124,6 @@ class PaymentDetailsStep extends React.Component {
                     name="isReceivingDividends"
                     className="payment-dividends-radio"
                     value
-                    onChange={this.handleChangeDividends}
                   />
                   <label htmlFor="" className="payment-dividends-choice">
                     Yes, I’d like dividends, thank you!

@@ -17,7 +17,7 @@ export default class DashboardProjectNewsSection extends React.PureComponent {
     } else {
       renderedComponent = announcements.map(announcement => (
         <div key={announcement.title} className="subscriber-news-card">
-          <div className="cardHeading">
+          <div>
             <h3>{announcement.title}</h3>
             {announcement.attachments
               ? announcement.attachments.map(attachment => (
@@ -26,7 +26,6 @@ export default class DashboardProjectNewsSection extends React.PureComponent {
               : null}
             <p>{announcement.message}</p>
           </div>
-          <div className="cardDetails" />
         </div>
       ));
     }

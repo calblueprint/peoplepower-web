@@ -1002,7 +1002,7 @@ carousel__arrow--right {
   position: absolute;
 }
 
-[type='radio'] label {
+label [type='radio'] {
   z-index: 2;
 }
 

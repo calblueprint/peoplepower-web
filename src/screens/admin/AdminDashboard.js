@@ -506,6 +506,7 @@ class AdminDashboard extends React.Component {
           className="invite-success-modal"
           overlayClassName="admin-modal-overlay"
         >
+          {/* eslint-disable-next-line no-nested-ternary */}
           {status === 'Sending...' ? (
             <div>
               <LoadingComponent />

@@ -130,6 +130,7 @@ class ContactInfoStep extends React.PureComponent {
               {toggleValidColor(errors.permanentCity, 1)}
             </div>
             <div className="w-15 pr-1 validation">
+              {/* eslint-disable-next-line no-nested-ternary */}
               {errors.permanentState === 'Not California' ? (
                 <PPModal
                   showModal={showModal}
