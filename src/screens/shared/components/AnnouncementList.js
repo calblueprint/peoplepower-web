@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../styles/Community.css';
 
 const AnnouncementList = props => {
-  const { announcements, css } = props;
+  const { announcements, css, limitWidth } = props;
   const list = announcements.map(announcement => {
     const { id, title, message, attachments } = announcement;
 
@@ -14,13 +14,19 @@ const AnnouncementList = props => {
     }
 
     return (
-      <div key={id} className="announcement-card">
-        <div className="cardHeading">
+      <div
+        key={id}
+        className={`announcement-card ${
+          limitWidth ? 'announcement-limit-width' : ''
+        }`}
+      >
+        <div>
           <h2>{title}</h2>
-          {url ? <img src={url} alt={filename} /> : null}
+          {url ? (
+            <img src={url} alt={filename} className="announcement-image" />
+          ) : null}
           <p>{message}</p>
         </div>
-        <div className="cardDetails" />
       </div>
     );
   });
