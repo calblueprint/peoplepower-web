@@ -1,38 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import AnnouncementList from '../shared/components/AnnouncementList';
-import InvestmentCard from '../shared/components/InvestmentCard';
+import InvestmentWidget from '../shared/components/InvestmentWidget';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
+import ProductionEquivalenciesChart from '../../components/ProductionEquivalenciesChart';
 import NoProjects from '../shared/components/NoProjects';
 
-class GeneralOwnerDashboard extends React.Component {
+class GeneralOwnerDashboard extends React.PureComponent {
   /* dash-solar-details will eventually be its own graph component
      so it'll be easy to write a ternary operator that will render
      it when it's loaded.
   */
-
-  renderSolarProjectDetails() {
-    const { solarProjects } = this.props;
-
-    const solarProjectComponent = solarProjects.map(project => {
-      return <li key={project.name}>{project.name}</li>;
-    });
-
-    return (
-      <div className="dash-solar-details">
-        <p>Solar Project Details </p>
-        <div>
-          <p>
-            <span>Solar Project(s):</span>
-          </p>
-          <ul>{solarProjectComponent}</ul>
-        </div>
-      </div>
-    );
-  }
-
   render() {
     const { announcements, owner } = this.props;
     return (
@@ -58,6 +39,7 @@ class GeneralOwnerDashboard extends React.Component {
               <AnnouncementList
                 announcements={announcements}
                 css="non-admin-height"
+                limitWidth
               />
             ) : (
               <NoProjects />
@@ -67,7 +49,9 @@ class GeneralOwnerDashboard extends React.Component {
             <div className="general-dashboard-right-content">
               <div className="dash-solar-details-cont">
                 <h3>Solar Projects</h3>
-                {this.renderSolarProjectDetails()}
+                <div className="dash-solar-details">
+                  <ProductionEquivalenciesChart />
+                </div>
               </div>
 
               <div className="dash-investment-cont">
@@ -85,7 +69,10 @@ class GeneralOwnerDashboard extends React.Component {
                     </Link>
                   </div>
                 </div>
-                <InvestmentCard numberOfShares={owner.numberOfShares} />
+                <InvestmentWidget
+                  numberOfShares={owner.numberOfShares}
+                  smaller
+                />
               </div>
             </div>
           </div>
