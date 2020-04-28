@@ -764,7 +764,7 @@ carousel__arrow--right {
 }
 
 .back-button {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
   border: none;
   color: var(--pp-gray);
   font-size: 16px;
@@ -812,11 +812,11 @@ carousel__arrow--right {
 }
 
 .project-group-list-option:hover {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
 }
 
 .project-group-list-option-selected {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
   border: var(--pp-black) solid 2px;
 }
 
@@ -1238,7 +1238,6 @@ button {
 }
 
 .onboarding-already-have-account h6 {
-  font-family: Sofia Pro;
   font-style: normal;
   font-weight: normal;
   font-size: 13px;
@@ -1249,7 +1248,7 @@ button {
 }
 
 .onboarding-logout-button {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
   border: none;
   color: var(--pp-gray);
   font-size: 16px;
