@@ -247,6 +247,10 @@
   width: 100%;
 }
 
+.my-investment-dashboard {
+  margin-bottom: 5rem;
+}
+
 .my-investment-dashboard h2 {
   font-size: 18px;
   line-height: 25px;
