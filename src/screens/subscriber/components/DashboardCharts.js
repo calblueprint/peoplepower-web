@@ -1,4 +1,8 @@
 import React from 'react';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
+import createCostSavingsChart from '../../../lib/charts/createCostSavingsChart';
+import ProductionEquivalenciesChart from '../../../components/ProductionEquivalenciesChart';
 
 export default class DashboardChartsSection extends React.PureComponent {
   constructor(props) {
@@ -6,7 +10,6 @@ export default class DashboardChartsSection extends React.PureComponent {
     this.state = {
       activeTab: 0
     };
-    this.switchChartView = this.switchChartView.bind(this);
   }
 
   // need to make sure the value doesnt switch if its the same button
@@ -27,8 +30,9 @@ export default class DashboardChartsSection extends React.PureComponent {
   };
 
   render() {
-    const { hasShares } = this.props;
+    const { hasShares, effectiveCostData } = this.props;
     const { activeTab } = this.state;
+
     return (
       <div>
         <div className="subscriber-section-tabs">
@@ -58,13 +62,18 @@ export default class DashboardChartsSection extends React.PureComponent {
         {activeTab === 0 ? (
           <div className="subscriber-section-body">
             <div className="subscriber-billing-chart-container">
-              Very nice graphs for my solar project
+              <h3>Effective Cost</h3>
+              <HighchartsReact
+                highcharts={Highcharts}
+                options={createCostSavingsChart(effectiveCostData)}
+                style={{ width: '100%' }}
+              />
             </div>
           </div>
         ) : (
           <div className="subscriber-section-body">
             <div className="subscriber-billing-chart-container">
-              Very nice graphs for community solar projects
+              <ProductionEquivalenciesChart subscriberVersion />
             </div>
           </div>
         )}

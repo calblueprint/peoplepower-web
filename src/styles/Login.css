@@ -41,6 +41,7 @@ w-100 {
   font-size: 12px;
   color: var(--pp-link-gray);
   margin-bottom: 0.5rem;
+  cursor: pointer;
 }
 
 .login-hyperlink-group {

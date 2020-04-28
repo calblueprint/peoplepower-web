@@ -12,23 +12,16 @@
 
 .dashboard .dash-solar-details-cont,
 .dash-announcements-cont {
-  margin-top: 45px;
+  margin-top: 55px;
   margin-left: 0px;
-}
-
-.dash-solar-details-cont p,
-ul,
-button {
-  color: var(--pp-blue-gray);
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 25px;
+  margin-right: 0px;
 }
 
 .dash-solar-details {
   background: white;
-  padding: 20px 20px;
+  padding: 20px 35px;
   border-radius: 5px;
+  width: 400px;
 }
 
 .dash-solar-details-cont h3,
@@ -39,6 +32,10 @@ button {
   font-size: 18px;
   font-weight: 800;
   line-height: 25px;
+}
+
+.dash-solar-details h3 {
+  color: var(--pp-blue);
 }
 
 .header-button {
