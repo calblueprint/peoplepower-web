@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
 
-.b-is-valid {
-  border: none;
-}
-
 .b-is-not-valid {
   border: 1px solid var(--pp-invalid);
 }
@@ -161,6 +157,7 @@
   width: 100%;
   box-sizing: border-box;
   font-size: 16px;
+  border: none;
 }
 
 .input-gray ::placeholder {
@@ -820,10 +817,6 @@ carousel__arrow--right {
   border: var(--pp-black) solid 2px;
 }
 
-.project-group-list-option:focus {
-  outline: none;
-}
-
 .project-group-list-option-header {
   color: var(--pp-black);
   font-size: 16px;
@@ -1009,7 +1002,7 @@ carousel__arrow--right {
   position: absolute;
 }
 
-[type='radio'] label {
+label [type='radio'] {
   z-index: 2;
 }
 
@@ -1082,11 +1075,11 @@ carousel__arrow--right {
 }
 
 input {
-  outline: none;
+  outline: transparent;
 }
 
 button {
-  outline: none;
+  outline: transparent;
 }
 
 .progress-bar-container ul {

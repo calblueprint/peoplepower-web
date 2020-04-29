@@ -71,7 +71,7 @@ class ContactInfoStep extends React.PureComponent {
                 placeholder="Street 2"
                 onChange={handleChange}
                 defaultValue={owner.permanentStreet2}
-                className="input-white b-is-valid"
+                className="input-white"
               />
             </div>
           </div>
@@ -137,6 +137,7 @@ class ContactInfoStep extends React.PureComponent {
               {toggleValidColor(errors.permanentCity, 1)}
             </div>
             <div className="w-15 pr-1 validation">
+              {/* eslint-disable-next-line no-nested-ternary */}
               {errors.permanentState === 'Not California' ? (
                 <PPModal
                   showModal={showModal}
@@ -146,8 +147,10 @@ class ContactInfoStep extends React.PureComponent {
                   returnHome={returnToHomepage}
                   handleCloseModal={this.handleCloseModal}
                 />
-              ) : (
+              ) : errors.permanentState === '' ? (
                 '\u00A0'
+              ) : (
+                toggleValidColor(errors.permanentState, 1)
               )}
             </div>
 
@@ -240,7 +243,7 @@ class ContactInfoStep extends React.PureComponent {
                   placeholder="Street 2"
                   onChange={handleChange}
                   defaultValue={owner.mailingStreet2}
-                  className="input-white b-is-valid"
+                  className="input-white"
                 />
               </div>
             </div>

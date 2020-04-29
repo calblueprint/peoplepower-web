@@ -12,7 +12,7 @@
   font-weight: 900;
   font-size: 36px;
   line-height: 49px;
-  color: var(--pp-gray);
+  color: var(--pp-blue);
 }
 
 .investment-mainheader {
@@ -20,7 +20,7 @@
 }
 
 .investments-container h2 {
-  color: var(--pp-gray);
+  color: var(--pp-blue-gray);
   font-size: 18px;
   font-weight: 800;
 }
@@ -254,13 +254,13 @@
 .my-investment-dashboard h2 {
   font-size: 18px;
   line-height: 25px;
-  color: var(--pp-gray);
+  color: var(--pp-blue-gray);
 }
 
 .my-investment-dashboard h2 {
   font-size: 18px;
   line-height: 25px;
-  color: var(--pp-gray);
+  color: var(--pp-blue-gray);
 }
 
 .investment-pie-graph {

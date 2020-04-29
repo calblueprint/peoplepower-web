@@ -34,7 +34,7 @@
 }
 
 .subscriber-header {
-  color: var(--pp-gray);
+  color: var(--pp-blue-gray);
   font-weight: 700;
   font-size: 1.17em;
 }
@@ -76,7 +76,7 @@
 }
 
 .subscriber-billing-tab {
-  color: var(--pp-gray);
+  color: var(--pp-blue-gray);
   font-weight: 700;
   font-size: 1.17em;
   margin-right: 7rem;
@@ -178,6 +178,7 @@
   padding: 35px;
   margin: 0 0 10px 0;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
