@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Gear from '../assets/settings.png';
-import { logOut } from '../lib/authUtils';
+import { logOut } from '../lib/airlock';
 
 class SettingsDropdown extends React.PureComponent {
-  handleLogoutClick = () => {
+  handleLogoutClick = async () => {
     const { history } = this.props;
-    logOut();
-    history.push('/');
+    const res = await logOut();
+    if (res) {
+      history.push('/');
+    } else {
+      console.warn('Logout failed');
+    }
   };
 
   render() {

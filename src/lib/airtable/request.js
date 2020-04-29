@@ -14,6 +14,7 @@
 
 import { Tables, Columns } from './schema';
 import {
+  createUserWithAirlock,
   createRecord,
   updateRecord,
   getAllRecords,
@@ -26,8 +27,8 @@ import {
  ******* CREATE RECORDS *******
  */
 
-export const createOwner = async record => {
-  return createRecord(Tables.Owner, record);
+export const createOwner = async (email, password, record) => {
+  return createUserWithAirlock(email, password, record);
 };
 
 export const createProjectGroup = async record => {

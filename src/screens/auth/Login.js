@@ -1,5 +1,5 @@
 import React from 'react';
-import { loginUser } from '../../lib/authUtils';
+import { loginUser } from '../../lib/airlock';
 import '../../styles/Login.css';
 import '../../styles/main.css';
 import Constants from '../../constants';
