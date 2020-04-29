@@ -15,7 +15,7 @@ class BasicInfoStep extends React.PureComponent {
       toggleValidColor
     } = this.props;
     return (
-      <form className="center card flex onboarding-col">
+      <form className="card flex onboarding-col onboarding-first-step-margin">
         <div className=" ">
           <div className="header ">
             Be a part of the movement for equity and clean energy.

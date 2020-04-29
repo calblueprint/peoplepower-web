@@ -100,14 +100,16 @@ class BillingPayment extends React.Component {
         <div className="billing-dash-outer-container">
           <button className="subscriber-back-button" type="button">
             <div className="billing-payment-back-button-container">
-              <Link to="/billing">
+              <Link to="/billing" className="billing-payment-back-button">
                 <img
                   className="button left-arrow-button"
                   src={LeftArrow}
                   alt="left arrow"
                 />
               </Link>
-              <label>Back</label>
+              <Link to="/billing" className="billing-payment-back-text">
+                Back
+              </Link>
             </div>
           </button>
           <h1>Make Payment</h1>

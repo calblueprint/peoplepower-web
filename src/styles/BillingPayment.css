@@ -35,3 +35,13 @@
 
   color: var(--pp-gray);
 }
+
+.billing-payment-back-text {
+  margin-left: 13px;
+  color: var(--pp-blue-gray);
+  text-decoration: none;
+  line-height: 22px;
+  font-size: 16px;
+  font-weight: bolder;
+  margin-top: -3px;
+}

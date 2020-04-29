@@ -111,6 +111,7 @@ class Investment extends React.PureComponent {
                     <DividendsPreferencesModal
                       newIsReceivingDividends={isReceivingDividends}
                       onClickSavePreferences={this.submitPreference}
+                      owner={owner}
                     />
                   </div>
                   <h2>Transactions</h2>
