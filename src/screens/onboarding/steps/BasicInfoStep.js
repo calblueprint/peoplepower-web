@@ -108,7 +108,7 @@ class BasicInfoStep extends React.PureComponent {
         <div className="v-center">
           <button
             type="button"
-            className="btn btn--rounded btn--pink btn--size12 getstarted-button"
+            className="btn btn--rounded btn--pink btn--size12 get-started-button"
             onClick={onSubmit}
           >
             Get Started
