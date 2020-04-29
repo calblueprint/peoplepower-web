@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
 
-.b-is-valid {
-  border: none;
-}
-
 .b-is-not-valid {
   border: 1px solid var(--pp-invalid);
 }
@@ -161,6 +157,7 @@
   width: 100%;
   box-sizing: border-box;
   font-size: 16px;
+  border: none;
 }
 
 .input-gray ::placeholder {
@@ -764,7 +761,7 @@ carousel__arrow--right {
 }
 
 .back-button {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
   border: none;
   color: var(--pp-gray);
   font-size: 16px;
@@ -812,16 +809,12 @@ carousel__arrow--right {
 }
 
 .project-group-list-option:hover {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
 }
 
 .project-group-list-option-selected {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
   border: var(--pp-black) solid 2px;
-}
-
-.project-group-list-option:focus {
-  outline: none;
 }
 
 .project-group-list-option-header {
@@ -1009,7 +1002,7 @@ carousel__arrow--right {
   position: absolute;
 }
 
-[type='radio'] label {
+label [type='radio'] {
   z-index: 2;
 }
 
@@ -1082,11 +1075,11 @@ carousel__arrow--right {
 }
 
 input {
-  outline: none;
+  outline: transparent;
 }
 
 button {
-  outline: none;
+  outline: transparent;
 }
 
 .progress-bar-container ul {
@@ -1230,4 +1223,35 @@ button {
   left: 50%;
   transform: translate(-50%, -50%);
   scale: 0.9;
+}
+
+.onboarding-already-have-account-link {
+  color: var(--pp-gray);
+  font-size: 13px;
+  line-height: 22px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.onboarding-already-have-account {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.onboarding-already-have-account h6 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 22px;
+  margin-top: 0px;
+  color: var(--pp-gray);
+  margin-right: 4px;
+}
+
+.onboarding-logout-button {
+  background-color: var(--pp-bg-blue);
+  border: none;
+  color: var(--pp-gray);
+  font-size: 16px;
 }

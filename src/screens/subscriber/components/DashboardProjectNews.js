@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import LoadingComponent from '../../../components/LoadingComponent';
 import RightArrow from '../../../assets/right_arrow.png';
 import NoProjects from '../../shared/components/NoProjects';
-import AnnouncementList from '../../shared/components/AnnouncementList';
 
 export default class DashboardProjectNewsSection extends React.PureComponent {
   render() {
@@ -16,7 +15,19 @@ export default class DashboardProjectNewsSection extends React.PureComponent {
     } else if (announcements.length === 0) {
       renderedComponent = <NoProjects />;
     } else {
-      renderedComponent = <AnnouncementList announcements={announcements} />;
+      renderedComponent = announcements.map(announcement => (
+        <div key={announcement.title} className="subscriber-news-card">
+          <div>
+            <h3>{announcement.title}</h3>
+            {announcement.attachments
+              ? announcement.attachments.map(attachment => (
+                  <img src={attachment.url} alt={attachment.filename} />
+                ))
+              : null}
+            <p>{announcement.message}</p>
+          </div>
+        </div>
+      ));
     }
 
     return (
@@ -31,9 +42,7 @@ export default class DashboardProjectNewsSection extends React.PureComponent {
             />
           </Link>
         </div>
-        <div className="subscriber-side-section-body">
-          <div className="subscriber-news-card">{renderedComponent}</div>
-        </div>
+        <div className="subscriber-side-section-body">{renderedComponent}</div>
       </div>
     );
   }

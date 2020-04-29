@@ -24,9 +24,7 @@ const validateExistence = (
 
 const toggleValidColor = (input, type) => {
   if (!type) {
-    return input !== '' && typeof input !== 'undefined'
-      ? 'b-is-not-valid'
-      : 'b-is-valid';
+    return input !== '' && typeof input !== 'undefined' ? 'b-is-not-valid' : '';
   }
   return !input ? '\u00A0' : input;
 };
@@ -98,10 +96,24 @@ const validateZipcode = value => {
   return value.length === 5 ? '' : 'Must be 5 digits';
 };
 
+const validatePhoneNumber = value => {
+  // validated phone numbers in this form:
+  // (123) 456-7890
+  // (123)456-7890
+  // 123-456-7890
+  // 123.456.7890
+  // 1234567890
+  // +31636363634
+  // 075-63546725
+  const re = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
+  return re.test(value) ? '' : 'Please enter a valid phone number.';
+};
+
 // Specify special validation functions for fields
 // Default for all fields: [validateExistence]
 const ValidatorData = {
   email: [validateExistence, validateEmail, validateUniqueEmail],
+  phoneNumber: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
   permanentState: [validateExistence, ValidateUSState],
   mailingState: [validateExistence, ValidateUSState],

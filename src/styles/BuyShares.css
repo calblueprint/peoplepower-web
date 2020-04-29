@@ -166,3 +166,8 @@
   border-right: none;
   width: 100%;
 }
+
+.buy-shares-paypal-button {
+  width: 30px;
+  height: 50px;
+}
