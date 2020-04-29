@@ -108,9 +108,9 @@
   fill: #7387a2;
 }
 
-.getstarted-button {
+.get-started-button {
   padding: 0.3rem 2rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .center {
@@ -214,7 +214,7 @@
   width: 70%;
   text-align: center;
   margin: auto;
-  margin-bottom: 35px;
+  margin-bottom: 30px;
 }
 
 .l-50 {
@@ -1214,6 +1214,15 @@ button {
 
 .mb-22px {
   margin-bottom: 22px;
+}
+
+.onboarding-first-step-margin {
+  margin: 0;
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  scale: 0.9;
 }
 
 .onboarding-already-have-account-link {
