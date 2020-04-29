@@ -8,18 +8,19 @@
 
   If you're adding a new function: make sure you add a corresponding test (at least 1) for it in airtable.spec.js
 */
-import Airtable from 'airtable';
+import Airtable from '@calblueprint/airlock';
 import { Columns } from './schema';
 
 const BASE_ID = 'appFaOwKhMXrRIQIp';
 const VIEW = 'Grid view';
-const ENDPOINT_URL = 'https://api.airtable.com';
+// const ENDPOINT_URL = 'https://api.airtable.com';
+const ENDPOINT_URL = 'http://localhost:3000';
 
-const apiKey = process.env.REACT_APP_AIRTABLE_API_KEY;
+// const apiKey = process.env.REACT_APP_AIRTABLE_API_KEY;
 
 Airtable.configure({
   endpointUrl: ENDPOINT_URL,
-  apiKey
+  apiKey: 'airlock'
 });
 
 const base = Airtable.base(BASE_ID);
@@ -194,6 +195,7 @@ function deleteRecord(table, id) {
 }
 
 export {
+  base,
   createRecord,
   getAllRecords,
   getRecordById,

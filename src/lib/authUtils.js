@@ -1,11 +1,12 @@
 import { getOwnersByEmail } from './airtable/request';
+import { base } from './airtable/airtable';
 import { store } from './redux/store';
 import { authenticate } from './redux/userDataSlice';
 import { refreshUserData, clearUserData } from './userDataUtils';
 
 const loginUser = async (email, passwordHash) => {
+  console.log(await base.login({ username: email, password: passwordHash }));
   const records = await getOwnersByEmail(email);
-
   if (records.length > 1) {
     // Todo: We could/should ultimately try and handle this case smoothly
     // This error case represents a database structure issue, but it
