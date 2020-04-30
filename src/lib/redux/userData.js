@@ -3,19 +3,19 @@ import {
   getAnnouncementsByProjectGroupId,
   getOwnerById,
   getSolarProjectsByIds
-} from './airtable/request';
-import { store } from './redux/store';
+} from '../airtable/request';
+import { store } from './store';
 import {
   saveUserData,
   deauthenticateAndClearUserData,
   setLoadingForUserData
-} from './redux/userDataSlice';
+} from './userDataSlice';
 import {
   clearAnnouncements,
   saveAnnouncements,
   setLoadingForAnnouncements
-} from './redux/communitySlice';
-import { getCredentials } from './credentials';
+} from './communitySlice';
+import { getCredentials } from '../credentials';
 
 // Function takes in an ownerId and fetches the latest owner object and all associated user data
 const refreshUserData = async (ownerId, loadSilently = false) => {

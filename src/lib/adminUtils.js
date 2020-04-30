@@ -4,7 +4,7 @@ import {
   createPledgeInvite,
   getOwnersByIds
 } from './airtable/request';
-import { refreshUserData } from './userDataUtils';
+import { refreshUserData } from './redux/userData';
 import {
   validateExistence,
   validateEmail,

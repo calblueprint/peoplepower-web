@@ -6,7 +6,7 @@ import SharesProgressBar from '../shared/components/SharesProgressBar';
 import LeftArrow from '../../assets/left_arrow.png';
 import '../../styles/BuyShares.css';
 import { recordSharePayment } from '../../lib/paypalUtils';
-import { refreshUserData } from '../../lib/userDataUtils';
+import { refreshUserData } from '../../lib/redux/userData';
 import Constants from '../../constants';
 import LoadingComponent from '../../components/LoadingComponent';
 import PaymentSuccessModal from '../shared/components/PaymentSuccessModal';

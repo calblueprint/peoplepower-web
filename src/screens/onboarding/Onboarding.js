@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import qs from 'qs';
-import OnboardingData from '../../lib/onboardingData';
+import OnboardingData from './onboardingData';
 import {
   validateField,
   updateOwnerFields,

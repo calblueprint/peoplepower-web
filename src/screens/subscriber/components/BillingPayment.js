@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2/lib';
-import { refreshUserData } from '../../../lib/userDataUtils';
+import { refreshUserData } from '../../../lib/redux/userData';
 import {
   getSubscriberTransactionData,
   formatAmount

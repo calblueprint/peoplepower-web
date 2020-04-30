@@ -8,7 +8,7 @@ import {
   deleteOwner,
   getAllOwners
 } from './airtable/request';
-import { refreshUserData, clearUserData } from './userDataUtils';
+import { refreshUserData, clearUserData } from './redux/userData';
 import ErrorIcon from '../assets/error.svg';
 import { signupUser } from './airlock';
 

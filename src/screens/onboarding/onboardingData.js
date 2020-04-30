@@ -1,10 +1,10 @@
-import ContactInfoStep from '../screens/onboarding/steps/ContactInfoStep';
-import BasicInfoStep from '../screens/onboarding/steps/BasicInfoStep';
-import ProjectGroupStep from '../screens/onboarding/steps/ProjectGroupStep';
-import PaymentStep from '../screens/onboarding/steps/PaymentStep';
-import CompleteStep from '../screens/onboarding/steps/CompleteStep';
-import BylawStep from '../screens/onboarding/steps/BylawStep';
-import PaymentDetailsStep from '../screens/onboarding/steps/PaymentDetailsStep';
+import ContactInfoStep from './steps/ContactInfoStep';
+import BasicInfoStep from './steps/BasicInfoStep';
+import ProjectGroupStep from './steps/ProjectGroupStep';
+import PaymentStep from './steps/PaymentStep';
+import CompleteStep from './steps/CompleteStep';
+import BylawStep from './steps/BylawStep';
+import PaymentDetailsStep from './steps/PaymentDetailsStep';
 
 // Maps Step to Component and Fields via Indices
 const OnboardingData = [
