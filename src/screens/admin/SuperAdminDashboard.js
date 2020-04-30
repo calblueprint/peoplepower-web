@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getAllSolarProjects } from '../../lib/airtable/request';
-import Constants from '../../constants';
 
 class SuperAdminDashboard extends React.Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class SuperAdminDashboard extends React.Component {
   };
 
   generateBillsForSolarProject(solarProjectId) {
-    return fetch(`${Constants.BILL_GENERATION_BACKEND_URL}/generate`, {
+    return fetch(`${process.env.REACT_APP_BILL_GENERATION_URL}/generate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

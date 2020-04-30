@@ -13,7 +13,6 @@ import {
   validateZipcode
 } from './onboardingUtils';
 import { store } from './redux/store';
-import constants from '../constants';
 import USStates from '../assets/states.json';
 
 // Ensure shares is a valid number
@@ -112,7 +111,7 @@ export async function inviteMember(pledgeInvite) {
 export async function triggerEmail(pledgeInviteId) {
   try {
     const emailInvite = await fetch(
-      `${constants.BILL_GENERATION_BACKEND_URL}/invite`,
+      `${process.env.REACT_APP_BILL_GENERATION_URL}/invite`,
       {
         method: 'POST',
         headers: {
