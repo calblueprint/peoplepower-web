@@ -24,10 +24,6 @@ const userDataSlice = createSlice({
   name: 'userData',
   initialState,
   reducers: {
-    authenticate(state, action) {
-      state.authenticated = true;
-      state.key = action.payload;
-    },
     setLoadingForUserData(state, action) {
       state.isLoading = true;
     },
@@ -52,7 +48,6 @@ const userDataSlice = createSlice({
 });
 
 export const {
-  authenticate,
   setLoadingForUserData,
   saveUserData,
   deauthenticateAndClearUserData

@@ -87,6 +87,7 @@
     "input": "src/lib/airtable",
     "defaultView": "Grid view",
     "mode": "auto-headless",
+    "airlock": true,
     "schemaMeta": {
       "Announcement": {
         "lookupFields": [

@@ -1,13 +1,19 @@
 import { getOwnersByEmail } from './airtable/request';
-import { base } from './airtable/airtable';
-import { store } from './redux/store';
-import { authenticate } from './redux/userDataSlice';
+import { base, toAirtableFormat } from './airtable/airtable';
 import { refreshUserData, clearUserData } from './userDataUtils';
-import Constants from '../constants';
-
-const { LOGIN_TOKEN_NAME } = Constants;
+import { Tables } from './airtable/schema';
 
 const AUTHENTICATION_ERR_STRING = 'AUTHENTICATION_REQUIRED';
+
+// Given a table and a record object, create a record on Airtable.
+const createUserWithAirlock = (email, password, record) => {
+  const transformedRecord = toAirtableFormat(record, Tables.Owner);
+  return base.register({
+    username: email,
+    password,
+    fields: transformedRecord
+  });
+};
 
 const loginUser = async (email, password) => {
   try {
@@ -32,8 +38,6 @@ const loginUser = async (email, password) => {
     }
 
     const owner = records[0];
-    // Save key to redux store
-    store.dispatch(authenticate(LOGIN_TOKEN_NAME));
     refreshUserData(owner.id);
     return { match: true, found: true };
   } catch (err) {
@@ -59,4 +63,4 @@ const logOut = async () => {
   }
 };
 
-export { loginUser, logOut };
+export { loginUser, logOut, createUserWithAirlock };
