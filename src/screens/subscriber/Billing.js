@@ -24,6 +24,8 @@ class Billing extends React.Component {
 
     if (view === 'all') {
       this.state.mode = 1;
+    } else {
+      this.state.mode = 0;
     }
   }
 

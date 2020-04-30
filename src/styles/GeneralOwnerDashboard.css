@@ -85,11 +85,20 @@
 }
 
 .left-arrow-button {
-  width: 4vh;
+  width: 28px;
+  margin-left: -45px;
 }
 
 .left-arrow-button:hover {
   opacity: 0.8;
+}
+
+.left-arrow-back {
+  color: var(--pp-blue-gray);
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 22px;
+  margin-left: 10px;
 }
 
 .general-dashboard-right-content {

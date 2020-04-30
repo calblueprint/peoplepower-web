@@ -24,7 +24,7 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    this.pullPropsIntoState();
+    this.pullPropsIntoState('both');
   }
 
   componentDidUpdate(prevProps) {
@@ -33,27 +33,6 @@ class UserProfile extends React.Component {
       this.pullPropsIntoState('both');
     }
   }
-
-  pullPropsIntoState = type => {
-    const { owner } = this.props;
-
-    if (type === 'contact' || type === 'both') {
-      this.setState({
-        updatePhoneNumber: owner.phoneNumber,
-        updatePermanentStreet1: owner.permanentStreet1,
-        updatePermanentStreet2: owner.permanentStreet2,
-        updatePermanentCity: owner.permanentCity,
-        updatePermanentState: owner.permanentState,
-        updatePermanentZipcode: owner.permanentZipcode
-      });
-    }
-    if (type === 'general' || type === 'both') {
-      this.setState({
-        updateFirstName: owner.firstName,
-        updateLastName: owner.lastName
-      });
-    }
-  };
 
   handleCancel = type => {
     this.setState({ [`${type}EditMode`]: false });
@@ -152,6 +131,27 @@ class UserProfile extends React.Component {
       // Change visual state
       this.setState({
         generalEditMode: true
+      });
+    }
+  };
+
+  pullPropsIntoState = type => {
+    const { owner } = this.props;
+
+    if (type === 'contact' || type === 'both') {
+      this.setState({
+        updatePhoneNumber: owner.phoneNumber,
+        updatePermanentStreet1: owner.permanentStreet1,
+        updatePermanentStreet2: owner.permanentStreet2,
+        updatePermanentCity: owner.permanentCity,
+        updatePermanentState: owner.permanentState,
+        updatePermanentZipcode: owner.permanentZipcode
+      });
+    }
+    if (type === 'general' || type === 'both') {
+      this.setState({
+        updateFirstName: owner.firstName,
+        updateLastName: owner.lastName
       });
     }
   };
