@@ -15,7 +15,7 @@ import AdminDashboard from './screens/admin/AdminDashboard';
 import UserProfile from './screens/shared/UserProfile';
 import ErrorPage from './screens/general/ErrorPage';
 import './styles/App.css';
-import { refreshUserData } from './lib/userDataUtils';
+import { refreshUserData } from './lib/redux/userData';
 import { history } from './lib/redux/store';
 import {
   isGeneralOwner,

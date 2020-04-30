@@ -1,15 +1,15 @@
 /* eslint-disable class-methods-use-this */
 import React from 'react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
 import {
   CSSTransition,
   SwitchTransition,
   TransitionGroup
 } from 'react-transition-group';
 import { connect } from 'react-redux';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 import '../styles/Equivalencies.css';
-import createProductionChart from '../lib/charts/createProductionChart';
+import createProductionChart from '../lib/highcharts/createProductionChart';
 import CarIcon from '../assets/Car-Icon-Square.png';
 import TrashIcon from '../assets/Trash-Icon-Square.png';
 import CoalIcon from '../assets/Coal-Icon-Square.png';

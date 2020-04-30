@@ -1,7 +1,7 @@
 import { getOwnersByEmail } from './airtable/request';
 import { store } from './redux/store';
 import { authenticate } from './redux/userDataSlice';
-import { refreshUserData, clearUserData } from './userDataUtils';
+import { refreshUserData, clearUserData } from './redux/userData';
 
 const loginUser = async (email, passwordHash) => {
   const records = await getOwnersByEmail(email);

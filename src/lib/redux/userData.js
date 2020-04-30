@@ -3,21 +3,21 @@ import {
   getAnnouncementsByProjectGroupId,
   getOwnerById,
   getSolarProjectsByIds
-} from './airtable/request';
-import { store } from './redux/store';
+} from '../airtable/request';
+import { store } from './store';
 import {
   saveUserData,
   deauthenticateAndClearUserData,
   setLoadingForUserData,
   setLoading,
   unsetLoading
-} from './redux/userDataSlice';
+} from './userDataSlice';
 import {
   clearAnnouncements,
   saveAnnouncements,
   setLoadingForAnnouncements
-} from './redux/communitySlice';
-import { getCredentials } from './credentials';
+} from './communitySlice';
+import { getCredentials } from '../credentials';
 
 const setAppIsLoading = isLoading => {
   if (isLoading) {

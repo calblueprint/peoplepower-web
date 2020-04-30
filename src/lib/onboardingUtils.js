@@ -8,7 +8,7 @@ import {
   createOwner,
   deleteOwner
 } from './airtable/request';
-import { refreshUserData, clearUserData } from './userDataUtils';
+import { refreshUserData, clearUserData } from './redux/userData';
 import ErrorIcon from '../assets/error.svg';
 
 // Helper functions to validate owner record fields

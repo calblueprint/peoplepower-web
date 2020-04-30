@@ -2,7 +2,7 @@ import React from 'react';
 import ErrorIcon from '../../../assets/error.svg';
 import Tooltip from '../components/Tooltip';
 import Constants from '../../../constants';
-import { calculatePaypalTransactionFee } from '../../../lib/paypalUtils';
+import { calculatePaypalTransactionFee } from '../../../lib/paypal/paypal';
 
 const { SHARE_PRICE, MAX_SHARES } = Constants;
 
