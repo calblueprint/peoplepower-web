@@ -6,7 +6,7 @@ import { Tables } from './airtable/schema';
 const AUTHENTICATION_ERR_STRING = 'AUTHENTICATION_REQUIRED';
 
 // Given a table and a record object, create a record on Airtable.
-const createUserWithAirlock = (email, password, record) => {
+const signupUser = (email, password, record) => {
   const transformedRecord = toAirtableFormat(record, Tables.Owner);
   return base.register({
     username: email,
@@ -49,7 +49,7 @@ const loginUser = async (email, password) => {
   }
 };
 
-const logOut = async () => {
+const logoutUser = async () => {
   try {
     const res = await base.logout();
     if (!res.body.success) {
@@ -63,4 +63,4 @@ const logOut = async () => {
   }
 };
 
-export { loginUser, logOut, createUserWithAirlock };
+export { loginUser, logoutUser, signupUser };

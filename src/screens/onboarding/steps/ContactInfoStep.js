@@ -3,7 +3,7 @@ import Tooltip from '../components/Tooltip';
 import '../../../styles/main.css';
 import PPModal from '../../../components/PPModal';
 import { returnToHomepage } from '../../../lib/onboardingUtils';
-import { logOut } from '../../../lib/airlock';
+import { logoutUser } from '../../../lib/airlock';
 
 class ContactInfoStep extends React.PureComponent {
   constructor(props) {
@@ -24,7 +24,7 @@ class ContactInfoStep extends React.PureComponent {
 
   handleGoBack = async () => {
     const { history } = this.props;
-    const logOutSuccess = await logOut();
+    const logOutSuccess = await logoutUser();
     if (logOutSuccess) {
       history.push('/');
     } else {
