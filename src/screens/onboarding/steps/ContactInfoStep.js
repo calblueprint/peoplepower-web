@@ -24,8 +24,8 @@ class ContactInfoStep extends React.PureComponent {
 
   handleGoBack = async () => {
     const { history } = this.props;
-    const res = await logOut();
-    if (res) {
+    const logOutSuccess = await logOut();
+    if (logOutSuccess) {
       history.push('/');
     } else {
       console.warn('Logout failed');

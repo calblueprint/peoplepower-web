@@ -6,10 +6,11 @@ import { logOut } from '../lib/airlock';
 class SettingsDropdown extends React.PureComponent {
   handleLogoutClick = async () => {
     const { history } = this.props;
-    const res = await logOut();
-    if (res) {
+    const logOutSuccess = await logOut();
+    if (logOutSuccess) {
       history.push('/');
     } else {
+      // TODO: Display error to user (also wonder if there's a way to encapsulate this logic in auth.js)
       console.warn('Logout failed');
     }
   };

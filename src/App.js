@@ -35,6 +35,7 @@ import FeedbackButton from './components/FeedbackButton';
 class App extends React.Component {
   componentDidMount() {
     const { owner } = this.props;
+    // TODO: check that airlock session token is valid
 
     // If userLogin info is in Redux, fetch latest version
     if (owner) {
