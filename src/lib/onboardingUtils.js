@@ -5,11 +5,12 @@ import {
   getOwnersByEmail,
   getAllProjectGroups,
   updateOwner,
-  createOwner,
-  deleteOwner
+  deleteOwner,
+  getAllOwners
 } from './airtable/request';
 import { refreshUserData, clearUserData } from './userDataUtils';
 import ErrorIcon from '../assets/error.svg';
+import { signupUser } from './airlock';
 
 // Helper functions to validate owner record fields
 
@@ -186,8 +187,14 @@ const updateOwnerFields = async (owner, fields) => {
     await updateOwner(owner.id, ownerUpdate);
     refreshUserData(owner.id);
   } else {
-    const ownerId = await createOwner(ownerUpdate);
-    refreshUserData(ownerId);
+    // TODO: Error Handling
+    await signupUser(
+      ownerUpdate.email,
+      ownerUpdate.password,
+      { ...ownerUpdate, password: undefined } // Remove password from owner update
+    );
+    const owners = await getAllOwners();
+    refreshUserData(owners[0].id);
   }
 };
 

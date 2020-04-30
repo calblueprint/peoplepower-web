@@ -1,6 +1,4 @@
 export default {
-  LOGIN_TOKEN_NAME: 'loginToken',
-
   // TYPES
   SUBSCRIBER_OWNER: 'Subscriber',
   GENERAL_OWNER: 'General',
