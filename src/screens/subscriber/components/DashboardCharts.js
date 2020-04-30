@@ -1,7 +1,9 @@
 import React from 'react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import createCostSavingsChart from '../../../lib/charts/createCostSavingsChart';
+import {
+  Highcharts,
+  HighchartsReact
+} from '../../../lib/highcharts/highCharts';
+import createCostSavingsChart from '../../../lib/highcharts/createCostSavingsChart';
 import ProductionEquivalenciesChart from '../../../components/ProductionEquivalenciesChart';
 
 export default class DashboardChartsSection extends React.PureComponent {

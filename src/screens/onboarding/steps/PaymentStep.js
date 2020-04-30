@@ -1,6 +1,6 @@
 import React from 'react';
-import { PayPalButton } from 'react-paypal-button-v2';
 import {
+  PayPalButton,
   calculatePaypalTransactionFee,
   recordSharePayment
 } from '../../../lib/paypal/paypal';

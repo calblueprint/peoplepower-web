@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { PayPalButton } from 'react-paypal-button-v2';
 import SharesProgressBar from '../shared/components/SharesProgressBar';
 import LeftArrow from '../../assets/left_arrow.png';
 import '../../styles/BuyShares.css';
-import { recordSharePayment } from '../../lib/paypal/paypal';
+import { PayPalButton, recordSharePayment } from '../../lib/paypal/paypal';
 import { refreshUserData } from '../../lib/redux/userData';
 import Constants from '../../constants';
 import LoadingComponent from '../../components/LoadingComponent';

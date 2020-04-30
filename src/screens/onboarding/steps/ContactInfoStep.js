@@ -3,7 +3,7 @@ import Tooltip from '../components/Tooltip';
 import '../../../styles/main.css';
 import PPModal from '../../../components/PPModal';
 import { returnToHomepage } from '../../../lib/onboardingUtils';
-import { logoutUser } from '../../../lib/airlock';
+import { logoutUser } from '../../../lib/airlock/airlock';
 
 class ContactInfoStep extends React.PureComponent {
   constructor(props) {

@@ -1,3 +1,4 @@
+import { PayPalButton } from 'react-paypal-button-v2';
 import { createPayment, updateOwner } from '../airtable/request';
 import constants from '../../constants';
 
@@ -50,4 +51,9 @@ const recordBillPayment = async (details, data, bill) => {
   });
 };
 
-export { calculatePaypalTransactionFee, recordBillPayment, recordSharePayment };
+export {
+  PayPalButton,
+  calculatePaypalTransactionFee,
+  recordBillPayment,
+  recordSharePayment
+};
