@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Gear from '../assets/settings.png';
-import { logoutUser } from '../lib/airlock';
+import { logoutUser } from '../lib/airlock/airlock';
 
 class SettingsDropdown extends React.PureComponent {
   handleLogoutClick = async () => {

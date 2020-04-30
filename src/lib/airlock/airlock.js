@@ -1,7 +1,7 @@
-import { getOwnersByEmail } from './airtable/request';
-import { base, toAirtableFormat } from './airtable/airtable';
-import { refreshUserData, clearUserData } from './userDataUtils';
-import { Tables } from './airtable/schema';
+import { getOwnersByEmail } from '../airtable/request';
+import { base, toAirtableFormat } from '../airtable/airtable';
+import { refreshUserData, clearUserData } from '../userDataUtils';
+import { Tables } from '../airtable/schema';
 
 const AUTHENTICATION_ERR_STRING = 'AUTHENTICATION_REQUIRED';
 
