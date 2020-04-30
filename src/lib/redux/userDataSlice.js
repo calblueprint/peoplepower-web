@@ -47,6 +47,12 @@ const userDataSlice = createSlice({
 
     deauthenticateAndClearUserData() {
       return { ...initialState };
+    },
+    setLoading(state, _) {
+      state.isLoading = true;
+    },
+    unsetLoading(state, _) {
+      state.isLoading = false;
     }
   }
 });
@@ -54,6 +60,8 @@ const userDataSlice = createSlice({
 export const {
   authenticate,
   setLoadingForUserData,
+  setLoading,
+  unsetLoading,
   saveUserData,
   deauthenticateAndClearUserData
 } = userDataSlice.actions;
