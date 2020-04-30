@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  Highcharts,
-  HighchartsReact
-} from '../../../lib/highcharts/highCharts';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 import createCostSavingsChart from '../../../lib/highcharts/createCostSavingsChart';
 import ProductionEquivalenciesChart from '../../../components/ProductionEquivalenciesChart';
 

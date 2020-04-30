@@ -6,7 +6,8 @@ import {
   TransitionGroup
 } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { Highcharts, HighchartsReact } from '../lib/highcharts/highCharts';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 import '../styles/Equivalencies.css';
 import createProductionChart from '../lib/highcharts/createProductionChart';
 import CarIcon from '../assets/Car-Icon-Square.png';

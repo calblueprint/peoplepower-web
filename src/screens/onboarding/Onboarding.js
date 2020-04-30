@@ -8,6 +8,7 @@ import {
   toggleValidColor,
   validateFieldSync
 } from '../../lib/onboardingUtils';
+import { setAppIsLoading } from '../../lib/redux/userData';
 import ProgressBar from './components/ProgressBar';
 import Constants from '../../constants';
 import {
@@ -85,6 +86,7 @@ class Onboarding extends React.Component {
   };
 
   nextStep = async event => {
+    setAppIsLoading(true);
     const { owner, inviteToken } = this.state;
     if (event) {
       event.preventDefault();
@@ -127,6 +129,7 @@ class Onboarding extends React.Component {
       }
 
       await updateOwnerFields(newOwner, fieldsToUpdate);
+      setAppIsLoading(false);
     }
   };
 

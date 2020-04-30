@@ -52,7 +52,7 @@ class BillingPayment extends React.Component {
     const { activeBill } = this.state;
     const { owner } = this.props;
     this.setState({
-      loadingPayment: false,
+      loading: false,
       transactionAmount: details.purchase_units[0].amount.value,
       successScreen: true
     });
