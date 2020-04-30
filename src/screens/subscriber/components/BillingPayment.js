@@ -69,6 +69,7 @@ class BillingPayment extends React.Component {
       successScreen,
       transactionAmount
     } = this.state;
+    const returnTo = 'Billing';
 
     if (loading) {
       return <LoadingComponent />;
@@ -91,6 +92,7 @@ class BillingPayment extends React.Component {
         <PaymentSuccessModal
           transactionAmount={transactionAmount}
           showShares={false}
+          returnTo={returnTo}
         />
       );
     }

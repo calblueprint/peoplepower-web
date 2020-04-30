@@ -80,6 +80,7 @@ class BuyShares extends React.PureComponent {
       transactionAmount
     } = this.state;
     const totalShares = owner.numberOfShares + sharesBuying;
+    const returnTo = 'My Investment';
 
     if (loading) {
       return <LoadingComponent />;
@@ -95,6 +96,7 @@ class BuyShares extends React.PureComponent {
           sharesBuying={sharesBuying}
           transactionAmount={transactionAmount}
           showShares
+          returnTo={returnTo}
         />
       );
     }

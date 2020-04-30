@@ -7,7 +7,12 @@ const { PP_PINK } = Colors;
 
 class PaymentSuccessModal extends React.PureComponent {
   render() {
-    const { sharesBuying, transactionAmount, showShares } = this.props;
+    const {
+      sharesBuying,
+      transactionAmount,
+      showShares,
+      returnTo
+    } = this.props;
 
     const paymentMethod = 'Paypal Debit';
 
@@ -42,12 +47,22 @@ class PaymentSuccessModal extends React.PureComponent {
           <p>{`${paymentMethod}`}</p>
         </div>
 
-        <Link
-          to="/investment"
-          className="dropdown-link payment-success-redirect-button"
-        >
-          Back to My Investment
-        </Link>
+        {returnTo === 'My Investment' ? (
+          <Link
+            to="/investment"
+            className="dropdown-link payment-success-redirect-button"
+          >
+            Back to My Investment
+          </Link>
+        ) : (
+          <Link
+            to="/billing"
+            className="dropdown-link payment-success-redirect-button"
+          >
+            Back to Billing
+          </Link>
+        )}
+
         <Link to="/" className="dropdown-link payment-success-redirect-button">
           Return to Dashboard
         </Link>
