@@ -11,7 +11,7 @@ import processCurrencyInput from '../../../lib/billingUtils';
 import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
 import LeftArrow from '../../../assets/left_arrow.png';
-import { recordBillPayment } from '../../../lib/paypalUtils';
+import { recordBillPayment } from '../../../lib/paypal/paypal';
 import PaymentSuccessModal from '../../shared/components/PaymentSuccessModal';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;

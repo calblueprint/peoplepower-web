@@ -1,5 +1,5 @@
-import { createPayment, updateOwner } from './airtable/request';
-import constants from '../constants';
+import { createPayment, updateOwner } from '../airtable/request';
+import constants from '../../constants';
 
 const {
   BILL_PAYMENT_TYPE,
