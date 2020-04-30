@@ -153,7 +153,7 @@ class PaymentDetailsStep extends React.Component {
                   <div className="error-container">
                     <img src={ErrorIcon} alt="error" className="mr-1" />
                     <div className="error-text">
-                      Please certify the above address in order to proceed.
+                      Please select your preference for dividends.
                     </div>
                   </div>
                 ) : null}

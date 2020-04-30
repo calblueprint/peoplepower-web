@@ -26,13 +26,14 @@ export default class ProgressBarHeader extends React.PureComponent {
                 strokelocation="inside"
               />
               <polyline
+                width="2"
                 className="progress-bar-checkmark"
                 fill="none"
                 stroke="white"
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeMiterlimit="10"
-                points="41,27 30,40 22,34 "
+                points="39,28 30,38 25,33"
               />
             </svg>
             <div className="progressbar-step-text">Contact</div>
@@ -57,7 +58,7 @@ export default class ProgressBarHeader extends React.PureComponent {
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeMiterlimit="10"
-                points="41,27 30,40 22,34 "
+                points="39,28 30,38 25,33"
               />
             </svg>
             <div className="progressbar-step-text">Project Groups</div>
@@ -82,7 +83,7 @@ export default class ProgressBarHeader extends React.PureComponent {
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeMiterlimit="10"
-                points="41,27 30,40 22,34 "
+                points="39,28 30,38 25,33"
               />
             </svg>
             <div className="progressbar-step-text">Owner Agreement</div>
@@ -107,7 +108,7 @@ export default class ProgressBarHeader extends React.PureComponent {
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeMiterlimit="10"
-                points="41,27 30,40 22,34 "
+                points="39,28 30,38 25,33"
               />
             </svg>
             <div className="progressbar-step-text">Payment</div>
