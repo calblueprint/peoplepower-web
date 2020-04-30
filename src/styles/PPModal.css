@@ -8,7 +8,9 @@
   right: 0;
   bottom: 0;
   overflow: auto;
-  background: rgba(0, 0, 0, 0.4); /*needed to apply opacity to just background*/
+  background: var(
+    --pp-basic-black-forty
+  ); /*needed to apply opacity to just background*/
 }
 
 .pp-general-modal-content {
