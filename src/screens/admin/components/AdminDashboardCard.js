@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../../styles/main.css';
 import { getCredentials, isAdmin } from '../../../lib/credentials';
+import { removeOwner } from '../../../lib/adminUtils';
 
 class AdminDashboardCard extends React.PureComponent {
   render() {
@@ -56,6 +57,15 @@ class AdminDashboardCard extends React.PureComponent {
           <div className="member-since-text">
             Member since {dateCreated.substring(0, 4)}
           </div>
+          {!isAdminOwner && (
+            <button
+              type="button"
+              onClick={() => removeOwner(owner)}
+              className="card-button"
+            >
+              Remove
+            </button>
+          )}
         </div>
       </button>
     );

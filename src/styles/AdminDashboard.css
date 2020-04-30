@@ -42,15 +42,17 @@
   width: 295px;
   background: white;
   align-items: center;
-  padding: 30px 30px 30px 30px;
+  padding: 30px;
   margin-bottom: 20px;
   margin-left: 20px;
   border: var(--pp-selected-gray) solid 1px;
   border-radius: 5px;
+  height: 200px;
 }
 
 .admin-card:hover {
   cursor: pointer;
+  background-color: var(--pp-bg-blue);
 }
 
 .admin-card-holder .admin-card .card-name {
@@ -87,12 +89,14 @@
   background-color: var(--pp-black);
   border: none;
   color: white;
-  text-align: center;
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
   font-size: 12px;
   white-space: nowrap;
+  border-radius: 2.5px;
+  font-weight: bold;
+  padding: 0 15px;
 }
 
 .card-holder .admin-card h3 {
