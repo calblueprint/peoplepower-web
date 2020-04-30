@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Gear from '../assets/settings.png';
 import { logoutUser } from '../lib/airlock/airlock';
-import { setAppIsLoading } from '../lib/userDataUtils';
+import { setAppIsLoading } from '../lib/redux/userData';
 
 class SettingsDropdown extends React.PureComponent {
   handleLogoutClick = async () => {

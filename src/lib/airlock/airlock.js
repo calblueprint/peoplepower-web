@@ -1,6 +1,6 @@
 import { getOwnersByEmail } from '../airtable/request';
 import { base, toAirtableFormat } from '../airtable/airtable';
-import { refreshUserData, clearUserData } from '../userDataUtils';
+import { refreshUserData, clearUserData } from '../redux/userData';
 import { Tables } from '../airtable/schema';
 
 const AUTHENTICATION_ERR_STRING = 'AUTHENTICATION_REQUIRED';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PayPalButton } from 'react-paypal-button-v2/lib';
+import { PayPalButton } from '../../../lib/paypal/paypal';
 
 const PaymentButtons = ({ amount }) => {
   const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;

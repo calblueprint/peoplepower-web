@@ -1,6 +1,6 @@
 import React from 'react';
 import { loginUser } from '../../lib/airlock/airlock';
-import { setAppIsLoading } from '../../lib/userDataUtils';
+import { setAppIsLoading } from '../../lib/redux/userData';
 import '../../styles/Login.css';
 import '../../styles/main.css';
 import Constants from '../../constants';
