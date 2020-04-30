@@ -1,8 +1,5 @@
 import React from 'react';
 import '../styles/App.css';
-import Constants from '../constants';
-
-const { BUG_REPORT_URL } = Constants;
 
 class FeedbackButton extends React.PureComponent {
   constructor(props) {
@@ -48,7 +45,7 @@ class FeedbackButton extends React.PureComponent {
         target="_blank"
         onClick={e => {
           e.preventDefault();
-          window.open(BUG_REPORT_URL);
+          window.open(process.env.REACT_APP_BUG_REPORT_URL);
         }}
       >
         {buttonText}

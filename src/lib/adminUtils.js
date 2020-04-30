@@ -111,16 +111,19 @@ export async function inviteMember(pledgeInvite) {
 
 export async function triggerEmail(pledgeInviteId) {
   try {
-    const emailInvite = await fetch(`${constants.BACKEND_URL}/invite`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        pledgeInviteId
-      })
-    });
+    const emailInvite = await fetch(
+      `${constants.BILL_GENERATION_BACKEND_URL}/invite`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          pledgeInviteId
+        })
+      }
+    );
 
     const emailResponse = await emailInvite.json();
     const { status } = emailResponse;

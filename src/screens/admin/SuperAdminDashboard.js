@@ -16,7 +16,7 @@ class SuperAdminDashboard extends React.Component {
   };
 
   generateBillsForSolarProject(solarProjectId) {
-    return fetch(`${Constants.BACKEND_URL}/generate`, {
+    return fetch(`${Constants.BILL_GENERATION_BACKEND_URL}/generate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

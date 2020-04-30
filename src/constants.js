@@ -26,7 +26,7 @@ export default {
   PLEDGE_INVITE_USED: 'Used',
 
   // BILL GENERATION
-  BACKEND_URL: 'https://peoplepower-node.herokuapp.com',
+  BILL_GENERATION_BACKEND_URL: process.env.REACT_APP_BILL_GENERATION_URL,
   BILL_ACTIVE_STATUS: 'Active',
   TRANSACTION_DATE_FORMAT: 'M/DD/YYYY',
 
@@ -38,8 +38,5 @@ export default {
   KWH_TO_TRASH_BAGS: energyInKwH =>
     (energyInKwH * 7.07 * 10 ** -4) / (2.35 * 10 ** -2),
   KWH_TO_VEHICLE_MILES: energyInKwH =>
-    (energyInKwH * 7.07 * 10 ** -4) / (4.03 * 10 ** -4),
-
-  // MISC
-  BUG_REPORT_URL: 'https://airtable.com/shrY9otlnVK9gyfrl'
+    (energyInKwH * 7.07 * 10 ** -4) / (4.03 * 10 ** -4)
 };
