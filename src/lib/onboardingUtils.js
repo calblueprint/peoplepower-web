@@ -5,11 +5,11 @@ import {
   getOwnersByEmail,
   getAllProjectGroups,
   updateOwner,
-  createOwner,
   deleteOwner
 } from './airtable/request';
 import { refreshUserData, clearUserData } from './userDataUtils';
 import ErrorIcon from '../assets/error.svg';
+import { createUserWithAirlock } from './airlock';
 
 // Helper functions to validate owner record fields
 
@@ -186,7 +186,7 @@ const updateOwnerFields = async (owner, fields) => {
     await updateOwner(owner.id, ownerUpdate);
     refreshUserData(owner.id);
   } else {
-    const ownerId = await createOwner(
+    const ownerId = await createUserWithAirlock(
       ownerUpdate.email,
       ownerUpdate.password,
       ownerUpdate

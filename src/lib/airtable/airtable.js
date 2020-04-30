@@ -10,19 +10,22 @@
 */
 import Airtable from '@calblueprint/airlock';
 import { Columns } from './schema';
-import Constants from '../../constants';
 
-const { BASE_ID, VIEW, ENDPOINT_URL } = Constants;
+const BASE_ID = process.env.REACT_APP_AIRTABLE_BASE_ID;
 
-// Airlock uses the same API as Airtable
+const API_KEY = 'airlock';
+const ENDPOINT_URL = process.env.REACT_APP_AIRTABLE_ENDPOINT_URL;
+const VIEW = 'Grid view';
+
 Airtable.configure({
   endpointUrl: ENDPOINT_URL,
-  apiKey: 'airlock'
+  apiKey: API_KEY
 });
 
 const base = Airtable.base(BASE_ID);
 
 // Transformation Utilities
+
 const fromAirtableFormat = (record, table) => {
   const columns = Columns[table];
   if (!columns) {
@@ -89,16 +92,6 @@ const toAirtableFormat = (record, table) => {
     return { ...obj, [origColumn.name]: value };
   }, {});
 };
-
-// Given a table and a record object, create a record on Airtable.
-function createUserWithAirlock(email, password, record) {
-  const transformedRecord = toAirtableFormat(record, 'Owner');
-  return base.register({
-    username: email,
-    password,
-    fields: transformedRecord
-  });
-}
 
 // ******** CRUD ******** //
 // Given a table and a record object, create a record on Airtable.
@@ -202,7 +195,8 @@ function deleteRecord(table, id) {
 
 export {
   base,
-  createUserWithAirlock,
+  fromAirtableFormat,
+  toAirtableFormat,
   createRecord,
   getAllRecords,
   getRecordById,
