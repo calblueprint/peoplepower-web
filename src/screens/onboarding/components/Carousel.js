@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Arrow from '../../../assets/right_arrow.png';
+import Arrow from '../../../assets/arrow.png';
 
 class Carousel extends Component {
   constructor(props) {
@@ -71,7 +71,7 @@ class Carousel extends Component {
             {activeIndex > 0 ? (
               <button
                 type="button"
-                className="arrow-circle left"
+                className="arrow-block left"
                 alt="prev button"
                 onClick={this.goToPrevSlide}
               >
@@ -89,7 +89,7 @@ class Carousel extends Component {
             {activeIndex < slides.length - 1 ? (
               <button
                 type="button"
-                className="arrow-circle right"
+                className="arrow-block right"
                 alt="next button"
                 onClick={this.goToNextSlide}
               >

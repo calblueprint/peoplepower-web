@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { formatAmount } from '../../../lib/subscriberUtils';
 
 class TransactionList extends React.PureComponent {
   render() {
@@ -18,7 +19,7 @@ class TransactionList extends React.PureComponent {
     }
     const list = filteredList.map((payment, index) => {
       const { type, amount, dateCreated, id } = payment;
-      const quantity = amount / 100;
+      const quantity = Math.floor(amount / 100);
       const dateFormatted = moment(dateCreated).format('MMMM D, YYYY');
 
       return (
@@ -26,7 +27,8 @@ class TransactionList extends React.PureComponent {
           <div className="investments-transaction-card-heading">
             <h4>{type === 'Buy Shares' ? 'Share' : type}</h4>
             <h5>
-              {type === 'Buy Shares' ? '-' : '+'}${amount}.00
+              {type === 'Buy Shares' ? '-' : '+'}
+              {formatAmount(amount)}
             </h5>
           </div>
           <div className="investments-transaction-card-details">
