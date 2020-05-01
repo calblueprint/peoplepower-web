@@ -46,7 +46,6 @@ class PaymentSuccessCard extends React.PureComponent {
           <h3>Payment Method:</h3>
           <p>{`${paymentMethod}`}</p>
         </div>
-
         <Link
           to={returnTo === 'My Investment' ? '/investment' : '/billing'}
           className="dropdown-link payment-success-redirect-button"
