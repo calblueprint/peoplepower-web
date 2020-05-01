@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateOwner } from '../../lib/airtable/request';
-import { refreshUserData } from '../../lib/userDataUtils';
+import { refreshUserData } from '../../lib/redux/userData';
 import { validateField } from '../../lib/onboardingUtils';
 import '../../styles/UserProfilePage.css';
 

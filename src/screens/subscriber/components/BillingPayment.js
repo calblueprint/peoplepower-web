@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import { PayPalButton } from 'react-paypal-button-v2/lib';
-import { refreshUserData } from '../../../lib/userDataUtils';
+import { refreshUserData } from '../../../lib/redux/userData';
 import {
   getSubscriberTransactionData,
   formatAmount
@@ -11,7 +10,7 @@ import processCurrencyInput from '../../../lib/billingUtils';
 import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
 import LeftArrow from '../../../assets/left_arrow.png';
-import { recordBillPayment } from '../../../lib/paypalUtils';
+import { PayPalButton, recordBillPayment } from '../../../lib/paypal/paypal';
 import PaymentSuccessModal from '../../shared/components/PaymentSuccessModal';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
@@ -53,7 +52,7 @@ class BillingPayment extends React.Component {
     const { activeBill } = this.state;
     const { owner } = this.props;
     this.setState({
-      loadingPayment: false,
+      loading: false,
       transactionAmount: details.purchase_units[0].amount.value,
       successScreen: true
     });

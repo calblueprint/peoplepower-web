@@ -1,6 +1,6 @@
 import Colors from '../../colors';
 
-const { PP_PIE_CHART_TEXT_COLOR } = Colors;
+const { PP_PIE_CHART_TEXT_COLOR, PP_BASIC_BLACK } = Colors;
 
 // Expects Data formatted as so: [{name: 'Section 1', value: 12.3, color: #123124}, ...]
 export default data => ({
@@ -19,7 +19,7 @@ export default data => ({
         distance: 10,
         enabled: true,
         format: '{point.name}',
-        connectorColor: '#000000',
+        connectorColor: PP_BASIC_BLACK,
         color: PP_PIE_CHART_TEXT_COLOR,
         style: {
           fontWeight: 'light'

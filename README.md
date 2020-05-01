@@ -22,11 +22,9 @@ The project uses a number of secrets that are passed via a `.env` file (for secu
 ```
 REACT_APP_PAYPAL_CLIENT_ID={PAYPAL CLIENT ID}
 REACT_APP_GOOGLE_API_KEY={REACT APP GOOGLE API KEY}
-REACT_APP_AIRTABLE_BASE_ID=appFaOwKhMXrRIQIp
+REACT_APP_AIRTABLE_BASE_ID={AIRTABLE BASE ID}
 REACT_APP_AIRTABLE_ENDPOINT_URL=https://peoplepower-node.herokuapp.com
-
-AIRTABLE_EMAIL={AIRTABLE EMAIL}
-AIRTABLE_PASSWORD={AIRTABLE PASSWORD}
+BILL_GENERATION_BACKEND_URL=https://peoplepower-node.herokuapp.com
 ```
 
 _❗️Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `REACT_APP_AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `REACT_APP_AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well_

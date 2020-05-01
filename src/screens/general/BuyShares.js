@@ -1,14 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { PayPalButton } from 'react-paypal-button-v2';
 import SharesProgressBar from '../shared/components/SharesProgressBar';
 import LeftArrow from '../../assets/left_arrow.png';
 import '../../styles/BuyShares.css';
-import { recordSharePayment } from '../../lib/paypalUtils';
-import { refreshUserData } from '../../lib/userDataUtils';
+import { PayPalButton, recordSharePayment } from '../../lib/paypal/paypal';
+import { refreshUserData } from '../../lib/redux/userData';
 import Constants from '../../constants';
-import LoadingComponent from '../../components/LoadingComponent';
 import PaymentSuccessModal from '../shared/components/PaymentSuccessModal';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
@@ -18,7 +16,6 @@ class BuyShares extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
       sharesBuying: 0,
       successScreen: false,
       transactionAmount: 0
@@ -73,18 +70,10 @@ class BuyShares extends React.PureComponent {
 
   render() {
     const { owner } = this.props;
-    const {
-      sharesBuying,
-      loading,
-      successScreen,
-      transactionAmount
-    } = this.state;
+    const { sharesBuying, successScreen, transactionAmount } = this.state;
     const totalShares = owner.numberOfShares + sharesBuying;
     const returnTo = 'My Investment';
 
-    if (loading) {
-      return <LoadingComponent />;
-    }
     // Page should not be accessible if you can't buy more shares
     if (owner.numberOfShares === 10) {
       return <Redirect to="/" />;
