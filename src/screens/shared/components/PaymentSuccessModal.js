@@ -46,23 +46,12 @@ class PaymentSuccessModal extends React.PureComponent {
           <h3>Payment Method:</h3>
           <p>{`${paymentMethod}`}</p>
         </div>
-
-        {returnTo === 'My Investment' ? (
-          <Link
-            to="/investment"
-            className="dropdown-link payment-success-redirect-button"
-          >
-            Back to My Investment
-          </Link>
-        ) : (
-          <Link
-            to="/billing"
-            className="dropdown-link payment-success-redirect-button"
-          >
-            Back to Billing
-          </Link>
-        )}
-
+        <Link
+          to={returnTo === 'My Investment' ? '/investment' : '/billing'}
+          className="dropdown-link payment-success-redirect-button"
+        >
+          Back to {returnTo}
+        </Link>
         <Link to="/" className="dropdown-link payment-success-redirect-button">
           Return to Dashboard
         </Link>
