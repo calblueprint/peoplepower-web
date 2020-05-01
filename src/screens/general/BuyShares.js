@@ -7,7 +7,7 @@ import '../../styles/BuyShares.css';
 import { PayPalButton, recordSharePayment } from '../../lib/paypal/paypal';
 import { refreshUserData } from '../../lib/redux/userData';
 import Constants from '../../constants';
-import PaymentSuccessModal from '../shared/components/PaymentSuccessModal';
+import PaymentSuccessCard from '../shared/components/PaymentSuccessCard';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 const { MAX_SHARES, SHARE_PRICE } = Constants;
@@ -81,7 +81,7 @@ class BuyShares extends React.PureComponent {
 
     if (successScreen) {
       return (
-        <PaymentSuccessModal
+        <PaymentSuccessCard
           sharesBuying={sharesBuying}
           transactionAmount={transactionAmount}
           showShares

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../../../styles/PaymentSuccessModal.css';
+import '../../../styles/PaymentSuccessCard.css';
 import Colors from '../../../colors';
 
 const { PP_PINK } = Colors;
 
-class PaymentSuccessModal extends React.PureComponent {
+class PaymentSuccessCard extends React.PureComponent {
   render() {
     const {
       sharesBuying,
@@ -60,4 +60,4 @@ class PaymentSuccessModal extends React.PureComponent {
   }
 }
 
-export default PaymentSuccessModal;
+export default PaymentSuccessCard;
