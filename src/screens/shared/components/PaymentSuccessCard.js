@@ -1,13 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../../../styles/PaymentSuccessModal.css';
+import '../../../styles/PaymentSuccessCard.css';
 import Colors from '../../../colors';
 
 const { PP_PINK } = Colors;
 
-class PaymentSuccessModal extends React.PureComponent {
+class PaymentSuccessCard extends React.PureComponent {
   render() {
-    const { sharesBuying, transactionAmount, showShares } = this.props;
+    const {
+      sharesBuying,
+      transactionAmount,
+      showShares,
+      returnTo
+    } = this.props;
 
     const paymentMethod = 'Paypal Debit';
 
@@ -41,12 +46,11 @@ class PaymentSuccessModal extends React.PureComponent {
           <h3>Payment Method:</h3>
           <p>{`${paymentMethod}`}</p>
         </div>
-
         <Link
-          to="/investment"
+          to={returnTo === 'My Investment' ? '/investment' : '/billing'}
           className="dropdown-link payment-success-redirect-button"
         >
-          Back to My Investment
+          Back to {returnTo}
         </Link>
         <Link to="/" className="dropdown-link payment-success-redirect-button">
           Return to Dashboard
@@ -56,4 +60,4 @@ class PaymentSuccessModal extends React.PureComponent {
   }
 }
 
-export default PaymentSuccessModal;
+export default PaymentSuccessCard;

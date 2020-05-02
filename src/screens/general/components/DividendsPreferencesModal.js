@@ -8,12 +8,8 @@ export default class DividendsPreferencesModal extends React.Component {
     super(props);
     this.state = {
       showModal: false,
-      newIsReceivingDividends: props.newIsReceivingDividends
+      newIsReceivingDividends: props.owner.isReceivingDividends
     };
-
-    if (props.newIsReceivingDividends === undefined) {
-      this.state.newIsReceivingDividends = false; // Defaults to
-    }
   }
 
   handleOpenModal = () => {
@@ -71,7 +67,7 @@ export default class DividendsPreferencesModal extends React.Component {
                   id="yes-dividends"
                   name="dividends-choice"
                   value="yes"
-                  checked={newIsReceivingDividends ? 'checked' : false}
+                  checked={!!newIsReceivingDividends}
                   onClick={this.handleCheckYes}
                   className="dividends-radio"
                 />
@@ -85,7 +81,7 @@ export default class DividendsPreferencesModal extends React.Component {
                   id="no-dividends"
                   name="dividends-choice"
                   value="no"
-                  checked={!newIsReceivingDividends ? 'checked' : false}
+                  checked={!newIsReceivingDividends}
                   onClick={this.handleCheckNo}
                   className="dividends-radio"
                 />

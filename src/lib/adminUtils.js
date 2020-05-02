@@ -4,7 +4,7 @@ import {
   createPledgeInvite,
   getOwnersByIds
 } from './airtable/request';
-import { refreshUserData } from './userDataUtils';
+import { refreshUserData } from './redux/userData';
 import {
   validateExistence,
   validateEmail,
@@ -13,7 +13,6 @@ import {
   validateZipcode
 } from './onboardingUtils';
 import { store } from './redux/store';
-import constants from '../constants';
 import USStates from '../assets/states.json';
 
 // Ensure shares is a valid number
@@ -111,16 +110,19 @@ export async function inviteMember(pledgeInvite) {
 
 export async function triggerEmail(pledgeInviteId) {
   try {
-    const emailInvite = await fetch(`${constants.BACKEND_URL}/invite`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        pledgeInviteId
-      })
-    });
+    const emailInvite = await fetch(
+      `${process.env.REACT_APP_BILL_GENERATION_URL}/invite`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          pledgeInviteId
+        })
+      }
+    );
 
     const emailResponse = await emailInvite.json();
     const { status } = emailResponse;

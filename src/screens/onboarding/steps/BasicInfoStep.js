@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Tooltip from '../components/Tooltip';
 import '../../../styles/main.css';
 import '../../../styles/Onboarding.css';
@@ -15,7 +16,7 @@ class BasicInfoStep extends React.PureComponent {
       toggleValidColor
     } = this.props;
     return (
-      <form className="center card flex onboarding-col">
+      <form className="card flex onboarding-col onboarding-first-step-margin">
         <div className=" ">
           <div className="header ">
             Be a part of the movement for equity and clean energy.
@@ -108,11 +109,18 @@ class BasicInfoStep extends React.PureComponent {
         <div className="v-center">
           <button
             type="button"
-            className="btn btn--rounded btn--pink btn--size12 getstarted-button"
+            className="btn btn--rounded btn--pink btn--size12 get-started-button"
             onClick={onSubmit}
           >
             Get Started
           </button>
+        </div>
+        <div className="onboarding-already-have-account">
+          <h6>Already have an account? </h6>
+          <Link to="/" className="onboarding-already-have-account-link">
+            {' '}
+            Sign in!
+          </Link>
         </div>
       </form>
     );

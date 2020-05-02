@@ -19,6 +19,7 @@ import Success from '../../assets/success.png';
 import { updateOwner } from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
 
+const SENDING_STATUS = 'Sending';
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);
 
@@ -139,7 +140,7 @@ class AdminDashboard extends React.Component {
 
     if (!foundErrors) {
       this.setState({
-        status: 'Sending...',
+        status: SENDING_STATUS,
         showModal: false,
         showSuccessModal: true
       });
@@ -367,7 +368,7 @@ class AdminDashboard extends React.Component {
                       <input
                         type="text"
                         name="inviteFirstName"
-                        placeholder="Aivant"
+                        placeholder="First Name"
                         className={`${toggleValidColor(
                           errors.inviteFirstName,
                           0
@@ -394,7 +395,7 @@ class AdminDashboard extends React.Component {
                       <input
                         type="text"
                         name="inviteLastName"
-                        placeholder="Goyal"
+                        placeholder="Last Name"
                         className={`${toggleValidColor(
                           errors.inviteLastName,
                           0
@@ -423,7 +424,7 @@ class AdminDashboard extends React.Component {
                       <input
                         type="text"
                         name="invitePhoneNumber"
-                        placeholder="123-456-7890"
+                        placeholder="510-416-7890"
                         className={`${toggleValidColor(
                           errors.invitePhoneNumber,
                           0
@@ -450,7 +451,7 @@ class AdminDashboard extends React.Component {
                       <input
                         type="text"
                         name="inviteEmail"
-                        placeholder="invitees_email@gmail.com"
+                        placeholder="email@gmail.com"
                         className={`${toggleValidColor(errors.inviteEmail, 0)}
                         admin-invite-form-input`}
                         value={inviteEmail}
@@ -507,7 +508,7 @@ class AdminDashboard extends React.Component {
           overlayClassName="admin-modal-overlay"
         >
           {/* eslint-disable-next-line no-nested-ternary */}
-          {status === 'Sending...' ? (
+          {status === SENDING_STATUS ? (
             <div>
               <LoadingComponent />
             </div>

@@ -108,9 +108,9 @@
   fill: #7387a2;
 }
 
-.getstarted-button {
+.get-started-button {
   padding: 0.3rem 2rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .center {
@@ -177,7 +177,7 @@
   width: 100%;
   height: 39px;
   box-sizing: border-box;
-  border-color: #b4b8bf;
+  border-color: var(--pp-border-gray);
   border-width: 1px;
   border-radius: 2.5px;
   border-style: solid;
@@ -210,7 +210,7 @@
   width: 70%;
   text-align: center;
   margin: auto;
-  margin-bottom: 35px;
+  margin-bottom: 30px;
 }
 
 .l-50 {
@@ -388,7 +388,7 @@ w-pasword {
 
 .checkmark {
   position: absolute;
-  border: 1px solid #b4b8bf;
+  border: 1px solid var(--pp-border-gray);
   border-radius: 2.5px;
   display: block;
   top: 0;
@@ -678,7 +678,7 @@ w-pasword {
   font-size: 16px;
   font-weight: normal;
   border-radius: 6px;
-  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 2px 10px var(--pp-basic-black-twenty);
 
   /* Position the tooltip text */
   position: absolute;
@@ -697,7 +697,7 @@ w-pasword {
   content: '';
   position: absolute;
   top: 100%;
-  left: 35%;
+  left: 29%;
   margin-left: 0px;
   border-width: 5px;
   border-style: solid;
@@ -747,7 +747,7 @@ w-pasword {
 }
 
 .back-button {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
   border: none;
   color: var(--pp-gray);
   font-size: 16px;
@@ -795,11 +795,11 @@ w-pasword {
 }
 
 .project-group-list-option:hover {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
 }
 
 .project-group-list-option-selected {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
   border: var(--pp-black) solid 2px;
 }
 
@@ -843,7 +843,7 @@ w-pasword {
 
 .bylaws-hyperlink {
   color: var(--pp-pink);
-  background-color: rgba(205, 103, 149, 0.1);
+  background-color: var(--pp-pink-ten);
   font-weight: bold;
   text-decoration: none;
   padding: 0 0.2rem;
@@ -916,40 +916,39 @@ w-pasword {
 }
 
 .payment-shares-input-button-minus {
-  background: rgba(180, 184, 191, 0.5);
+  background: var(--pp-border-gray-fifty);
   margin-right: 0;
   height: 2rem;
   width: 2rem;
   border-radius: 2.5px 0 0 2.5px;
-  border: 1px solid #b4b8bf;
+  border: 1px solid var(--pp-border-gray);
   border-right: none;
-  color: rgba(36, 54, 77, 0.8);
+  color: var(--pp-black-eighty);
   font-size: 22px;
 }
 
 .payment-shares-input-button-plus {
-  background: rgba(180, 184, 191, 0.5);
+  background: var(--pp-border-gray-fifty);
   margin-right: 0;
   height: 2rem;
   width: 2rem;
   border-left: none;
   border-radius: 0 2.5px 2.5px 0;
-  border: 1px solid #b4b8bf;
+  border: 1px solid var(--pp-border-gray);
   border-left: none;
-  color: rgba(36, 54, 77, 0.8);
+  color: var(--pp-black-eighty);
   font-size: 22px;
 }
 
 .payment-shares-input-field {
   background: white;
   margin-right: 0;
-  height: calc(2rem - 4px);
-  line-height: 16px;
-  border-radius: 0;
-  color: rgba(36, 54, 77, 0.4);
+  height: calc(2rem - 4px); /* TODO: niput is not aligned to butons*/
+  color: var(--pp-black-forty);
   font-size: 16px;
   width: 8rem;
-  border: 1px solid #b4b8bf;
+  border-radius: 0 2.5px 2.5px 0;
+  border: 1px solid var(--pp-border-gray);
   border-left: none;
   border-right: none;
   text-align: center;
@@ -1052,7 +1051,7 @@ label [type='radio'] {
 
 .payment-cc-input {
   background: whitefff;
-  border: 1px solid #b4b8bf;
+  border: 1px solid var(--pp-border-gray);
   box-sizing: border-box;
   border-radius: 2.5px;
   width: 100%;
@@ -1201,4 +1200,44 @@ button {
 
 .mb-22px {
   margin-bottom: 22px;
+}
+
+.onboarding-first-step-margin {
+  margin: 0;
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  scale: 0.9;
+}
+
+.onboarding-already-have-account-link {
+  color: var(--pp-gray);
+  font-size: 13px;
+  line-height: 22px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.onboarding-already-have-account {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.onboarding-already-have-account h6 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 22px;
+  margin-top: 0px;
+  color: var(--pp-gray);
+  margin-right: 4px;
+}
+
+.onboarding-logout-button {
+  background-color: var(--pp-bg-blue);
+  border: none;
+  color: var(--pp-gray);
+  font-size: 16px;
 }

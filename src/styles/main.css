@@ -1,23 +1,38 @@
 :root {
   --pp-blue: #395578;
   --pp-blue-gray: #7387a2;
+
   --pp-pink: #cd6795;
+  <<<<<<<HEAD
   --pp-light-pink: rgba(205, 103, 149, 0.3);
+  =======--pp-pink-thirty: rgba(205, 103, 149, 0.3);
+  --pp-pink-ten: rgba(205, 103, 149, 0.1);
+
+  >>>>>>>master
   --pp-medium-gray: #a1aab4;
   --pp-green: #62b16f;
   --pp-light-green: rgba(98, 177, 111, 0.3);
   --pp-yellow: #e0b64c;
   --pp-light-yellow: rgba(224, 182, 76, 0.3);
+
+  --pp-basic-black-forty: rgba(0, 0, 0, 0.4);
+  --pp-basic-black-twenty: rgba(0, 0, 0, 0.2);
   --pp-black: #24364d;
+  --pp-black-eighty: rgba(36, 54, 77, 0.8);
+  --pp-black-forty: rgba(36, 54, 77, 0.4);
+
   --pp-dark-gray: #3e4a59;
-  --pp-white: #edf1f5;
   --pp-selected-gray: #a1aab4;
   --pp-light-gray: #f5f5f5;
-  --pp-bg-white: #efefef;
-  --pp-bg-blue: #f7f8fa;
   --pp-tag-gray: #d8d8d8;
   --pp-gray: #c4c4c4;
+  --pp-border-gray: #b4b8bf;
+  --pp-border-gray-fifty: rgba(180, 184, 191, 0.5);
   --pp-link-gray: #8f8f8f;
+
+  --pp-white: #edf1f5;
+  --pp-bg-white: #efefef;
+  --pp-bg-blue: #f7f8fa;
   --pp-disabled: #9caabb; /* --pp-blue with opacity ??? */
   --pp-invalid: #cb4747;
 
