@@ -1,18 +1,17 @@
 import React from 'react';
-import '../../../styles/SubscriberOwnerDashboard.css';
-import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
+import '../../../styles/BillingAllTransactions.css';
 import TransactionsTable from './TransactionsTable';
 import LeftArrow from '../../../assets/left_arrow.png';
 
 export default class BillingAllTransactions extends React.PureComponent {
   render() {
-    const { transactions, history } = this.props;
+    const { transactions, seeMainView } = this.props;
     return (
       <div className="all-bills-outer-container">
         <button
           className="subscriber-back-button"
           type="button"
-          onClick={history.goBack}
+          onClick={seeMainView}
         >
           <div className="subscriber-back-button-container">
             <img
@@ -20,6 +19,7 @@ export default class BillingAllTransactions extends React.PureComponent {
               src={LeftArrow}
               alt="left arrow"
             />
+            <div className="left-arrow-back">Back</div>
           </div>
         </button>
         <h1 className="all-bills-header">Transaction History</h1>

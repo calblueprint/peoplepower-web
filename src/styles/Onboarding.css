@@ -941,7 +941,7 @@ w-pasword {
 .payment-shares-input-field {
   background: white;
   margin-right: 0;
-  height: calc(2rem - 4px); /* TODO: niput is not aligned to butons*/
+  height: calc(2rem - 4px); /* TODO: input is not aligned to butons*/
   color: var(--pp-black-forty);
   font-size: 16px;
   width: 8rem;

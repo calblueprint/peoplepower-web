@@ -511,3 +511,10 @@
 .width-1 {
   width: 100%;
 }
+
+.generate-bill-button {
+  height: 30px;
+  padding: 0 20px;
+  background-color: var(--pp-yellow);
+  border-radius: 5px;
+}
