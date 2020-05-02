@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import BillingAllBills from './components/BillingAllTransactions';
 import BillingMain from './components/BillingMain';
 import { getSubscriberTransactionData } from '../../lib/subscriberUtils';
-import '../../styles/SubscriberOwnerDashboard.css';
 import LoadingComponent from '../../components/LoadingComponent';
 
 class Billing extends React.Component {

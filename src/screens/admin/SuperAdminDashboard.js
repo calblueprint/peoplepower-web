@@ -48,38 +48,6 @@ class SuperAdminDashboard extends React.Component {
               </button>
             </div>
           ))}
-          {/* </div> */}
-          {/* <div className="admin-holder">
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <h4 className="admin-members-text">
-                Members <span className="admin-number ">({owners.length})</span>
-              </h4>
-              <button
-                type="button"
-                className="btn btn--square btn--pink btn--size16 btn--weight600 invite-button"
-                onClick={() => this.handleOpenModal('invite')}
-              >
-                Invite
-              </button>
-            </div>
-            <div className="admin-card-holder">
-              {owners.length >= 1 ? (
-                owners.map(owner => {
-                  return (
-                    <AdminDashboardCard
-                      key={owner.id}
-                      owner={owner}
-                      handleAdminChange={this.handleAdminChange}
-                    />
-                  );
-                })
-              ) : (
-                <div className="white-text">
-                  No owners to be displayed in this project group
-                </div>
-              )}
-            </div> */}
-          {/* </div> */}
         </div>
       </div>
     );

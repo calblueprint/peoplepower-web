@@ -84,15 +84,6 @@
   opacity: 0.8;
 }
 
-.left-arrow-button {
-  width: 28px;
-  margin-left: -45px;
-}
-
-.left-arrow-button:hover {
-  opacity: 0.8;
-}
-
 .left-arrow-back {
   color: var(--pp-blue-gray);
   font-weight: 800;

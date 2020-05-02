@@ -48,3 +48,12 @@
   font-size: 16px;
   font-weight: bolder;
 }
+
+.left-arrow-button {
+  width: 28px;
+  margin-left: -45px;
+}
+
+.left-arrow-button:hover {
+  opacity: 0.8;
+}
