@@ -7,7 +7,7 @@ import '../../styles/BuyShares.css';
 import { PayPalButton, recordSharePayment } from '../../lib/paypal/paypal';
 import { refreshUserData } from '../../lib/redux/userData';
 import Constants from '../../constants';
-import PaymentSuccessModal from '../shared/components/PaymentSuccessModal';
+import PaymentSuccessModal from '../shared/components/PaymentSuccessCard';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 const { MAX_SHARES, SHARE_PRICE } = Constants;
@@ -72,6 +72,7 @@ class BuyShares extends React.PureComponent {
     const { owner } = this.props;
     const { sharesBuying, successScreen, transactionAmount } = this.state;
     const totalShares = owner.numberOfShares + sharesBuying;
+    const returnTo = 'My Investment';
 
     // Page should not be accessible if you can't buy more shares
     if (owner.numberOfShares === 10) {
@@ -84,6 +85,7 @@ class BuyShares extends React.PureComponent {
           sharesBuying={sharesBuying}
           transactionAmount={transactionAmount}
           showShares
+          returnTo={returnTo}
         />
       );
     }

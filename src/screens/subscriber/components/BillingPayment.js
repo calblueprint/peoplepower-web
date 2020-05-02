@@ -11,7 +11,7 @@ import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
 import LeftArrow from '../../../assets/left_arrow.png';
 import { PayPalButton, recordBillPayment } from '../../../lib/paypal/paypal';
-import PaymentSuccessModal from '../../shared/components/PaymentSuccessModal';
+import PaymentSuccessCard from '../../shared/components/PaymentSuccessCard';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
@@ -87,7 +87,7 @@ class BillingPayment extends React.Component {
 
     if (successScreen) {
       return (
-        <PaymentSuccessModal
+        <PaymentSuccessCard
           transactionAmount={transactionAmount}
           showShares={false}
         />
