@@ -24,40 +24,19 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    this.pullPropsIntoState();
+    this.populateOwnerInformation('both');
   }
 
   componentDidUpdate(prevProps) {
     const { owner } = this.props;
     if (owner !== prevProps.owner) {
-      this.pullPropsIntoState('both');
+      this.populateOwnerInformation('both');
     }
   }
 
-  pullPropsIntoState = type => {
-    const { owner } = this.props;
-
-    if (type === 'contact' || type === 'both') {
-      this.setState({
-        updatePhoneNumber: owner.phoneNumber,
-        updatePermanentStreet1: owner.permanentStreet1,
-        updatePermanentStreet2: owner.permanentStreet2,
-        updatePermanentCity: owner.permanentCity,
-        updatePermanentState: owner.permanentState,
-        updatePermanentZipcode: owner.permanentZipcode
-      });
-    }
-    if (type === 'general' || type === 'both') {
-      this.setState({
-        updateFirstName: owner.firstName,
-        updateLastName: owner.lastName
-      });
-    }
-  };
-
   handleCancel = type => {
     this.setState({ [`${type}EditMode`]: false });
-    this.pullPropsIntoState(type);
+    this.populateOwnerInformation(type);
   };
 
   handleChange = event => {
@@ -152,6 +131,27 @@ class UserProfile extends React.Component {
       // Change visual state
       this.setState({
         generalEditMode: true
+      });
+    }
+  };
+
+  populateOwnerInformation = type => {
+    const { owner } = this.props;
+
+    if (type === 'contact' || type === 'both') {
+      this.setState({
+        updatePhoneNumber: owner.phoneNumber,
+        updatePermanentStreet1: owner.permanentStreet1,
+        updatePermanentStreet2: owner.permanentStreet2,
+        updatePermanentCity: owner.permanentCity,
+        updatePermanentState: owner.permanentState,
+        updatePermanentZipcode: owner.permanentZipcode
+      });
+    }
+    if (type === 'general' || type === 'both') {
+      this.setState({
+        updateFirstName: owner.firstName,
+        updateLastName: owner.lastName
       });
     }
   };
