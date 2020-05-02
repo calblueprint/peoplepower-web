@@ -176,6 +176,7 @@
   font-size: 16px;
   line-height: 22px;
   padding: 5px 32px;
+  cursor: pointer;
 }
 
 .investments-transaction-card {
@@ -245,6 +246,10 @@
 .investments-displayed-list {
   overflow: auto;
   width: 100%;
+}
+
+.my-investment-dashboard {
+  margin-bottom: 5rem;
 }
 
 .my-investment-dashboard h2 {

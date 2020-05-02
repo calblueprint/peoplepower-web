@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../styles/Community.css';
 import { createAnnouncement } from '../../../lib/airtable/request';
-import { refreshUserData } from '../../../lib/userDataUtils';
+import { refreshUserData } from '../../../lib/redux/userData';
 import Colors from '../../../colors';
 
 const { PP_BLUE } = Colors;

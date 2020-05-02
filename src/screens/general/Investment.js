@@ -8,7 +8,7 @@ import {
   getPaymentsByIds,
   getAllInvestmentBreakdowns
 } from '../../lib/airtable/request';
-import { refreshUserData } from '../../lib/userDataUtils';
+import { refreshUserData } from '../../lib/redux/userData';
 import '../../styles/Investments.css';
 import GreenCheck from '../../assets/green_check.png';
 import RedX from '../../assets/red_x.png';
@@ -111,6 +111,7 @@ class Investment extends React.PureComponent {
                     <DividendsPreferencesModal
                       newIsReceivingDividends={isReceivingDividends}
                       onClickSavePreferences={this.submitPreference}
+                      owner={owner}
                     />
                   </div>
                   <h2>Transactions</h2>

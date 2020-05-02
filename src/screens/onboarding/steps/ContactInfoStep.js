@@ -3,6 +3,7 @@ import Tooltip from '../components/Tooltip';
 import '../../../styles/main.css';
 import PPModal from '../../../components/PPModal';
 import { returnToHomepage } from '../../../lib/onboardingUtils';
+import { logoutUser } from '../../../lib/airlock/airlock';
 
 class ContactInfoStep extends React.PureComponent {
   constructor(props) {
@@ -20,6 +21,16 @@ class ContactInfoStep extends React.PureComponent {
       this.setState({ showModal: true });
     }
   }
+
+  handleGoBack = async () => {
+    const { history } = this.props;
+    const logOutSuccess = await logoutUser();
+    if (logOutSuccess) {
+      history.push('/');
+    } else {
+      console.warn('Logout failed');
+    }
+  };
 
   handleCloseModal() {
     this.setState({ showModal: false });
@@ -315,11 +326,14 @@ class ContactInfoStep extends React.PureComponent {
 
         <div className="flex steps-buttons  onboarding-row w-100 right mt-2 justify-space-between">
           <div className="left">
-            {/* <button type="button" className="back-button" onClick={onBack}>
-              Go back
-            </button> */}
+            <button
+              type="button"
+              onClick={this.handleGoBack}
+              className="onboarding-logout-button"
+            >
+              Go Back
+            </button>
           </div>
-
           <div className="right">
             <button
               type="button"

@@ -32,6 +32,19 @@
   line-height: 22px;
   margin-left: 8px;
   /* or 137% */
-
   color: var(--pp-gray);
+}
+
+.billing-payment-back-button {
+  display: flex;
+  justify-content: center;
+}
+
+.billing-payment-back-text {
+  margin-left: 13px;
+  color: var(--pp-blue-gray);
+  text-decoration: none;
+  line-height: 22px;
+  font-size: 16px;
+  font-weight: bolder;
 }
