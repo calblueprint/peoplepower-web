@@ -46,7 +46,9 @@ const refreshUserData = async (ownerId, loadSilently = false) => {
 
   if (owner.projectGroupId) {
     projectGroup = await getProjectGroupById(owner.projectGroupId);
-    announcements = await getAnnouncementsByIds(projectGroup.announcementIds);
+    announcements = await getAnnouncementsByIds(
+      projectGroup.announcementIds || []
+    );
 
     const { solarProjectIds } = projectGroup;
     if (solarProjectIds) {
