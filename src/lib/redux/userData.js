@@ -1,8 +1,8 @@
 import {
   getProjectGroupById,
-  getAnnouncementsByProjectGroupId,
   getOwnerById,
-  getSolarProjectsByIds
+  getSolarProjectsByIds,
+  getAnnouncementsByIds
 } from '../airtable/request';
 import { store } from './store';
 import {
@@ -46,7 +46,9 @@ const refreshUserData = async (ownerId, loadSilently = false) => {
 
   if (owner.projectGroupId) {
     projectGroup = await getProjectGroupById(owner.projectGroupId);
-    announcements = await getAnnouncementsByProjectGroupId(projectGroup.id);
+    announcements = await getAnnouncementsByIds(
+      projectGroup.announcementIds || []
+    );
 
     const { solarProjectIds } = projectGroup;
     if (solarProjectIds) {
