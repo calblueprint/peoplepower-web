@@ -16,7 +16,7 @@ const formatAmount = (amountInDollars, places = 2) =>
 
 const createTransactionFromPayment = payment => ({
   balance: '$0.00',
-  date: moment(payment.dateCreated).format(TRANSACTION_DATE_FORMAT),
+  date: moment(payment.dateCreated),
   description: 'Online Payment',
   payment: formatAmount(payment.amount),
   charge: '',
@@ -26,7 +26,7 @@ const createTransactionFromPayment = payment => ({
 
 const createTransactionFromBill = bill => ({
   balance: formatAmount(bill.balance),
-  date: moment(bill.statementDate).format(TRANSACTION_DATE_FORMAT),
+  date: moment(bill.statementDate),
   description: `${moment(bill.startDate).format('MMMM')} Power Bill`,
   charge: formatAmount(bill.currentCharges),
   payment: '',
@@ -70,11 +70,8 @@ const getSubscriberTransactionData = async owner => {
     .filter(bill => bill.status !== 'Pending')
     .map(createTransactionFromBill)
     .concat(payments.filter(isBillPayment).map(createTransactionFromPayment))
-    .sort(
-      (a, b) =>
-        moment(b.date, TRANSACTION_DATE_FORMAT).valueOf() -
-        moment(a.date, TRANSACTION_DATE_FORMAT).valueOf()
-    ); // Sort descending
+    .sort((a, b) => moment(b.date).valueOf() - moment(a.date).valueOf()) // Sort descending
+    .map(t => ({ ...t, date: t.date.format(TRANSACTION_DATE_FORMAT) })); // Remove Hour count
 
   // Find active bill
   const activeBills = bills.filter(b => b.status === BILL_ACTIVE_STATUS);
