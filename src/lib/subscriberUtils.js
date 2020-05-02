@@ -28,9 +28,9 @@ const createTransactionFromBill = bill => ({
   balance: formatAmount(bill.balance),
   date: moment(bill.statementDate),
   description: `${moment(bill.startDate).format('MMMM')} Power Bill`,
-  charge: formatAmount(bill.currentCharges),
+  charge: formatAmount(bill.amountDue),
   payment: '',
-  amount: formatAmount(bill.currentCharges),
+  amount: formatAmount(bill.amountDue),
   type: CHARGE_TYPE
 });
 
