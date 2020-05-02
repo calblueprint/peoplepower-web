@@ -15,8 +15,33 @@ import SettingsDropdown from './SettingsDropdown';
 class NavBar extends React.PureComponent {
   render() {
     const { credentials, pathname, history } = this.props;
-    const displayNavbar = isSignedIn(credentials) && !isOnboarding(credentials);
 
+    // if onboarding
+    if (isOnboarding(credentials)) {
+      return (
+        <div className="nav-bar">
+          <a href="/">
+            <img
+              className="logo"
+              src={Logo}
+              alt="People Power Solar Cooperative Logo"
+            />
+          </a>
+          <nav>
+            {isSignedIn(credentials) && (
+              <ul>
+                <div className="dropdown-safety-box" />
+                <li className="nav-item dropdown-container">
+                  <SettingsDropdown history={history} />
+                </li>
+              </ul>
+            )}
+          </nav>
+        </div>
+      );
+    }
+
+    // else, if is signed in and DONE with onboarding
     return (
       <div className="nav-bar">
         <a href="/">
@@ -27,7 +52,7 @@ class NavBar extends React.PureComponent {
           />
         </a>
         <nav>
-          {displayNavbar && (
+          {isSignedIn(credentials) && (
             <ul>
               <li
                 className={`${
