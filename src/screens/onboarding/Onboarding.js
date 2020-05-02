@@ -86,7 +86,6 @@ class Onboarding extends React.Component {
   };
 
   nextStep = async event => {
-    setAppIsLoading(true);
     const { owner, inviteToken } = this.state;
     if (event) {
       event.preventDefault();
@@ -109,10 +108,11 @@ class Onboarding extends React.Component {
       }
     });
     this.setState({ errors: newErrors });
-
     if (!foundErrors) {
+      setAppIsLoading(true);
       // Create/Update specific owner fields
       // State should be refreshed when data is successfully pulled from redux
+
       const newOwner = {
         ...owner,
         onboardingStep: owner.onboardingStep + 1

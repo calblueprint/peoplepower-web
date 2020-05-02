@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import RightArrow from '../../../assets/right_arrow.png';
 import '../../../styles/SubscriberOwnerDashboard.css';
-import '../../../styles/SubscriberOwnerDashboardMainView.css';
+import '../../../styles/BillingMain.css';
 import TransactionsTable from './TransactionsTable';
 import { formatAmount } from '../../../lib/subscriberUtils';
 
