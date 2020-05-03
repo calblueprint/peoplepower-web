@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import '../styles/Equivalencies.css';
+import EmptyStateGraph from '../assets/empty-state-graph.png';
 import createProductionChart from '../lib/highcharts/createProductionChart';
 import CarIcon from '../assets/Car-Icon-Square.png';
 import TrashIcon from '../assets/Trash-Icon-Square.png';
@@ -127,6 +128,23 @@ class ProductionEquivalenciesChart extends React.Component {
     const { subscriberVersion } = this.props;
     const { data, style, totalEnergy } = this.state;
     const equivalency = this.renderEquivalency();
+    if (data.length === 0) {
+      return (
+        <div className="prod-chart-empty-container">
+          <img
+            className="prod-chart-empty-img"
+            src={EmptyStateGraph}
+            alt="No Production Data"
+          />
+          <div className="prod-chart-empty-title">No Data Available</div>
+
+          <div className="prod-chart-empty-detail">
+            Looks like there’s no data available about your solar projects yet.
+            Check back later!
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className="prod-chart-container">

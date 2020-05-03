@@ -22,6 +22,40 @@
   display: flex;
 }
 
+.prod-chart-empty-container {
+  padding-top: 75px;
+  padding-bottom: 50px;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.prod-chart-empty-img {
+  width: 200px;
+}
+
+.prod-chart-empty-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.prod-chart-empty-detail {
+  color: var(--pp-medium-gray);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+}
+
 .prod-chart-container-sub {
   display: block;
 }
