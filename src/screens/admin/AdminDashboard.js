@@ -14,7 +14,7 @@ import {
 } from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
-import { isSuperAdmin } from '../../lib/credentials';
+import { isSuperAdmin, getCredentials } from '../../lib/credentials';
 import Success from '../../assets/success.png';
 import { updateOwner } from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
@@ -274,7 +274,8 @@ class AdminDashboard extends React.Component {
   }
 
   render() {
-    const { credentials, projectGroup } = this.props;
+    const { owner, projectGroup } = this.props;
+    const credentials = getCredentials(owner);
     const {
       showModal,
       showSuccessModal,
@@ -327,11 +328,11 @@ class AdminDashboard extends React.Component {
             </div>
             <div className="admin-card-holder">
               {owners.length >= 1 ? (
-                owners.map(owner => {
+                owners.map(o => {
                   return (
                     <AdminDashboardCard
-                      key={owner.id}
-                      owner={owner}
+                      key={o.id}
+                      owner={o}
                       handleAdminChange={this.handleAdminChange}
                     />
                   );
@@ -762,7 +763,6 @@ class AdminDashboard extends React.Component {
 
 const mapStateToProps = state => ({
   owner: state.userData.owner,
-  credentials: state.userData.credentials,
   userLogin: state.userData.userLogin,
   projectGroup: state.userData.projectGroup
 });

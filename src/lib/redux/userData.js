@@ -17,7 +17,6 @@ import {
   saveAnnouncements,
   setLoadingForAnnouncements
 } from './communitySlice';
-import { getCredentials } from '../credentials';
 
 const setAppIsLoading = isLoading => {
   if (isLoading) {
@@ -56,14 +55,11 @@ const refreshUserData = async (ownerId, loadSilently = false) => {
     }
   }
 
-  const credentials = getCredentials(owner);
-
   // Save fetched user data to the redux store
   const userData = {
     owner,
     projectGroup,
-    solarProjects,
-    credentials
+    solarProjects
   };
   store.dispatch(saveUserData(userData));
 

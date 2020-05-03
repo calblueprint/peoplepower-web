@@ -2,13 +2,13 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { isSignedIn, isOnboarding } from '../lib/credentials';
+import { isSignedIn, isOnboarding, getCredentials } from '../lib/credentials';
 import PPRoute from './PPRoute';
 
 class AuthenticatedRoute extends React.PureComponent {
   isAuthorized() {
-    const { userCredentials, credential, onboarding } = this.props;
-
+    const { owner, credential, onboarding } = this.props;
+    const userCredentials = getCredentials(owner);
     // If user is still onboarding, they can only access onboarding routes
     if (isOnboarding(userCredentials)) {
       return onboarding;
@@ -30,8 +30,9 @@ class AuthenticatedRoute extends React.PureComponent {
   }
 
   render() {
-    const { component: Component, userCredentials, ...rest } = this.props;
+    const { component: Component, owner, ...rest } = this.props;
     const authorized = this.isAuthorized();
+    const userCredentials = getCredentials(owner);
     const redirectRoute = isOnboarding(userCredentials) ? '/onboarding' : '/';
     return (
       <PPRoute
@@ -50,6 +51,6 @@ class AuthenticatedRoute extends React.PureComponent {
   }
 }
 const mapStateToProps = state => ({
-  userCredentials: state.userData.credentials
+  owner: state.userData.owner
 });
 export default connect(mapStateToProps)(AuthenticatedRoute);
