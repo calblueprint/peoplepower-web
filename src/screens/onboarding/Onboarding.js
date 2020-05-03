@@ -46,6 +46,7 @@ class Onboarding extends React.Component {
     }
   }
 
+  // Get latest values from props
   refreshState = async () => {
     const { owner, location } = this.props;
 
@@ -85,6 +86,7 @@ class Onboarding extends React.Component {
     }
   };
 
+  // Validate fields and update owner if no errors
   nextStep = async event => {
     const { owner, inviteToken } = this.state;
     if (event) {
@@ -133,7 +135,7 @@ class Onboarding extends React.Component {
     }
   };
 
-  // Note, some sort of validation needs to happen on prevStep, that or nextStep only performs a partial update
+  // Decrement step, no validation or airtable update
   prevStep = event => {
     const { owner } = this.state;
     event.preventDefault();
@@ -144,6 +146,7 @@ class Onboarding extends React.Component {
     });
   };
 
+  // Handle a change in a step component
   handleChange = event => {
     const { name, value } = event.target;
     const { owner } = this.state;
@@ -210,6 +213,7 @@ class Onboarding extends React.Component {
     updateOwnerFields(newOwner, []);
   };
 
+  // Render the component based on the user's onboarding step
   render() {
     const { history } = this.props;
     const { owner, errors } = this.state;

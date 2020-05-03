@@ -15,6 +15,7 @@ const signupUser = (email, password, record) => {
   });
 };
 
+// Log in a user given email and password
 const loginUser = async (email, password) => {
   try {
     const res = await base.login({ username: email, password });
@@ -23,6 +24,7 @@ const loginUser = async (email, password) => {
       return { match: false, found: false };
     }
 
+    // TODO: ensure unique email somewhere without a call to airtable
     const records = await getOwnersByEmail(email);
     if (records.length > 1) {
       // TODO: We could/should ultimately try and handle this case smoothly
@@ -49,6 +51,7 @@ const loginUser = async (email, password) => {
   }
 };
 
+// Log a user out and clear their user data
 const logoutUser = async () => {
   try {
     const res = await base.logout();

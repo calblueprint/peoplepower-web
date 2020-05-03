@@ -8,11 +8,9 @@ class FeedbackButton extends React.PureComponent {
       buttonText: '?',
       showText: false
     };
-    this.onMouseEnter = this.onMouseEnter.bind(this);
-    this.onMouseLeave = this.onMouseLeave.bind(this);
   }
 
-  onMouseEnter() {
+  onMouseEnter = () => {
     this.setState({
       showText: true,
       buttonText: ''
@@ -27,12 +25,12 @@ class FeedbackButton extends React.PureComponent {
     //   this.setState({ buttonText: 'Report an Issue' });
     // }
     // setTimeout(() => this.setState({ buttonText: 'Report an Issue' }), 90);
-  }
+  };
 
-  onMouseLeave() {
+  onMouseLeave = () => {
     this.setState({ showText: false });
     this.setState({ buttonText: '?' });
-  }
+  };
 
   render() {
     const { buttonText } = this.state;
