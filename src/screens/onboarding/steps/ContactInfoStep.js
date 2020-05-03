@@ -219,6 +219,7 @@ class ContactInfoStep extends React.PureComponent {
                 name="mailingAddressSame"
                 onClick={handleChange}
                 defaultChecked={owner.mailingAddressSame}
+                onChange={handleChange}
               />
               <span className="checkmark" />
             </label>

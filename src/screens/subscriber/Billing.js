@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import BillingAllBills from './components/BillingAllTransactions';
 import BillingMain from './components/BillingMain';
 import { getSubscriberTransactionData } from '../../lib/subscriberUtils';
-import '../../styles/SubscriberOwnerDashboard.css';
 import LoadingComponent from '../../components/LoadingComponent';
 
 class Billing extends React.Component {
@@ -24,6 +23,8 @@ class Billing extends React.Component {
 
     if (view === 'all') {
       this.state.mode = 1;
+    } else {
+      this.state.mode = 0;
     }
   }
 
@@ -36,6 +37,15 @@ class Billing extends React.Component {
       this.refreshState();
     }
   }
+
+  refreshState = async () => {
+    const { owner } = this.props;
+
+    const { activeBill, transactions } = await getSubscriberTransactionData(
+      owner
+    );
+    this.setState({ activeBill, transactions, loading: false });
+  };
 
   seeAllTransactionsView = () => {
     this.setState({

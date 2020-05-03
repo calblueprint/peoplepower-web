@@ -23,6 +23,7 @@ const validateExistence = (
   return value ? '' : error;
 };
 
+// Validation Styling
 const toggleValidColor = (input, type) => {
   if (!type) {
     return input !== '' && typeof input !== 'undefined' ? 'b-is-not-valid' : '';
@@ -30,6 +31,7 @@ const toggleValidColor = (input, type) => {
   return !input ? '\u00A0' : input;
 };
 
+// User must check this box
 const validateCertifyPermanentAddress = value => {
   return value ? (
     ''
@@ -43,14 +45,19 @@ const validateCertifyPermanentAddress = value => {
   );
 };
 
-// Ensure valid and unique email
+// Ensure valid email using regex
 const validateEmail = value => {
+  if (value.length === 0) {
+    return '';
+  }
   // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
   // eslint-disable-next-line no-useless-escape
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(value) ? '' : 'Please enter a valid email address.';
 };
 
+// Ensure email is unique
+// TODO: Replace this with a call to the backend
 const validateUniqueEmail = async value => {
   const owners = await getOwnersByEmail(value);
   return owners.length === 0
@@ -122,7 +129,7 @@ const ValidatorData = {
   mailingZipcode: [validateExistence, validateNumber, validateZipcode],
   numberOfShares: [validateExistence, validateNumber, validateShares],
   mailingAddressSame: [],
-  alternateEmail: [],
+  alternateEmail: [validateEmail],
   permanentStreet2: [],
   mailingStreet2: [],
   certifyPermanentAddress: [validateCertifyPermanentAddress],
@@ -169,6 +176,7 @@ const validateFieldSync = (name, value) => {
   return '';
 };
 
+// Get all project groups that are public
 const getAvailableProjectGroups = async () => {
   const projectGroups = await getAllProjectGroups();
 
@@ -178,11 +186,15 @@ const getAvailableProjectGroups = async () => {
   return { selectableGroups, defaultGroup };
 };
 
+// Update or Create the owner with the given fields
 const updateOwnerFields = async (owner, fields) => {
+  // Ensure that only the fields that are supposed to be updated are updated
   const ownerUpdate = fields.reduce(
     (value, field) => ({ ...value, [field]: owner[field] }),
     { onboardingStep: owner.onboardingStep } // 1 field constant throughout all
   );
+
+  // If owner exists, update it, else, create.
   if (owner.id) {
     await updateOwner(owner.id, ownerUpdate);
     refreshUserData(owner.id);
@@ -193,11 +205,13 @@ const updateOwnerFields = async (owner, fields) => {
       ownerUpdate.password,
       { ...ownerUpdate, password: undefined } // Remove password from owner update
     );
-    const owners = await getAllOwners();
+    const allOwners = await getAllOwners();
+    const owners = allOwners.filter(o => o.email === ownerUpdate.email);
     refreshUserData(owners[0].id);
   }
 };
 
+// Delete user and return to homepage. This is used if the user does not live in california
 const returnToHomepage = owner => {
   deleteOwner(owner.id);
   clearUserData();

@@ -1,8 +1,8 @@
 import {
   getProjectGroupById,
-  getAnnouncementsByProjectGroupId,
   getOwnerById,
-  getSolarProjectsByIds
+  getSolarProjectsByIds,
+  getAnnouncementsByIds
 } from '../airtable/request';
 import { store } from './store';
 import {
@@ -17,7 +17,6 @@ import {
   saveAnnouncements,
   setLoadingForAnnouncements
 } from './communitySlice';
-import { getCredentials } from '../credentials';
 
 const setAppIsLoading = isLoading => {
   if (isLoading) {
@@ -46,7 +45,9 @@ const refreshUserData = async (ownerId, loadSilently = false) => {
 
   if (owner.projectGroupId) {
     projectGroup = await getProjectGroupById(owner.projectGroupId);
-    announcements = await getAnnouncementsByProjectGroupId(projectGroup.id);
+    announcements = await getAnnouncementsByIds(
+      projectGroup.announcementIds || []
+    );
 
     const { solarProjectIds } = projectGroup;
     if (solarProjectIds) {
@@ -54,14 +55,11 @@ const refreshUserData = async (ownerId, loadSilently = false) => {
     }
   }
 
-  const credentials = getCredentials(owner);
-
   // Save fetched user data to the redux store
   const userData = {
     owner,
     projectGroup,
-    solarProjects,
-    credentials
+    solarProjects
   };
   store.dispatch(saveUserData(userData));
 
