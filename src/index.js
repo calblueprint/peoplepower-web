@@ -9,7 +9,7 @@ const AppConfigurations = [
   'REACT_APP_AIRTABLE_ENDPOINT_URL',
   'REACT_APP_AIRTABLE_BASE_ID',
   'REACT_APP_PAYPAL_CLIENT_ID',
-  'REACT_APP_BILL_GENERATION_URL',
+  'REACT_APP_SERVER_URL',
   'REACT_APP_BUG_REPORT_URL'
 ]; // REACT_APP_GOOGLE_API_KEY not included for now because MapView is not used
 

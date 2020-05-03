@@ -2,11 +2,9 @@
 import React from 'react';
 import USStates from '../assets/states.json';
 import {
-  getOwnersByEmail,
   getAllProjectGroups,
   updateOwner,
-  deleteOwner,
-  getAllOwners
+  deleteOwner
 } from './airtable/request';
 import { refreshUserData, clearUserData } from './redux/userData';
 import ErrorIcon from '../assets/error.svg';
@@ -55,8 +53,11 @@ const validateEmail = value => {
 };
 
 const validateUniqueEmail = async value => {
-  const owners = await getOwnersByEmail(value);
-  return owners.length === 0
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  const url = `${SERVER_URL}/uniqueEmail?email=${value}`;
+  const response = await fetch(url);
+  const result = await response.json();
+  return result.unique
     ? ''
     : 'It looks like an account with this email already exists.';
 };
@@ -191,14 +192,12 @@ const updateOwnerFields = async (owner, fields) => {
     refreshUserData(owner.id);
   } else {
     // TODO: Error Handling
-    await signupUser(
+    const id = await signupUser(
       ownerUpdate.email,
       ownerUpdate.password,
       { ...ownerUpdate, password: undefined } // Remove password from owner update
     );
-    const allOwners = await getAllOwners();
-    const owners = allOwners.filter(o => o.email === ownerUpdate.email);
-    refreshUserData(owners[0].id);
+    refreshUserData(id);
   }
 };
 
