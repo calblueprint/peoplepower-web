@@ -1,10 +1,10 @@
 import React from 'react';
 import { loginUser } from '../../lib/airlock/airlock';
-import { setAppIsLoading } from '../../lib/redux/userData';
 import '../../styles/Login.css';
 import '../../styles/main.css';
 import Constants from '../../constants';
 import ErrorIcon from '../../assets/error.svg';
+import LoadingComponent from '../../components/LoadingComponent';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,7 +12,8 @@ class Login extends React.Component {
     this.state = {
       email: '',
       passwordHash: '',
-      showLoginError: true
+      loading: false,
+      showLoginError: false
     };
   }
 
@@ -21,7 +22,6 @@ class Login extends React.Component {
   };
 
   handlePasswordChange = event => {
-    // TODO: Hash the password locally
     this.setState({ passwordHash: event.target.value });
   };
 
@@ -31,29 +31,28 @@ class Login extends React.Component {
   };
 
   handleSubmit = async evt => {
-    setAppIsLoading(true);
+    this.setState({ loading: true });
     const { email, passwordHash } = this.state;
     evt.preventDefault();
     try {
       const res = await loginUser(email, passwordHash);
       if (res.found && res.match) {
-        setAppIsLoading(false);
         this.segueToHome(evt);
       } else {
-        setAppIsLoading(false);
         this.setState({
-          showLoginError: false
+          showLoginError: true,
+          loading: false
         });
       }
     } catch (err) {
-      setAppIsLoading(false);
+      this.setState({ loading: false });
       console.error(err);
     }
   };
 
   toggleValidColor() {
     const { showLoginError } = this.state;
-    return showLoginError ? 'b-is-valid' : 'b-is-not-valid';
+    return showLoginError ? 'b-is-not-valid' : 'b-is-valid';
   }
 
   segueToHome(evt) {
@@ -64,7 +63,11 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, passwordHash, showLoginError } = this.state;
+    const { email, passwordHash, showLoginError, loading } = this.state;
+
+    if (loading) {
+      return <LoadingComponent />;
+    }
     return (
       <div className="center card flex column">
         <h1 className="t-center login-header">Welcome back!</h1>
@@ -104,7 +107,7 @@ class Login extends React.Component {
             </button>
           </div>
         </form>
-        {showLoginError ? (
+        {!showLoginError ? (
           '\u00A0'
         ) : (
           <div className="error-container mt-15">
