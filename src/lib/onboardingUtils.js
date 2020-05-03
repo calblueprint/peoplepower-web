@@ -5,11 +5,12 @@ import {
   getOwnersByEmail,
   getAllProjectGroups,
   updateOwner,
-  createOwner,
-  deleteOwner
+  deleteOwner,
+  getAllOwners
 } from './airtable/request';
-import { refreshUserData, clearUserData } from './userDataUtils';
+import { refreshUserData, clearUserData } from './redux/userData';
 import ErrorIcon from '../assets/error.svg';
+import { signupUser } from './airlock/airlock';
 
 // Helper functions to validate owner record fields
 
@@ -24,9 +25,7 @@ const validateExistence = (
 
 const toggleValidColor = (input, type) => {
   if (!type) {
-    return input !== '' && typeof input !== 'undefined'
-      ? 'b-is-not-valid'
-      : 'b-is-valid';
+    return input !== '' && typeof input !== 'undefined' ? 'b-is-not-valid' : '';
   }
   return !input ? '\u00A0' : input;
 };
@@ -46,6 +45,9 @@ const validateCertifyPermanentAddress = value => {
 
 // Ensure valid and unique email
 const validateEmail = value => {
+  if (value.length === 0) {
+    return '';
+  }
   // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
   // eslint-disable-next-line no-useless-escape
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -98,10 +100,24 @@ const validateZipcode = value => {
   return value.length === 5 ? '' : 'Must be 5 digits';
 };
 
+const validatePhoneNumber = value => {
+  // validated phone numbers in this form:
+  // (123) 456-7890
+  // (123)456-7890
+  // 123-456-7890
+  // 123.456.7890
+  // 1234567890
+  // +31636363634
+  // 075-63546725
+  const re = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
+  return re.test(value) ? '' : 'Please enter a valid phone number.';
+};
+
 // Specify special validation functions for fields
 // Default for all fields: [validateExistence]
 const ValidatorData = {
   email: [validateExistence, validateEmail, validateUniqueEmail],
+  phoneNumber: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
   permanentState: [validateExistence, ValidateUSState],
   mailingState: [validateExistence, ValidateUSState],
@@ -109,7 +125,7 @@ const ValidatorData = {
   mailingZipcode: [validateExistence, validateNumber, validateZipcode],
   numberOfShares: [validateExistence, validateNumber, validateShares],
   mailingAddressSame: [],
-  alternateEmail: [],
+  alternateEmail: [validateEmail],
   permanentStreet2: [],
   mailingStreet2: [],
   certifyPermanentAddress: [validateCertifyPermanentAddress],
@@ -174,8 +190,15 @@ const updateOwnerFields = async (owner, fields) => {
     await updateOwner(owner.id, ownerUpdate);
     refreshUserData(owner.id);
   } else {
-    const ownerId = await createOwner(ownerUpdate);
-    refreshUserData(ownerId);
+    // TODO: Error Handling
+    await signupUser(
+      ownerUpdate.email,
+      ownerUpdate.password,
+      { ...ownerUpdate, password: undefined } // Remove password from owner update
+    );
+    const allOwners = await getAllOwners();
+    const owners = allOwners.filter(o => o.email === ownerUpdate.email);
+    refreshUserData(owners[0].id);
   }
 };
 

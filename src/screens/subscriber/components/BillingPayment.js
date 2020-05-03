@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import { PayPalButton } from 'react-paypal-button-v2/lib';
-import { refreshUserData } from '../../../lib/userDataUtils';
+import { refreshUserData } from '../../../lib/redux/userData';
 import {
   getSubscriberTransactionData,
   formatAmount
@@ -11,8 +10,8 @@ import processCurrencyInput from '../../../lib/billingUtils';
 import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
 import LeftArrow from '../../../assets/left_arrow.png';
-import { recordBillPayment } from '../../../lib/paypalUtils';
-import PaymentSuccessModal from '../../shared/components/PaymentSuccessModal';
+import { PayPalButton, recordBillPayment } from '../../../lib/paypal/paypal';
+import PaymentSuccessCard from '../../shared/components/PaymentSuccessCard';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
@@ -53,7 +52,7 @@ class BillingPayment extends React.Component {
     const { activeBill } = this.state;
     const { owner } = this.props;
     this.setState({
-      loadingPayment: false,
+      loading: false,
       transactionAmount: details.purchase_units[0].amount.value,
       successScreen: true
     });
@@ -69,6 +68,7 @@ class BillingPayment extends React.Component {
       successScreen,
       transactionAmount
     } = this.state;
+    const returnTo = 'Billing';
 
     if (loading) {
       return <LoadingComponent />;
@@ -88,9 +88,10 @@ class BillingPayment extends React.Component {
 
     if (successScreen) {
       return (
-        <PaymentSuccessModal
+        <PaymentSuccessCard
           transactionAmount={transactionAmount}
           showShares={false}
+          returnTo={returnTo}
         />
       );
     }
@@ -100,14 +101,16 @@ class BillingPayment extends React.Component {
         <div className="billing-dash-outer-container">
           <button className="subscriber-back-button" type="button">
             <div className="billing-payment-back-button-container">
-              <Link to="/billing">
+              <Link to="/billing" className="billing-payment-back-button">
                 <img
                   className="button left-arrow-button"
                   src={LeftArrow}
                   alt="left arrow"
                 />
               </Link>
-              <label>Back</label>
+              <Link to="/billing" className="billing-payment-back-text">
+                Back
+              </Link>
             </div>
           </button>
           <h1>Make Payment</h1>

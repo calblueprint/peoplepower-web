@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import qs from 'qs';
-import OnboardingData from '../../lib/onboardingData';
+import OnboardingData from './onboardingData';
 import {
   validateField,
   updateOwnerFields,
   toggleValidColor,
   validateFieldSync
 } from '../../lib/onboardingUtils';
+import { setAppIsLoading } from '../../lib/redux/userData';
 import ProgressBar from './components/ProgressBar';
 import Constants from '../../constants';
 import {
@@ -107,10 +108,11 @@ class Onboarding extends React.Component {
       }
     });
     this.setState({ errors: newErrors });
-
     if (!foundErrors) {
+      setAppIsLoading(true);
       // Create/Update specific owner fields
       // State should be refreshed when data is successfully pulled from redux
+
       const newOwner = {
         ...owner,
         onboardingStep: owner.onboardingStep + 1
@@ -127,6 +129,7 @@ class Onboarding extends React.Component {
       }
 
       await updateOwnerFields(newOwner, fieldsToUpdate);
+      setAppIsLoading(false);
     }
   };
 
@@ -208,6 +211,7 @@ class Onboarding extends React.Component {
   };
 
   render() {
+    const { history } = this.props;
     const { owner, errors } = this.state;
     const stepData = OnboardingData[owner.onboardingStep];
     const StepComponent = stepData.component;
@@ -232,6 +236,7 @@ class Onboarding extends React.Component {
           handleChange={this.handleChange}
           handleChangeBylaw={this.handleChangeBylaw}
           toggleValidColor={toggleValidColor}
+          history={history}
         />
       </div>
     );

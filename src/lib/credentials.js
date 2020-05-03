@@ -1,3 +1,10 @@
+/**
+ *
+ * Credentials and util functions for specifying credentials of users
+ * based on their data stored on Airtable
+ *
+ */
+
 import constants from '../constants';
 
 const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;

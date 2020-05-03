@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import AnnouncementList from '../shared/components/AnnouncementList';
-import InvestmentCard from '../shared/components/InvestmentCard';
+import InvestmentWidget from '../shared/components/InvestmentWidget';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
 import ProductionEquivalenciesChart from '../../components/ProductionEquivalenciesChart';
@@ -69,7 +69,10 @@ class GeneralOwnerDashboard extends React.PureComponent {
                     </Link>
                   </div>
                 </div>
-                <InvestmentCard numberOfShares={owner.numberOfShares} />
+                <InvestmentWidget
+                  numberOfShares={owner.numberOfShares}
+                  smaller
+                />
               </div>
             </div>
           </div>

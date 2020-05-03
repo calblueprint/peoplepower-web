@@ -13,7 +13,7 @@ class CompleteStep extends React.PureComponent {
         <div className="right">
           <button
             type="button"
-            className="btn btn--rounded btn--pink btn--size12 getstarted-button"
+            className="btn btn--rounded btn--pink btn--size12 get-started-button"
             onClick={onFinish}
           >
             Continue to Dashboard

@@ -24,10 +24,6 @@ const userDataSlice = createSlice({
   name: 'userData',
   initialState,
   reducers: {
-    authenticate(state, action) {
-      state.authenticated = true;
-      state.key = action.payload;
-    },
     setLoadingForUserData(state, action) {
       state.isLoading = true;
     },
@@ -47,13 +43,20 @@ const userDataSlice = createSlice({
 
     deauthenticateAndClearUserData() {
       return { ...initialState };
+    },
+    setLoading(state, _) {
+      state.isLoading = true;
+    },
+    unsetLoading(state, _) {
+      state.isLoading = false;
     }
   }
 });
 
 export const {
-  authenticate,
   setLoadingForUserData,
+  setLoading,
+  unsetLoading,
   saveUserData,
   deauthenticateAndClearUserData
 } = userDataSlice.actions;

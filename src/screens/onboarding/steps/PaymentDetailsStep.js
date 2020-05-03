@@ -2,7 +2,7 @@ import React from 'react';
 import ErrorIcon from '../../../assets/error.svg';
 import Tooltip from '../components/Tooltip';
 import Constants from '../../../constants';
-import { calculatePaypalTransactionFee } from '../../../lib/paypalUtils';
+import { calculatePaypalTransactionFee } from '../../../lib/paypal/paypal';
 
 const { SHARE_PRICE, MAX_SHARES } = Constants;
 
@@ -154,7 +154,7 @@ class PaymentDetailsStep extends React.Component {
                   <div className="error-container">
                     <img src={ErrorIcon} alt="error" className="mr-1" />
                     <div className="error-text">
-                      Please certify the above address in order to proceed.
+                      Please select your preference for dividends.
                     </div>
                   </div>
                 ) : null}

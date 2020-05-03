@@ -17,7 +17,9 @@ import '../../styles/AdminDashboard.css';
 import { isSuperAdmin } from '../../lib/credentials';
 import Success from '../../assets/success.png';
 import { updateOwner } from '../../lib/airtable/request';
+import LoadingComponent from '../../components/LoadingComponent';
 
+const SENDING_STATUS = 'Sending';
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);
 
@@ -93,10 +95,6 @@ class AdminDashboard extends React.Component {
   handleSubmit = async event => {
     event.preventDefault();
 
-    this.setState({
-      status: 'Sending...'
-    });
-
     const {
       inviteFirstName,
       inviteLastName,
@@ -141,6 +139,11 @@ class AdminDashboard extends React.Component {
     });
 
     if (!foundErrors) {
+      this.setState({
+        status: SENDING_STATUS,
+        showModal: false,
+        showSuccessModal: true
+      });
       const pledgeInviteId = await inviteMember(newPledgeInvite);
 
       if (pledgeInviteId === '') {
@@ -150,16 +153,13 @@ class AdminDashboard extends React.Component {
       }
 
       const emailStatus = await triggerEmail(pledgeInviteId);
-
       if (emailStatus === 'error') {
         this.setState({
           status: 'An error occurent when sending the invitation.'
         });
       } else {
         this.setState({
-          status: emailStatus,
-          showModal: false,
-          showSuccessModal: true
+          status: emailStatus
         });
       }
     }
@@ -294,7 +294,8 @@ class AdminDashboard extends React.Component {
       updatedCity,
       updatedState,
       updatedZipcode,
-      errors
+      errors,
+      status
     } = this.state;
 
     return (
@@ -367,7 +368,7 @@ class AdminDashboard extends React.Component {
                       <input
                         type="text"
                         name="inviteFirstName"
-                        placeholder="Aivant"
+                        placeholder="First Name"
                         className={`${toggleValidColor(
                           errors.inviteFirstName,
                           0
@@ -394,7 +395,7 @@ class AdminDashboard extends React.Component {
                       <input
                         type="text"
                         name="inviteLastName"
-                        placeholder="Goyal"
+                        placeholder="Last Name"
                         className={`${toggleValidColor(
                           errors.inviteLastName,
                           0
@@ -423,7 +424,7 @@ class AdminDashboard extends React.Component {
                       <input
                         type="text"
                         name="invitePhoneNumber"
-                        placeholder="123-456-7890"
+                        placeholder="510-416-7890"
                         className={`${toggleValidColor(
                           errors.invitePhoneNumber,
                           0
@@ -450,7 +451,7 @@ class AdminDashboard extends React.Component {
                       <input
                         type="text"
                         name="inviteEmail"
-                        placeholder="invitees_email@gmail.com"
+                        placeholder="email@gmail.com"
                         className={`${toggleValidColor(errors.inviteEmail, 0)}
                         admin-invite-form-input`}
                         value={inviteEmail}
@@ -506,26 +507,44 @@ class AdminDashboard extends React.Component {
           className="invite-success-modal"
           overlayClassName="admin-modal-overlay"
         >
-          <div className="invite-success-container">
-            <img src={Success} alt="success" className="invite-success-icon" />
-            <h2 className="invite-success-title">
-              Your invitation is on it&apos;s away!
-            </h2>
-            <div className="invite-success-description">
-              We’ve sent your invitation to{' '}
-              <span className="invite-success-name">
-                {inviteFirstName} {inviteLastName}
-              </span>
-              . They should be receiving a personal link to create an account in
-              no more than 5 minutes.
+          {/* eslint-disable-next-line no-nested-ternary */}
+          {status === SENDING_STATUS ? (
+            <div>
+              <LoadingComponent />
             </div>
-            <buton
-              className="invite-success-button"
-              onClick={() => this.handleCloseModal('success')}
-            >
-              Okay
-            </buton>
-          </div>
+          ) : status.startsWith('Successfully') ? (
+            <div className="invite-success-container">
+              <img
+                src={Success}
+                alt="success"
+                className="invite-success-icon"
+              />
+              <h2 className="invite-success-title">
+                Your invitation is on it&apos;s away!
+              </h2>
+              <div className="invite-success-description">
+                We’ve sent your invitation to{' '}
+                <span className="invite-success-name">
+                  {inviteFirstName} {inviteLastName}
+                </span>
+                . They should be receiving a personal link to create an account
+                in no more than 5 minutes.
+              </div>
+              <button
+                type="button"
+                className="invite-success-button"
+                onClick={() => this.handleCloseModal('success')}
+              >
+                Okay
+              </button>
+            </div>
+          ) : (
+            <div className="invite-success-container">
+              <h2 className="invite-success-title">
+                There was an error with the invite. Please retry.
+              </h2>
+            </div>
+          )}
         </Modal>
         {/* Modal for admin card */}
         {displayAdminInfo ? (

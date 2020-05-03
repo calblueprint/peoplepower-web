@@ -1,21 +1,31 @@
 import {
   getProjectGroupById,
-  getAnnouncementsByProjectGroupId,
   getOwnerById,
-  getSolarProjectsByIds
-} from './airtable/request';
-import { store } from './redux/store';
+  getSolarProjectsByIds,
+  getAnnouncementsByIds
+} from '../airtable/request';
+import { store } from './store';
 import {
   saveUserData,
   deauthenticateAndClearUserData,
-  setLoadingForUserData
-} from './redux/userDataSlice';
+  setLoadingForUserData,
+  setLoading,
+  unsetLoading
+} from './userDataSlice';
 import {
   clearAnnouncements,
   saveAnnouncements,
   setLoadingForAnnouncements
-} from './redux/communitySlice';
-import { getCredentials } from './credentials';
+} from './communitySlice';
+import { getCredentials } from '../credentials';
+
+const setAppIsLoading = isLoading => {
+  if (isLoading) {
+    store.dispatch(setLoading());
+  } else {
+    store.dispatch(unsetLoading());
+  }
+};
 
 // Function takes in an ownerId and fetches the latest owner object and all associated user data
 const refreshUserData = async (ownerId, loadSilently = false) => {
@@ -36,7 +46,9 @@ const refreshUserData = async (ownerId, loadSilently = false) => {
 
   if (owner.projectGroupId) {
     projectGroup = await getProjectGroupById(owner.projectGroupId);
-    announcements = await getAnnouncementsByProjectGroupId(projectGroup.id);
+    announcements = await getAnnouncementsByIds(
+      projectGroup.announcementIds || []
+    );
 
     const { solarProjectIds } = projectGroup;
     if (solarProjectIds) {
@@ -65,4 +77,4 @@ const clearUserData = () => {
   store.dispatch(clearAnnouncements());
 };
 
-export { refreshUserData, clearUserData };
+export { refreshUserData, clearUserData, setAppIsLoading };

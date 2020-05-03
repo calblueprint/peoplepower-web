@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "People Power",
+  "name": "People Power Solar Cooperative",
   "icons": [
     {
       "src": "ppsc-favicon-01.ico",
@@ -10,12 +10,12 @@
     {
       "src": "ppsc-favicon-01.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "67x68"
     },
     {
       "src": "ppsc-favicon-01.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "67x68"
     }
   ],
   "start_url": ".",

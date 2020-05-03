@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { PayPalButton } from 'react-paypal-button-v2';
 import SharesProgressBar from '../shared/components/SharesProgressBar';
 import LeftArrow from '../../assets/left_arrow.png';
 import '../../styles/BuyShares.css';
-import { recordSharePayment } from '../../lib/paypalUtils';
-import { refreshUserData } from '../../lib/userDataUtils';
+import { PayPalButton, recordSharePayment } from '../../lib/paypal/paypal';
+import { refreshUserData } from '../../lib/redux/userData';
 import Constants from '../../constants';
-import LoadingComponent from '../../components/LoadingComponent';
-import PaymentSuccessModal from '../shared/components/PaymentSuccessModal';
+import PaymentSuccessCard from '../shared/components/PaymentSuccessCard';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 const { MAX_SHARES, SHARE_PRICE } = Constants;
@@ -18,7 +16,6 @@ class BuyShares extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
       sharesBuying: 0,
       successScreen: false,
       transactionAmount: 0
@@ -73,17 +70,10 @@ class BuyShares extends React.PureComponent {
 
   render() {
     const { owner } = this.props;
-    const {
-      sharesBuying,
-      loading,
-      successScreen,
-      transactionAmount
-    } = this.state;
+    const { sharesBuying, successScreen, transactionAmount } = this.state;
     const totalShares = owner.numberOfShares + sharesBuying;
+    const returnTo = 'My Investment';
 
-    if (loading) {
-      return <LoadingComponent />;
-    }
     // Page should not be accessible if you can't buy more shares
     if (owner.numberOfShares === 10) {
       return <Redirect to="/" />;
@@ -91,10 +81,11 @@ class BuyShares extends React.PureComponent {
 
     if (successScreen) {
       return (
-        <PaymentSuccessModal
+        <PaymentSuccessCard
           sharesBuying={sharesBuying}
           transactionAmount={transactionAmount}
           showShares
+          returnTo={returnTo}
         />
       );
     }
@@ -104,7 +95,7 @@ class BuyShares extends React.PureComponent {
           <div className="left-button">
             <Link to="/investment">
               <img
-                className="button left-arrow-button"
+                className="button buy-shares-left-arrow"
                 src={LeftArrow}
                 alt="left arrow"
               />
@@ -176,16 +167,19 @@ class BuyShares extends React.PureComponent {
                 <h5>${sharesBuying * SHARE_PRICE}.00</h5>
               </div>
             </div>
-            <div className="buy-shares-paypal-box">
-              <h3>Payment Method</h3>
-              <PayPalButton
-                amount={sharesBuying * SHARE_PRICE}
-                onSuccess={this.onPaymentSuccess}
-                options={{
-                  clientId
-                }}
-              />
-            </div>
+            {sharesBuying ? (
+              <div className="buy-shares-paypal-box">
+                <h3>Payment Method</h3>
+                <PayPalButton
+                  amount={sharesBuying * SHARE_PRICE}
+                  className="buy-shares-paypalbutton"
+                  onSuccess={this.onPaymentSuccess}
+                  options={{
+                    clientId
+                  }}
+                />
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

@@ -1,6 +1,11 @@
 import Colors from '../../colors';
 
-const { PP_CHART_YELLOW, PP_CHART_GREEN, PP_CHART_TOOLTIP_BG } = Colors;
+const {
+  PP_CHART_YELLOW,
+  PP_CHART_GREEN,
+  PP_CHART_TOOLTIP_BG,
+  PP_BASIC_WHITE
+} = Colors;
 
 // Expects Data formatted as so: [{month: 'Jan', cost: 1234, wouldBeCost: 12451}, ...]
 export default savingsData => {
@@ -44,7 +49,7 @@ export default savingsData => {
       shared: true,
       backgroundColor: PP_CHART_TOOLTIP_BG,
       style: {
-        color: '#FFFFFF'
+        color: PP_BASIC_WHITE
       }
     },
     series: [

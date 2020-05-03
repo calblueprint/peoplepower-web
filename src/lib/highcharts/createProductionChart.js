@@ -1,7 +1,7 @@
 // Pink
 import Colors from '../../colors';
 
-const { PP_CHART_PINK } = Colors;
+const { PP_CHART_PINK, PP_BASIC_WHITE } = Colors;
 
 // Expects Data formatted as so: [{month: 'Jan', production: 1234}, {month: 'Feb', production: 2345}, ...]
 export default (productionData, height = 250) => {
@@ -38,7 +38,7 @@ export default (productionData, height = 250) => {
       shared: true,
       backgroundColor: PP_CHART_PINK(),
       style: {
-        color: '#FFFFFF'
+        color: PP_BASIC_WHITE
       }
     },
     series: [

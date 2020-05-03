@@ -1,9 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
-
-.b-is-valid {
-  border: none;
-}
-
 .b-is-not-valid {
   border: 1px solid var(--pp-invalid);
 }
@@ -112,9 +106,9 @@
   fill: #7387a2;
 }
 
-.getstarted-button {
+.get-started-button {
   padding: 0.3rem 2rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .center {
@@ -127,7 +121,7 @@
 
 .left-arrow {
   transform: scaleX(-1);
-  height: 3rem;
+  height: 2rem;
   margin-left: 1rem;
   margin-top: 0.15rem;
   stroke: #7387a2;
@@ -135,13 +129,9 @@
 
 .right-arrow {
   transform: scaleX(1);
-  height: 3rem;
+  height: 2rem;
   margin-right: 1rem;
   margin-top: 0.15rem;
-}
-
-.arrow-circle:hover {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .info-card {
@@ -161,6 +151,7 @@
   width: 100%;
   box-sizing: border-box;
   font-size: 16px;
+  border: none;
 }
 
 .input-gray ::placeholder {
@@ -184,7 +175,7 @@
   width: 100%;
   height: 39px;
   box-sizing: border-box;
-  border-color: #b4b8bf;
+  border-color: var(--pp-border-gray);
   border-width: 1px;
   border-radius: 2.5px;
   border-style: solid;
@@ -217,7 +208,7 @@
   width: 70%;
   text-align: center;
   margin: auto;
-  margin-bottom: 35px;
+  margin-bottom: 30px;
 }
 
 .l-50 {
@@ -395,7 +386,7 @@ w-pasword {
 
 .checkmark {
   position: absolute;
-  border: 1px solid #b4b8bf;
+  border: 1px solid var(--pp-border-gray);
   border-radius: 2.5px;
   display: block;
   top: 0;
@@ -466,7 +457,7 @@ w-pasword {
   height: 96%;
 }
 
-.arrow-circle {
+.arrow-block {
   height: 100%;
   width: 8%;
   border: none;
@@ -493,12 +484,11 @@ w-pasword {
   display: flex;
   align-items: center;
   vertical-align: middle;
-  horiz-align: right;
   padding: 1.5rem;
 }
 
 .slide-img {
-  max-height: 40rem;
+  max-height: 40vw;
   z-index: 0;
   margin: 0 auto;
   align-self: flex-start;
@@ -532,9 +522,8 @@ w-pasword {
   width: 100%;
 }
 
-slide-img-active {
+.slide-img-active {
   display: block;
-  max-width: 10px;
 }
 
 .carousel__arrow {
@@ -548,20 +537,12 @@ slide-img-active {
   transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
 }
 
-arrow:focus {
+.arrow:focus {
   outline: 0;
 }
 
-arrow:hover {
+.arrow:hover {
   opacity: 0.5;
-}
-
-carousel__arrow--left {
-  left: 32px;
-}
-
-carousel__arrow--right {
-  right: 32px;
 }
 
 .dd-wrapper {
@@ -695,7 +676,7 @@ carousel__arrow--right {
   font-size: 16px;
   font-weight: normal;
   border-radius: 6px;
-  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 2px 10px var(--pp-basic-black-twenty);
 
   /* Position the tooltip text */
   position: absolute;
@@ -714,7 +695,7 @@ carousel__arrow--right {
   content: '';
   position: absolute;
   top: 100%;
-  left: 35%;
+  left: 29%;
   margin-left: 0px;
   border-width: 5px;
   border-style: solid;
@@ -764,7 +745,7 @@ carousel__arrow--right {
 }
 
 .back-button {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
   border: none;
   color: var(--pp-gray);
   font-size: 16px;
@@ -812,16 +793,12 @@ carousel__arrow--right {
 }
 
 .project-group-list-option:hover {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
 }
 
 .project-group-list-option-selected {
-  background-color: #f7f8fa;
+  background-color: var(--pp-bg-blue);
   border: var(--pp-black) solid 2px;
-}
-
-.project-group-list-option:focus {
-  outline: none;
 }
 
 .project-group-list-option-header {
@@ -864,7 +841,7 @@ carousel__arrow--right {
 
 .bylaws-hyperlink {
   color: var(--pp-pink);
-  background-color: rgba(205, 103, 149, 0.1);
+  background-color: var(--pp-pink-ten);
   font-weight: bold;
   text-decoration: none;
   padding: 0 0.2rem;
@@ -937,40 +914,39 @@ carousel__arrow--right {
 }
 
 .payment-shares-input-button-minus {
-  background: rgba(180, 184, 191, 0.5);
+  background: var(--pp-border-gray-fifty);
   margin-right: 0;
   height: 2rem;
   width: 2rem;
   border-radius: 2.5px 0 0 2.5px;
-  border: 1px solid #b4b8bf;
+  border: 1px solid var(--pp-border-gray);
   border-right: none;
-  color: rgba(36, 54, 77, 0.8);
+  color: var(--pp-black-eighty);
   font-size: 22px;
 }
 
 .payment-shares-input-button-plus {
-  background: rgba(180, 184, 191, 0.5);
+  background: var(--pp-border-gray-fifty);
   margin-right: 0;
   height: 2rem;
   width: 2rem;
   border-left: none;
   border-radius: 0 2.5px 2.5px 0;
-  border: 1px solid #b4b8bf;
+  border: 1px solid var(--pp-border-gray);
   border-left: none;
-  color: rgba(36, 54, 77, 0.8);
+  color: var(--pp-black-eighty);
   font-size: 22px;
 }
 
 .payment-shares-input-field {
   background: white;
   margin-right: 0;
-  height: calc(2rem - 4px);
-  line-height: 16px;
-  border-radius: 0;
-  color: rgba(36, 54, 77, 0.4);
+  height: calc(2rem - 4px); /* TODO: input is not aligned to butons*/
+  color: var(--pp-black-forty);
   font-size: 16px;
   width: 8rem;
-  border: 1px solid #b4b8bf;
+  border-radius: 0 2.5px 2.5px 0;
+  border: 1px solid var(--pp-border-gray);
   border-left: none;
   border-right: none;
   text-align: center;
@@ -1009,7 +985,7 @@ carousel__arrow--right {
   position: absolute;
 }
 
-[type='radio'] label {
+label [type='radio'] {
   z-index: 2;
 }
 
@@ -1073,7 +1049,7 @@ carousel__arrow--right {
 
 .payment-cc-input {
   background: whitefff;
-  border: 1px solid #b4b8bf;
+  border: 1px solid var(--pp-border-gray);
   box-sizing: border-box;
   border-radius: 2.5px;
   width: 100%;
@@ -1082,11 +1058,11 @@ carousel__arrow--right {
 }
 
 input {
-  outline: none;
+  outline: transparent;
 }
 
 button {
-  outline: none;
+  outline: transparent;
 }
 
 .progress-bar-container ul {
@@ -1169,6 +1145,7 @@ button {
 .progressbar-step-text {
   color: white;
   text-align: center;
+  font-weight: bold;
   font-size: 12px;
   margin-bottom: 2rem;
 }
@@ -1221,4 +1198,44 @@ button {
 
 .mb-22px {
   margin-bottom: 22px;
+}
+
+.onboarding-first-step-margin {
+  margin: 0;
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  scale: 0.9;
+}
+
+.onboarding-already-have-account-link {
+  color: var(--pp-gray);
+  font-size: 13px;
+  line-height: 22px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.onboarding-already-have-account {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.onboarding-already-have-account h6 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 22px;
+  margin-top: 0px;
+  color: var(--pp-gray);
+  margin-right: 4px;
+}
+
+.onboarding-logout-button {
+  background-color: var(--pp-bg-blue);
+  border: none;
+  color: var(--pp-gray);
+  font-size: 16px;
 }
