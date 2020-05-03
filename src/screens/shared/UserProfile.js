@@ -24,19 +24,19 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    this.pullPropsIntoState('both');
+    this.populateOwnerInformation('both');
   }
 
   componentDidUpdate(prevProps) {
     const { owner } = this.props;
     if (owner !== prevProps.owner) {
-      this.pullPropsIntoState('both');
+      this.populateOwnerInformation('both');
     }
   }
 
   handleCancel = type => {
     this.setState({ [`${type}EditMode`]: false });
-    this.pullPropsIntoState(type);
+    this.populateOwnerInformation(type);
   };
 
   handleChange = event => {
@@ -119,7 +119,7 @@ class UserProfile extends React.Component {
   onGeneralButtonPressed = async () => {
     const { generalEditMode, updateFirstName, updateLastName } = this.state;
     if (generalEditMode) {
-      // Validate data
+      // Validate datap
       this.validateAndSubmitData(
         {
           firstName: updateFirstName,
@@ -135,7 +135,7 @@ class UserProfile extends React.Component {
     }
   };
 
-  pullPropsIntoState = type => {
+  populateOwnerInformation = type => {
     const { owner } = this.props;
 
     if (type === 'contact' || type === 'both') {

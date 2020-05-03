@@ -1,6 +1,5 @@
 import React from 'react';
-import '../../../styles/SubscriberOwnerDashboard.css';
-import '../../../styles/SubscriberOwnerDashboardAllBillsView.css';
+import '../../../styles/BillingAllTransactions.css';
 import TransactionsTable from './TransactionsTable';
 import LeftArrow from '../../../assets/left_arrow.png';
 

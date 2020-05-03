@@ -95,7 +95,7 @@ class BuyShares extends React.PureComponent {
           <div className="left-button">
             <Link to="/investment">
               <img
-                className="button left-arrow-button"
+                className="button buy-shares-left-arrow"
                 src={LeftArrow}
                 alt="left arrow"
               />

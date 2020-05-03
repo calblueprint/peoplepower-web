@@ -1,17 +1,3 @@
-.subscriber-dash-outer-container {
-  margin: 0.8em auto;
-  width: 75%;
-}
-
-.subscriber-dash-inner-container {
-  display: flex;
-  margin: auto;
-}
-
-.subscriber-dash-col {
-  margin: 1em;
-}
-
 .left-col {
   flex: 1;
   margin-left: 0;
