@@ -196,7 +196,8 @@ const updateOwnerFields = async (owner, fields) => {
       ownerUpdate.password,
       { ...ownerUpdate, password: undefined } // Remove password from owner update
     );
-    const owners = await getAllOwners();
+    const allOwners = await getAllOwners();
+    const owners = allOwners.filter(o => o.email === ownerUpdate.email);
     refreshUserData(owners[0].id);
   }
 };
