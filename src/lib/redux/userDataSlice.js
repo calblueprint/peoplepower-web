@@ -33,20 +33,12 @@ const userDataSlice = createSlice({
 
     deauthenticateAndClearUserData() {
       return { ...initialState };
-    },
-    setLoading(state, _) {
-      state.isLoading = true;
-    },
-    unsetLoading(state, _) {
-      state.isLoading = false;
     }
   }
 });
 
 export const {
   setLoadingForUserData,
-  setLoading,
-  unsetLoading,
   saveUserData,
   deauthenticateAndClearUserData
 } = userDataSlice.actions;

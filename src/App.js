@@ -15,7 +15,7 @@ import AdminDashboard from './screens/admin/AdminDashboard';
 import UserProfile from './screens/shared/UserProfile';
 import ErrorPage from './screens/general/ErrorPage';
 import './styles/App.css';
-import { refreshUserData } from './lib/redux/userData';
+import { refreshUserData, clearUserData } from './lib/redux/userData';
 import { history } from './lib/redux/store';
 import {
   isGeneralOwner,
@@ -32,15 +32,23 @@ import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
 import BillingPayment from './screens/subscriber/components/BillingPayment';
 import PPRoute from './components/PPRoute';
 import FeedbackButton from './components/FeedbackButton';
+import { getOwnerById } from './lib/airtable/request';
 
 class App extends React.Component {
-  componentDidMount() {
+  async componentDidMount() {
     const { owner } = this.props;
     // TODO: check that airlock session token is valid
 
     // If userLogin info is in Redux, fetch latest version
     if (owner) {
-      refreshUserData(owner.id);
+      try {
+        await getOwnerById(owner.id);
+        refreshUserData(owner.id);
+      } catch (e) {
+        console.log('Session Expired');
+        clearUserData();
+        history.push('/');
+      }
     }
   }
 

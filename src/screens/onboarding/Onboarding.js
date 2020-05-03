@@ -8,13 +8,13 @@ import {
   toggleValidColor,
   validateFieldSync
 } from '../../lib/onboardingUtils';
-import { setAppIsLoading } from '../../lib/redux/userData';
 import ProgressBar from './components/ProgressBar';
 import Constants from '../../constants';
 import {
   getPledgeInviteById,
   updatePledgeInvite
 } from '../../lib/airtable/request';
+import LoadingComponent from '../../components/LoadingComponent';
 
 const { GENERAL_OWNER, PLEDGE_INVITE_USED } = Constants;
 
@@ -31,7 +31,8 @@ class Onboarding extends React.Component {
         isReceivingDividends: true,
         numberOfShares: 1
       },
-      errors: {}
+      errors: {},
+      loading: false
     };
   }
 
@@ -111,7 +112,7 @@ class Onboarding extends React.Component {
     });
     this.setState({ errors: newErrors });
     if (!foundErrors) {
-      setAppIsLoading(true);
+      this.setState({ loading: true });
       // Create/Update specific owner fields
       // State should be refreshed when data is successfully pulled from redux
 
@@ -131,7 +132,7 @@ class Onboarding extends React.Component {
       }
 
       await updateOwnerFields(newOwner, fieldsToUpdate);
-      setAppIsLoading(false);
+      this.setState({ loading: false });
     }
   };
 
@@ -216,10 +217,13 @@ class Onboarding extends React.Component {
   // Render the component based on the user's onboarding step
   render() {
     const { history } = this.props;
-    const { owner, errors } = this.state;
+    const { owner, errors, loading } = this.state;
     const stepData = OnboardingData[owner.onboardingStep];
     const StepComponent = stepData.component;
     const showStyles = owner.onboardingStep > 0;
+    if (loading) {
+      return <LoadingComponent />;
+    }
     return (
       <div
         className={showStyles ? 'flex onboarding-col template-center w-70' : ''}

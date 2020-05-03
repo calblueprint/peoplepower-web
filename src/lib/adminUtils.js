@@ -119,7 +119,7 @@ export async function inviteMember(pledgeInvite) {
 export async function triggerEmail(pledgeInviteId) {
   try {
     const emailInvite = await fetch(
-      `${process.env.REACT_APP_BILL_GENERATION_URL}/invite`,
+      `${process.env.REACT_APP_SERVER_URL}/invite`,
       {
         method: 'POST',
         headers: {
