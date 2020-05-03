@@ -1,8 +1,6 @@
 import React from 'react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import createCostSavingsChart from '../../../lib/highcharts/createCostSavingsChart';
 import ProductionEquivalenciesChart from '../../../components/ProductionEquivalenciesChart';
+import EffectiveCostChart from '../../../components/EffectiveCostChart';
 
 export default class DashboardChartsSection extends React.PureComponent {
   constructor(props) {
@@ -62,12 +60,7 @@ export default class DashboardChartsSection extends React.PureComponent {
         {activeTab === 0 ? (
           <div className="subscriber-section-body">
             <div className="subscriber-billing-chart-container">
-              <h3>Effective Cost</h3>
-              <HighchartsReact
-                highcharts={Highcharts}
-                options={createCostSavingsChart(effectiveCostData)}
-                style={{ width: '100%' }}
-              />
+              <EffectiveCostChart data={effectiveCostData} />
             </div>
           </div>
         ) : (
