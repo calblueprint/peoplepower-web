@@ -6,7 +6,8 @@ import {
   isSubscriberOwner,
   isGeneralOwner,
   isSignedIn,
-  isOnboarding
+  isOnboarding,
+  getCredentials
 } from '../lib/credentials';
 import Logo from '../assets/PPSC-logo.png';
 import '../styles/NavBar.css';
@@ -14,7 +15,8 @@ import SettingsDropdown from './SettingsDropdown';
 
 class NavBar extends React.PureComponent {
   render() {
-    const { credentials, pathname, history } = this.props;
+    const { owner, pathname, history } = this.props;
+    const credentials = getCredentials(owner);
 
     // if onboarding
     if (isOnboarding(credentials)) {
@@ -110,7 +112,7 @@ class NavBar extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  credentials: state.userData.credentials,
+  owner: state.userData.owner,
   pathname: state.router.location.pathname
 });
 export default connect(mapStateToProps)(NavBar);
