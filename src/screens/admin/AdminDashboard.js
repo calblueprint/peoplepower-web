@@ -49,12 +49,6 @@ class AdminDashboard extends React.Component {
       updatedZipcode: '',
       errors: {}
     };
-
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleAdminChange = this.handleAdminChange.bind(this);
-    this.handleContactEdit = this.handleContactEdit.bind(this);
   }
 
   componentDidMount() {
@@ -216,16 +210,16 @@ class AdminDashboard extends React.Component {
     }
   };
 
-  async fetchOwnerRecords() {
+  fetchOwnerRecords = async () => {
     const { projectGroup } = this.props;
     const ownerRecords = await getOwnerRecordsForProjectGroup(projectGroup);
     this.setState({
       owners: ownerRecords
     });
-  }
+  };
 
   /* open/close modal logic */
-  handleOpenModal(modal) {
+  handleOpenModal = modal => {
     switch (modal) {
       case 'invite':
         this.setState({ showModal: true });
@@ -239,9 +233,9 @@ class AdminDashboard extends React.Component {
       default:
         break;
     }
-  }
+  };
 
-  handleCloseModal(modal) {
+  handleCloseModal = modal => {
     switch (modal) {
       case 'invite':
         this.setState({ showModal: false });
@@ -255,9 +249,9 @@ class AdminDashboard extends React.Component {
       default:
         break;
     }
-  }
+  };
 
-  handleContactEdit(type) {
+  handleContactEdit = type => {
     switch (type) {
       case 'edit':
         this.setState({ adminEditMode: true });
@@ -271,7 +265,7 @@ class AdminDashboard extends React.Component {
       default:
         break;
     }
-  }
+  };
 
   render() {
     const { owner, projectGroup } = this.props;
