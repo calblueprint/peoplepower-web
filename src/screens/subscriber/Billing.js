@@ -59,6 +59,15 @@ class Billing extends React.Component {
     });
   };
 
+  async refreshState() {
+    const { owner } = this.props;
+
+    const { activeBill, transactions } = await getSubscriberTransactionData(
+      owner
+    );
+    this.setState({ activeBill, transactions, loading: false });
+  }
+
   render() {
     const { mode, activeBill, transactions, loading } = this.state;
     const { history } = this.props;
