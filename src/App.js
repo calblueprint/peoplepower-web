@@ -22,7 +22,8 @@ import {
   isSubscriberOwner,
   isSignedIn,
   Credentials,
-  isOnboarding
+  isOnboarding,
+  getCredentials
 } from './lib/credentials';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Investment from './screens/general/Investment';
@@ -45,7 +46,8 @@ class App extends React.Component {
 
   // Figure out component to be shown at root based on user credentials
   getHomeComponent() {
-    const { credentials } = this.props;
+    const { owner } = this.props;
+    const credentials = getCredentials(owner);
     const onboarding = isOnboarding(credentials);
     const signedIn = isSignedIn(credentials);
     const isGeneral = isGeneralOwner(credentials);
@@ -121,8 +123,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  credentials: state.userData.credentials
+  owner: state.userData.owner
 });
 
 export default connect(mapStateToProps)(App);

@@ -1,27 +1,16 @@
 import React from 'react';
 import 'react-table-v6/react-table.css';
 import { connect } from 'react-redux';
-import { isAdmin } from '../../lib/credentials';
+import { isAdmin, getCredentials } from '../../lib/credentials';
 import AnnouncementList from './components/AnnouncementList';
 import AddAnnouncement from './components/AddAnnouncement';
 import '../../styles/Community.css';
 import NoProjects from './components/NoProjects';
 
-class Community extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      credentials: ''
-    };
-  }
-
+class Community extends React.PureComponent {
   render() {
-    const {
-      announcements,
-
-      owner,
-      credentials
-    } = this.props;
+    const { announcements, owner } = this.props;
+    const credentials = getCredentials(owner);
 
     let body;
     if (announcements.length === 0) {
@@ -56,7 +45,6 @@ class Community extends React.Component {
 
 const mapStateToProps = state => ({
   owner: state.userData.owner,
-  credentials: state.userData.credentials,
   announcements: state.community.announcements
 });
 export default connect(mapStateToProps)(Community);
