@@ -1,3 +1,4 @@
+// Ensures that when backspacing or entering values, result is a valid dollar amount
 const processCurrencyInput = (event, balance, paymentAmount) => {
   event.preventDefault();
   let newAmount = paymentAmount;
