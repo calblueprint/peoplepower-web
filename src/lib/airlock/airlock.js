@@ -15,6 +15,7 @@ const signupUser = async (email, password, record) => {
   return res.body.user.id;
 };
 
+// Log in a user given email and password
 const loginUser = async (email, password) => {
   try {
     const res = await base.login({ username: email, password });
@@ -33,6 +34,7 @@ const loginUser = async (email, password) => {
   }
 };
 
+// Log a user out and clear their user data
 const logoutUser = async () => {
   try {
     const res = await base.logout();

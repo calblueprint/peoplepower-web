@@ -13,12 +13,8 @@ const initialState = {
   authKey: null,
   owner: null,
   projectGroup: null,
-  solarProjects: null,
-  credentials: ''
+  solarProjects: null
 };
-
-// TODO: `authenticated`, `authKey`, and `credentials` all provide very similar information.
-// Once airlock is integrated, we should see if we can consolidate
 
 const userDataSlice = createSlice({
   name: 'userData',
@@ -28,16 +24,10 @@ const userDataSlice = createSlice({
       state.isLoading = true;
     },
     saveUserData(state, action) {
-      const {
-        owner,
-        projectGroup,
-        solarProjects,
-        credentials
-      } = action.payload;
+      const { owner, projectGroup, solarProjects } = action.payload;
       state.owner = owner;
       state.projectGroup = projectGroup;
       state.solarProjects = solarProjects;
-      state.credentials = credentials;
       state.isLoading = false;
     },
 

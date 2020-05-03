@@ -13,15 +13,13 @@ class PaymentDetailsStep extends React.Component {
       dividendsMarked: false,
       displayUnmarkedDividend: false
     };
-    this.onSubmit = this.onSubmit.bind(this);
-    this.handleChangeDividends = this.handleChangeDividends.bind(this);
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
   }
 
-  onSubmit() {
+  onSubmit = () => {
     const { onSubmit } = this.props;
     const { dividendsMarked } = this.state;
     if (!dividendsMarked) {
@@ -31,7 +29,7 @@ class PaymentDetailsStep extends React.Component {
     } else {
       onSubmit();
     }
-  }
+  };
 
   minusShares = () => {
     const { owner, handleChange } = this.props;

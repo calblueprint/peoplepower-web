@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import {
   updateProjectGroup,
   getProjectGroupById,
@@ -46,6 +47,7 @@ const ValidatorData = {
   updateStreet2: []
 };
 
+// Determines validation styling
 export function toggleValidColor(input, type) {
   switch (type) {
     case 0:
@@ -74,7 +76,7 @@ export async function validateField(name, value) {
 
   for (let i = 0; i < validators.length; i += 1) {
     const validateFunc = validators[i];
-    const error = validateFunc(value);
+    const error = await validateFunc(value);
     if (error !== '') {
       return error;
     }
@@ -83,6 +85,8 @@ export async function validateField(name, value) {
   return '';
 }
 
+// Remove owner from project group
+// TODO: What is the UX for the user when they try and log back in?
 export async function removeOwner(owner) {
   const projectGroup = await getProjectGroupById(owner.projectGroupId);
 
@@ -97,6 +101,8 @@ export async function removeOwner(owner) {
   await refreshUserData(loggedInOwner.id);
 }
 
+// Get all owner records for a given project group
+// This filters out users that are currently onboarding
 export async function getOwnerRecordsForProjectGroup(projectGroup) {
   const allOwners = await getOwnersByIds(projectGroup.ownerIds);
 
@@ -104,10 +110,12 @@ export async function getOwnerRecordsForProjectGroup(projectGroup) {
   return allOwners.filter(o => o.onboardingStep === -1);
 }
 
+// Invite a member to a project group. Takes in a pledge invite Record
 export async function inviteMember(pledgeInvite) {
   return createPledgeInvite(pledgeInvite);
 }
 
+// Calls a backend function that sends an email to the invited user with the pledge invite
 export async function triggerEmail(pledgeInviteId) {
   try {
     const emailInvite = await fetch(

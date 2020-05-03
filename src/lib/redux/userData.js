@@ -15,7 +15,6 @@ import {
   saveAnnouncements,
   setLoadingForAnnouncements
 } from './communitySlice';
-import { getCredentials } from '../credentials';
 
 // Function takes in an ownerId and fetches the latest owner object and all associated user data
 const refreshUserData = async (ownerId, loadSilently = false) => {
@@ -46,14 +45,11 @@ const refreshUserData = async (ownerId, loadSilently = false) => {
     }
   }
 
-  const credentials = getCredentials(owner);
-
   // Save fetched user data to the redux store
   const userData = {
     owner,
     projectGroup,
-    solarProjects,
-    credentials
+    solarProjects
   };
   store.dispatch(saveUserData(userData));
 

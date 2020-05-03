@@ -17,6 +17,7 @@ const Credentials = {
   SUPERADMIN: 'X'
 };
 
+// Gets credentials for a given owner
 function getCredentials(owner) {
   let credentials = '';
 
@@ -50,6 +51,8 @@ function getCredentials(owner) {
 
   return credentials;
 }
+
+// Helper functions to check whether a user has a certain credential
 
 function isOnboarding(credentials) {
   return credentials.includes(Credentials.ONBOARDING);
