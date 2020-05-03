@@ -8,9 +8,7 @@ import { store } from './store';
 import {
   saveUserData,
   deauthenticateAndClearUserData,
-  setLoadingForUserData,
-  setLoading,
-  unsetLoading
+  setLoadingForUserData
 } from './userDataSlice';
 import {
   clearAnnouncements,
@@ -18,14 +16,6 @@ import {
   setLoadingForAnnouncements
 } from './communitySlice';
 import { getCredentials } from '../credentials';
-
-const setAppIsLoading = isLoading => {
-  if (isLoading) {
-    store.dispatch(setLoading());
-  } else {
-    store.dispatch(unsetLoading());
-  }
-};
 
 // Function takes in an ownerId and fetches the latest owner object and all associated user data
 const refreshUserData = async (ownerId, loadSilently = false) => {
@@ -77,4 +67,4 @@ const clearUserData = () => {
   store.dispatch(clearAnnouncements());
 };
 
-export { refreshUserData, clearUserData, setAppIsLoading };
+export { refreshUserData, clearUserData };
