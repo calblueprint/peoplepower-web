@@ -4,10 +4,16 @@ import { Link, Redirect } from 'react-router-dom';
 import SharesProgressBar from '../shared/components/SharesProgressBar';
 import LeftArrow from '../../assets/left_arrow.png';
 import '../../styles/BuyShares.css';
-import { PayPalButton, recordSharePayment } from '../../lib/paypal/paypal';
+import {
+  PayPalButton,
+  recordSharePayment,
+  calculatePaypalTransactionFee
+} from '../../lib/paypal/paypal';
 import { refreshUserData } from '../../lib/redux/userData';
 import Constants from '../../constants';
 import PaymentSuccessCard from '../shared/components/PaymentSuccessCard';
+import Tooltip from '../onboarding/components/Tooltip';
+import { formatAmount } from '../../lib/subscriberUtils';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 const { MAX_SHARES, SHARE_PRICE } = Constants;
@@ -72,6 +78,11 @@ class BuyShares extends React.PureComponent {
     const { owner } = this.props;
     const { sharesBuying, successScreen, transactionAmount } = this.state;
     const totalShares = owner.numberOfShares + sharesBuying;
+    const baseAmount = sharesBuying * SHARE_PRICE;
+    const transactionFee =
+      sharesBuying > 0 ? calculatePaypalTransactionFee(baseAmount) : 0;
+    const totalAmountToPay = baseAmount + transactionFee;
+
     const returnTo = 'My Investment';
 
     // Page should not be accessible if you can't buy more shares
@@ -152,26 +163,39 @@ class BuyShares extends React.PureComponent {
                 <h4>${totalShares * SHARE_PRICE}.00</h4>
               </div>
             </div>
-            <div className="buy-shares-payment-summary-box">
-              <h3>Payment Summary</h3>
-              <div className="shares-price-line">
-                <h5> Shares </h5>
-
-                <h5>${sharesBuying * SHARE_PRICE}.00</h5>
+            <div className="payment-summary-card">
+              <div className="payment-summary-header">Order Summary</div>
+              <div className="flex justify-space-between">
+                <div className="left payment-summary-shares">Shares</div>
+                <div className="right payment-summary-shares">
+                  {formatAmount(baseAmount)}
+                </div>
               </div>
-              <h6>QTY: {sharesBuying}</h6>
-              <hr className="buy-shares-summary-hr" />
-              <div className="shares-total-price-line">
-                <h5> Total </h5>
-
-                <h5>${sharesBuying * SHARE_PRICE}.00</h5>
+              <div className="payment-summary-qty">
+                QTY: {owner.numberOfShares}
+              </div>
+              <div className="flex justify-space-between">
+                <div className="left payment-summary-shares">
+                  Transaction Fee{' '}
+                  <Tooltip label="PayPal charges a service fee of 2.9% + $0.30." />
+                </div>
+                <div className="right payment-summary-shares">
+                  {formatAmount(transactionFee)}
+                </div>
+              </div>
+              <hr className="payment-summary-hr" />
+              <div className="flex justify-space-between">
+                <div className="left payment-summary-total">Total</div>
+                <div className="right payment-summary-total">
+                  {formatAmount(totalAmountToPay)}
+                </div>
               </div>
             </div>
             {sharesBuying ? (
               <div className="buy-shares-paypal-box">
                 <h3>Payment Method</h3>
                 <PayPalButton
-                  amount={sharesBuying * SHARE_PRICE}
+                  amount={totalAmountToPay.toFixed(2)}
                   className="buy-shares-paypalbutton"
                   onSuccess={this.onPaymentSuccess}
                   options={{

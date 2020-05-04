@@ -10,8 +10,13 @@ import processCurrencyInput from '../../../lib/billingUtils';
 import LoadingComponent from '../../../components/LoadingComponent';
 import '../../../styles/BillingPayment.css';
 import LeftArrow from '../../../assets/left_arrow.png';
-import { PayPalButton, recordBillPayment } from '../../../lib/paypal/paypal';
+import {
+  PayPalButton,
+  recordBillPayment,
+  calculatePaypalTransactionFee
+} from '../../../lib/paypal/paypal';
 import PaymentSuccessCard from '../../shared/components/PaymentSuccessCard';
+import Tooltip from '../../onboarding/components/Tooltip';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
@@ -93,6 +98,10 @@ class BillingPayment extends React.Component {
         />
       );
     }
+
+    const transactionFee =
+      paymentAmount > 0 ? calculatePaypalTransactionFee(paymentAmount) : 0;
+    const totalPaymentAmount = paymentAmount + transactionFee;
 
     return (
       <div>
@@ -206,18 +215,27 @@ class BillingPayment extends React.Component {
                       <div className="billing-full-width-container" />
                       <hr id="balance-billing-divider" />
                     </div>
+                    <div className="billing-balance-nums-line">
+                      <p className="line-item-total">
+                        Transaction Fee{' '}
+                        <Tooltip label="PayPal charges a service fee of 2.9% + $0.30." />
+                      </p>
+                      <p className="line-item-total line-item-value">
+                        <strong>{formatAmount(transactionFee)}</strong>
+                      </p>
+                    </div>
 
                     <div className="billing-balance-nums-line">
                       <p className="line-item-total">
                         <strong>Payment Total</strong>
                       </p>
                       <p className="line-item-total line-item-value">
-                        <strong>{paymentAmount}</strong>
+                        <strong>{formatAmount(totalPaymentAmount)}</strong>
                       </p>
                     </div>
-                  </div>
+                  </div>{' '}
                   <PayPalButton
-                    amount={paymentAmount}
+                    amount={totalPaymentAmount.toFixed(2)}
                     onSuccess={this.onPaymentSuccess}
                     options={{
                       clientId
