@@ -66,7 +66,7 @@ class NavBar extends React.PureComponent {
               {isGeneralOwner(credentials) && (
                 <li
                   className={`${
-                    pathname === '/investment'
+                    pathname === '/investment' || '/buyshares'
                       ? 'nav-item-selected'
                       : 'nav-item'
                   } nav-item-styling`}
