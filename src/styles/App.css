@@ -61,6 +61,8 @@ body {
   justify-content: center;
 }
 
+/* CSS classes for the feedback butoton */
+
 .feedback-button-fixed {
   background-color: white;
   border: none;
@@ -93,6 +95,7 @@ body {
   color: var(--pp-black);
 }
 
+/* CSS classes for the about page (About.js) */
 .about-page .cont {
   margin-left: 194px;
   margin-top: 55px;
