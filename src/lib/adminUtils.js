@@ -14,7 +14,7 @@ import {
   validateZipcode
 } from './onboardingUtils';
 import { store } from './redux/store';
-import USStates from '../assets/states.json';
+import USStates from '../assets/usStates.json';
 
 // Ensure shares is a valid number
 const validateShares = value => {
