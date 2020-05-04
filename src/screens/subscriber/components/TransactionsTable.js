@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import ReactTable from 'react-table-v6';
@@ -60,7 +61,13 @@ const TransactionsTable = ({
             <div
               className={`subscriber-all-bills-row transactions-table-cell transactions-table-${f}`}
             >
-              {transaction[f]}
+              {f === 'description' && transaction.url ? (
+                <a href={transaction.url} target="_blank">
+                  {transaction[f]}
+                </a>
+              ) : (
+                <div>{transaction[f]}</div>
+              )}
             </div>
           );
         }

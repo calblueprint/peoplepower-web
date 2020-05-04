@@ -6,6 +6,7 @@ import {
 } from '../../../lib/paypal/paypal';
 import Constants from '../../../constants';
 import Tooltip from '../components/Tooltip';
+import { formatAmount } from '../../../lib/subscriberUtils';
 
 const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
@@ -22,9 +23,7 @@ class PaymentStep extends React.Component {
     const { owner, onBack } = this.props;
     const baseAmount = owner.numberOfShares * SHARE_PRICE;
     const transactionFee = calculatePaypalTransactionFee(baseAmount);
-    const totalAmountToPay = (baseAmount + parseFloat(transactionFee)).toFixed(
-      2
-    );
+    const totalAmountToPay = baseAmount + transactionFee;
 
     return (
       <div className="w-100">
@@ -34,7 +33,7 @@ class PaymentStep extends React.Component {
               <div className="payment-shares-header">Payment Information</div>
               <div className="mt-3">
                 <PayPalButton
-                  amount={totalAmountToPay}
+                  amount={totalAmountToPay.toFixed(2)}
                   onSuccess={this.onPaymentSuccess}
                   options={{
                     clientId
@@ -49,7 +48,7 @@ class PaymentStep extends React.Component {
               <div className="flex justify-space-between">
                 <div className="left payment-summary-shares">Shares</div>
                 <div className="right payment-summary-shares">
-                  ${baseAmount}.00
+                  {formatAmount(baseAmount)}
                 </div>
               </div>
               <div className="payment-summary-qty">
@@ -61,14 +60,14 @@ class PaymentStep extends React.Component {
                   <Tooltip label="PayPal charges a service fee of 2.9% + $0.30." />
                 </div>
                 <div className="right payment-summary-shares">
-                  ${transactionFee}
+                  {formatAmount(transactionFee)}
                 </div>
               </div>
               <hr className="payment-summary-hr" />
               <div className="flex justify-space-between">
                 <div className="left payment-summary-total">Total</div>
                 <div className="right payment-summary-total">
-                  ${totalAmountToPay}
+                  {formatAmount(totalAmountToPay)}
                 </div>
               </div>
             </div>
