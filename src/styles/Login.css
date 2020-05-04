@@ -38,6 +38,7 @@ w-100 {
 
 .login-hyperlink {
   border: none;
+  background-color: transparent;
   font-size: 12px;
   color: var(--pp-link-gray);
   cursor: pointer;
@@ -46,7 +47,6 @@ w-100 {
 }
 
 .login-hyperlink-group {
-  background-color: transparent;
   margin-top: 1rem;
 }
 
