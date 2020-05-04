@@ -5,6 +5,7 @@ import '../../styles/main.css';
 import Constants from '../../constants';
 import ErrorIcon from '../../assets/error.svg';
 import LoadingComponent from '../../components/LoadingComponent';
+import PPModal from '../../components/PPModal';
 
 class Login extends React.Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class Login extends React.Component {
       email: '',
       passwordHash: '',
       loading: false,
-      showLoginError: false
+      showLoginError: false,
+      showForgetPasswordModal: false
     };
   }
 
@@ -50,10 +52,13 @@ class Login extends React.Component {
     }
   };
 
-  toggleValidColor() {
-    const { showLoginError } = this.state;
-    return showLoginError ? 'b-is-not-valid' : 'b-is-valid';
-  }
+  forgotPassword = () => {
+    this.setState({ showForgetPasswordModal: true });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ showForgetPasswordModal: false });
+  };
 
   segueToHome(evt) {
     const { history } = this.props;
@@ -62,14 +67,32 @@ class Login extends React.Component {
     evt.preventDefault();
   }
 
+  toggleValidColor() {
+    const { showLoginError } = this.state;
+    return showLoginError ? 'b-is-not-valid' : 'b-is-valid';
+  }
+
   render() {
-    const { email, passwordHash, showLoginError, loading } = this.state;
+    const {
+      email,
+      passwordHash,
+      showLoginError,
+      loading,
+      showForgetPasswordModal
+    } = this.state;
 
     if (loading) {
       return <LoadingComponent />;
     }
     return (
       <div className="center card flex column">
+        <PPModal
+          showModal={showForgetPasswordModal}
+          body="Contact an administrator to reset your account."
+          header="Forgot Your Password?"
+          actionName="Ok"
+          handleCloseModal={this.handleCloseModal}
+        />
         <h1 className="t-center login-header">Welcome back!</h1>
         <br />
         <form onSubmit={this.handleSubmit} className="flex column ">
@@ -116,7 +139,11 @@ class Login extends React.Component {
           </div>
         )}
         <div className="flex onboarding-col login-hyperlink-group">
-          <button type="button" className="login-hyperlink">
+          <button
+            type="button"
+            className="login-hyperlink"
+            onClick={this.forgotPassword}
+          >
             Forgot password?
           </button>
           <button

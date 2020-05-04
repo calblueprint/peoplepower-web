@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SharesProgressBar from './SharesProgressBar';
 import '../../../styles/InvestmentWidget.css';
 
 import Constants from '../../../constants';
+import PPModal from '../../../components/PPModal';
 
 const { MAX_SHARES, SHARE_PRICE } = Constants;
 
 export default function InvestmentWidget(props) {
+  const [showDivestModal, setShowDivestModal] = useState(false);
   const { numberOfShares, smaller } = props;
   return (
     <div
@@ -15,6 +17,15 @@ export default function InvestmentWidget(props) {
         smaller ? 'investments-widget-smaller' : 'investments-widget-normal'
       }`}
     >
+      <PPModal
+        showModal={showDivestModal}
+        body="Contact your project group administrator to divest from People Power"
+        header="Divest Your Shares"
+        actionName="Ok"
+        handleCloseModal={() => {
+          setShowDivestModal(false);
+        }}
+      />
       <div className="investments-widget-circle-progress-bar">
         <SharesProgressBar numberOfShares={numberOfShares} />
       </div>
@@ -34,7 +45,11 @@ export default function InvestmentWidget(props) {
           </div>
         )}
 
-        <button type="button" className="investments-widget-dividend-button">
+        <button
+          type="button"
+          className="investments-widget-dividend-button"
+          onClick={() => setShowDivestModal(true)}
+        >
           Divest
         </button>
       </div>

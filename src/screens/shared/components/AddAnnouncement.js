@@ -3,6 +3,7 @@ import '../../../styles/Community.css';
 import { createAnnouncement } from '../../../lib/airtable/request';
 import { refreshUserData } from '../../../lib/redux/userData';
 import Colors from '../../../colors';
+import PPModal from '../../../components/PPModal';
 
 const { PP_BLUE } = Colors;
 
@@ -17,7 +18,8 @@ export default class AddAnnouncement extends React.Component {
       message: '',
       submitSuccess: STATUS_IN_PROGRESS,
       status: '',
-      submitProgress: STATUS_IN_PROGRESS
+      submitProgress: STATUS_IN_PROGRESS,
+      showAnnouncementModal: false
     };
   }
 
@@ -53,13 +55,20 @@ export default class AddAnnouncement extends React.Component {
       submitSuccess: true,
       status: 'Announcement posted!',
       message: '',
-      submitProgress: STATUS_SUCCESS
+      submitProgress: STATUS_SUCCESS,
+      showAnnouncementModal: true
     });
-    await refreshUserData(owner.id);
+    await refreshUserData(owner.id, true);
   };
 
   render() {
-    const { message, submitSuccess, status, submitProgress } = this.state;
+    const {
+      message,
+      submitSuccess,
+      status,
+      submitProgress,
+      showAnnouncementModal
+    } = this.state;
     let btnStatus = '';
     let btnText = '';
 
@@ -93,6 +102,15 @@ export default class AddAnnouncement extends React.Component {
 
     return (
       <div className="announcement-card add-announcement announcement-limit-width">
+        <PPModal
+          showModal={showAnnouncementModal}
+          body="This announcement will go out to everyone in your project group! You may not see the changes for a few minutes."
+          header="Announcement Created!"
+          actionName="Ok"
+          handleCloseModal={() => {
+            this.setState({ showAnnouncementModal: false });
+          }}
+        />
         <form onSubmit={this.handleSubmit}>
           <textarea
             type="text"

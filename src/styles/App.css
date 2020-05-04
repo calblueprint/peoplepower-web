@@ -61,6 +61,8 @@ body {
   justify-content: center;
 }
 
+/* CSS classes for the feedback butoton */
+
 .feedback-button-fixed {
   background-color: white;
   border: none;
@@ -91,4 +93,53 @@ body {
   font-size: 16px;
   font-weight: bold;
   color: var(--pp-black);
+}
+
+/* CSS classes for the about page (About.js) */
+.about-page .cont {
+  margin-left: 194px;
+  margin-top: 55px;
+}
+
+.about-page h1 {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 49px;
+  color: var(--pp-blue);
+  margin-top: 0px;
+}
+
+.about-page p {
+  color: var(--pp-black);
+}
+
+.about-card {
+  background: white;
+  border-radius: 5px;
+  padding: 35px;
+  margin: 10px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-card p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0.01em;
+  color: var(--pp-black);
+}
+
+.about-card:first-of-type {
+  margin-top: 0px;
+}
+
+.about-card h2 {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+  color: var(--pp-blue);
 }

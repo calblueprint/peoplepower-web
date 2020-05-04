@@ -13,6 +13,7 @@ import Community from './screens/shared/Community';
 import GeneralDashboard from './screens/general/GeneralDashboard';
 import AdminDashboard from './screens/admin/AdminDashboard';
 import UserProfile from './screens/shared/UserProfile';
+import About from './screens/shared/About';
 import ErrorPage from './screens/general/ErrorPage';
 import './styles/App.css';
 import { refreshUserData, clearUserData } from './lib/redux/userData';
@@ -82,6 +83,7 @@ class App extends React.Component {
           <NavBar history={history} />
           <Switch>
             <PPRoute exact path="/" component={HomeComponent} />
+            <PPRoute exact path="/about" component={About} />
             <AuthenticatedRoute path="/projectnews" component={Community} />
             <AuthenticatedRoute path="/profile" component={UserProfile} />
 

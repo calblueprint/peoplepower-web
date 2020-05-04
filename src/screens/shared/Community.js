@@ -12,31 +12,28 @@ class Community extends React.PureComponent {
     const { announcements, owner } = this.props;
     const credentials = getCredentials(owner);
 
-    let body;
-    if (announcements.length === 0) {
-      body = <NoProjects />;
-    } else {
+    if (announcements.length === 0 && !isAdmin(credentials)) {
       return (
-        <div className="community">
+        <div className="project-news-dashboard">
           <div className="cont">
-            <h1>Project News</h1>
-            {isAdmin(credentials) ? <AddAnnouncement owner={owner} /> : null}
-            <AnnouncementList
-              announcements={announcements}
-              css={isAdmin(credentials) ? '' : 'non-admin-height'}
-              limitWidth
-            />
+            <div className="ppsc-coomunity-center">
+              <h1 className="project-news-header">Project News</h1>
+              <NoProjects />
+            </div>
           </div>
         </div>
       );
     }
     return (
-      <div className="project-news-dashboard">
+      <div className="community">
         <div className="cont">
-          <div className="ppsc-coomunity-center">
-            <h1 className="project-news-header">Project News</h1>
-            {body}
-          </div>
+          <h1>Project News</h1>
+          {isAdmin(credentials) ? <AddAnnouncement owner={owner} /> : null}
+          <AnnouncementList
+            announcements={announcements}
+            css={isAdmin(credentials) ? '' : 'non-admin-height'}
+            limitWidth
+          />
         </div>
       </div>
     );
