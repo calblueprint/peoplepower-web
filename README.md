@@ -6,6 +6,7 @@ The web client for People Power Solar Cooperative
 
 - For the live app (master), visit https://peoplepower.netlify.com
 - For peoplepower-node (server) repo, go to https://github.com/calblueprint/peoplepower-node
+- For complete documentation, go to https://github.com/calblueprint/peoplepower-web/wiki
 
 ## 1. Quickstart
 
@@ -58,5 +59,8 @@ Whenever you update the airtable schema, you'll need to run the script `yarn gen
 (More info about the schema generator found [here](https://github.com/aivantg/airtable-schema-generator))
 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-```
+## Misc.
+- This project was first worked on by @aivantg, @ashleynguyen27, @cindyzhang12, @dfangshuo, @iris-hou, @niwong, @arpanpal, @ethanlee16 of @calblueprint. For questions, see [Acknowledgements/Knowledge Owners](https://github.com/calblueprint/peoplepower-web/wiki/Acknowledgements)
+
+- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
