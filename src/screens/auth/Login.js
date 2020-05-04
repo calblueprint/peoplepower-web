@@ -1,6 +1,5 @@
 import React from 'react';
 import { loginUser } from '../../lib/authUtils';
-import { setAppIsLoading } from '../../lib/redux/userData';
 import '../../styles/Login.css';
 import '../../styles/main.css';
 import Constants from '../../constants';
@@ -31,22 +30,18 @@ class Login extends React.Component {
   };
 
   handleSubmit = async evt => {
-    setAppIsLoading(true);
     const { email, passwordHash } = this.state;
     evt.preventDefault();
     try {
       const res = await loginUser(email, passwordHash);
       if (res.found && res.match) {
-        setAppIsLoading(false);
         this.segueToHome(evt);
       } else {
-        setAppIsLoading(false);
         this.setState({
           showLoginError: false
         });
       }
     } catch (err) {
-      setAppIsLoading(false);
       console.error(err);
     }
   };

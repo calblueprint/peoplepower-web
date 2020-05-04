@@ -8,7 +8,6 @@ import {
   toggleValidColor,
   validateFieldSync
 } from '../../lib/onboardingUtils';
-import { setAppIsLoading } from '../../lib/redux/userData';
 import ProgressBar from './components/ProgressBar';
 import Constants from '../../constants';
 import {
@@ -111,7 +110,6 @@ class Onboarding extends React.Component {
     });
     this.setState({ errors: newErrors });
     if (!foundErrors) {
-      setAppIsLoading(true);
       // Create/Update specific owner fields
       // State should be refreshed when data is successfully pulled from redux
 
@@ -136,7 +134,6 @@ class Onboarding extends React.Component {
       }
 
       await updateOwnerFields(newOwner, fieldsToUpdate);
-      setAppIsLoading(false);
     }
   };
 
