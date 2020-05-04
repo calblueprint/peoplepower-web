@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import ErrorIcon from '../../../assets/error.svg';
 import Tooltip from '../components/Tooltip';
@@ -69,7 +71,7 @@ class PaymentDetailsStep extends React.Component {
 
   render() {
     const { owner, errors, onBack, handleChange } = this.props;
-    const { displayUnmarkedDividend } = this.state;
+    const { displayUnmarkedDividend, dividendsMarked } = this.state;
     const baseAmount = owner.numberOfShares * SHARE_PRICE;
     const transactionFee = calculatePaypalTransactionFee(baseAmount);
     const totalAmountToPay = (baseAmount + parseFloat(transactionFee)).toFixed(
@@ -121,10 +123,18 @@ class PaymentDetailsStep extends React.Component {
                     type="radio"
                     name="isReceivingDividends"
                     className="payment-dividends-radio"
-                    value
+                    checked={dividendsMarked && owner.isReceivingDividends}
                     onChange={this.handleChangeDividends}
                   />
-                  <label htmlFor="" className="payment-dividends-choice">
+                  <label
+                    htmlFor=""
+                    className="payment-dividends-choice"
+                    onClick={() => {
+                      this.handleChangeDividends({
+                        target: { name: 'isReceivingDividends', value: 'on' }
+                      });
+                    }}
+                  >
                     Yes, I’d like dividends, thank you!
                   </label>
                 </div>
@@ -133,10 +143,18 @@ class PaymentDetailsStep extends React.Component {
                     type="radio"
                     name="isReceivingDividends"
                     className="payment-dividends-radio"
-                    value={false}
+                    checked={dividendsMarked && !owner.isReceivingDividends}
                     onChange={this.handleChangeDividends}
                   />
-                  <label htmlFor="" className="payment-dividends-choice">
+                  <label
+                    htmlFor=""
+                    className="payment-dividends-choice"
+                    onClick={() => {
+                      this.handleChangeDividends({
+                        target: { name: 'isReceivingDividends', value: 'off' }
+                      });
+                    }}
+                  >
                     No dividends please. (No pressure to choose this option. We
                     provide the option because people who waive dividends reduce
                     the cost of capital, which reduces the cost of solar, and

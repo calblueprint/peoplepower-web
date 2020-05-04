@@ -163,7 +163,7 @@ class Onboarding extends React.Component {
         newOwner[name] = event.target.checked;
         break;
       case 'isReceivingDividends':
-        newOwner[name] = value === 'true';
+        newOwner[name] = value === 'on';
         break;
       case 'permanentStreet1':
       case 'permanentStreet2':
@@ -171,10 +171,11 @@ class Onboarding extends React.Component {
       case 'permanentState':
       case 'permanentZipcode':
         if (owner.mailingAddressSame) {
-          const mailingKey = name.replace('permanant', 'mailing');
+          const mailingKey = name.replace('permanent', 'mailing');
           newOwner[mailingKey] = value;
         }
         newOwner[name] = value;
+
         break;
       case 'mailingAddressSame':
         if (value) {
