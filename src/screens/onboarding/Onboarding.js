@@ -121,6 +121,11 @@ class Onboarding extends React.Component {
         onboardingStep: owner.onboardingStep + 1
       };
 
+      // If owner had invite, skip project group step
+      if (newOwner.onboardingStep === 2 && newOwner.pledgeInviteId) {
+        newOwner.onboardingStep += 1;
+      }
+
       const fieldsToUpdate = [...OnboardingData[owner.onboardingStep].fields];
 
       // Update extra fields if user has a valid invitation
