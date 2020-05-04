@@ -54,3 +54,7 @@
   padding-bottom: 38px;
   margin: 21px 30px 30px 38px;
 }
+
+.payment-success-hide {
+  display: none !important;
+}
