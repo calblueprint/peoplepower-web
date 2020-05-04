@@ -1,5 +1,9 @@
 import { base, toAirtableFormat } from '../airtable/airtable';
-import { refreshUserData, clearUserData } from '../redux/userData';
+import {
+  refreshUserData,
+  clearUserData,
+  startLoading
+} from '../redux/userData';
 import { Tables } from '../airtable/schema';
 
 const AUTHENTICATION_ERR_STRING = 'AUTHENTICATION_REQUIRED';
@@ -37,6 +41,7 @@ const loginUser = async (email, password) => {
 // Log a user out and clear their user data
 const logoutUser = async () => {
   try {
+    startLoading();
     const res = await base.logout();
     if (!res.body.success) {
       return false;
