@@ -33,6 +33,9 @@ class PaymentSuccessCard extends React.PureComponent {
         </svg>
 
         <h1>Payment Successful</h1>
+        <h5>
+          It may take a few minutes for the payment to appear on your portal
+        </h5>
 
         <div>
           <h3>Shares Purchased:</h3>
