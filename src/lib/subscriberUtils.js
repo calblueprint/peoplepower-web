@@ -34,7 +34,8 @@ const createTransactionFromBill = bill => ({
   charge: formatAmount(bill.amountDue),
   payment: '',
   amount: formatAmount(bill.amountDue),
-  type: CHARGE_TYPE
+  type: CHARGE_TYPE,
+  url: bill.billPdf[0].url
 });
 
 // check if payment is Bill Payment
