@@ -37,7 +37,11 @@ class PaymentSuccessCard extends React.PureComponent {
           It may take a few minutes for the payment to appear on your portal
         </h5>
 
-        <div>
+        <div
+          className={
+            returnTo === 'My Investment' ? null : 'payment-success-hide'
+          }
+        >
           <h3>Shares Purchased:</h3>
           {showShares ? <p>{`${sharesBuying}`}</p> : null}
         </div>
