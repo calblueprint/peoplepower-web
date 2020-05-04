@@ -73,4 +73,8 @@ const clearUserData = () => {
   store.dispatch(clearAnnouncements());
 };
 
-export { refreshUserData, clearUserData, setAppIsLoading };
+const startLoading = () => {
+  store.dispatch(setLoadingForUserData());
+};
+
+export { refreshUserData, clearUserData, startLoading, setAppIsLoading };
