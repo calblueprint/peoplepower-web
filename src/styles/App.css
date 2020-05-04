@@ -140,8 +140,3 @@ body {
   line-height: 25px;
   color: var(--pp-blue);
 }
-
-.community .announcement-card h2,
-h3 {
-  margin: 5px 0px;
-}
