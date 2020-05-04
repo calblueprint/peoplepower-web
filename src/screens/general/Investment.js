@@ -41,6 +41,7 @@ class Investment extends React.PureComponent {
     }
   };
 
+  // This function gets called to update info to display on screen, eg. when someone changes their dividends preferences
   refreshState = async () => {
     const { owner } = this.props;
     const investmentBreakdowns = await getAllInvestmentBreakdowns();
@@ -51,6 +52,7 @@ class Investment extends React.PureComponent {
     this.getPayments();
   };
 
+  // This function is passed into the Dividends Preferences Modal, and updates state on the choice that user chooses on the modal
   submitPreference = async newIsReceivingDividends => {
     const { owner } = this.props;
     await updateOwner(owner.id, {
@@ -59,6 +61,7 @@ class Investment extends React.PureComponent {
     await refreshUserData(owner.id);
   };
 
+  // Gets transactions made by user to be used to create the Transactions List
   getPayments = async () => {
     const { owner } = this.props;
     let paymentsList = [];

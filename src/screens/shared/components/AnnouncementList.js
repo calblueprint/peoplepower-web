@@ -32,6 +32,7 @@ const AnnouncementList = props => {
   });
 
   return (
+    // This ensures only the most recent 5 posts get shown
     <div className={(css || '').concat(' ', 'cardsCont')}>
       {[
         list[list.length],
