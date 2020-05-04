@@ -15,14 +15,15 @@ import AdminDashboard from './screens/admin/AdminDashboard';
 import UserProfile from './screens/shared/UserProfile';
 import ErrorPage from './screens/general/ErrorPage';
 import './styles/App.css';
-import { refreshUserData } from './lib/redux/userData';
+import { refreshUserData, clearUserData } from './lib/redux/userData';
 import { history } from './lib/redux/store';
 import {
   isGeneralOwner,
   isSubscriberOwner,
   isSignedIn,
   Credentials,
-  isOnboarding
+  isOnboarding,
+  getCredentials
 } from './lib/credentials';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Investment from './screens/general/Investment';
@@ -31,21 +32,30 @@ import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
 import BillingPayment from './screens/subscriber/components/BillingPayment';
 import PPRoute from './components/PPRoute';
 import FeedbackButton from './components/FeedbackButton';
+import { getOwnerById } from './lib/airtable/request';
 
 class App extends React.Component {
-  componentDidMount() {
+  async componentDidMount() {
     const { owner } = this.props;
     // TODO: check that airlock session token is valid
 
     // If userLogin info is in Redux, fetch latest version
     if (owner) {
-      refreshUserData(owner.id);
+      try {
+        await getOwnerById(owner.id);
+        refreshUserData(owner.id);
+      } catch (e) {
+        console.log('Session Expired');
+        clearUserData();
+        history.push('/');
+      }
     }
   }
 
   // Figure out component to be shown at root based on user credentials
   getHomeComponent() {
-    const { credentials } = this.props;
+    const { owner } = this.props;
+    const credentials = getCredentials(owner);
     const onboarding = isOnboarding(credentials);
     const signedIn = isSignedIn(credentials);
     const isGeneral = isGeneralOwner(credentials);
@@ -121,8 +131,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  credentials: state.userData.credentials
+  owner: state.userData.owner
 });
 
 export default connect(mapStateToProps)(App);

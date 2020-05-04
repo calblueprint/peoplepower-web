@@ -2,11 +2,9 @@
 import React from 'react';
 import USStates from '../assets/states.json';
 import {
-  getOwnersByEmail,
   getAllProjectGroups,
   updateOwner,
-  deleteOwner,
-  getAllOwners
+  deleteOwner
 } from './airtable/request';
 import { refreshUserData, clearUserData } from './redux/userData';
 import ErrorIcon from '../assets/error.svg';
@@ -23,6 +21,7 @@ const validateExistence = (
   return value ? '' : error;
 };
 
+// Validation Styling
 const toggleValidColor = (input, type) => {
   if (!type) {
     return input !== '' && typeof input !== 'undefined' ? 'b-is-not-valid' : '';
@@ -30,6 +29,7 @@ const toggleValidColor = (input, type) => {
   return !input ? '\u00A0' : input;
 };
 
+// User must check this box
 const validateCertifyPermanentAddress = value => {
   return value ? (
     ''
@@ -43,7 +43,7 @@ const validateCertifyPermanentAddress = value => {
   );
 };
 
-// Ensure valid and unique email
+// Ensure valid email using regex
 const validateEmail = value => {
   if (value.length === 0) {
     return '';
@@ -54,9 +54,14 @@ const validateEmail = value => {
   return re.test(value) ? '' : 'Please enter a valid email address.';
 };
 
+// Ensure email is unique
+// TODO: Replace this with a call to the backend
 const validateUniqueEmail = async value => {
-  const owners = await getOwnersByEmail(value);
-  return owners.length === 0
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  const url = `${SERVER_URL}/uniqueEmail?email=${value}`;
+  const response = await fetch(url);
+  const result = await response.json();
+  return result.unique
     ? ''
     : 'It looks like an account with this email already exists.';
 };
@@ -172,6 +177,7 @@ const validateFieldSync = (name, value) => {
   return '';
 };
 
+// Get all project groups that are public
 const getAvailableProjectGroups = async () => {
   const projectGroups = await getAllProjectGroups();
 
@@ -181,27 +187,30 @@ const getAvailableProjectGroups = async () => {
   return { selectableGroups, defaultGroup };
 };
 
+// Update or Create the owner with the given fields
 const updateOwnerFields = async (owner, fields) => {
+  // Ensure that only the fields that are supposed to be updated are updated
   const ownerUpdate = fields.reduce(
     (value, field) => ({ ...value, [field]: owner[field] }),
     { onboardingStep: owner.onboardingStep } // 1 field constant throughout all
   );
+
+  // If owner exists, update it, else, create.
   if (owner.id) {
     await updateOwner(owner.id, ownerUpdate);
     refreshUserData(owner.id);
   } else {
     // TODO: Error Handling
-    await signupUser(
+    const id = await signupUser(
       ownerUpdate.email,
       ownerUpdate.password,
       { ...ownerUpdate, password: undefined } // Remove password from owner update
     );
-    const allOwners = await getAllOwners();
-    const owners = allOwners.filter(o => o.email === ownerUpdate.email);
-    refreshUserData(owners[0].id);
+    refreshUserData(id);
   }
 };
 
+// Delete user and return to homepage. This is used if the user does not live in california
 const returnToHomepage = owner => {
   deleteOwner(owner.id);
   clearUserData();

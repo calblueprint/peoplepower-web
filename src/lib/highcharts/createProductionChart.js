@@ -3,6 +3,7 @@ import Colors from '../../colors';
 
 const { PP_CHART_PINK, PP_BASIC_WHITE } = Colors;
 
+// Creates options object for Highcharts for production chart on all dashboards
 // Expects Data formatted as so: [{month: 'Jan', production: 1234}, {month: 'Feb', production: 2345}, ...]
 export default (productionData, height = 250) => {
   // If there's only one datapoint, duplicate it for a nicer view

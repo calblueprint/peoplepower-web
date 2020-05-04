@@ -7,6 +7,7 @@ const {
   PP_BASIC_WHITE
 } = Colors;
 
+// Creates options object for Highcharts for cost savings chart on subscriber dashboard
 // Expects Data formatted as so: [{month: 'Jan', cost: 1234, wouldBeCost: 12451}, ...]
 export default savingsData => {
   let data = savingsData;

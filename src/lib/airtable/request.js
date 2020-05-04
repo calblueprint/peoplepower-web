@@ -86,24 +86,6 @@ export const getAllOwners = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.Owner, filterByFormula, sort);
 };
 
-export const getOwnersByEmail = async (value, sort = []) => {
-  return getRecordsByAttribute(
-    Tables.Owner,
-    Columns[Tables.Owner].email.name,
-    value,
-    sort
-  );
-};
-
-export const getOwnersByProjectGroupId = async (value, sort = []) => {
-  return getRecordsByAttribute(
-    Tables.Owner,
-    Columns[Tables.Owner].projectGroupId.name,
-    value,
-    sort
-  );
-};
-
 export const getProjectGroupById = async id => {
   return getRecordById(Tables.ProjectGroup, id);
 };
@@ -134,15 +116,6 @@ export const getAnnouncementsByIds = async ids => {
 
 export const getAllAnnouncements = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.Announcement, filterByFormula, sort);
-};
-
-export const getAnnouncementsByProjectGroupId = async (value, sort = []) => {
-  return getRecordsByAttribute(
-    Tables.Announcement,
-    Columns[Tables.Announcement].projectGroupId.name,
-    value,
-    sort
-  );
 };
 
 export const getSolarProjectById = async id => {
