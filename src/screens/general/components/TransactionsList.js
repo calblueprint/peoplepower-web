@@ -5,6 +5,7 @@ import { formatAmount } from '../../../lib/subscriberUtils';
 class TransactionList extends React.PureComponent {
   render() {
     const { payments } = this.props;
+    // Makes sure only Shares and Dividends transactions are displayed in this list
     const filteredList = payments.filter(
       transaction => transaction.type !== 'Bill Payment'
     );
