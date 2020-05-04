@@ -28,14 +28,24 @@ class Billing extends React.Component {
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.refreshState();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      this.refreshState();
+    }
+  }
+
+  refreshState = async () => {
     const { owner } = this.props;
 
     const { activeBill, transactions } = await getSubscriberTransactionData(
       owner
     );
     this.setState({ activeBill, transactions, loading: false });
-  }
+  };
 
   seeAllTransactionsView = () => {
     this.setState({
@@ -48,6 +58,15 @@ class Billing extends React.Component {
       mode: 0
     });
   };
+
+  async refreshState() {
+    const { owner } = this.props;
+
+    const { activeBill, transactions } = await getSubscriberTransactionData(
+      owner
+    );
+    this.setState({ activeBill, transactions, loading: false });
+  }
 
   render() {
     const { mode, activeBill, transactions, loading } = this.state;

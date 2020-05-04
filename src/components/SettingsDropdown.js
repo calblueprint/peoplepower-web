@@ -2,18 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Gear from '../assets/settings.png';
 import { logoutUser } from '../lib/airlock/airlock';
-import { setAppIsLoading } from '../lib/redux/userData';
 
 class SettingsDropdown extends React.PureComponent {
   handleLogoutClick = async () => {
-    setAppIsLoading(true);
     const { history } = this.props;
     const logOutSuccess = await logoutUser();
     if (logOutSuccess) {
-      setAppIsLoading(false);
       history.push('/');
     } else {
-      setAppIsLoading(false);
       // TODO: Display error to user (also wonder if there's a way to encapsulate this logic in auth.js)
       console.warn('Logout failed');
     }

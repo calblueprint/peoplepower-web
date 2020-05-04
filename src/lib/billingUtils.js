@@ -1,3 +1,4 @@
+// Ensures that when backspacing or entering values, result is a valid dollar amount
 const processCurrencyInput = (event, balance, paymentAmount) => {
   event.preventDefault();
   let newAmount = paymentAmount;
@@ -10,7 +11,7 @@ const processCurrencyInput = (event, balance, paymentAmount) => {
   }
   newAmount = Math.max(0.0, newAmount); // Pay atleast 1 cent
   newAmount = Math.min(balance, newAmount); // Pay no more than balance
-  return newAmount.toFixed(2);
+  return Number(newAmount.toFixed(2));
 };
 
 export default processCurrencyInput;

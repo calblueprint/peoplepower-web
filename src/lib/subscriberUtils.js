@@ -11,12 +11,14 @@ const {
 const PAYMENT_TYPE = 'Payment';
 const CHARGE_TYPE = 'Charge';
 
+// Format dollar amount
 const formatAmount = (amountInDollars, places = 2) =>
   `$${amountInDollars.toFixed(places)}`;
 
+// Create a transaction object from airtable payment record
 const createTransactionFromPayment = payment => ({
   balance: '$0.00',
-  date: moment(payment.dateCreated).format(TRANSACTION_DATE_FORMAT),
+  date: moment(payment.dateCreated),
   description: 'Online Payment',
   payment: formatAmount(payment.amount),
   charge: '',
@@ -24,22 +26,27 @@ const createTransactionFromPayment = payment => ({
   type: PAYMENT_TYPE
 });
 
+// Create transaction object from airtable subscriber bill record
 const createTransactionFromBill = bill => ({
   balance: formatAmount(bill.balance),
-  date: moment(bill.statementDate).format(TRANSACTION_DATE_FORMAT),
+  date: moment(bill.statementDate),
   description: `${moment(bill.startDate).format('MMMM')} Power Bill`,
-  charge: formatAmount(bill.currentCharges),
+  charge: formatAmount(bill.amountDue),
   payment: '',
-  amount: formatAmount(bill.currentCharges),
-  type: CHARGE_TYPE
+  amount: formatAmount(bill.amountDue),
+  type: CHARGE_TYPE,
+  url: bill.billPdf[0].url
 });
 
+// check if payment is Bill Payment
 const isBillPayment = payment => {
   return payment.type === BILL_PAYMENT_TYPE;
 };
 
+// Round number to 2 decimal places
 const round = (x, y = 2) => Number(parseFloat(x).toFixed(y));
 
+// Get the true and would be costs for a subscriber owner
 const getEffectiveCostData = async owner => {
   const bills = (await getSubscriberBillsByIds(
     owner.subscriberBillIds || []
@@ -61,6 +68,7 @@ const getEffectiveCostData = async owner => {
     .map(point => ({ ...point, month: point.month.format('MMM') }));
 };
 
+// Get all the bills and payments for a owner and convert to a clean list of transactions sorted most recent first
 const getSubscriberTransactionData = async owner => {
   const bills = await getSubscriberBillsByIds(owner.subscriberBillIds || []);
   const payments = await getPaymentsByIds(owner.paymentIds || []);
@@ -70,11 +78,8 @@ const getSubscriberTransactionData = async owner => {
     .filter(bill => bill.status !== 'Pending')
     .map(createTransactionFromBill)
     .concat(payments.filter(isBillPayment).map(createTransactionFromPayment))
-    .sort(
-      (a, b) =>
-        moment(b.date, TRANSACTION_DATE_FORMAT).valueOf() -
-        moment(a.date, TRANSACTION_DATE_FORMAT).valueOf()
-    ); // Sort descending
+    .sort((a, b) => moment(b.date).valueOf() - moment(a.date).valueOf()) // Sort descending
+    .map(t => ({ ...t, date: t.date.format(TRANSACTION_DATE_FORMAT) })); // Remove Hour count
 
   // Find active bill
   const activeBills = bills.filter(b => b.status === BILL_ACTIVE_STATUS);

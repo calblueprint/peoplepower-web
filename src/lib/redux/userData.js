@@ -8,24 +8,13 @@ import { store } from './store';
 import {
   saveUserData,
   deauthenticateAndClearUserData,
-  setLoadingForUserData,
-  setLoading,
-  unsetLoading
+  setLoadingForUserData
 } from './userDataSlice';
 import {
   clearAnnouncements,
   saveAnnouncements,
   setLoadingForAnnouncements
 } from './communitySlice';
-import { getCredentials } from '../credentials';
-
-const setAppIsLoading = isLoading => {
-  if (isLoading) {
-    store.dispatch(setLoading());
-  } else {
-    store.dispatch(unsetLoading());
-  }
-};
 
 // Function takes in an ownerId and fetches the latest owner object and all associated user data
 const refreshUserData = async (ownerId, loadSilently = false) => {
@@ -56,14 +45,11 @@ const refreshUserData = async (ownerId, loadSilently = false) => {
     }
   }
 
-  const credentials = getCredentials(owner);
-
   // Save fetched user data to the redux store
   const userData = {
     owner,
     projectGroup,
-    solarProjects,
-    credentials
+    solarProjects
   };
   store.dispatch(saveUserData(userData));
 
@@ -77,4 +63,8 @@ const clearUserData = () => {
   store.dispatch(clearAnnouncements());
 };
 
-export { refreshUserData, clearUserData, setAppIsLoading };
+const startLoading = () => {
+  store.dispatch(setLoadingForUserData());
+};
+
+export { refreshUserData, clearUserData, startLoading };

@@ -2,6 +2,7 @@ import Colors from '../../colors';
 
 const { PP_PIE_CHART_TEXT_COLOR, PP_BASIC_BLACK } = Colors;
 
+// Creates options object for Highcharts for pie chart on investment page
 // Expects Data formatted as so: [{name: 'Section 1', value: 12.3, color: #123124}, ...]
 export default data => ({
   title: {

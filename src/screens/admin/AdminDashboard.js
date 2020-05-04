@@ -14,7 +14,7 @@ import {
 } from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
-import { isSuperAdmin } from '../../lib/credentials';
+import { isSuperAdmin, getCredentials } from '../../lib/credentials';
 import Success from '../../assets/success.png';
 import { updateOwner } from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
@@ -47,14 +47,9 @@ class AdminDashboard extends React.Component {
       updatedCity: '',
       updatedState: '',
       updatedZipcode: '',
-      errors: {}
+      errors: {},
+      loading: true
     };
-
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleAdminChange = this.handleAdminChange.bind(this);
-    this.handleContactEdit = this.handleContactEdit.bind(this);
   }
 
   componentDidMount() {
@@ -216,16 +211,17 @@ class AdminDashboard extends React.Component {
     }
   };
 
-  async fetchOwnerRecords() {
+  fetchOwnerRecords = async () => {
     const { projectGroup } = this.props;
     const ownerRecords = await getOwnerRecordsForProjectGroup(projectGroup);
     this.setState({
-      owners: ownerRecords
+      owners: ownerRecords,
+      loading: false
     });
-  }
+  };
 
   /* open/close modal logic */
-  handleOpenModal(modal) {
+  handleOpenModal = modal => {
     switch (modal) {
       case 'invite':
         this.setState({ showModal: true });
@@ -239,9 +235,9 @@ class AdminDashboard extends React.Component {
       default:
         break;
     }
-  }
+  };
 
-  handleCloseModal(modal) {
+  handleCloseModal = modal => {
     switch (modal) {
       case 'invite':
         this.setState({ showModal: false });
@@ -255,9 +251,9 @@ class AdminDashboard extends React.Component {
       default:
         break;
     }
-  }
+  };
 
-  handleContactEdit(type) {
+  handleContactEdit = type => {
     switch (type) {
       case 'edit':
         this.setState({ adminEditMode: true });
@@ -271,10 +267,11 @@ class AdminDashboard extends React.Component {
       default:
         break;
     }
-  }
+  };
 
   render() {
-    const { credentials, projectGroup } = this.props;
+    const { owner, projectGroup } = this.props;
+    const credentials = getCredentials(owner);
     const {
       showModal,
       showSuccessModal,
@@ -295,8 +292,13 @@ class AdminDashboard extends React.Component {
       updatedState,
       updatedZipcode,
       errors,
-      status
+      status,
+      loading
     } = this.state;
+
+    if (loading) {
+      return <LoadingComponent />;
+    }
 
     return (
       <div className="dashboard dash-admin">
@@ -327,11 +329,11 @@ class AdminDashboard extends React.Component {
             </div>
             <div className="admin-card-holder">
               {owners.length >= 1 ? (
-                owners.map(owner => {
+                owners.map(o => {
                   return (
                     <AdminDashboardCard
-                      key={owner.id}
-                      owner={owner}
+                      key={o.id}
+                      owner={o}
                       handleAdminChange={this.handleAdminChange}
                     />
                   );
@@ -762,7 +764,6 @@ class AdminDashboard extends React.Component {
 
 const mapStateToProps = state => ({
   owner: state.userData.owner,
-  credentials: state.userData.credentials,
   userLogin: state.userData.userLogin,
   projectGroup: state.userData.projectGroup
 });

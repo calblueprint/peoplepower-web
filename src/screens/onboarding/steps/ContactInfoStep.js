@@ -107,7 +107,8 @@ class ContactInfoStep extends React.PureComponent {
             </div>
             <div className="w-15 pr-1">
               <label className="onboarding-label" htmlFor="password">
-                State <span className="asterisk">*</span>
+                State <span className="asterisk">*</span>{' '}
+                <Tooltip label="Use 2-Digit State code" />
               </label>
               <input
                 name="permanentState"
@@ -280,7 +281,8 @@ class ContactInfoStep extends React.PureComponent {
               </div>
               <div className="w-15 pr-1">
                 <label className="onboarding-label" htmlFor="password">
-                  State <span className="asterisk">*</span>
+                  State <span className="asterisk">*</span>{' '}
+                  <Tooltip label="Use 2-Digit State code" />
                 </label>
                 <input
                   name="mailingState"

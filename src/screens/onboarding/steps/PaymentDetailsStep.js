@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import ErrorIcon from '../../../assets/error.svg';
 import Tooltip from '../components/Tooltip';
 import Constants from '../../../constants';
 import { calculatePaypalTransactionFee } from '../../../lib/paypal/paypal';
+import { formatAmount } from '../../../lib/subscriberUtils';
 
 const { SHARE_PRICE, MAX_SHARES } = Constants;
 
@@ -13,15 +16,13 @@ class PaymentDetailsStep extends React.Component {
       dividendsMarked: false,
       displayUnmarkedDividend: false
     };
-    this.onSubmit = this.onSubmit.bind(this);
-    this.handleChangeDividends = this.handleChangeDividends.bind(this);
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
   }
 
-  onSubmit() {
+  onSubmit = () => {
     const { onSubmit } = this.props;
     const { dividendsMarked } = this.state;
     if (!dividendsMarked) {
@@ -31,7 +32,7 @@ class PaymentDetailsStep extends React.Component {
     } else {
       onSubmit();
     }
-  }
+  };
 
   minusShares = () => {
     const { owner, handleChange } = this.props;
@@ -71,12 +72,10 @@ class PaymentDetailsStep extends React.Component {
 
   render() {
     const { owner, errors, onBack, handleChange } = this.props;
-    const { displayUnmarkedDividend } = this.state;
+    const { displayUnmarkedDividend, dividendsMarked } = this.state;
     const baseAmount = owner.numberOfShares * SHARE_PRICE;
     const transactionFee = calculatePaypalTransactionFee(baseAmount);
-    const totalAmountToPay = (baseAmount + parseFloat(transactionFee)).toFixed(
-      2
-    );
+    const totalAmountToPay = baseAmount + transactionFee;
 
     return (
       <div className="w-100">
@@ -123,10 +122,18 @@ class PaymentDetailsStep extends React.Component {
                     type="radio"
                     name="isReceivingDividends"
                     className="payment-dividends-radio"
-                    value
+                    checked={dividendsMarked && owner.isReceivingDividends}
                     onChange={this.handleChangeDividends}
                   />
-                  <label htmlFor="" className="payment-dividends-choice">
+                  <label
+                    htmlFor=""
+                    className="payment-dividends-choice"
+                    onClick={() => {
+                      this.handleChangeDividends({
+                        target: { name: 'isReceivingDividends', value: 'on' }
+                      });
+                    }}
+                  >
                     Yes, I’d like dividends, thank you!
                   </label>
                 </div>
@@ -135,10 +142,18 @@ class PaymentDetailsStep extends React.Component {
                     type="radio"
                     name="isReceivingDividends"
                     className="payment-dividends-radio"
-                    value={false}
+                    checked={dividendsMarked && !owner.isReceivingDividends}
                     onChange={this.handleChangeDividends}
                   />
-                  <label htmlFor="" className="payment-dividends-choice">
+                  <label
+                    htmlFor=""
+                    className="payment-dividends-choice"
+                    onClick={() => {
+                      this.handleChangeDividends({
+                        target: { name: 'isReceivingDividends', value: 'off' }
+                      });
+                    }}
+                  >
                     No dividends please. (No pressure to choose this option. We
                     provide the option because people who waive dividends reduce
                     the cost of capital, which reduces the cost of solar, and
@@ -167,7 +182,7 @@ class PaymentDetailsStep extends React.Component {
               <div className="flex justify-space-between">
                 <div className="left payment-summary-shares">Shares</div>
                 <div className="right payment-summary-shares">
-                  ${baseAmount}.00
+                  {formatAmount(baseAmount)}
                 </div>
               </div>
               <div className="payment-summary-qty">
@@ -179,14 +194,14 @@ class PaymentDetailsStep extends React.Component {
                   <Tooltip label="PayPal charges a service fee of 2.9% + $0.30." />
                 </div>
                 <div className="right payment-summary-shares">
-                  ${transactionFee}
+                  {formatAmount(transactionFee)}
                 </div>
               </div>
               <hr className="payment-summary-hr" />
               <div className="flex justify-space-between">
                 <div className="left payment-summary-total">Total</div>
                 <div className="right payment-summary-total">
-                  ${totalAmountToPay}
+                  {formatAmount(totalAmountToPay)}
                 </div>
               </div>
             </div>

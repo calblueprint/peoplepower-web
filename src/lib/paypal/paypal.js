@@ -9,14 +9,16 @@ const {
   PAYPAL_TRANSACTION_FEE_FRACTION
 } = constants;
 
+// Calculate the fee required to negate the paypal fee
 const calculatePaypalTransactionFee = transactionAmount => {
   return (
     (transactionAmount + PAYPAL_TRANSACTION_FLAT_FEE_IN_DOLLARS) /
       (1 - PAYPAL_TRANSACTION_FEE_FRACTION) -
     transactionAmount
-  ).toFixed(2);
+  );
 };
 
+// Create payment record from Paypal API Response
 const constructPaymentRecord = (details, data, ownerId) => {
   const { payer } = details;
   const { amount, shipping } = details.purchase_units[0]; // assumes purchase_units is only of length 1
@@ -36,12 +38,14 @@ const constructPaymentRecord = (details, data, ownerId) => {
   };
 };
 
+// Record Share-Buying Payment
 const recordSharePayment = async (details, data, ownerId, numberOfShares) => {
   const payment = constructPaymentRecord(details, data, ownerId);
   await createPayment({ ...payment, type: BUY_SHARES_TYPE });
   await updateOwner(ownerId, { numberOfShares });
 };
 
+// Record Bill Payment
 const recordBillPayment = async (details, data, bill) => {
   const payment = constructPaymentRecord(details, data, bill.subscriberId);
   await createPayment({

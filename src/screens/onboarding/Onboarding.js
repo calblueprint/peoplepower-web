@@ -8,13 +8,13 @@ import {
   toggleValidColor,
   validateFieldSync
 } from '../../lib/onboardingUtils';
-import { setAppIsLoading } from '../../lib/redux/userData';
 import ProgressBar from './components/ProgressBar';
 import Constants from '../../constants';
 import {
   getPledgeInviteById,
   updatePledgeInvite
 } from '../../lib/airtable/request';
+import LoadingComponent from '../../components/LoadingComponent';
 
 const { GENERAL_OWNER, PLEDGE_INVITE_USED } = Constants;
 
@@ -31,7 +31,8 @@ class Onboarding extends React.Component {
         isReceivingDividends: true,
         numberOfShares: 1
       },
-      errors: {}
+      errors: {},
+      loading: false
     };
   }
 
@@ -46,6 +47,7 @@ class Onboarding extends React.Component {
     }
   }
 
+  // Get latest values from props
   refreshState = async () => {
     const { owner, location } = this.props;
 
@@ -85,6 +87,7 @@ class Onboarding extends React.Component {
     }
   };
 
+  // Validate fields and update owner if no errors
   nextStep = async event => {
     const { owner, inviteToken } = this.state;
     if (event) {
@@ -109,7 +112,7 @@ class Onboarding extends React.Component {
     });
     this.setState({ errors: newErrors });
     if (!foundErrors) {
-      setAppIsLoading(true);
+      this.setState({ loading: true });
       // Create/Update specific owner fields
       // State should be refreshed when data is successfully pulled from redux
 
@@ -117,6 +120,11 @@ class Onboarding extends React.Component {
         ...owner,
         onboardingStep: owner.onboardingStep + 1
       };
+
+      // If owner had invite, skip project group step
+      if (newOwner.onboardingStep === 2 && newOwner.pledgeInviteId) {
+        newOwner.onboardingStep += 1;
+      }
 
       const fieldsToUpdate = [...OnboardingData[owner.onboardingStep].fields];
 
@@ -129,11 +137,11 @@ class Onboarding extends React.Component {
       }
 
       await updateOwnerFields(newOwner, fieldsToUpdate);
-      setAppIsLoading(false);
+      this.setState({ loading: false });
     }
   };
 
-  // Note, some sort of validation needs to happen on prevStep, that or nextStep only performs a partial update
+  // Decrement step, no validation or airtable update
   prevStep = event => {
     const { owner } = this.state;
     event.preventDefault();
@@ -144,6 +152,7 @@ class Onboarding extends React.Component {
     });
   };
 
+  // Handle a change in a step component
   handleChange = event => {
     const { name, value } = event.target;
     const { owner } = this.state;
@@ -155,7 +164,7 @@ class Onboarding extends React.Component {
         newOwner[name] = event.target.checked;
         break;
       case 'isReceivingDividends':
-        newOwner[name] = value === 'true';
+        newOwner[name] = value === 'on';
         break;
       case 'permanentStreet1':
       case 'permanentStreet2':
@@ -163,10 +172,11 @@ class Onboarding extends React.Component {
       case 'permanentState':
       case 'permanentZipcode':
         if (owner.mailingAddressSame) {
-          const mailingKey = name.replace('permanant', 'mailing');
+          const mailingKey = name.replace('permanent', 'mailing');
           newOwner[mailingKey] = value;
         }
         newOwner[name] = value;
+
         break;
       case 'mailingAddressSame':
         if (value) {
@@ -210,12 +220,16 @@ class Onboarding extends React.Component {
     updateOwnerFields(newOwner, []);
   };
 
+  // Render the component based on the user's onboarding step
   render() {
     const { history } = this.props;
-    const { owner, errors } = this.state;
+    const { owner, errors, loading } = this.state;
     const stepData = OnboardingData[owner.onboardingStep];
     const StepComponent = stepData.component;
     const showStyles = owner.onboardingStep > 0;
+    if (loading) {
+      return <LoadingComponent />;
+    }
     return (
       <div
         className={showStyles ? 'flex onboarding-col template-center w-70' : ''}
