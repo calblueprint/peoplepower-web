@@ -15,7 +15,7 @@ const calculatePaypalTransactionFee = transactionAmount => {
     (transactionAmount + PAYPAL_TRANSACTION_FLAT_FEE_IN_DOLLARS) /
       (1 - PAYPAL_TRANSACTION_FEE_FRACTION) -
     transactionAmount
-  ).toFixed(2);
+  );
 };
 
 // Create payment record from Paypal API Response
