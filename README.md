@@ -1,9 +1,11 @@
 # People Power Web App
 
-_Last updated: Mar 3, 2020 (by Fang)_
+_Last updated: May 3, 2020 (by Fang)_
 
-- live app (master): https://peoplepower.netlify.com
-- peoplepower-node repo, go to: https://github.com/calblueprint/peoplepower-node
+The web client for People Power Solar Cooperative
+
+- For the live app (master), visit https://peoplepower.netlify.com
+- For peoplepower-node (server) repo, go to https://github.com/calblueprint/peoplepower-node
 
 ## 1. Quickstart
 
@@ -17,30 +19,37 @@ _Last updated: Mar 3, 2020 (by Fang)_
 The project uses a number of secrets that are passed via a `.env` file (for security reasons). We need to set this `.env` file now.
 
 1. In your top level directory (`/peoplepower-web`, the same directory containing the src folder, `package.json` and a couple of other files), create a file called `.env`.
+
+_❗️NOTE: Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `REACT_APP_AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `REACT_APP_AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well_
+
 2. Copy and paste the following into `.env`:
 
 ```
-REACT_APP_PAYPAL_CLIENT_ID={PAYPAL CLIENT ID}
-REACT_APP_GOOGLE_API_KEY={REACT APP GOOGLE API KEY}
-REACT_APP_AIRTABLE_BASE_ID={AIRTABLE BASE ID}
 REACT_APP_AIRTABLE_ENDPOINT_URL=https://peoplepower-node.herokuapp.com
-BILL_GENERATION_BACKEND_URL=https://peoplepower-node.herokuapp.com
+REACT_APP_SERVER_URL=https://peoplepower-node.herokuapp.com
+
+REACT_APP_PAYPAL_CLIENT_ID={YOUR PAYPAL CLIENT ID}
+
+REACT_APP_GOOGLE_API_KEY={YOUR GOOGLE API KEY}
+REACT_APP_AIRTABLE_BASE_ID={AIRTABLE BASE ID}
+
+REACT_APP_BUG_REPORT_URL={YOUR BUG REPORTURL}
 ```
 
-_❗️Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `REACT_APP_AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `REACT_APP_AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well_
+Equivalently, duplicate the `.env.example` file and rename it to `.env`. Then fill out the credentials appropriately
 
-- `PAYPAL CLIENT ID`: Get it from the People Power Notion ('Credentials Reference')
-- `GOOGLE API KEY`: Get it from the People Power Notion ('Credentials Reference')
-- Airtable API Key: follow the instructions in this [Airtable support page](https://support.airtable.com/hc/en-us/articles/219046777-How-do-I-get-my-API-key-)
-- The airtable email and password are what you log into airtable with. This info is used for our automatic airtable API scraper.
-
-```
+- `PAYPAL CLIENT ID`: Get it from the People Power Notion ('Credentials Reference') if you are from Blueprint
+- `GOOGLE API KEY`: Get it from the People Power Notion ('Credentials Reference') if you are from Blueprint
 
 4. Run `yarn install`. This might take a little bit of time.
 5. Run `yarn start`. This starts the development server, and should open a tab with the url `localhost:3000` where you can find the People Power web app. If the tab doesn't open up normally, you can type `localhost:3000` in your browser manually to open it.
-6. To verify that you've done step two correctly, run `REACT_APP_AIRTABLE_API_KEY={YOUR AIRTABLE API KEY HERE} yarn test`. This command passes in an environment variable acccessible by `REACT_APP_AIRTABLE_API_KEY`, and runs tests locally. This should take about 30s to a minute, and if you've done everything so correctly so far, all tests shoulld pass.
+6. If you did not do step two correctly, you will see an error message on the screen saying: 
+```
+Required configuration variable ${param} is ${SOME WRONG  VALUE}. Do you have a .env file and is it setup correctly?
+```
+Verify that you used a `.env` file with all the correct values from step two.
 
-Congrats! You now have a working version of the People power on your local machine ✨
+Congrats! You now have a working version of the People Power web app on your local machine ✨
 
 ## 2. Airtable Schema Generation
 
