@@ -71,9 +71,9 @@ class About extends React.PureComponent {
               </p>
               <h2>
                 Special thanks to the 2019 - 2020 Blueprint project team
-                comprising Aivant Goyal, Ashley Nguyen, Fang Shuo Deng, Iris
-                Hou, Nick Wong, and Cindy Zhang for building this website from
-                the ground up!
+                comprising Aivant Goyal, Ashley Nguyen, Cindy Zhang, Fang Shuo
+                Deng, Iris Hou, and Nick Wong for building this website from the
+                ground up!
               </h2>
             </div>
           </div>
