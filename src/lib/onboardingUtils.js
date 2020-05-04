@@ -45,7 +45,18 @@ const validateCertifyPermanentAddress = value => {
 
 // Ensure valid email using regex
 const validateEmail = value => {
-  if (value.length === 0) {
+  if (value && value.length === 0) {
+    return '';
+  }
+  // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
+  // eslint-disable-next-line no-useless-escape
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(value) ? '' : 'Please enter a valid email address.';
+};
+
+// Ensure valid alternate email using regex (allowed to be empty)
+const validateAlternateEmail = value => {
+  if (!value || value.length === 0) {
     return '';
   }
   // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
@@ -130,7 +141,7 @@ const ValidatorData = {
   mailingZipcode: [validateExistence, validateNumber, validateZipcode],
   numberOfShares: [validateExistence, validateNumber, validateShares],
   mailingAddressSame: [],
-  alternateEmail: [validateEmail],
+  alternateEmail: [validateAlternateEmail],
   permanentStreet2: [],
   mailingStreet2: [],
   certifyPermanentAddress: [validateCertifyPermanentAddress],
