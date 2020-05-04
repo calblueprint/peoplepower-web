@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 import React from 'react';
-import USStates from '../assets/states.json';
+import USStates from '../assets/usStates.json';
 import {
   getAllProjectGroups,
   updateOwner,
