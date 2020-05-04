@@ -106,7 +106,8 @@ class AdminDashboard extends React.Component {
       phoneNumber: invitePhoneNumber,
       email: inviteEmail,
       shareAmount: parseInt(inviteShareAmount, 10),
-      projectGroupId: projectGroup.id
+      projectGroupId: projectGroup.id,
+      status: 'Sent'
     };
 
     const errors = {};
