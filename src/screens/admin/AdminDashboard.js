@@ -47,7 +47,8 @@ class AdminDashboard extends React.Component {
       updatedCity: '',
       updatedState: '',
       updatedZipcode: '',
-      errors: {}
+      errors: {},
+      loading: true
     };
   }
 
@@ -214,7 +215,8 @@ class AdminDashboard extends React.Component {
     const { projectGroup } = this.props;
     const ownerRecords = await getOwnerRecordsForProjectGroup(projectGroup);
     this.setState({
-      owners: ownerRecords
+      owners: ownerRecords,
+      loading: false
     });
   };
 
@@ -290,8 +292,13 @@ class AdminDashboard extends React.Component {
       updatedState,
       updatedZipcode,
       errors,
-      status
+      status,
+      loading
     } = this.state;
+
+    if (loading) {
+      return <LoadingComponent />;
+    }
 
     return (
       <div className="dashboard dash-admin">
