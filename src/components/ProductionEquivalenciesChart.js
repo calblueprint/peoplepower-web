@@ -128,7 +128,11 @@ class ProductionEquivalenciesChart extends React.Component {
     const { subscriberVersion } = this.props;
     const { data, style, totalEnergy } = this.state;
     const equivalency = this.renderEquivalency();
-    if (data.length === 0) {
+
+    // If the data is empty or if the only value is 0, don't render
+    const dataIsEmpty =
+      data.length === 0 || (data.length === 1 && data[0].production === 0);
+    if (dataIsEmpty) {
       return (
         <div className="prod-chart-empty-container">
           <img
@@ -146,6 +150,12 @@ class ProductionEquivalenciesChart extends React.Component {
       );
     }
 
+    // Remove 0 value from end of array if it's a thing
+    const adjustedData =
+      data[data.length - 1].production === 0
+        ? data.slice(0, data.length - 1)
+        : [...data];
+
     return (
       <div className="prod-chart-container">
         <h3>Production</h3>
@@ -154,7 +164,7 @@ class ProductionEquivalenciesChart extends React.Component {
             <HighchartsReact
               highcharts={Highcharts}
               options={createProductionChart(
-                data,
+                adjustedData,
                 !subscriberVersion ? 250 : 300
               )}
             />
