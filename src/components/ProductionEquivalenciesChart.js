@@ -150,7 +150,7 @@ class ProductionEquivalenciesChart extends React.Component {
       );
     }
 
-    // Remove 0 value from end of array if it's a thing
+    // Remove 0 value from end of array if it exists
     const adjustedData =
       data[data.length - 1].production === 0
         ? data.slice(0, data.length - 1)
