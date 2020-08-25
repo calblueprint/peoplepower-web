@@ -13,7 +13,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "connected-react-router": "^6.6.1",
     "google-maps-react": "^2.0.2",
-    "highcharts": "^8.0.4",
+    "highcharts": "^8.1.1",
     "highcharts-react-official": "^3.0.0",
     "history": "^4.10.1",
     "moment": "^2.24.0",
